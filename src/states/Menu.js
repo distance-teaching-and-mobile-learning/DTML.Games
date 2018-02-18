@@ -50,7 +50,7 @@ export default class extends Phaser.State {
     "Hungarian":"hu","Vietnamese":"vi",
     "Icelandic":"is","Welsh":"cy",
     "Indonesian":"id","Yiddish":"de"}
-    
+
     var fragmentSrc = [
 
       "precision mediump float;",
@@ -78,8 +78,9 @@ export default class extends Phaser.State {
     let posy = 20
     let width = 95
     let height = 50
-    Object.keys(flags).forEach((name, idx) => {    
-      let flag = game.add.sprite(posx, posy, flags[name])
+    Object.keys(flags).forEach((name, idx) => {
+      let flag = game.add.sprite(posx, posy, 'flags')
+      flag.frameName = flags[name]
       flag.anchor.set(0.5)
       flag.width = width
       flag.height = height
@@ -98,7 +99,7 @@ export default class extends Phaser.State {
       flag.events.onInputDown.add(() => {
         this.click.play()
 
-        this.flagGroup.children.forEach(flag => {   
+        this.flagGroup.children.forEach(flag => {
           this.game.add.tween(flag)
             .to({width: 0, height: 0}, 1000, Phaser.Easing.Back.In, true)
         })
@@ -115,9 +116,9 @@ export default class extends Phaser.State {
       // filter.setResolution(80, 50);
       // this.filters.push(filter)
       // flag.filters = [ filter ]
-      
+
       flagGroup.add(flag)
-      
+
       // console.log(idx % 10)
       posx += flag.width + gapx
       if(idx % 8 == 7) {
@@ -129,9 +130,9 @@ export default class extends Phaser.State {
     flagGroup.y = this.world.centerY - flagGroup.height / 2
     this.flagGroup = flagGroup
   }
-  
+
   update() {
-    this.flagGroup.children.forEach(flag => {   
+    this.flagGroup.children.forEach(flag => {
     })
     // this.filters.forEach(filter => {
     //   filter.update()

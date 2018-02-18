@@ -30,7 +30,7 @@ export default class extends Phaser.State {
     this.wiz.setAnimationSpeedPercent(40)
     this.wiz.playAnimationByName('_IDLE')
     this.spritesGroup .add(this.wiz)
-    
+
     this.gnome = this.loadSpriter('gnome')
     this.gnome.scale.set(-0.3, 0)
 
@@ -44,9 +44,9 @@ export default class extends Phaser.State {
     this.gnome.playAnimationByName('_IDLE')
     this.spritesGroup.add(this.gnome)
 
-    game.add.tween(this.wiz.scale).to({y: 0.17}, 800, Phaser.Easing.Bounce.Out, true, 1500);    
-    game.add.tween(this.gnome.scale).to({y: 0.3}, 800, Phaser.Easing.Bounce.Out, true, 1500);    
-    
+    game.add.tween(this.wiz.scale).to({y: 0.17}, 800, Phaser.Easing.Bounce.Out, true, 1500);
+    game.add.tween(this.gnome.scale).to({y: 0.3}, 800, Phaser.Easing.Bounce.Out, true, 1500);
+
 
     let graphics = game.add.graphics(0, 0)
     let width = 500
@@ -75,7 +75,7 @@ export default class extends Phaser.State {
     questionField.addChild(banner)
     console.log('banner width', banner.width, -(questionField.width / 2) - banner.width)
 
-    
+
     game.add.tween(questionField.scale).to({x: 1 }, 500, Phaser.Easing.Bounce.Out, true, 2500)
 
     let inputW = 350
@@ -103,15 +103,15 @@ export default class extends Phaser.State {
       if(this.canFire) {
         this.castSpell()
       }
-    })       
-    game.add.tween(iconAttack.scale).to({x: 0.5}, 500, Phaser.Easing.Bounce.Out, true, 2700)    
+    })
+    game.add.tween(iconAttack.scale).to({x: 0.5}, 500, Phaser.Easing.Bounce.Out, true, 2700)
 
     // let iconHome = this.createIcon(50, 50, 'iconHome')
     // iconHome.scale.set(0.3)
     // iconHome.inputEnabled = true
     // iconHome.events.onInputDown.add(() => {
     //   this.state.start('Menu')
-    // })      
+    // })
 
     // our fireball sprite
     let fireball = game.add.sprite(0, 0, 'fireball');
@@ -152,7 +152,7 @@ export default class extends Phaser.State {
 
         this.fireball.play('hit', 15, false)
         game.add.tween(this.fireball).to({alpha: 0}, 500, Phaser.Easing.Cubic.In, true)
-        
+
         this.gnome.setAnimationSpeedPercent(100)
         this.gnome.playAnimationByName('_HURT')
         this.explosion.play()
@@ -168,8 +168,8 @@ export default class extends Phaser.State {
   }
 
   update() {
-    this.wiz.updateAnimation() 
-    this.gnome.updateAnimation()  
+    this.wiz.updateAnimation()
+    this.gnome.updateAnimation()
   }
 
   render() {
@@ -204,9 +204,9 @@ export default class extends Phaser.State {
     //iconGroup.add(g);
 
     this.icon = icon
-    
+
     return icon
-  }  
+  }
 
   loadSpriter(key) {
     if(!this.spriterLoader) this.spriterLoader = new Spriter.Loader();
@@ -217,5 +217,5 @@ export default class extends Phaser.State {
     let spriter = this.spriterLoader.load(spriterFile);
 
     return new Spriter.SpriterGroup(game, spriter, key, key);
-  }  
+  }
 }

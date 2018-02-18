@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 import { centerGameObjects } from '../utils'
-import PhaserInput from '@orange-games/phaser-input/build/phaser-input'
+import PhaserInput from '../libs/phaser-input'
 import PhaserJuicy from '../libs/juicy'
 
 export default class extends Phaser.State {
@@ -32,9 +32,9 @@ export default class extends Phaser.State {
     this.load.atlas('gnome', 'assets/images/gnome2/atlas.png', 'assets/images/gnome2/atlas.json')
     this.load.xml('gnomeAnimations', 'assets/images/gnome2/animations.scml')
 
-    game.load.atlas('fireball', '/assets/images/fire/atlas.png', '/assets/images/fire/atlas.json');
-    this.load.image('iconAttack', '/assets/images/icon-attack.png');
-    this.load.image('iconHome', '/assets/images/icon-home.png');
+    game.load.atlas('fireball', 'assets/images/fire/atlas.png', 'assets/images/fire/atlas.json');
+    this.load.image('iconAttack', 'assets/images/icon-attack.png');
+    this.load.image('iconHome', 'assets/images/icon-home.png');
 
     // bg
     this.load.image('bg1', 'assets/images/layers/l1_background.png')
@@ -52,44 +52,8 @@ export default class extends Phaser.State {
     this.load.audio('explosion', 'assets/audio/Explosion.wav')
     this.load.audio('blaster', 'assets/audio/Blastwave_FX_FireballWhoosh_S08FI.42.mp3')
     this.load.audio('hover', 'assets/audio/ButtonHover.wav')
-    
-    // flags
-    let flags = { "Afrikaans":"af","Irish":"ga",
-    "Albanian":"al","Italian":"it",
-    "Arabic":"ar","Japanese":"jp",
-    "Azerbaijani":"az","Kannada":"kn",
-    "Basque":"es","Korean":"kr",
-    "Bengali":"bn","Latin":"la",
-    "Belarusian":"be","Latvian":"lv",
-    "Bulgarian":"bg","Lithuanian":"lt",
-    "Catalan":"ca","Macedonian":"mk",
-    "Chinese":"cn","Malay":"ms",
-    "Amharic":"am","Maltese":"mt",
-    "Croatian":"hr","Norwegian":"no",
-    "Czech":"cz","Persian":"ir",
-    "Danish":"dk","Polish":"pl",
-    "Dutch":"nl","Portuguese":"pt",
-    "English":"us","Romanian":"ro",
-    "Russian":"ru",
-    "Estonian":"et","Serbian":"sr",
-    "Filipino":"ph","Slovak":"sk",
-    "Finnish":"fi","Slovenian":"sl",
-    "French":"fr","Spanish":"es",
-    "Galician":"gl","Swahili":"cd",
-    "Georgian":"ge","Swedish":"sv",
-    "German":"de","Tamil":"lk",
-    "Greek":"gr","Telugu":"in",
-    "Gujarati":"gu","Thai":"th",
-    "Haitian Creole":"ht","Turkish":"tr",
-    "Hebrew":"il","Ukrainian":"ua",
-    "Hindi":"in","Urdu":"pk",
-    "Hungarian":"hu","Vietnamese":"vi",
-    "Icelandic":"is","Welsh":"cy",
-    "Indonesian":"id","Yiddish":"de"}
-    Object.keys(flags).forEach((name, idx) => {    
-      // console.log(flags[name])
-      this.load.image(flags[name], `assets/images/flags/${flags[name]}.png`)
-    })
+
+    this.load.atlas('flags', 'assets/images/flags.png', 'assets/images/flags.json');
   }
 
   loadStart() {
@@ -112,13 +76,13 @@ export default class extends Phaser.State {
     video.addToWorld(game.world.centerX, game.world.centerY, 0.5, 0.5, 0.5, 0.5);
     let videoDuration = 6
     this.time.events.add(Phaser.Timer.SECOND * videoDuration, () =>{
-      //this.state.start('Game')
+      // this.state.start('Game')
       this.state.start('Menu')
-      
+
       video.destroy()
-    }, this)    
+    }, this)
   }
-  
+
   create () {
 
   }
