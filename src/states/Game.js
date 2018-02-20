@@ -18,35 +18,50 @@ export default class extends Phaser.State {
         music.fadeOut(4000)
       })
     }, this)
+    this.music = music
     this.explosion = game.add.audio('explosion')
     this.blaster = game.add.audio('blaster', 0.5)
+    this.woosh = game.add.audio('woosh')
+    this.steps = game.add.audio('steps')
 
     this.spritesGroup = this.add.group()
 
     this.wiz = this.loadSpriter('wizard')
-    this.wiz.scale.set(0.17, 0)
-    this.wiz.x = this.world.centerX - this.wiz.width - 120
-    this.wiz.y = this.world.height - (this.wiz.height / 2) - 150
-    this.wiz.setAnimationSpeedPercent(40)
-    this.wiz.playAnimationByName('_IDLE')
+    this.wiz.scale.set(0.17, 0.17)
+    this.wiz.x = -150
+    this.wiz.y = this.world.height - (this.wiz.height / 2) - 50
     this.spritesGroup .add(this.wiz)
 
     this.gnome = this.loadSpriter('gnome')
-    this.gnome.scale.set(-0.3, 0)
+    this.gnome.scale.set(-0.3, 0.3)
 
     this.gnome.children.forEach(sprite => {
       sprite.anchor.set(0, 1)
     })
 
-    this.gnome.x = this.world.centerX - this.gnome.width + 80
-    this.gnome.y = this.world.height - (this.gnome.height / 2) - 90
+    this.gnome.x = game.width + 150
+    this.gnome.startx = this.world.centerX - this.gnome.width + 150
+    this.gnome.y = this.world.height - (this.gnome.height / 2)
     this.gnome.setAnimationSpeedPercent(40)
     this.gnome.playAnimationByName('_IDLE')
     this.spritesGroup.add(this.gnome)
 
-    game.add.tween(this.wiz.scale).to({y: 0.17}, 800, Phaser.Easing.Bounce.Out, true, 1500);
-    game.add.tween(this.gnome.scale).to({y: 0.3}, 800, Phaser.Easing.Bounce.Out, true, 1500);
+    // intro sequence
+    this.wiz.setAnimationSpeedPercent(200)
+    this.wiz.playAnimationByName('_RUN')
+    game.add.tween(this.wiz).to({x: this.world.centerX - this.wiz.width - 100}, 1500, Phaser.Easing.Linear.None, true, 1500)
+    .onComplete.add(() => {
+      this.wiz.setAnimationSpeedPercent(30)
+      this.wiz.playAnimationByName('_IDLE')
+    })
 
+    this.gnome.setAnimationSpeedPercent(200)
+    this.gnome.playAnimationByName('_RUN')
+    game.add.tween(this.gnome).to({x: this.gnome.startx }, 1500, Phaser.Easing.Linear.None, true, 1500)
+    .onComplete.add(() => {
+      this.gnome.setAnimationSpeedPercent(30)
+      this.gnome.playAnimationByName('_IDLE')
+    })
 
     let graphics = game.add.graphics(0, 0)
     let width = 500
@@ -74,7 +89,6 @@ export default class extends Phaser.State {
     banner.x = questionField.width / 2
     questionField.addChild(banner)
     console.log('banner width', banner.width, -(questionField.width / 2) - banner.width)
-
 
     game.add.tween(questionField.scale).to({x: 1 }, 500, Phaser.Easing.Bounce.Out, true, 2500)
 
@@ -113,6 +127,22 @@ export default class extends Phaser.State {
     //   this.state.start('Menu')
     // })
 
+    // create heart to represent life
+    this.life = []
+    for(let i = 0; i < 5; i++) {
+      let pad = 5
+      let sprite = game.add.sprite(i * (48 + pad) + 20, 90, 'heart')
+      sprite.anchor.set(0)
+      sprite.alpha = 0
+      sprite.animations.add('rotate', [0, 1, 2, 3, 4, 5, 0], 12, false)
+      this.life.push(sprite)
+
+      game.add.tween(sprite).to({alpha: 1}, 300, Phaser.Easing.Bounce.Out, true, (i * 200) + 2000)
+    }
+    game.time.events.repeat(Phaser.Timer.SECOND * 15, 100, () => {
+      this.life[this.life.length - 1].play('rotate')
+    }, this)
+
     // our fireball sprite
     let fireball = game.add.sprite(0, 0, 'fireball');
     fireball.scale.set(1);
@@ -125,6 +155,7 @@ export default class extends Phaser.State {
     this.fireball.kill()
 
     this.canFire = true
+    this.health = 5
 
     console.log('game state created')
   }
@@ -161,10 +192,69 @@ export default class extends Phaser.State {
           this.fireball.kill()
           this.gnome.setAnimationSpeedPercent(40)
           this.gnome.playAnimationByName('_IDLE')
-          this.canFire = true
+          // this.canFire = true
+          this.gnomeAttack()
         })
       })
     })
+  }
+
+  gnomeAttack() {
+    this.health--
+    this.canFire = false
+
+    this.gnome.setAnimationSpeedPercent(200)
+    this.gnome.playAnimationByName('_RUN')
+    this.steps.loopFull()
+
+    game.add.tween(this.gnome).to({ x: this.wiz.x + this.wiz.width }, 1500, Phaser.Easing.Quadratic.In, true)
+    .onComplete.add(() => {
+      this.gnome.setAnimationSpeedPercent(100)
+      this.gnome.playAnimationByName('_ATTACK')
+      this.steps.stop()
+
+      game.time.events.add(500, () => {
+        this.woosh.play()
+      })
+
+      game.time.events.add(700, () => {
+        this.wiz.setAnimationSpeedPercent(100)
+        this.wiz.playAnimationByName('_HURT')
+
+        game.add.tween(this.gnome).to({ alpha: 0 }, 500, Phaser.Easing.Quadratic.In, true)
+        .onComplete.add(() => {
+          this.gnome.x = this.gnome.startx
+          game.add.tween(this.gnome).to({ alpha: 1 }, 500, Phaser.Easing.Quadratic.In, true)
+
+          this.gnome.setAnimationSpeedPercent(40)
+          this.gnome.playAnimationByName('_IDLE')
+
+          let life = this.life[this.health]
+          game.add.tween(life).to({ alpha: 0 }, 500, Phaser.Easing.Quadratic.In, true)
+          game.add.tween(life.scale).to({ x: 1.5, y: 1.5 }, 500, Phaser.Easing.Quadratic.In, true)
+        })
+      })
+
+      game.time.events.add(1700, () => {
+        this.wiz.setAnimationSpeedPercent(40)
+        this.wiz.playAnimationByName('_IDLE')
+
+        this.canFire = true
+
+        if(this.health <= 0) {
+          this.showMenu()
+        }
+      })
+
+      // game.add.tween(this.gnome).to({ x: this.wiz.x + this.wiz.width }, 1500, Phaser.Easing.Cubic.In, true)
+      // .onComplete.add(() => {
+      // })
+    })
+  }
+
+  showMenu() {
+    this.music.pause()
+    this.state.start('Menu')
   }
 
   update() {

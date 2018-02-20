@@ -290,7 +290,7 @@
                 </key>
             </timeline>
         </animation>
-        <animation id="1" name="_HURT" length="1000" interval="100" looping="false">
+        <animation id="1" name="_HURT" length="1000" interval="100">
             <mainline>
                 <key id="0">
                     <bone_ref id="0" timeline="8" key="0"/>

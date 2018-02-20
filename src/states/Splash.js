@@ -32,7 +32,7 @@ export default class extends Phaser.State {
     this.load.atlas('gnome', 'assets/images/gnome2/atlas.png', 'assets/images/gnome2/atlas.json')
     this.load.xml('gnomeAnimations', 'assets/images/gnome2/animations.scml')
 
-    game.load.atlas('fireball', 'assets/images/fire/atlas.png', 'assets/images/fire/atlas.json');
+    this.load.atlas('fireball', 'assets/images/fire/atlas.png', 'assets/images/fire/atlas.json');
     this.load.image('iconAttack', 'assets/images/icon-attack.png');
     this.load.image('iconHome', 'assets/images/icon-home.png');
 
@@ -52,8 +52,12 @@ export default class extends Phaser.State {
     this.load.audio('explosion', 'assets/audio/Explosion.wav')
     this.load.audio('blaster', 'assets/audio/Blastwave_FX_FireballWhoosh_S08FI.42.mp3')
     this.load.audio('hover', 'assets/audio/ButtonHover.wav')
+    this.load.audio('steps', 'assets/audio/LandingFootsteps.wav')
+    this.load.audio('woosh', 'assets/audio/Whoosh.wav')
 
-    this.load.atlas('flags', 'assets/images/flags.png', 'assets/images/flags.json');
+    this.load.atlas('flags', 'assets/images/flags.png', 'assets/images/flags.json')
+
+    this.load.spritesheet('heart', 'assets/images/ss-heart.png', 48, 48, 6)
   }
 
   loadStart() {
@@ -74,10 +78,10 @@ export default class extends Phaser.State {
     video.play(false);
     //  x, y, anchor x, anchor y, scale x, scale y
     video.addToWorld(game.world.centerX, game.world.centerY, 0.5, 0.5, 0.5, 0.5);
-    let videoDuration = 6
+    let videoDuration = 0 // 6
     this.time.events.add(Phaser.Timer.SECOND * videoDuration, () =>{
-      // this.state.start('Game')
-      this.state.start('Menu')
+      this.state.start('Game')
+      //this.state.start('Menu')
 
       video.destroy()
     }, this)
