@@ -23,7 +23,7 @@ export default class extends Phaser.State {
     //
     // load your assets
     //
-    this.load.video('intro', 'assets/videos/intro.webm');
+    // this.load.video('intro', 'assets/videos/intro.webm');
     this.load.image('mushroom', 'assets/images/mushroom2.png')
     // this.load.image('bg', 'assets/images/forest01_preview-01.png')
     this.load.atlas('wizard', 'assets/images/wizard/atlas.png', 'assets/images/wizard/atlas.json')
@@ -74,16 +74,19 @@ export default class extends Phaser.State {
 
     this.time.advancedTiming = true;
 
-    let video = this.add.video('intro');
-    video.play(false);
-    //  x, y, anchor x, anchor y, scale x, scale y
-    video.addToWorld(game.world.centerX, game.world.centerY, 0.5, 0.5, 0.5, 0.5);
-    let videoDuration = 0 // 6
+    console.log(videoElapsed)
+    // let video = this.add.video('intro');
+    // video.play(false);
+    // //  x, y, anchor x, anchor y, scale x, scale y
+    // video.addToWorld(game.world.centerX, game.world.centerY, 0.5, 0.5, 0.5, 0.5);
+    let videoDuration = 0
     this.time.events.add(Phaser.Timer.SECOND * videoDuration, () =>{
-      this.state.start('Game')
-      //this.state.start('Menu')
+        document.querySelector('#intro').style.display = 'none'
+        document.querySelector('#content').style.display = 'block'
+    //    this.state.start('Menu')
+       this.state.start('Game')
+    //   video.destroy()
 
-      video.destroy()
     }, this)
   }
 

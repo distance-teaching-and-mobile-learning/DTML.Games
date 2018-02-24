@@ -27,21 +27,21 @@ export default class extends Phaser.State {
     this.spritesGroup = this.add.group()
 
     this.wiz = this.loadSpriter('wizard')
-    this.wiz.scale.set(0.17, 0.17)
-    this.wiz.x = -150
-    this.wiz.y = this.world.height - (this.wiz.height / 2) - 50
+    this.wiz.scale.set(0.17 * game.scaleRatio)
+    this.wiz.x = -150 * game.scaleRatio
+    this.wiz.y = this.world.height - 170 * game.scaleRatio
     this.spritesGroup .add(this.wiz)
 
     this.gnome = this.loadSpriter('gnome')
-    this.gnome.scale.set(-0.3, 0.3)
+    this.gnome.scale.set(-0.3 * game.scaleRatio, 0.3 * game.scaleRatio)
 
     this.gnome.children.forEach(sprite => {
       sprite.anchor.set(0, 1)
     })
 
-    this.gnome.x = game.width + 150
+    this.gnome.x = game.width + 150 * game.scaleRatio
     this.gnome.startx = this.world.centerX - this.gnome.width + 150
-    this.gnome.y = this.world.height - (this.gnome.height / 2)
+    this.gnome.y = this.world.height - 100 * game.scaleRatio
     this.gnome.setAnimationSpeedPercent(40)
     this.gnome.playAnimationByName('_IDLE')
     this.spritesGroup.add(this.gnome)
@@ -49,7 +49,7 @@ export default class extends Phaser.State {
     // intro sequence
     this.wiz.setAnimationSpeedPercent(200)
     this.wiz.playAnimationByName('_RUN')
-    game.add.tween(this.wiz).to({x: this.world.centerX - this.wiz.width - 100}, 1500, Phaser.Easing.Linear.None, true, 1500)
+    game.add.tween(this.wiz).to({x: 150 * game.scaleRatio}, 1500, Phaser.Easing.Linear.None, true, 1500)
     .onComplete.add(() => {
       this.wiz.setAnimationSpeedPercent(30)
       this.wiz.playAnimationByName('_IDLE')
@@ -57,7 +57,7 @@ export default class extends Phaser.State {
 
     this.gnome.setAnimationSpeedPercent(200)
     this.gnome.playAnimationByName('_RUN')
-    game.add.tween(this.gnome).to({x: this.gnome.startx }, 1500, Phaser.Easing.Linear.None, true, 1500)
+    game.add.tween(this.gnome).to({x: game.width - 150 * game.scaleRatio}, 1500, Phaser.Easing.Linear.None, true, 1500)
     .onComplete.add(() => {
       this.gnome.setAnimationSpeedPercent(30)
       this.gnome.playAnimationByName('_IDLE')
@@ -75,7 +75,7 @@ export default class extends Phaser.State {
     questionField.anchor.set(0.5, 0.5)
     graphics.destroy()
 
-    questionField.scale.set(0, 1)
+    questionField.scale.set(0, 1 * game.scaleRatio)
 
     const bannerText = 'APPLE BANANA'
     let banner = this.add.text(0, 0, bannerText, {
@@ -90,11 +90,11 @@ export default class extends Phaser.State {
     questionField.addChild(banner)
     console.log('banner width', banner.width, -(questionField.width / 2) - banner.width)
 
-    game.add.tween(questionField.scale).to({x: 1 }, 500, Phaser.Easing.Bounce.Out, true, 2500)
+    game.add.tween(questionField.scale).to({x: 1 * game.scaleRatio }, 500, Phaser.Easing.Bounce.Out, true, 2500)
 
     let inputW = 350
     let inputH = 40
-    let inputField = this.add.inputField(this.world.centerX - (inputW / 2), this.game.height - (inputH * 2), {
+    let inputField = this.add.inputField(this.world.centerX - (inputW / 2) * game.scaleRatio, this.game.height - (inputH * 2), {
       font: '40px Arial',
       fill: '#212121',
       fontWeight: 'bold',
@@ -105,11 +105,11 @@ export default class extends Phaser.State {
       borderRadius: 6,
       placeHolder: 'Your answer:'
     })
-    inputField.scale.set(0, 1)
-    game.add.tween(inputField.scale).to({x: 1 }, 500, Phaser.Easing.Cubic.Out, true, 2500)
+    inputField.scale.set(0, 1 * game.scaleRatio)
+    game.add.tween(inputField.scale).to({x: 1 * game.scaleRatio}, 500, Phaser.Easing.Cubic.Out, true, 2500)
 
     let iconAttack = this.createIcon(0, 0, 'iconAttack')
-    iconAttack.scale.set(0, 0.5)
+    iconAttack.scale.set(0, 0.5 * game.scaleRatio)
     iconAttack.x = inputField.x + inputField.width + (this.icon.width)
     iconAttack.y = inputField.y + this.icon.height / 2 - 3
     iconAttack.inputEnabled = true
@@ -118,7 +118,7 @@ export default class extends Phaser.State {
         this.castSpell()
       }
     })
-    game.add.tween(iconAttack.scale).to({x: 0.5}, 500, Phaser.Easing.Bounce.Out, true, 2700)
+    game.add.tween(iconAttack.scale).to({x: 0.5 * game.scaleRatio}, 500, Phaser.Easing.Bounce.Out, true, 2700)
 
     // let iconHome = this.createIcon(50, 50, 'iconHome')
     // iconHome.scale.set(0.3)
@@ -130,10 +130,13 @@ export default class extends Phaser.State {
     // create heart to represent life
     this.life = []
     for(let i = 0; i < 5; i++) {
-      let pad = 5
-      let sprite = game.add.sprite(i * (48 + pad) + 20, 90, 'heart')
+      let spriteWidth = 48 * game.scaleRatio
+      let margin = 5 * game.scaleRatio
+      let startx = (this.world.centerX - ((spriteWidth + margin) * 5) / 2)
+      let sprite = game.add.sprite(i * (spriteWidth + margin) + startx, 90, 'heart')
       sprite.anchor.set(0)
       sprite.alpha = 0
+      sprite.scale.set(game.scaleRatio)
       sprite.animations.add('rotate', [0, 1, 2, 3, 4, 5, 0], 12, false)
       this.life.push(sprite)
 
@@ -145,7 +148,7 @@ export default class extends Phaser.State {
 
     // our fireball sprite
     let fireball = game.add.sprite(0, 0, 'fireball');
-    fireball.scale.set(1);
+    fireball.scale.set(game.scaleRatio);
     fireball.anchor.set(0.5);
     // there 2 animations to play
     // 1. while it's moving and 2. when it hits the ground
@@ -170,11 +173,11 @@ export default class extends Phaser.State {
     this.time.events.add(500, () =>{
       this.fireball.alpha = 1
       this.fireball.revive()
-      this.fireball.x = this.wiz.position.x + 210
-      this.fireball.y = this.wiz.position.y - 85
+      this.fireball.x = this.wiz.position.x + 210 * game.scaleRatio
+      this.fireball.y = this.wiz.position.y - 85 * game.scaleRatio
       this.fireball.play('move', game.rnd.between(15, 25), true)
       this.fireball.scale.set(0)
-      game.add.tween(this.fireball.scale).to({x: 1, y: 1}, 300, Phaser.Easing.Linear.In, true)
+      game.add.tween(this.fireball.scale).to({x: 1 * game.scaleRatio, y: 1 * game.scaleRatio}, 300, Phaser.Easing.Linear.In, true)
       var tween = game.add.tween(this.fireball).to({ x: this.gnome.x, y: this.gnome.y - (this.gnome.height / 2) }, 700, Phaser.Easing.Cubic.In, true)
       tween.onComplete.add(() => {
 

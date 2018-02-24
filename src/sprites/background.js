@@ -8,13 +8,13 @@ export default class {
     for(let i = 1; i < 8; i++) {
       let bg = game.add.sprite(game.world.centerX, game.world.height, 'bg' + i)
       bg.anchor.set(0.5, 1)
-      bg.scale.set(0.5)
+      bg.scale.set(0.65 * game.scaleRatio)
       bg.alpha = 0
       bgs.push(bg)
     }
     // green background always shows
     bgs[0].alpha = 1
-   
+
     // trees, left and right
     bgs[1].x -= 100
     game.add.tween(bgs[1]).to({x: game.world.centerX, alpha: 1}, 2000, Phaser.Easing.Cubic.In, true, 1000)
