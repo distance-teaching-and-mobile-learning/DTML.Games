@@ -15,6 +15,7 @@ class Game extends Phaser.Game {
     const width = docElement.clientWidth > config.gameWidth ? config.gameWidth : docElement.clientWidth
     const height = docElement.clientHeight > config.gameHeight ? config.gameHeight : docElement.clientHeight
 
+    console.log(width, height)
     super(width, height, Phaser.AUTO, 'content', null)
 
     this.state.add('Boot', BootState, false)
@@ -57,3 +58,18 @@ if (window.cordova) {
 
   app.initialize()
 }
+
+window.videoLoaded = false
+window.videoElapsed = 0
+window.addEventListener('load', () => {
+  let video = document.getElementById('intro')
+  function checkVideo() {
+    window.videoElapsed += 500
+    if (video.readyState === 4) {
+      window.videoLoaded = true
+    } else {
+      setTimeout(checkVideo, 500)
+    }
+  }
+  checkVideo()
+}, false)
