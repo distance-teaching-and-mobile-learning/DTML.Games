@@ -37,11 +37,11 @@ export default class extends Phaser.State {
     let canvas_width_max = 1140;
     let width = window.screen.availWidth * window.devicePixelRatio
     let height = window.screen.availHeight * window.devicePixelRatio
-    let aspect_ratio = width / height
+    game.aspectRatio = width / height
     game.scaleRatio = game.width / canvas_width_max
 
     console.log('game dimension: ', game.width, 'x', game.height, 'height * scaleRatio', game.height * game.scaleRatio)
-    if (aspect_ratio < 1) {
+    if (game.aspectRatio < 1) {
       //game.scaleRatio = width / canvas_height_max
       // console.log(game.width, game.height)
       game.scale.setGameSize(game.width, game.height * game.scaleRatio)

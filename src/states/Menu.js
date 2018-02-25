@@ -13,7 +13,7 @@ export default class extends Phaser.State {
   create() {
     let bg1 = game.add.sprite(game.world.centerX, game.world.centerY, 'bg1')
     bg1.anchor.set(0.5)
-    bg1.scale.set(0.5)
+    bg1.scale.set(0.6 * game.scaleRatio)
 
     this.click = game.add.audio('click')
     this.hover = game.add.audio('hover')
@@ -51,33 +51,16 @@ export default class extends Phaser.State {
     "Icelandic":"is","Welsh":"cy",
     "Indonesian":"id","Yiddish":"de"}
 
-    var fragmentSrc = [
-
-      "precision mediump float;",
-
-      "uniform float     time;",
-      "uniform vec2      resolution;",
-      "uniform sampler2D iChannel0;",
-
-      "void main( void ) {",
-
-          "vec2 uv = gl_FragCoord.xy / resolution.xy;",
-          "uv.y *= -1.0;",
-          "uv.y += (sin((uv.x + (time * 0.5)) * 10.0) * 0.1) + (sin((uv.x + (time * 0.2)) * 32.0) * 0.01);",
-          "vec4 texColor = texture2D(iChannel0, uv);",
-          "gl_FragColor = texColor;",
-
-      "}"
-    ];
-
-
     let flagGroup = this.add.group()
-    this.filters = []
-    let gapx = 10
-    let posx = 40
-    let posy = 20
-    let width = 95
-    let height = 50
+    let gapx = 10 * game.scaleRatio
+    let posx = 40 * game.scaleRatio
+    let posy = 20 * game.scaleRatio
+    let width = 110 * game.scaleRatio
+    let height = 50 * game.scaleRatio
+    if (game.aspectRatio < 1) {
+      height = 45 * game.scaleRatio
+    }
+
     Object.keys(flags).forEach((name, idx) => {
       let flag = game.add.sprite(posx, posy, 'flags')
       flag.frameName = flags[name]
@@ -109,20 +92,12 @@ export default class extends Phaser.State {
         })
       })
 
-      // var customUniforms = {
-      //   iChannel0: { type: 'sampler2D', value: flag.texture, textureData: { repeat: true } }
-      // };
-      // let filter = new Phaser.Filter(this.game, customUniforms, fragmentSrc);
-      // filter.setResolution(80, 50);
-      // this.filters.push(filter)
-      // flag.filters = [ filter ]
-
       flagGroup.add(flag)
 
       // console.log(idx % 10)
       posx += flag.width + gapx
       if(idx % 8 == 7) {
-        posx = 0 + 40
+        posx = 0 + 40 * game.scaleRatio
         posy += flag.height + 10
       }
     })
@@ -130,14 +105,4 @@ export default class extends Phaser.State {
     flagGroup.y = this.world.centerY - flagGroup.height / 2
     this.flagGroup = flagGroup
   }
-
-  update() {
-    this.flagGroup.children.forEach(flag => {
-    })
-    // this.filters.forEach(filter => {
-    //   filter.update()
-    // })
-  }
-  render() {    }
-
 }
