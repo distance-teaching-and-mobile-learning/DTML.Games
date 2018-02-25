@@ -26,11 +26,11 @@ export default class extends Phaser.State {
     this.load.image('loaderBg', './assets/images/logobackground.png')
     this.load.image('loaderBar', './assets/images/loading-logo.png')
 
-    // this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL               //Shows the entire game while maintaining proportions
-    // this.scale.pageAlignVertically = true
-    // this.scale.pageAlignHorizontally = true
-    // this.scale.setShowAll()
-    // this.scale.refresh()
+    //game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL               //Shows the entire game while maintaining proportions
+    //game.scale.pageAlignVertically = true
+    //game.scale.pageAlignHorizontally = true
+    //game.scale.setShowAll()
+    //game.scale.refresh()
 
     let scale_ratio;
     let canvas_height_max = 900;
@@ -38,18 +38,25 @@ export default class extends Phaser.State {
     let width = window.screen.availWidth * window.devicePixelRatio
     let height = window.screen.availHeight * window.devicePixelRatio
     let aspect_ratio = width / height
-    if (aspect_ratio < 1) game.scaleRatio = game.height / canvas_height_max
-    else game.scaleRatio = game.width / canvas_width_max
+    game.scaleRatio = game.width / canvas_width_max
+    
+    if (aspect_ratio < 1) {
+      //game.scaleRatio = width / canvas_height_max
+      // console.log(game.width, game.height)
+      
+    }
+    game.scale.setGameSize(game.width, game.height * game.scaleRatio)
+    // game.scaleRatio = 1;
 
     if (!this.game.device.desktop)                                     //In mobile force the orientation
     {
-        this.scale.forceOrientation(true, false);
+        // this.scale.forceOrientation(true, false);
         //this.scale.enterIncorrectOrientation.add(this.enterIncorrectOrientation, this);
         //this.scale.leaveIncorrectOrientation.add(this.leaveIncorrectOrientation, this);
     }
+    console.log('aspect ratio: ', aspect_ratio, 'scale ratio:',  game.scaleRatio)
 
-    this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
-    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+    // this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
     // this.game.scale.setMaximum();
     //this.scale.setScreenSize(true);
     // this.scale.startFullScreen(false);

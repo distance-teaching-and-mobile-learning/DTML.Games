@@ -8,7 +8,7 @@ export default class {
     for(let i = 1; i < 8; i++) {
       let bg = game.add.sprite(game.world.centerX, game.world.height, 'bg' + i)
       bg.anchor.set(0.5, 1)
-      bg.scale.set(0.65 * game.scaleRatio)
+      bg.scale.set(0.6 * game.scaleRatio)
       bg.alpha = 0
       bgs.push(bg)
     }

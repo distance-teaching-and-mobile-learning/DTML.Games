@@ -107,18 +107,21 @@ export default class extends Phaser.State {
     })
     inputField.scale.set(0, 1 * game.scaleRatio)
     game.add.tween(inputField.scale).to({x: 1 * game.scaleRatio}, 500, Phaser.Easing.Cubic.Out, true, 2500)
-
-    let iconAttack = this.createIcon(0, 0, 'iconAttack')
-    iconAttack.scale.set(0, 0.5 * game.scaleRatio)
-    iconAttack.x = inputField.x + inputField.width + (this.icon.width)
-    iconAttack.y = inputField.y + this.icon.height / 2 - 3
-    iconAttack.inputEnabled = true
-    iconAttack.events.onInputDown.add(() => {
-      if(this.canFire) {
-        this.castSpell()
-      }
+    .onComplete.add(() =>{
+      let iconAttack = game.add.sprite(0, 0, 'iconAttack')
+      iconAttack.scale.set(0.5 * game.scaleRatio)
+      iconAttack.anchor.set(0.5)
+      iconAttack.x = inputField.x + inputField.width * game.scaleRatio
+      iconAttack.y = inputField.y + iconAttack.height / 2 - 3
+      console.log(inputField.x, inputField.width, iconAttack.x)
+      iconAttack.inputEnabled = true
+      iconAttack.events.onInputDown.add(() => {
+        if(this.canFire) {
+          this.castSpell()
+        }
+      })
+      //game.add.tween(iconAttack.scale).to({x: 0.5 * game.scaleRatio}, 500, Phaser.Easing.Bounce.Out, true)
     })
-    game.add.tween(iconAttack.scale).to({x: 0.5 * game.scaleRatio}, 500, Phaser.Easing.Bounce.Out, true, 2700)
 
     // let iconHome = this.createIcon(50, 50, 'iconHome')
     // iconHome.scale.set(0.3)
@@ -276,9 +279,9 @@ export default class extends Phaser.State {
     let iconGroup = game.add.group();
 
     // position the icon
-    let icon = game.add.sprite(x, y, key);
+    let icon = game.add.sprite(0, 0, key);
     icon.scale.set(0.45)
-    icon.anchor.setTo(0.5, 0.5);
+    icon.anchor.set(0.5)
 
     // put a circle frame so we have rounded spell icons
     // let g = game.add.graphics(0, 0);
