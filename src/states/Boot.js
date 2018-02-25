@@ -39,14 +39,15 @@ export default class extends Phaser.State {
     let height = window.screen.availHeight * window.devicePixelRatio
     let aspect_ratio = width / height
     game.scaleRatio = game.width / canvas_width_max
-    
+
+    console.log('game dimension: ', game.width, 'x', game.height, 'height * scaleRatio', game.height * game.scaleRatio)
     if (aspect_ratio < 1) {
       //game.scaleRatio = width / canvas_height_max
       // console.log(game.width, game.height)
-      
+      game.scale.setGameSize(game.width, game.height * game.scaleRatio)
+    } else {
+      game.scale.setGameSize(game.width, game.height)
     }
-    game.scale.setGameSize(game.width, game.height * game.scaleRatio)
-    // game.scaleRatio = 1;
 
     if (!this.game.device.desktop)                                     //In mobile force the orientation
     {
@@ -54,12 +55,12 @@ export default class extends Phaser.State {
         //this.scale.enterIncorrectOrientation.add(this.enterIncorrectOrientation, this);
         //this.scale.leaveIncorrectOrientation.add(this.leaveIncorrectOrientation, this);
     }
-    console.log('aspect ratio: ', aspect_ratio, 'scale ratio:',  game.scaleRatio)
 
     // this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
     // this.game.scale.setMaximum();
     //this.scale.setScreenSize(true);
     // this.scale.startFullScreen(false);
+    game.canvas.oncontextmenu = function (e) { e.preventDefault(); }
   }
 
   render() {

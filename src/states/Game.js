@@ -40,7 +40,7 @@ export default class extends Phaser.State {
     })
 
     this.gnome.x = game.width + 150 * game.scaleRatio
-    this.gnome.startx = this.world.centerX - this.gnome.width + 150
+    this.gnome.startx = game.width - 150 * game.scaleRatio
     this.gnome.y = this.world.height - 100 * game.scaleRatio
     this.gnome.setAnimationSpeedPercent(40)
     this.gnome.playAnimationByName('_IDLE')
@@ -71,7 +71,7 @@ export default class extends Phaser.State {
     graphics.drawRoundedRect(0, 0, width, 50, 10)
     graphics.endFill()
 
-    let questionField = game.add.sprite(this.world.centerX, 50, graphics.generateTexture())
+    let questionField = game.add.sprite(this.world.centerX, 50 * game.scaleRatio, graphics.generateTexture())
     questionField.anchor.set(0.5, 0.5)
     graphics.destroy()
 
@@ -94,7 +94,7 @@ export default class extends Phaser.State {
 
     let inputW = 350
     let inputH = 40
-    let inputField = this.add.inputField(this.world.centerX - (inputW / 2) * game.scaleRatio, this.game.height - (inputH * 2), {
+    let inputField = this.add.inputField(this.world.centerX - (inputW / 2) * game.scaleRatio, this.game.height - (inputH * 2) * game.scaleRatio, {
       font: '40px Arial',
       fill: '#212121',
       fontWeight: 'bold',
@@ -109,12 +109,12 @@ export default class extends Phaser.State {
     game.add.tween(inputField.scale).to({x: 1 * game.scaleRatio}, 500, Phaser.Easing.Cubic.Out, true, 2500)
     .onComplete.add(() =>{
       let iconAttack = game.add.sprite(0, 0, 'iconAttack')
-      iconAttack.scale.set(0.5 * game.scaleRatio)
+      iconAttack.scale.set(0.7 * game.scaleRatio)
       iconAttack.anchor.set(0.5)
       iconAttack.x = inputField.x + inputField.width * game.scaleRatio
-      iconAttack.y = inputField.y + iconAttack.height / 2 - 3
-      console.log(inputField.x, inputField.width, iconAttack.x)
+      iconAttack.y = inputField.y + inputField.height / 2
       iconAttack.inputEnabled = true
+      iconAttack.input.priorityID = 0
       iconAttack.events.onInputDown.add(() => {
         if(this.canFire) {
           this.castSpell()
@@ -136,7 +136,7 @@ export default class extends Phaser.State {
       let spriteWidth = 48 * game.scaleRatio
       let margin = 5 * game.scaleRatio
       let startx = (this.world.centerX - ((spriteWidth + margin) * 5) / 2)
-      let sprite = game.add.sprite(i * (spriteWidth + margin) + startx, 90, 'heart')
+      let sprite = game.add.sprite(i * (spriteWidth + margin) + startx, 90 * game.scaleRatio, 'heart')
       sprite.anchor.set(0)
       sprite.alpha = 0
       sprite.scale.set(game.scaleRatio)
@@ -213,7 +213,7 @@ export default class extends Phaser.State {
     this.gnome.playAnimationByName('_RUN')
     this.steps.loopFull()
 
-    game.add.tween(this.gnome).to({ x: this.wiz.x + this.wiz.width }, 1500, Phaser.Easing.Quadratic.In, true)
+    game.add.tween(this.gnome).to({ x: this.wiz.x + this.wiz.width }, 1300, Phaser.Easing.Cubic.In, true)
     .onComplete.add(() => {
       this.gnome.setAnimationSpeedPercent(100)
       this.gnome.playAnimationByName('_ATTACK')
@@ -227,17 +227,17 @@ export default class extends Phaser.State {
         this.wiz.setAnimationSpeedPercent(100)
         this.wiz.playAnimationByName('_HURT')
 
-        game.add.tween(this.gnome).to({ alpha: 0 }, 500, Phaser.Easing.Quadratic.In, true)
+        game.add.tween(this.gnome).to({ alpha: 0 }, 500, Phaser.Easing.Cubic.In, true)
         .onComplete.add(() => {
           this.gnome.x = this.gnome.startx
-          game.add.tween(this.gnome).to({ alpha: 1 }, 500, Phaser.Easing.Quadratic.In, true)
+          game.add.tween(this.gnome).to({ alpha: 1 }, 500, Phaser.Easing.Cubic.In, true)
 
           this.gnome.setAnimationSpeedPercent(40)
           this.gnome.playAnimationByName('_IDLE')
 
           let life = this.life[this.health]
-          game.add.tween(life).to({ alpha: 0 }, 500, Phaser.Easing.Quadratic.In, true)
-          game.add.tween(life.scale).to({ x: 1.5, y: 1.5 }, 500, Phaser.Easing.Quadratic.In, true)
+          game.add.tween(life).to({ alpha: 0 }, 500, Phaser.Easing.Cubic.In, true)
+          game.add.tween(life.scale).to({ x: life.scale.x * 2.5, y: life.scale.y * 2.5 }, 500, Phaser.Easing.Cubic.In, true)
         })
       })
 
