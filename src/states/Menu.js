@@ -82,19 +82,22 @@ export default class extends Phaser.State {
       flag.events.onInputDown.add(() => {
         this.click.play()
 
-        this.flagGroup.children.forEach(flag => {
-          this.game.add.tween(flag)
+        this.game.add.tween(flag)
+        .to({width: width * 5, height: height * 5, x: game.width / 2 - (width / 2), y: game.height / 2 - (height / 2)}, 500, Phaser.Easing.Back.Out, true)
+        .onComplete.add(() =>{
+          this.flagGroup.children.forEach(flag => {
+            this.game.add.tween(flag)
             .to({width: 0, height: 0}, 1000, Phaser.Easing.Back.In, true)
-        })
+          })
 
-        this.time.events.add(1100, () =>{
-          this.state.start('Game')
+          this.time.events.add(1100, () =>{
+            this.state.start('Game')
+          })
         })
       })
 
       flagGroup.add(flag)
 
-      // console.log(idx % 10)
       posx += flag.width + gapx
       if(idx % 8 == 7) {
         posx = 0 + 40 * game.scaleRatio
