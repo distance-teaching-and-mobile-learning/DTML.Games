@@ -163,7 +163,19 @@ export default class extends Phaser.State {
     this.canFire = true
     this.health = 5
 
-    console.log('game state created')
+    fetch('https://dtml.org/api/GameService/Words?step=1', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(JSON.stringify(data))
+    })
+    .catch(err => {
+      console.log('err', err)
+    })
   }
 
   castSpell() {
