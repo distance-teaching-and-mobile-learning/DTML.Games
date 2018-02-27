@@ -4,6 +4,20 @@ import config from '../config';
 
 export default class extends Phaser.State {
   init() {
+      if (!this.game.device.desktop) {
+          this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+          this.game.scale.minWidth = 300;
+          this.game.scale.minHeight = 100;
+          this.game.scale.maxWidth = window.innerWidth * 2;
+          this.game.scale.maxHeight = window.innerHeight * 2;
+      }
+
+      this.scale.pageAlignHorizontally = false;
+      this.scale.pageAlignVertically = true;
+
+      this.scale.forceOrientation(true, false);
+      this.scale.refresh(true);
+
     console.log('starting')
     this.stage.backgroundColor = '#000000'
     this.fontsReady = false
