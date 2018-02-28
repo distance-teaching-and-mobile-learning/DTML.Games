@@ -63,17 +63,6 @@ export default class extends Phaser.State {
       game.scale.setGameSize(game.width, game.height)
     }
 
-    if (!this.game.device.desktop)                                     //In mobile force the orientation
-    {
-        // this.scale.forceOrientation(true, false);
-        //this.scale.enterIncorrectOrientation.add(this.enterIncorrectOrientation, this);
-        //this.scale.leaveIncorrectOrientation.add(this.leaveIncorrectOrientation, this);
-    }
-
-    // this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
-    // this.game.scale.setMaximum();
-    //this.scale.setScreenSize(true);
-    // this.scale.startFullScreen(false);
     game.canvas.oncontextmenu = function (e) { e.preventDefault(); }
   }
 

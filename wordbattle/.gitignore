@@ -7,5 +7,5 @@ dist/
 *.log
 /index.html
 build/
-
+bower_components
 .DS_Store
