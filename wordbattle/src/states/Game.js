@@ -1,6 +1,6 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import CorrectText from '../sprites/CorrectText'
+import FreeText from '../sprites/FreeText'
 import Spriter from '../libs/spriter'
 import Background from '../sprites/background'
 
@@ -14,9 +14,9 @@ export default class extends Phaser.State {
     create() {
         this.language = this.game.state.states['Game']._language;
         this.langCode = this.game.state.states['Game']._langCode;
-        let bg = new Background({game: this.game})
+        let bg = new Background({game: this.game});
 
-        let music = game.add.audio('gameMusic')
+        let music = game.add.audio('gameMusic');
         music.onDecoded.add(() => {
             music.fadeIn(4000);
             this.time.events.add(25000, () => {
@@ -42,7 +42,7 @@ export default class extends Phaser.State {
 
         this.gnome.children.forEach(sprite => {
             sprite.anchor.set(0, 1)
-        })
+        });
 
         this.gnome.x = game.width + 150 * game.scaleRatio;
         this.gnome.startx = game.width - 150 * game.scaleRatio;
@@ -58,7 +58,7 @@ export default class extends Phaser.State {
             .onComplete.add(() => {
             this.wiz.setAnimationSpeedPercent(30);
             this.wiz.playAnimationByName('_IDLE');
-        })
+        });
 
         this.gnome.setAnimationSpeedPercent(200);
         this.gnome.playAnimationByName('_RUN');
@@ -85,37 +85,37 @@ export default class extends Phaser.State {
                 fill: '#FFF'
             });
             this.scoreText.anchor.setTo(0.5);
-        })
+        });
 
-        let graphics = game.add.graphics(0, 0)
-        let width = 500
+        let graphics = game.add.graphics(0, 0);
+        let width = 500;
         // draw a rectangle
-        graphics.beginFill(0xFFFFFF, 1)
-        graphics.lineStyle(2, 0x000000, 1)
-        graphics.drawRoundedRect(0, 0, width, 50, 10)
-        graphics.endFill()
+        graphics.beginFill(0xFFFFFF, 1);
+        graphics.lineStyle(2, 0x000000, 1);
+        graphics.drawRoundedRect(0, 0, width, 50, 10);
+        graphics.endFill();
 
-        let questionField = game.add.sprite(this.world.centerX, 50 * game.scaleRatio, graphics.generateTexture())
-        questionField.anchor.set(0.5, 0.5)
-        graphics.destroy()
+        let questionField = game.add.sprite(this.world.centerX, 50 * game.scaleRatio, graphics.generateTexture());
+        questionField.anchor.set(0.5, 0.5);
+        graphics.destroy();
 
-        questionField.scale.set(0, 1 * game.scaleRatio)
+        questionField.scale.set(0, 1 * game.scaleRatio);
 
         this.banner = this.add.text(0, 0, '', {
             font: '40px Arial Black',
             fill: '#000000',
             fontWeight: 'bold',
             smoothed: false
-        })
+        });
         this.banner.padding.set(10, 16);
         this.banner.anchor.setTo(0.5, 0.35);
         this.banner.x = questionField.width / 2;
         questionField.addChild(this.banner);
 
-        game.add.tween(questionField.scale).to({x: 1 * game.scaleRatio}, 500, Phaser.Easing.Bounce.Out, true, 2500)
+        game.add.tween(questionField.scale).to({x: 1 * game.scaleRatio}, 500, Phaser.Easing.Bounce.Out, true, 2500);
 
-        let inputW = 350
-        let inputH = 40
+        let inputW = 350;
+        let inputH = 40;
         this.textBox = this.add.inputField(this.world.centerX - (inputW / 2) * game.scaleRatio, this.game.height - (inputH * 2) * game.scaleRatio, {
             font: '40px Arial',
             fill: '#212121',
@@ -126,39 +126,39 @@ export default class extends Phaser.State {
             borderColor: '#000',
             borderRadius: 6,
             placeHolder: 'Your answer:'
-        })
-        this.textBox.scale.set(0, 1 * game.scaleRatio)
+        });
+        this.textBox.scale.set(0, 1 * game.scaleRatio);
         game.add.tween(this.textBox.scale).to({x: 1 * game.scaleRatio}, 500, Phaser.Easing.Cubic.Out, true, 2500)
             .onComplete.add(() => {
-            let iconAttack = game.add.sprite(0, 0, 'iconAttack')
-            iconAttack.scale.set(0.7 * game.scaleRatio)
-            iconAttack.anchor.set(0.5)
-            iconAttack.x = this.textBox.x + this.textBox.width * game.scaleRatio
-            iconAttack.y = this.textBox.y + this.textBox.height / 2
-            iconAttack.inputEnabled = true
-            iconAttack.input.priorityID = 0
+            let iconAttack = game.add.sprite(0, 0, 'iconAttack');
+            iconAttack.scale.set(0.7 * game.scaleRatio);
+            iconAttack.anchor.set(0.5);
+            iconAttack.x = this.textBox.x + this.textBox.width * game.scaleRatio;
+            iconAttack.y = this.textBox.y + this.textBox.height / 2;
+            iconAttack.inputEnabled = true;
+            iconAttack.input.priorityID = 0;
             iconAttack.events.onInputDown.add(this.submitAnswer, this);
             //game.add.tween(iconAttack.scale).to({x: 0.5 * game.scaleRatio}, 500, Phaser.Easing.Bounce.Out, true)
-        })
+        });
 
         // create heart to represent life
-        this.life = []
+        this.life = [];
         for (let i = 0; i < 5; i++) {
-            let spriteWidth = 48 * game.scaleRatio
-            let margin = 5 * game.scaleRatio
-            let startx = (this.world.centerX - ((spriteWidth + margin) * 5) / 2)
-            let sprite = game.add.sprite(i * (spriteWidth + margin) + startx, 90 * game.scaleRatio, 'heart')
-            sprite.anchor.set(0)
-            sprite.alpha = 0
-            sprite.scale.set(game.scaleRatio)
-            sprite.animations.add('rotate', [0, 1, 2, 3, 4, 5, 0], 12, false)
-            this.life.push(sprite)
+            let spriteWidth = 48 * game.scaleRatio;
+            let margin = 5 * game.scaleRatio;
+            let startx = (this.world.centerX - ((spriteWidth + margin) * 5) / 2);
+            let sprite = game.add.sprite(i * (spriteWidth + margin) + startx, 90 * game.scaleRatio, 'heart');
+            sprite.anchor.set(0);
+            sprite.alpha = 0;
+            sprite.scale.set(game.scaleRatio);
+            sprite.animations.add('rotate', [0, 1, 2, 3, 4, 5, 0], 12, false);
+            this.life.push(sprite);
 
             game.add.tween(sprite).to({alpha: 1}, 300, Phaser.Easing.Bounce.Out, true, (i * 200) + 2000)
         }
         game.time.events.repeat(Phaser.Timer.SECOND * 15, 100, () => {
             this.life[this.life.length - 1].play('rotate')
-        }, this)
+        }, this);
 
         // our fireball sprite
         let fireball = game.add.sprite(0, 0, 'fireball');
@@ -168,8 +168,8 @@ export default class extends Phaser.State {
         // 1. while it's moving and 2. when it hits the ground
         let move = fireball.animations.add('move', [0, 1, 2, 3, 4, 5]);
         let hit = fireball.animations.add('hit', [6, 7, 8, 9, 10, 11, 12, 13, 14]);
-        this.fireball = fireball
-        this.fireball.kill()
+        this.fireball = fireball;
+        this.fireball.kill();
 
         this.canFire = true;
         this.health = 5;
@@ -193,9 +193,9 @@ export default class extends Phaser.State {
             })
             .catch(err => {
                 console.log('err', err)
-            })
+            });
 
-        this.correctText = new CorrectText({
+        this.correctText = new Text({
             game: this.game,
             x: this.game.world.centerX * 0.3,
             y: this.game.world.centerY * 0.7,
@@ -254,25 +254,25 @@ export default class extends Phaser.State {
 
     castSpell(complexity) {
         console.log(complexity);
-        this.wiz.setAnimationSpeedPercent(100)
-        this.wiz.playAnimationByName('_ATTACK')
-        this.blaster.play()
+        this.wiz.setAnimationSpeedPercent(100);
+        this.wiz.playAnimationByName('_ATTACK');
+        this.blaster.play();
 
         this.time.events.add(500, () => {
-            this.fireball.alpha = 1
-            this.fireball.revive()
-            this.fireball.x = this.wiz.position.x + 210 * game.scaleRatio
-            this.fireball.y = this.wiz.position.y - 85 * game.scaleRatio
-            this.fireball.play('move', game.rnd.between(15, 25), true)
-            this.fireball.scale.set(0)
+            this.fireball.alpha = 1;
+            this.fireball.revive();
+            this.fireball.x = this.wiz.position.x + 210 * game.scaleRatio;
+            this.fireball.y = this.wiz.position.y - 85 * game.scaleRatio;
+            this.fireball.play('move', game.rnd.between(15, 25), true);
+            this.fireball.scale.set(0);
             game.add.tween(this.fireball.scale).to({
                 x: 1 * game.scaleRatio,
                 y: 1 * game.scaleRatio
-            }, 300, Phaser.Easing.Linear.In, true)
+            }, 300, Phaser.Easing.Linear.In, true);
             var tween = game.add.tween(this.fireball).to({
                 x: this.gnome.x,
                 y: this.gnome.y - (this.gnome.height / 2)
-            }, 700, Phaser.Easing.Cubic.In, true)
+            }, 700, Phaser.Easing.Cubic.In, true);
             tween.onComplete.add(() => {
 
                 this.scoreText.text = String(parseInt(this.scoreText.text) + complexity);
@@ -280,16 +280,16 @@ export default class extends Phaser.State {
                 this.wiz.playAnimationByName('_IDLE');
 
                 this.fireball.play('hit', 15, false);
-                game.add.tween(this.fireball).to({alpha: 0}, 500, Phaser.Easing.Cubic.In, true)
+                game.add.tween(this.fireball).to({alpha: 0}, 500, Phaser.Easing.Cubic.In, true);
 
-                this.gnome.setAnimationSpeedPercent(100)
-                this.gnome.playAnimationByName('_HURT')
-                this.explosion.play()
+                this.gnome.setAnimationSpeedPercent(100);
+                this.gnome.playAnimationByName('_HURT');
+                this.explosion.play();
 
                 game.time.events.add(1000, () => {
-                    this.fireball.kill()
-                    this.gnome.setAnimationSpeedPercent(40)
-                    this.gnome.playAnimationByName('_IDLE')
+                    this.fireball.kill();
+                    this.gnome.setAnimationSpeedPercent(40);
+                    this.gnome.playAnimationByName('_IDLE');
                     // this.canFire = true
                     this.loadNextAnswer();
                 })

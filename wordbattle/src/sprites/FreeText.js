@@ -16,7 +16,15 @@ export default class extends Phaser.Text {
         this.game.stage.addChild(this);
     }
 
-    changeText(word){
+    display() {
+        this.alpha = 1;
+    }
+
+    hide() {
+        this.alpha = 0;
+    }
+
+    changeText(word) {
         this.text = word;
     }
 

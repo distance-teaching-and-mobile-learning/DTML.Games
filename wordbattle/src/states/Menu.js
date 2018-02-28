@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import FreeText from '../sprites/FreeText'
 
 Array.prototype.chunk = function (n) {
     if (!this.length) {
@@ -63,7 +64,6 @@ export default class extends Phaser.State {
             "Belarusian": "be", "Latvian": "lv",
             "Bulgarian": "bg", "Lithuanian": "lt",
             "Catalan": "ca", "Macedonian": "mk",
-
             "Chinese": "zh", "Malay": "ms",
             "Amharic": "am", "Maltese": "mt",
             "Croatian": "hr", "Norwegian": "no",
@@ -77,7 +77,6 @@ export default class extends Phaser.State {
             "Finnish": "fi", "Slovenian": "sl",
             "French": "fr", "Spanish": "es",
             "Galician": "gl", "Swahili": "sw",
-
             "Georgian": "ka", "Swedish": "sv",
             "German": "de", "Tamil": "ta",
             "Greek": "el", "Telugu": "te",
@@ -100,6 +99,13 @@ export default class extends Phaser.State {
             height = 45 * game.scaleRatio
         }
 
+        this.text = new FreeText({
+            game: this.game,
+            x: this.game.world.centerX,
+            y: this.game.world.centerY * 0.085,
+            text: ''
+        });
+
         Object.keys(flags).forEach((name, idx) => {
             let flag = game.add.sprite(posx, posy, 'flags')
             flag.frameName = flags[name]
@@ -107,14 +113,16 @@ export default class extends Phaser.State {
             flag.width = width
             flag.height = height
             flag.inputEnabled = true
-
             flag.events.onInputOver.add(() => {
                 this.hover.play()
+                this.text.changeText(name);
+                this.text.display();
                 flagGroup.bringToTop(flag)
                 this.game.add.tween(flag)
                     .to({width: width * 2, height: height * 2}, 200, Phaser.Easing.Back.Out, true)
             }, this)
             flag.events.onInputOut.add(() => {
+                this.text.hide();
                 this.game.add.tween(flag)
                     .to({width: width, height: height}, 200, Phaser.Easing.Back.Out, true)
             }, this)
