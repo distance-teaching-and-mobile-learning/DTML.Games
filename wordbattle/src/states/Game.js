@@ -172,7 +172,7 @@ export default class extends Phaser.State {
         this.fireball.kill();
 
         this.canFire = true;
-        this.health = 1;
+        this.health = 5;
         this.currIndex = 0;
 
         var enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
