@@ -172,7 +172,7 @@ export default class extends Phaser.State {
         this.fireball.kill();
 
         this.canFire = true;
-        this.health = 5;
+        this.health = 1;
         this.currIndex = 0;
 
         var enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
@@ -195,7 +195,7 @@ export default class extends Phaser.State {
                 console.log('err', err)
             });
 
-        this.correctText = new Text({
+        this.correctText = new FreeText({
             game: this.game,
             x: this.game.world.centerX * 0.3,
             y: this.game.world.centerY * 0.7,
@@ -203,20 +203,9 @@ export default class extends Phaser.State {
         });
     }
 
-    properCase(word) {
-        let arrayOfWords = word.split(' ');
-        var returnProperCase = '';
-
-        for (var x = 0; x < arrayOfWords.length; x++) {
-            returnProperCase += arrayOfWords[x].charAt(0).toUpperCase() + arrayOfWords[x].slice(1) + ' ';
-        }
-
-        return returnProperCase;
-    }
-
     loadNextAnswer() {
         let word = this.words[this.currIndex];
-        this.banner.text = this.properCase(word);
+        this.banner.text = this.correctText.properCase(word);
         this.currentWord = word;
         this.currIndex++;
         this.canFire = true;
@@ -341,13 +330,14 @@ export default class extends Phaser.State {
                 })
             })
 
-            game.time.events.add(2500, () => {
+            game.time.events.add(1700, () => {
                 if(this.health > 0) {
                     this.wiz.setAnimationSpeedPercent(40)
                     this.wiz.playAnimationByName('_IDLE')
                 }
 
                 if (this.health <= 0) {
+                    this.correctText.hide();
                     this.showMenu()
                 }
 

@@ -113,6 +113,7 @@ export default class extends Phaser.State {
             flag.width = width
             flag.height = height
             flag.inputEnabled = true
+            flag.input.useHandCursor = true;
             flag.events.onInputOver.add(() => {
                 this.hover.play()
                 this.text.changeText(name);
@@ -127,6 +128,10 @@ export default class extends Phaser.State {
                     .to({width: width, height: height}, 200, Phaser.Easing.Back.Out, true)
             }, this)
             flag.events.onInputDown.add(() => {
+                for (var x = 0; x < this.flagGroup.children.length; x++) {
+                    this.flagGroup.children[x].input.enabled = false;
+                }
+
                 this.click.play()
 
                 this.game.add.tween(flag)
@@ -145,6 +150,7 @@ export default class extends Phaser.State {
                     this.game.state.states['Game']._langCode = language[name];
 
                     this.time.events.add(1100, () => {
+                        this.text.hide();
                         this.state.start('Game')
                     })
                 })

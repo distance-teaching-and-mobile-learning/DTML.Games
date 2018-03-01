@@ -25,17 +25,28 @@ export default class extends Phaser.Text {
     }
 
     changeText(word) {
-        this.text = word;
+        this.text = this.properCase(word);
     }
 
     showTick() {
         this.alpha = 1;
         var tween = game.add.tween(this).to({
             y: this.origY - 200
-        }, 1650, Phaser.Easing.Linear.Out, true);
+        }, 1500, Phaser.Easing.Linear.Out, true);
         tween.onComplete.add(() => {
             this.alpha = 0;
             this.y = this.origY;
         });
+    }
+
+    properCase(word) {
+        let arrayOfWords = word.split(' ');
+        var returnProperCase = '';
+
+        for (var x = 0; x < arrayOfWords.length; x++) {
+            returnProperCase += arrayOfWords[x].charAt(0).toUpperCase() + arrayOfWords[x].slice(1) + ' ';
+        }
+
+        return returnProperCase;
     }
 }
