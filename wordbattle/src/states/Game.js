@@ -141,7 +141,6 @@ export default class extends Phaser.State {
             iconAttack.events.onInputDown.add(this.submitAnswer, this);
             //game.add.tween(iconAttack.scale).to({x: 0.5 * game.scaleRatio}, 500, Phaser.Easing.Bounce.Out, true)
         });
-        console.log(this.textBox);
 
         // create heart to represent life
         this.life = [];
@@ -177,10 +176,34 @@ export default class extends Phaser.State {
         this.health = 5;
         this.currIndex = 0;
 
-        var enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
-        enterKey.onUp.add(this.submitAnswer, this);
-        game.input.enabled = true;
+        this.fetchNextSet();
+        this.correctText = new FreeText({
+            game: this.game,
+            x: this.game.world.centerX * 0.3,
+            y: this.game.world.centerY * 0.7,
+            text: '0'
+        });
 
+    }
+
+    gameOver() {
+        fetch('https://dtml.org/Activity/RecordUserActivity/id=wordsbattle&score=' +
+            this.scoreText.text + '&complexity=' + this.complexity, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(err => {
+                console.log('err', err)
+            });
+    }
+
+    fetchNextSet() {
         fetch('https://dtml.org/api/GameService/Words?step=1', {
             headers: {
                 'Accept': 'application/json',
@@ -196,16 +219,11 @@ export default class extends Phaser.State {
             .catch(err => {
                 console.log('err', err)
             });
-
-        this.correctText = new FreeText({
-            game: this.game,
-            x: this.game.world.centerX * 0.3,
-            y: this.game.world.centerY * 0.7,
-            text: '0'
-        });
     }
 
     loadNextAnswer() {
+        if (this.currIndex == this.words.length)
+            this.fetchNextSet();
         let word = this.words[this.currIndex];
         this.banner.text = this.correctText.properCase(word);
         this.currentWord = word;
@@ -305,7 +323,7 @@ export default class extends Phaser.State {
 
             game.time.events.add(700, () => {
                 this.wiz.setAnimationSpeedPercent(100)
-                if(this.health <= 0)
+                if (this.health <= 0)
                     this.wiz.playAnimationByName('_DIE')
                 else
                     this.wiz.playAnimationByName('_HURT')
@@ -329,13 +347,14 @@ export default class extends Phaser.State {
             })
 
             game.time.events.add(1700, () => {
-                if(this.health > 0) {
+                if (this.health > 0) {
                     this.wiz.setAnimationSpeedPercent(40)
                     this.wiz.playAnimationByName('_IDLE')
                 }
 
                 if (this.health <= 0) {
                     this.correctText.hide();
+                    this.gameOver()
                     this.showMenu()
                 }
 
@@ -354,10 +373,10 @@ export default class extends Phaser.State {
     }
 
     update() {
-        if(this.textBox.value != '')
-            if(!this.textBox.focus)
+        if (this.textBox.value != '')
+            if (!this.textBox.focus)
                 this.submitAnswer();
-        if(!this.textBox.focus)
+        if (!this.textBox.focus)
             this.textBox.startFocus();
         this.textBox.update();
         this.wiz.updateAnimation()

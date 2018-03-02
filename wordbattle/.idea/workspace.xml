@@ -30,11 +30,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Game.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Game.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/states/Game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="218" column="37" lean-forward="false" selection-start-line="218" selection-start-column="37" selection-end-line="218" selection-end-column="37" />
+            <state relative-caret-position="211">
+              <caret line="205" column="5" lean-forward="false" selection-start-line="205" selection-start-column="5" selection-end-line="205" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Flags.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/sprites/Flags.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="151">
+              <caret line="9" column="33" lean-forward="false" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -63,8 +73,8 @@
       <file leaf-file-name="FreeText.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sprites/FreeText.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="31">
-              <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="20" />
+            <state relative-caret-position="132">
+              <caret line="8" column="11" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -121,10 +131,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>if this.hea</find>
-      <find>this.text</find>
-      <find>tick</find>
-      <find>properCase</find>
       <find>flags</find>
       <find>width</find>
       <find>he</find>
@@ -146,11 +152,15 @@
       <find>this.input</find>
       <find>this.textBox</find>
       <find>update</find>
-      <find>this.health</find>
       <find>fram</find>
       <find>submitAnswer</find>
       <find>textBox</find>
       <find>submit</find>
+      <find>this.heal</find>
+      <find>this.health</find>
+      <find>console.log</find>
+      <find>lt</find>
+      <find>la</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -170,9 +180,9 @@
         <option value="$PROJECT_DIR$/src/config.js" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/src/states/Splash.js" />
-        <option value="$PROJECT_DIR$/src/sprites/Flags.js" />
         <option value="$PROJECT_DIR$/src/states/Menu.js" />
         <option value="$PROJECT_DIR$/src/states/Game.js" />
+        <option value="$PROJECT_DIR$/src/sprites/Flags.js" />
       </list>
     </option>
   </component>
@@ -398,12 +408,12 @@
       <option name="presentableId" value="Default" />
       <updated>1519694363311</updated>
       <workItem from="1519694364613" duration="1648000" />
-      <workItem from="1519706341004" duration="52972000" />
+      <workItem from="1519706341004" duration="55601000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54620000" />
+    <option name="totallyTimeSpent" value="57249000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="0" />
@@ -677,22 +687,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sprites/Flags.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1049">
-          <caret line="64" column="35" lean-forward="true" selection-start-line="64" selection-start-column="35" selection-end-line="64" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sprites/FreeText.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="31">
-          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/states/Splash.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -719,10 +713,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/sprites/FreeText.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="8" column="11" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/states/Game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="218" column="37" lean-forward="false" selection-start-line="218" selection-start-column="37" selection-end-line="218" selection-end-column="37" />
+        <state relative-caret-position="211">
+          <caret line="205" column="5" lean-forward="false" selection-start-line="205" selection-start-column="5" selection-end-line="205" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sprites/Flags.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="9" column="33" lean-forward="false" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
           <folding />
         </state>
       </provider>
