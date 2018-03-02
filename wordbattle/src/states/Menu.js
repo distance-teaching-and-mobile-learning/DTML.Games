@@ -39,7 +39,7 @@ export default class extends Phaser.State {
         });
         Object.keys(flags).forEach((name, idx) => {
             let flag = game.add.sprite(posx, posy, name)
-            flag.frameName = flags[name]
+            // flag.frameName = flags[name]
             flag.anchor.set(0.5)
             flag.width = width
             flag.height = height

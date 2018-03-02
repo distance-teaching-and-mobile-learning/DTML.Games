@@ -125,7 +125,8 @@ export default class extends Phaser.State {
             borderWidth: 1,
             borderColor: '#000',
             borderRadius: 6,
-            placeHolder: 'Your answer:'
+            placeHolder: 'Your answer:',
+            focusOutOnEnter: false
         });
         this.textBox.scale.set(0, 1 * game.scaleRatio);
         game.add.tween(this.textBox.scale).to({x: 1 * game.scaleRatio}, 500, Phaser.Easing.Cubic.Out, true, 2500)
@@ -140,6 +141,7 @@ export default class extends Phaser.State {
             iconAttack.events.onInputDown.add(this.submitAnswer, this);
             //game.add.tween(iconAttack.scale).to({x: 0.5 * game.scaleRatio}, 500, Phaser.Easing.Bounce.Out, true)
         });
+        console.log(this.textBox);
 
         // create heart to represent life
         this.life = [];
@@ -214,10 +216,7 @@ export default class extends Phaser.State {
     submitAnswer() {
         if (this.canFire && this.textBox.value != '' && this.textBox.value != null) {
             let answer = this.textBox.value;
-            this.textBox.text.text = '';
-            this.textBox.value = '';
-            console.log(this.textBox.text);
-            console.log(answer);
+            this.textBox.resetText();
             this.canFire = false;
             fetch('https://dtml.org/api/GameService/CheckWord?source=' + this.currentWord + '&guess=' + answer +
                 '&lan=' + this.langCode, {
@@ -242,7 +241,6 @@ export default class extends Phaser.State {
     }
 
     castSpell(complexity) {
-        console.log(complexity);
         this.wiz.setAnimationSpeedPercent(100);
         this.wiz.playAnimationByName('_ATTACK');
         this.blaster.play();
@@ -264,7 +262,7 @@ export default class extends Phaser.State {
             }, 700, Phaser.Easing.Cubic.In, true);
             tween.onComplete.add(() => {
 
-                this.scoreText.text = String(parseInt(this.scoreText.text) + complexity);
+                this.scoreText.text = String(parseInt(this.scoreText.text) + (complexity * 10));
                 this.wiz.setAnimationSpeedPercent(40);
                 this.wiz.playAnimationByName('_IDLE');
 
@@ -356,6 +354,12 @@ export default class extends Phaser.State {
     }
 
     update() {
+        if(this.textBox.value != '')
+            if(!this.textBox.focus)
+                this.submitAnswer();
+        if(!this.textBox.focus)
+            this.textBox.startFocus();
+        this.textBox.update();
         this.wiz.updateAnimation()
         this.gnome.updateAnimation()
     }
