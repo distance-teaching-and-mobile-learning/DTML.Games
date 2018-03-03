@@ -175,6 +175,7 @@ export default class extends Phaser.State {
         this.canFire = true;
         this.health = 5;
         this.currIndex = 0;
+		this.currLevel = 1;
 
         this.fetchNextSet();
         this.correctText = new FreeText({
@@ -187,7 +188,7 @@ export default class extends Phaser.State {
     }
 
     gameOver() {
-        fetch('https://dtml.org/Activity/RecordUserActivity/id=wordsbattle&score=' +
+        fetch('https://dtml.org/Activity/RecordUserActivity?id=wordsbattle&score=' +
             this.scoreText.text + '&complexity=' + this.complexity, {
             headers: {
                 'Accept': 'application/json',
@@ -204,7 +205,7 @@ export default class extends Phaser.State {
     }
 
     fetchNextSet() {
-        fetch('https://dtml.org/api/GameService/Words?step=1', {
+        fetch('https://dtml.org/api/GameService/Words?step='+this.currLevel, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -214,7 +215,9 @@ export default class extends Phaser.State {
             .then(data => {
                 this.complexity = data.complexity;
                 this.words = data.words;
+				this.currIndex = 0;
                 this.loadNextAnswer();
+                this.currLevel ++;				
             })
             .catch(err => {
                 console.log('err', err)
