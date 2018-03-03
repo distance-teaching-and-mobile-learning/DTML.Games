@@ -34,7 +34,7 @@ export default class extends Phaser.State {
         this.text = new FreeText({
             game: this.game,
             x: this.game.world.centerX,
-            y: this.game.world.centerY * 0.085,
+            y: this.game.world.centerY * 0.2,
             text: ''
         });
         Object.keys(flags).forEach((name, idx) => {
