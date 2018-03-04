@@ -213,6 +213,7 @@ export default class extends Phaser.State {
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data);
                 this.complexity = data.complexity;
                 this.words = data.words;
 				this.currIndex = 0;
@@ -225,7 +226,7 @@ export default class extends Phaser.State {
     }
 
     loadNextAnswer() {
-        if (this.currIndex == this.words.length)
+        if (this.currIndex >= 19)
             this.fetchNextSet();
         let word = this.words[this.currIndex];
         this.banner.text = this.correctText.properCase(word);
