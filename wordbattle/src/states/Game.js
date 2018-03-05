@@ -426,7 +426,7 @@ export default class extends Phaser.State {
         // iconGroup.add(icon);
         //iconGroup.add(g);
 
-        this.icon = icon
+        this.icon = icon;
 
         return icon
     }
