@@ -36,7 +36,8 @@ export default class extends Phaser.State {
             game: this.game,
             x: this.game.world.centerX,
             y: this.game.world.centerY * 0.2,
-            text: ''
+            text: '',
+            cloudEnabled: false
         });
         Object.keys(flags).forEach((name, idx) => {
             let flag = game.add.sprite(posx, posy, name);

@@ -182,16 +182,18 @@ export default class extends Phaser.State {
             game: this.game,
             x: this.world.width * 0.25,
             y: this.game.world.centerY * 0.7,
-            text: '0'
+            text: '0',
+            cloudEnabled: true
         });
 
         this.addScoreText = new FreeText({
             game: this.game,
             x: this.world.width * 0.75,
             y: this.game.world.centerY * 0.7,
-            text: '0'
+            text: '0',
+            cloudEnabled: true
         });
-        this.addScoreText.fill = "#00ff00";
+        this.addScoreText.text.fill = "#00ff00";
     }
 
     gameOver() {
