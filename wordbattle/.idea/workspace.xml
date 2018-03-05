@@ -18,11 +18,21 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file leaf-file-name="Boot.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/states/Boot.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="46" column="25" lean-forward="false" selection-start-line="42" selection-start-column="20" selection-end-line="46" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Menu.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/states/Menu.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="76" column="30" lean-forward="false" selection-start-line="76" selection-start-column="30" selection-end-line="76" selection-end-column="30" />
+            <state relative-caret-position="1628">
+              <caret line="74" column="43" lean-forward="true" selection-start-line="74" selection-start-column="43" selection-end-line="74" selection-end-column="43" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
               </folding>
@@ -30,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Game.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Game.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/states/Game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="393">
-              <caret line="229" column="32" lean-forward="true" selection-start-line="229" selection-start-column="32" selection-end-line="229" selection-end-column="32" />
+            <state relative-caret-position="173">
+              <caret line="168" column="62" lean-forward="true" selection-start-line="168" selection-start-column="62" selection-end-line="168" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -45,16 +55,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="371">
               <caret line="19" column="23" lean-forward="true" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="phaser-input.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/@orange-games/phaser-input/build/phaser-input.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="606" column="62" lean-forward="false" selection-start-line="606" selection-start-column="61" selection-end-line="606" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -149,7 +149,6 @@
       <find>this.input</find>
       <find>this.textBox</find>
       <find>update</find>
-      <find>fram</find>
       <find>submitAnswer</find>
       <find>textBox</find>
       <find>submit</find>
@@ -160,6 +159,7 @@
       <find>la</find>
       <find>fetchNext</find>
       <find>loadNextAnswer</find>
+      <find>fram</find>
       <find>currIndex</find>
     </findStrings>
   </component>
@@ -329,7 +329,7 @@
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="js.eslint.eslintPackage" value="D:\Work\Guru\WordBattle\wordbattle\node_modules\eslint" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
-    <property name="SearchEverywhereHistoryKey" value="spla&#9;FILE&#9;file://D:/Work/Guru/WordBattle/wordbattle/src/states/Splash.js&#10;game&#9;FILE&#9;file://D:/Work/Guru/WordBattle/wordbattle/src/states/Game.js&#10;Game&#9;FILE&#9;file://D:/Work/Guru/WordBattle/wordbattle/src/states/Game.js&#10;Splash&#9;FILE&#9;file://D:/Work/Guru/WordBattle/wordbattle/src/states/Splash.js&#10;Mush&#9;FILE&#9;file://D:/Work/Guru/WordBattle/wordbattle/src/sprites/Mushroom.js&#10;index.html&#9;FILE&#9;file://D:/Work/Guru/WordBattle/wordbattle/src/index.html" />
+    <property name="SearchEverywhereHistoryKey" value="Boot&#9;FILE&#9;file://D:/Work/Guru/WordBattle/wordbattle/src/states/Boot.js&#10;spla&#9;FILE&#9;file://D:/Work/Guru/WordBattle/wordbattle/src/states/Splash.js&#10;game&#9;FILE&#9;file://D:/Work/Guru/WordBattle/wordbattle/src/states/Game.js&#10;Game&#9;FILE&#9;file://D:/Work/Guru/WordBattle/wordbattle/src/states/Game.js&#10;Splash&#9;FILE&#9;file://D:/Work/Guru/WordBattle/wordbattle/src/states/Splash.js&#10;Mush&#9;FILE&#9;file://D:/Work/Guru/WordBattle/wordbattle/src/sprites/Mushroom.js&#10;index.html&#9;FILE&#9;file://D:/Work/Guru/WordBattle/wordbattle/src/index.html" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -408,12 +408,12 @@
       <option name="presentableId" value="Default" />
       <updated>1519694363311</updated>
       <workItem from="1519694364613" duration="1648000" />
-      <workItem from="1519706341004" duration="57791000" />
+      <workItem from="1519706341004" duration="59048000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59439000" />
+    <option name="totallyTimeSpent" value="60696000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="0" />
@@ -627,16 +627,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/states/Boot.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="43" column="43" lean-forward="true" selection-start-line="43" selection-start-column="43" selection-end-line="43" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#27#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/images/alex-bisleys_horsy_512x512.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -695,16 +685,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/states/Menu.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="76" column="30" lean-forward="false" selection-start-line="76" selection-start-column="30" selection-end-line="76" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/@orange-games/phaser-input/build/phaser-input.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="173">
@@ -729,10 +709,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/states/Menu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1628">
+          <caret line="74" column="43" lean-forward="true" selection-start-line="74" selection-start-column="43" selection-end-line="74" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/states/Game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="229" column="32" lean-forward="true" selection-start-line="229" selection-start-column="32" selection-end-line="229" selection-end-column="32" />
+        <state relative-caret-position="173">
+          <caret line="168" column="62" lean-forward="true" selection-start-line="168" selection-start-column="62" selection-end-line="168" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/states/Boot.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="46" column="25" lean-forward="false" selection-start-line="42" selection-start-column="20" selection-end-line="46" selection-end-column="25" />
           <folding />
         </state>
       </provider>

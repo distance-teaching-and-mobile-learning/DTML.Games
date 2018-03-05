@@ -213,7 +213,6 @@ export default class extends Phaser.State {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 this.complexity = data.complexity;
                 this.words = data.words;
 				this.currIndex = 0;
