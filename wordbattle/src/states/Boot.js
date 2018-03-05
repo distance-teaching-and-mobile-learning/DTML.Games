@@ -33,6 +33,8 @@ export default class extends Phaser.State {
         active: this.fontsLoaded
       })
     }
+    console.log(game);
+    console.log(window.innerWidth);
 
     // let text = this.add.text(this.world.centerX, this.world.centerY, 'loading fonts', { font: '16px Arial', fill: '#dddddd', align: 'center' })
     // text.anchor.setTo(0.5, 0.5)
@@ -49,10 +51,10 @@ export default class extends Phaser.State {
     let scale_ratio;
     let canvas_height_max = 900;
     let canvas_width_max = 1140;
-    let width = window.screen.availWidth * window.devicePixelRatio
-    let height = window.screen.availHeight * window.devicePixelRatio
+    let width = game.width//window.screen.availWidth * window.devicePixelRatio
+    let height = game.height//window.screen.availHeight * window.devicePixelRatio
     game.aspectRatio = width / height
-    game.scaleRatio = game.width / canvas_width_max
+    game.scaleRatio = 1//game.width / canvas_width_max
 
     console.log('game dimension: ', game.width, 'x', game.height, 'height * scaleRatio', game.height * game.scaleRatio)
     if (game.aspectRatio < 1) {

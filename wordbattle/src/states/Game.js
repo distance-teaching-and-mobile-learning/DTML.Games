@@ -32,21 +32,21 @@ export default class extends Phaser.State {
         this.spritesGroup = this.add.group();
 
         this.wiz = this.loadSpriter('wizard');
-        this.wiz.scale.set(0.17 * game.scaleRatio);
-        this.wiz.x = -150 * game.scaleRatio;
-        this.wiz.y = this.world.height - 170 * game.scaleRatio;
+        this.wiz.scale.set(0.20 * game.scaleRatio);
+        this.wiz.x = -180 * game.scaleRatio;
+        this.wiz.y = this.world.height * 0.65 * game.scaleRatio;
         this.spritesGroup.add(this.wiz);
 
         this.gnome = this.loadSpriter('gnome');
-        this.gnome.scale.set(-0.3 * game.scaleRatio, 0.3 * game.scaleRatio);
+        this.gnome.scale.set(-0.33 * game.scaleRatio, 0.33 * game.scaleRatio);
 
         this.gnome.children.forEach(sprite => {
             sprite.anchor.set(0, 1)
         });
 
-        this.gnome.x = game.width + 150 * game.scaleRatio;
-        this.gnome.startx = game.width - 150 * game.scaleRatio;
-        this.gnome.y = this.world.height - 100 * game.scaleRatio;
+        this.gnome.x = game.width + 180 * game.scaleRatio;
+        this.gnome.startx = this.world.width * 0.75 * game.scaleRatio;
+        this.gnome.y = this.world.height * 0.73 * game.scaleRatio;
         this.gnome.setAnimationSpeedPercent(40);
         this.gnome.playAnimationByName('_IDLE');
         this.spritesGroup.add(this.gnome);
@@ -54,7 +54,7 @@ export default class extends Phaser.State {
         // intro sequence
         this.wiz.setAnimationSpeedPercent(200);
         this.wiz.playAnimationByName('_RUN');
-        game.add.tween(this.wiz).to({x: 150 * game.scaleRatio}, 1500, Phaser.Easing.Linear.None, true, 1500)
+        game.add.tween(this.wiz).to({x: this.world.width * 0.25 * game.scaleRatio}, 1500, Phaser.Easing.Linear.None, true, 1500)
             .onComplete.add(() => {
             this.wiz.setAnimationSpeedPercent(30);
             this.wiz.playAnimationByName('_IDLE');
@@ -62,7 +62,7 @@ export default class extends Phaser.State {
 
         this.gnome.setAnimationSpeedPercent(200);
         this.gnome.playAnimationByName('_RUN');
-        game.add.tween(this.gnome).to({x: game.width - 150 * game.scaleRatio}, 1500, Phaser.Easing.Linear.None, true, 1500)
+        game.add.tween(this.gnome).to({x: this.world.width * 0.75 * game.scaleRatio}, 1500, Phaser.Easing.Linear.None, true, 1500)
             .onComplete.add(() => {
             this.gnome.setAnimationSpeedPercent(30);
             this.gnome.playAnimationByName('_IDLE');
@@ -180,11 +180,18 @@ export default class extends Phaser.State {
         this.fetchNextSet();
         this.correctText = new FreeText({
             game: this.game,
-            x: this.game.world.centerX * 0.3,
+            x: this.world.width * 0.25,
             y: this.game.world.centerY * 0.7,
             text: '0'
         });
 
+        this.addScoreText = new FreeText({
+            game: this.game,
+            x: this.world.width * 0.75,
+            y: this.game.world.centerY * 0.7,
+            text: '0'
+        });
+        this.addScoreText.fill = "#00ff00";
     }
 
     gameOver() {
@@ -225,7 +232,7 @@ export default class extends Phaser.State {
     }
 
     loadNextAnswer() {
-        if (this.currIndex >= 19)
+        if (this.currIndex >= this.words.length - 1)
             this.fetchNextSet();
         let word = this.words[this.currIndex];
         this.banner.text = this.correctText.properCase(word);
@@ -292,6 +299,8 @@ export default class extends Phaser.State {
 
                 this.gnome.setAnimationSpeedPercent(100);
                 this.gnome.playAnimationByName('_HURT');
+                this.addScoreText.changeText('+'+ parseInt(complexity * 10));
+                this.addScoreText.showTick()
                 this.explosion.play();
 
                 game.time.events.add(1000, () => {

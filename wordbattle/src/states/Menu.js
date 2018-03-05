@@ -16,7 +16,7 @@ export default class extends Phaser.State {
     create() {
         let bg1 = game.add.sprite(game.world.centerX, game.world.centerY, 'bg1');
         bg1.anchor.set(0.5);
-        bg1.scale.set(0.6 * game.scaleRatio);
+        // bg1.scale.set(0.6 * game.scaleRatio);
 
         this.click = game.add.audio('click');
         this.hover = game.add.audio('hover');
