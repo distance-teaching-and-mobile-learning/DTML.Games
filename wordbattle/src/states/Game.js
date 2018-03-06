@@ -318,22 +318,22 @@ export default class extends Phaser.State {
     }
 
     gnomeAttack() {
-        this.health--
-        this.canFire = false
+        this.health--;
+        this.canFire = false;
 
-        this.gnome.setAnimationSpeedPercent(200)
-        this.gnome.playAnimationByName('_RUN')
-        this.steps.loopFull()
+        this.gnome.setAnimationSpeedPercent(200);
+        this.gnome.playAnimationByName('_RUN');
+        this.steps.loopFull();
 
         game.add.tween(this.gnome).to({x: this.wiz.x + this.wiz.width}, 1300, Phaser.Easing.Cubic.In, true)
             .onComplete.add(() => {
-            this.gnome.setAnimationSpeedPercent(100)
-            this.gnome.playAnimationByName('_ATTACK')
-            this.steps.stop()
+            this.gnome.setAnimationSpeedPercent(100);
+            this.gnome.playAnimationByName('_ATTACK');
+            this.steps.stop();
 
             game.time.events.add(500, () => {
                 this.woosh.play()
-            })
+            });
 
             game.time.events.add(700, () => {
                 this.wiz.setAnimationSpeedPercent(100)

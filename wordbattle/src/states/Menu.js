@@ -51,7 +51,7 @@ export default class extends Phaser.State {
                 this.hover.play();
                 this.text.changeText(name);
                 this.text.display();
-                flagGroup.bringToTop(flag);
+                this.game.world.bringToTop(flag);
                 this.game.add.tween(flag)
                     .to({width: width * 2, height: height * 2}, 200, Phaser.Easing.Back.Out, true)
             }, this);
@@ -61,6 +61,7 @@ export default class extends Phaser.State {
                     .to({width: width, height: height}, 200, Phaser.Easing.Back.Out, true)
             }, this);
             flag.events.onInputDown.add(() => {
+                this.flagGroup.bringToTop(flag);
                 for (var x = 0; x < this.flagGroup.children.length; x++) {
                     this.flagGroup.children[x].input.enabled = false;
                 }
@@ -71,8 +72,8 @@ export default class extends Phaser.State {
                     .to({
                         width: width * 5,
                         height: height * 5,
-                        x: this.world.centerX * 0.5,
-                        y: this.world.centerY * 0.5
+                        // x: this.world.centerX * 0.5,
+                        // y: this.world.centerY * 0.5
                     }, 500, Phaser.Easing.Back.Out, true)
                     .onComplete.add(() => {
                     this.flagGroup.children.forEach(flag => {
@@ -163,9 +164,10 @@ export default class extends Phaser.State {
 
     getFlag(direction) {
         let index = this.flagIndex;
+        console.log("OldIndex:" + index);
         switch (direction) {
             case 'up':
-                if (index > 8)
+                if (index >= 8)
                     index -= 8;
                 else {
                     let offset = 8 - index;
@@ -196,7 +198,7 @@ export default class extends Phaser.State {
                 break;
         }
         this.flagIndex = index;
-        console.log("FlagIndex:" + this.flagIndex);
+        console.log("NewIndex:" + index);
         this.selectedFlag = this.flagGroup.children[this.flagIndex];
         this.text.changeText(this.selectedFlag.key);
         this.text.display();
