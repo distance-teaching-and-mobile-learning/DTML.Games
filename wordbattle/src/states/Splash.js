@@ -3,6 +3,8 @@ import {centerGameObjects} from '../utils'
 import PhaserInput from '../libs/phaser-input'
 import PhaserJuicy from '../libs/juicy'
 import {flags, languages} from '../sprites/Flags'
+import config from '../config';
+import WebFont from 'webfontloader'
 
 export default class extends Phaser.State {
     init() {
@@ -24,6 +26,14 @@ export default class extends Phaser.State {
         this.game.juicy = this.add.plugin(new PhaserJuicy(this))
         //
         // load your assets
+        if (config.webfonts.length) {
+            WebFont.load({
+                google: {
+                    families: config.webfonts
+                },
+                active: this.fontsLoaded
+            })
+        }
         //
         // this.load.video('intro', 'assets/videos/intro.webm');
         this.load.image('mushroom', 'assets/images/mushroom2.png')
@@ -48,6 +58,7 @@ export default class extends Phaser.State {
         this.load.image('bg7', 'assets/images/layers/l7_ground.png')
         this.load.image('horsey', 'assets/images/alex-bisleys_horsy_512x512.png')
         this.load.image('cloud', 'assets/images/cloud.png');
+        this.load.image('scroll', 'assets/images/scroll.png');
 
         // audio
         this.load.audio('gameMusic', 'assets/audio/music/music_david_gwyn_jones_teddy_comes_too_instrumental.mp3')
@@ -57,6 +68,8 @@ export default class extends Phaser.State {
         this.load.audio('hover', 'assets/audio/ButtonHover.wav')
         this.load.audio('steps', 'assets/audio/LandingFootsteps.wav')
         this.load.audio('woosh', 'assets/audio/Whoosh.wav')
+
+
 
         Object.keys(flags).forEach((name, idx)=>{
             this.load.image(name, 'assets/images/flags/' + flags[name] + '.png');
@@ -69,7 +82,7 @@ export default class extends Phaser.State {
 
     loadStart() {
         this.loadingText = this.add.text(20, this.world.height - 32, 'Loading...', {
-            font: '20px Arial',
+            font: '20px Berkshire Swash',
             fill: '#ffffff'
         });
     }
@@ -101,5 +114,9 @@ export default class extends Phaser.State {
 
     create() {
 
+    }
+
+    fontsLoaded() {
+        this.fontsReady = true
     }
 }

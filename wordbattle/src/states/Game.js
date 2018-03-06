@@ -6,6 +6,7 @@ import Background from '../sprites/background'
 
 export default class extends Phaser.State {
     init() {
+        this.wizDead = false;
     }
 
     preload() {
@@ -76,12 +77,12 @@ export default class extends Phaser.State {
             })
 
             var label = game.add.text(this.world.width * 0.85, this.game.world.centerY * 0.2, 'Score: ', {
-                font: "32px Arial",
+                font: "32px Berkshire Swash",
                 fill: '#FFF'
             });
             label.anchor.setTo(0.5);
             this.scoreText = game.add.text(this.world.width * 0.93, this.game.world.centerY * 0.2, '0', {
-                font: "40px Arial",
+                font: "40px Berkshire Swash",
                 fill: '#FFF'
             });
             this.scoreText.anchor.setTo(0.5);
@@ -102,7 +103,7 @@ export default class extends Phaser.State {
         questionField.scale.set(0, 1 * game.scaleRatio);
 
         this.banner = this.add.text(0, 0, '', {
-            font: '40px Arial Black',
+            font: '40px Berkshire Swash Black',
             fill: '#000000',
             fontWeight: 'bold',
             smoothed: false
@@ -173,9 +174,9 @@ export default class extends Phaser.State {
         this.fireball.kill();
 
         this.canFire = true;
-        this.health = 5;
+        this.health = 1;
         this.currIndex = 0;
-		this.currLevel = 1;
+        this.currLevel = 1;
 
         this.fetchNextSet();
         this.correctText = new FreeText({
@@ -214,7 +215,7 @@ export default class extends Phaser.State {
     }
 
     fetchNextSet() {
-        fetch('https://dtml.org/api/GameService/Words?step='+this.currLevel, {
+        fetch('https://dtml.org/api/GameService/Words?step=' + this.currLevel, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -224,9 +225,9 @@ export default class extends Phaser.State {
             .then(data => {
                 this.complexity = data.complexity;
                 this.words = data.words;
-				this.currIndex = 0;
+                this.currIndex = 0;
                 this.loadNextAnswer();
-                this.currLevel ++;				
+                this.currLevel++;
             })
             .catch(err => {
                 console.log('err', err)
@@ -301,7 +302,7 @@ export default class extends Phaser.State {
 
                 this.gnome.setAnimationSpeedPercent(100);
                 this.gnome.playAnimationByName('_HURT');
-                this.addScoreText.changeText('+'+ parseInt(complexity * 10));
+                this.addScoreText.changeText('+' + parseInt(complexity * 10));
                 this.addScoreText.showTick()
                 this.explosion.play();
 
@@ -368,8 +369,9 @@ export default class extends Phaser.State {
 
                 if (this.health <= 0) {
                     this.correctText.hide();
+                    this.wizDead = true;
                     this.gameOver()
-                    this.showMenu()
+                    this.showScore();
                 }
 
                 this.loadNextAnswer();
@@ -381,19 +383,69 @@ export default class extends Phaser.State {
         })
     }
 
+    showScore() {
+        let scoreDisplay = this.game.add.sprite(this.game.world.centerX * 1.3, this.game.world.centerY, 'scroll');
+        scoreDisplay.anchor.setTo(0.5);
+        scoreDisplay.scale.setTo(0.2);
+        this.spritesGroup.add(scoreDisplay);
+
+        let label = this.game.add.text(scoreDisplay.x, scoreDisplay.y - (scoreDisplay.height * 0.18), 'Final Score', {
+            font: "50px Berkshire Swash",
+            fill: "#000",
+            align: "center"
+        });
+        label.fontWeight = 'bold';
+        label.anchor.setTo(0.5);
+        label.setShadow(0, 0, 'rgba(0, 0, 0, 0.5)', 0);
+
+        let scoreText = this.game.add.text(scoreDisplay.x, scoreDisplay.y - (scoreDisplay.height * 0.05), this.scoreText.text, {
+            font: "70px Berkshire Swash",
+            fill: "#000",
+            align: "center"
+        });
+        scoreText.anchor.setTo(0.5);
+
+        let resetButton = this.game.add.text(scoreDisplay.x, scoreDisplay.y + (scoreDisplay.height * 0.2), 'RESTART',{
+            font: "50px Berkshire Swash",
+            fill: "#333",
+            align: "center"
+        });
+        resetButton.anchor.setTo(0.5);
+        resetButton.inputEnabled = true;
+        resetButton.events.onInputDown.add(() => {
+            this.game.state.start('Menu');
+        });
+        resetButton.input.useHandCursor = true;
+
+        this.scoreWiz = this.loadSpriter('wizard');
+        this.scoreWiz.scale.set(0.38 * game.scaleRatio);
+        this.scoreWiz.x = scoreDisplay.x - (scoreDisplay.width);
+        this.scoreWiz.y = scoreDisplay.y + (scoreDisplay.height * 0.2);
+        this.scoreWiz.setAnimationSpeedPercent(40);
+        this.scoreWiz.playAnimationByName('_IDLE');
+        this.spritesGroup.add(this.scoreWiz);
+        this.spritesGroup.bringToTop(this.scoreWiz);
+    }
+
     showMenu() {
         this.music.pause()
         this.state.start('Menu')
     }
 
     update() {
-        if (this.textBox.value != '')
+        if (this.textBox.value != '' || this.wizDead)
             if (!this.textBox.focus)
-                this.submitAnswer();
+                if (!this.wizDead)
+                    this.submitAnswer();
+                else
+                    this.game.state.start('Menu');
         if (!this.textBox.focus)
             this.textBox.startFocus();
         this.textBox.update();
-        this.wiz.updateAnimation()
+        if (!this.wizDead)
+            this.wiz.updateAnimation()
+        else
+            this.scoreWiz.updateAnimation();
         this.gnome.updateAnimation()
     }
 

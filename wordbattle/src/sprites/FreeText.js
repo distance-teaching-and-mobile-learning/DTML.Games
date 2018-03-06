@@ -12,7 +12,7 @@ export default class extends Phaser.Sprite {
         this.origX = x;
         this.origY = y;
         this.alpha = 0;
-        this.text = game.add.text(x,y, text, {font: "45px Arial", fill: "#ff0044", align: "center"});
+        this.text = game.add.text(x,y, text, {font: "45px Berkshire Swash", fill: "#ff0044", align: "center"});
         this.text.anchor.setTo(0.5);
         this.text.alpha = 0;
         // this.addChild(this.text);

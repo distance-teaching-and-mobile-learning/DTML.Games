@@ -19,20 +19,12 @@ export default class extends Phaser.State {
       this.scale.refresh(true);
 
     console.log('starting')
-    this.stage.backgroundColor = '#000000'
-    this.fontsReady = false
-    this.fontsLoaded = this.fontsLoaded.bind(this)
+    // this.stage.backgroundColor = '#000000'
+    // this.fontsReady = false
+    // this.fontsLoaded = this.fontsLoaded.bind(this)
   }
 
   preload() {
-    if (config.webfonts.length) {
-      WebFont.load({
-        google: {
-          families: config.webfonts
-        },
-        active: this.fontsLoaded
-      })
-    }
     console.log(game);
     console.log(window.innerWidth);
 
@@ -69,16 +61,12 @@ export default class extends Phaser.State {
   }
 
   render() {
-    if (config.webfonts.length && this.fontsReady) {
-      this.state.start('Splash')
-    }
-    if (!config.webfonts.length) {
-      this.state.start('Splash')
-    }
+    // if (config.webfonts.length && this.fontsReady) {
+    //   this.state.start('Splash')
+    // }
+    // if (!config.webfonts.length) {
+    //   this.state.start('Splash')
+    // }
     this.state.start('Splash')
-  }
-
-  fontsLoaded() {
-    this.fontsReady = true
   }
 }
