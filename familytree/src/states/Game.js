@@ -240,6 +240,20 @@ export default class extends Phaser.State {
         this.twoKey = this.game.input.keyboard.addKey(Phaser.Keyboard.TWO);
         this.threeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.THREE);
         this.fourKey = this.game.input.keyboard.addKey(Phaser.Keyboard.FOUR);
+        this.aKey = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+
+        this.aKey.onDown.add(function(){
+            if(this.openMenu.frame ==0){
+                this.sidemenu.bringToTop();
+                this.game.world.bringToTop(this.listView.grp);
+                this.processMenu(this.closeBottommenu);
+                this.processMenu(this.openSidemenu);
+            }
+            else{
+               this.processMenu(this.closeSidemenu);
+               //this.processMenu(this.openBottommenu); 
+            }
+        }.bind(this), this);
 
         this.oneKey.onDown.add(function(){
             this.addParent('');
