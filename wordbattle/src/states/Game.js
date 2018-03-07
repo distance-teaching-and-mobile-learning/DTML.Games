@@ -200,6 +200,15 @@ export default class extends Phaser.State {
 
     gameOver() {
         this.questionField.alpha = 0;
+        console.log(this.wiz);
+        this.wiz.kill();
+        this.gnome.kill();
+        this.textBox.kill();
+
+        var enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+        enterKey.onDown.add(() => {
+            this.game.state.start('Menu');
+        }, this);
 
         fetch('https://dtml.org/Activity/RecordUserActivity?id=wordsbattle&score=' +
             this.scoreText.text + '&complexity=' + this.complexity, {
@@ -230,21 +239,26 @@ export default class extends Phaser.State {
                 this.words = data.words;
                 this.currIndex = 0;
                 this.loadNextAnswer();
-                this.currLevel++;
+                this.nextWord();
             })
             .catch(err => {
                 console.log('err', err)
             });
     }
 
-    loadNextAnswer() {
-        if (this.currIndex >= this.words.length - 1)
-            this.fetchNextSet();
+    nextWord() {
         let word = this.words[this.currIndex];
         this.banner.text = this.correctText.properCase(word);
         this.currentWord = word;
         this.currIndex++;
         this.canFire = true;
+    }
+
+    loadNextAnswer() {
+        if (this.currIndex >= 3)//this.words.length - 1)
+            this.fetchNextSet();
+        else
+            this.nextWord();
     }
 
     submitAnswer() {
@@ -441,16 +455,20 @@ export default class extends Phaser.State {
             if (!this.textBox.focus)
                 if (!this.wizDead)
                     this.submitAnswer();
-        } else if (this.wizDead && (this.restartEntered || !this.textBox.focus))
-            this.game.state.start('Menu');
-        if (!this.textBox.focus)
+        }
+        // else if (this.wizDead && (this.restartEntered || !this.textBox.focus))
+        //     this.game.state.start('Menu');
+
+        if (!this.textBox.focus && !this.wizDead)
             this.textBox.startFocus();
         this.textBox.update();
+
         if (!this.wizDead)
-            this.wiz.updateAnimation()
+            this.wiz.updateAnimation();
         else
             this.scoreWiz.updateAnimation();
-        this.gnome.updateAnimation()
+
+        this.gnome.updateAnimation();
     }
 
     render() {
@@ -467,22 +485,6 @@ export default class extends Phaser.State {
         let icon = game.add.sprite(x, y, key);
         icon.scale.set(0.45);
         icon.anchor.set(0.5);
-
-        // put a circle frame so we have rounded spell icons
-        // let g = game.add.graphics(0, 0);
-        // let radius = 40;
-        // g.lineStyle(20, 0x000000, 0);
-        // g.anchor.setTo(0, 0);
-        // let xo = icon.x;
-        // let yo = icon.y;
-        // g.moveTo(xo,yo + radius);
-        // for (let i = 0; i <= 360; i++){
-        //   let x = xo+ Math.sin(i * (Math.PI / 180)) * radius;
-        //   let y = yo+ Math.cos(i * (Math.PI / 180)) * radius;
-        //   g.lineTo(x,y);
-        // }
-        // iconGroup.add(icon);
-        //iconGroup.add(g);
 
         this.icon = icon;
 

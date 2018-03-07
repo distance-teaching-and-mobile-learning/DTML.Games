@@ -24,12 +24,12 @@ export default class extends Phaser.State {
         this.hover = game.add.audio('hover');
 
         let flagGroup = this.add.group();
+        this.indexedFlags = [];
         let gapx = 30 * game.scaleRatio;
         let posx = 40 * game.scaleRatio;
         let posy = 20 * game.scaleRatio;
         let width = 110 * game.scaleRatio;
         let height = 50 * game.scaleRatio;
-        this.flagIndex = 0;
         if (game.aspectRatio < 1) {
             height = 45 * game.scaleRatio
         }
@@ -42,7 +42,6 @@ export default class extends Phaser.State {
             cloudEnabled: false
         });
 
-        this.border = new Border({game:this.game, x:0, y:0, asset:'border'});
 
         Object.keys(flags).forEach((name, idx) => {
             let flag = game.add.sprite(posx, posy, name);
@@ -57,14 +56,13 @@ export default class extends Phaser.State {
                 this.text.changeText(name);
                 this.text.display();
                 this.animateSelectedFlag(flag);
-                // this.game.add.tween(flag)
-                //     .to({width: width * 2, height: height * 2}, 200, Phaser.Easing.Back.Out, true)
             }, this);
             flag.events.onInputDown.add(() => {
                 this.selectCurrentFlag(flag);
             });
 
             flagGroup.add(flag);
+            this.indexedFlags.push(flag);
 
             posx += flag.width + gapx;
             if (idx % 8 == 7) {
@@ -75,7 +73,6 @@ export default class extends Phaser.State {
         flagGroup.x = this.world.centerX - flagGroup.width / 2;
         flagGroup.y = this.world.centerY - flagGroup.height / 2;
         this.flagGroup = flagGroup;
-        this.game.world.addChild(this.border);
 
         this.flagIndex = 0;
         this.getFlag('');
@@ -122,8 +119,9 @@ export default class extends Phaser.State {
 
         this.game.add.tween(flag)
             .to({
-                alpha: 0
-            }, 500, Phaser.Easing.Bounce.Out, true)
+                width: flag.width * 2,
+                height: flag.height * 2
+            }, 500, Phaser.Easing.Elastic.Out, true)
             .onComplete.add(() => {
             flag.alpha = 1;
             this.flagGroup.children.forEach(flag => {
@@ -148,14 +146,14 @@ export default class extends Phaser.State {
                     index -= 8;
                 else {
                     let offset = 8 - index;
-                    index = this.flagGroup.children.length - offset;
+                    index = this.indexedFlags.length - offset;
                 }
                 break;
             case 'down':
-                if (index < this.flagGroup.children.length - 8)
+                if (index < this.indexedFlags.length - 8)
                     index += 8;
                 else {
-                    let offset = (index + 8) - this.flagGroup.children.length;
+                    let offset = (index + 8) - this.indexedFlags.length;
                     index = offset;
                 }
                 break;
@@ -163,10 +161,10 @@ export default class extends Phaser.State {
                 if (index > 0)
                     index -= 1;
                 else
-                    index = this.flagGroup.children.length - 1;
+                    index = this.indexedFlags.length - 1;
                 break;
             case 'right':
-                if (index < this.flagGroup.children.length - 1)
+                if (index < this.indexedFlags.length - 1)
                     index += 1;
                 else
                     index = 0;
@@ -175,17 +173,27 @@ export default class extends Phaser.State {
                 break;
         }
         this.flagIndex = index;
-        this.animateSelectedFlag(this.flagGroup.children[this.flagIndex]);
+        this.animateSelectedFlag(this.indexedFlags[this.flagIndex]);
+    }
+
+    unselectPreviousFlag() {
+        this.game.add.tween(this.selectedFlag)
+            .to({width: 110 * game.scaleRatio, height: 50 * game.scaleRatio}, 200, Phaser.Easing.Back.Out, true)
     }
 
     animateSelectedFlag(flag) {
-        this.selectedFlag = flag;
-        this.flagIndex = this.flagGroup.children.indexOf(flag);
-        this.border.highlightFlag(flag);
-        this.text.changeText(flag.key);
-        this.text.display();
-        this.game.world.bringToTop(flag);
+        if (this.selectedFlag != flag) {
+            if(null != this.selectedFlag)
+                this.unselectPreviousFlag();
+            this.selectedFlag = flag;
+            this.game.add.tween(flag)
+                .to({width: flag.width * 2, height: flag.height * 2}, 200, Phaser.Easing.Back.Out, true)
+
+            this.flagIndex = this.indexedFlags.indexOf(flag);
+            this.text.changeText(flag.key);
+            this.text.display();
+            this.flagGroup.bringToTop(flag);
+            this.game.world.bringToTop(flag);
+        }
     }
-
-
 }
