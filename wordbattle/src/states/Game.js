@@ -198,6 +198,12 @@ export default class extends Phaser.State {
     }
 
     gameOver() {
+        this.textBox.alpa = 0;
+        var enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+        enterKey.onDown.add(() => {
+            this.game.state.start('Menu');
+        }, this);
+
         fetch('https://dtml.org/Activity/RecordUserActivity?id=wordsbattle&score=' +
             this.scoreText.text + '&complexity=' + this.complexity, {
             headers: {
@@ -405,7 +411,7 @@ export default class extends Phaser.State {
         });
         scoreText.anchor.setTo(0.5);
 
-        let resetButton = this.game.add.text(scoreDisplay.x, scoreDisplay.y + (scoreDisplay.height * 0.2), 'RESTART',{
+        let resetButton = this.game.add.text(scoreDisplay.x, scoreDisplay.y + (scoreDisplay.height * 0.2), 'RESTART', {
             font: "50px Berkshire Swash",
             fill: "#333",
             align: "center"
@@ -433,12 +439,10 @@ export default class extends Phaser.State {
     }
 
     update() {
-        if (this.textBox.value != '' || this.wizDead)
+        if (this.textBox.value != '')
             if (!this.textBox.focus)
                 if (!this.wizDead)
                     this.submitAnswer();
-                else
-                    this.game.state.start('Menu');
         if (!this.textBox.focus)
             this.textBox.startFocus();
         this.textBox.update();

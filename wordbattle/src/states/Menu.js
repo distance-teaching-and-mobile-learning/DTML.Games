@@ -22,12 +22,14 @@ export default class extends Phaser.State {
         this.click = game.add.audio('click');
         this.hover = game.add.audio('hover');
 
+        this.flagSequence = [];
         let flagGroup = this.add.group();
         let gapx = 30 * game.scaleRatio;
         let posx = 40 * game.scaleRatio;
         let posy = 20 * game.scaleRatio;
         let width = 110 * game.scaleRatio;
         let height = 50 * game.scaleRatio;
+        this.flagIndex = 0;
         if (game.aspectRatio < 1) {
             height = 45 * game.scaleRatio
         }
@@ -39,6 +41,7 @@ export default class extends Phaser.State {
             text: '',
             cloudEnabled: false
         });
+
         Object.keys(flags).forEach((name, idx) => {
             let flag = game.add.sprite(posx, posy, name);
             flag.name = String(idx);
@@ -51,7 +54,6 @@ export default class extends Phaser.State {
                 this.hover.play();
                 this.text.changeText(name);
                 this.text.display();
-                this.game.world.bringToTop(flag);
                 this.game.add.tween(flag)
                     .to({width: width * 2, height: height * 2}, 200, Phaser.Easing.Back.Out, true)
             }, this);
@@ -91,6 +93,7 @@ export default class extends Phaser.State {
             });
 
             flagGroup.add(flag);
+            this.flagSequence.push(flag);
 
             posx += flag.width + gapx;
             if (idx % 8 == 7) {
