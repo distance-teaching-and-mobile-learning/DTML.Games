@@ -23,11 +23,11 @@ export default class extends Phaser.State {
             font: "26px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"
         });   
 
-        this.boyBtn = this.game.add.button(this.game.width*0.5, 150, 'boygirl', this.chooseMe, this);
+        this.boyBtn = this.game.add.button(this.game.width*0.5, 150, 'boygirl', function(){this.chooseMe(0);}.bind(this), this);
         this.boyBtn.x -= this.boyBtn.width;
         this.boyBtn.frame = 0;
 
-        this.girlBtn = this.game.add.button(this.game.width*0.5, 150, 'boygirl', this.chooseMe, this);
+        this.girlBtn = this.game.add.button(this.game.width*0.5, 150, 'boygirl',function(){this.chooseMe(1);}.bind(this), this);
         this.girlBtn.x += this.girlBtn.width*0.5;
         this.girlBtn.frame = 1;
 
@@ -37,6 +37,21 @@ export default class extends Phaser.State {
         this.family.pivot.x =this.game.width*0.5;
         this.family.pivot.y =  this.game.height*0.3;
 
+        this.aKey = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+        this.sKey = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
+
+        this.aKey.onDown.addOnce(function(){
+            this.aKey.onDown.removeAll();
+            this.sKey.onDown.removeAll();
+            this.chooseMe(0);
+        }.bind(this), this);
+
+        this.sKey.onDown.addOnce(function(){
+            this.aKey.onDown.removeAll();
+            this.sKey.onDown.removeAll();
+            this.chooseMe(1);
+        }.bind(this), this);
+            
     }
    
     createSideMenu() {
@@ -160,19 +175,19 @@ export default class extends Phaser.State {
         this.bottommenu = this.game.add.sprite(5, this.game.height, 'bottommenu');
         this.bottommenu.y += this.bottommenu.height;
 
-        this.addparents = this.game.add.button(this.bottommenu.x, 35, 'sharebtn', this.addParent, this,1,0,0,0);
+        this.addparents = this.game.add.button(this.bottommenu.x, 35, 'sharebtn',function(){ this.addParent('')}.bind(this), this,1,0,0,0);
         this.addparents.anchor.set(0.5,0.5);
         this.addparents.x += this.addparents.width;
 
-        this.addstepparents = this.game.add.button(this.bottommenu.x, 35, 'sharebtn', this.addParent, this,1,0,0,0);
+        this.addstepparents = this.game.add.button(this.bottommenu.x, 35, 'sharebtn', function(){ this.addParent(english.stepparents)}.bind(this), this,1,0,0,0);
         this.addstepparents.anchor.set(0.5,0.5);
         this.addstepparents.x += this.addstepparents.width*2.3;
 
-        this.addbrothers = this.game.add.button(this.bottommenu.width, 35, 'sharebtn', this.addBrother, this,1,0,0,0);
+        this.addbrothers = this.game.add.button(this.bottommenu.width, 35, 'sharebtn', function(){ this.addBrother('')}.bind(this), this,1,0,0,0);
         this.addbrothers.anchor.set(0.5,0.5);
         this.addbrothers.x -= this.addbrothers.width*2.3;
 
-        this.addstepbrothers = this.game.add.button(this.bottommenu.width, 35, 'sharebtn', this.addBrother, this,1,0,0,0);
+        this.addstepbrothers = this.game.add.button(this.bottommenu.width, 35, 'sharebtn', function(){ this.addBrother(english.stepbrothers)}.bind(this), this,1,0,0,0);
         this.addstepbrothers.anchor.set(0.5,0.5);
         this.addstepbrothers.x -= this.addstepbrothers.width;
 
@@ -219,13 +234,38 @@ export default class extends Phaser.State {
             menu.start();
     }
 
-    chooseMe(button){
-        var id = button.frame;
+    addKeyboardControls(){
+        this.cursors = this.game.input.keyboard.createCursorKeys();
+        this.oneKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ONE);
+        this.twoKey = this.game.input.keyboard.addKey(Phaser.Keyboard.TWO);
+        this.threeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.THREE);
+        this.fourKey = this.game.input.keyboard.addKey(Phaser.Keyboard.FOUR);
+
+        this.oneKey.onDown.add(function(){
+            this.addParent('');
+        }.bind(this), this);
+
+        this.twoKey.onDown.add(function(){
+            this.addParent(english.stepparents);
+        }.bind(this), this);
+
+        this.threeKey.onDown.add(function(){
+            this.addBrother('');
+        }.bind(this), this);
+
+        this.fourKey.onDown.add(function(){
+            this.addBrother(english.stepbrothers);
+        }.bind(this), this);
+    }
+
+    chooseMe(frame){
+        var id = frame;
         this.boyBtn.destroy(); 
         this.girlBtn.destroy(); 
         this.youText.destroy();
         this.processMenu(this.openBottommenu);
         this.openMenu.visible = true;
+        this.addKeyboardControls();
 
         var config = {
             nombre:  english.you,
@@ -331,7 +371,7 @@ export default class extends Phaser.State {
         //this.processMenu(this.openBottommenu);
     }
 
-    addParent(button){
+    addParent(text){
         if(!this.selectedNode || this.selectedNode.getParents() || this.selectedNode.relation == 'brothers' || this.selectedNode.relation == 'sibling') return;
 
         this.selectedNode.parentsCount++;
@@ -377,7 +417,7 @@ export default class extends Phaser.State {
                 }
             }  
        }
-       else if(button.children[0].text == english.stepparents){
+       else if(text == english.stepparents){
             relation = 'stepparents';
              if(this.selectedNode.parentsCount == 1){
                 direction = 'right';
@@ -432,7 +472,7 @@ export default class extends Phaser.State {
         //this.family.add(character2);
     }
 
-    addBrother(button){
+    addBrother(text){
         if(!this.selectedNode || (this.selectedNode.type != 'you' && this.selectedNode.relation != 'parents'  && this.selectedNode.relation != 'stepparents' && this.selectedNode.relation != 'sibling')) return;
 
         this.selectedNode.brotherCount++;
@@ -442,7 +482,7 @@ export default class extends Phaser.State {
              relation = 'sibling';
         else if(this.selectedNode.relation == 'sibling')
              relation = 'sibling';
-        else if(button.children[0].text == english.stepbrothers)
+        else if(text == english.stepbrothers)
              relation = 'stepbrothers';
         else if(this.selectedNode.relation == 'me')
              relation = 'brothers';
@@ -575,6 +615,20 @@ export default class extends Phaser.State {
     update() {
         
         if(this.selectedNode){
+            if(this.cursors.down.isDown){
+                this.family.y ++;
+            }
+            else if(this.cursors.up.isDown){
+                this.family.y --;
+            }
+            else if(this.cursors.left.isDown){
+                this.family.x --;
+            }
+            else if(this.cursors.right.isDown){
+                this.family.x ++;
+            }
+      
+
             if(this.click){
                     this.family.pivot.x = this.selectedNode.x;
                     this.family.pivot.y = this.selectedNode.y;

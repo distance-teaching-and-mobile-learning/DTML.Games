@@ -21,6 +21,21 @@ export default class extends Phaser.State {
       });
 
       this.playButton.alignIn(this.button, Phaser.TOP_CENTER, 0, -25);
+
+      this.enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+      this.aKey = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+
+      this.enterKey.onDown.addOnce(function(){
+          this.enterKey.onDown.removeAll();
+          this.aKey.onDown.removeAll();
+          this.stop();
+      }.bind(this), this);
+
+      this.aKey.onDown.addOnce(function(){
+          this.aKey.onDown.removeAll();
+          this.aKey.onDown.removeAll();
+          this.stop();
+      }.bind(this), this);
     }
 
     stop() {
