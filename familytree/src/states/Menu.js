@@ -24,6 +24,20 @@ export default class extends Phaser.State {
     }
 
     stop() {
+      try {
+
+      var data = { "envelop": null, "page": "familytree", "time": null, "eventType": "GameStarted", "eventData": navigator.userAgent }
+
+      $.ajax({
+          type: 'POST',
+          async: true,
+          processData: false,
+          contentType: 'application/json',
+          url: 'https://dtml.org/Activity/Record/',
+          data: JSON.stringify(data)
+      });
+     } catch (err) { }
+
       this.sfxbtn.play();
       this.startGame()
     }
