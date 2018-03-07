@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import FreeText from '../sprites/FreeText'
 import {flags, languages} from '../sprites/Flags'
+import Border from '../sprites/Border'
 
 Array.prototype.chunk = function (n) {
     if (!this.length) {
@@ -22,7 +23,6 @@ export default class extends Phaser.State {
         this.click = game.add.audio('click');
         this.hover = game.add.audio('hover');
 
-        this.flagSequence = [];
         let flagGroup = this.add.group();
         let gapx = 30 * game.scaleRatio;
         let posx = 40 * game.scaleRatio;
@@ -42,6 +42,8 @@ export default class extends Phaser.State {
             cloudEnabled: false
         });
 
+        this.border = new Border({game:this.game, x:0, y:0, asset:'border'});
+
         Object.keys(flags).forEach((name, idx) => {
             let flag = game.add.sprite(posx, posy, name);
             flag.name = String(idx);
@@ -54,46 +56,15 @@ export default class extends Phaser.State {
                 this.hover.play();
                 this.text.changeText(name);
                 this.text.display();
-                this.game.add.tween(flag)
-                    .to({width: width * 2, height: height * 2}, 200, Phaser.Easing.Back.Out, true)
-            }, this);
-            flag.events.onInputOut.add(() => {
-                this.text.hide();
-                this.game.add.tween(flag)
-                    .to({width: width, height: height}, 200, Phaser.Easing.Back.Out, true)
+                this.animateSelectedFlag(flag);
+                // this.game.add.tween(flag)
+                //     .to({width: width * 2, height: height * 2}, 200, Phaser.Easing.Back.Out, true)
             }, this);
             flag.events.onInputDown.add(() => {
-                this.flagGroup.bringToTop(flag);
-                for (var x = 0; x < this.flagGroup.children.length; x++) {
-                    this.flagGroup.children[x].input.enabled = false;
-                }
-
-                this.click.play();
-
-                this.game.add.tween(flag)
-                    .to({
-                        width: width * 5,
-                        height: height * 5,
-                        // x: this.world.centerX * 0.5,
-                        // y: this.world.centerY * 0.5
-                    }, 500, Phaser.Easing.Back.Out, true)
-                    .onComplete.add(() => {
-                    this.flagGroup.children.forEach(flag => {
-                        this.game.add.tween(flag)
-                            .to({width: 0, height: 0}, 1000, Phaser.Easing.Back.In, true)
-                    });
-                    this.game.state.states['Game']._language = name;
-                    this.game.state.states['Game']._langCode = languages[name];
-
-                    this.time.events.add(1100, () => {
-                        this.text.hide();
-                        this.state.start('Game')
-                    })
-                })
+                this.selectCurrentFlag(flag);
             });
 
             flagGroup.add(flag);
-            this.flagSequence.push(flag);
 
             posx += flag.width + gapx;
             if (idx % 8 == 7) {
@@ -104,6 +75,7 @@ export default class extends Phaser.State {
         flagGroup.x = this.world.centerX - flagGroup.width / 2;
         flagGroup.y = this.world.centerY - flagGroup.height / 2;
         this.flagGroup = flagGroup;
+        this.game.world.addChild(this.border);
 
         this.flagIndex = 0;
         this.getFlag('');
@@ -142,15 +114,18 @@ export default class extends Phaser.State {
     selectCurrentFlag() {
         let flag = this.selectedFlag;
         this.flagGroup.bringToTop(flag);
-        this.game.world.bringToTop(flag);
+        for (var x = 0; x < this.flagGroup.children.length; x++) {
+            this.flagGroup.children[x].input.enabled = false;
+        }
+
+        this.click.play();
+
         this.game.add.tween(flag)
             .to({
-                width: flag.width * 5,
-                height: flag.height * 5,
-                x: this.world.centerX * 0.5,
-                y: this.world.centerY * 0.5
-            }, 500, Phaser.Easing.Back.Out, true)
+                alpha: 0
+            }, 500, Phaser.Easing.Bounce.Out, true)
             .onComplete.add(() => {
+            flag.alpha = 1;
             this.flagGroup.children.forEach(flag => {
                 this.game.add.tween(flag)
                     .to({width: 0, height: 0}, 1000, Phaser.Easing.Back.In, true)
@@ -167,7 +142,6 @@ export default class extends Phaser.State {
 
     getFlag(direction) {
         let index = this.flagIndex;
-        console.log("OldIndex:" + index);
         switch (direction) {
             case 'up':
                 if (index >= 8)
@@ -201,25 +175,16 @@ export default class extends Phaser.State {
                 break;
         }
         this.flagIndex = index;
-        console.log("NewIndex:" + index);
-        this.selectedFlag = this.flagGroup.children[this.flagIndex];
-        this.text.changeText(this.selectedFlag.key);
-        this.text.display();
-        this.game.world.bringToTop(this.selectedFlag);
-        this.animateSelectedFlag(this.selectedFlag);
-        return this.selectedFlag;
+        this.animateSelectedFlag(this.flagGroup.children[this.flagIndex]);
     }
 
     animateSelectedFlag(flag) {
-        if(this.selectedFlag == flag) {
-            this.game.add.tween(flag)
-                .to({alpha: 0.2}, 400, Phaser.Easing.Linear.Out, true)
-                .onComplete.add(() => {
-                this.game.add.tween(flag)
-                    .to({alpha: 1}, 400, Phaser.Easing.Linear.In, true)
-                    .onComplete.add(this.animateSelectedFlag, this);
-            }, this);
-        }
+        this.selectedFlag = flag;
+        this.flagIndex = this.flagGroup.children.indexOf(flag);
+        this.border.highlightFlag(flag);
+        this.text.changeText(flag.key);
+        this.text.display();
+        this.game.world.bringToTop(flag);
     }
 
 

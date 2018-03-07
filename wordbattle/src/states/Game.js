@@ -7,9 +7,8 @@ import Background from '../sprites/background'
 export default class extends Phaser.State {
     init() {
         this.wizDead = false;
-    }
-
-    preload() {
+        this.restartEntered = false;
+        this.questionField = null;
     }
 
     create() {
@@ -23,7 +22,8 @@ export default class extends Phaser.State {
             this.time.events.add(25000, () => {
                 music.fadeOut(4000);
             })
-        }, this)
+        }, this);
+
         this.music = music;
         this.explosion = game.add.audio('explosion');
         this.blaster = game.add.audio('blaster', 0.5);
@@ -101,6 +101,7 @@ export default class extends Phaser.State {
         graphics.destroy();
 
         questionField.scale.set(0, 1 * game.scaleRatio);
+        this.questionField = questionField;
 
         this.banner = this.add.text(0, 0, '', {
             font: '40px Berkshire Swash Black',
@@ -174,7 +175,7 @@ export default class extends Phaser.State {
         this.fireball.kill();
 
         this.canFire = true;
-        this.health = 1;
+        this.health = 5;
         this.currIndex = 0;
         this.currLevel = 1;
 
@@ -198,11 +199,7 @@ export default class extends Phaser.State {
     }
 
     gameOver() {
-        this.textBox.alpa = 0;
-        var enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
-        enterKey.onDown.add(() => {
-            this.game.state.start('Menu');
-        }, this);
+        this.questionField.alpha = 0;
 
         fetch('https://dtml.org/Activity/RecordUserActivity?id=wordsbattle&score=' +
             this.scoreText.text + '&complexity=' + this.complexity, {
@@ -376,7 +373,6 @@ export default class extends Phaser.State {
                 if (this.health <= 0) {
                     this.correctText.hide();
                     this.wizDead = true;
-                    this.gameOver()
                     this.showScore();
                 }
 
@@ -419,7 +415,7 @@ export default class extends Phaser.State {
         resetButton.anchor.setTo(0.5);
         resetButton.inputEnabled = true;
         resetButton.events.onInputDown.add(() => {
-            this.game.state.start('Menu');
+            this.restartEntered = true;
         });
         resetButton.input.useHandCursor = true;
 
@@ -431,6 +427,8 @@ export default class extends Phaser.State {
         this.scoreWiz.playAnimationByName('_IDLE');
         this.spritesGroup.add(this.scoreWiz);
         this.spritesGroup.bringToTop(this.scoreWiz);
+
+        this.gameOver()
     }
 
     showMenu() {
@@ -439,10 +437,12 @@ export default class extends Phaser.State {
     }
 
     update() {
-        if (this.textBox.value != '')
+        if (this.textBox.value != '') {
             if (!this.textBox.focus)
                 if (!this.wizDead)
                     this.submitAnswer();
+        } else if (this.wizDead && (this.restartEntered || !this.textBox.focus))
+            this.game.state.start('Menu');
         if (!this.textBox.focus)
             this.textBox.startFocus();
         this.textBox.update();

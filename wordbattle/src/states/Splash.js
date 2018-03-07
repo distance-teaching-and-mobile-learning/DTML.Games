@@ -59,6 +59,7 @@ export default class extends Phaser.State {
         this.load.image('horsey', 'assets/images/alex-bisleys_horsy_512x512.png')
         this.load.image('cloud', 'assets/images/cloud.png');
         this.load.image('scroll', 'assets/images/scroll.png');
+        this.load.image('border', 'assets/images/border.png');
 
         // audio
         this.load.audio('gameMusic', 'assets/audio/music/music_david_gwyn_jones_teddy_comes_too_instrumental.mp3')
