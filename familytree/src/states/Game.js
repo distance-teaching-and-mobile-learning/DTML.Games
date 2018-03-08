@@ -4,6 +4,7 @@ import language from './Boot'
 import Person from './Person'
 import english from '../language/language'
 import CanvasImageSaver from 'canvas-image-saver'
+import config from '../config';
 
 
 export default class extends Phaser.State {
@@ -22,13 +23,11 @@ export default class extends Phaser.State {
             font: "26px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"
         });   
 
-        this.activeBottomMenu(false);
-
-        this.boyBtn = this.game.add.button(this.game.width*0.5, 150, 'boygirl', this.chooseMe, this);
+        this.boyBtn = this.game.add.button(this.game.width*0.5, 150, 'boygirl', function(){this.chooseMe(0);}.bind(this), this);
         this.boyBtn.x -= this.boyBtn.width;
         this.boyBtn.frame = 0;
 
-        this.girlBtn = this.game.add.button(this.game.width*0.5, 150, 'boygirl', this.chooseMe, this);
+        this.girlBtn = this.game.add.button(this.game.width*0.5, 150, 'boygirl',function(){this.chooseMe(1);}.bind(this), this);
         this.girlBtn.x += this.girlBtn.width*0.5;
         this.girlBtn.frame = 1;
 
@@ -38,6 +37,21 @@ export default class extends Phaser.State {
         this.family.pivot.x =this.game.width*0.5;
         this.family.pivot.y =  this.game.height*0.3;
 
+        this.aKey = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+        this.sKey = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
+
+        this.aKey.onDown.addOnce(function(){
+            this.aKey.onDown.removeAll();
+            this.sKey.onDown.removeAll();
+            this.chooseMe(0);
+        }.bind(this), this);
+
+        this.sKey.onDown.addOnce(function(){
+            this.aKey.onDown.removeAll();
+            this.sKey.onDown.removeAll();
+            this.chooseMe(1);
+        }.bind(this), this);
+            
     }
    
     createSideMenu() {
@@ -126,18 +140,21 @@ export default class extends Phaser.State {
 
         this.openMenu = this.game.add.button(0,this.sidemenu.height*0.5, 'openMenu',function(){
             if(this.openMenu.frame ==0){
+                this.sidemenu.bringToTop();
+                this.game.world.bringToTop(this.listView.grp);
                 this.processMenu(this.closeBottommenu);
                 this.processMenu(this.openSidemenu);
             }
             else{
                this.processMenu(this.closeSidemenu);
-               this.processMenu(this.openBottommenu); 
+               //this.processMenu(this.openBottommenu); 
             }
         }.bind(this));
 
         this.openMenu.anchor.set(0.5);
         this.openMenu.input.priorityID = 2;
         this.openMenu.x -= this.openMenu.width*0.4;
+        this.openMenu.visible = false;
 
         this.downloadbtn.addChild(this.downloadText);
         this.sharebtn.addChild(this.shareText);
@@ -150,41 +167,65 @@ export default class extends Phaser.State {
         this.openSidemenu = this.game.add.tween(this.sidemenu).to({ x: this.game.width-(this.sidemenu.width+6) }, 1000, Phaser.Easing.Exponential.Out);
         this.closeSidemenu = this.game.add.tween(this.sidemenu).to({ x: this.game.width}, 1000, Phaser.Easing.Exponential.Out);
         
-        this.openSidemenu.onComplete.add(function(){this.listView.grp.visible = true; this.openMenu.frame = 1;},this);
-        this.closeSidemenu.onStart.add(function(){this.listView.grp.visible = false; this.openMenu.frame = 0;},this);
+        this.openSidemenu.onComplete.add(function(){this.listView.grp.visible = true; this.openMenu.frame = 1;}.bind(this),this);
+        this.closeSidemenu.onStart.add(function(){this.listView.grp.visible = false; this.openMenu.frame = 0;}.bind(this),this);
     }
 
     createBottomMenu(){
         this.bottommenu = this.game.add.sprite(5, this.game.height, 'bottommenu');
         this.bottommenu.y += this.bottommenu.height;
 
-        this.addparents = this.game.add.button(this.bottommenu.x, 35, 'sharebtn', this.addParent, this,1,0,0,0);
+        this.addparents = this.game.add.button(this.bottommenu.x, 35, 'sharebtn',function(){ this.addParent('')}.bind(this), this,1,0,0,0);
         this.addparents.anchor.set(0.5,0.5);
-        this.addparents.x += this.addparents.width*2;
+        this.addparents.x += this.addparents.width;
 
-        this.addbrothers = this.game.add.button(this.bottommenu.width, 35, 'sharebtn', this.addBrother, this,1,0,0,0);
+        this.addstepparents = this.game.add.button(this.bottommenu.x, 35, 'sharebtn', function(){ this.addParent(english.stepparents)}.bind(this), this,1,0,0,0);
+        this.addstepparents.anchor.set(0.5,0.5);
+        this.addstepparents.x += this.addstepparents.width*2.3;
+
+        this.addbrothers = this.game.add.button(this.bottommenu.width, 35, 'sharebtn', function(){ this.addBrother('')}.bind(this), this,1,0,0,0);
         this.addbrothers.anchor.set(0.5,0.5);
-        this.addbrothers.x -= this.addbrothers.width*2;
+        this.addbrothers.x -= this.addbrothers.width*2.3;
+
+        this.addstepbrothers = this.game.add.button(this.bottommenu.width, 35, 'sharebtn', function(){ this.addBrother(english.stepbrothers)}.bind(this), this,1,0,0,0);
+        this.addstepbrothers.anchor.set(0.5,0.5);
+        this.addstepbrothers.x -= this.addstepbrothers.width;
 
         this.parentsText = this.game.add.text(0, 0, english.parents, { 
             font: "12px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"
         });
 
+        this.stepparentsText = this.game.add.text(0, 0, english.stepparents, { 
+            font: "12px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6",wordWrap: true, wordWrapWidth: this.addstepparents.width*0.5
+         }); 
+
         this.brotherText = this.game.add.text(0, 0, english.brothers, { 
             font: "11px sans-serif", fill: "#ffffff",align:"center", stroke:"#000000", strokeThickness:"6",wordWrap: true, wordWrapWidth: this.addbrothers.width*0.5
          }); 
 
+        this.stepbrotherText = this.game.add.text(0, 0, english.stepbrothers, { 
+            font: "11px sans-serif", fill: "#ffffff",align:"center", stroke:"#000000", strokeThickness:"6",wordWrap: true, wordWrapWidth: this.addbrothers.width*0.5
+         }); 
+
         this.parentsText.anchor.set(0.5,0.5);  
+        this.stepparentsText.anchor.set(0.5,0.5);  
         this.brotherText.anchor.set(0.5,0.5);  
+        this.stepbrotherText.anchor.set(0.5,0.5);  
         this.brotherText.lineSpacing = -6;
+        this.stepparentsText.lineSpacing = -6;
+        this.stepbrotherText.lineSpacing = -6;
 
         this.addparents.addChild(this.parentsText);
+        this.addstepparents.addChild(this.stepparentsText);
         this.addbrothers.addChild(this.brotherText);
+        this.addstepbrothers.addChild(this.stepbrotherText);
 
         this.bottommenu.addChild(this.addparents);
+        this.bottommenu.addChild(this.addstepparents);
         this.bottommenu.addChild(this.addbrothers);
+        this.bottommenu.addChild(this.addstepbrothers);
 
-        this.openBottommenu = this.game.add.tween(this.bottommenu).to({ y: this.game.height-(this.bottommenu.height+5)}, 1000, Phaser.Easing.Exponential.Out,true);
+        this.openBottommenu = this.game.add.tween(this.bottommenu).to({ y: this.game.height-(this.bottommenu.height+5)}, 1000, Phaser.Easing.Exponential.Out);
         this.closeBottommenu = this.game.add.tween(this.bottommenu).to({ y: this.game.height+(this.bottommenu.height+5)}, 1000, Phaser.Easing.Exponential.Out);
     }
 
@@ -193,13 +234,52 @@ export default class extends Phaser.State {
             menu.start();
     }
 
-    chooseMe(button){
-        var id = button.frame;
+    addKeyboardControls(){
+        this.cursors = this.game.input.keyboard.createCursorKeys();
+        this.oneKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ONE);
+        this.twoKey = this.game.input.keyboard.addKey(Phaser.Keyboard.TWO);
+        this.threeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.THREE);
+        this.fourKey = this.game.input.keyboard.addKey(Phaser.Keyboard.FOUR);
+        this.aKey = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+
+        this.aKey.onDown.add(function(){
+            if(this.openMenu.frame ==0){
+                this.sidemenu.bringToTop();
+                this.game.world.bringToTop(this.listView.grp);
+                this.processMenu(this.closeBottommenu);
+                this.processMenu(this.openSidemenu);
+            }
+            else{
+               this.processMenu(this.closeSidemenu);
+               //this.processMenu(this.openBottommenu); 
+            }
+        }.bind(this), this);
+
+        this.oneKey.onDown.add(function(){
+            this.addParent('');
+        }.bind(this), this);
+
+        this.twoKey.onDown.add(function(){
+            this.addParent(english.stepparents);
+        }.bind(this), this);
+
+        this.threeKey.onDown.add(function(){
+            this.addBrother('');
+        }.bind(this), this);
+
+        this.fourKey.onDown.add(function(){
+            this.addBrother(english.stepbrothers);
+        }.bind(this), this);
+    }
+
+    chooseMe(frame){
+        var id = frame;
         this.boyBtn.destroy(); 
         this.girlBtn.destroy(); 
         this.youText.destroy();
-        this.activeBottomMenu(true);
+        this.processMenu(this.openBottommenu);
         this.openMenu.visible = true;
+        this.addKeyboardControls();
 
         var config = {
             nombre:  english.you,
@@ -212,20 +292,6 @@ export default class extends Phaser.State {
 
         this.you = new Person(this.game,this.game.width*0.5, 150, config);
         this.family.add(this.you);
-    }
-
-    activeBottomMenu(lock){
-        this.addparents.inputEnabled = lock;
-        this.addbrothers.inputEnabled = lock;
-
-        if(lock == false){
-            this.addparents.alpha = 0.7;
-            this.addbrothers.alpha = 0.7;
-        }
-        else{
-            this.addparents.alpha = 1;
-            this.addbrothers.alpha = 1;  
-        }
     }
 
     addCharToNode(sprite){
@@ -244,6 +310,16 @@ export default class extends Phaser.State {
                  type = 'mother';
             }
         }
+        else if(this.selectedNode.areStepParents()){
+            if(!this.genreType){
+                 names = english.stepfather;
+                 type = 'stepfather';
+            }
+            else{
+                 names = english.stepmother;
+                 type = 'stepmother';
+            }
+        }
         else if (this.selectedNode.areBrothers()){
              if(!this.genreType){
                  names = english.brother;
@@ -252,6 +328,16 @@ export default class extends Phaser.State {
             else{
                  names = english.sister;
                  type = 'sister';
+            }
+        }
+        else if (this.selectedNode.areStepBrothers()){
+             if(!this.genreType){
+                 names = english.stepbrother;
+                 type = 'stepbrother';
+            }
+            else{
+                 names = english.stepsister;
+                 type = 'stepsister';
             }
         }
         else if (this.selectedNode.areSiblings()){
@@ -274,6 +360,16 @@ export default class extends Phaser.State {
                  type = 'grandmother';
             }
         }
+        else if (this.selectedNode.areGreatGrantparents()){
+             if(!this.genreType){
+                 names = english.grandgrandfather;
+                 type = 'grandgrandfather';
+            }
+            else{
+                 names = english.grandgrandmother;
+                 type = 'grandgrandmother';
+            }
+        }
 
         var config = {
             name: names,
@@ -286,62 +382,125 @@ export default class extends Phaser.State {
         this.selectedNode.setImageBg(config);
       
         this.processMenu(this.closeSidemenu);
-        this.processMenu(this.openBottommenu);
+        //this.processMenu(this.openBottommenu);
     }
 
-    addParent(){
-        if(!this.selectedNode || this.selectedNode.getParents() || this.selectedNode.relation == 'brothers' || this.selectedNode.relation == 'sibling' || this.selectedNode.relation == 'grantparents') return;
+    addParent(text){
+        if(!this.selectedNode || this.selectedNode.getParents() || this.selectedNode.relation == 'brothers' || this.selectedNode.relation == 'sibling') return;
 
-        var relation,xoffset;
-       if(this.selectedNode.relation == 'parents'){
+        this.selectedNode.parentsCount++;
+        var relation,xoffset,direction;
+
+       if(this.selectedNode.relation == 'parents' || this.selectedNode.relation == 'stepparents'){
             relation = 'grantparents';
-            if(this.selectedNode.direction == 'left')
-                xoffset = -80;
-            else
-                 xoffset = 80;
+            if(this.selectedNode.parentsCount == 1){
+                if(this.selectedNode.direction == 'right'){
+                    direction = 'left';
+                    xoffset = 80;
+                }
+                else{
+                    direction = 'right';
+                    xoffset = -80;
+                }
+            }
+            else{
+                if(this.selectedNode.direction == 'right'){
+                    direction = 'right';
+                    xoffset = 160;
+                }
+                else{
+                    direction = 'left';
+                    xoffset = -160;
+                }
+            }
        }
-        else if(this.selectedNode.relation == 'me')
+       else if(this.selectedNode.relation == 'grantparents'){
+            direction = 'right';
+            relation = 'grandgrandparents';
+            if(this.selectedNode.parentsCount == 1){
+                xoffset = 0;
+            }
+            else{
+                if(this.selectedNode.direction == 'right'){
+                    direction = 'right';
+                    xoffset = 80;
+                }
+                else{
+                    direction = 'left';
+                    xoffset = -80;
+                }
+            }  
+       }
+       else if(text == english.stepparents){
+            relation = 'stepparents';
+             if(this.selectedNode.parentsCount == 1){
+                direction = 'right';
+                xoffset = 40;
+            }
+            else{
+                 direction = 'left';
+                 xoffset = -40;
+             }
+       }
+       else if(this.selectedNode.relation == 'me'){
             relation = 'parents';
+             if(this.selectedNode.parentsCount == 1){
+                direction = 'right';
+                xoffset = 40;
+            }
+            else{
+                 direction = 'left';
+                 xoffset = -40;
+             }
+       }
 
-        var config1 = {
-            nombre: '',
-            type: '',
-            relation: relation,
-            direction: 'left'
-        };
+        if(this.selectedNode.parentsCount == 1){
+            var config1 = {
+                nombre: '',
+                type: '',
+                relation: relation,
+                direction: direction
+            };
+        }
+        else{
+            this.selectedNode.setParents(true);
+            var config1 = {
+                nombre: '',
+                type: '',
+                relation: relation,
+                direction: direction
+            };
+         }
 
-        var config2 = {
-            nombre: '',
-            type: '',
-            relation: relation,
-            direction: 'right'
-        };
-
-        this.selectedNode.setParents(true);
 
         if(this.selectedNode.relation == 'me'){
-            var character1 = new Person(this.game, this.selectedNode.x-40, this.selectedNode.y-110, config1);
-            var character2 = new Person(this.game,this.selectedNode.x+40, this.selectedNode.y-110, config2);
+            var character1 = new Person(this.game, this.selectedNode.x+(xoffset), this.selectedNode.y-110, config1);
+           // var character2 = new Person(this.game,this.selectedNode.x+40, this.selectedNode.y-110, config2);
         }
-        else  if(this.selectedNode.relation == 'parents'){
-            var character1 = new Person(this.game, this.selectedNode.x, this.selectedNode.y-110, config1);
-            var character2 = new Person(this.game,this.selectedNode.x+(xoffset), this.selectedNode.y-110, config2);
+        else  if(this.selectedNode.relation == 'parents' || this.selectedNode.relation == 'stepparents' ||  this.selectedNode.relation == 'grantparents'){
+            var character1 = new Person(this.game, this.selectedNode.x+(xoffset), this.selectedNode.y-110, config1);
+            //var character2 = new Person(this.game,this.selectedNode.x+(xoffset), this.selectedNode.y-110, config2);
         }
 
         this.family.add(character1);
-        this.family.add(character2);
+        //this.family.add(character2);
     }
 
-    addBrother(){
-        if(!this.selectedNode || (this.selectedNode.type != 'you' && this.selectedNode.type != 'mother' && this.selectedNode.type != 'father')) return;
+    addBrother(text){
+        if(!this.selectedNode || (this.selectedNode.type != 'you' && this.selectedNode.relation != 'parents'  && this.selectedNode.relation != 'stepparents' && this.selectedNode.relation != 'sibling')) return;
 
-       this.selectedNode.brotherCount++;
-       var relation;
+        this.selectedNode.brotherCount++;
+        var relation;
 
-       if(this.selectedNode.relation == 'parents')
-            relation = 'sibling';
+        if(this.selectedNode.relation == 'parents' || this.selectedNode.relation == 'stepparents')
+             relation = 'sibling';
+        else if(this.selectedNode.relation == 'sibling')
+             relation = 'sibling';
+        else if(text == english.stepbrothers)
+             relation = 'stepbrothers';
         else if(this.selectedNode.relation == 'me')
              relation = 'brothers';
+       
 
         var config1 = {
             nombre: '',
@@ -357,7 +516,7 @@ export default class extends Phaser.State {
             direction: 'right'
         };
 
-        if(this.selectedNode.relation != 'parents'){
+        if(this.selectedNode.relation == 'me'){
             if(this.selectedNode.brotherCount % 2 == 1)
                 var brother = new  Person(this.game,this.selectedNode.x-(100*Math.ceil(this.selectedNode.brotherCount*0.5)), this.selectedNode.y, config1);
             else
@@ -386,6 +545,7 @@ export default class extends Phaser.State {
           }, this);
          
          this.processMenu(this.closeSidemenu);
+         this.callApiActivity();
          this.game.time.events.add(1000,function(){canvasImageSaver.save("myfamilytree","myfamilytree");},this);
     }
 
@@ -403,11 +563,14 @@ export default class extends Phaser.State {
           }, this);
 
 
-        var url = 'https://www.facebook.com/dialog/share?app_id=152735522079067&display=page&quote=Checkout family tree I build. Visit dtml.org&href=https://blog.dtml.org/'
+        var url = 'https://www.facebook.com/dialog/share?app_id='+config.facebookID+'&display=page&quote=Checkout family tree I build. Visit dtml.org&href=https://blog.dtml.org/'
         
         window.open(url , '_blank');
+        this.callApiActivity();
+    }
 
-        fetch('https://dtml.org/Activity/RecordUserActivity?id=familytree&score=1000',{
+    callApiActivity(){
+        fetch('https://dtml.org/Activity/RecordUserActivity?id=familytree&score='+config.scoreRecord,{
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -419,7 +582,7 @@ export default class extends Phaser.State {
             })
             .catch(err => {
                 console.log('err', err)
-            });
+        });
     }
 
     tryTapNode(){
@@ -434,10 +597,16 @@ export default class extends Phaser.State {
 
     tapNode(e) {
         if(e.selected) return;
-
         if(e.type != 'you' && !e.haveImageBg()){
             this.processMenu(this.closeBottommenu);
             this.processMenu(this.openSidemenu);
+            this.sidemenu.bringToTop();
+            this.game.world.bringToTop(this.listView.grp);
+        }
+        else if(e.haveImageBg()){
+            this.processMenu(this.closeSidemenu);
+            this.processMenu(this.openBottommenu);
+            this.bottommenu.bringToTop();
         }
 
         this.unselectAllNodes();
@@ -460,11 +629,26 @@ export default class extends Phaser.State {
     update() {
         
         if(this.selectedNode){
-            if(this.selectedNode.type == "you")
-                if(this.click){
+            if(this.cursors.down.isDown){
+                this.family.y ++;
+            }
+            else if(this.cursors.up.isDown){
+                this.family.y --;
+            }
+            else if(this.cursors.left.isDown){
+                this.family.x --;
+            }
+            else if(this.cursors.right.isDown){
+                this.family.x ++;
+            }
+      
+
+            if(this.click){
+                    this.family.pivot.x = this.selectedNode.x;
+                    this.family.pivot.y = this.selectedNode.y;
                     this.family.x = this.game.input.x;
                     this.family.y = this.game.input.y;
-                }
+            }
         }
 
         if (this.game.input.activePointer.isDown && this.game.time.now > this.next_time) {

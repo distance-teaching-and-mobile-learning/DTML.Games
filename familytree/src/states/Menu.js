@@ -21,9 +21,38 @@ export default class extends Phaser.State {
       });
 
       this.playButton.alignIn(this.button, Phaser.TOP_CENTER, 0, -25);
+
+      this.enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+      this.aKey = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+
+      this.enterKey.onDown.addOnce(function(){
+          this.enterKey.onDown.removeAll();
+          this.aKey.onDown.removeAll();
+          this.stop();
+      }.bind(this), this);
+
+      this.aKey.onDown.addOnce(function(){
+          this.aKey.onDown.removeAll();
+          this.aKey.onDown.removeAll();
+          this.stop();
+      }.bind(this), this);
     }
 
     stop() {
+      try {
+
+      var data = { "envelop": null, "page": "familytree", "time": null, "eventType": "GameStarted", "eventData": navigator.userAgent }
+
+      $.ajax({
+          type: 'POST',
+          async: true,
+          processData: false,
+          contentType: 'application/json',
+          url: 'https://dtml.org/Activity/Record/',
+          data: JSON.stringify(data)
+      });
+     } catch (err) { }
+
       this.sfxbtn.play();
       this.startGame()
     }

@@ -12,12 +12,10 @@ export default class extends Phaser.State {
         this.input.maxPointers = 1;
         this.game.input.addPointer();
  		
- 		this.scale.pageAlignHorizontally = true;
-        this.scale.pageAlignVertically = true
-        
-        if (!this.game.device.desktop) {
-            this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;  
-         }
+ 		//this.scale.pageAlignHorizontally = true;
+        //this.scale.pageAlignVertically = true
+        this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;  
+        this.game.scale.refresh();
 
         this.fontsReady = false
         this.fontsLoaded = this.fontsLoaded.bind(this)  
