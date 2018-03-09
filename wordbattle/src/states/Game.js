@@ -73,7 +73,7 @@ export default class extends Phaser.State {
             iconHome.anchor.setTo(0.5);
             iconHome.inputEnabled = true;
             iconHome.events.onInputDown.add(() => {
-                this.state.start('Menu')
+                this.showMenu();
             })
 
             var label = game.add.text(this.world.width * 0.85, this.game.world.centerY * 0.2, 'Score: ', {
@@ -200,14 +200,13 @@ export default class extends Phaser.State {
 
     gameOver() {
         this.questionField.alpha = 0;
-        console.log(this.wiz);
         this.wiz.kill();
         this.gnome.kill();
         this.textBox.kill();
 
         var enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
         enterKey.onDown.add(() => {
-            this.game.state.start('Menu');
+            this.showMenu();
         }, this);
 
         fetch('https://dtml.org/Activity/RecordUserActivity?id=wordsbattle&score=' +
@@ -219,7 +218,6 @@ export default class extends Phaser.State {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
             })
             .catch(err => {
                 console.log('err', err)
@@ -255,7 +253,7 @@ export default class extends Phaser.State {
     }
 
     loadNextAnswer() {
-        if (this.currIndex >= 3)//this.words.length - 1)
+        if (this.currIndex >= this.words.length - 1)
             this.fetchNextSet();
         else
             this.nextWord();
@@ -446,8 +444,12 @@ export default class extends Phaser.State {
     }
 
     showMenu() {
-        this.music.pause()
-        this.state.start('Menu')
+        this.correctText.text.destroy();
+        this.addScoreText.text.destroy();
+        this.correctText.destroy();
+        this.addScoreText.destroy();
+        this.music.destroy();
+        this.state.start('Menu');
     }
 
     update() {
@@ -456,8 +458,6 @@ export default class extends Phaser.State {
                 if (!this.wizDead)
                     this.submitAnswer();
         }
-        // else if (this.wizDead && (this.restartEntered || !this.textBox.focus))
-        //     this.game.state.start('Menu');
 
         if (!this.textBox.focus && !this.wizDead)
             this.textBox.startFocus();

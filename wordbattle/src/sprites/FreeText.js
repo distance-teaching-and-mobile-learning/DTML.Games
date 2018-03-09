@@ -32,8 +32,8 @@ export default class extends Phaser.Sprite {
     }
 
     hide() {
-        this.alpha = 0;
         this.text.alpha = 0;
+        this.alpha = 0;
     }
 
     changeText(word) {
