@@ -19,12 +19,18 @@ export default class extends Phaser.State {
         this.load.audio('you','assets/audio/you.ogg');
         this.load.audio('father','assets/audio/father.ogg');
         this.load.audio('mother','assets/audio/mother.ogg');
+        this.load.audio('stepfather','assets/audio/stepfather.ogg');
+        this.load.audio('stepmother','assets/audio/stepmother.ogg');
         this.load.audio('brother','assets/audio/brother.ogg');
         this.load.audio('sister','assets/audio/sister.ogg');
+        this.load.audio('stepbrother','assets/audio/stepbrother.ogg');
+        this.load.audio('stepsister','assets/audio/stepsister.ogg');
         this.load.audio('uncle','assets/audio/uncle.ogg');
         this.load.audio('aunt','assets/audio/aunt.ogg');
         this.load.audio('grandfather','assets/audio/grandfather.ogg');
         this.load.audio('grandmother','assets/audio/grandmother.ogg');
+        this.load.audio('grandgrandfather','assets/audio/grandgrandfather.ogg');
+        this.load.audio('grandgrandmother','assets/audio/grandgrandmother.ogg');
         this.load.image('fondo', 'assets/bg.png');
         this.load.image('title', 'assets/title.png');
         this.load.image('sidemenu', 'assets/sidemenu.png');

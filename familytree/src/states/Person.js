@@ -9,6 +9,7 @@ export default class Person extends Phaser.Sprite {
     this.haveParents = false;
     this.selected = false;
     this.brotherCount = 0;
+    this.parentsCount = 0;
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
     this.body.setSize(this.width, this.height, 0, 0);
     this.sfxbtn = this.game.add.audio(this.type); 
@@ -67,7 +68,13 @@ setTintRelation(){
     else  if(this.relation == 'parents'){
         this.tint = 0xd3d426;
     }
+    else  if(this.relation == 'stepparents'){
+        this.tint = 0xd3d426;
+    }
     else  if(this.relation == 'brothers'){
+        this.tint = 0xd42626;
+    }
+    else  if(this.relation == 'stepbrothers'){
         this.tint = 0xd42626;
     }
     else  if(this.relation == 'sibling'){
@@ -75,6 +82,9 @@ setTintRelation(){
     }
     else  if(this.relation == 'grantparents'){
         this.tint = 0xd46326;
+    }
+    else  if(this.relation == 'grandgrandparents'){
+        this.tint = 0x9a24d0;
     }
 }
 
@@ -115,8 +125,20 @@ areBrothers(){
     return false;
 }
 
+areStepBrothers(){
+    if(this.relation == 'stepbrothers')
+        return true;
+    return false;
+}
+
 areParents(){
     if(this.relation == 'parents')
+        return true;
+    return false;
+}
+
+areStepParents(){
+    if(this.relation == 'stepparents')
         return true;
     return false;
 }
@@ -129,6 +151,12 @@ areSiblings(){
 
 areGrantparents(){
     if(this.relation == 'grantparents')
+        return true;
+    return false;
+}
+
+areGreatGrantparents(){
+    if(this.relation == 'grandgrandparents')
         return true;
     return false;
 }
