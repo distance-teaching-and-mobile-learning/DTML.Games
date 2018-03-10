@@ -12,9 +12,15 @@ export default class extends Phaser.State {
         this.next_time = 0;
         this.click = false;
         this.genreType = false;
+        this.bottomORside = false;
         this.selectedNode = null;
 
         this.bg = this.game.add.sprite(0, 0, 'fondo');
+        this.bg.width = this.game.width;
+        this.bg.height = this.game.height;
+        this.UI = [];
+        this.scrollUI = [];
+        this.treeUI = [];
 
         this.createSideMenu();
         this.createBottomMenu();
@@ -37,32 +43,124 @@ export default class extends Phaser.State {
         this.family.pivot.x =this.game.width*0.5;
         this.family.pivot.y =  this.game.height*0.3;
 
-        this.aKey = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
-        this.sKey = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
+        this.UI.push({obj:this.boyBtn,x:1,y:1});
+        this.UI.push({obj:this.girlBtn,x:1,y:1});
+        this.iterate = -1;
+        this.iterateLimit = 2;
+        this.iterateScroll = 0;
+        this.iterateScrollLimit = 11;
+        this.iterateTree = 0;
+        this.iterateTreeLimit = 1;
 
-        this.aKey.onDown.addOnce(function(){
-            this.aKey.onDown.removeAll();
-            this.sKey.onDown.removeAll();
-            this.chooseMe(0);
-        }.bind(this), this);
+        this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
+        this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+        this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+        this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+        this.enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+        this.backKey = this.game.input.keyboard.addKey(Phaser.Keyboard.BACKSPACE);
 
-        this.sKey.onDown.addOnce(function(){
-            this.aKey.onDown.removeAll();
-            this.sKey.onDown.removeAll();
-            this.chooseMe(1);
-        }.bind(this), this);
+        this.leftKey.onDown.add(function(){
+           this.iterateUi(true);
+           this.UI.forEach(function(elm){elm.obj.scale.setTo(elm.x,elm.y);},this);
+           if(this.UI[this.iterate].obj)
+                this.UI[this.iterate].obj.scale.setTo(this.UI[this.iterate].obj.scale.x+0.2);
+        }.bind(this));
+
+        this.rightKey.onDown.add(function(){
+            this.iterateUi(false);
+            this.UI.forEach(function(elm){elm.obj.scale.setTo(elm.x,elm.y);},this);
+            if(this.UI[this.iterate].obj)
+                this.UI[this.iterate].obj.scale.setTo(this.UI[this.iterate].obj.scale.x+0.2);
+        }.bind(this));
+
+        this.backKey.onDown.add(function(){
+            this.iterateUi(false);
+            this.treeUI.forEach(function(elm){
+                if(elm.obj.selected && elm.obj.relation != 'me')
+                    elm.obj.children[3].onInputUp.dispatch();
+            },this);
+           
+        }.bind(this));
+
+        this.enterKey.onDown.add(function(){
             
+            this.UI.forEach(function(elm){
+                if(elm.obj.scale.x == elm.x+0.2)
+                    elm.obj.onInputUp.dispatch();
+            },this);
+
+            if(this.bottomORside == true){
+                 this.scrollUI.forEach(function(elm){
+                    if(elm.obj.scale.x == elm.x+0.1){
+                         if(elm.obj.children[0]){
+                            try{
+                                elm.obj.children[0].events.onInputDown.dispatch(elm.obj.children[0]);
+                            }
+                            catch(err){}
+                        }
+                    }  
+                },this);
+            }
+
+        }.bind(this));
+            
+    }
+
+    iterateUi(left){
+        if(left){
+            this.iterate--;
+            if(this.iterate < 0)
+                this.iterate = (this.iterateLimit-1);
+        }
+        else{
+            this.iterate++;
+            if(this.iterate >= this.iterateLimit)
+                this.iterate = 0;
+        }
+    }
+
+    iterateUIScroll(up){
+        if(up){
+            this.iterateScroll--;
+            if(this.iterateScroll < 0)
+                this.iterateScroll = (this.iterateScrollLimit-1);
+        }
+        else{
+            this.iterateScroll++;
+            if(this.iterateScroll >= this.iterateScrollLimit)
+                this.iterateScroll = 0;
+        }
+    }
+
+    iterateTreeScroll(up){
+        if(up){
+            this.iterateTree--;
+            if(this.iterateTree < 0)
+                this.iterateTree = (this.iterateTreeLimit-1);
+        }
+        else{
+           this.iterateTree++;
+                if(this.iterateTree >= this.iterateTreeLimit)
+                    this.iterateTree = 0;
+        }
     }
    
     createSideMenu() {
         this.sidemenu = this.game.add.sprite(this.game.width, 6, 'sidemenu');
-        
-        this.downloadbtn = this.game.add.button(0, this.sidemenu.height, 'sharebtn', this.capture, this,1,0,0,0);
+        this.sidemenu.height = this.game.height;
+        var posUI = this.sidemenu.height*0.55;
+
+        if (!this.game.device.desktop){
+            posUI = 360;
+        }
+
+        this.downloadbtn = this.game.add.button(0, posUI, 'sharebtn', this.capture, this,1,0,0,0);
         this.downloadbtn.input.priorityID = 1;
         this.downloadbtn.scale.set(1,0.8);
         this.downloadbtn.anchor.set(0.5,0.5);
         this.downloadbtn.x += this.downloadbtn.width*0.7;
-        this.downloadbtn.y -= this.downloadbtn.height*2.1;
+
+        //this.downloadbtn.y -= this.downloadbtn.height*0.3;
 
         this.sharebtn = this.game.add.button(this.downloadbtn.x, this.downloadbtn.y+this.downloadbtn.height+4, 'sharebtn', this.share, this,1,0,0,0);
         this.sharebtn.anchor.set(0.5,0.5);
@@ -88,7 +186,7 @@ export default class extends Phaser.State {
           searchForClicks: true,
         }
 
-        this.listView = new ListView(this.game, this.game.world, new Phaser.Rectangle(this.game.width-150,30, 220,280), options);
+        this.listView = new ListView(this.game, this.game.world, new Phaser.Rectangle(this.game.width-(this.sidemenu.width*0.85),35, 220,this.sidemenu.height*0.59), options);
 
         for (var i = 0; i < 11; i++) {
             var item = this.game.add.sprite(0, 0, 'sidebg');
@@ -101,7 +199,7 @@ export default class extends Phaser.State {
             character.input.priorityID = 0;
             character.input.useHandCursor = true;
             character.events.onInputDown.add(this.addCharToNode,this);
-       
+            
             this.listView.add(item);
         }
         this.listView.grp.visible = false;
@@ -138,16 +236,24 @@ export default class extends Phaser.State {
         this.genre2.x += this.genre2.height*0.6;
         this.genre2.y -= this.genre2.height*1.2;
 
-        this.openMenu = this.game.add.button(0,this.sidemenu.height*0.5, 'openMenu',function(){
+        this.openMenu = this.game.add.button(0,250, 'openMenu',function(){
             if(this.openMenu.frame ==0){
                 this.sidemenu.bringToTop();
                 this.game.world.bringToTop(this.listView.grp);
                 this.processMenu(this.closeBottommenu);
                 this.processMenu(this.openSidemenu);
+                this.addSideControls();
+                this.listView.grp.visible = true;
+                this.openMenu.frame = 1;
+
             }
             else{
+               this.bottommenu.bringToTop();
+               this.processMenu(this.openBottommenu);
                this.processMenu(this.closeSidemenu);
-               //this.processMenu(this.openBottommenu); 
+               this.listView.grp.visible = false;
+               this.addBottomControls();
+               this.openMenu.frame = 0;
             }
         }.bind(this));
 
@@ -164,22 +270,23 @@ export default class extends Phaser.State {
         this.sidemenu.addChild(this.genre);
         this.sidemenu.addChild(this.genre2);
 
-        this.openSidemenu = this.game.add.tween(this.sidemenu).to({ x: this.game.width-(this.sidemenu.width+6) }, 1000, Phaser.Easing.Exponential.Out);
+        this.openSidemenu = this.game.add.tween(this.sidemenu).to({ x:  this.game.width-this.sidemenu.width}, 1000, Phaser.Easing.Exponential.Out);
         this.closeSidemenu = this.game.add.tween(this.sidemenu).to({ x: this.game.width}, 1000, Phaser.Easing.Exponential.Out);
-        
-        this.openSidemenu.onComplete.add(function(){this.listView.grp.visible = true; this.openMenu.frame = 1;}.bind(this),this);
-        this.closeSidemenu.onStart.add(function(){this.listView.grp.visible = false; this.openMenu.frame = 0;}.bind(this),this);
+
+        this.openSidemenu.onStart.add(function(){this.bottomORside = true;},this);
+        this.closeSidemenu.onStart.add(function(){this.bottomORside = false;},this);
     }
 
     createBottomMenu(){
-        this.bottommenu = this.game.add.sprite(5, this.game.height, 'bottommenu');
+        this.bottommenu = this.game.add.sprite(this.game.width*0.5, this.game.height, 'bottommenu');
+        this.bottommenu.x -= this.bottommenu.width*0.5;
         this.bottommenu.y += this.bottommenu.height;
 
-        this.addparents = this.game.add.button(this.bottommenu.x, 35, 'sharebtn',function(){ this.addParent('')}.bind(this), this,1,0,0,0);
+        this.addparents = this.game.add.button(0, 35, 'sharebtn',function(){ this.addParent('')}.bind(this), this,1,0,0,0);
         this.addparents.anchor.set(0.5,0.5);
         this.addparents.x += this.addparents.width;
 
-        this.addstepparents = this.game.add.button(this.bottommenu.x, 35, 'sharebtn', function(){ this.addParent(english.stepparents)}.bind(this), this,1,0,0,0);
+        this.addstepparents = this.game.add.button(0, 35, 'sharebtn', function(){ this.addParent(english.stepparents)}.bind(this), this,1,0,0,0);
         this.addstepparents.anchor.set(0.5,0.5);
         this.addstepparents.x += this.addstepparents.width*2.3;
 
@@ -234,42 +341,100 @@ export default class extends Phaser.State {
             menu.start();
     }
 
-    addKeyboardControls(){
-        this.cursors = this.game.input.keyboard.createCursorKeys();
-        this.oneKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ONE);
-        this.twoKey = this.game.input.keyboard.addKey(Phaser.Keyboard.TWO);
-        this.threeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.THREE);
-        this.fourKey = this.game.input.keyboard.addKey(Phaser.Keyboard.FOUR);
-        this.aKey = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+    removeKeyListener(){
+        this.upKey.onDown.removeAll();
+        this.downKey.onDown.removeAll();
+    }
 
-        this.aKey.onDown.add(function(){
-            if(this.openMenu.frame ==0){
-                this.sidemenu.bringToTop();
-                this.game.world.bringToTop(this.listView.grp);
-                this.processMenu(this.closeBottommenu);
-                this.processMenu(this.openSidemenu);
+    addBottomControls(){
+        this.listView.grp.y = 35;
+        this.listView.cull();
+        this.removeKeyListener();
+        this.treeUI = [];
+        this.iterateTreeLimit = this.family.length;
+
+        this.family.forEach(function(item){this.treeUI.push({obj:item,x:0.5,y:0.5});}.bind(this),this);
+
+        this.upKey.onDown.add(function(){
+            this.iterateTreeScroll(true);
+            this.unselectAllNodes();
+            this.treeUI.forEach(function(elm){elm.obj.scale.setTo(elm.x,elm.y);},this);
+
+            if(this.treeUI[this.iterateTree]){
+                this.tapNode(this.treeUI[this.iterateTree].obj);
+                this.treeUI[this.iterateTree].obj.inputFocus(this.treeUI[this.iterateTree].obj.children[2]);
+                this.treeUI[this.iterateTree].obj.children[1].onInputUp.dispatch();
             }
-            else{
-               this.processMenu(this.closeSidemenu);
-               //this.processMenu(this.openBottommenu); 
+            
+        }.bind(this));
+
+        this.downKey.onDown.add(function(){
+            this.iterateTreeScroll(false);
+            this.unselectAllNodes();
+            this.treeUI.forEach(function(elm){elm.obj.scale.setTo(elm.x,elm.y);},this);
+
+            if(this.treeUI[this.iterateTree]){
+                this.tapNode(this.treeUI[this.iterateTree].obj);
+                this.treeUI[this.iterateTree].obj.inputFocus(this.treeUI[this.iterateTree].obj.children[2]);
+                this.treeUI[this.iterateTree].obj.children[1].onInputUp.dispatch();
             }
-        }.bind(this), this);
+            
+        }.bind(this));
 
-        this.oneKey.onDown.add(function(){
-            this.addParent('');
-        }.bind(this), this);
+        this.UI =[];
 
-        this.twoKey.onDown.add(function(){
-            this.addParent(english.stepparents);
-        }.bind(this), this);
+        this.UI.push({obj:this.addparents,x:1,y:1});
+        this.UI.push({obj:this.addstepparents,x:1,y:1});
+        this.UI.push({obj:this.addbrothers,x:1,y:1});
+        this.UI.push({obj:this.addstepbrothers,x:1,y:1});
+        this.UI.push({obj:this.openMenu,x:1,y:1});
+    
+        this.iterate = -1;
+        this.iterateLimit = 5;
+    }
 
-        this.threeKey.onDown.add(function(){
-            this.addBrother('');
-        }.bind(this), this);
+    addSideControls(){
+        this.removeKeyListener();
+        this.listView.grp.y = 35;
+        this.listView.cull();
+        this.iterateScroll = 0;
 
-        this.fourKey.onDown.add(function(){
-            this.addBrother(english.stepbrothers);
-        }.bind(this), this);
+        this.listView.grp.forEach(function(item){this.scrollUI.push({obj:item,x:1,y:1});}.bind(this),this);
+
+        this.upKey.onDown.add(function(){
+            this.iterateUIScroll(true);
+            this.scrollUI.forEach(function(elm){elm.obj.scale.setTo(elm.x,elm.y);},this);
+            if(this.scrollUI[this.iterateScroll].obj){
+                this.listView.grp.y += 118;
+                if(this.listView.grp.y > 35)
+                    this.listView.grp.y = -1145;
+                this.listView.cull();
+                this.scrollUI[this.iterateScroll].obj.scale.setTo(this.scrollUI[this.iterateScroll].x+0.1);
+            }
+        }.bind(this));
+
+        this.downKey.onDown.add(function(){
+            this.iterateUIScroll(false);
+            this.scrollUI.forEach(function(elm){elm.obj.scale.setTo(elm.x,elm.y);},this);
+            if(this.scrollUI[this.iterateScroll].obj){
+                this.listView.grp.y -= 118;
+                if(this.listView.grp.y <= -1205)
+                    this.listView.grp.y = 35;
+                this.listView.cull();
+                this.scrollUI[this.iterateScroll].obj.scale.setTo(this.scrollUI[this.iterateScroll].x+0.1);
+            }
+        }.bind(this));
+
+        this.UI =[];
+
+        this.UI.push({obj:this.openMenu,x:1,y:1});
+        this.UI.push({obj:this.genre,x:0.9,y:0.9});
+        this.UI.push({obj:this.genre2,x:0.9,y:0.9});
+        this.UI.push({obj:this.downloadbtn,x:1,y:0.8});
+        this.UI.push({obj:this.sharebtn,x:1,y:1});
+    
+        this.iterate = -1;
+        this.iterateLimit = 5;
     }
 
     chooseMe(frame){
@@ -279,8 +444,7 @@ export default class extends Phaser.State {
         this.youText.destroy();
         this.processMenu(this.openBottommenu);
         this.openMenu.visible = true;
-        this.addKeyboardControls();
-
+     
         var config = {
             nombre:  english.you,
             image: 'boygirl',
@@ -292,10 +456,12 @@ export default class extends Phaser.State {
 
         this.you = new Person(this.game,this.game.width*0.5, 150, config);
         this.family.add(this.you);
+
+        this.addBottomControls();
     }
 
     addCharToNode(sprite){
-        if(!this.selectedNode || this.selectedNode.haveImageBg()) return;
+        if(!this.selectedNode || this.selectedNode.relation == 'me') return;
 
         var names = '';
         var type = '';
@@ -382,18 +548,28 @@ export default class extends Phaser.State {
         this.selectedNode.setImageBg(config);
       
         this.processMenu(this.closeSidemenu);
+        this.listView.grp.visible = false;
+        this.openMenu.frame = 0;
         //this.processMenu(this.openBottommenu);
     }
 
     addParent(text){
-        if(!this.selectedNode || this.selectedNode.getParents() || this.selectedNode.relation == 'brothers' || this.selectedNode.relation == 'sibling') return;
+        if(!this.selectedNode || this.selectedNode.parentsCount>=2 || this.selectedNode.relation == 'brothers' || this.selectedNode.relation == 'sibling' || this.selectedNode.relation == 'grandgrandparents') return;
 
-        this.selectedNode.parentsCount++;
-        var relation,xoffset,direction;
+        var relation,xoffset,direction,indexCount;
+
+        if(this.selectedNode.eraseParentNode.length > 0){
+             indexCount = this.selectedNode.eraseParentNode.shift();
+             this.selectedNode.parentsCount++;
+        }
+        else{
+            this.selectedNode.parentsCount++;
+            indexCount = this.selectedNode.parentsCount;
+        }
 
        if(this.selectedNode.relation == 'parents' || this.selectedNode.relation == 'stepparents'){
             relation = 'grantparents';
-            if(this.selectedNode.parentsCount == 1){
+            if(indexCount == 1){
                 if(this.selectedNode.direction == 'right'){
                     direction = 'left';
                     xoffset = 80;
@@ -417,7 +593,7 @@ export default class extends Phaser.State {
        else if(this.selectedNode.relation == 'grantparents'){
             direction = 'right';
             relation = 'grandgrandparents';
-            if(this.selectedNode.parentsCount == 1){
+            if(indexCount == 1){
                 xoffset = 0;
             }
             else{
@@ -433,7 +609,7 @@ export default class extends Phaser.State {
        }
        else if(text == english.stepparents){
             relation = 'stepparents';
-             if(this.selectedNode.parentsCount == 1){
+             if(indexCount== 1){
                 direction = 'right';
                 xoffset = 40;
             }
@@ -444,7 +620,7 @@ export default class extends Phaser.State {
        }
        else if(this.selectedNode.relation == 'me'){
             relation = 'parents';
-             if(this.selectedNode.parentsCount == 1){
+             if(indexCount == 1){
                 direction = 'right';
                 xoffset = 40;
             }
@@ -454,7 +630,7 @@ export default class extends Phaser.State {
              }
        }
 
-        if(this.selectedNode.parentsCount == 1){
+        if(indexCount == 1){
             var config1 = {
                 nombre: '',
                 type: '',
@@ -463,7 +639,6 @@ export default class extends Phaser.State {
             };
         }
         else{
-            this.selectedNode.setParents(true);
             var config1 = {
                 nombre: '',
                 type: '',
@@ -482,15 +657,29 @@ export default class extends Phaser.State {
             //var character2 = new Person(this.game,this.selectedNode.x+(xoffset), this.selectedNode.y-110, config2);
         }
 
+        character1.mainNode = this.selectedNode;
+        character1.parentNum = indexCount;
+        this.selectedNode.parentNum = this.selectedNode.parentsCount;
+        character1.eraseSignal.add(this.unselectAllNodes,this);
+
         this.family.add(character1);
-        //this.family.add(character2);
+        this.addBottomControls();
     }
 
     addBrother(text){
-        if(!this.selectedNode || (this.selectedNode.type != 'you' && this.selectedNode.relation != 'parents'  && this.selectedNode.relation != 'stepparents' && this.selectedNode.relation != 'sibling')) return;
+        if(!this.selectedNode || (this.selectedNode.type != 'you' && this.selectedNode.relation != 'parents'  && this.selectedNode.relation != 'stepparents')) return;
 
-        this.selectedNode.brotherCount++;
-        var relation;
+        var relation,indexCount;
+
+        if(this.selectedNode.erasebrotherNode.length > 0){
+             indexCount = this.selectedNode.erasebrotherNode.shift();
+             this.selectedNode.brotherCount++;
+         }
+         else{
+            this.selectedNode.brotherCount = this.selectedNode.brotherNum;
+            this.selectedNode.brotherCount++;
+            indexCount = this.selectedNode.brotherCount;
+         }
 
         if(this.selectedNode.relation == 'parents' || this.selectedNode.relation == 'stepparents')
              relation = 'sibling';
@@ -517,18 +706,25 @@ export default class extends Phaser.State {
         };
 
         if(this.selectedNode.relation == 'me'){
-            if(this.selectedNode.brotherCount % 2 == 1)
-                var brother = new  Person(this.game,this.selectedNode.x-(100*Math.ceil(this.selectedNode.brotherCount*0.5)), this.selectedNode.y, config1);
+            if(indexCount % 2 == 1)
+                var brother = new  Person(this.game,this.selectedNode.x-(100*Math.ceil(indexCount*0.5)), this.selectedNode.y, config1);
             else
-                var brother = new  Person(this.game,this.selectedNode.x+(100*Math.ceil(this.selectedNode.brotherCount*0.5)), this.selectedNode.y, config2);
+                var brother = new  Person(this.game,this.selectedNode.x+(100*Math.ceil(indexCount*0.5)), this.selectedNode.y, config2);
         }
         else{
              if(this.selectedNode.direction == 'left')
-                var brother = new  Person(this.game,this.selectedNode.x-(100*this.selectedNode.brotherCount), this.selectedNode.y, config1);
+                var brother = new  Person(this.game,this.selectedNode.x-(100*indexCount), this.selectedNode.y, config1);
             else
-                var brother = new  Person(this.game,this.selectedNode.x+(100*this.selectedNode.brotherCount), this.selectedNode.y, config2);
+                var brother = new  Person(this.game,this.selectedNode.x+(100*indexCount), this.selectedNode.y, config2);
         }
+
+        brother.mainNode = this.selectedNode;
+        brother.brotherNum = indexCount;
+        this.selectedNode.brotherNum = this.selectedNode.brotherCount;
+        brother.eraseSignal.add(this.unselectAllNodes,this);
+
         this.family.add(brother);
+        this.addBottomControls();
     }
 
     capture(){
@@ -597,17 +793,10 @@ export default class extends Phaser.State {
 
     tapNode(e) {
         if(e.selected) return;
-        if(e.type != 'you' && !e.haveImageBg()){
-            this.processMenu(this.closeBottommenu);
-            this.processMenu(this.openSidemenu);
-            this.sidemenu.bringToTop();
-            this.game.world.bringToTop(this.listView.grp);
-        }
-        else if(e.haveImageBg()){
-            this.processMenu(this.closeSidemenu);
-            this.processMenu(this.openBottommenu);
-            this.bottommenu.bringToTop();
-        }
+        this.processMenu(this.openBottommenu);
+        this.addBottomControls();
+        this.sidemenu.bringToTop();
+        this.game.world.bringToTop(this.listView.grp);
 
         this.unselectAllNodes();
         this.selectedNode = e;
@@ -629,25 +818,11 @@ export default class extends Phaser.State {
     update() {
         
         if(this.selectedNode){
-            if(this.cursors.down.isDown){
-                this.family.y ++;
-            }
-            else if(this.cursors.up.isDown){
-                this.family.y --;
-            }
-            else if(this.cursors.left.isDown){
-                this.family.x --;
-            }
-            else if(this.cursors.right.isDown){
-                this.family.x ++;
-            }
-      
-
             if(this.click){
-                    this.family.pivot.x = this.selectedNode.x;
-                    this.family.pivot.y = this.selectedNode.y;
-                    this.family.x = this.game.input.x;
-                    this.family.y = this.game.input.y;
+                this.family.pivot.x = this.selectedNode.x;
+                this.family.pivot.y = this.selectedNode.y;
+                this.family.x = this.game.input.x;
+                this.family.y = this.game.input.y;
             }
         }
 

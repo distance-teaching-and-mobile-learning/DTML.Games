@@ -1,6 +1,6 @@
 export default {
-  gameWidth: 800,
-  gameHeight: 460,
+ gameWidth: window.innerWidth,
+  gameHeight: window.innerHeight,
   scoreRecord: 0,
   facebookID: '152735522079067',
   localStorageName: 'familytree',

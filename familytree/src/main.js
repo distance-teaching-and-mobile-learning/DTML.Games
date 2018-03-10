@@ -16,7 +16,9 @@ class Main extends Phaser.Game {
     const width = docElement.clientWidth > config.gameWidth ? config.gameWidth : docElement.clientWidth
     const height = docElement.clientHeight > config.gameHeight ? config.gameHeight : docElement.clientHeight
 
-    super(width, height, Phaser.CANVAS, 'content', null)
+    //var gameRatio = window.innerWidth/window.innerHeight;   
+
+    super(800, config.gameHeight, Phaser.CANVAS, 'content', null)
 
     this.state.add('Boot', Boot);
     this.state.add('Preloader', Preloader);
