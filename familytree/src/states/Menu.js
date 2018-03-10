@@ -7,7 +7,9 @@ export default class extends Phaser.State {
       this.sfxbtn = this.game.add.audio('boton'); 
 
       this.bg = this.game.add.sprite(0, 0, 'fondo');
-
+      this.bg.width = this.game.width;
+      this.bg.height = this.game.height;
+      
       this.title = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'title');
       this.title.x -= this.title.width*0.4;
       this.title.y -= this.title.height*0.8;
@@ -23,19 +25,12 @@ export default class extends Phaser.State {
       this.playButton.alignIn(this.button, Phaser.TOP_CENTER, 0, -25);
 
       this.enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
-      this.aKey = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
 
       this.enterKey.onDown.addOnce(function(){
           this.enterKey.onDown.removeAll();
-          this.aKey.onDown.removeAll();
           this.stop();
       }.bind(this), this);
-
-      this.aKey.onDown.addOnce(function(){
-          this.aKey.onDown.removeAll();
-          this.aKey.onDown.removeAll();
-          this.stop();
-      }.bind(this), this);
+      
     }
 
     stop() {

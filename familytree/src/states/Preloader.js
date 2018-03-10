@@ -36,6 +36,7 @@ export default class extends Phaser.State {
         this.load.image('sidemenu', 'assets/sidemenu.png');
         this.load.image('bottommenu', 'assets/bottommenu.png');
         this.load.image('voice', 'assets/voice.png');
+        this.load.image('erase', 'assets/erase.png');
         this.load.image('treebg', 'assets/treebg.png');
         this.load.spritesheet('openMenu', 'assets/openMenu.png',64,64);
         this.load.spritesheet('genre', 'assets/genre.png',32,32);
