@@ -139,6 +139,7 @@ setImageBg(cfg) {
         this.character.destroy();
     
     this.nameInput.canvasInput._placeHolder = this.type.toUpperCase();
+    this.inputFocus(this.nameInput);
 
     this.character = this.game.add.sprite(0,0, this.imageBg,this.frameChar);
     this.character.anchor.set(0.5);
