@@ -13,6 +13,17 @@ Array.prototype.chunk = function (n) {
 export default class extends Phaser.State {
 
     init() {
+	var data = { "envelop": null, "page": "wordsbattle", "time": null, "eventType": "GameStarted", "eventData": navigator.userAgent };
+        fetch('https://dtml.org/Activity/Record/', 
+		{ method: 'post',
+		  credentials: 'same-origin', 
+		  body: JSON.stringify(data),
+		  headers: {
+      			   'content-type': 'application/json'
+    			   }
+		}).catch(err => {
+                console.log('err', err)
+            });
     }
 
     create() {
