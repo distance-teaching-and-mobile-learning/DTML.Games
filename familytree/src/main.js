@@ -13,12 +13,14 @@ import config from './config'
 class Main extends Phaser.Game {
   constructor () {
     const docElement = document.documentElement
-    const width = docElement.clientWidth > config.gameWidth ? config.gameWidth : docElement.clientWidth
-    const height = docElement.clientHeight > config.gameHeight ? config.gameHeight : docElement.clientHeight
+    var width = docElement.clientWidth > config.gameWidth ? config.gameWidth : 800
+    var height = docElement.clientHeight > config.gameHeight ? config.gameHeight : docElement.clientHeight
 
     //var gameRatio = window.innerWidth/window.innerHeight;   
+    if(docElement.clientWidth > 800)
+      width = docElement.clientWidth;
 
-    super(800, config.gameHeight, Phaser.CANVAS, 'content', null)
+    super(width, height, Phaser.CANVAS, 'content', null)
 
     this.state.add('Boot', Boot);
     this.state.add('Preloader', Preloader);

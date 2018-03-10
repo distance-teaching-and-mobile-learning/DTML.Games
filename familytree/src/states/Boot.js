@@ -12,7 +12,7 @@ export default class extends Phaser.State {
         this.game.camera.roundPx = false;
         this.input.maxPointers = 1;
         this.game.input.addPointer();
- 	               this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+ 	    this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
 
         if (!this.game.device.desktop){
             this.game.scale.forceOrientation(true, false);
