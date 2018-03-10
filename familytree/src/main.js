@@ -16,7 +16,6 @@ class Main extends Phaser.Game {
     var width = docElement.clientWidth > config.gameWidth ? config.gameWidth : 800
     var height = docElement.clientHeight > config.gameHeight ? config.gameHeight : docElement.clientHeight
 
-    //var gameRatio = window.innerWidth/window.innerHeight;   
     if(docElement.clientWidth > 800)
       width = docElement.clientWidth;
 

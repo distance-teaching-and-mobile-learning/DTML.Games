@@ -14,7 +14,7 @@ export default class extends Phaser.State {
       this.title.x -= this.title.width*0.4;
       this.title.y -= this.title.height*0.8;
 
-      this.button = this.game.add.button(this.game.world.centerX, this.game.world.centerY, 'button', this.stop, this,1,0,0,0);
+      this.button = this.game.add.button(this.game.width*0.5, this.game.height*0.5, 'button', this.stop, this,1,0,0,0);
       this.button.x -= this.button.width*0.5;
       this.button.y += this.button.height;
         
@@ -32,7 +32,7 @@ export default class extends Phaser.State {
       }.bind(this), this);
       
     }
-
+    
     stop() {
       try {
 
