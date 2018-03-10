@@ -31,6 +31,7 @@ export default class extends Phaser.State {
 
         this.boyBtn = this.game.add.button(this.game.width*0.5, 150, 'boygirl', function(){this.chooseMe(0);}.bind(this), this);
         this.boyBtn.x -= this.boyBtn.width;
+        this.boyBtn.scale.setTo(1.2);
         this.boyBtn.frame = 0;
 
         this.girlBtn = this.game.add.button(this.game.width*0.5, 150, 'boygirl',function(){this.chooseMe(1);}.bind(this), this);
@@ -45,7 +46,7 @@ export default class extends Phaser.State {
 
         this.UI.push({obj:this.boyBtn,x:1,y:1});
         this.UI.push({obj:this.girlBtn,x:1,y:1});
-        this.iterate = -1;
+        this.iterate = 0;
         this.iterateLimit = 2;
         this.iterateScroll = 0;
         this.iterateScrollLimit = 11;
@@ -148,13 +149,35 @@ export default class extends Phaser.State {
     createSideMenu() {
         this.sidemenu = this.game.add.sprite(this.game.width, 6, 'sidemenu');
         this.sidemenu.height = this.game.height;
-        var posUI = this.sidemenu.height*0.55;
 
-        if (!this.game.device.desktop){
-            posUI = 360;
+        var options = {
+          direction: 'y',
+          overflow: 100,
+          padding: 10,
+          swipeEnabled: true,
+          offsetThreshold: 100,
+          searchForClicks: true,
         }
 
-        this.downloadbtn = this.game.add.button(0, posUI, 'sharebtn', this.capture, this,1,0,0,0);
+        this.listView = new ListView(this.game, this.game.world, new Phaser.Rectangle(this.game.width-(this.sidemenu.width*0.85),this.sidemenu.height*0.07, 220,this.sidemenu.height*0.61), options);
+
+        for (var i = 0; i < 11; i++) {
+            var item = this.game.add.sprite(0, 0, 'sidebg');
+            var character = this.game.add.sprite(0, 0, 'characters',i);
+            
+            character.alignIn(item, Phaser.CENTER,0,0);
+            item.addChild(character);
+
+            character.inputEnabled = true;
+            character.input.priorityID = 0;
+            character.input.useHandCursor = true;
+            character.events.onInputDown.add(this.addCharToNode,this);
+            
+            this.listView.add(item);
+        }
+        this.listView.grp.visible = false;
+
+        this.downloadbtn = this.game.add.button(0, 360, 'sharebtn', this.capture, this,1,0,0,0);
         this.downloadbtn.input.priorityID = 1;
         this.downloadbtn.scale.set(1,0.8);
         this.downloadbtn.anchor.set(0.5,0.5);
@@ -176,33 +199,6 @@ export default class extends Phaser.State {
         this.downloadText.anchor.set(0.5,0.5);  
         this.shareText.anchor.set(0.5,0.5); 
         this.shareText.lineSpacing = -6;
-
-        var options = {
-          direction: 'y',
-          overflow: 100,
-          padding: 10,
-          swipeEnabled: true,
-          offsetThreshold: 100,
-          searchForClicks: true,
-        }
-
-        this.listView = new ListView(this.game, this.game.world, new Phaser.Rectangle(this.game.width-(this.sidemenu.width*0.85),35, 220,this.sidemenu.height*0.59), options);
-
-        for (var i = 0; i < 11; i++) {
-            var item = this.game.add.sprite(0, 0, 'sidebg');
-            var character = this.game.add.sprite(0, 0, 'characters',i);
-            
-            character.alignIn(item, Phaser.CENTER,0,0);
-            item.addChild(character);
-
-            character.inputEnabled = true;
-            character.input.priorityID = 0;
-            character.input.useHandCursor = true;
-            character.events.onInputDown.add(this.addCharToNode,this);
-            
-            this.listView.add(item);
-        }
-        this.listView.grp.visible = false;
 
         this.genre = this.game.add.button(this.downloadbtn.x,this.downloadbtn.y, 'genre',function(){
             this.listView.grp.forEachAlive(function(character) {
@@ -283,6 +279,7 @@ export default class extends Phaser.State {
         this.bottommenu.y += this.bottommenu.height;
 
         this.addparents = this.game.add.button(0, 35, 'sharebtn',function(){ this.addParent('')}.bind(this), this,1,0,0,0);
+        this.addparents.scale.setTo(1.2);
         this.addparents.anchor.set(0.5,0.5);
         this.addparents.x += this.addparents.width;
 
@@ -444,7 +441,7 @@ export default class extends Phaser.State {
         this.youText.destroy();
         this.processMenu(this.openBottommenu);
         this.openMenu.visible = true;
-     
+
         var config = {
             nombre:  english.you,
             image: 'boygirl',
@@ -728,6 +725,10 @@ export default class extends Phaser.State {
     }
 
     capture(){
+	   this.listView.grp.visible = false;
+       this.addBottomControls();
+       this.openMenu.frame = 0;
+
         var canvasImageSaver = new CanvasImageSaver(
           this.game.canvas, {
             xCropOffset: 0,
@@ -784,6 +785,7 @@ export default class extends Phaser.State {
     tryTapNode(){
         this.family.forEachAlive(function(e) {
             var bool = Phaser.Rectangle.contains(e.body, this.game.input.activePointer.x, this.game.input.activePointer.y);
+
             if (this.click || !bool) return;
 
             if (e.selected == false) this.tapNode(e);
@@ -814,24 +816,25 @@ export default class extends Phaser.State {
             }
         }, this);
     }
+
+
     
     update() {
-        
-        if(this.selectedNode){
-            if(this.click){
-                this.family.pivot.x = this.selectedNode.x;
-                this.family.pivot.y = this.selectedNode.y;
-                this.family.x = this.game.input.x;
-                this.family.y = this.game.input.y;
-            }
-        }
+	        if(this.selectedNode){
+	            if(this.click){
+	                this.family.pivot.x = this.selectedNode.x;
+	                this.family.pivot.y = this.selectedNode.y;
+	                this.family.x = this.game.input.activePointer.x;
+	                this.family.y = this.game.input.activePointer.y;
+	            }
+	        }
 
-        if (this.game.input.activePointer.isDown && this.game.time.now > this.next_time) {
-            this.tryTapNode();
-            this.next_time = this.game.time.now + 300;
-        }
-        else if (this.game.input.activePointer.isUp){
-            this.click = false;
-        }
+	        if (this.game.input.activePointer.isDown && this.game.time.now > this.next_time) {
+	            this.tryTapNode();
+	            this.next_time = this.game.time.now + 300;
+	        }
+	        else if (this.game.input.activePointer.isUp){
+	            this.click = false;
+	        }
     }
 }

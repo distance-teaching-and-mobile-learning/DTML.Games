@@ -8,45 +8,17 @@ import config from '../config';
 
 export default class extends Phaser.State {
     init() {
-        this.firstRunLandscape = game.scale.isLandscape ;
-        this.game.camera.roundPx = false;
-        this.input.maxPointers = 1;
-        this.game.input.addPointer();
  	    this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
-
+    
         if (!this.game.device.desktop){
             this.game.scale.forceOrientation(true, false);
-            //this.game.scale.enterIncorrectOrientation.add(this.handleIncorrect,this);
-            //this.game.scale.leaveIncorrectOrientation.add(this.handleCorrect,this);
-            this.game.scale.setScreenSize = true;
+   
             this.game.stage.scale.pageAlignHorizontally = true;
             this.game.stage.scale.pageAlignVeritcally = true;
         }
 
         this.fontsReady = false
         this.fontsLoaded = this.fontsLoaded.bind(this);
-    }
-
-     handleIncorrect() {
-        if (!game.device.desktop) {
-            this.game.world.visible = false;
-            alert("Please use Landscape");
-            game.paused = true;
-        }
-    }
-     
-    handleCorrect() {
-        if (!game.device.desktop) {
-            this.game.world.visible = true;
-            game.paused = false;
-            if (!this.game.device.desktop){ 
-                 this.game.scale.setShowAll();
-                 this.game.scale.refresh();
-                 this.game.scale.setMaximum();
-                 this.scale.setScreenSize(true);
-                 this.game.scale.startFullScreen(false);
-            }
-        }
     }
 
     preload() {
