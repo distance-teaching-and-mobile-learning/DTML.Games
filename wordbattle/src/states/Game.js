@@ -144,6 +144,13 @@ export default class extends Phaser.State {
             //game.add.tween(iconAttack.scale).to({x: 0.5 * game.scaleRatio}, 500, Phaser.Easing.Bounce.Out, true)
         });
 
+        this.errorText = new FreeText({
+            game: this.game,
+            x: this.world.width * 0.5,
+            y: this.game.world.centerY,
+            text: 'Error connecting. Retrying...',
+            cloudEnabled: true
+        });
         // create heart to represent life
         this.life = [];
         for (let i = 0; i < 5; i++) {
@@ -209,6 +216,10 @@ export default class extends Phaser.State {
             this.showMenu();
         }, this);
 
+        this.callGameOverService();
+    }
+
+    callGameOverService(){
         fetch('https://dtml.org/Activity/RecordUserActivity?id=wordsbattle&score=' +
             this.scoreText.text + '&complexity=' + this.complexity, {
             headers: {
@@ -218,8 +229,13 @@ export default class extends Phaser.State {
         })
             .then(res => res.json())
             .then(data => {
+                this.errorText.hide();
             })
             .catch(err => {
+                this.errorText.display();
+                this.time.events.add(2500, () => {
+                    this.callGameOverService();
+                });
                 console.log('err', err)
             });
     }
@@ -233,13 +249,19 @@ export default class extends Phaser.State {
         })
             .then(res => res.json())
             .then(data => {
+                this.errorText.hide();
                 this.complexity = data.complexity;
                 this.words = data.words;
+                this.currLevel++;
                 this.currIndex = 0;
                 this.loadNextAnswer();
                 this.nextWord();
             })
             .catch(err => {
+                this.errorText.display();
+                this.time.events.add(2500, () => {
+                    this.fetchNextSet();
+                })
                 console.log('err', err)
             });
     }
@@ -264,26 +286,35 @@ export default class extends Phaser.State {
             let answer = this.textBox.value;
             this.textBox.resetText();
             this.canFire = false;
-            fetch('https://dtml.org/api/GameService/CheckWord?source=' + this.currentWord + '&guess=' + answer +
-                '&lan=' + this.langCode, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+            this.sendAnswer(answer);
+        }
+    }
+
+    sendAnswer(answer){
+        fetch('https://dtml.org/api/GameService/CheckWord?source=' + this.currentWord + '&guess=' + answer +
+            '&lan=' + this.langCode, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                this.errorText.hide();
+                if (data.isCorrect)
+                    this.castSpell(data.complexity);
+                else {
+                    this.correctText.changeText(data.correct);
+                    this.gnomeAttack();
                 }
             })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.isCorrect)
-                        this.castSpell(data.complexity);
-                    else {
-                        this.correctText.changeText(data.correct);
-                        this.gnomeAttack();
-                    }
+            .catch(err => {
+                this.errorText.display();
+                this.time.events.add(2500, () => {
+                    this.sendAnswer(answer);
                 })
-                .catch(err => {
-                    console.log('err', err)
-                })
-        }
+                console.log('err', err)
+            })
     }
 
     castSpell(complexity) {
@@ -427,7 +458,7 @@ export default class extends Phaser.State {
         resetButton.anchor.setTo(0.5);
         resetButton.inputEnabled = true;
         resetButton.events.onInputDown.add(() => {
-            this.restartEntered = true;
+            this.showMenu();
         });
         resetButton.input.useHandCursor = true;
 

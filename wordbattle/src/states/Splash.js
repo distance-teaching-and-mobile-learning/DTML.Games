@@ -72,11 +72,11 @@ export default class extends Phaser.State {
 
 
 
-        Object.keys(flags).forEach((name, idx)=>{
-            this.load.image(name, 'assets/images/flags/' + flags[name] + '.png');
-        });
+        // Object.keys(flags).forEach((name, idx)=>{
+        //     this.load.image(name, 'assets/images/flags/' + flags[name] + '.png');
+        // });
 
-        // this.load.atlas('flags', 'assets/images/flags.png', 'assets/images/flags.json')
+        this.load.atlas('flags', 'assets/images/flags/flags.png', 'assets/images/flags/flags.json')
 
         this.load.spritesheet('heart', 'assets/images/ss-heart.png', 48, 48, 6)
     }

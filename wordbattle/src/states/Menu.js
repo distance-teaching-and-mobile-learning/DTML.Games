@@ -55,8 +55,8 @@ export default class extends Phaser.State {
 
 
         Object.keys(flags).forEach((name, idx) => {
-            let flag = game.add.sprite(posx, posy, name);
-            flag.name = String(idx);
+            let flag = game.add.sprite(posx, posy, 'flags', flags[name] + '.png');
+            flag.name = name;
             flag.anchor.set(0.5);
             flag.width = width;
             flag.height = height;
@@ -64,7 +64,6 @@ export default class extends Phaser.State {
             flag.input.useHandCursor = true;
             flag.events.onInputOver.add(() => {
                 this.hover.play();
-                this.text.changeText(name);
                 this.text.display();
                 this.animateSelectedFlag(flag);
             }, this);
@@ -139,8 +138,8 @@ export default class extends Phaser.State {
                 this.game.add.tween(flag)
                     .to({width: 0, height: 0}, 1000, Phaser.Easing.Back.In, true)
             });
-            this.game.state.states['Game']._language = flag.key;
-            this.game.state.states['Game']._langCode = languages[flag.key];
+            this.game.state.states['Game']._language = flag.name;
+            this.game.state.states['Game']._langCode = languages[flag.name];
 
             this.time.events.add(1100, () => {
                 this.text.hide();
@@ -201,7 +200,7 @@ export default class extends Phaser.State {
                 .to({width: flag.width * 2, height: flag.height * 2}, 200, Phaser.Easing.Back.Out, true)
 
             this.flagIndex = this.indexedFlags.indexOf(flag);
-            this.text.changeText(flag.key);
+            this.text.changeText(flag.name);
             this.text.display();
             this.flagGroup.bringToTop(flag);
             this.game.world.bringToTop(flag);
