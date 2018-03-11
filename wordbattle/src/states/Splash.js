@@ -37,8 +37,7 @@ export default class extends Phaser.State {
         //
         // this.load.video('intro', 'assets/videos/intro.webm');
         this.load.image('mushroom', 'assets/images/mushroom2.png')
-        // this.load.image('bg', 'assets/images/forest01_preview-01.png')
-        this.load.atlas('wizard', 'assets/images/wizard/atlas.png', 'assets/images/wizard/atlas.json')
+         this.load.atlas('wizard', 'assets/images/wizard/atlas.png', 'assets/images/wizard/atlas.json')
         this.load.xml('wizardAnimations', 'assets/images/wizard/animations.scml')
 
         this.load.atlas('gnome', 'assets/images/gnome2/atlas.png', 'assets/images/gnome2/atlas.json')
@@ -56,10 +55,8 @@ export default class extends Phaser.State {
         this.load.image('bg5', 'assets/images/layers/l5_trees03.png')
         this.load.image('bg6', 'assets/images/layers/l6_bush02.png')
         this.load.image('bg7', 'assets/images/layers/l7_ground.png')
-        this.load.image('horsey', 'assets/images/alex-bisleys_horsy_512x512.png')
-        this.load.image('cloud', 'assets/images/cloud.png');
+         this.load.image('cloud', 'assets/images/cloud.png');
         this.load.image('scroll', 'assets/images/scroll.png');
-        this.load.image('border', 'assets/images/border.png');
 
         // audio
         this.load.audio('gameMusic', 'assets/audio/music/music_david_gwyn_jones_teddy_comes_too_instrumental.mp3')
@@ -70,14 +67,7 @@ export default class extends Phaser.State {
         this.load.audio('steps', 'assets/audio/LandingFootsteps.wav')
         this.load.audio('woosh', 'assets/audio/Whoosh.wav')
 
-
-
-        // Object.keys(flags).forEach((name, idx)=>{
-        //     this.load.image(name, 'assets/images/flags/' + flags[name] + '.png');
-        // });
-
         this.load.atlas('flags', 'assets/images/flags/flags.png', 'assets/images/flags/flags.json')
-
         this.load.spritesheet('heart', 'assets/images/ss-heart.png', 48, 48, 6)
     }
 
