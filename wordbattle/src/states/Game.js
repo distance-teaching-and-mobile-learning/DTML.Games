@@ -283,11 +283,11 @@ export default class extends Phaser.State {
             let answer = this.textBox.value;
             this.textBox.resetText();
             this.canFire = false;
-            this.sendAnswer(answer);
+            this.sendAnswer(answer, 0);
         }
     }
 
-    sendAnswer(answer) {
+    sendAnswer(answer, attempt) {
         fetch('https://dtml.org/api/GameService/CheckWord?source=' + this.currentWord + '&guess=' + answer +
             '&lan=' + this.langCode, {
             headers: {
@@ -306,10 +306,17 @@ export default class extends Phaser.State {
                 }
             })
             .catch(err => {
-                this.errorText.display();
-                this.time.events.add(2500, () => {
-                    this.sendAnswer(answer);
-                })
+                    var maxTries = 3;
+                    if (attempt < maxTries)
+		    {
+                    this.time.events.add(2000, () => {
+                    this.sendAnswer(answer, attempt + 1);
+		    });
+		    }
+                    else
+		    {
+	              this.errorText.display();
+	            }
                 console.log('err', err)
             })
     }
