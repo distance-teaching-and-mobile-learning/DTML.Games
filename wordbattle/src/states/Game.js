@@ -230,17 +230,10 @@ export default class extends Phaser.State {
         })
             .then(res => res.json())
             .then(data => {
-                this.scoreSubmitted = true;
-                this.errorText.hide();
+                console.log(data);
             })
             .catch(err => {
-                if (!this.scoreSubmitted) {
-                    this.errorText.display();
-                    this.time.events.add(2500, () => {
-                        this.callGameOverService();
-                    });
-                    console.log('err', err)
-                }
+                console.log('err', err)
             });
     }
 
