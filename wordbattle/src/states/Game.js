@@ -9,6 +9,7 @@ export default class extends Phaser.State {
         this.wizDead = false;
         this.restartEntered = false;
         this.questionField = null;
+        this.scoreSubmitted = false;
     }
 
     create() {
@@ -219,7 +220,7 @@ export default class extends Phaser.State {
         this.callGameOverService();
     }
 
-    callGameOverService(){
+    callGameOverService() {
         fetch('https://dtml.org/Activity/RecordUserActivity?id=wordsbattle&score=' +
             this.scoreText.text + '&complexity=' + this.complexity, {
             headers: {
@@ -229,14 +230,17 @@ export default class extends Phaser.State {
         })
             .then(res => res.json())
             .then(data => {
+                this.scoreSubmitted = true;
                 this.errorText.hide();
             })
             .catch(err => {
-                this.errorText.display();
-                this.time.events.add(2500, () => {
-                    this.callGameOverService();
-                });
-                console.log('err', err)
+                if (!this.scoreSubmitted) {
+                    this.errorText.display();
+                    this.time.events.add(2500, () => {
+                        this.callGameOverService();
+                    });
+                    console.log('err', err)
+                }
             });
     }
 
@@ -290,7 +294,7 @@ export default class extends Phaser.State {
         }
     }
 
-    sendAnswer(answer){
+    sendAnswer(answer) {
         fetch('https://dtml.org/api/GameService/CheckWord?source=' + this.currentWord + '&guess=' + answer +
             '&lan=' + this.langCode, {
             headers: {
@@ -475,6 +479,7 @@ export default class extends Phaser.State {
     }
 
     showMenu() {
+        this.errorText.hide();
         this.correctText.text.destroy();
         this.addScoreText.text.destroy();
         this.correctText.destroy();
