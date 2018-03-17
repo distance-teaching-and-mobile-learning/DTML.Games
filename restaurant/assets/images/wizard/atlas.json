@@ -1,6 +1,7 @@
 {
-	"frames": {
-		"body": {
+	"frames": [
+		{
+			"filename": "body",
 			"frame": {
 				"x": 1,
 				"y": 1,
@@ -20,7 +21,8 @@
 				"h": 359
 			}
 		},
-		"foot": {
+		{
+			"filename": "foot",
 			"frame": {
 				"x": 171,
 				"y": 1,
@@ -40,7 +42,8 @@
 				"h": 209
 			}
 		},
-		"arm": {
+		{
+			"filename": "arm",
 			"frame": {
 				"x": 243,
 				"y": 1,
@@ -59,15 +62,36 @@
 				"w": 85,
 				"h": 202
 			}
+		},
+		{
+			"filename": "callout",
+			"frame": {
+				"x": 330,
+				"y": 1,
+				"w": 300,
+				"h": 226
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 300,
+				"h": 226
+			},
+			"sourceSize": {
+				"w": 300,
+				"h": 226
+			}
 		}
-	},
+	],
 	"meta": {
 		"app": "http://www.codeandweb.com/texturepacker",
 		"version": "1.0",
 		"image": "atlas",
 		"format": "RGBA8888",
 		"size": {
-			"w": 329,
+			"w": 631,
 			"h": 361
 		},
 		"scale": "1"
