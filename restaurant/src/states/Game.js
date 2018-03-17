@@ -408,10 +408,10 @@ speechSynthesis.speak(msg);
     }
 
     update() {
-        if (this.textBox.value != '') {
-            if (!this.textBox.focus)
-                if (!this.wizDead)
-                    this.submitAnswer();
+     /*   if (this.textBox.value != '') {
+           // if (!this.textBox.focus)
+             //   if (!this.wizDead)
+                    // this.submitAnswer();
         }
 
         if (!this.textBox.focus && !this.wizDead)
@@ -423,7 +423,7 @@ speechSynthesis.speak(msg);
         else
             this.scoreWiz.updateAnimation();
 
-        this.gnome.updateAnimation();
+        this.gnome.updateAnimation(); */
     }
 
     render() {
@@ -459,12 +459,13 @@ speechSynthesis.speak(msg);
             frame: sprite.frame,
             sex: this.genreType
         };
-
+        this.textBox.setText(sprite.text);
+        // this.textBox.value += sprite.text;
         //this.selectedNode.setImageBg(config);
       
         //this.processMenu(this.closeSidemenu);
         // this.listView.grp.visible = false;
-        this.openMenu.frame = 0;
+        //this.openMenu.frame = 0;
         //this.processMenu(this.openBottommenu);
     }
  createSideMenu() {
@@ -482,9 +483,12 @@ speechSynthesis.speak(msg);
 
        this.listView = new ListView(this.game, this.game.world, new Phaser.Rectangle(this.game.width-(this.sidemenu.width*0.85),this.sidemenu.height*0.07, 220,this.sidemenu.height*0.91), options);
 
-        for (var i = 0; i < 11; i++) {
+       var i=0;
+       this.stateMachine.getAnswerWords().forEach( (word)  =>  {
+        //for (var i = 0; i < 11; i++) 
+        {
             var item = this.game.add.sprite(0, 0, 'sidebg');
-            var character = this.game.add.text( 0, 0, "Hello", i);// sprite(0, 0, 'characters',i);
+            var character = this.game.add.text( 0, 0, word, i++);// sprite(0, 0, 'characters',i);
             
             character.alignIn(item, Phaser.CENTER,0,0);
             item.addChild(character);
@@ -496,6 +500,7 @@ speechSynthesis.speak(msg);
             
             this.listView.add(item);
         }
+    });
 /*        this.listView.grp.visible = false;
 
         this.downloadbtn = this.game.add.button(0, 360, 'sharebtn', this.capture, this,1,0,0,0);
