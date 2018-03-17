@@ -511,7 +511,7 @@ export default class extends Phaser.State {
             frame: sprite.frame,
             sex: this.genreType
         };
-        this.textBox.setText(sprite.text);
+        this.textBox.setText(this.textBox.value + " " + sprite.text);
         // this.textBox.value += sprite.text;
         //this.selectedNode.setImageBg(config);
       
@@ -535,115 +535,22 @@ export default class extends Phaser.State {
 
        this.listView = new ListView(this.game, this.game.world, new Phaser.Rectangle(this.game.width-(this.sidemenu.width*0.85),this.sidemenu.height*0.07, 220,this.sidemenu.height*0.91), options);
 
-       var i=0;
-       this.stateMachine.getAnswerWords().forEach( (word)  =>  {
-        //for (var i = 0; i < 11; i++) 
-        {
-            var item = this.game.add.sprite(0, 0, 'sidebg');
-            var character = this.game.add.text( 0, 0, word, i++);// sprite(0, 0, 'characters',i);
-            
-            character.alignIn(item, Phaser.CENTER,0,0);
-            item.addChild(character);
+     var i = 0;
+     this.stateMachine.getAnswerWords().forEach((word) => {
+         var item = this.game.add.sprite(0, 0, 'sidebg');
+         var character = this.game.add.text(0, 0, word, i++);// sprite(0, 0, 'characters',i);
 
-            character.inputEnabled = true;
-            character.input.priorityID = 0;
-            character.input.useHandCursor = true;
-            character.events.onInputDown.add(this.addCharToNode,this);
-            
-            this.listView.add(item);
-        }
-    });
-/*        this.listView.grp.visible = false;
+         character.alignIn(item, Phaser.CENTER, 0, 0);
+         item.addChild(character);
 
-        this.downloadbtn = this.game.add.button(0, 360, 'sharebtn', this.capture, this,1,0,0,0);
-        this.downloadbtn.input.priorityID = 1;
-        this.downloadbtn.scale.set(1,0.8);
-        this.downloadbtn.anchor.set(0.5,0.5);
-        this.downloadbtn.x += this.downloadbtn.width*0.7;
+         character.inputEnabled = true;
+         character.input.priorityID = 0;
+         character.input.useHandCursor = true;
+         character.events.onInputDown.add(this.addCharToNode, this);
+         item.events.onInputDown.add(this.addCharToNode, this.character);
+         this.listView.add(item);
+     });
 
-        this.downloadbtn.y -= this.downloadbtn.height*0.3;
-
-        this.sharebtn = this.game.add.button(this.downloadbtn.x, this.downloadbtn.y+this.downloadbtn.height+4, 'sharebtn', this.share, this,1,0,0,0);
-        this.sharebtn.anchor.set(0.5,0.5);
-
-        this.downloadText = this.game.add.text(0, 0, english.download, { 
-            font: "14px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"
-         });
-    
-        this.shareText = this.game.add.text(0, 1, english.share, { 
-            font: "12px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6",wordWrap: true, wordWrapWidth: this.sharebtn.width*0.8
-         }); 
-
-        this.downloadText.anchor.set(0.5,0.5);  
-        this.shareText.anchor.set(0.5,0.5); 
-        this.shareText.lineSpacing = -6;
-
-        this.genre = this.game.add.button(this.downloadbtn.x,this.downloadbtn.y, 'genre',function(){
-            this.listView.grp.forEachAlive(function(character) {
-                if(this.genreType)
-                    character.children[0].frame -= 11;
-            }, this);
-
-            this.genreType = false;
-        }.bind(this));
-
-        this.genre.frame = 0;
-        this.genre.input.priorityID = 1;
-        this.genre.anchor.set(0.5);
-        this.genre.scale.set(0.9,0.9);
-        this.genre.x -= this.genre.height*0.6;
-        this.genre.y -= this.genre.height*1.2;
-
-        this.genre2 = this.game.add.button(this.downloadbtn.x,this.downloadbtn.y, 'genre',function(){
-            this.listView.grp.forEachAlive(function(character) {
-                if(!this.genreType)
-                    character.children[0].frame += 11;
-            }, this);
-
-            this.genreType = true;
-        }.bind(this));
-
-        this.genre2.frame = 1;
-        this.genre2.input.priorityID = 1;
-        this.genre2.anchor.set(0.5);
-        this.genre2.scale.set(0.9,0.9);
-        this.genre2.x += this.genre2.height*0.6;
-        this.genre2.y -= this.genre2.height*1.2;
-
-        this.openMenu = this.game.add.button(0,250, 'openMenu',function(){
-            if(this.openMenu.frame ==0){
-                this.sidemenu.bringToTop();
-                this.game.world.bringToTop(this.listView.grp);
-                this.processMenu(this.closeBottommenu);
-                this.processMenu(this.openSidemenu);
-                this.addSideControls();
-                this.listView.grp.visible = true;
-                this.openMenu.frame = 1;
-
-            }
-            else{
-               this.bottommenu.bringToTop();
-               this.processMenu(this.openBottommenu);
-               this.processMenu(this.closeSidemenu);
-               this.listView.grp.visible = false;
-               this.addBottomControls();
-               this.openMenu.frame = 0;
-            }
-        }.bind(this));
-
-        this.openMenu.anchor.set(0.5);
-        this.openMenu.input.priorityID = 2;
-        this.openMenu.x -= this.openMenu.width*0.4;
-        this.openMenu.visible = false;
-
-        this.downloadbtn.addChild(this.downloadText);
-        this.sharebtn.addChild(this.shareText);
-        this.sidemenu.addChild(this.openMenu);
-        this.sidemenu.addChild(this.sharebtn);
-        this.sidemenu.addChild(this.downloadbtn);
-        this.sidemenu.addChild(this.genre);
-        this.sidemenu.addChild(this.genre2);
-*/
         this.openSidemenu = this.game.add.tween(this.sidemenu).to({ x:  this.game.width-this.sidemenu.width}, 1000, Phaser.Easing.Exponential.Out);
         this.closeSidemenu = this.game.add.tween(this.sidemenu).to({ x: this.game.width}, 1000, Phaser.Easing.Exponential.Out);
 
