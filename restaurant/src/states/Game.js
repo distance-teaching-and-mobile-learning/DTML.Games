@@ -34,9 +34,7 @@ export default class extends Phaser.State {
         this.woosh = game.add.audio('woosh');
         this.steps = game.add.audio('steps');
 		
-		this.voices = window.speechSynthesis.getVoices();
-
-        this.createSideMenu();
+		this.createSideMenu();
         this.createBottomMenu();
 
         this.spritesGroup = this.add.group();
@@ -219,8 +217,8 @@ export default class extends Phaser.State {
 	textToSpeach(text, voice)
 	{
 		var msg = new SpeechSynthesisUtterance();
-		console.log(voices);
-		msg.voice = this.voices[voice];
+		var voices = window.speechSynthesis.getVoices();
+		msg.voice = voices[voice];
 		msg.default = false;
 		msg.voiceURI = 'native';
 		msg.volume = 1;
@@ -234,19 +232,28 @@ export default class extends Phaser.State {
 	
 	ConversationStart()
 	{
-		this.SayItByCustomer('Hello, nice to meet you');
-		this.time.events.add(5200, () => {
-                this.SayItByCook('Nice to meet you too');
-            });
+		this.SayItByCook(this.stateMachine.getQuestion());
+		// WAIT for input
 	}
 
     SayItByCustomer(text) {
             this.gnome.setAnimationSpeedPercent(30);
             this.gnome.playAnimationByName('_SAY');
 			this.textToSpeach(text,2);
+			let label = this.game.add.text(this.gnome.x+140, this.gnome.y-200, text, {
+            font: "15px Berkshire Swash",
+            fill: "#000",
+            align: "center",
+			wordWrap: true, 
+			wordWrapWidth: 150
+			});
+			
+			label.anchor.setTo(0.5);
+        			
 			this.time.events.add(5000, () => {
                 this.gnome.setAnimationSpeedPercent(30);
 				this.gnome.playAnimationByName('_IDLE');
+				label.kill();
             })
     }
 	
@@ -256,11 +263,23 @@ export default class extends Phaser.State {
 			this.wiz.x = this.wiz.x - 120;
 			this.wiz.y = this.wiz.y - 65;
 			this.textToSpeach(text, 1);
+			
+			let label = this.game.add.text(this.wiz.x-190, this.wiz.y-160, text, {
+            font: "18px Berkshire Swash",
+            fill: "#000",
+            align: "center",
+			wordWrap: true, 
+			wordWrapWidth: 150
+			});
+			
+			label.anchor.setTo(0.5);
+			
 			this.time.events.add(5000, () => {
                 this.wiz.setAnimationSpeedPercent(30);
 				this.wiz.playAnimationByName('_IDLE');
 				this.wiz.x = this.wiz.x + 120;
 				this.wiz.y = this.wiz.y + 65;
+				label.kill();
             })
     }
 
