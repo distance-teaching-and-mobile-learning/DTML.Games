@@ -4,6 +4,7 @@ import {ListView} from 'phaser-list-view'
 import FreeText from '../sprites/FreeText'
 import Spriter from '../libs/spriter'
 import Background from '../sprites/background'
+import StateMachine from '../StateMachine'
 
 export default class extends Phaser.State {
     init() {
@@ -11,6 +12,8 @@ export default class extends Phaser.State {
         this.restartEntered = false;
         this.questionField = null;
         this.scoreSubmitted = false;
+        this.stateMachine = new StateMachine(this.game.cache.getJSON('stateData'));
+        this.stateMachine.printDebugInfo();
     }
 
     create() {
