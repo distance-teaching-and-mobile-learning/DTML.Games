@@ -127,10 +127,6 @@ export default class extends Phaser.State {
         // create heart to represent life
         this.life = [];
        
-        game.time.events.repeat(Phaser.Timer.SECOND * 15, 100, () => {
-            this.life[this.life.length - 1].play('rotate')
-        }, this);
-
         // our fireball sprite
         let fireball = game.add.sprite(0, 0, 'fireball');
         fireball.scale.set(game.scaleRatio);
