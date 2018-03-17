@@ -241,6 +241,8 @@ export default class extends Phaser.State {
         this.destroySideMenu();
 
         var text = this.textBox.value;
+        this.textBox.value = '';
+        
         this.gnome.setAnimationSpeedPercent(30);
         this.gnome.playAnimationByName('_SAY');
         this.textToSpeach(text,2);
