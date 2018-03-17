@@ -4358,6 +4358,10 @@ phaser-ce@^2.10.0:
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/phaser-ce/-/phaser-ce-2.10.0.tgz#cff278df9257b7e4f50a60ccd5644168a11ca88c"
 
+phaser-list-view@^1.4.0:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/phaser-list-view/-/phaser-list-view-1.5.2.tgz#e5e9c8404d34dd15c809124d833ac3d8e196205e"
+
 pify@^2.0.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
