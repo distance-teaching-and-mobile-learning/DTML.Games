@@ -21,6 +21,10 @@ export default class {
         return this.currentState.Question;
     }
 
+    getScore() {
+        return this.score;
+    }
+
     getAnswerWords() {
         return this.currentState.AnswerWords;
     }

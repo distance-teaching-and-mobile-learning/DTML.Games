@@ -422,6 +422,11 @@ speechSynthesis.speak(msg);
         else
             this.scoreWiz.updateAnimation();
 
+        // Keep the score up to date
+        if (this.stateMachine && this.scoreText) {
+            this.scoreText.text = this.stateMachine.getScore();
+        }
+
         this.gnome.updateAnimation();
     }
 
