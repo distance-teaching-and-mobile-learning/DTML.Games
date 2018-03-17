@@ -42,7 +42,7 @@
     "phaser-ce": "^2.10.0",
     "webfontloader": "^1.6.28",
     "phaser-list-view": "^1.4.0"
-},
+  },
   "cordova": {
     "platforms": [
       "android",

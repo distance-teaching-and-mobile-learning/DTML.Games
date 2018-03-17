@@ -56,7 +56,8 @@ export default class extends Phaser.State {
         this.load.image('bg5', 'assets/images/layers/l5_trees03.png')
         this.load.image('bg6', 'assets/images/layers/l6_bush02.png')
         this.load.image('bg7', 'assets/images/layers/l7_ground.png')
-         this.load.image('cloud', 'assets/images/cloud.png');
+        this.load.image('cloud', 'assets/images/cloud.png');
+		this.load.image('gameover', 'assets/images/endgame.jpg');
         this.load.image('scroll', 'assets/images/scroll.png');
 
         // audio
@@ -104,7 +105,7 @@ export default class extends Phaser.State {
         this.time.events.add(Phaser.Timer.SECOND * videoDuration, () => {
             document.querySelector('#intro').style.display = 'none'
             document.querySelector('#content').style.display = 'block'
-            //this.state.start('GameOver', false, false, 'Some text passed from the previous state')
+            //this.state.start('GameOver', false, false, '4234')
             this.state.start('Game')
             //   video.destroy()
 
