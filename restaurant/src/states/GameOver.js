@@ -9,26 +9,28 @@ import WebFont from 'webfontloader'
 // https://phaser.io/docs/2.4.4/Phaser.State.html
 export default class extends Phaser.State {
     init(customParam) {
-        this.gameOverText = this.add.text(this.world.width / 2, this.world.height / 2, '', {
-            font: '20px Berkshire Swash',
-            fill: '#ffffff'
-        });
-
-        /*
-        const stateDurationSecs = 10;
-        this.time.events.add(Phaser.Timer.SECOND * stateDurationSecs, () => {
-            this.nextState();
-        }, this);*/
-
-        this.setText(`Example Results Screen (temp - click or tap to continue) - ${customParam}`);
-    } 
+        		
+		this.game.stage.backgroundColor = "#00B3C1";
+	    let gameover = game.add.sprite(game.world.centerX, game.world.centerY, 'gameover');
+        gameover.anchor.set(0.5);
+		
+        this.setText('Your Score:' + customParam);
+    }
 
     shutdown() {
         game.world.remove(this.loadingText);
     }
 
     setText(text) {
-        this.gameOverText.setText(text);
+        let label = this.game.add.text(game.world.centerX, game.world.centerY - 240, text, {
+            font: "60px Berkshire Swash",
+            fill: "#000",
+            align: "center",
+			wordWrap: true, 
+			wordWrapWidth: 500
+			});
+			
+			label.anchor.setTo(0.5);
     }
 
     update() {
