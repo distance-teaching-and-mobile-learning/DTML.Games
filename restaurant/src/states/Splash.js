@@ -60,7 +60,6 @@ export default class extends Phaser.State {
         this.load.image('scroll', 'assets/images/scroll.png');
 
         // audio
-        this.load.audio('gameMusic', 'assets/audio/music/music_david_gwyn_jones_teddy_comes_too_instrumental.mp3')
         this.load.audio('click', 'assets/audio/Click.wav')
         this.load.audio('explosion', 'assets/audio/Explosion.wav')
         this.load.audio('blaster', 'assets/audio/Blastwave_FX_FireballWhoosh_S08FI.42.mp3')

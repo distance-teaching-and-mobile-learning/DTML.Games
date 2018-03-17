@@ -221,6 +221,16 @@ export default class extends Phaser.State {
     SayItByCustomer() {
             this.gnome.setAnimationSpeedPercent(30);
             this.gnome.playAnimationByName('_SAY');
+	var msg = new SpeechSynthesisUtterance();
+var voices = window.speechSynthesis.getVoices();
+msg.voice = voices[1];
+msg.voiceURI = 'native';
+msg.volume = 1;
+msg.rate = 1; 
+msg.pitch = 2; 
+msg.text = 'Hello, nice to meet you';
+msg.lang = 'en-US';
+speechSynthesis.speak(msg);
     }
 
     sendAnswer(answer, attempt) {
