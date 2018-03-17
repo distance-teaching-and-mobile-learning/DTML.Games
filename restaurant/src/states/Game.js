@@ -89,7 +89,7 @@ export default class extends Phaser.State {
             this.scoreText.anchor.setTo(0.5);
         });
 
-        let inputW = 350;
+        let inputW = 650;
         let inputH = 40;
         this.textBox = this.add.inputField(this.world.centerX - (inputW / 2) * game.scaleRatio, this.game.height - (inputH * 2) * game.scaleRatio, {
             font: '40px Arial',
@@ -546,13 +546,13 @@ export default class extends Phaser.State {
          item.events.onInputDown.add(this.addCharToNode, this.character);
          this.listView.add(item);
      });
-
+     this.listView.grp.visible = false;
         this.openSidemenu = this.game.add.tween(this.sidemenu).to({ x:  this.game.width-this.sidemenu.width}, 1000, Phaser.Easing.Exponential.Out);
         this.closeSidemenu = this.game.add.tween(this.sidemenu).to({ x: this.game.width}, 1000, Phaser.Easing.Exponential.Out);
-
-        this.openSidemenu.onStart.add(function(){this.bottomORside = true;},this);
+        this.openSidemenu.onStart.add(function(){this.bottomORside = true; this.listView.grp.visible = false;},this);
+        this.openSidemenu.onComplete.add( function() {this.listView.grp.visible = true;}, this);
         this.closeSidemenu.onStart.add(function(){this.bottomORside = false;},this);
-        this.openSidemenu.start();
+        this.openSidemenu.start(); 
     }
 
     createBottomMenu(){
