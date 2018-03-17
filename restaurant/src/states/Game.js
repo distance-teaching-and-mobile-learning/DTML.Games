@@ -77,45 +77,17 @@ export default class extends Phaser.State {
                 this.showMenu();
             })
 
-            var label = game.add.text(this.world.width * 0.85, this.game.world.centerY * 0.2, 'Score: ', {
+            var label = game.add.text(this.world.width * 0.90, this.game.world.centerY * 0.1, 'Score: ', {
                 font: "32px Berkshire Swash",
                 fill: '#FFF'
             });
             label.anchor.setTo(0.5);
-            this.scoreText = game.add.text(this.world.width * 0.93, this.game.world.centerY * 0.2, '0', {
+            this.scoreText = game.add.text(this.world.width * 0.98, this.game.world.centerY * 0.1, '0', {
                 font: "40px Berkshire Swash",
                 fill: '#FFF'
             });
             this.scoreText.anchor.setTo(0.5);
         });
-
-        let graphics = game.add.graphics(0, 0);
-        let width = 500;
-        // draw a rectangle
-        graphics.beginFill(0xFFFFFF, 1);
-        graphics.lineStyle(2, 0x000000, 1);
-        graphics.drawRoundedRect(0, 0, width, 50, 10);
-        graphics.endFill();
-
-        let questionField = game.add.sprite(this.world.centerX, 50 * game.scaleRatio, graphics.generateTexture());
-        questionField.anchor.set(0.5, 0.5);
-        graphics.destroy();
-
-        questionField.scale.set(0, 1 * game.scaleRatio);
-        this.questionField = questionField;
-
-        this.banner = this.add.text(0, 0, '', {
-            font: '40px Berkshire Swash Black',
-            fill: '#000000',
-            fontWeight: 'bold',
-            smoothed: false
-        });
-        this.banner.padding.set(10, 16);
-        this.banner.anchor.setTo(0.5, 0.35);
-        this.banner.x = questionField.width / 2;
-        questionField.addChild(this.banner);
-
-        game.add.tween(questionField.scale).to({x: 1 * game.scaleRatio}, 500, Phaser.Easing.Bounce.Out, true, 2500);
 
         let inputW = 350;
         let inputH = 40;
@@ -154,19 +126,7 @@ export default class extends Phaser.State {
         });
         // create heart to represent life
         this.life = [];
-        for (let i = 0; i < 5; i++) {
-            let spriteWidth = 48 * game.scaleRatio;
-            let margin = 5 * game.scaleRatio;
-            let startx = (this.world.centerX - ((spriteWidth + margin) * 5) / 2);
-            let sprite = game.add.sprite(i * (spriteWidth + margin) + startx, 90 * game.scaleRatio, 'heart');
-            sprite.anchor.set(0);
-            sprite.alpha = 0;
-            sprite.scale.set(game.scaleRatio);
-            sprite.animations.add('rotate', [0, 1, 2, 3, 4, 5, 0], 12, false);
-            this.life.push(sprite);
-
-            game.add.tween(sprite).to({alpha: 1}, 300, Phaser.Easing.Bounce.Out, true, (i * 200) + 2000)
-        }
+       
         game.time.events.repeat(Phaser.Timer.SECOND * 15, 100, () => {
             this.life[this.life.length - 1].play('rotate')
         }, this);
@@ -221,7 +181,7 @@ export default class extends Phaser.State {
     }
 
     callGameOverService() {
-        fetch('https://dtml.org/Activity/RecordUserActivity?id=wordsbattle&score=' +
+        fetch('https://dtml.org/Activity/RecordUserActivity?id=restourant&score=' +
             this.scoreText.text + '&complexity=' + this.complexity, {
             headers: {
                 'Accept': 'application/json',
@@ -238,29 +198,6 @@ export default class extends Phaser.State {
     }
 
     fetchNextSet() {
-        fetch('https://dtml.org/api/GameService/Words?step=' + this.currLevel, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                this.errorText.hide();
-                this.complexity = data.complexity;
-                this.words = data.words;
-                this.currLevel++;
-                this.currIndex = 0;
-                this.loadNextAnswer();
-                this.nextWord();
-            })
-            .catch(err => {
-                this.errorText.display();
-                this.time.events.add(2500, () => {
-                    this.fetchNextSet();
-                })
-                console.log('err', err)
-            });
     }
 
     nextWord() {
@@ -288,38 +225,7 @@ export default class extends Phaser.State {
     }
 
     sendAnswer(answer, attempt) {
-        fetch('https://dtml.org/api/GameService/CheckWord?source=' + this.currentWord + '&guess=' + answer +
-            '&lan=' + this.langCode, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                this.errorText.hide();
-                if (data.isCorrect)
-                    this.castSpell(data.complexity);
-                else {
-                    this.correctText.changeText(data.correct);
-                    this.gnomeAttack();
-                }
-            })
-            .catch(err => {
-                    var maxTries = 3;
-                    if (attempt < maxTries)
-		    {
-                    this.time.events.add(2000, () => {
-                    this.sendAnswer(answer, attempt + 1);
-		    });
-		    }
-                    else
-		    {
-	              this.errorText.display();
-	            }
-                console.log('err', err)
-            })
-    }
+     }
 
     castSpell(complexity) {
         this.wiz.setAnimationSpeedPercent(100);
