@@ -1,0 +1,16 @@
+{
+    "Comment": "DTML Restaurant Simulator",
+    "StartAt": "Welcome",
+    "States": {
+    "Welcome": { 
+      "Type": "Conversation",
+      "Words": [ 'Water', 'Please', 'Do', 'Juice', 'Table', 'Orange' ]
+      "Solutions": 
+      { "Water": {"Score": 10, "Next":"DrinkSelection"}
+        "Water please": {"Score": 10, "Next":"DrinkSelection"}
+        "Orange Juice": {"Score": 10, "Next":"DrinkSelection"}
+        "Orange Juice please": {"Score": 10, "Next":"DrinkSelection"}
+        "Default": {"Score": 10, "Next":"Don't Understant"}
+    }
+  }
+}
