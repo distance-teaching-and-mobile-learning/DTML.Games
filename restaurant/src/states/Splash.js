@@ -67,8 +67,11 @@ export default class extends Phaser.State {
         this.load.audio('steps', 'assets/audio/LandingFootsteps.wav')
         this.load.audio('woosh', 'assets/audio/Whoosh.wav')
 
-        this.load.atlas('flags', 'assets/images/flags/flags.png', 'assets/images/flags/flags.json')
+        //this.load.atlas('flags', 'assets/images/flags/flags.png', 'assets/images/flags/flags.json')
         this.load.spritesheet('heart', 'assets/images/ss-heart.png', 48, 48, 6)
+
+        // game state data
+        this.load.json('stateData', 'assets/data/gameStates.json');
     }
 
     loadStart() {
