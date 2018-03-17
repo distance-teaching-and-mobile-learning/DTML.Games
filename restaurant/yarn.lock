@@ -4350,6 +4350,10 @@ performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
 
+phaser-asset-loader@^0.2.6:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/phaser-asset-loader/-/phaser-asset-loader-0.2.6.tgz#b7e45d1ed9d710c3cd133ef2f2abea4a8dec1ec0"
+
 phaser-ce@^2.10.0:
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/phaser-ce/-/phaser-ce-2.10.0.tgz#cff278df9257b7e4f50a60ccd5644168a11ca88c"
