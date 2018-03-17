@@ -1,76 +1,99 @@
-{"frames": [
-
 {
-	"filename": "2_body",
-	"frame": {"x":1,"y":294,"w":300,"h":252},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":300,"h":252},
-	"sourceSize": {"w":300,"h":252}
-},
-{
-	"filename": "2_head",
-	"frame": {"x":1,"y":1,"w":344,"h":291},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":344,"h":291},
-	"sourceSize": {"w":344,"h":291}
-},
-{
-	"filename": "2_left arm",
-	"frame": {"x":347,"y":1,"w":154,"h":154},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":154,"h":154},
-	"sourceSize": {"w":154,"h":154}
-},
-{
-	"filename": "2_left leg",
-	"frame": {"x":1,"y":548,"w":113,"h":137},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":113,"h":137},
-	"sourceSize": {"w":113,"h":137}
-},
-{
-	"filename": "2_right arm",
-	"frame": {"x":347,"y":157,"w":149,"h":197},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":149,"h":197},
-	"sourceSize": {"w":149,"h":197}
-},
-{
-	"filename": "2_right leg",
-	"frame": {"x":116,"y":548,"w":113,"h":137},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":113,"h":137},
-	"sourceSize": {"w":113,"h":137}
-},
-{
-	"filename": "hammer",
-	"frame": {"x":303,"y":356,"w":178,"h":247},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":247},
-	"sourceSize": {"w":178,"h":247}
-},
-{
-	"filename": "hend",
-	"frame": {"x":231,"y":548,"w":67,"h":104},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":104},
-	"sourceSize": {"w":67,"h":104}
-}],
-"meta": {
-	"app": "http://www.codeandweb.com/texturepacker",
-	"version": "1.0",
-	"image": "atlas",
-	"format": "RGBA8888",
-	"size": {"w":502,"h":686},
-	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:9408878c3888fe085d165773d5661c76:22c818d7a65bf51e6230e90b3c7a2cda:cbce6b53f0f49e0bf15173c25c41f876$"
-}
+	"frames": [
+		{
+			"filename": "body",
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 262,
+				"h": 495
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 262,
+				"h": 495
+			},
+			"sourceSize": {
+				"w": 262,
+				"h": 495
+			}
+		},
+		{
+			"filename": "arm",
+			"frame": {
+				"x": 265,
+				"y": 1,
+				"w": 166,
+				"h": 408
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 166,
+				"h": 408
+			},
+			"sourceSize": {
+				"w": 166,
+				"h": 408
+			}
+		},
+		{
+			"filename": "callout",
+			"frame": {
+				"x": 433,
+				"y": 1,
+				"w": 300,
+				"h": 226
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 300,
+				"h": 226
+			},
+			"sourceSize": {
+				"w": 300,
+				"h": 226
+			}
+		},
+		{
+			"filename": "foot",
+			"frame": {
+				"x": 735,
+				"y": 1,
+				"w": 185,
+				"h": 398
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 185,
+				"h": 398
+			},
+			"sourceSize": {
+				"w": 185,
+				"h": 398
+			}
+		}
+	],
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "atlas",
+		"format": "RGBA8888",
+		"size": {
+			"w": 921,
+			"h": 497
+		},
+		"scale": "1"
+	}
 }

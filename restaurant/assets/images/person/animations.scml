@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="r11">
     <folder id="0">
-        <file id="0" name="body" width="262" height="495" pivot_x="0" pivot_y="1"/>
-        <file id="1" name="foot" width="185" height="398" pivot_x="0" pivot_y="1"/>
-        <file id="2" name="arm" width="166" height="408" pivot_x="0" pivot_y="1"/>
-        <file id="3" name="callout" width="300" height="226" pivot_x="0" pivot_y="1"/>
+        <file id="0" name="Body.png" width="262" height="495" pivot_x="0" pivot_y="1"/>
+        <file id="1" name="foot.png" width="185" height="398" pivot_x="0" pivot_y="1"/>
+        <file id="2" name="arm.png" width="166" height="408" pivot_x="0" pivot_y="1"/>
+        <file id="3" name="callout.png" width="300" height="226" pivot_x="0" pivot_y="1"/>
     </folder>
     <entity id="0" name="gnome">
         <obj_info name="Body" type="sprite">

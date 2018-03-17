@@ -43,7 +43,7 @@ export default class extends Phaser.State {
         this.spritesGroup.add(this.wiz);
 
         this.gnome = this.loadSpriter('gnome');
-        this.gnome.scale.set(-0.33 * game.scaleRatio, 0.33 * game.scaleRatio);
+        this.gnome.scale.set(0.7 * game.scaleRatio, 0.7 * game.scaleRatio);
 
         this.gnome.children.forEach(sprite => {
             sprite.anchor.set(0, 1)
@@ -51,7 +51,7 @@ export default class extends Phaser.State {
 
         this.gnome.x = game.width + 180 * game.scaleRatio;
         this.gnome.startx = this.world.width * 0.75 * game.scaleRatio;
-        this.gnome.y = this.world.height * 0.73 * game.scaleRatio;
+        this.gnome.y = this.world.height * 0.65 * game.scaleRatio;
         this.gnome.setAnimationSpeedPercent(40);
         this.gnome.playAnimationByName('_IDLE');
         this.spritesGroup.add(this.gnome);
@@ -67,7 +67,7 @@ export default class extends Phaser.State {
 
         this.gnome.setAnimationSpeedPercent(200);
         this.gnome.playAnimationByName('_RUN');
-        game.add.tween(this.gnome).to({x: this.world.width * 0.75 * game.scaleRatio}, 1500, Phaser.Easing.Linear.None, true, 1500)
+        game.add.tween(this.gnome).to({x: this.world.width * 0.6 * game.scaleRatio}, 1500, Phaser.Easing.Linear.None, true, 1500)
             .onComplete.add(() => {
             this.gnome.setAnimationSpeedPercent(30);
             this.gnome.playAnimationByName('_IDLE');
@@ -116,7 +116,7 @@ export default class extends Phaser.State {
             iconAttack.y = this.textBox.y + this.textBox.height / 2;
             iconAttack.inputEnabled = true;
             iconAttack.input.priorityID = 0;
-            iconAttack.events.onInputDown.add(this.submitAnswer, this);
+            iconAttack.events.onInputDown.add(this.SayItByCustomer, this);
             //game.add.tween(iconAttack.scale).to({x: 0.5 * game.scaleRatio}, 500, Phaser.Easing.Bounce.Out, true)
         });
 
@@ -218,13 +218,9 @@ export default class extends Phaser.State {
             this.nextWord();
     }
 
-    submitAnswer() {
-        if (this.canFire && this.textBox.value != '' && this.textBox.value != null) {
-            let answer = this.textBox.value;
-            this.textBox.resetText();
-            this.canFire = false;
-            this.sendAnswer(answer, 0);
-        }
+    SayItByCustomer() {
+            this.gnome.setAnimationSpeedPercent(30);
+            this.gnome.playAnimationByName('_SAY');
     }
 
     sendAnswer(answer, attempt) {
