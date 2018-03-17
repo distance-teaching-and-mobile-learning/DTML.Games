@@ -269,7 +269,13 @@ export default class extends Phaser.State {
     }
 	
 	SayItByCook(text) {
-        this.wiz.setAnimationSpeedPercent(30);
+        
+		if (text == '')
+		{
+			this.state.start('GameOver', false, false, this.scoreText.text)
+		}
+		
+		this.wiz.setAnimationSpeedPercent(30);
         this.wiz.playAnimationByName('_SAY');
         this.wiz.x = this.wiz.x - 120;
         this.wiz.y = this.wiz.y - 65;
