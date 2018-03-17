@@ -43,7 +43,7 @@ export default class {
         } else {
             this.setCurrentState('DontUnderstand', {
                 Question: "I'm sorry, I didn't understand you...",
-                AnswerWords: null,
+                AnswerWords: ['Oops'],
                 Solutions: {
                     default: {"Score": 0, "Next": this.currentStateName }
                 }
