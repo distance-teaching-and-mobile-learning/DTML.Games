@@ -4,13 +4,25 @@
     "States": {
     "Welcome": { 
       "Type": "Conversation",
-      "Words": [ 'Water', 'Please', 'Do', 'Juice', 'Table', 'Orange' ]
+      "Question": "Hello, welcome to our restaurant",
+      "AnswerWords" : [ "Hi", "Hello", "Yes", "No"],
       "Solutions": 
-      { "Water": {"Score": 10, "Next":"DrinkSelection"}
-        "Water please": {"Score": 10, "Next":"DrinkSelection"}
-        "Orange Juice": {"Score": 10, "Next":"DrinkSelection"}
-        "Orange Juice please": {"Score": 10, "Next":"DrinkSelection"}
-        "Default": {"Score": 10, "Next":"Don't Understant"}
+      { "Hi": {"Score": 100, "Next":"WhatToDrink"},
+        "Hello": {"Score": 150, "Next":"WhatToDrink"},
+        "Default": {"Score": -50, "Next":"DontUnderstant"}
+      }
+    },
+    "WhatToDrink": { 
+      "Type": "Conversation",
+      "Question": "Do you want something to drink?",
+      "AnswerWords": [ "Water", "Please", "Do", "Juice", "Table", "Orange" ],
+      "Solutions": 
+      { "Water": {"Score": 100, "Next":"DrinkSelection"},
+        "Water please": {"Score": 150, "Next":"DrinkSelection"},
+        "Orange Juice": {"Score": 200, "Next":"DrinkSelection"},
+        "Orange Juice please": {"Score": 300, "Next":"DrinkSelection"},
+        "Default": {"Score": -50, "Next":"DontUnderstant"}
+      }
     }
   }
 }
