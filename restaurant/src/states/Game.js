@@ -241,66 +241,66 @@ export default class extends Phaser.State {
         this.destroySideMenu();
 
         var text = this.textBox.value;
+        this.gnome.setAnimationSpeedPercent(30);
+        this.gnome.playAnimationByName('_SAY');
+        this.textToSpeach(text,2);
+        let label = this.game.add.text(this.gnome.x+140, this.gnome.y-200, text, {
+        font: "15px Berkshire Swash",
+        fill: "#000",
+        align: "center",
+        wordWrap: true, 
+        wordWrapWidth: 150
+        });
+        
+        this.stateMachine.submitSolution(text);
+        
+        label.anchor.setTo(0.5);
+                
+        this.time.events.add(2500, () => {
             this.gnome.setAnimationSpeedPercent(30);
-            this.gnome.playAnimationByName('_SAY');
-			this.textToSpeach(text,2);
-			let label = this.game.add.text(this.gnome.x+140, this.gnome.y-200, text, {
-            font: "15px Berkshire Swash",
-            fill: "#000",
-            align: "center",
-			wordWrap: true, 
-			wordWrapWidth: 150
-			});
-            
-            this.stateMachine.submitSolution(text);
-            
-			label.anchor.setTo(0.5);
-        			
-			this.time.events.add(5000, () => {
-                this.gnome.setAnimationSpeedPercent(30);
-				this.gnome.playAnimationByName('_IDLE');
-                label.kill();
+            this.gnome.playAnimationByName('_IDLE');
+            label.kill();
 
-                // Once the player has said something, the cook should respond
-                this.SayItByCook(this.stateMachine.getQuestion());
-            })
+            // Once the player has said something, the cook should respond
+            this.SayItByCook(this.stateMachine.getQuestion());
+        })
     }
 	
 	SayItByCook(text) {
+        this.wiz.setAnimationSpeedPercent(30);
+        this.wiz.playAnimationByName('_SAY');
+        this.wiz.x = this.wiz.x - 120;
+        this.wiz.y = this.wiz.y - 65;
+        this.textToSpeach(text, 1);
+        
+        let label = this.game.add.text(this.wiz.x-190, this.wiz.y-160, text, {
+        font: "18px Berkshire Swash",
+        fill: "#000",
+        align: "center",
+        wordWrap: true, 
+        wordWrapWidth: 150
+        });
+        
+        label.anchor.setTo(0.5);
+        
+        // Hack to move cook back to the right place
+        this.time.events.add(5000, () => {
             this.wiz.setAnimationSpeedPercent(30);
-            this.wiz.playAnimationByName('_SAY');
-			this.wiz.x = this.wiz.x - 120;
-			this.wiz.y = this.wiz.y - 65;
-			this.textToSpeach(text, 1);
-			
-			let label = this.game.add.text(this.wiz.x-190, this.wiz.y-160, text, {
-            font: "18px Berkshire Swash",
-            fill: "#000",
-            align: "center",
-			wordWrap: true, 
-			wordWrapWidth: 150
-			});
-			
-			label.anchor.setTo(0.5);
-            
-            // Hack to move cook back to the right place
-			this.time.events.add(5000, () => {
-                this.wiz.setAnimationSpeedPercent(30);
-				this.wiz.playAnimationByName('_IDLE');
-				this.wiz.x = this.wiz.x + 120;
-				this.wiz.y = this.wiz.y + 65;
-				label.kill();
-            });
+            this.wiz.playAnimationByName('_IDLE');
+            this.wiz.x = this.wiz.x + 120;
+            this.wiz.y = this.wiz.y + 65;
+            label.kill();
+        });
 
 
-            // After cook speaks, the player should be able to answer
-            this.time.events.add(500, () => {
-                this.createSideMenu();
-            })
+        // After cook speaks, the player should be able to answer
+        this.time.events.add(500, () => {
+            this.createSideMenu();
+        });
     }
 
     sendAnswer(answer, attempt) {
-     }
+    }
 
     castSpell(complexity) {
         this.wiz.setAnimationSpeedPercent(100);
