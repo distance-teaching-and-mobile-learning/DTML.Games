@@ -31,6 +31,9 @@ export default class extends Phaser.State {
         this.woosh = game.add.audio('woosh');
         this.steps = game.add.audio('steps');
 
+        this.createSideMenu();
+        this.createBottomMenu();
+
         this.spritesGroup = this.add.group();
 
         this.wiz = this.loadSpriter('wizard');
@@ -431,6 +434,26 @@ export default class extends Phaser.State {
         this.icon = icon;
 
         return icon
+    }
+
+ createSideMenu() {
+        this.sidemenu = this.game.add.sprite(this.game.width, 6, 'sidemenu');
+        this.sidemenu.height = this.game.height;
+
+        var options = {
+          direction: 'y',
+          overflow: 100,
+          padding: 10,
+          swipeEnabled: true,
+          offsetThreshold: 100,
+          searchForClicks: true,
+        }        
+    }
+
+    createBottomMenu(){
+        this.bottommenu = this.game.add.sprite(this.game.width*0.5, this.game.height, 'bottommenu');
+        this.bottommenu.x -= this.bottommenu.width*0.5;
+        this.bottommenu.y += this.bottommenu.height;        
     }
 
     loadSpriter(key) {
