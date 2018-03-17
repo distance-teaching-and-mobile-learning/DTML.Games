@@ -584,6 +584,7 @@ export default class extends Phaser.State {
 
     destroySideMenu() {
         this.sidemenu.kill();
+        this.listView.grp.visible = false;
     }
 
     createBottomMenu(){
