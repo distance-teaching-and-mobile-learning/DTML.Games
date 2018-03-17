@@ -37,7 +37,7 @@ export default class extends Phaser.State {
         this.spritesGroup = this.add.group();
 
         this.wiz = this.loadSpriter('wizard');
-        this.wiz.scale.set(0.20 * game.scaleRatio);
+        this.wiz.scale.set(0.8 * game.scaleRatio, 0.8 * game.scaleRatio);
         this.wiz.x = -180 * game.scaleRatio;
         this.wiz.y = this.world.height * 0.65 * game.scaleRatio;
         this.spritesGroup.add(this.wiz);
@@ -57,11 +57,11 @@ export default class extends Phaser.State {
         this.spritesGroup.add(this.gnome);
 
         // intro sequence
-        this.wiz.setAnimationSpeedPercent(200);
+        this.wiz.setAnimationSpeedPercent(100);
         this.wiz.playAnimationByName('_RUN');
-        game.add.tween(this.wiz).to({x: this.world.width * 0.25 * game.scaleRatio}, 1500, Phaser.Easing.Linear.None, true, 1500)
+        game.add.tween(this.wiz).to({x: this.world.width * 0.5 * game.scaleRatio}, 1500, Phaser.Easing.Linear.None, true, 1500)
             .onComplete.add(() => {
-            this.wiz.setAnimationSpeedPercent(30);
+            this.wiz.setAnimationSpeedPercent(100);
             this.wiz.playAnimationByName('_IDLE');
         });
 
@@ -260,7 +260,7 @@ export default class extends Phaser.State {
                 game.add.tween(this.fireball).to({alpha: 0}, 500, Phaser.Easing.Cubic.In, true);
 
                 this.gnome.setAnimationSpeedPercent(100);
-                this.gnome.playAnimationByName('_HURT');
+                this.gnome.playAnimationByName('_IDLE');
                 this.addScoreText.changeText('+' + parseInt(complexity * 10));
                 this.addScoreText.showTick()
                 this.explosion.play();
@@ -298,9 +298,9 @@ export default class extends Phaser.State {
             game.time.events.add(700, () => {
                 this.wiz.setAnimationSpeedPercent(100)
                 if (this.health <= 0)
-                    this.wiz.playAnimationByName('_DIE')
+                    this.wiz.playAnimationByName('_IDLE')
                 else
-                    this.wiz.playAnimationByName('_HURT')
+                    this.wiz.playAnimationByName('_IDLE')
                 this.correctText.showTick();
 
                 game.add.tween(this.gnome).to({alpha: 0}, 500, Phaser.Easing.Cubic.In, true)

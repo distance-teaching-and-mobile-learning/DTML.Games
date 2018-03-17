@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="r11">
     <folder id="0">
-        <file id="0" name="body" width="168" height="359" pivot_x="0.5" pivot_y="0.5"/>
-        <file id="1" name="arm" width="85" height="202" pivot_x="0.647059" pivot_y="0.89604"/>
-        <file id="2" name="foot" width="70" height="209" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="0" name="Body.png" width="168" height="359" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="1" name="arm.png" width="85" height="202" pivot_x="0.647059" pivot_y="0.89604"/>
+        <file id="2" name="Foot.png" width="70" height="209" pivot_x="0.5" pivot_y="0.5"/>
     </folder>
     <entity id="0" name="wizard">
         <obj_info name="bone_000" type="bone" w="341.147" h="10"/>
@@ -96,12 +96,12 @@
             </timeline>
             <timeline id="5" obj="8" name="Foot">
                 <key id="0" time="97" spin="0">
-                    <object folder="0" file="2" x="76.184196" y="-0.603714" angle="84.173101" scale_x="1" scale_y="1"/>
+                    <object folder="0" file="2" x="76.184196" y="-0.603714" angle="84.173101"/>
                 </key>
             </timeline>
             <timeline id="6" obj="9" name="Foot_000">
                 <key id="0" time="97" spin="0">
-                    <object folder="0" file="2" x="68.43958" y="7.888965" angle="114.80428" scale_x="1" scale_y="1"/>
+                    <object folder="0" file="2" x="68.43958" y="7.888965" angle="114.80428"/>
                 </key>
             </timeline>
             <timeline id="7" obj="5" name="arm">

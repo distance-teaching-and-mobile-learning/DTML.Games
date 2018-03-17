@@ -1,6 +1,6 @@
 {
 	"frames": {
-		"body": {
+		"Body.png": {
 			"frame": {
 				"x": 1,
 				"y": 1,
@@ -20,7 +20,7 @@
 				"h": 359
 			}
 		},
-		"foot": {
+		"Foot.png": {
 			"frame": {
 				"x": 171,
 				"y": 1,
@@ -40,7 +40,7 @@
 				"h": 209
 			}
 		},
-		"arm": {
+		"arm.png": {
 			"frame": {
 				"x": 243,
 				"y": 1,
@@ -64,7 +64,7 @@
 	"meta": {
 		"app": "http://www.codeandweb.com/texturepacker",
 		"version": "1.0",
-		"image": "atlas",
+		"image": "spritesheet.png",
 		"format": "RGBA8888",
 		"size": {
 			"w": 329,

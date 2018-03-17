@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="r11">
     <folder id="0">
-        <file id="0" name="body" width="168" height="359" pivot_x="0.5" pivot_y="0.5"/>
-        <file id="1" name="arm" width="85" height="202" pivot_x="0.647059" pivot_y="0.89604"/>
-        <file id="2" name="foot" width="70" height="209" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="0" name="Body.png" width="168" height="359" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="1" name="arm.png" width="85" height="202" pivot_x="0.647059" pivot_y="0.89604"/>
+        <file id="2" name="Foot.png" width="70" height="209" pivot_x="0.5" pivot_y="0.5"/>
     </folder>
-    <entity id="0" name="wizard">
+    <entity id="0" name="entity_000">
         <obj_info name="bone_000" type="bone" w="341.147" h="10"/>
         <obj_info name="bone_001" type="bone" w="187.107" h="10"/>
         <obj_info name="bone_002" type="bone" w="179.847" h="10"/>

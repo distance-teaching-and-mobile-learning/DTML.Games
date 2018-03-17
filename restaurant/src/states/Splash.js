@@ -37,7 +37,8 @@ export default class extends Phaser.State {
         //
         // this.load.video('intro', 'assets/videos/intro.webm');
         this.load.image('mushroom', 'assets/images/mushroom2.png')
-         this.load.atlas('wizard', 'assets/images/wizard/atlas.png', 'assets/images/wizard/atlas.json')
+        
+	this.load.atlas('wizard', 'assets/images/wizard/atlas.png', 'assets/images/wizard/atlas.json')
         this.load.xml('wizardAnimations', 'assets/images/wizard/animations.scml')
 
         this.load.atlas('gnome', 'assets/images/gnome2/atlas.png', 'assets/images/gnome2/atlas.json')
