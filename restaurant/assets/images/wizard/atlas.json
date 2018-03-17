@@ -1,0 +1,108 @@
+{"frames": [
+
+{
+	"filename": "1_fire_2_",
+	"frame": {"x":1010,"y":755,"w":435,"h":423},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":435,"h":423},
+	"sourceSize": {"w":435,"h":423}
+},
+{
+	"filename": "2_fire_2_",
+	"frame": {"x":608,"y":1184,"w":568,"h":499},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":568,"h":499},
+	"sourceSize": {"w":568,"h":499}
+},
+{
+	"filename": "3_fire_2_",
+	"frame": {"x":1178,"y":1359,"w":398,"h":398},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":398,"h":398},
+	"sourceSize": {"w":398,"h":398}
+},
+{
+	"filename": "body_2_",
+	"frame": {"x":1005,"y":1,"w":781,"h":752},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":781,"h":752},
+	"sourceSize": {"w":781,"h":752}
+},
+{
+	"filename": "hand_",
+	"frame": {"x":1578,"y":1359,"w":124,"h":194},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":124,"h":194},
+	"sourceSize": {"w":124,"h":194}
+},
+{
+	"filename": "hat_2_",
+	"frame": {"x":341,"y":867,"w":667,"h":315},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":667,"h":315},
+	"sourceSize": {"w":667,"h":315}
+},
+{
+	"filename": "head_2_",
+	"frame": {"x":341,"y":1,"w":662,"h":864},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":662,"h":864},
+	"sourceSize": {"w":662,"h":864}
+},
+{
+	"filename": "left arm_2_",
+	"frame": {"x":239,"y":1216,"w":367,"h":503},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":367,"h":503},
+	"sourceSize": {"w":367,"h":503}
+},
+{
+	"filename": "left leg_",
+	"frame": {"x":1447,"y":1057,"w":260,"h":300},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":260,"h":300},
+	"sourceSize": {"w":260,"h":300}
+},
+{
+	"filename": "right arm_2_",
+	"frame": {"x":1,"y":1216,"w":236,"h":505},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":236,"h":505},
+	"sourceSize": {"w":236,"h":505}
+},
+{
+	"filename": "right leg_",
+	"frame": {"x":1447,"y":755,"w":293,"h":300},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":293,"h":300},
+	"sourceSize": {"w":293,"h":300}
+},
+{
+	"filename": "stick_2_",
+	"frame": {"x":1,"y":1,"w":338,"h":1213},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":338,"h":1213},
+	"sourceSize": {"w":338,"h":1213}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "atlas",
+	"format": "RGBA8888",
+	"size": {"w":1787,"h":1758},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:942e415cc769091b03c15a18eab8a5e6:42f96c056bd1ec0f57c50f35080a3673:cbce6b53f0f49e0bf15173c25c41f876$"
+}
+}
