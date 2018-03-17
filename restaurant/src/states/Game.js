@@ -35,7 +35,7 @@ export default class extends Phaser.State {
         this.woosh = game.add.audio('woosh');
         this.steps = game.add.audio('steps');
 		
-		this.createSideMenu();
+		//this.createSideMenu();
         this.createBottomMenu();
 
         this.spritesGroup = this.add.group();
@@ -113,7 +113,10 @@ export default class extends Phaser.State {
             iconAttack.y = this.textBox.y + this.textBox.height / 2;
             iconAttack.inputEnabled = true;
             iconAttack.input.priorityID = 0;
-            iconAttack.events.onInputDown.add(this.ConversationStart, this);
+
+            this.ConversationStart();
+
+            iconAttack.events.onInputDown.add(this.SayItByCustomer, this);
             //game.add.tween(iconAttack.scale).to({x: 0.5 * game.scaleRatio}, 500, Phaser.Easing.Bounce.Out, true)
         });
 
@@ -231,9 +234,13 @@ export default class extends Phaser.State {
 	{
 		this.SayItByCook(this.stateMachine.getQuestion());
 		// WAIT for input
-	}
+    }
 
-    SayItByCustomer(text) {
+    SayItByCustomer() {
+
+        this.destroySideMenu();
+
+        var text = this.textBox.value;
             this.gnome.setAnimationSpeedPercent(30);
             this.gnome.playAnimationByName('_SAY');
 			this.textToSpeach(text,2);
@@ -244,13 +251,18 @@ export default class extends Phaser.State {
 			wordWrap: true, 
 			wordWrapWidth: 150
 			});
-			
+            
+            this.stateMachine.submitSolution(text);
+            
 			label.anchor.setTo(0.5);
         			
 			this.time.events.add(5000, () => {
                 this.gnome.setAnimationSpeedPercent(30);
 				this.gnome.playAnimationByName('_IDLE');
-				label.kill();
+                label.kill();
+
+                // Once the player has said something, the cook should respond
+                this.SayItByCook(this.stateMachine.getQuestion());
             })
     }
 	
@@ -270,13 +282,20 @@ export default class extends Phaser.State {
 			});
 			
 			label.anchor.setTo(0.5);
-			
+            
+            // Hack to move cook back to the right place
 			this.time.events.add(5000, () => {
                 this.wiz.setAnimationSpeedPercent(30);
 				this.wiz.playAnimationByName('_IDLE');
 				this.wiz.x = this.wiz.x + 120;
 				this.wiz.y = this.wiz.y + 65;
 				label.kill();
+            });
+
+
+            // After cook speaks, the player should be able to answer
+            this.time.events.add(500, () => {
+                this.createSideMenu();
             })
     }
 
@@ -553,6 +572,10 @@ export default class extends Phaser.State {
         this.openSidemenu.onComplete.add( function() {this.listView.grp.visible = true;}, this);
         this.closeSidemenu.onStart.add(function(){this.bottomORside = false;},this);
         this.openSidemenu.start(); 
+    }
+
+    destroySideMenu() {
+        this.sidemenu.kill();
     }
 
     createBottomMenu(){
