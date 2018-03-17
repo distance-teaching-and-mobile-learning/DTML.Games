@@ -30,6 +30,8 @@ export default class extends Phaser.State {
         this.blaster = game.add.audio('blaster', 0.5);
         this.woosh = game.add.audio('woosh');
         this.steps = game.add.audio('steps');
+		
+		this.voices = window.speechSynthesis.getVoices();
 
         this.createSideMenu();
         this.createBottomMenu();
@@ -72,13 +74,6 @@ export default class extends Phaser.State {
             this.gnome.setAnimationSpeedPercent(30);
             this.gnome.playAnimationByName('_IDLE');
 
-            let iconHome = this.createIcon(this.game.world.centerX * 0.1, this.game.world.centerY * 0.15, 'iconHome')
-            iconHome.scale.set(0.3);
-            iconHome.anchor.setTo(0.5);
-            iconHome.inputEnabled = true;
-            iconHome.events.onInputDown.add(() => {
-                this.showMenu();
-            })
 
             var label = game.add.text(this.world.width * 0.90, this.game.world.centerY * 0.1, 'Score: ', {
                 font: "32px Berkshire Swash",
@@ -116,7 +111,7 @@ export default class extends Phaser.State {
             iconAttack.y = this.textBox.y + this.textBox.height / 2;
             iconAttack.inputEnabled = true;
             iconAttack.input.priorityID = 0;
-            iconAttack.events.onInputDown.add(this.SayItByCustomer, this);
+            iconAttack.events.onInputDown.add(this.ConversationStart, this);
             //game.add.tween(iconAttack.scale).to({x: 0.5 * game.scaleRatio}, 500, Phaser.Easing.Bounce.Out, true)
         });
 
@@ -217,20 +212,53 @@ export default class extends Phaser.State {
         else
             this.nextWord();
     }
+	
+	textToSpeach(text, voice)
+	{
+		var msg = new SpeechSynthesisUtterance();
+		console.log(voices);
+		msg.voice = this.voices[voice];
+		msg.default = false;
+		msg.voiceURI = 'native';
+		msg.volume = 1;
+		msg.rate = 1; 
+		msg.pitch = 2; 
+		msg.text = text;
+		msg.lang = 'en-US';
+		speechSynthesis.speak(msg);
+		
+	}
+	
+	ConversationStart()
+	{
+		this.SayItByCustomer('Hello, nice to meet you');
+		this.time.events.add(5200, () => {
+                this.SayItByCook('Nice to meet you too');
+            });
+	}
 
-    SayItByCustomer() {
+    SayItByCustomer(text) {
             this.gnome.setAnimationSpeedPercent(30);
             this.gnome.playAnimationByName('_SAY');
-	var msg = new SpeechSynthesisUtterance();
-var voices = window.speechSynthesis.getVoices();
-msg.voice = voices[1];
-msg.voiceURI = 'native';
-msg.volume = 1;
-msg.rate = 1; 
-msg.pitch = 2; 
-msg.text = 'Hello, nice to meet you';
-msg.lang = 'en-US';
-speechSynthesis.speak(msg);
+			this.textToSpeach(text,2);
+			this.time.events.add(5000, () => {
+                this.gnome.setAnimationSpeedPercent(30);
+				this.gnome.playAnimationByName('_IDLE');
+            })
+    }
+	
+	SayItByCook(text) {
+            this.wiz.setAnimationSpeedPercent(30);
+            this.wiz.playAnimationByName('_SAY');
+			this.wiz.x = this.wiz.x - 120;
+			this.wiz.y = this.wiz.y - 65;
+			this.textToSpeach(text, 1);
+			this.time.events.add(5000, () => {
+                this.wiz.setAnimationSpeedPercent(30);
+				this.wiz.playAnimationByName('_IDLE');
+				this.wiz.x = this.wiz.x + 120;
+				this.wiz.y = this.wiz.y + 65;
+            })
     }
 
     sendAnswer(answer, attempt) {
