@@ -272,7 +272,7 @@ export default class extends Phaser.State {
         
 		if (text == '')
 		{
-			this.state.start('GameOver', false, false, this.scoreText.text)
+			this.state.start('GameOver', true, false, this.scoreText.text)
 		}
 		
 		this.wiz.setAnimationSpeedPercent(30);

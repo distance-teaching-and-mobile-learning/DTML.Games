@@ -17,13 +17,21 @@
       "Question": "Do you want something to drink?",
       "AnswerWords": [ "Water", "Please", "Do", "Juice", "Table", "Orange" ],
       "Solutions": 
-      { "water": {"Score": 100, "Next":"DrinkSelection"},
-        "water please": {"Score": 150, "Next":"DrinkSelection"},
-        "joice": {"Score": 100, "Next":"DrinkSelection"},
-        "juice please": {"Score": 150, "Next":"DrinkSelection"},
-        "orange juice": {"Score": 200, "Next":"DrinkSelection"},
-        "orange juice please": {"Score": 300, "Next":"DrinkSelection"},
+      { "water": {"Score": 100, "Next":"End"},
+        "water please": {"Score": 150, "Next":"End"},
+        "juice": {"Score": 100, "Next":"End"},
+        "juice please": {"Score": 150, "Next":"End"},
+        "orange juice": {"Score": 200, "Next":"End"},
+        "orange juice please": {"Score": 300, "Next":"End"},
         "default": {"Score": -50, "Next": null}
+      }
+    },
+    "End": { 
+      "Type": "Conversation",
+      "Question": "",
+      "AnswerWords": [],
+      "Solutions": 
+      { 
       }
     }
   }
