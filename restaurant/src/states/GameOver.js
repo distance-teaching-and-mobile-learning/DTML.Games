@@ -8,19 +8,19 @@ import WebFont from 'webfontloader'
 
 // https://phaser.io/docs/2.4.4/Phaser.State.html
 export default class extends Phaser.State {
-    init() {
-        console.log('INIT');
-        this.gameOverText = this.add.text(20, this.world.height - 32, '', {
+    init(customParam) {
+        this.gameOverText = this.add.text(this.world.width / 2, this.world.height / 2, '', {
             font: '20px Berkshire Swash',
             fill: '#ffffff'
         });
 
-        let stateDurationSecs = 5;
+        /*
+        const stateDurationSecs = 10;
         this.time.events.add(Phaser.Timer.SECOND * stateDurationSecs, () => {
-            this.state.start('Game')
-        }, this);
+            this.nextState();
+        }, this);*/
 
-        this.setText('Game Over!');
+        this.setText(`Example Results Screen (temp - click or tap to continue) - ${customParam}`);
     } 
 
     shutdown() {
@@ -29,5 +29,16 @@ export default class extends Phaser.State {
 
     setText(text) {
         this.gameOverText.setText(text);
+    }
+
+    update() {
+        if (game.input.activePointer.isDown)
+        {
+            this.nextState();
+        }
+    }
+
+    nextState() {
+        this.state.start('Game');
     }
 }

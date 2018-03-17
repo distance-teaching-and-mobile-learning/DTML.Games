@@ -96,7 +96,7 @@ export default class extends Phaser.State {
         this.time.events.add(Phaser.Timer.SECOND * videoDuration, () => {
             document.querySelector('#intro').style.display = 'none'
             document.querySelector('#content').style.display = 'block'
-            //this.state.start('GameOver')
+            //this.state.start('GameOver', false, false, 'Some text passed from the previous state')
             this.state.start('Game')
             //   video.destroy()
 
