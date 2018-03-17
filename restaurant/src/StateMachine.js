@@ -6,8 +6,6 @@ export default class {
         this.score = 0;
         this.stateData = stateData;
         this.setCurrentState(this.stateData.StartAt, this.stateData.States[this.stateData.StartAt]);
-
-        game.uberGlobalThing = this;
     }  
     
     setCurrentState(stateName, stateData) {
