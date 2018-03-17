@@ -241,8 +241,8 @@ export default class extends Phaser.State {
         this.destroySideMenu();
 
         var text = this.textBox.value;
-        this.textBox.value = '';
-        
+        this.textBox.setText('');
+
         this.gnome.setAnimationSpeedPercent(30);
         this.gnome.playAnimationByName('_SAY');
         this.textToSpeach(text,2);
@@ -483,11 +483,11 @@ export default class extends Phaser.State {
              //   if (!this.wizDead)
                     // this.submitAnswer();
         }
-
+*/
         if (!this.textBox.focus && !this.wizDead)
             this.textBox.startFocus();
         this.textBox.update();
-
+/*
         if (!this.wizDead)
             this.wiz.updateAnimation();
         else

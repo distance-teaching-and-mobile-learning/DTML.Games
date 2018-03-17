@@ -9,6 +9,8 @@ export default class {
     }  
     
     setCurrentState(stateName, stateData) {
+        console.log(`State transition: '${this.currentStateName}' => '${stateName}'`);
+
         this.currentStateName = stateName;
         this.currentState = stateData;
     }  
@@ -31,8 +33,11 @@ export default class {
 
     submitSolution(solutionPhrase) {
         
+        var normalizedPhrase = solutionPhrase.toLowerCase().trim();
+        console.log(`Checking solution: '${normalizedPhrase}'. Current state is '${this.currentStateName}'`);
+
         // Select solution, or default
-        var solution = this.currentState.Solutions[solutionPhrase.toLowerCase()] || this.currentState.Solutions.default;
+        var solution = this.currentState.Solutions[normalizedPhrase] || this.currentState.Solutions.default;
         
         // Apply score
         this.score += solution.Score;
@@ -49,6 +54,5 @@ export default class {
                 }
             });
         }
-
     }
 }
