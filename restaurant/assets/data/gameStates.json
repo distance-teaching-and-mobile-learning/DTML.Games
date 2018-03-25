@@ -1,0 +1,38 @@
+{
+    "Comment": "DTML Restaurant Simulator",
+    "StartAt": "Welcome",
+    "States": {
+    "Welcome": { 
+      "Type": "Conversation",
+      "Question": "Hello, welcome to our restaurant",
+      "AnswerWords" : [ "Hi", "Hello", "Yes", "No"],
+      "Solutions": 
+      { "hi": {"Score": 100, "Next":"WhatToDrink"},
+        "hello": {"Score": 150, "Next":"WhatToDrink"},
+        "default": {"Score": -50, "Next": null}
+      }
+    },
+    "WhatToDrink": { 
+      "Type": "Conversation",
+      "Question": "Do you want something to drink?",
+      "AnswerWords": [ "Water", "Please", "Do", "Juice", "Table", "Orange" ],
+      "Solutions": 
+      { "water": {"Score": 100, "Next":"End"},
+        "water please": {"Score": 150, "Next":"End"},
+        "juice": {"Score": 100, "Next":"End"},
+        "juice please": {"Score": 150, "Next":"End"},
+        "orange juice": {"Score": 200, "Next":"End"},
+        "orange juice please": {"Score": 300, "Next":"End"},
+        "default": {"Score": -50, "Next": null}
+      }
+    },
+    "End": { 
+      "Type": "Conversation",
+      "Question": "",
+      "AnswerWords": [],
+      "Solutions": 
+      { 
+      }
+    }
+  }
+}
