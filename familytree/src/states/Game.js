@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import {ListView} from 'phaser-list-view'
+import Button from '../model/Button'
 import language from './Boot'
 import Person from '../model/Person'
 import english from '../language/language'
@@ -27,6 +28,12 @@ export default class extends Phaser.State {
         this.initialMenu();
 
         this.game.hasInitialized = true;
+    }
+
+    selectNode(node){
+        console.log(this.selectedNode);
+        console.log(node);
+        this.selectedNode = node;
     }
 
     initialMenu() {
@@ -141,60 +148,128 @@ export default class extends Phaser.State {
         this.girlText.destroy();
         // this.executeAnimation(this.openBottommenu);
         // this.openMenu.visible = true;
-        var mainSibGroup = new SiblingGroup({game: this});
+        // var mainSibGroup = new SiblingGroup({game: this});
 
         var config = {
             nombre: english.you,
             image: 'boygirl',
             key: frame,
             sex: (frame != 0),
-            type: 'you',
             relation: 'me',
-            group: mainSibGroup
+            targetNode: null,
+            relationToPlayer: english.you
         };
         this.you = new Person(this.game, this.game.world.centerX, this.game.world.centerY, config);
         this.family.add(this.you);
-
         this.UI = [];
 
         this.addLeftControls();
         this.addRightControls();
-        // this.addBottomControls();
+        this.addBottomControls();
+        this.selectNode(this.you);
+    }
+
+    addBottomControls() {
+        this.deleteBtn = new Button(this.game, this.game.world.width * 0.3, this.game.world.height * 0.93, this.capture, 'Delete Person', 1.5, 1);
+        this.moveBtn = new Button(this.game, this.game.world.width * 0.5, this.game.world.height * 0.93, null, 'Move Person', 1.5, 1);
+        this.downloadBtn = new Button(this.game, this.game.world.width * 0.7, this.game.world.height * 0.93, this.capture, 'Download', 1.5, 1);
     }
 
     addRightControls() {
-        this.rightMenu = this.game.add.sprite(0, this.game.world.centerY, 'sidemenu');
+        this.rightMenu = this.game.add.sprite(this.game.world.width, this.game.world.centerY, 'sidemenu');
         this.rightMenu.height = this.game.world.height;
         this.rightMenu.scale.x = 1.5;
         this.rightMenu.anchor.setTo(0.5);
 
-        let relations = [english.parents, english.stepparents, english.brothers, english.stepbrothers, english.children];
+        var options = {
+            direction: 'y',
+            overflow: 100,
+            padding: 10,
+            swipeEnabled: true,
+            offsetThreshold: 100,
+            searchForClicks: true,
+        }
 
-        this.openRightMenuBtn = this.game.add.button(this.rightMenu.width * 0.45, 0, 'openMenu', function () {
-            if (this.openRightMenuBtn.frame == 0) {
+        this.listView = new ListView(this.game, this.game.world, new Phaser.Rectangle(this.game.width - (this.rightMenu.width * 0.8), this.rightMenu.height * 0.07, 220, this.rightMenu.height * 0.61), options);
+
+        for (var i = 0; i < 11; i++) {
+            var item = this.game.add.sprite(0, 0, 'sidebg');
+            var character = this.game.add.sprite(0, 0, 'characters', i);
+
+            character.alignIn(item, Phaser.CENTER, 0, 0);
+            item.addChild(character);
+
+            character.inputEnabled = true;
+            character.input.priorityID = 0;
+            character.input.useHandCursor = true;
+            character.events.onInputDown.add(this.addCharToNode, this);
+
+            this.listView.add(item);
+        }
+        this.listView.grp.visible = false;
+
+        this.openRightMenuBtn = this.game.add.button(-this.rightMenu.width * 0.45, 0, 'openMenu', function () {
+            if (this.openRightMenuBtn.frame == 1) {
                 this.rightMenu.bringToTop();
-                // this.game.world.bringToTop(this.listView.grp);
-                // this.processMenu(this.closeBottommenu);
+                this.game.world.bringToTop(this.listView.grp);
                 this.executeAnimation(this.openRightMenu);
+                this.game.time.events.add(700, () => {
+                    this.listView.grp.visible = true;
+                });
                 // this.addSideControls();
-                this.openRightMenuBtn.frame = 1;
+                this.openRightMenuBtn.frame = 0;
             } else {
                 // this.bottommenu.bringToTop();
-                // this.processMenu(this.openBottommenu);
                 this.executeAnimation(this.closeRightMenu);
+                this.listView.grp.visible = false;
                 // this.addBottomControls();
-                this.openRightMenuBtn.frame = 0;
+                this.openRightMenuBtn.frame = 1;
             }
         }.bind(this));
+        this.openRightMenuBtn.frame = 1;
+
+        this.genre = this.game.add.button(0, this.game.world.centerY * 0.45, 'genre', function () {
+            this.listView.grp.forEachAlive(function (character) {
+                if (this.genreType)
+                    character.children[0].frame -= 11;
+            }, this);
+
+            this.genreType = false;
+        }.bind(this));
+
+        this.genre.frame = 0;
+        this.genre.input.priorityID = 1;
+        this.genre.anchor.set(0.5);
+        this.genre.scale.set(0.9, 0.9);
+        this.genre.x -= this.genre.height * 0.6;
+        this.genre.y -= this.genre.height * 1.2;
+
+        this.genre2 = this.game.add.button(0, this.game.world.centerY * 0.45, 'genre', function () {
+            this.listView.grp.forEachAlive(function (character) {
+                if (!this.genreType)
+                    character.children[0].frame += 11;
+            }, this);
+
+            this.genreType = true;
+        }.bind(this));
+
+        this.genre2.frame = 1;
+        this.genre2.input.priorityID = 1;
+        this.genre2.anchor.set(0.5);
+        this.genre2.scale.set(0.9, 0.9);
+        this.genre2.x += this.genre2.height * 0.6;
+        this.genre2.y -= this.genre2.height * 1.2;
 
         this.rightMenu.addChild(this.openRightMenuBtn);
+        this.rightMenu.addChild(this.genre);
+        this.rightMenu.addChild(this.genre2);
 
         this.openRightMenuBtn.anchor.set(0.5);
         this.openRightMenuBtn.input.priorityID = 2;
         this.openRightMenuBtn.visible = true;
 
-        this.openRightMenu = this.game.add.tween(this.rightMenu).to({x: this.rightMenu.width * 0.5}, 1000, Phaser.Easing.Exponential.Out);
-        this.closeRightMenu = this.game.add.tween(this.rightMenu).to({x: -this.rightMenu.width * 0.5}, 1000, Phaser.Easing.Exponential.Out);
+        this.openRightMenu = this.game.add.tween(this.rightMenu).to({x: this.game.world.width - (this.rightMenu.width * 0.5)}, 1000, Phaser.Easing.Exponential.Out);
+        this.closeRightMenu = this.game.add.tween(this.rightMenu).to({x: this.game.world.width + (this.rightMenu.width * 0.5)}, 1000, Phaser.Easing.Exponential.Out);
 
         this.openRightMenu.onStart.add(function () {
             console.log("Opening right menu");
@@ -206,35 +281,101 @@ export default class extends Phaser.State {
         }, this);
 
         this.executeAnimation(this.closeRightMenu);
-        // this.sidemenu = this.game.add.sprite(this.game.width, 6, 'sidemenu');
-        // this.sidemenu.height = this.game.height;
-        //
-        // var options = {
-        //     direction: 'y',
-        //     overflow: 100,
-        //     padding: 10,
-        //     swipeEnabled: true,
-        //     offsetThreshold: 100,
-        //     searchForClicks: true,
+    }
+
+    addCharToNode(sprite) {
+        console.log("addCharToNode")
+        if (!this.selectedNode || this.selectedNode.relation == 'me') return;
+
+        var names = '';
+        var type = '';
+
+        // if (this.selectedNode.areParents()) {
+        //     if (!this.genreType) {
+        //         names = english.father;
+        //         type = 'father';
+        //     }
+        //     else {
+        //         names = english.mother;
+        //         type = 'mother';
+        //     }
         // }
-        //
-        // this.listView = new ListView(this.game, this.game.world, new Phaser.Rectangle(this.game.width - (this.sidemenu.width * 0.85), this.sidemenu.height * 0.07, 220, this.sidemenu.height * 0.61), options);
-        //
-        // for (var i = 0; i < 11; i++) {
-        //     var item = this.game.add.sprite(0, 0, 'sidebg');
-        //     var character = this.game.add.sprite(0, 0, 'characters', i);
-        //
-        //     character.alignIn(item, Phaser.CENTER, 0, 0);
-        //     item.addChild(character);
-        //
-        //     character.inputEnabled = true;
-        //     character.input.priorityID = 0;
-        //     character.input.useHandCursor = true;
-        //     character.events.onInputDown.add(this.addCharToNode, this);
-        //
-        //     this.listView.add(item);
+        // else if (this.selectedNode.areStepParents()) {
+        //     if (!this.genreType) {
+        //         names = english.stepfather;
+        //         type = 'stepfather';
+        //     }
+        //     else {
+        //         names = english.stepmother;
+        //         type = 'stepmother';
+        //     }
         // }
-        // this.listView.grp.visible = false;
+        // else if (this.selectedNode.areBrothers()) {
+        //     if (!this.genreType) {
+        //         names = english.brother;
+        //         type = 'brother';
+        //     }
+        //     else {
+        //         names = english.sister;
+        //         type = 'sister';
+        //     }
+        // }
+        // else if (this.selectedNode.areStepBrothers()) {
+        //     if (!this.genreType) {
+        //         names = english.stepbrother;
+        //         type = 'stepbrother';
+        //     }
+        //     else {
+        //         names = english.stepsister;
+        //         type = 'stepsister';
+        //     }
+        // }
+        // else if (this.selectedNode.areSiblings()) {
+        //     if (!this.genreType) {
+        //         names = english.uncle;
+        //         type = 'uncle';
+        //     }
+        //     else {
+        //         names = english.aunt;
+        //         type = 'aunt';
+        //     }
+        // }
+        // else if (this.selectedNode.areGrantparents()) {
+        //     if (!this.genreType) {
+        //         names = english.grandfather;
+        //         type = 'grandfather';
+        //     }
+        //     else {
+        //         names = english.grandmother;
+        //         type = 'grandmother';
+        //     }
+        // }
+        // else if (this.selectedNode.areGreatGrantparents()) {
+        //     if (!this.genreType) {
+        //         names = english.grandgrandfather;
+        //         type = 'grandgrandfather';
+        //     }
+        //     else {
+        //         names = english.grandgrandmother;
+        //         type = 'grandgrandmother';
+        //     }
+        // }
+
+        // var personGroup = null;
+        //todo Check person siblingGroup.
+
+        var config = {
+            name: names,
+            type: type,
+            image: 'characters',
+            frame: sprite.frame,
+            sex: this.genreType
+        };
+
+        this.selectedNode.setImageBg(config);
+
+        // this.executeAnimation(this.closeRightMenu);
+        //this.processMenu(this.openBottommenu);
     }
 
     addLeftControls() {
@@ -248,23 +389,10 @@ export default class extends Phaser.State {
         var offsetY = -this.leftMenu.height * 0.08;
         for (var x = 0; x < relations.length; x++) {
             let relation = relations[x];
-            let button = this.game.add.button(0, offsetY * -(x - 2), 'sharebtn', function () {
-
-            }.bind(this), this, 1, 0, 0, 0);
-
-            let relationText = this.game.add.text(0, 0, relation, {
-                font: "10px sans-serif", fill: "#ffffff", stroke: "#000000", strokeThickness: "6",
-                wordWrap: true, wordWrapWidth: button.width * 0.9, align: 'center'
-            });
-            relationText.anchor.setTo(0.5);
-
-            button.addChild(relationText);
-            button.anchor.setTo(0.5);
+            let button = new Button(this.game, 0, offsetY * -(x - 2), this.addRelative.bind(this), relation, 1, 0.7);
             this.leftMenu.addChild(button);
-
             this.leftMenuButtons.push(button);
-        }
-        ;
+        };
 
 
         this.openLeftMenuBtn = this.game.add.button(this.leftMenu.width * 0.45, 0, 'openMenu', function () {
@@ -304,6 +432,43 @@ export default class extends Phaser.State {
 
         this.executeAnimation(this.closeLeftMenu);
     }
+    addRelative(btn){
+        console.log(btn);
+        console.log("Selected : " + this.selectedNode);
+        var targetNode = this.selectedNode;
+        var relation = '';
+        var relationToPlayer = '';
+        switch(btn.text){
+            case english.parents:
+                relation = 'Parent';
+                break;
+            case english.stepparents:
+                relation = 'Step Parent';
+                break;
+            case english.stepbrothers:
+                relation = 'Step Sibling';
+                break;
+            case english.children:
+                relation = 'Child';
+                break;
+            default:
+                console.log('Failed to add Relative.');
+                break;
+        }
+        var frame = game.rnd.integerInRange(0, 10);
+        var gender = game.rnd.integerInRange(0,1);
+        var config = {
+            nombre: english.you,
+            image: 'characters',
+            key: frame,
+            sex: gender,
+            relation: relation,
+            targetNode: targetNode,
+            relationToPlayer: relationToPlayer
+        };
+
+        var person = new Person(this.game, targetNode.x + 50, targetNode.y + 50, config);
+    }
 
     iterateUi(left) {
         if (left) {
@@ -333,6 +498,7 @@ export default class extends Phaser.State {
     executeAnimation(anim) {
         if (anim && !anim.isRunning)
             anim.start();
+
     }
 
     update() {
@@ -341,6 +507,45 @@ export default class extends Phaser.State {
     removeKeyListener() {
         this.upKey.onDown.removeAll();
         this.downKey.onDown.removeAll();
+    }
+
+    capture() {
+        this.openMenu.frame = 0;
+
+        var canvasImageSaver = new CanvasImageSaver(
+            this.game.canvas, {
+                xCropOffset: 0,
+                yCropOffset: 0,
+                width: this.game.width,
+                height: this.game.height
+            }, function (canvas, fileName) {
+                // Success callback
+            }, function (error) {
+                // Error callback
+            }, this);
+
+        this.executeAnimation(this.closeLeftMenu);
+        this.executeAnimation(this.closeRightMenu);
+        this.callApiActivity();
+        this.game.time.events.add(1000, function () {
+            canvasImageSaver.save("myfamilytree", "myfamilytree");
+        }, this);
+    }
+
+    callApiActivity() {
+        fetch('https://dtml.org/Activity/RecordUserActivity?id=familytree&score=' + config.scoreRecord, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(err => {
+                console.log('err', err)
+            });
     }
 
     //     this.next_time = 0;
@@ -713,30 +918,6 @@ export default class extends Phaser.State {
     //     this.iterateLimit = 5;
     // }
     //
-    // chooseMe(frame) {
-    //     var id = frame;
-    //     this.boyBtn.destroy();
-    //     this.girlBtn.destroy();
-    //     this.youText.destroy();
-    //     this.processMenu(this.openBottommenu);
-    //     this.openMenu.visible = true;
-    //     var mainSibGroup = new SiblingGroup({game: this});
-    //
-    //     var config = {
-    //         nombre: english.you,
-    //         image: 'boygirl',
-    //         frame: id,
-    //         sex: (id == 0) ? false : true,
-    //         type: 'you',
-    //         relation: 'me',
-    //         group: mainSibGroup
-    //     };
-    //
-    //     this.you = new Person(this.game, this.game.width * 0.5, 150, config);
-    //     this.family.add(this.you);
-    //
-    //     this.addBottomControls();
-    // }
     //
     // addCharToNode(sprite) {
     //     console.log("addCharToNode")
@@ -1010,65 +1191,9 @@ export default class extends Phaser.State {
     //     this.addBottomControls();
     // }
     //
-    // capture() {
-    //     this.listView.grp.visible = false;
-    //     this.addBottomControls();
-    //     this.openMenu.frame = 0;
-    //
-    //     var canvasImageSaver = new CanvasImageSaver(
-    //         this.game.canvas, {
-    //             xCropOffset: 0,
-    //             yCropOffset: 0,
-    //             width: this.game.width,
-    //             height: this.game.height
-    //         }, function (canvas, fileName) {
-    //             // Success callback
-    //         }, function (error) {
-    //             // Error callback
-    //         }, this);
-    //
-    //     this.processMenu(this.closeSidemenu);
-    //     this.callApiActivity();
-    //     this.game.time.events.add(1000, function () {
-    //         canvasImageSaver.save("myfamilytree", "myfamilytree");
-    //     }, this);
-    // }
-    //
-    // share() {
-    //     var canvasImageSaver = new CanvasImageSaver(
-    //         this.game.canvas, {
-    //             xCropOffset: 0,
-    //             yCropOffset: 0,
-    //             width: this.game.width - 180,
-    //             height: this.game.height
-    //         }, function (canvas, fileName) {
-    //             // Success callback
-    //         }, function (error) {
-    //             // Error callback
-    //         }, this);
     //
     //
-    //     var url = 'https://www.facebook.com/dialog/share?app_id=' + config.facebookID + '&display=page&quote=Checkout family tree I build. Visit dtml.org&href=https://blog.dtml.org/'
-    //
-    //     window.open(url, '_blank');
-    //     this.callApiActivity();
-    // }
-    //
-    // callApiActivity() {
-    //     fetch('https://dtml.org/Activity/RecordUserActivity?id=familytree&score=' + config.scoreRecord, {
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json'
-    //         }
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             console.log(data);
-    //         })
-    //         .catch(err => {
-    //             console.log('err', err)
-    //         });
-    // }
+
     //
     // tryTapNode() {
     //     this.family.forEachAlive(function (e) {

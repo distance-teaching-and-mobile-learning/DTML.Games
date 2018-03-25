@@ -9,7 +9,6 @@ export default class Person extends Phaser.Sprite {
         this.setData(config);
         this.setConfig(config.key);
 
-
         return this;
     }
 
@@ -26,6 +25,9 @@ export default class Person extends Phaser.Sprite {
         this.input.useHandCursor = true;
         this.input.enableDrag(true);
         this.anchor.setTo(0.5);
+        this.events.onInputDown.add(()=>{
+            this.game.selectNode(this);
+        }, this);
 
         if (this.imageUsed) {
             this.character = this.game.add.sprite(0, 0, this.imageUsed, key);
@@ -82,6 +84,8 @@ export default class Person extends Phaser.Sprite {
         this.key = cfg.key;
         this.sex = cfg.sex;
         this.relation = cfg.relation;
+        this.targetNode = cfg.targetNode;
+        this.relationToPlayer = cfg.relationToPlayer;
         this.group = cfg.group;
         console.log(this);
     }
@@ -113,6 +117,29 @@ export default class Person extends Phaser.Sprite {
     activateErase() {
         this.eraseSignal.dispatch();
     }
+
+    setImageBg(cfg) {
+            this.name = cfg.name;
+            this.type = cfg.type;
+            this.imageBg = cfg.image;
+            this.frameChar = cfg.frame;
+            this.sex = cfg.sex;
+            this.relation = cfg.relation;
+            this.relationToPlayer = cfg.relationToPlayer;
+
+            if (this.character)
+                this.character.destroy();
+
+            this.nameInput.canvasInput._placeHolder = this.type.toUpperCase();
+            this.inputFocus(this.nameInput);
+
+            this.character = this.game.add.sprite(0, 0, this.imageBg, this.frameChar);
+            this.character.anchor.set(0.5);
+            this.addChild(this.character);
+
+            this.sfxbtn.destroy();
+            this.sfxbtn = this.game.add.audio(this.type);
+        }
         // this.game = game;
         // this.selected = false;
         // this.setData(config);
@@ -222,26 +249,7 @@ export default class Person extends Phaser.Sprite {
     //     }
     // }
     //
-    // setImageBg(cfg) {
-    //     this.name = cfg.name;
-    //     this.type = cfg.type;
-    //     this.imageBg = cfg.image;
-    //     this.frameChar = cfg.frame;
-    //     this.sex = cfg.sex;
     //
-    //     if (this.character)
-    //         this.character.destroy();
-    //
-    //     this.nameInput.canvasInput._placeHolder = this.type.toUpperCase();
-    //     this.inputFocus(this.nameInput);
-    //
-    //     this.character = this.game.add.sprite(0, 0, this.imageBg, this.frameChar);
-    //     this.character.anchor.set(0.5);
-    //     this.addChild(this.character);
-    //
-    //     this.sfxbtn.destroy();
-    //     this.sfxbtn = this.game.add.audio(this.type);
-    // }
     //
     // haveImageBg() {
     //     if (this.imageBg && this.imageBg != 'undefined')

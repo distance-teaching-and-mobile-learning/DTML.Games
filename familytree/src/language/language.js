@@ -16,6 +16,7 @@ export default {
     sister: 'SISTER',
     stepbrother: 'STEP-BROTHER',
     stepsister: 'STEP-SISTER',
+    cousin: 'COUSIN',
     parents: 'ADD PARENT',
     brothers: 'ADD BROTHER/SISTER',
     stepparents: 'ADD STEP PARENT',
