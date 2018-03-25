@@ -8,7 +8,7 @@ import config from '../config';
 
 export default class extends Phaser.State {
     init() {
- 	    this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+ 	    this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     
         if (!this.game.device.desktop){
             this.game.scale.forceOrientation(true, false);

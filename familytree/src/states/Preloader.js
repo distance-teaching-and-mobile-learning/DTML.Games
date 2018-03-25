@@ -49,6 +49,6 @@ export default class extends Phaser.State {
 
     create() {
         this.preloadBar.cropEnabled = false;
-        this.state.start('Intro');
+        this.state.start('Game');
     }
 }
