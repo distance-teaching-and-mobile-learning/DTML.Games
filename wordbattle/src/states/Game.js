@@ -3,6 +3,7 @@ import Phaser from 'phaser'
 import FreeText from '../sprites/FreeText'
 import Spriter from '../libs/spriter'
 import Background from '../sprites/background'
+import languages from '../sprites/Flags'
 
 export default class extends Phaser.State {
     init() {
@@ -15,6 +16,7 @@ export default class extends Phaser.State {
     create() {
         this.language = this.game.state.states['Game']._language;
         this.langCode = this.game.state.states['Game']._langCode;
+
         let bg = new Background({game: this.game});
 
         let music = game.add.audio('gameMusic');
@@ -47,7 +49,7 @@ export default class extends Phaser.State {
         });
 
         this.gnome.x = game.width + 180;
-        this.gnome.startx = this.world.width * 0.75 * game.scaleRatio;
+        this.gnome.startx = this.world.width * 0.75;
         this.gnome.y = this.game.world.height * 0.75;
         this.gnome.setAnimationSpeedPercent(40);
         this.gnome.playAnimationByName('_IDLE');
@@ -308,17 +310,14 @@ export default class extends Phaser.State {
                 }
             })
             .catch(err => {
-                    var maxTries = 3;
-                    if (attempt < maxTries)
-		    {
+                var maxTries = 3;
+                if (attempt < maxTries) {
                     this.time.events.add(2000, () => {
-                    this.sendAnswer(answer, attempt + 1);
-		    });
-		    }
-                    else
-		    {
-	              this.errorText.display();
-	            }
+                        this.sendAnswer(answer, attempt + 1);
+                    });
+                } else {
+                    this.errorText.display();
+                }
                 console.log('err', err)
             })
     }

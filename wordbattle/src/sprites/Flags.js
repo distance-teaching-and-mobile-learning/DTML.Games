@@ -2,7 +2,7 @@
  * Created by Jabito on 27/02/2018.
  */
 export var flags = {
-    "Afrikaans": "za",  "Albanian": "al", 
+    "Afrikaans": "za",  "Albanian": "al",
     "Italian": "it", "Arabic": "eh", 
     "Basque": "bs", "Korean": "kr",
     "Bengali": "bd", "Belarusian": "by", 
@@ -28,7 +28,7 @@ export var flags = {
 };
 
 export var languages = {
-    "Afrikaans": "af", "Albanian": "sq", 
+    "Afrikaans": "af", "Albanian": "sq",
      "Italian": "it",  "Arabic": "ar", 
      "Basque": "eu", "Korean": "ko",
      "Bengali": "bn",  "Belarusian": "be", 
