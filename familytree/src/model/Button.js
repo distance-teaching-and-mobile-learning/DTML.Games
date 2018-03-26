@@ -4,7 +4,8 @@ export default class Person extends Phaser.Button{
     constructor(game,x,y, func, text,btnScale, txtScale){
         super(game,x,y, 'sharebtn', func);
         this.anchor.setTo(0.5);
-        this.scale.setTo(btnScale);
+        console.log(game.aspectRatio);
+        this.scale.setTo(btnScale * game.aspectRatio);
         this.game = game;
         this.text = text;
 

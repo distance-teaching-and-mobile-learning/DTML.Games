@@ -15,7 +15,7 @@ export default class extends Phaser.State {
     }
 
     create() {
-        this.selectedNode = null;
+        this.game.selectedNode = null;
         this.bottomORside = false;
         this.bg = this.game.add.sprite(0, 0, 'fondo');
         this.bg.width = this.game.width;
@@ -30,10 +30,8 @@ export default class extends Phaser.State {
         this.game.hasInitialized = true;
     }
 
-    selectNode(node){
-        console.log(this.selectedNode);
-        console.log(node);
-        this.selectedNode = node;
+    selectNode(node) {
+        this.game.selectedNode = node;
     }
 
     initialMenu() {
@@ -151,15 +149,15 @@ export default class extends Phaser.State {
         // var mainSibGroup = new SiblingGroup({game: this});
 
         var config = {
-            nombre: english.you,
             image: 'boygirl',
             key: frame,
             sex: (frame != 0),
-            relation: 'me',
             targetNode: null,
-            relationToPlayer: english.you
+            relationToPlayer: english.you,
+            btnText: english.you
         };
         this.you = new Person(this.game, this.game.world.centerX, this.game.world.centerY, config);
+        this.game.you = this.you;
         this.family.add(this.you);
         this.UI = [];
 
@@ -170,9 +168,9 @@ export default class extends Phaser.State {
     }
 
     addBottomControls() {
-        this.deleteBtn = new Button(this.game, this.game.world.width * 0.3, this.game.world.height * 0.93, this.capture, 'Delete Person', 1.5, 1);
-        this.moveBtn = new Button(this.game, this.game.world.width * 0.5, this.game.world.height * 0.93, null, 'Move Person', 1.5, 1);
-        this.downloadBtn = new Button(this.game, this.game.world.width * 0.7, this.game.world.height * 0.93, this.capture, 'Download', 1.5, 1);
+        this.deleteBtn = new Button(this.game, this.game.world.width * 0.3, this.game.world.height * 0.93, this.deleteSelectedNode.bind(this), 'Delete Person', 1.5, 1);
+        this.moveBtn = new Button(this.game, this.game.world.width * 0.5, this.game.world.height * 0.93, this.enableKeyboardMove.bind(this), 'Move Person', 1.5, 1);
+        this.downloadBtn = new Button(this.game, this.game.world.width * 0.7, this.game.world.height * 0.93, this.capture.bind(this), 'Download', 1.5, 1);
     }
 
     addRightControls() {
@@ -202,7 +200,7 @@ export default class extends Phaser.State {
             character.inputEnabled = true;
             character.input.priorityID = 0;
             character.input.useHandCursor = true;
-            character.events.onInputDown.add(this.addCharToNode, this);
+            // character.events.onInputDown.add(this.addCharToNode, this);
 
             this.listView.add(item);
         }
@@ -283,14 +281,22 @@ export default class extends Phaser.State {
         this.executeAnimation(this.closeRightMenu);
     }
 
+    deleteSelectedNode(){
+
+    }
+
+    enableKeyboardMove(){
+
+    }
+
     addCharToNode(sprite) {
         console.log("addCharToNode")
-        if (!this.selectedNode || this.selectedNode.relation == 'me') return;
+        if (!this.game.selectedNode || this.game.selectedNode.relation == 'me') return;
 
         var names = '';
         var type = '';
 
-        // if (this.selectedNode.areParents()) {
+        // if (this.game.selectedNode.areParents()) {
         //     if (!this.genreType) {
         //         names = english.father;
         //         type = 'father';
@@ -300,7 +306,7 @@ export default class extends Phaser.State {
         //         type = 'mother';
         //     }
         // }
-        // else if (this.selectedNode.areStepParents()) {
+        // else if (this.game.selectedNode.areStepParents()) {
         //     if (!this.genreType) {
         //         names = english.stepfather;
         //         type = 'stepfather';
@@ -310,7 +316,7 @@ export default class extends Phaser.State {
         //         type = 'stepmother';
         //     }
         // }
-        // else if (this.selectedNode.areBrothers()) {
+        // else if (this.game.selectedNode.areBrothers()) {
         //     if (!this.genreType) {
         //         names = english.brother;
         //         type = 'brother';
@@ -320,7 +326,7 @@ export default class extends Phaser.State {
         //         type = 'sister';
         //     }
         // }
-        // else if (this.selectedNode.areStepBrothers()) {
+        // else if (this.game.selectedNode.areStepBrothers()) {
         //     if (!this.genreType) {
         //         names = english.stepbrother;
         //         type = 'stepbrother';
@@ -330,7 +336,7 @@ export default class extends Phaser.State {
         //         type = 'stepsister';
         //     }
         // }
-        // else if (this.selectedNode.areSiblings()) {
+        // else if (this.game.selectedNode.areSiblings()) {
         //     if (!this.genreType) {
         //         names = english.uncle;
         //         type = 'uncle';
@@ -340,7 +346,7 @@ export default class extends Phaser.State {
         //         type = 'aunt';
         //     }
         // }
-        // else if (this.selectedNode.areGrantparents()) {
+        // else if (this.game.selectedNode.areGrantparents()) {
         //     if (!this.genreType) {
         //         names = english.grandfather;
         //         type = 'grandfather';
@@ -350,7 +356,7 @@ export default class extends Phaser.State {
         //         type = 'grandmother';
         //     }
         // }
-        // else if (this.selectedNode.areGreatGrantparents()) {
+        // else if (this.game.selectedNode.areGreatGrantparents()) {
         //     if (!this.genreType) {
         //         names = english.grandgrandfather;
         //         type = 'grandgrandfather';
@@ -372,7 +378,7 @@ export default class extends Phaser.State {
             sex: this.genreType
         };
 
-        this.selectedNode.setImageBg(config);
+        this.game.selectedNode.setImageBg(config);
 
         // this.executeAnimation(this.closeRightMenu);
         //this.processMenu(this.openBottommenu);
@@ -392,7 +398,8 @@ export default class extends Phaser.State {
             let button = new Button(this.game, 0, offsetY * -(x - 2), this.addRelative.bind(this), relation, 1, 0.7);
             this.leftMenu.addChild(button);
             this.leftMenuButtons.push(button);
-        };
+        }
+        ;
 
 
         this.openLeftMenuBtn = this.game.add.button(this.leftMenu.width * 0.45, 0, 'openMenu', function () {
@@ -432,39 +439,18 @@ export default class extends Phaser.State {
 
         this.executeAnimation(this.closeLeftMenu);
     }
-    addRelative(btn){
-        console.log(btn);
-        console.log("Selected : " + this.selectedNode);
-        var targetNode = this.selectedNode;
-        var relation = '';
-        var relationToPlayer = '';
-        switch(btn.text){
-            case english.parents:
-                relation = 'Parent';
-                break;
-            case english.stepparents:
-                relation = 'Step Parent';
-                break;
-            case english.stepbrothers:
-                relation = 'Step Sibling';
-                break;
-            case english.children:
-                relation = 'Child';
-                break;
-            default:
-                console.log('Failed to add Relative.');
-                break;
-        }
+
+    addRelative(btn) {
+        var targetNode = this.game.selectedNode;
         var frame = game.rnd.integerInRange(0, 10);
-        var gender = game.rnd.integerInRange(0,1);
+        var gender = game.rnd.integerInRange(0, 1);
+
         var config = {
-            nombre: english.you,
             image: 'characters',
             key: frame,
             sex: gender,
-            relation: relation,
             targetNode: targetNode,
-            relationToPlayer: relationToPlayer
+            btnText: btn.text
         };
 
         var person = new Person(this.game, targetNode.x + 50, targetNode.y + 50, config);
@@ -510,7 +496,7 @@ export default class extends Phaser.State {
     }
 
     capture() {
-        this.openMenu.frame = 0;
+        // this.openMenu.frame = 0;
 
         var canvasImageSaver = new CanvasImageSaver(
             this.game.canvas, {
@@ -921,12 +907,12 @@ export default class extends Phaser.State {
     //
     // addCharToNode(sprite) {
     //     console.log("addCharToNode")
-    //     if (!this.selectedNode || this.selectedNode.relation == 'me') return;
+    //     if (!this.game.selectedNode || this.game.selectedNode.relation == 'me') return;
     //
     //     var names = '';
     //     var type = '';
     //
-    //     if (this.selectedNode.areParents()) {
+    //     if (this.game.selectedNode.areParents()) {
     //         if (!this.genreType) {
     //             names = english.father;
     //             type = 'father';
@@ -936,7 +922,7 @@ export default class extends Phaser.State {
     //             type = 'mother';
     //         }
     //     }
-    //     else if (this.selectedNode.areStepParents()) {
+    //     else if (this.game.selectedNode.areStepParents()) {
     //         if (!this.genreType) {
     //             names = english.stepfather;
     //             type = 'stepfather';
@@ -946,7 +932,7 @@ export default class extends Phaser.State {
     //             type = 'stepmother';
     //         }
     //     }
-    //     else if (this.selectedNode.areBrothers()) {
+    //     else if (this.game.selectedNode.areBrothers()) {
     //         if (!this.genreType) {
     //             names = english.brother;
     //             type = 'brother';
@@ -956,7 +942,7 @@ export default class extends Phaser.State {
     //             type = 'sister';
     //         }
     //     }
-    //     else if (this.selectedNode.areStepBrothers()) {
+    //     else if (this.game.selectedNode.areStepBrothers()) {
     //         if (!this.genreType) {
     //             names = english.stepbrother;
     //             type = 'stepbrother';
@@ -966,7 +952,7 @@ export default class extends Phaser.State {
     //             type = 'stepsister';
     //         }
     //     }
-    //     else if (this.selectedNode.areSiblings()) {
+    //     else if (this.game.selectedNode.areSiblings()) {
     //         if (!this.genreType) {
     //             names = english.uncle;
     //             type = 'uncle';
@@ -976,7 +962,7 @@ export default class extends Phaser.State {
     //             type = 'aunt';
     //         }
     //     }
-    //     else if (this.selectedNode.areGrantparents()) {
+    //     else if (this.game.selectedNode.areGrantparents()) {
     //         if (!this.genreType) {
     //             names = english.grandfather;
     //             type = 'grandfather';
@@ -986,7 +972,7 @@ export default class extends Phaser.State {
     //             type = 'grandmother';
     //         }
     //     }
-    //     else if (this.selectedNode.areGreatGrantparents()) {
+    //     else if (this.game.selectedNode.areGreatGrantparents()) {
     //         if (!this.genreType) {
     //             names = english.grandgrandfather;
     //             type = 'grandgrandfather';
@@ -1009,7 +995,7 @@ export default class extends Phaser.State {
     //         group: personGroup
     //     };
     //
-    //     this.selectedNode.setImageBg(config);
+    //     this.game.selectedNode.setImageBg(config);
     //
     //     this.processMenu(this.closeSidemenu);
     //     this.listView.grp.visible = false;
@@ -1018,23 +1004,23 @@ export default class extends Phaser.State {
     // }
     //
     // addParent(text) {
-    //     if (!this.selectedNode || this.selectedNode.parentsCount >= 2 || this.selectedNode.relation == 'brothers' || this.selectedNode.relation == 'sibling' || this.selectedNode.relation == 'grandgrandparents') return;
+    //     if (!this.game.selectedNode || this.game.selectedNode.parentsCount >= 2 || this.game.selectedNode.relation == 'brothers' || this.game.selectedNode.relation == 'sibling' || this.game.selectedNode.relation == 'grandgrandparents') return;
     //
     //     var relation, xoffset, direction, indexCount;
     //
-    //     if (this.selectedNode.eraseParentNode.length > 0) {
-    //         indexCount = this.selectedNode.eraseParentNode.shift();
-    //         this.selectedNode.parentsCount++;
+    //     if (this.game.selectedNode.eraseParentNode.length > 0) {
+    //         indexCount = this.game.selectedNode.eraseParentNode.shift();
+    //         this.game.selectedNode.parentsCount++;
     //     }
     //     else {
-    //         this.selectedNode.parentsCount++;
-    //         indexCount = this.selectedNode.parentsCount;
+    //         this.game.selectedNode.parentsCount++;
+    //         indexCount = this.game.selectedNode.parentsCount;
     //     }
     //
-    //     if (this.selectedNode.relation == 'parents' || this.selectedNode.relation == 'stepparents') {
+    //     if (this.game.selectedNode.relation == 'parents' || this.game.selectedNode.relation == 'stepparents') {
     //         relation = 'grantparents';
     //         if (indexCount == 1) {
-    //             if (this.selectedNode.direction == 'right') {
+    //             if (this.game.selectedNode.direction == 'right') {
     //                 direction = 'left';
     //                 xoffset = 80;
     //             }
@@ -1044,7 +1030,7 @@ export default class extends Phaser.State {
     //             }
     //         }
     //         else {
-    //             if (this.selectedNode.direction == 'right') {
+    //             if (this.game.selectedNode.direction == 'right') {
     //                 direction = 'right';
     //                 xoffset = 160;
     //             }
@@ -1054,14 +1040,14 @@ export default class extends Phaser.State {
     //             }
     //         }
     //     }
-    //     else if (this.selectedNode.relation == 'grantparents') {
+    //     else if (this.game.selectedNode.relation == 'grantparents') {
     //         direction = 'right';
     //         relation = 'grandgrandparents';
     //         if (indexCount == 1) {
     //             xoffset = 0;
     //         }
     //         else {
-    //             if (this.selectedNode.direction == 'right') {
+    //             if (this.game.selectedNode.direction == 'right') {
     //                 direction = 'right';
     //                 xoffset = 80;
     //             }
@@ -1082,7 +1068,7 @@ export default class extends Phaser.State {
     //             xoffset = -40;
     //         }
     //     }
-    //     else if (this.selectedNode.relation == 'me') {
+    //     else if (this.game.selectedNode.relation == 'me') {
     //         relation = 'parents';
     //         if (indexCount == 1) {
     //             direction = 'right';
@@ -1112,18 +1098,18 @@ export default class extends Phaser.State {
     //     }
     //
     //
-    //     if (this.selectedNode.relation == 'me') {
-    //         var character1 = new Person(this.game, this.selectedNode.x + (xoffset), this.selectedNode.y - 110, config1);
-    //         // var character2 = new Person(this.game,this.selectedNode.x+40, this.selectedNode.y-110, config2);
+    //     if (this.game.selectedNode.relation == 'me') {
+    //         var character1 = new Person(this.game, this.game.selectedNode.x + (xoffset), this.game.selectedNode.y - 110, config1);
+    //         // var character2 = new Person(this.game,this.game.selectedNode.x+40, this.game.selectedNode.y-110, config2);
     //     }
-    //     else if (this.selectedNode.relation == 'parents' || this.selectedNode.relation == 'stepparents' || this.selectedNode.relation == 'grantparents') {
-    //         var character1 = new Person(this.game, this.selectedNode.x + (xoffset), this.selectedNode.y - 110, config1);
-    //         //var character2 = new Person(this.game,this.selectedNode.x+(xoffset), this.selectedNode.y-110, config2);
+    //     else if (this.game.selectedNode.relation == 'parents' || this.game.selectedNode.relation == 'stepparents' || this.game.selectedNode.relation == 'grantparents') {
+    //         var character1 = new Person(this.game, this.game.selectedNode.x + (xoffset), this.game.selectedNode.y - 110, config1);
+    //         //var character2 = new Person(this.game,this.game.selectedNode.x+(xoffset), this.game.selectedNode.y-110, config2);
     //     }
     //
-    //     character1.mainNode = this.selectedNode;
+    //     character1.mainNode = this.game.selectedNode;
     //     character1.parentNum = indexCount;
-    //     this.selectedNode.parentNum = this.selectedNode.parentsCount;
+    //     this.game.selectedNode.parentNum = this.game.selectedNode.parentsCount;
     //     character1.eraseSignal.add(this.unselectAllNodes, this);
     //
     //     this.family.add(character1);
@@ -1131,27 +1117,27 @@ export default class extends Phaser.State {
     // }
     //
     // addBrother(text) {
-    //     if (!this.selectedNode || (this.selectedNode.type != 'you' && this.selectedNode.relation != 'parents' && this.selectedNode.relation != 'stepparents')) return;
+    //     if (!this.game.selectedNode || (this.game.selectedNode.type != 'you' && this.game.selectedNode.relation != 'parents' && this.game.selectedNode.relation != 'stepparents')) return;
     //
     //     var relation, indexCount;
     //
-    //     if (this.selectedNode.erasebrotherNode.length > 0) {
-    //         indexCount = this.selectedNode.erasebrotherNode.shift();
-    //         this.selectedNode.brotherCount++;
+    //     if (this.game.selectedNode.erasebrotherNode.length > 0) {
+    //         indexCount = this.game.selectedNode.erasebrotherNode.shift();
+    //         this.game.selectedNode.brotherCount++;
     //     }
     //     else {
-    //         this.selectedNode.brotherCount = this.selectedNode.brotherNum;
-    //         this.selectedNode.brotherCount++;
-    //         indexCount = this.selectedNode.brotherCount;
+    //         this.game.selectedNode.brotherCount = this.game.selectedNode.brotherNum;
+    //         this.game.selectedNode.brotherCount++;
+    //         indexCount = this.game.selectedNode.brotherCount;
     //     }
     //
-    //     if (this.selectedNode.relation == 'parents' || this.selectedNode.relation == 'stepparents')
+    //     if (this.game.selectedNode.relation == 'parents' || this.game.selectedNode.relation == 'stepparents')
     //         relation = 'sibling';
-    //     else if (this.selectedNode.relation == 'sibling')
+    //     else if (this.game.selectedNode.relation == 'sibling')
     //         relation = 'sibling';
     //     else if (text == english.stepbrothers)
     //         relation = 'stepbrothers';
-    //     else if (this.selectedNode.relation == 'me')
+    //     else if (this.game.selectedNode.relation == 'me')
     //         relation = 'brothers';
     //
     //
@@ -1169,22 +1155,22 @@ export default class extends Phaser.State {
     //         direction: 'right'
     //     };
     //
-    //     if (this.selectedNode.relation == 'me') {
+    //     if (this.game.selectedNode.relation == 'me') {
     //         if (indexCount % 2 == 1)
-    //             var brother = new Person(this.game, this.selectedNode.x - (100 * Math.ceil(indexCount * 0.5)), this.selectedNode.y, config1);
+    //             var brother = new Person(this.game, this.game.selectedNode.x - (100 * Math.ceil(indexCount * 0.5)), this.game.selectedNode.y, config1);
     //         else
-    //             var brother = new Person(this.game, this.selectedNode.x + (100 * Math.ceil(indexCount * 0.5)), this.selectedNode.y, config2);
+    //             var brother = new Person(this.game, this.game.selectedNode.x + (100 * Math.ceil(indexCount * 0.5)), this.game.selectedNode.y, config2);
     //     }
     //     else {
-    //         if (this.selectedNode.direction == 'left')
-    //             var brother = new Person(this.game, this.selectedNode.x - (100 * indexCount), this.selectedNode.y, config1);
+    //         if (this.game.selectedNode.direction == 'left')
+    //             var brother = new Person(this.game, this.game.selectedNode.x - (100 * indexCount), this.game.selectedNode.y, config1);
     //         else
-    //             var brother = new Person(this.game, this.selectedNode.x + (100 * indexCount), this.selectedNode.y, config2);
+    //             var brother = new Person(this.game, this.game.selectedNode.x + (100 * indexCount), this.game.selectedNode.y, config2);
     //     }
     //
-    //     brother.mainNode = this.selectedNode;
+    //     brother.mainNode = this.game.selectedNode;
     //     brother.brotherNum = indexCount;
-    //     this.selectedNode.brotherNum = this.selectedNode.brotherCount;
+    //     this.game.selectedNode.brotherNum = this.game.selectedNode.brotherCount;
     //     brother.eraseSignal.add(this.unselectAllNodes, this);
     //
     //     this.family.add(brother);
@@ -1214,14 +1200,14 @@ export default class extends Phaser.State {
     //     this.game.world.bringToTop(this.listView.grp);
     //
     //     this.unselectAllNodes();
-    //     this.selectedNode = e;
+    //     this.game.selectedNode = e;
     //     this.click = true;
     //     e.selected = true;
     //     e.children[0].frame = 1;
     // }
     //
     // unselectAllNodes() {
-    //     this.selectedNode = null;
+    //     this.game.selectedNode = null;
     //     this.family.forEachAlive(function (e) {
     //         if (e.selected) {
     //             e.selected = false;
@@ -1232,10 +1218,10 @@ export default class extends Phaser.State {
     //
     //
     // update() {
-    //     if (this.selectedNode) {
+    //     if (this.game.selectedNode) {
     //         if (this.click) {
-    //             this.family.pivot.x = this.selectedNode.x;
-    //             this.family.pivot.y = this.selectedNode.y;
+    //             this.family.pivot.x = this.game.selectedNode.x;
+    //             this.family.pivot.y = this.game.selectedNode.y;
     //             this.family.x = this.game.input.activePointer.x;
     //             this.family.y = this.game.input.activePointer.y;
     //         }
