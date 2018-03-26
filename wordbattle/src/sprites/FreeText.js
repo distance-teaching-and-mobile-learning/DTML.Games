@@ -7,12 +7,14 @@ export default class extends Phaser.Sprite {
     constructor({game, x, y, text, cloudEnabled}) {
         super(game, x, y, 'cloud');
         this.game = game;
+        this.scale.setTo(game.scaleRatio);
         this.x = x;
         this.y = y;
         this.origX = x;
         this.origY = y;
         this.alpha = 0;
         this.text = game.add.text(x,y, text, {font: "45px Berkshire Swash", fill: "#ff0044", align: "center"});
+        this.text.scale.setTo(game.scaleRatio);
         this.text.anchor.setTo(0.5);
         this.text.alpha = 0;
         // this.addChild(this.text);

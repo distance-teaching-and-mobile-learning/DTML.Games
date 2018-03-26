@@ -35,8 +35,8 @@ export default class extends Phaser.State {
 
         this.wiz = this.loadSpriter('wizard');
         this.wiz.scale.set(0.20 * game.scaleRatio);
-        this.wiz.x = -180 * game.scaleRatio;
-        this.wiz.y = this.world.height * 0.65 * game.scaleRatio;
+        this.wiz.x = -this.game.world.width * 0.35;
+        this.wiz.y = this.game.world.height * 0.65;
         this.spritesGroup.add(this.wiz);
 
         this.gnome = this.loadSpriter('gnome');
@@ -46,9 +46,9 @@ export default class extends Phaser.State {
             sprite.anchor.set(0, 1)
         });
 
-        this.gnome.x = game.width + 180 * game.scaleRatio;
+        this.gnome.x = game.width + 180;
         this.gnome.startx = this.world.width * 0.75 * game.scaleRatio;
-        this.gnome.y = this.world.height * 0.73 * game.scaleRatio;
+        this.gnome.y = this.game.world.height * 0.75;
         this.gnome.setAnimationSpeedPercent(40);
         this.gnome.playAnimationByName('_IDLE');
         this.spritesGroup.add(this.gnome);
@@ -56,7 +56,7 @@ export default class extends Phaser.State {
         // intro sequence
         this.wiz.setAnimationSpeedPercent(200);
         this.wiz.playAnimationByName('_RUN');
-        game.add.tween(this.wiz).to({x: this.world.width * 0.25 * game.scaleRatio}, 1500, Phaser.Easing.Linear.None, true, 1500)
+        game.add.tween(this.wiz).to({x: this.world.width * 0.25}, 1500, Phaser.Easing.Linear.None, true, 1500)
             .onComplete.add(() => {
             this.wiz.setAnimationSpeedPercent(30);
             this.wiz.playAnimationByName('_IDLE');
@@ -64,13 +64,13 @@ export default class extends Phaser.State {
 
         this.gnome.setAnimationSpeedPercent(200);
         this.gnome.playAnimationByName('_RUN');
-        game.add.tween(this.gnome).to({x: this.world.width * 0.75 * game.scaleRatio}, 1500, Phaser.Easing.Linear.None, true, 1500)
+        game.add.tween(this.gnome).to({x: this.world.width * 0.75}, 1500, Phaser.Easing.Linear.None, true, 1500)
             .onComplete.add(() => {
             this.gnome.setAnimationSpeedPercent(30);
             this.gnome.playAnimationByName('_IDLE');
 
             let iconHome = this.createIcon(this.game.world.centerX * 0.1, this.game.world.centerY * 0.15, 'iconHome')
-            iconHome.scale.set(0.3);
+            iconHome.scale.set(0.3 * game.scaleRatio);
             iconHome.anchor.setTo(0.5);
             iconHome.inputEnabled = true;
             iconHome.events.onInputDown.add(() => {
@@ -81,11 +81,13 @@ export default class extends Phaser.State {
                 font: "32px Berkshire Swash",
                 fill: '#FFF'
             });
+            label.scale.setTo(game.scaleRatio);
             label.anchor.setTo(0.5);
             this.scoreText = game.add.text(this.world.width * 0.93, this.game.world.centerY * 0.2, '0', {
                 font: "40px Berkshire Swash",
                 fill: '#FFF'
             });
+            this.scoreText.scale.setTo(game.scaleRatio);
             this.scoreText.anchor.setTo(0.5);
         });
 
