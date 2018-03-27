@@ -31,7 +31,9 @@ export default class extends Phaser.State {
     }
 
     selectNode(node) {
+        this.unselectAllNodes();
         this.game.selectedNode = node;
+        this.game.selectedNode.children[0].frame = 0;
     }
 
     initialMenu() {
@@ -168,7 +170,7 @@ export default class extends Phaser.State {
     }
 
     addBottomControls() {
-        this.deleteBtn = new Button(this.game, this.game.world.width * 0.3, this.game.world.height * 0.93, this.deleteSelectedNode.bind(this), 'Delete Person', 1.5, 1);
+        this.deleteBtn = new Button(this.game, this.game.world.width * 0.3, this.game.world.height * 0.93, this.unselectAllNodes.bind(this), 'Delete Person', 1.5, 1);
         this.moveBtn = new Button(this.game, this.game.world.width * 0.5, this.game.world.height * 0.93, this.enableKeyboardMove.bind(this), 'Move Person', 1.5, 1);
         this.downloadBtn = new Button(this.game, this.game.world.width * 0.7, this.game.world.height * 0.93, this.capture.bind(this), 'Download', 1.5, 1);
     }
@@ -200,7 +202,7 @@ export default class extends Phaser.State {
             character.inputEnabled = true;
             character.input.priorityID = 0;
             character.input.useHandCursor = true;
-            // character.events.onInputDown.add(this.addCharToNode, this);
+            character.events.onInputDown.add(this.addCharToNode, this);
 
             this.listView.add(item);
         }
@@ -251,6 +253,7 @@ export default class extends Phaser.State {
             this.genreType = true;
         }.bind(this));
 
+        this.genreType = false;
         this.genre2.frame = 1;
         this.genre2.input.priorityID = 1;
         this.genre2.anchor.set(0.5);
@@ -282,7 +285,8 @@ export default class extends Phaser.State {
     }
 
     deleteSelectedNode(){
-
+        this.game.selectedNode.activateErase();
+        this.game.selectedNode = this.you;
     }
 
     enableKeyboardMove(){
@@ -291,91 +295,15 @@ export default class extends Phaser.State {
 
     addCharToNode(sprite) {
         console.log("addCharToNode")
-        if (!this.game.selectedNode || this.game.selectedNode.relation == 'me') return;
+        if (!this.game.selectedNode || this.game.selectedNode == this.you) return;
 
-        var names = '';
-        var type = '';
-
-        // if (this.game.selectedNode.areParents()) {
-        //     if (!this.genreType) {
-        //         names = english.father;
-        //         type = 'father';
-        //     }
-        //     else {
-        //         names = english.mother;
-        //         type = 'mother';
-        //     }
-        // }
-        // else if (this.game.selectedNode.areStepParents()) {
-        //     if (!this.genreType) {
-        //         names = english.stepfather;
-        //         type = 'stepfather';
-        //     }
-        //     else {
-        //         names = english.stepmother;
-        //         type = 'stepmother';
-        //     }
-        // }
-        // else if (this.game.selectedNode.areBrothers()) {
-        //     if (!this.genreType) {
-        //         names = english.brother;
-        //         type = 'brother';
-        //     }
-        //     else {
-        //         names = english.sister;
-        //         type = 'sister';
-        //     }
-        // }
-        // else if (this.game.selectedNode.areStepBrothers()) {
-        //     if (!this.genreType) {
-        //         names = english.stepbrother;
-        //         type = 'stepbrother';
-        //     }
-        //     else {
-        //         names = english.stepsister;
-        //         type = 'stepsister';
-        //     }
-        // }
-        // else if (this.game.selectedNode.areSiblings()) {
-        //     if (!this.genreType) {
-        //         names = english.uncle;
-        //         type = 'uncle';
-        //     }
-        //     else {
-        //         names = english.aunt;
-        //         type = 'aunt';
-        //     }
-        // }
-        // else if (this.game.selectedNode.areGrantparents()) {
-        //     if (!this.genreType) {
-        //         names = english.grandfather;
-        //         type = 'grandfather';
-        //     }
-        //     else {
-        //         names = english.grandmother;
-        //         type = 'grandmother';
-        //     }
-        // }
-        // else if (this.game.selectedNode.areGreatGrantparents()) {
-        //     if (!this.genreType) {
-        //         names = english.grandgrandfather;
-        //         type = 'grandgrandfather';
-        //     }
-        //     else {
-        //         names = english.grandgrandmother;
-        //         type = 'grandgrandmother';
-        //     }
-        // }
-
-        // var personGroup = null;
-        //todo Check person siblingGroup.
-
+        console.log(sprite);
         var config = {
-            name: names,
-            type: type,
             image: 'characters',
-            frame: sprite.frame,
-            sex: this.genreType
+            key: sprite.frame,
+            sex: this.genreType,
+            targetNode: this.game.selectedNode,
+            btnText: null
         };
 
         this.game.selectedNode.setImageBg(config);
@@ -454,6 +382,7 @@ export default class extends Phaser.State {
         };
 
         var person = new Person(this.game, targetNode.x + 50, targetNode.y + 50, config);
+        this.family.add(person);
     }
 
     iterateUi(left) {
@@ -534,6 +463,15 @@ export default class extends Phaser.State {
             });
     }
 
+    unselectAllNodes() {
+        this.game.selectedNode = null;
+        this.family.forEachAlive(function (e) {
+            if (e.selected) {
+                e.selected = false;
+                e.children[0].frame = 0;
+            }
+        }, this);
+    }
     //     this.next_time = 0;
     //     this.click = false;
     //     this.genreType = false;
@@ -1206,15 +1144,6 @@ export default class extends Phaser.State {
     //     e.children[0].frame = 1;
     // }
     //
-    // unselectAllNodes() {
-    //     this.game.selectedNode = null;
-    //     this.family.forEachAlive(function (e) {
-    //         if (e.selected) {
-    //             e.selected = false;
-    //             e.children[0].frame = 0;
-    //         }
-    //     }, this);
-    // }
     //
     //
     // update() {

@@ -28,5 +28,7 @@ export default {
     download: 'DOWNLOAD',
     share: 'SHARE ON FACEBOOK',
     boy: 'BOY',
-    girl: 'GIRL'
+    girl: 'GIRL',
+    grandDaughter: 'GRAND DAUGHTER',
+    grandSon: 'GRAND SON'
 }

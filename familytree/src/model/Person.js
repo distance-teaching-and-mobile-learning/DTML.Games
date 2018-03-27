@@ -7,6 +7,7 @@ export default class Person extends Phaser.Sprite {
         this.game = game;
         this.selected = false;
         console.log(config);
+        this.origConfig = config;
         this.setData(config);
         this.setConfig(config.key);
         if (config.relationToPlayer != english.you)
@@ -112,6 +113,8 @@ export default class Person extends Phaser.Sprite {
                 return this.sex ? english.stepsister : english.stepbrother;
             case 'Child':
                 return this.sex ? english.daughter : english.son;
+            case 'GrandChild':
+                return this.sex ? english.grandDaughter : english.grandSon;
             case 'DistantRelative':
                 return 'DistantRelative';
             default:
@@ -122,6 +125,11 @@ export default class Person extends Phaser.Sprite {
     setData(cfg) {
         var relation;
         var relationToPlayer;
+        if(null == cfg.btnText){
+            cfg.targetNode = this.targetNode;
+            cfg.btnText = this.origConfig.btnText;
+        }
+
         switch (cfg.btnText) {
             case english.you:
                 relation = english.you;
@@ -213,6 +221,9 @@ export default class Person extends Phaser.Sprite {
                         case 'StepSibling':
                             relationToPlayer = 'Sibling';
                             break;
+                        case 'Uncle/Aunt':
+                            relationToPlayer = 'Uncle/Aunt';
+                            break;
                         case 'Child':
                             relationToPlayer = 'Niece/Nephew';
                             break;
@@ -228,10 +239,17 @@ export default class Person extends Phaser.Sprite {
                     relationToPlayer = 'Child';
                 } else {
                     switch (cfg.targetNode.relationToPlayer) {
+                        case 'GrandParent':
+                            relationToPlayer = 'Uncle/Aunt';
+                            break;
                         case 'Parent':
                             relationToPlayer = 'Sibling';
+                            break;
                         case 'StepParent':
                             relationToPlayer = 'StepSibling';
+                            break;
+                        case 'Uncle/Aunt':
+                            relationToPlayer = 'Cousin';
                             break;
                         case 'Sibling':
                         case 'StepSibling':
@@ -299,10 +317,11 @@ export default class Person extends Phaser.Sprite {
         if (this.character)
             this.character.destroy();
 
-        this.nameInput.canvasInput._placeHolder = this.type.toUpperCase();
+        console.log("RelationToPlayer: "+ this.relationToPlayer);
+        this.nameInput.canvasInput._placeHolder = this.relationToPlayer.toUpperCase();
         this.inputFocus(this.nameInput);
 
-        this.character = this.game.add.sprite(0, 0, this.imageBg, this.frameChar);
+        this.character = this.game.add.sprite(0, 0, this.imageUsed, this.key);
         this.character.anchor.set(0.5);
         this.addChild(this.character);
 
