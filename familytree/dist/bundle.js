@@ -12196,6 +12196,7 @@ if (window.cordova) {
     }
 
     selectNode(node) {
+        console.log(node);
         this.unselectAllNodes();
         this.game.selectedNode = node;
         this.game.selectedNode.children[0].frame = 0;
@@ -12324,11 +12325,12 @@ if (window.cordova) {
         this.addLeftControls();
         this.addRightControls();
         this.addBottomControls();
-        this.selectNode(this.you);
+        // this.selectNode(this.you);
+        this.you.selectNode();
     }
 
     addBottomControls() {
-        this.deleteBtn = new __WEBPACK_IMPORTED_MODULE_2__model_Button__["a" /* default */](this.game, this.game.world.width * 0.3, this.game.world.height * 0.93, this.unselectAllNodes.bind(this), 'Delete Person', 1.5, 1);
+        this.deleteBtn = new __WEBPACK_IMPORTED_MODULE_2__model_Button__["a" /* default */](this.game, this.game.world.width * 0.3, this.game.world.height * 0.93, this.deleteSelectedNode.bind(this), 'Delete Person', 1.5, 1);
         this.moveBtn = new __WEBPACK_IMPORTED_MODULE_2__model_Button__["a" /* default */](this.game, this.game.world.width * 0.5, this.game.world.height * 0.93, this.enableKeyboardMove.bind(this), 'Move Person', 1.5, 1);
         this.downloadBtn = new __WEBPACK_IMPORTED_MODULE_2__model_Button__["a" /* default */](this.game, this.game.world.width * 0.7, this.game.world.height * 0.93, this.capture.bind(this), 'Download', 1.5, 1);
     }
@@ -12441,8 +12443,13 @@ if (window.cordova) {
     }
 
     deleteSelectedNode() {
-        this.game.selectedNode.activateErase();
-        this.game.selectedNode = this.you;
+        if (this.game.selectedNode != this.you) {
+            this.game.selectedNode.deletePerson();
+            // this.selectNode(this.you);
+            this.you.selectNode();
+        }
+        // this.game.selectedNode.activateErase();
+        // this.game.selectedNode = this.you;
     }
 
     enableKeyboardMove() {}
@@ -12522,6 +12529,7 @@ if (window.cordova) {
     }
 
     addRelative(btn) {
+        console.log(this.game.selectedNode);
         var targetNode = this.game.selectedNode;
         var frame = game.rnd.integerInRange(0, 10);
         var gender = game.rnd.integerInRange(0, 1);
@@ -14133,12 +14141,18 @@ class Person extends __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Sprite {
         return this;
     }
 
+    deletePerson() {
+        this.destroy();
+    }
+
     update() {
         if (this.line) this.line.fromSprite(this, this.targetNode, false);
     }
 
     selectNode() {
+        if (this.relationToPlayer != __WEBPACK_IMPORTED_MODULE_1__language_language__["a" /* default */].you) this.game.selectedNode.children[0].frame = 0;
         this.game.selectedNode = this;
+        this.children[0].frame = 1;
     }
 
     setConfig(key) {

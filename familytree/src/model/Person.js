@@ -16,13 +16,20 @@ export default class Person extends Phaser.Sprite {
         return this;
     }
 
+    deletePerson(){
+        this.destroy();
+    }
+
     update() {
         if (this.line)
             this.line.fromSprite(this, this.targetNode, false);
     }
 
     selectNode() {
+        if(this.relationToPlayer != english.you)
+            this.game.selectedNode.children[0].frame = 0;
         this.game.selectedNode = this;
+        this.children[0].frame = 1;
     }
 
     setConfig(key) {

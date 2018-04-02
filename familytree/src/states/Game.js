@@ -31,6 +31,7 @@ export default class extends Phaser.State {
     }
 
     selectNode(node) {
+        console.log(node);
         this.unselectAllNodes();
         this.game.selectedNode = node;
         this.game.selectedNode.children[0].frame = 0;
@@ -166,11 +167,12 @@ export default class extends Phaser.State {
         this.addLeftControls();
         this.addRightControls();
         this.addBottomControls();
-        this.selectNode(this.you);
+        // this.selectNode(this.you);
+        this.you.selectNode();
     }
 
     addBottomControls() {
-        this.deleteBtn = new Button(this.game, this.game.world.width * 0.3, this.game.world.height * 0.93, this.unselectAllNodes.bind(this), 'Delete Person', 1.5, 1);
+        this.deleteBtn = new Button(this.game, this.game.world.width * 0.3, this.game.world.height * 0.93, this.deleteSelectedNode.bind(this), 'Delete Person', 1.5, 1);
         this.moveBtn = new Button(this.game, this.game.world.width * 0.5, this.game.world.height * 0.93, this.enableKeyboardMove.bind(this), 'Move Person', 1.5, 1);
         this.downloadBtn = new Button(this.game, this.game.world.width * 0.7, this.game.world.height * 0.93, this.capture.bind(this), 'Download', 1.5, 1);
     }
@@ -285,8 +287,13 @@ export default class extends Phaser.State {
     }
 
     deleteSelectedNode(){
-        this.game.selectedNode.activateErase();
-        this.game.selectedNode = this.you;
+        if(this.game.selectedNode != this.you){
+            this.game.selectedNode.deletePerson();
+            // this.selectNode(this.you);
+            this.you.selectNode();
+        }
+        // this.game.selectedNode.activateErase();
+        // this.game.selectedNode = this.you;
     }
 
     enableKeyboardMove(){
@@ -369,6 +376,7 @@ export default class extends Phaser.State {
     }
 
     addRelative(btn) {
+        console.log(this.game.selectedNode);
         var targetNode = this.game.selectedNode;
         var frame = game.rnd.integerInRange(0, 10);
         var gender = game.rnd.integerInRange(0, 1);
