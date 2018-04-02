@@ -2,7 +2,9 @@
 #### eLearning games in Phaser + ES6 + Webpack.
 
 [Distance Teaching and Mobile Learning](https://dtml.org)
+
 [Distance Teaching and Mobile Learning Blog](https://blog.dtml.org)
+
 [Distance Teaching and Mobile Learning ELearning Games](https://games.dtml.org/games)
 
 ## Our Mission
