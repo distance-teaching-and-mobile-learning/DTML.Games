@@ -3265,24 +3265,19 @@ module.exports = navigator && navigator.userAgent || '';
 /*!***********************!*\
   !*** ./src/config.js ***!
   \***********************/
-/*! dynamic exports provided */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/*! exports used: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = {
-  gameWidth: 800,
-  gameHeight: 460,
+/* harmony default export */ __webpack_exports__["a"] = ({
+  gameWidth: window.innerWidth,
+  gameHeight: window.innerHeight,
   scoreRecord: 0,
   facebookID: '152735522079067',
   localStorageName: 'familytree',
   webfonts: ['Roboto']
-};
+});
 
 /***/ }),
 /* 95 */
@@ -4870,117 +4865,80 @@ module.exports = Math.scale || function scale(x, inLow, inHigh, outLow, outHigh)
 /*!****************************!*\
   !*** ./src/states/Boot.js ***!
   \****************************/
-/*! dynamic exports provided */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/*! exports used: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_phaser__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_webfontloader__ = __webpack_require__(/*! webfontloader */ 133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_webfontloader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_webfontloader__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__libs_phaser_state_transition_plugin__ = __webpack_require__(/*! ../libs/phaser-state-transition-plugin */ 347);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__libs_phaser_state_transition_plugin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__libs_phaser_state_transition_plugin__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__(/*! ../config */ 94);
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _phaser = __webpack_require__(/*! phaser */ 31);
 
-var _phaser2 = _interopRequireDefault(_phaser);
 
-var _webfontloader = __webpack_require__(/*! webfontloader */ 133);
 
-var _webfontloader2 = _interopRequireDefault(_webfontloader);
+/* harmony default export */ __webpack_exports__["a"] = (class extends __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.State {
+    init() {
+        this.game.scale.scaleMode = __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.ScaleManager.EXACT_FIT;
 
-var _phaserStateTransitionPlugin = __webpack_require__(/*! ../libs/phaser-state-transition-plugin */ 347);
+        if (!this.game.device.desktop) {
+            this.game.scale.forceOrientation(true, false);
 
-var _phaserStateTransitionPlugin2 = _interopRequireDefault(_phaserStateTransitionPlugin);
+            this.game.stage.scale.pageAlignHorizontally = true;
+            this.game.stage.scale.pageAlignVeritcally = true;
+        }
 
-var _config = __webpack_require__(/*! ../config */ 94);
-
-var _config2 = _interopRequireDefault(_config);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _class = function (_Phaser$State) {
-    _inherits(_class, _Phaser$State);
-
-    function _class() {
-        _classCallCheck(this, _class);
-
-        return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+        this.fontsReady = false;
+        this.fontsLoaded = this.fontsLoaded.bind(this);
     }
 
-    _createClass(_class, [{
-        key: 'init',
-        value: function init() {
-            this.game.camera.roundPx = false;
-            this.input.maxPointers = 1;
-            this.game.input.addPointer();
-
-            //this.scale.pageAlignHorizontally = true;
-            //this.scale.pageAlignVertically = true
-            this.scale.scaleMode = _phaser2.default.ScaleManager.EXACT_FIT;
-            this.game.scale.refresh();
-
-            this.fontsReady = false;
-            this.fontsLoaded = this.fontsLoaded.bind(this);
-        }
-    }, {
-        key: 'preload',
-        value: function preload() {
-            if (_config2.default.webfonts.length) {
-                _webfontloader2.default.load({
-                    google: {
-                        families: _config2.default.webfonts
-                    },
-                    active: this.fontsLoaded
-                });
-            }
-
-            this.load.image('logo', 'assets/logo.png');
-            this.load.image('preloaderBar', 'assets/loading-bar.png');
-            this.load.image('preloaderBar2', 'assets/loading-bar2.png');
-        }
-    }, {
-        key: 'create',
-        value: function create() {
-            this.game.stateTransition = this.game.plugins.add(_phaser2.default.Plugin.StateTransition);
-            this.game.stateTransition.configure({
-                duration: _phaser2.default.Timer.SECOND * 1.5,
-                ease: _phaser2.default.Easing.Exponential.Out,
-                properties: {
-                    alpha: 0
-                }
+    preload() {
+        if (__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].webfonts.length) {
+            __WEBPACK_IMPORTED_MODULE_1_webfontloader___default.a.load({
+                google: {
+                    families: __WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].webfonts
+                },
+                active: this.fontsLoaded
             });
         }
-    }, {
-        key: 'render',
-        value: function render() {
-            if (_config2.default.webfonts.length && this.fontsReady) {
-                this.state.start('Preloader');
+
+        this.load.image('logo', 'assets/logo.png');
+        this.load.image('preloaderBar', 'assets/loading-bar.png');
+        this.load.image('preloaderBar2', 'assets/loading-bar2.png');
+    }
+
+    create() {
+        this.game.stateTransition = this.game.plugins.add(__WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Plugin.StateTransition);
+        this.game.stateTransition.configure({
+            duration: __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Timer.SECOND * 1.5,
+            ease: __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Easing.Exponential.Out,
+            properties: {
+                alpha: 0
             }
-            if (!_config2.default.webfonts.length) {
-                this.state.start('Preloader');
-            }
+        });
+    }
+
+    render() {
+        if (__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].webfonts.length && this.fontsReady) {
             this.state.start('Preloader');
         }
-    }, {
-        key: 'fontsLoaded',
-        value: function fontsLoaded() {
-            this.fontsReady = true;
+        if (!__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].webfonts.length) {
+            this.state.start('Preloader');
         }
-    }]);
+        this.state.start('Preloader');
+    }
 
-    return _class;
-}(_phaser2.default.State);
-
-exports.default = _class;
+    fontsLoaded() {
+        this.fontsReady = true;
+    }
+});
 
 /***/ }),
 /* 133 */,
@@ -4988,28 +4946,24 @@ exports.default = _class;
 /*!**********************************!*\
   !*** ./src/language/language.js ***!
   \**********************************/
-/*! dynamic exports provided */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/*! exports used: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = {
+/* harmony default export */ __webpack_exports__["a"] = ({
   // ID / PLAIN TEXT 
   start: 'START',
   you: 'YOU',
-  grandmother: 'G-MOTHER',
-  grandfather: 'G-FATHER',
-  grandgrandmother: 'GG-MOTHER',
-  grandgrandfather: 'GG-FATHER',
+  grandmother: 'GRAND-MOTHER',
+  grandfather: 'GRAND-FATHER',
+  grandgrandmother: 'GRAND-GRANDMOTHER',
+  grandgrandfather: 'GRAND-GRANDFATHER',
   mother: 'MOTHER',
   father: 'FATHER',
-  stepmother: 'S-MOTHER',
-  stepfather: 'S-FATHER',
+  stepmother: 'STEP-MOTHER',
+  stepfather: 'STEP-FATHER',
   uncle: 'UNCLE',
   aunt: 'AUNT',
   brother: 'BROTHER',
@@ -5022,7 +4976,7 @@ exports.default = {
   stepbrothers: 'ADD STEP BROTHER-SISTER',
   download: 'DOWNLOAD',
   share: 'SHARE ON FACEBOOK'
-};
+});
 
 /***/ }),
 /* 135 */
@@ -5407,7 +5361,7 @@ exports.default = DirectionalScroller;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! babel-polyfill */140);
-module.exports = __webpack_require__(/*! C:\node server\FamilyTree\src\main.js */342);
+module.exports = __webpack_require__(/*! C:\code\DTML.Games\familytree\src\main.js */342);
 
 
 /***/ }),
@@ -11731,99 +11685,77 @@ module.exports = function (regExp, replace) {
 /*!*********************!*\
   !*** ./src/main.js ***!
   \*********************/
-/*! dynamic exports provided */
+/*! no exports provided */
 /*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_pixi__ = __webpack_require__(/*! pixi */ 130);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_pixi___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_pixi__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_p2__ = __webpack_require__(/*! p2 */ 131);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_p2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_p2__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_phaser__ = __webpack_require__(/*! phaser */ 31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_phaser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_phaser__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__states_Boot__ = __webpack_require__(/*! ./states/Boot */ 132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__states_Preloader__ = __webpack_require__(/*! ./states/Preloader */ 348);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__states_Intro__ = __webpack_require__(/*! ./states/Intro */ 349);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__states_Menu__ = __webpack_require__(/*! ./states/Menu */ 350);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__states_Game__ = __webpack_require__(/*! ./states/Game */ 351);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__config__ = __webpack_require__(/*! ./config */ 94);
 
 
-__webpack_require__(/*! pixi */ 130);
 
-__webpack_require__(/*! p2 */ 131);
 
-var _phaser = __webpack_require__(/*! phaser */ 31);
 
-var _phaser2 = _interopRequireDefault(_phaser);
 
-var _Boot = __webpack_require__(/*! ./states/Boot */ 132);
 
-var _Boot2 = _interopRequireDefault(_Boot);
 
-var _Preloader = __webpack_require__(/*! ./states/Preloader */ 348);
 
-var _Preloader2 = _interopRequireDefault(_Preloader);
 
-var _Intro = __webpack_require__(/*! ./states/Intro */ 349);
 
-var _Intro2 = _interopRequireDefault(_Intro);
 
-var _Menu = __webpack_require__(/*! ./states/Menu */ 350);
+class Main extends __WEBPACK_IMPORTED_MODULE_2_phaser___default.a.Game {
+  constructor() {
+    const docElement = document.documentElement;
+    var width = docElement.clientWidth > __WEBPACK_IMPORTED_MODULE_8__config__["a" /* default */].gameWidth ? __WEBPACK_IMPORTED_MODULE_8__config__["a" /* default */].gameWidth : 800;
+    var height = docElement.clientHeight > __WEBPACK_IMPORTED_MODULE_8__config__["a" /* default */].gameHeight ? __WEBPACK_IMPORTED_MODULE_8__config__["a" /* default */].gameHeight : docElement.clientHeight;
 
-var _Menu2 = _interopRequireDefault(_Menu);
+    if (docElement.clientWidth > 800) width = docElement.clientWidth;
 
-var _Game = __webpack_require__(/*! ./states/Game */ 351);
+    super(width, height, __WEBPACK_IMPORTED_MODULE_2_phaser___default.a.CANVAS, 'content', null);
 
-var _Game2 = _interopRequireDefault(_Game);
-
-var _config = __webpack_require__(/*! ./config */ 94);
-
-var _config2 = _interopRequireDefault(_config);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Main = function (_Phaser$Game) {
-  _inherits(Main, _Phaser$Game);
-
-  function Main() {
-    _classCallCheck(this, Main);
-
-    var docElement = document.documentElement;
-    var width = docElement.clientWidth > _config2.default.gameWidth ? _config2.default.gameWidth : docElement.clientWidth;
-    var height = docElement.clientHeight > _config2.default.gameHeight ? _config2.default.gameHeight : docElement.clientHeight;
-
-    var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, width, height, _phaser2.default.CANVAS, 'content', null));
-
-    _this.state.add('Boot', _Boot2.default);
-    _this.state.add('Preloader', _Preloader2.default);
-    _this.state.add('Intro', _Intro2.default);
-    _this.state.add('Menu', _Menu2.default);
-    _this.state.add('Game', _Game2.default);
+    this.state.add('Boot', __WEBPACK_IMPORTED_MODULE_3__states_Boot__["a" /* default */]);
+    this.state.add('Preloader', __WEBPACK_IMPORTED_MODULE_4__states_Preloader__["a" /* default */]);
+    this.state.add('Intro', __WEBPACK_IMPORTED_MODULE_5__states_Intro__["a" /* default */]);
+    this.state.add('Menu', __WEBPACK_IMPORTED_MODULE_6__states_Menu__["a" /* default */]);
+    this.state.add('Game', __WEBPACK_IMPORTED_MODULE_7__states_Game__["a" /* default */]);
 
     // with Cordova with need to wait that the device is ready so we will call the Boot state in another file
     if (!window.cordova) {
-      _this.state.start('Boot');
+      this.state.start('Boot');
     }
-    return _this;
   }
-
-  return Main;
-}(_phaser2.default.Game);
+}
 
 window.game = new Main();
 
 if (window.cordova) {
   var app = {
-    initialize: function initialize() {
+    initialize: function () {
       document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
     },
 
     // deviceready Event Handler
     //
-    onDeviceReady: function onDeviceReady() {
+    onDeviceReady: function () {
       this.receivedEvent('deviceready');
 
       // When the device is ready, start Phaser Boot state.
       window.game.state.start('Boot');
     },
 
-    receivedEvent: function receivedEvent(id) {
+    receivedEvent: function (id) {
       console.log('Received Event: ' + id);
     }
   };
@@ -11841,13 +11773,7 @@ if (window.cordova) {
   !*** ./src/libs/phaser-state-transition-plugin.js ***!
   \****************************************************/
 /*! dynamic exports provided */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+/***/ (function(module, exports) {
 
 /**
   * StateTransition Plugin for Phaser
@@ -11967,7 +11893,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     var propertyValueObject, property, tween;
 
     for (property in this.settings.properties) {
-      if (_typeof(this.settings.properties[property]) === 'object') {
+      if (typeof this.settings.properties[property] === 'object') {
         // Create a tween for specific object property
         tween = this.game.add.tween(this._cover[property]).to(this.settings.properties[property], this.settings.duration, this.settings.ease, true);
       } else {
@@ -11996,875 +11922,981 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /*!*********************************!*\
   !*** ./src/states/Preloader.js ***!
   \*********************************/
-/*! dynamic exports provided */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/*! exports used: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_phaser__);
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
+/* harmony default export */ __webpack_exports__["a"] = (class extends __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.State {
+    preload() {
+        this.logo = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'logo');
+        this.logo.x -= this.logo.width * 0.5;
+        this.logo.y -= this.logo.height;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+        this.preloadBarbg = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'preloaderBar');
+        this.preloadBarbg.x -= this.preloadBarbg.width * 0.5;
 
-var _phaser = __webpack_require__(/*! phaser */ 31);
+        this.preloadBar = this.add.sprite(this.game.world.centerX, this.preloadBarbg.y, 'preloaderBar2');
+        this.preloadBar.alignIn(this.preloadBarbg, __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.CENTER, 0, 0);
+        this.load.setPreloadSprite(this.preloadBarbg);
 
-var _phaser2 = _interopRequireDefault(_phaser);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _class = function (_Phaser$State) {
-    _inherits(_class, _Phaser$State);
-
-    function _class() {
-        _classCallCheck(this, _class);
-
-        return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+        this.load.video('intro', ['assets/video/intro.ogv', 'assets/video/intro.webm', 'assets/video/intro.mp4']);
+        this.load.audio('boton', ['assets/audio/boton.ogg', 'assets/audio/boton.acc']);
+        this.load.audio('you', 'assets/audio/you.ogg');
+        this.load.audio('father', 'assets/audio/father.ogg');
+        this.load.audio('mother', 'assets/audio/mother.ogg');
+        this.load.audio('stepfather', 'assets/audio/stepfather.ogg');
+        this.load.audio('stepmother', 'assets/audio/stepmother.ogg');
+        this.load.audio('brother', 'assets/audio/brother.ogg');
+        this.load.audio('sister', 'assets/audio/sister.ogg');
+        this.load.audio('stepbrother', 'assets/audio/stepbrother.ogg');
+        this.load.audio('stepsister', 'assets/audio/stepsister.ogg');
+        this.load.audio('uncle', 'assets/audio/uncle.ogg');
+        this.load.audio('aunt', 'assets/audio/aunt.ogg');
+        this.load.audio('grandfather', 'assets/audio/grandfather.ogg');
+        this.load.audio('grandmother', 'assets/audio/grandmother.ogg');
+        this.load.audio('grandgrandfather', 'assets/audio/grandgrandfather.ogg');
+        this.load.audio('grandgrandmother', 'assets/audio/grandgrandmother.ogg');
+        this.load.image('fondo', 'assets/bg.png');
+        this.load.image('title', 'assets/title.png');
+        this.load.image('sidemenu', 'assets/sidemenu.png');
+        this.load.image('bottommenu', 'assets/bottommenu.png');
+        this.load.image('voice', 'assets/voice.png');
+        this.load.image('erase', 'assets/erase.png');
+        this.load.image('treebg', 'assets/treebg.png');
+        this.load.spritesheet('openMenu', 'assets/openMenu.png', 64, 64);
+        this.load.spritesheet('genre', 'assets/genre.png', 32, 32);
+        this.load.spritesheet('sidebg', 'assets/sidebg.png', 115, 117);
+        this.load.spritesheet('boygirl', 'assets/boygirl.png', 96, 128);
+        this.load.spritesheet('sharebtn', 'assets/sharebtn.png', 128, 48);
+        this.load.spritesheet('button', 'assets/button.png', 175, 85);
+        this.load.spritesheet('characters', 'assets/characters.png', 96, 128);
     }
 
-    _createClass(_class, [{
-        key: 'preload',
-        value: function preload() {
-            this.logo = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'logo');
-            this.logo.x -= this.logo.width * 0.5;
-            this.logo.y -= this.logo.height;
-
-            this.preloadBarbg = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'preloaderBar');
-            this.preloadBarbg.x -= this.preloadBarbg.width * 0.5;
-
-            this.preloadBar = this.add.sprite(this.game.world.centerX, this.preloadBarbg.y, 'preloaderBar2');
-            this.preloadBar.alignIn(this.preloadBarbg, _phaser2.default.CENTER, 0, 0);
-            this.load.setPreloadSprite(this.preloadBarbg);
-
-            this.load.video('intro', ['assets/video/intro.ogv', 'assets/video/intro.webm', 'assets/video/intro.mp4']);
-            this.load.audio('boton', ['assets/audio/boton.ogg', 'assets/audio/boton.acc']);
-            this.load.audio('you', 'assets/audio/you.ogg');
-            this.load.audio('father', 'assets/audio/father.ogg');
-            this.load.audio('mother', 'assets/audio/mother.ogg');
-            this.load.audio('stepfather', 'assets/audio/stepfather.ogg');
-            this.load.audio('stepmother', 'assets/audio/stepmother.ogg');
-            this.load.audio('brother', 'assets/audio/brother.ogg');
-            this.load.audio('sister', 'assets/audio/sister.ogg');
-            this.load.audio('stepbrother', 'assets/audio/stepbrother.ogg');
-            this.load.audio('stepsister', 'assets/audio/stepsister.ogg');
-            this.load.audio('uncle', 'assets/audio/uncle.ogg');
-            this.load.audio('aunt', 'assets/audio/aunt.ogg');
-            this.load.audio('grandfather', 'assets/audio/grandfather.ogg');
-            this.load.audio('grandmother', 'assets/audio/grandmother.ogg');
-            this.load.audio('grandgrandfather', 'assets/audio/grandgrandfather.ogg');
-            this.load.audio('grandgrandmother', 'assets/audio/grandgrandmother.ogg');
-            this.load.image('fondo', 'assets/bg.png');
-            this.load.image('title', 'assets/title.png');
-            this.load.image('sidemenu', 'assets/sidemenu.png');
-            this.load.image('bottommenu', 'assets/bottommenu.png');
-            this.load.image('voice', 'assets/voice.png');
-            this.load.image('treebg', 'assets/treebg.png');
-            this.load.spritesheet('openMenu', 'assets/openMenu.png', 64, 64);
-            this.load.spritesheet('genre', 'assets/genre.png', 32, 32);
-            this.load.spritesheet('sidebg', 'assets/sidebg.png', 115, 117);
-            this.load.spritesheet('boygirl', 'assets/boygirl.png', 96, 128);
-            this.load.spritesheet('sharebtn', 'assets/sharebtn.png', 128, 48);
-            this.load.spritesheet('button', 'assets/button.png', 175, 85);
-            this.load.spritesheet('characters', 'assets/characters.png', 96, 128);
-        }
-    }, {
-        key: 'create',
-        value: function create() {
-            this.preloadBar.cropEnabled = false;
-            this.state.start('Intro');
-        }
-    }]);
-
-    return _class;
-}(_phaser2.default.State);
-
-exports.default = _class;
+    create() {
+        this.preloadBar.cropEnabled = false;
+        this.state.start('Intro');
+    }
+});
 
 /***/ }),
 /* 349 */
 /*!*****************************!*\
   !*** ./src/states/Intro.js ***!
   \*****************************/
-/*! dynamic exports provided */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/*! exports used: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_phaser__);
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
+/* harmony default export */ __webpack_exports__["a"] = (class extends __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.State {
+    preload() {}
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+    create() {
+        this.introVideo = this.game.add.video('intro');
+        this.introVideo.play();
+        this.introVideo.addToWorld(this.game.world.centerX, this.game.world.centerY, 0.5, 0.5, 0.8, 0.8);
 
-var _phaser = __webpack_require__(/*! phaser */ 31);
-
-var _phaser2 = _interopRequireDefault(_phaser);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _class = function (_Phaser$State) {
-    _inherits(_class, _Phaser$State);
-
-    function _class() {
-        _classCallCheck(this, _class);
-
-        return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+        this.introVideo.onComplete.add(function () {
+            this.game.stateTransition.to('Menu');
+            this.game.world.removeAll();
+        }, this);
     }
-
-    _createClass(_class, [{
-        key: 'preload',
-        value: function preload() {}
-    }, {
-        key: 'create',
-        value: function create() {
-            this.introVideo = this.game.add.video('intro');
-            this.introVideo.play();
-            this.introVideo.addToWorld(this.game.world.centerX, this.game.world.centerY, 0.5, 0.5, 0.8, 0.8);
-
-            this.introVideo.onComplete.add(function () {
-                this.game.stateTransition.to('Menu');
-                this.game.world.removeAll();
-            }, this);
-        }
-    }]);
-
-    return _class;
-}(_phaser2.default.State);
-
-exports.default = _class;
+});
 
 /***/ }),
 /* 350 */
 /*!****************************!*\
   !*** ./src/states/Menu.js ***!
   \****************************/
-/*! dynamic exports provided */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/*! exports used: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_phaser__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__language_language__ = __webpack_require__(/*! ../language/language */ 134);
 
 
-Object.defineProperty(exports, "__esModule", {
-      value: true
-});
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+/* harmony default export */ __webpack_exports__["a"] = (class extends __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.State {
+      create() {
+            this.sfxbtn = this.game.add.audio('boton');
 
-var _phaser = __webpack_require__(/*! phaser */ 31);
+            this.bg = this.game.add.sprite(0, 0, 'fondo');
+            this.bg.width = this.game.width;
+            this.bg.height = this.game.height;
 
-var _phaser2 = _interopRequireDefault(_phaser);
+            this.title = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'title');
+            this.title.x -= this.title.width * 0.4;
+            this.title.y -= this.title.height * 0.8;
 
-var _language = __webpack_require__(/*! ../language/language */ 134);
+            this.button = this.game.add.button(this.game.width * 0.5, this.game.height * 0.5, 'button', this.stop, this, 1, 0, 0, 0);
+            this.button.x -= this.button.width * 0.5;
+            this.button.y += this.button.height;
 
-var _language2 = _interopRequireDefault(_language);
+            this.playButton = this.game.add.text(this.button.x, this.button.y, __WEBPACK_IMPORTED_MODULE_1__language_language__["a" /* default */].start, {
+                  font: "20px sans-serif", fill: "#ffffff", stroke: "#000000", strokeThickness: "6"
+            });
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+            this.playButton.alignIn(this.button, __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.TOP_CENTER, 0, -25);
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+            this.enterKey = this.game.input.keyboard.addKey(__WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Keyboard.ENTER);
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _class = function (_Phaser$State) {
-      _inherits(_class, _Phaser$State);
-
-      function _class() {
-            _classCallCheck(this, _class);
-
-            return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+            this.enterKey.onDown.addOnce(function () {
+                  this.enterKey.onDown.removeAll();
+                  this.stop();
+            }.bind(this), this);
       }
 
-      _createClass(_class, [{
-            key: 'create',
-            value: function create() {
-                  this.sfxbtn = this.game.add.audio('boton');
+      stop() {
+            try {
 
-                  this.bg = this.game.add.sprite(0, 0, 'fondo');
+                  var data = { "envelop": null, "page": "familytree", "time": null, "eventType": "GameStarted", "eventData": navigator.userAgent };
 
-                  this.title = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'title');
-                  this.title.x -= this.title.width * 0.4;
-                  this.title.y -= this.title.height * 0.8;
-
-                  this.button = this.game.add.button(this.game.world.centerX, this.game.world.centerY, 'button', this.stop, this, 1, 0, 0, 0);
-                  this.button.x -= this.button.width * 0.5;
-                  this.button.y += this.button.height;
-
-                  this.playButton = this.game.add.text(this.button.x, this.button.y, _language2.default.start, {
-                        font: "20px sans-serif", fill: "#ffffff", stroke: "#000000", strokeThickness: "6"
+                  $.ajax({
+                        type: 'POST',
+                        async: true,
+                        processData: false,
+                        contentType: 'application/json',
+                        url: 'https://dtml.org/Activity/Record/',
+                        data: JSON.stringify(data)
                   });
+            } catch (err) {}
 
-                  this.playButton.alignIn(this.button, _phaser2.default.TOP_CENTER, 0, -25);
-            }
-      }, {
-            key: 'stop',
-            value: function stop() {
-                  try {
+            this.sfxbtn.play();
+            this.startGame();
+      }
 
-                        var data = { "envelop": null, "page": "familytree", "time": null, "eventType": "GameStarted", "eventData": navigator.userAgent };
-
-                        $.ajax({
-                              type: 'POST',
-                              async: true,
-                              processData: false,
-                              contentType: 'application/json',
-                              url: 'https://dtml.org/Activity/Record/',
-                              data: JSON.stringify(data)
-                        });
-                  } catch (err) {}
-
-                  this.sfxbtn.play();
-                  this.startGame();
-            }
-      }, {
-            key: 'startGame',
-            value: function startGame() {
-                  this.game.stateTransition.to('Game');
-                  this.game.world.removeAll();
-            }
-      }]);
-
-      return _class;
-}(_phaser2.default.State);
-
-exports.default = _class;
+      startGame() {
+            this.game.stateTransition.to('Game');
+            this.game.world.removeAll();
+      }
+});
 
 /***/ }),
 /* 351 */
 /*!****************************!*\
   !*** ./src/states/Game.js ***!
   \****************************/
-/*! dynamic exports provided */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/*! exports used: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_phaser__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_phaser_list_view__ = __webpack_require__(/*! phaser-list-view */ 352);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_phaser_list_view___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_phaser_list_view__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Boot__ = __webpack_require__(/*! ./Boot */ 132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Person__ = __webpack_require__(/*! ./Person */ 357);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__language_language__ = __webpack_require__(/*! ../language/language */ 134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_canvas_image_saver__ = __webpack_require__(/*! canvas-image-saver */ 358);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_canvas_image_saver___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_canvas_image_saver__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config__ = __webpack_require__(/*! ../config */ 94);
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _phaser = __webpack_require__(/*! phaser */ 31);
 
-var _phaser2 = _interopRequireDefault(_phaser);
 
-var _phaserListView = __webpack_require__(/*! phaser-list-view */ 352);
 
-var _Boot = __webpack_require__(/*! ./Boot */ 132);
 
-var _Boot2 = _interopRequireDefault(_Boot);
+/* harmony default export */ __webpack_exports__["a"] = (class extends __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.State {
+    create() {
+        this.next_time = 0;
+        this.click = false;
+        this.genreType = false;
+        this.bottomORside = false;
+        this.selectedNode = null;
 
-var _Person = __webpack_require__(/*! ./Person */ 357);
+        this.bg = this.game.add.sprite(0, 0, 'fondo');
+        this.bg.width = this.game.width;
+        this.bg.height = this.game.height;
+        this.UI = [];
+        this.scrollUI = [];
+        this.treeUI = [];
 
-var _Person2 = _interopRequireDefault(_Person);
+        this.createSideMenu();
+        this.createBottomMenu();
 
-var _language = __webpack_require__(/*! ../language/language */ 134);
+        this.youText = this.game.add.text(this.game.width * 0.5, 80, __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].you, {
+            font: "26px sans-serif", fill: "#ffffff", stroke: "#000000", strokeThickness: "6"
+        });
 
-var _language2 = _interopRequireDefault(_language);
+        this.boyBtn = this.game.add.button(this.game.width * 0.5, 150, 'boygirl', function () {
+            this.chooseMe(0);
+        }.bind(this), this);
+        this.boyBtn.x -= this.boyBtn.width;
+        this.boyBtn.scale.setTo(1.2);
+        this.boyBtn.frame = 0;
 
-var _canvasImageSaver = __webpack_require__(/*! canvas-image-saver */ 358);
+        this.girlBtn = this.game.add.button(this.game.width * 0.5, 150, 'boygirl', function () {
+            this.chooseMe(1);
+        }.bind(this), this);
+        this.girlBtn.x += this.girlBtn.width * 0.5;
+        this.girlBtn.frame = 1;
 
-var _canvasImageSaver2 = _interopRequireDefault(_canvasImageSaver);
+        this.family = this.game.add.group();
+        this.family.x = this.game.width * 0.5;
+        this.family.y = this.game.height * 0.5;
+        this.family.pivot.x = this.game.width * 0.5;
+        this.family.pivot.y = this.game.height * 0.3;
 
-var _config = __webpack_require__(/*! ../config */ 94);
+        this.UI.push({ obj: this.boyBtn, x: 1, y: 1 });
+        this.UI.push({ obj: this.girlBtn, x: 1, y: 1 });
+        this.iterate = 0;
+        this.iterateLimit = 2;
+        this.iterateScroll = 0;
+        this.iterateScrollLimit = 11;
+        this.iterateTree = 0;
+        this.iterateTreeLimit = 1;
 
-var _config2 = _interopRequireDefault(_config);
+        this.upKey = this.game.input.keyboard.addKey(__WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Keyboard.UP);
+        this.downKey = this.game.input.keyboard.addKey(__WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Keyboard.DOWN);
+        this.leftKey = this.game.input.keyboard.addKey(__WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Keyboard.LEFT);
+        this.rightKey = this.game.input.keyboard.addKey(__WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Keyboard.RIGHT);
+        this.enterKey = this.game.input.keyboard.addKey(__WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Keyboard.ENTER);
+        this.backKey = this.game.input.keyboard.addKey(__WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Keyboard.BACKSPACE);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+        this.leftKey.onDown.add(function () {
+            this.iterateUi(true);
+            this.UI.forEach(function (elm) {
+                elm.obj.scale.setTo(elm.x, elm.y);
+            }, this);
+            if (this.UI[this.iterate].obj) this.UI[this.iterate].obj.scale.setTo(this.UI[this.iterate].obj.scale.x + 0.2);
+        }.bind(this));
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+        this.rightKey.onDown.add(function () {
+            this.iterateUi(false);
+            this.UI.forEach(function (elm) {
+                elm.obj.scale.setTo(elm.x, elm.y);
+            }, this);
+            if (this.UI[this.iterate].obj) this.UI[this.iterate].obj.scale.setTo(this.UI[this.iterate].obj.scale.x + 0.2);
+        }.bind(this));
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+        this.backKey.onDown.add(function () {
+            this.iterateUi(false);
+            this.treeUI.forEach(function (elm) {
+                if (elm.obj.selected && elm.obj.relation != 'me') elm.obj.children[3].onInputUp.dispatch();
+            }, this);
+        }.bind(this));
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+        this.enterKey.onDown.add(function () {
 
-var _class = function (_Phaser$State) {
-    _inherits(_class, _Phaser$State);
+            this.UI.forEach(function (elm) {
+                if (elm.obj.scale.x == elm.x + 0.2) elm.obj.onInputUp.dispatch();
+            }, this);
 
-    function _class() {
-        _classCallCheck(this, _class);
-
-        return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+            if (this.bottomORside == true) {
+                this.scrollUI.forEach(function (elm) {
+                    if (elm.obj.scale.x == elm.x + 0.1) {
+                        if (elm.obj.children[0]) {
+                            try {
+                                elm.obj.children[0].events.onInputDown.dispatch(elm.obj.children[0]);
+                            } catch (err) {}
+                        }
+                    }
+                }, this);
+            }
+        }.bind(this));
     }
 
-    _createClass(_class, [{
-        key: 'create',
-        value: function create() {
-            this.next_time = 0;
-            this.click = false;
+    iterateUi(left) {
+        if (left) {
+            this.iterate--;
+            if (this.iterate < 0) this.iterate = this.iterateLimit - 1;
+        } else {
+            this.iterate++;
+            if (this.iterate >= this.iterateLimit) this.iterate = 0;
+        }
+    }
+
+    iterateUIScroll(up) {
+        if (up) {
+            this.iterateScroll--;
+            if (this.iterateScroll < 0) this.iterateScroll = this.iterateScrollLimit - 1;
+        } else {
+            this.iterateScroll++;
+            if (this.iterateScroll >= this.iterateScrollLimit) this.iterateScroll = 0;
+        }
+    }
+
+    iterateTreeScroll(up) {
+        if (up) {
+            this.iterateTree--;
+            if (this.iterateTree < 0) this.iterateTree = this.iterateTreeLimit - 1;
+        } else {
+            this.iterateTree++;
+            if (this.iterateTree >= this.iterateTreeLimit) this.iterateTree = 0;
+        }
+    }
+
+    createSideMenu() {
+        this.sidemenu = this.game.add.sprite(this.game.width, 6, 'sidemenu');
+        this.sidemenu.height = this.game.height;
+
+        var options = {
+            direction: 'y',
+            overflow: 100,
+            padding: 10,
+            swipeEnabled: true,
+            offsetThreshold: 100,
+            searchForClicks: true
+        };
+
+        this.listView = new __WEBPACK_IMPORTED_MODULE_1_phaser_list_view__["ListView"](this.game, this.game.world, new __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Rectangle(this.game.width - this.sidemenu.width * 0.85, this.sidemenu.height * 0.07, 220, this.sidemenu.height * 0.61), options);
+
+        for (var i = 0; i < 11; i++) {
+            var item = this.game.add.sprite(0, 0, 'sidebg');
+            var character = this.game.add.sprite(0, 0, 'characters', i);
+
+            character.alignIn(item, __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.CENTER, 0, 0);
+            item.addChild(character);
+
+            character.inputEnabled = true;
+            character.input.priorityID = 0;
+            character.input.useHandCursor = true;
+            character.events.onInputDown.add(this.addCharToNode, this);
+
+            this.listView.add(item);
+        }
+        this.listView.grp.visible = false;
+
+        this.downloadbtn = this.game.add.button(0, 360, 'sharebtn', this.capture, this, 1, 0, 0, 0);
+        this.downloadbtn.input.priorityID = 1;
+        this.downloadbtn.scale.set(1, 0.8);
+        this.downloadbtn.anchor.set(0.5, 0.5);
+        this.downloadbtn.x += this.downloadbtn.width * 0.7;
+
+        //this.downloadbtn.y -= this.downloadbtn.height*0.3;
+
+        this.sharebtn = this.game.add.button(this.downloadbtn.x, this.downloadbtn.y + this.downloadbtn.height + 4, 'sharebtn', this.share, this, 1, 0, 0, 0);
+        this.sharebtn.anchor.set(0.5, 0.5);
+
+        this.downloadText = this.game.add.text(0, 0, __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].download, {
+            font: "14px sans-serif", fill: "#ffffff", stroke: "#000000", strokeThickness: "6"
+        });
+
+        this.shareText = this.game.add.text(0, 1, __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].share, {
+            font: "12px sans-serif", fill: "#ffffff", stroke: "#000000", strokeThickness: "6", wordWrap: true, wordWrapWidth: this.sharebtn.width * 0.8
+        });
+
+        this.downloadText.anchor.set(0.5, 0.5);
+        this.shareText.anchor.set(0.5, 0.5);
+        this.shareText.lineSpacing = -6;
+
+        this.genre = this.game.add.button(this.downloadbtn.x, this.downloadbtn.y, 'genre', function () {
+            this.listView.grp.forEachAlive(function (character) {
+                if (this.genreType) character.children[0].frame -= 11;
+            }, this);
+
             this.genreType = false;
-            this.selectedNode = null;
+        }.bind(this));
 
-            this.bg = this.game.add.sprite(0, 0, 'fondo');
+        this.genre.frame = 0;
+        this.genre.input.priorityID = 1;
+        this.genre.anchor.set(0.5);
+        this.genre.scale.set(0.9, 0.9);
+        this.genre.x -= this.genre.height * 0.6;
+        this.genre.y -= this.genre.height * 1.2;
 
-            this.createSideMenu();
-            this.createBottomMenu();
+        this.genre2 = this.game.add.button(this.downloadbtn.x, this.downloadbtn.y, 'genre', function () {
+            this.listView.grp.forEachAlive(function (character) {
+                if (!this.genreType) character.children[0].frame += 11;
+            }, this);
 
-            this.youText = this.game.add.text(this.game.width * 0.5, 80, _language2.default.you, {
-                font: "26px sans-serif", fill: "#ffffff", stroke: "#000000", strokeThickness: "6"
-            });
+            this.genreType = true;
+        }.bind(this));
 
-            this.boyBtn = this.game.add.button(this.game.width * 0.5, 150, 'boygirl', this.chooseMe, this);
-            this.boyBtn.x -= this.boyBtn.width;
-            this.boyBtn.frame = 0;
+        this.genre2.frame = 1;
+        this.genre2.input.priorityID = 1;
+        this.genre2.anchor.set(0.5);
+        this.genre2.scale.set(0.9, 0.9);
+        this.genre2.x += this.genre2.height * 0.6;
+        this.genre2.y -= this.genre2.height * 1.2;
 
-            this.girlBtn = this.game.add.button(this.game.width * 0.5, 150, 'boygirl', this.chooseMe, this);
-            this.girlBtn.x += this.girlBtn.width * 0.5;
-            this.girlBtn.frame = 1;
-
-            this.family = this.game.add.group();
-            this.family.x = this.game.width * 0.5;
-            this.family.y = this.game.height * 0.5;
-            this.family.pivot.x = this.game.width * 0.5;
-            this.family.pivot.y = this.game.height * 0.3;
-        }
-    }, {
-        key: 'createSideMenu',
-        value: function createSideMenu() {
-            this.sidemenu = this.game.add.sprite(this.game.width, 6, 'sidemenu');
-
-            this.downloadbtn = this.game.add.button(0, this.sidemenu.height, 'sharebtn', this.capture, this, 1, 0, 0, 0);
-            this.downloadbtn.input.priorityID = 1;
-            this.downloadbtn.scale.set(1, 0.8);
-            this.downloadbtn.anchor.set(0.5, 0.5);
-            this.downloadbtn.x += this.downloadbtn.width * 0.7;
-            this.downloadbtn.y -= this.downloadbtn.height * 2.1;
-
-            this.sharebtn = this.game.add.button(this.downloadbtn.x, this.downloadbtn.y + this.downloadbtn.height + 4, 'sharebtn', this.share, this, 1, 0, 0, 0);
-            this.sharebtn.anchor.set(0.5, 0.5);
-
-            this.downloadText = this.game.add.text(0, 0, _language2.default.download, {
-                font: "14px sans-serif", fill: "#ffffff", stroke: "#000000", strokeThickness: "6"
-            });
-
-            this.shareText = this.game.add.text(0, 1, _language2.default.share, {
-                font: "12px sans-serif", fill: "#ffffff", stroke: "#000000", strokeThickness: "6", wordWrap: true, wordWrapWidth: this.sharebtn.width * 0.8
-            });
-
-            this.downloadText.anchor.set(0.5, 0.5);
-            this.shareText.anchor.set(0.5, 0.5);
-            this.shareText.lineSpacing = -6;
-
-            var options = {
-                direction: 'y',
-                overflow: 100,
-                padding: 10,
-                swipeEnabled: true,
-                offsetThreshold: 100,
-                searchForClicks: true
-            };
-
-            this.listView = new _phaserListView.ListView(this.game, this.game.world, new _phaser2.default.Rectangle(this.game.width - 150, 30, 220, 280), options);
-
-            for (var i = 0; i < 11; i++) {
-                var item = this.game.add.sprite(0, 0, 'sidebg');
-                var character = this.game.add.sprite(0, 0, 'characters', i);
-
-                character.alignIn(item, _phaser2.default.CENTER, 0, 0);
-                item.addChild(character);
-
-                character.inputEnabled = true;
-                character.input.priorityID = 0;
-                character.input.useHandCursor = true;
-                character.events.onInputDown.add(this.addCharToNode, this);
-
-                this.listView.add(item);
-            }
-            this.listView.grp.visible = false;
-
-            this.genre = this.game.add.button(this.downloadbtn.x, this.downloadbtn.y, 'genre', function () {
-                this.listView.grp.forEachAlive(function (character) {
-                    if (this.genreType) character.children[0].frame -= 11;
-                }, this);
-
-                this.genreType = false;
-            }.bind(this));
-
-            this.genre.frame = 0;
-            this.genre.input.priorityID = 1;
-            this.genre.anchor.set(0.5);
-            this.genre.scale.set(0.9, 0.9);
-            this.genre.x -= this.genre.height * 0.6;
-            this.genre.y -= this.genre.height * 1.2;
-
-            this.genre2 = this.game.add.button(this.downloadbtn.x, this.downloadbtn.y, 'genre', function () {
-                this.listView.grp.forEachAlive(function (character) {
-                    if (!this.genreType) character.children[0].frame += 11;
-                }, this);
-
-                this.genreType = true;
-            }.bind(this));
-
-            this.genre2.frame = 1;
-            this.genre2.input.priorityID = 1;
-            this.genre2.anchor.set(0.5);
-            this.genre2.scale.set(0.9, 0.9);
-            this.genre2.x += this.genre2.height * 0.6;
-            this.genre2.y -= this.genre2.height * 1.2;
-
-            this.openMenu = this.game.add.button(0, this.sidemenu.height * 0.5, 'openMenu', function () {
-                if (this.openMenu.frame == 0) {
-                    this.sidemenu.bringToTop();
-                    this.game.world.bringToTop(this.listView.grp);
-                    this.processMenu(this.closeBottommenu);
-                    this.processMenu(this.openSidemenu);
-                } else {
-                    this.processMenu(this.closeSidemenu);
-                    //this.processMenu(this.openBottommenu); 
-                }
-            }.bind(this));
-
-            this.openMenu.anchor.set(0.5);
-            this.openMenu.input.priorityID = 2;
-            this.openMenu.x -= this.openMenu.width * 0.4;
-            this.openMenu.visible = false;
-
-            this.downloadbtn.addChild(this.downloadText);
-            this.sharebtn.addChild(this.shareText);
-            this.sidemenu.addChild(this.openMenu);
-            this.sidemenu.addChild(this.sharebtn);
-            this.sidemenu.addChild(this.downloadbtn);
-            this.sidemenu.addChild(this.genre);
-            this.sidemenu.addChild(this.genre2);
-
-            this.openSidemenu = this.game.add.tween(this.sidemenu).to({ x: this.game.width - (this.sidemenu.width + 6) }, 1000, _phaser2.default.Easing.Exponential.Out);
-            this.closeSidemenu = this.game.add.tween(this.sidemenu).to({ x: this.game.width }, 1000, _phaser2.default.Easing.Exponential.Out);
-
-            this.openSidemenu.onComplete.add(function () {
-                this.listView.grp.visible = true;this.openMenu.frame = 1;
-            }.bind(this), this);
-            this.closeSidemenu.onStart.add(function () {
-                this.listView.grp.visible = false;this.openMenu.frame = 0;
-            }.bind(this), this);
-        }
-    }, {
-        key: 'createBottomMenu',
-        value: function createBottomMenu() {
-            this.bottommenu = this.game.add.sprite(5, this.game.height, 'bottommenu');
-            this.bottommenu.y += this.bottommenu.height;
-
-            this.addparents = this.game.add.button(this.bottommenu.x, 35, 'sharebtn', this.addParent, this, 1, 0, 0, 0);
-            this.addparents.anchor.set(0.5, 0.5);
-            this.addparents.x += this.addparents.width;
-
-            this.addstepparents = this.game.add.button(this.bottommenu.x, 35, 'sharebtn', this.addParent, this, 1, 0, 0, 0);
-            this.addstepparents.anchor.set(0.5, 0.5);
-            this.addstepparents.x += this.addstepparents.width * 2.3;
-
-            this.addbrothers = this.game.add.button(this.bottommenu.width, 35, 'sharebtn', this.addBrother, this, 1, 0, 0, 0);
-            this.addbrothers.anchor.set(0.5, 0.5);
-            this.addbrothers.x -= this.addbrothers.width * 2.3;
-
-            this.addstepbrothers = this.game.add.button(this.bottommenu.width, 35, 'sharebtn', this.addBrother, this, 1, 0, 0, 0);
-            this.addstepbrothers.anchor.set(0.5, 0.5);
-            this.addstepbrothers.x -= this.addstepbrothers.width;
-
-            this.parentsText = this.game.add.text(0, 0, _language2.default.parents, {
-                font: "12px sans-serif", fill: "#ffffff", stroke: "#000000", strokeThickness: "6"
-            });
-
-            this.stepparentsText = this.game.add.text(0, 0, _language2.default.stepparents, {
-                font: "12px sans-serif", fill: "#ffffff", stroke: "#000000", strokeThickness: "6", wordWrap: true, wordWrapWidth: this.addstepparents.width * 0.5
-            });
-
-            this.brotherText = this.game.add.text(0, 0, _language2.default.brothers, {
-                font: "11px sans-serif", fill: "#ffffff", align: "center", stroke: "#000000", strokeThickness: "6", wordWrap: true, wordWrapWidth: this.addbrothers.width * 0.5
-            });
-
-            this.stepbrotherText = this.game.add.text(0, 0, _language2.default.stepbrothers, {
-                font: "11px sans-serif", fill: "#ffffff", align: "center", stroke: "#000000", strokeThickness: "6", wordWrap: true, wordWrapWidth: this.addbrothers.width * 0.5
-            });
-
-            this.parentsText.anchor.set(0.5, 0.5);
-            this.stepparentsText.anchor.set(0.5, 0.5);
-            this.brotherText.anchor.set(0.5, 0.5);
-            this.stepbrotherText.anchor.set(0.5, 0.5);
-            this.brotherText.lineSpacing = -6;
-            this.stepparentsText.lineSpacing = -6;
-            this.stepbrotherText.lineSpacing = -6;
-
-            this.addparents.addChild(this.parentsText);
-            this.addstepparents.addChild(this.stepparentsText);
-            this.addbrothers.addChild(this.brotherText);
-            this.addstepbrothers.addChild(this.stepbrotherText);
-
-            this.bottommenu.addChild(this.addparents);
-            this.bottommenu.addChild(this.addstepparents);
-            this.bottommenu.addChild(this.addbrothers);
-            this.bottommenu.addChild(this.addstepbrothers);
-
-            this.openBottommenu = this.game.add.tween(this.bottommenu).to({ y: this.game.height - (this.bottommenu.height + 5) }, 1000, _phaser2.default.Easing.Exponential.Out);
-            this.closeBottommenu = this.game.add.tween(this.bottommenu).to({ y: this.game.height + (this.bottommenu.height + 5) }, 1000, _phaser2.default.Easing.Exponential.Out);
-        }
-    }, {
-        key: 'processMenu',
-        value: function processMenu(menu) {
-            if (menu && !menu.isRunning) menu.start();
-        }
-    }, {
-        key: 'chooseMe',
-        value: function chooseMe(button) {
-            var id = button.frame;
-            this.boyBtn.destroy();
-            this.girlBtn.destroy();
-            this.youText.destroy();
-            this.processMenu(this.openBottommenu);
-            this.openMenu.visible = true;
-
-            var config = {
-                nombre: _language2.default.you,
-                image: 'boygirl',
-                frame: id,
-                sex: id == 0 ? false : true,
-                type: 'you',
-                relation: 'me'
-            };
-
-            this.you = new _Person2.default(this.game, this.game.width * 0.5, 150, config);
-            this.family.add(this.you);
-        }
-    }, {
-        key: 'addCharToNode',
-        value: function addCharToNode(sprite) {
-            if (!this.selectedNode || this.selectedNode.haveImageBg()) return;
-
-            var names = '';
-            var type = '';
-
-            if (this.selectedNode.areParents()) {
-                if (!this.genreType) {
-                    names = _language2.default.father;
-                    type = 'father';
-                } else {
-                    names = _language2.default.mother;
-                    type = 'mother';
-                }
-            } else if (this.selectedNode.areStepParents()) {
-                if (!this.genreType) {
-                    names = _language2.default.stepfather;
-                    type = 'stepfather';
-                } else {
-                    names = _language2.default.stepmother;
-                    type = 'stepmother';
-                }
-            } else if (this.selectedNode.areBrothers()) {
-                if (!this.genreType) {
-                    names = _language2.default.brother;
-                    type = 'brother';
-                } else {
-                    names = _language2.default.sister;
-                    type = 'sister';
-                }
-            } else if (this.selectedNode.areStepBrothers()) {
-                if (!this.genreType) {
-                    names = _language2.default.stepbrother;
-                    type = 'stepbrother';
-                } else {
-                    names = _language2.default.stepsister;
-                    type = 'stepsister';
-                }
-            } else if (this.selectedNode.areSiblings()) {
-                if (!this.genreType) {
-                    names = _language2.default.uncle;
-                    type = 'uncle';
-                } else {
-                    names = _language2.default.aunt;
-                    type = 'aunt';
-                }
-            } else if (this.selectedNode.areGrantparents()) {
-                if (!this.genreType) {
-                    names = _language2.default.grandfather;
-                    type = 'grandfather';
-                } else {
-                    names = _language2.default.grandmother;
-                    type = 'grandmother';
-                }
-            } else if (this.selectedNode.areGreatGrantparents()) {
-                if (!this.genreType) {
-                    names = _language2.default.grandgrandfather;
-                    type = 'grandgrandfather';
-                } else {
-                    names = _language2.default.grandgrandmother;
-                    type = 'grandgrandmother';
-                }
-            }
-
-            var config = {
-                name: names,
-                type: type,
-                image: 'characters',
-                frame: sprite.frame,
-                sex: this.genreType
-            };
-
-            this.selectedNode.setImageBg(config);
-
-            this.processMenu(this.closeSidemenu);
-            //this.processMenu(this.openBottommenu);
-        }
-    }, {
-        key: 'addParent',
-        value: function addParent(button) {
-            if (!this.selectedNode || this.selectedNode.getParents() || this.selectedNode.relation == 'brothers' || this.selectedNode.relation == 'sibling') return;
-
-            this.selectedNode.parentsCount++;
-            var relation, xoffset, direction;
-
-            if (this.selectedNode.relation == 'parents' || this.selectedNode.relation == 'stepparents') {
-                relation = 'grantparents';
-                if (this.selectedNode.parentsCount == 1) {
-                    if (this.selectedNode.direction == 'right') {
-                        direction = 'left';
-                        xoffset = 80;
-                    } else {
-                        direction = 'right';
-                        xoffset = -80;
-                    }
-                } else {
-                    if (this.selectedNode.direction == 'right') {
-                        direction = 'right';
-                        xoffset = 160;
-                    } else {
-                        direction = 'left';
-                        xoffset = -160;
-                    }
-                }
-            } else if (this.selectedNode.relation == 'grantparents') {
-                direction = 'right';
-                relation = 'grandgrandparents';
-                if (this.selectedNode.parentsCount == 1) {
-                    xoffset = 0;
-                } else {
-                    if (this.selectedNode.direction == 'right') {
-                        direction = 'right';
-                        xoffset = 80;
-                    } else {
-                        direction = 'left';
-                        xoffset = -80;
-                    }
-                }
-            } else if (button.children[0].text == _language2.default.stepparents) {
-                relation = 'stepparents';
-                if (this.selectedNode.parentsCount == 1) {
-                    direction = 'right';
-                    xoffset = 40;
-                } else {
-                    direction = 'left';
-                    xoffset = -40;
-                }
-            } else if (this.selectedNode.relation == 'me') {
-                relation = 'parents';
-                if (this.selectedNode.parentsCount == 1) {
-                    direction = 'right';
-                    xoffset = 40;
-                } else {
-                    direction = 'left';
-                    xoffset = -40;
-                }
-            }
-
-            if (this.selectedNode.parentsCount == 1) {
-                var config1 = {
-                    nombre: '',
-                    type: '',
-                    relation: relation,
-                    direction: direction
-                };
+        this.openMenu = this.game.add.button(0, 250, 'openMenu', function () {
+            if (this.openMenu.frame == 0) {
+                this.sidemenu.bringToTop();
+                this.game.world.bringToTop(this.listView.grp);
+                this.processMenu(this.closeBottommenu);
+                this.processMenu(this.openSidemenu);
+                this.addSideControls();
+                this.listView.grp.visible = true;
+                this.openMenu.frame = 1;
             } else {
-                this.selectedNode.setParents(true);
-                var config1 = {
-                    nombre: '',
-                    type: '',
-                    relation: relation,
-                    direction: direction
-                };
+                this.bottommenu.bringToTop();
+                this.processMenu(this.openBottommenu);
+                this.processMenu(this.closeSidemenu);
+                this.listView.grp.visible = false;
+                this.addBottomControls();
+                this.openMenu.frame = 0;
             }
+        }.bind(this));
 
-            if (this.selectedNode.relation == 'me') {
-                var character1 = new _Person2.default(this.game, this.selectedNode.x + xoffset, this.selectedNode.y - 110, config1);
-                // var character2 = new Person(this.game,this.selectedNode.x+40, this.selectedNode.y-110, config2);
-            } else if (this.selectedNode.relation == 'parents' || this.selectedNode.relation == 'stepparents' || this.selectedNode.relation == 'grantparents') {
-                var character1 = new _Person2.default(this.game, this.selectedNode.x + xoffset, this.selectedNode.y - 110, config1);
-                //var character2 = new Person(this.game,this.selectedNode.x+(xoffset), this.selectedNode.y-110, config2);
+        this.openMenu.anchor.set(0.5);
+        this.openMenu.input.priorityID = 2;
+        this.openMenu.x -= this.openMenu.width * 0.4;
+        this.openMenu.visible = false;
+
+        this.downloadbtn.addChild(this.downloadText);
+        this.sharebtn.addChild(this.shareText);
+        this.sidemenu.addChild(this.openMenu);
+        this.sidemenu.addChild(this.sharebtn);
+        this.sidemenu.addChild(this.downloadbtn);
+        this.sidemenu.addChild(this.genre);
+        this.sidemenu.addChild(this.genre2);
+
+        this.openSidemenu = this.game.add.tween(this.sidemenu).to({ x: this.game.width - this.sidemenu.width }, 1000, __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Easing.Exponential.Out);
+        this.closeSidemenu = this.game.add.tween(this.sidemenu).to({ x: this.game.width }, 1000, __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Easing.Exponential.Out);
+
+        this.openSidemenu.onStart.add(function () {
+            this.bottomORside = true;
+        }, this);
+        this.closeSidemenu.onStart.add(function () {
+            this.bottomORside = false;
+        }, this);
+    }
+
+    createBottomMenu() {
+        this.bottommenu = this.game.add.sprite(this.game.width * 0.5, this.game.height, 'bottommenu');
+        this.bottommenu.x -= this.bottommenu.width * 0.5;
+        this.bottommenu.y += this.bottommenu.height;
+
+        this.addparents = this.game.add.button(0, 35, 'sharebtn', function () {
+            this.addParent('');
+        }.bind(this), this, 1, 0, 0, 0);
+        this.addparents.scale.setTo(1.2);
+        this.addparents.anchor.set(0.5, 0.5);
+        this.addparents.x += this.addparents.width;
+
+        this.addstepparents = this.game.add.button(0, 35, 'sharebtn', function () {
+            this.addParent(__WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].stepparents);
+        }.bind(this), this, 1, 0, 0, 0);
+        this.addstepparents.anchor.set(0.5, 0.5);
+        this.addstepparents.x += this.addstepparents.width * 2.3;
+
+        this.addbrothers = this.game.add.button(this.bottommenu.width, 35, 'sharebtn', function () {
+            this.addBrother('');
+        }.bind(this), this, 1, 0, 0, 0);
+        this.addbrothers.anchor.set(0.5, 0.5);
+        this.addbrothers.x -= this.addbrothers.width * 2.3;
+
+        this.addstepbrothers = this.game.add.button(this.bottommenu.width, 35, 'sharebtn', function () {
+            this.addBrother(__WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].stepbrothers);
+        }.bind(this), this, 1, 0, 0, 0);
+        this.addstepbrothers.anchor.set(0.5, 0.5);
+        this.addstepbrothers.x -= this.addstepbrothers.width;
+
+        this.parentsText = this.game.add.text(0, 0, __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].parents, {
+            font: "12px sans-serif", fill: "#ffffff", stroke: "#000000", strokeThickness: "6"
+        });
+
+        this.stepparentsText = this.game.add.text(0, 0, __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].stepparents, {
+            font: "12px sans-serif", fill: "#ffffff", stroke: "#000000", strokeThickness: "6", wordWrap: true, wordWrapWidth: this.addstepparents.width * 0.5
+        });
+
+        this.brotherText = this.game.add.text(0, 0, __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].brothers, {
+            font: "11px sans-serif", fill: "#ffffff", align: "center", stroke: "#000000", strokeThickness: "6", wordWrap: true, wordWrapWidth: this.addbrothers.width * 0.5
+        });
+
+        this.stepbrotherText = this.game.add.text(0, 0, __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].stepbrothers, {
+            font: "11px sans-serif", fill: "#ffffff", align: "center", stroke: "#000000", strokeThickness: "6", wordWrap: true, wordWrapWidth: this.addbrothers.width * 0.5
+        });
+
+        this.parentsText.anchor.set(0.5, 0.5);
+        this.stepparentsText.anchor.set(0.5, 0.5);
+        this.brotherText.anchor.set(0.5, 0.5);
+        this.stepbrotherText.anchor.set(0.5, 0.5);
+        this.brotherText.lineSpacing = -6;
+        this.stepparentsText.lineSpacing = -6;
+        this.stepbrotherText.lineSpacing = -6;
+
+        this.addparents.addChild(this.parentsText);
+        this.addstepparents.addChild(this.stepparentsText);
+        this.addbrothers.addChild(this.brotherText);
+        this.addstepbrothers.addChild(this.stepbrotherText);
+
+        this.bottommenu.addChild(this.addparents);
+        this.bottommenu.addChild(this.addstepparents);
+        this.bottommenu.addChild(this.addbrothers);
+        this.bottommenu.addChild(this.addstepbrothers);
+
+        this.openBottommenu = this.game.add.tween(this.bottommenu).to({ y: this.game.height - (this.bottommenu.height + 5) }, 1000, __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Easing.Exponential.Out);
+        this.closeBottommenu = this.game.add.tween(this.bottommenu).to({ y: this.game.height + (this.bottommenu.height + 5) }, 1000, __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Easing.Exponential.Out);
+    }
+
+    processMenu(menu) {
+        if (menu && !menu.isRunning) menu.start();
+    }
+
+    removeKeyListener() {
+        this.upKey.onDown.removeAll();
+        this.downKey.onDown.removeAll();
+    }
+
+    addBottomControls() {
+        this.listView.grp.y = 35;
+        this.listView.cull();
+        this.removeKeyListener();
+        this.treeUI = [];
+        this.iterateTreeLimit = this.family.length;
+
+        this.family.forEach(function (item) {
+            this.treeUI.push({ obj: item, x: 0.5, y: 0.5 });
+        }.bind(this), this);
+
+        this.upKey.onDown.add(function () {
+            this.iterateTreeScroll(true);
+            this.unselectAllNodes();
+            this.treeUI.forEach(function (elm) {
+                elm.obj.scale.setTo(elm.x, elm.y);
+            }, this);
+
+            if (this.treeUI[this.iterateTree]) {
+                this.tapNode(this.treeUI[this.iterateTree].obj);
+                this.treeUI[this.iterateTree].obj.inputFocus(this.treeUI[this.iterateTree].obj.children[2]);
+                this.treeUI[this.iterateTree].obj.children[1].onInputUp.dispatch();
             }
+        }.bind(this));
 
-            this.family.add(character1);
-            //this.family.add(character2);
+        this.downKey.onDown.add(function () {
+            this.iterateTreeScroll(false);
+            this.unselectAllNodes();
+            this.treeUI.forEach(function (elm) {
+                elm.obj.scale.setTo(elm.x, elm.y);
+            }, this);
+
+            if (this.treeUI[this.iterateTree]) {
+                this.tapNode(this.treeUI[this.iterateTree].obj);
+                this.treeUI[this.iterateTree].obj.inputFocus(this.treeUI[this.iterateTree].obj.children[2]);
+                this.treeUI[this.iterateTree].obj.children[1].onInputUp.dispatch();
+            }
+        }.bind(this));
+
+        this.UI = [];
+
+        this.UI.push({ obj: this.addparents, x: 1, y: 1 });
+        this.UI.push({ obj: this.addstepparents, x: 1, y: 1 });
+        this.UI.push({ obj: this.addbrothers, x: 1, y: 1 });
+        this.UI.push({ obj: this.addstepbrothers, x: 1, y: 1 });
+        this.UI.push({ obj: this.openMenu, x: 1, y: 1 });
+
+        this.iterate = -1;
+        this.iterateLimit = 5;
+    }
+
+    addSideControls() {
+        this.removeKeyListener();
+        this.listView.grp.y = 35;
+        this.listView.cull();
+        this.iterateScroll = 0;
+
+        this.listView.grp.forEach(function (item) {
+            this.scrollUI.push({ obj: item, x: 1, y: 1 });
+        }.bind(this), this);
+
+        this.upKey.onDown.add(function () {
+            this.iterateUIScroll(true);
+            this.scrollUI.forEach(function (elm) {
+                elm.obj.scale.setTo(elm.x, elm.y);
+            }, this);
+            if (this.scrollUI[this.iterateScroll].obj) {
+                this.listView.grp.y += 118;
+                if (this.listView.grp.y > 35) this.listView.grp.y = -1145;
+                this.listView.cull();
+                this.scrollUI[this.iterateScroll].obj.scale.setTo(this.scrollUI[this.iterateScroll].x + 0.1);
+            }
+        }.bind(this));
+
+        this.downKey.onDown.add(function () {
+            this.iterateUIScroll(false);
+            this.scrollUI.forEach(function (elm) {
+                elm.obj.scale.setTo(elm.x, elm.y);
+            }, this);
+            if (this.scrollUI[this.iterateScroll].obj) {
+                this.listView.grp.y -= 118;
+                if (this.listView.grp.y <= -1205) this.listView.grp.y = 35;
+                this.listView.cull();
+                this.scrollUI[this.iterateScroll].obj.scale.setTo(this.scrollUI[this.iterateScroll].x + 0.1);
+            }
+        }.bind(this));
+
+        this.UI = [];
+
+        this.UI.push({ obj: this.openMenu, x: 1, y: 1 });
+        this.UI.push({ obj: this.genre, x: 0.9, y: 0.9 });
+        this.UI.push({ obj: this.genre2, x: 0.9, y: 0.9 });
+        this.UI.push({ obj: this.downloadbtn, x: 1, y: 0.8 });
+        this.UI.push({ obj: this.sharebtn, x: 1, y: 1 });
+
+        this.iterate = -1;
+        this.iterateLimit = 5;
+    }
+
+    chooseMe(frame) {
+        var id = frame;
+        this.boyBtn.destroy();
+        this.girlBtn.destroy();
+        this.youText.destroy();
+        this.processMenu(this.openBottommenu);
+        this.openMenu.visible = true;
+
+        var config = {
+            nombre: __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].you,
+            image: 'boygirl',
+            frame: id,
+            sex: id == 0 ? false : true,
+            type: 'you',
+            relation: 'me'
+        };
+
+        this.you = new __WEBPACK_IMPORTED_MODULE_3__Person__["a" /* default */](this.game, this.game.width * 0.5, 150, config);
+        this.family.add(this.you);
+
+        this.addBottomControls();
+    }
+
+    addCharToNode(sprite) {
+        if (!this.selectedNode || this.selectedNode.relation == 'me') return;
+
+        var names = '';
+        var type = '';
+
+        if (this.selectedNode.areParents()) {
+            if (!this.genreType) {
+                names = __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].father;
+                type = 'father';
+            } else {
+                names = __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].mother;
+                type = 'mother';
+            }
+        } else if (this.selectedNode.areStepParents()) {
+            if (!this.genreType) {
+                names = __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].stepfather;
+                type = 'stepfather';
+            } else {
+                names = __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].stepmother;
+                type = 'stepmother';
+            }
+        } else if (this.selectedNode.areBrothers()) {
+            if (!this.genreType) {
+                names = __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].brother;
+                type = 'brother';
+            } else {
+                names = __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].sister;
+                type = 'sister';
+            }
+        } else if (this.selectedNode.areStepBrothers()) {
+            if (!this.genreType) {
+                names = __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].stepbrother;
+                type = 'stepbrother';
+            } else {
+                names = __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].stepsister;
+                type = 'stepsister';
+            }
+        } else if (this.selectedNode.areSiblings()) {
+            if (!this.genreType) {
+                names = __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].uncle;
+                type = 'uncle';
+            } else {
+                names = __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].aunt;
+                type = 'aunt';
+            }
+        } else if (this.selectedNode.areGrantparents()) {
+            if (!this.genreType) {
+                names = __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].grandfather;
+                type = 'grandfather';
+            } else {
+                names = __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].grandmother;
+                type = 'grandmother';
+            }
+        } else if (this.selectedNode.areGreatGrantparents()) {
+            if (!this.genreType) {
+                names = __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].grandgrandfather;
+                type = 'grandgrandfather';
+            } else {
+                names = __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].grandgrandmother;
+                type = 'grandgrandmother';
+            }
         }
-    }, {
-        key: 'addBrother',
-        value: function addBrother(button) {
-            if (!this.selectedNode || this.selectedNode.type != 'you' && this.selectedNode.relation != 'parents' && this.selectedNode.relation != 'stepparents' && this.selectedNode.relation != 'sibling') return;
 
-            this.selectedNode.brotherCount++;
-            var relation;
+        var config = {
+            name: names,
+            type: type,
+            image: 'characters',
+            frame: sprite.frame,
+            sex: this.genreType
+        };
 
-            if (this.selectedNode.relation == 'parents' || this.selectedNode.relation == 'stepparents') relation = 'sibling';else if (this.selectedNode.relation == 'sibling') relation = 'sibling';else if (button.children[0].text == _language2.default.stepbrothers) relation = 'stepbrothers';else if (this.selectedNode.relation == 'me') relation = 'brothers';
+        this.selectedNode.setImageBg(config);
 
+        this.processMenu(this.closeSidemenu);
+        this.listView.grp.visible = false;
+        this.openMenu.frame = 0;
+        //this.processMenu(this.openBottommenu);
+    }
+
+    addParent(text) {
+        if (!this.selectedNode || this.selectedNode.parentsCount >= 2 || this.selectedNode.relation == 'brothers' || this.selectedNode.relation == 'sibling' || this.selectedNode.relation == 'grandgrandparents') return;
+
+        var relation, xoffset, direction, indexCount;
+
+        if (this.selectedNode.eraseParentNode.length > 0) {
+            indexCount = this.selectedNode.eraseParentNode.shift();
+            this.selectedNode.parentsCount++;
+        } else {
+            this.selectedNode.parentsCount++;
+            indexCount = this.selectedNode.parentsCount;
+        }
+
+        if (this.selectedNode.relation == 'parents' || this.selectedNode.relation == 'stepparents') {
+            relation = 'grantparents';
+            if (indexCount == 1) {
+                if (this.selectedNode.direction == 'right') {
+                    direction = 'left';
+                    xoffset = 80;
+                } else {
+                    direction = 'right';
+                    xoffset = -80;
+                }
+            } else {
+                if (this.selectedNode.direction == 'right') {
+                    direction = 'right';
+                    xoffset = 160;
+                } else {
+                    direction = 'left';
+                    xoffset = -160;
+                }
+            }
+        } else if (this.selectedNode.relation == 'grantparents') {
+            direction = 'right';
+            relation = 'grandgrandparents';
+            if (indexCount == 1) {
+                xoffset = 0;
+            } else {
+                if (this.selectedNode.direction == 'right') {
+                    direction = 'right';
+                    xoffset = 80;
+                } else {
+                    direction = 'left';
+                    xoffset = -80;
+                }
+            }
+        } else if (text == __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].stepparents) {
+            relation = 'stepparents';
+            if (indexCount == 1) {
+                direction = 'right';
+                xoffset = 40;
+            } else {
+                direction = 'left';
+                xoffset = -40;
+            }
+        } else if (this.selectedNode.relation == 'me') {
+            relation = 'parents';
+            if (indexCount == 1) {
+                direction = 'right';
+                xoffset = 40;
+            } else {
+                direction = 'left';
+                xoffset = -40;
+            }
+        }
+
+        if (indexCount == 1) {
             var config1 = {
                 nombre: '',
                 type: '',
                 relation: relation,
-                direction: 'left'
+                direction: direction
             };
-
-            var config2 = {
+        } else {
+            var config1 = {
                 nombre: '',
                 type: '',
                 relation: relation,
-                direction: 'right'
+                direction: direction
             };
+        }
 
-            if (this.selectedNode.relation == 'me') {
-                if (this.selectedNode.brotherCount % 2 == 1) var brother = new _Person2.default(this.game, this.selectedNode.x - 100 * Math.ceil(this.selectedNode.brotherCount * 0.5), this.selectedNode.y, config1);else var brother = new _Person2.default(this.game, this.selectedNode.x + 100 * Math.ceil(this.selectedNode.brotherCount * 0.5), this.selectedNode.y, config2);
-            } else {
-                if (this.selectedNode.direction == 'left') var brother = new _Person2.default(this.game, this.selectedNode.x - 100 * this.selectedNode.brotherCount, this.selectedNode.y, config1);else var brother = new _Person2.default(this.game, this.selectedNode.x + 100 * this.selectedNode.brotherCount, this.selectedNode.y, config2);
+        if (this.selectedNode.relation == 'me') {
+            var character1 = new __WEBPACK_IMPORTED_MODULE_3__Person__["a" /* default */](this.game, this.selectedNode.x + xoffset, this.selectedNode.y - 110, config1);
+            // var character2 = new Person(this.game,this.selectedNode.x+40, this.selectedNode.y-110, config2);
+        } else if (this.selectedNode.relation == 'parents' || this.selectedNode.relation == 'stepparents' || this.selectedNode.relation == 'grantparents') {
+            var character1 = new __WEBPACK_IMPORTED_MODULE_3__Person__["a" /* default */](this.game, this.selectedNode.x + xoffset, this.selectedNode.y - 110, config1);
+            //var character2 = new Person(this.game,this.selectedNode.x+(xoffset), this.selectedNode.y-110, config2);
+        }
+
+        character1.mainNode = this.selectedNode;
+        character1.parentNum = indexCount;
+        this.selectedNode.parentNum = this.selectedNode.parentsCount;
+        character1.eraseSignal.add(this.unselectAllNodes, this);
+
+        this.family.add(character1);
+        this.addBottomControls();
+    }
+
+    addBrother(text) {
+        if (!this.selectedNode || this.selectedNode.type != 'you' && this.selectedNode.relation != 'parents' && this.selectedNode.relation != 'stepparents') return;
+
+        var relation, indexCount;
+
+        if (this.selectedNode.erasebrotherNode.length > 0) {
+            indexCount = this.selectedNode.erasebrotherNode.shift();
+            this.selectedNode.brotherCount++;
+        } else {
+            this.selectedNode.brotherCount = this.selectedNode.brotherNum;
+            this.selectedNode.brotherCount++;
+            indexCount = this.selectedNode.brotherCount;
+        }
+
+        if (this.selectedNode.relation == 'parents' || this.selectedNode.relation == 'stepparents') relation = 'sibling';else if (this.selectedNode.relation == 'sibling') relation = 'sibling';else if (text == __WEBPACK_IMPORTED_MODULE_4__language_language__["a" /* default */].stepbrothers) relation = 'stepbrothers';else if (this.selectedNode.relation == 'me') relation = 'brothers';
+
+        var config1 = {
+            nombre: '',
+            type: '',
+            relation: relation,
+            direction: 'left'
+        };
+
+        var config2 = {
+            nombre: '',
+            type: '',
+            relation: relation,
+            direction: 'right'
+        };
+
+        if (this.selectedNode.relation == 'me') {
+            if (indexCount % 2 == 1) var brother = new __WEBPACK_IMPORTED_MODULE_3__Person__["a" /* default */](this.game, this.selectedNode.x - 100 * Math.ceil(indexCount * 0.5), this.selectedNode.y, config1);else var brother = new __WEBPACK_IMPORTED_MODULE_3__Person__["a" /* default */](this.game, this.selectedNode.x + 100 * Math.ceil(indexCount * 0.5), this.selectedNode.y, config2);
+        } else {
+            if (this.selectedNode.direction == 'left') var brother = new __WEBPACK_IMPORTED_MODULE_3__Person__["a" /* default */](this.game, this.selectedNode.x - 100 * indexCount, this.selectedNode.y, config1);else var brother = new __WEBPACK_IMPORTED_MODULE_3__Person__["a" /* default */](this.game, this.selectedNode.x + 100 * indexCount, this.selectedNode.y, config2);
+        }
+
+        brother.mainNode = this.selectedNode;
+        brother.brotherNum = indexCount;
+        this.selectedNode.brotherNum = this.selectedNode.brotherCount;
+        brother.eraseSignal.add(this.unselectAllNodes, this);
+
+        this.family.add(brother);
+        this.addBottomControls();
+    }
+
+    capture() {
+        this.listView.grp.visible = false;
+        this.addBottomControls();
+        this.openMenu.frame = 0;
+
+        var canvasImageSaver = new __WEBPACK_IMPORTED_MODULE_5_canvas_image_saver___default.a(this.game.canvas, {
+            xCropOffset: 0,
+            yCropOffset: 0,
+            width: this.game.width,
+            height: this.game.height
+        }, function (canvas, fileName) {
+            // Success callback 
+        }, function (error) {
+            // Error callback 
+        }, this);
+
+        this.processMenu(this.closeSidemenu);
+        this.callApiActivity();
+        this.game.time.events.add(1000, function () {
+            canvasImageSaver.save("myfamilytree", "myfamilytree");
+        }, this);
+    }
+
+    share() {
+        var canvasImageSaver = new __WEBPACK_IMPORTED_MODULE_5_canvas_image_saver___default.a(this.game.canvas, {
+            xCropOffset: 0,
+            yCropOffset: 0,
+            width: this.game.width - 180,
+            height: this.game.height
+        }, function (canvas, fileName) {
+            // Success callback 
+        }, function (error) {
+            // Error callback 
+        }, this);
+
+        var url = 'https://www.facebook.com/dialog/share?app_id=' + __WEBPACK_IMPORTED_MODULE_6__config__["a" /* default */].facebookID + '&display=page&quote=Checkout family tree I build. Visit dtml.org&href=https://blog.dtml.org/';
+
+        window.open(url, '_blank');
+        this.callApiActivity();
+    }
+
+    callApiActivity() {
+        fetch('https://dtml.org/Activity/RecordUserActivity?id=familytree&score=' + __WEBPACK_IMPORTED_MODULE_6__config__["a" /* default */].scoreRecord, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             }
-            this.family.add(brother);
-        }
-    }, {
-        key: 'capture',
-        value: function capture() {
-            var canvasImageSaver = new _canvasImageSaver2.default(this.game.canvas, {
-                xCropOffset: 0,
-                yCropOffset: 0,
-                width: this.game.width,
-                height: this.game.height
-            }, function (canvas, fileName) {
-                // Success callback 
-            }, function (error) {
-                // Error callback 
-            }, this);
+        }).then(res => res.json()).then(data => {
+            console.log(data);
+        }).catch(err => {
+            console.log('err', err);
+        });
+    }
 
-            this.processMenu(this.closeSidemenu);
-            this.callApiActivity();
-            this.game.time.events.add(1000, function () {
-                canvasImageSaver.save("myfamilytree", "myfamilytree");
-            }, this);
-        }
-    }, {
-        key: 'share',
-        value: function share() {
-            var canvasImageSaver = new _canvasImageSaver2.default(this.game.canvas, {
-                xCropOffset: 0,
-                yCropOffset: 0,
-                width: this.game.width - 180,
-                height: this.game.height
-            }, function (canvas, fileName) {
-                // Success callback 
-            }, function (error) {
-                // Error callback 
-            }, this);
+    tryTapNode() {
+        this.family.forEachAlive(function (e) {
+            var bool = __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Rectangle.contains(e.body, this.game.input.activePointer.x, this.game.input.activePointer.y);
 
-            var url = 'https://www.facebook.com/dialog/share?app_id=' + _config2.default.facebookID + '&display=page&quote=Checkout family tree I build. Visit dtml.org&href=https://blog.dtml.org/';
+            if (this.click || !bool) return;
 
-            window.open(url, '_blank');
-            this.callApiActivity();
-        }
-    }, {
-        key: 'callApiActivity',
-        value: function callApiActivity() {
-            fetch('https://dtml.org/Activity/RecordUserActivity?id=familytree&score=' + _config2.default.scoreRecord, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }).then(function (res) {
-                return res.json();
-            }).then(function (data) {
-                console.log(data);
-            }).catch(function (err) {
-                console.log('err', err);
-            });
-        }
-    }, {
-        key: 'tryTapNode',
-        value: function tryTapNode() {
-            this.family.forEachAlive(function (e) {
-                var bool = _phaser2.default.Rectangle.contains(e.body, this.game.input.activePointer.x, this.game.input.activePointer.y);
-                if (this.click || !bool) return;
+            if (e.selected == false) this.tapNode(e);else this.unselectAllNodes();
+        }, this);
+    }
 
-                if (e.selected == false) this.tapNode(e);else this.unselectAllNodes();
-            }, this);
-        }
-    }, {
-        key: 'tapNode',
-        value: function tapNode(e) {
-            if (e.selected) return;
-            if (e.type != 'you' && !e.haveImageBg()) {
-                this.processMenu(this.closeBottommenu);
-                this.processMenu(this.openSidemenu);
-                this.sidemenu.bringToTop();
-                this.game.world.bringToTop(this.listView.grp);
-            } else if (e.haveImageBg()) {
-                this.processMenu(this.closeSidemenu);
-                this.processMenu(this.openBottommenu);
-                this.bottommenu.bringToTop();
+    tapNode(e) {
+        if (e.selected) return;
+        this.processMenu(this.openBottommenu);
+        this.addBottomControls();
+        this.sidemenu.bringToTop();
+        this.game.world.bringToTop(this.listView.grp);
+
+        this.unselectAllNodes();
+        this.selectedNode = e;
+        this.click = true;
+        e.selected = true;
+        e.children[0].frame = 1;
+    }
+
+    unselectAllNodes() {
+        this.selectedNode = null;
+        this.family.forEachAlive(function (e) {
+            if (e.selected) {
+                e.selected = false;
+                e.children[0].frame = 0;
             }
+        }, this);
+    }
 
-            this.unselectAllNodes();
-            this.selectedNode = e;
-            this.click = true;
-            e.selected = true;
-            e.children[0].frame = 1;
-        }
-    }, {
-        key: 'unselectAllNodes',
-        value: function unselectAllNodes() {
-            this.selectedNode = null;
-            this.family.forEachAlive(function (e) {
-                if (e.selected) {
-                    e.selected = false;
-                    e.children[0].frame = 0;
-                }
-            }, this);
-        }
-    }, {
-        key: 'update',
-        value: function update() {
-
-            if (this.selectedNode) {
-                if (this.click) {
-                    this.family.pivot.x = this.selectedNode.x;
-                    this.family.pivot.y = this.selectedNode.y;
-                    this.family.x = this.game.input.x;
-                    this.family.y = this.game.input.y;
-                }
-            }
-
-            if (this.game.input.activePointer.isDown && this.game.time.now > this.next_time) {
-                this.tryTapNode();
-                this.next_time = this.game.time.now + 300;
-            } else if (this.game.input.activePointer.isUp) {
-                this.click = false;
+    update() {
+        if (this.selectedNode) {
+            if (this.click) {
+                this.family.pivot.x = this.selectedNode.x;
+                this.family.pivot.y = this.selectedNode.y;
+                this.family.x = this.game.input.activePointer.x;
+                this.family.y = this.game.input.activePointer.y;
             }
         }
-    }]);
 
-    return _class;
-}(_phaser2.default.State);
-
-exports.default = _class;
+        if (this.game.input.activePointer.isDown && this.game.time.now > this.next_time) {
+            this.tryTapNode();
+            this.next_time = this.game.time.now + 300;
+        } else if (this.game.input.activePointer.isUp) {
+            this.click = false;
+        }
+    }
+});
 
 /***/ }),
 /* 352 */
@@ -12872,7 +12904,7 @@ exports.default = _class;
   !*** ./node_modules/phaser-list-view/lib/index.js ***!
   \****************************************************/
 /*! dynamic exports provided */
-/*! all exports used */
+/*! exports used: ListView */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13631,225 +13663,218 @@ exports.default = ScrollerEventDispatcher;
 /*!******************************!*\
   !*** ./src/states/Person.js ***!
   \******************************/
-/*! dynamic exports provided */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/*! exports used: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_phaser__);
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
+class Person extends __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Sprite {
+    constructor(game, x, y, config) {
+        super(game, x, y, 'treebg', 0, config);
+        this.game = game;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+        this.setData(config);
+        this.selected = false;
+        this.brotherCount = 0;
+        this.parentsCount = 0;
+        this.brotherNum = null;
+        this.parentNum = 0;
+        this.erasebrotherNode = [];
+        this.eraseParentNode = [];
+        this.mainNode = null;
+        this.eraseSignal = new __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Signal();
 
-var _phaser = __webpack_require__(/*! phaser */ 31);
+        this.game.physics.enable(this, __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Physics.ARCADE);
+        this.body.setSize(this.width, this.height, 0, 0);
+        this.sfxbtn = this.game.add.audio(this.type);
 
-var _phaser2 = _interopRequireDefault(_phaser);
+        this.bg = this.game.add.sprite(0, 0, 'sidebg');
+        this.bg.anchor.set(0.5);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+        this.scale.set(0.5);
+        this.inputEnabled = true;
+        this.input.useHandCursor = true;
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+        this.anchor.set(0.5);
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Person = function (_Phaser$Sprite) {
-    _inherits(Person, _Phaser$Sprite);
-
-    function Person(game, x, y, config) {
-        var _ret;
-
-        _classCallCheck(this, Person);
-
-        var _this = _possibleConstructorReturn(this, (Person.__proto__ || Object.getPrototypeOf(Person)).call(this, game, x, y, 'treebg', 0, config));
-
-        _this.game = game;
-
-        _this.setData(config);
-        _this.haveParents = false;
-        _this.selected = false;
-        _this.brotherCount = 0;
-        _this.parentsCount = 0;
-        _this.game.physics.enable(_this, _phaser2.default.Physics.ARCADE);
-        _this.body.setSize(_this.width, _this.height, 0, 0);
-        _this.sfxbtn = _this.game.add.audio(_this.type);
-
-        _this.bg = _this.game.add.sprite(0, 0, 'sidebg');
-        _this.bg.anchor.set(0.5);
-
-        _this.scale.set(0.5);
-        _this.inputEnabled = true;
-        _this.input.useHandCursor = true;
-
-        _this.anchor.set(0.5);
-
-        if (_this.imageBg) {
-            _this.character = _this.game.add.sprite(0, 0, _this.imageBg, _this.frameChar);
-            _this.character.anchor.set(0.5);
-        }
-
-        _this.wordVoiceBtn = _this.game.add.button(0, -85, 'voice', function () {
-            if (this.sfxbtn) this.sfxbtn.play();
-        }.bind(_this));
-        _this.wordVoiceBtn.scale.set(1.5);
-        _this.wordVoiceBtn.anchor.set(0.5);
-
-        _this.nameInput = _this.createTextInput(-65, 60, _this.name);
-
-        _this.addChild(_this.bg);
-
-        if (_this.imageBg) _this.addChild(_this.character);
-
-        _this.addChild(_this.wordVoiceBtn);
-        _this.addChild(_this.nameInput);
-
-        _this.setTintRelation();
-        _this.game.add.existing(_this);
-        return _ret = _this, _possibleConstructorReturn(_this, _ret);
-    }
-
-    _createClass(Person, [{
-        key: 'setData',
-        value: function setData(cfg) {
-            this.name = cfg.nombre;
-            this.imageBg = cfg.image;
-            this.frameChar = cfg.frame;
-            this.sex = cfg.sex;
-            this.type = cfg.type;
-            this.relation = cfg.relation;
-            this.direction = cfg.direction;
-        }
-    }, {
-        key: 'inputFocus',
-        value: function inputFocus(sprite) {
-            sprite.canvasInput.focus();
-        }
-    }, {
-        key: 'setTintRelation',
-        value: function setTintRelation() {
-            if (this.relation == 'me') {
-                this.tint = 0x266fd4;
-            } else if (this.relation == 'parents') {
-                this.tint = 0xd3d426;
-            } else if (this.relation == 'stepparents') {
-                this.tint = 0xd3d426;
-            } else if (this.relation == 'brothers') {
-                this.tint = 0xd42626;
-            } else if (this.relation == 'stepbrothers') {
-                this.tint = 0xd42626;
-            } else if (this.relation == 'sibling') {
-                this.tint = 0x69d426;
-            } else if (this.relation == 'grantparents') {
-                this.tint = 0xd46326;
-            } else if (this.relation == 'grandgrandparents') {
-                this.tint = 0x9a24d0;
-            }
-        }
-    }, {
-        key: 'setImageBg',
-        value: function setImageBg(cfg) {
-            this.name = cfg.name;
-            this.type = cfg.type;
-            this.imageBg = cfg.image;
-            this.frameChar = cfg.frame;
-            this.sex = cfg.sex;
+        if (this.imageBg) {
             this.character = this.game.add.sprite(0, 0, this.imageBg, this.frameChar);
             this.character.anchor.set(0.5);
-            this.addChild(this.character);
+        }
 
-            this.nameInput.destroy();
-            this.nameInput = this.createTextInput(-65, 60, this.name);
-            this.addChild(this.nameInput);
+        var erasePos = 0;
 
-            this.sfxbtn = this.game.add.audio(this.type);
-        }
-    }, {
-        key: 'haveImageBg',
-        value: function haveImageBg() {
-            if (this.imageBg && this.imageBg != 'undefined') return true;
-            return false;
-        }
-    }, {
-        key: 'getParents',
-        value: function getParents() {
-            return this.haveParents;
-        }
-    }, {
-        key: 'setParents',
-        value: function setParents(status) {
-            this.haveParents = status;
-        }
-    }, {
-        key: 'areBrothers',
-        value: function areBrothers() {
-            if (this.relation == 'brothers') return true;
-            return false;
-        }
-    }, {
-        key: 'areStepBrothers',
-        value: function areStepBrothers() {
-            if (this.relation == 'stepbrothers') return true;
-            return false;
-        }
-    }, {
-        key: 'areParents',
-        value: function areParents() {
-            if (this.relation == 'parents') return true;
-            return false;
-        }
-    }, {
-        key: 'areStepParents',
-        value: function areStepParents() {
-            if (this.relation == 'stepparents') return true;
-            return false;
-        }
-    }, {
-        key: 'areSiblings',
-        value: function areSiblings() {
-            if (this.relation == 'sibling') return true;
-            return false;
-        }
-    }, {
-        key: 'areGrantparents',
-        value: function areGrantparents() {
-            if (this.relation == 'grantparents') return true;
-            return false;
-        }
-    }, {
-        key: 'areGreatGrantparents',
-        value: function areGreatGrantparents() {
-            if (this.relation == 'grandgrandparents') return true;
-            return false;
-        }
-    }, {
-        key: 'createTextInput',
-        value: function createTextInput(x, y, text) {
-            var bmd = this.game.add.bitmapData(178, 35);
-            var myInput = this.game.add.sprite(x, y, bmd);
-            myInput.canvasInput = new CanvasInput({
-                canvas: bmd.canvas,
-                fontSize: 16,
-                fontWeight: 'bold',
-                width: this.bg.width,
-                maxlength: 12,
-                borderColor: '#000',
-                borderWidth: 1,
-                placeHolderColor: '#000',
-                placeHolder: '' + text
-            });
-            myInput.inputEnabled = true;
-            myInput.events.onInputUp.add(this.inputFocus, this);
-            return myInput;
-        }
-    }]);
+        if (this.relation != 'me') {
+            var erasePos = -30;
 
-    return Person;
-}(_phaser2.default.Sprite);
+            this.eraseBtn = this.game.add.button(30, -85, 'erase', function () {
+                this.activateErase();
+                if (this.relation == 'parents' || this.relation == 'grantparents' || this.relation == 'stepparents' || this.relation == 'grandgrandparents') {
+                    if (this.mainNode.relation == 'me' || this.mainNode.relation == 'parents' || this.mainNode.relation == 'grantparents' || this.mainNode.relation == 'stepparents') {
+                        this.mainNode.parentsCount--;
+                        this.mainNode.eraseParentNode.push(this.parentNum);
+                    }
+                } else if (this.relation == 'brothers' || this.relation == 'stepbrothers' || this.relation == 'sibling') {
+                    if (this.mainNode.relation == 'me' || this.mainNode.relation == 'parents' || this.mainNode.relation == 'stepparents' || this.mainNode.relation == 'brothers' || this.mainNode.relation == 'stepbrothers' || this.mainNode.relation == 'sibling') {
+                        this.mainNode.brotherCount--;
+                        this.mainNode.erasebrotherNode.push(this.brotherNum);
+                    }
+                }
 
-exports.default = Person;
+                this.destroy();
+            }.bind(this));
+        }
+
+        this.wordVoiceBtn = this.game.add.button(erasePos, -85, 'voice', function () {
+            if (this.sfxbtn.key != '') this.sfxbtn.play();
+        }.bind(this));
+        this.wordVoiceBtn.scale.set(1.5);
+        this.wordVoiceBtn.anchor.set(0.5);
+
+        this.nameInput = this.createTextInput(-75, 60, this.name);
+
+        this.addChild(this.bg);
+        this.addChild(this.wordVoiceBtn);
+        this.addChild(this.nameInput);
+
+        if (this.relation != 'me') {
+            this.eraseBtn.scale.set(1.5);
+            this.eraseBtn.anchor.set(0.5);
+            this.addChild(this.eraseBtn);
+        }
+
+        if (this.imageBg) this.addChild(this.character);
+
+        this.setTintRelation();
+        this.game.add.existing(this);
+        return this;
+    }
+
+    activateErase() {
+        this.eraseSignal.dispatch();
+    }
+
+    setData(cfg) {
+        this.name = cfg.nombre;
+        this.imageBg = cfg.image;
+        this.frameChar = cfg.frame;
+        this.sex = cfg.sex;
+        this.type = cfg.type;
+        this.relation = cfg.relation;
+        this.direction = cfg.direction;
+    }
+
+    inputFocus(sprite) {
+        sprite.canvasInput.focus();
+    }
+
+    setTintRelation() {
+        if (this.relation == 'me') {
+            this.tint = 0x266fd4;
+        } else if (this.relation == 'parents') {
+            this.tint = 0xd3d426;
+        } else if (this.relation == 'stepparents') {
+            this.tint = 0xd3d426;
+        } else if (this.relation == 'brothers') {
+            this.tint = 0xd42626;
+        } else if (this.relation == 'stepbrothers') {
+            this.tint = 0xd42626;
+        } else if (this.relation == 'sibling') {
+            this.tint = 0x69d426;
+        } else if (this.relation == 'grantparents') {
+            this.tint = 0xd46326;
+        } else if (this.relation == 'grandgrandparents') {
+            this.tint = 0x9a24d0;
+        }
+    }
+
+    setImageBg(cfg) {
+        this.name = cfg.name;
+        this.type = cfg.type;
+        this.imageBg = cfg.image;
+        this.frameChar = cfg.frame;
+        this.sex = cfg.sex;
+
+        if (this.character) this.character.destroy();
+
+        this.nameInput.canvasInput._placeHolder = this.type.toUpperCase();
+        this.inputFocus(this.nameInput);
+
+        this.character = this.game.add.sprite(0, 0, this.imageBg, this.frameChar);
+        this.character.anchor.set(0.5);
+        this.addChild(this.character);
+
+        this.sfxbtn.destroy();
+        this.sfxbtn = this.game.add.audio(this.type);
+    }
+
+    haveImageBg() {
+        if (this.imageBg && this.imageBg != 'undefined') return true;
+        return false;
+    }
+
+    areBrothers() {
+        if (this.relation == 'brothers') return true;
+        return false;
+    }
+
+    areStepBrothers() {
+        if (this.relation == 'stepbrothers') return true;
+        return false;
+    }
+
+    areParents() {
+        if (this.relation == 'parents') return true;
+        return false;
+    }
+
+    areStepParents() {
+        if (this.relation == 'stepparents') return true;
+        return false;
+    }
+
+    areSiblings() {
+        if (this.relation == 'sibling') return true;
+        return false;
+    }
+
+    areGrantparents() {
+        if (this.relation == 'grantparents') return true;
+        return false;
+    }
+
+    areGreatGrantparents() {
+        if (this.relation == 'grandgrandparents') return true;
+        return false;
+    }
+
+    createTextInput(x, y, text) {
+        var bmd = this.game.add.bitmapData(178, 35);
+        var myInput = this.game.add.sprite(x, y, bmd);
+        myInput.canvasInput = new CanvasInput({
+            canvas: bmd.canvas,
+            fontSize: 15,
+            fontWeight: 'bold',
+            width: this.bg.width + 20,
+            maxlength: 20,
+            borderColor: '#000',
+            borderWidth: 1,
+            placeHolderColor: '#000',
+            placeHolder: '' + text,
+            padding: 10
+        });
+        myInput.inputEnabled = true;
+        myInput.events.onInputUp.add(this.inputFocus, this);
+        return myInput;
+    }
+
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Person;
+
 
 /***/ }),
 /* 358 */
@@ -13857,7 +13882,7 @@ exports.default = Person;
   !*** ./node_modules/canvas-image-saver/dist/canvasImageSaver.js ***!
   \******************************************************************/
 /*! dynamic exports provided */
-/*! all exports used */
+/*! exports used: default */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!

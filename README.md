@@ -1,20 +1,19 @@
-# Phaser + ES6 + Webpack.
-#### A bootstrap project to create games with Phaser + ES6 + Webpack.
+# Distance Teaching and Mobile Learning - eLearning Games
+#### eLearning games in Phaser + ES6 + Webpack.
 
-![Phaser+ES6+Webpack](https://raw.githubusercontent.com/lean/phaser-es6-webpack/master/assets/images/phaser-es6-webpack.jpg)
+![Distance Teaching and Mobile Learning](https://dtml.org)
+![Distance Teaching and Mobile Learning Blog](https://blog.dtml.org)
+![Distance Teaching and Mobile Learning ELearning Games](https://games.dtml.org/games)
 
-[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+## Our Mission
+Our mission is to provide opportunities for kids worldwide to build a foundation for their future by engaging in free educational activities powered by state of the art e-Learning technologies.
 
+Our vision is to leverage technology to provide access to free educational support to every child around the globe. We have constructed an on-line portal where students across the globe can access variety of free eLearning materials.
 
-## Features
-- ESLINT with JavaScript Standard Style configuration
-- Next generation of Javascript
-- Browsers are automatically updated as you change project files
-- Webpack ready
-- WebFont Loader
+We know that knowledge and education are the basics of economic opportunity. Giving children access to basic education from a young age is critical for the success of any country. We believe the biggest impact can be made by augmenting school activities with powerful e-Learning technologies. We partner with schools in developing countries to leverage existing facilities and equipment to provide students with our educational platform.
 
-## Typescript 
-If you need typescript support checkout the ```typescript``` branch. Thanks to @MatsMaker
+![Consider supporting our platform](https://dtml.org/Home/Donate)
+
 
 # Setup
 You'll need to install a few things before you have a working copy of the project.
@@ -25,7 +24,7 @@ Navigate into your workspace directory.
 
 Run:
 
-```git clone https://github.com/lean/phaser-es6-webpack.git```
+```git clone https://github.com/seattleuser/DTML.Games.git```
 
 ## 2. Install node.js and npm:
 
@@ -100,9 +99,4 @@ In the config file you can specify which webfonts you want to include. In case y
 Big thanks to these great repos:
 
 https://github.com/belohlavek/phaser-es6-boilerplate
-
 https://github.com/cstuncsik/phaser-es6-demo
-
-## Contributors
-
-https://github.com/RenaudROHLINGER
