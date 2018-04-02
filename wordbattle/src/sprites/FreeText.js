@@ -17,7 +17,6 @@ export default class extends Phaser.Sprite {
         this.text.scale.setTo(game.scaleRatio);
         this.text.anchor.setTo(0.5);
         this.text.alpha = 0;
-        // this.addChild(this.text);
         this.anchor.setTo(0.5);
         this.game.stage.addChild(this);
         this.game.stage.addChild(this.text);
@@ -42,6 +41,10 @@ export default class extends Phaser.Sprite {
         this.text.text = this.properCase(word);
     }
 
+   decode(str) {
+	return str.replace(/&#(\d+);/g, function(match, dec) {return String.fromCharCode(dec);});
+   }
+
     showTick() {
         this.display();
         var tween = game.add.tween(this).to({
@@ -61,6 +64,6 @@ export default class extends Phaser.Sprite {
             returnProperCase += arrayOfWords[x].charAt(0).toUpperCase() + arrayOfWords[x].slice(1) + ' ';
         }
 
-        return returnProperCase;
+        return this.decode(returnProperCase);
     }
 }

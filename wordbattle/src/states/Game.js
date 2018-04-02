@@ -227,6 +227,7 @@ export default class extends Phaser.State {
     callGameOverService() {
         fetch('https://dtml.org/Activity/RecordUserActivity?id=wordsbattle&score=' +
             this.scoreText.text + '&complexity=' + this.complexity, {
+			credentials: 'same-origin', 
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -243,6 +244,7 @@ export default class extends Phaser.State {
 
     fetchNextSet() {
         fetch('https://dtml.org/api/GameService/Words?step=' + this.currLevel, {
+			credentials: 'same-origin', 
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -294,6 +296,7 @@ export default class extends Phaser.State {
     sendAnswer(answer, attempt) {
         fetch('https://dtml.org/api/GameService/CheckWord?source=' + this.currentWord + '&guess=' + answer +
             '&lan=' + this.langCode, {
+			credentials: 'same-origin', 
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
