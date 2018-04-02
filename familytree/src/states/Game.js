@@ -175,6 +175,11 @@ export default class extends Phaser.State {
         this.deleteBtn = new Button(this.game, this.game.world.width * 0.3, this.game.world.height * 0.93, this.deleteSelectedNode.bind(this), 'Delete Person', 1.5, 1);
         this.moveBtn = new Button(this.game, this.game.world.width * 0.5, this.game.world.height * 0.93, this.enableKeyboardMove.bind(this), 'Move Person', 1.5, 1);
         this.downloadBtn = new Button(this.game, this.game.world.width * 0.7, this.game.world.height * 0.93, this.capture.bind(this), 'Download', 1.5, 1);
+        this.webcamBtn = new Button(this.game, this.game.world.width * 0.7, this.game.world.height * 0.93, this.enableWebcam.bind(this), 'Take Picture', 1.5, 1);
+    }
+
+    enableWebcam(){
+
     }
 
     addRightControls() {
@@ -289,7 +294,7 @@ export default class extends Phaser.State {
     deleteSelectedNode(){
         if(this.game.selectedNode != this.you){
             this.game.selectedNode.deletePerson();
-            // this.selectNode(this.you);
+            this.game.selectedNode = null;
             this.you.selectNode();
         }
         // this.game.selectedNode.activateErase();

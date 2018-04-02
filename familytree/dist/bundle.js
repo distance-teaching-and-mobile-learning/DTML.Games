@@ -12333,7 +12333,10 @@ if (window.cordova) {
         this.deleteBtn = new __WEBPACK_IMPORTED_MODULE_2__model_Button__["a" /* default */](this.game, this.game.world.width * 0.3, this.game.world.height * 0.93, this.deleteSelectedNode.bind(this), 'Delete Person', 1.5, 1);
         this.moveBtn = new __WEBPACK_IMPORTED_MODULE_2__model_Button__["a" /* default */](this.game, this.game.world.width * 0.5, this.game.world.height * 0.93, this.enableKeyboardMove.bind(this), 'Move Person', 1.5, 1);
         this.downloadBtn = new __WEBPACK_IMPORTED_MODULE_2__model_Button__["a" /* default */](this.game, this.game.world.width * 0.7, this.game.world.height * 0.93, this.capture.bind(this), 'Download', 1.5, 1);
+        this.webcamBtn = new __WEBPACK_IMPORTED_MODULE_2__model_Button__["a" /* default */](this.game, this.game.world.width * 0.7, this.game.world.height * 0.93, this.enableWebcam.bind(this), 'Take Picture', 1.5, 1);
     }
+
+    enableWebcam() {}
 
     addRightControls() {
         this.rightMenu = this.game.add.sprite(this.game.world.width, this.game.world.centerY, 'sidemenu');
@@ -12445,7 +12448,7 @@ if (window.cordova) {
     deleteSelectedNode() {
         if (this.game.selectedNode != this.you) {
             this.game.selectedNode.deletePerson();
-            // this.selectNode(this.you);
+            this.game.selectedNode = null;
             this.you.selectNode();
         }
         // this.game.selectedNode.activateErase();
@@ -14150,7 +14153,7 @@ class Person extends __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Sprite {
     }
 
     selectNode() {
-        if (this.relationToPlayer != __WEBPACK_IMPORTED_MODULE_1__language_language__["a" /* default */].you) this.game.selectedNode.children[0].frame = 0;
+        if (null != this.game.selectedNode) this.game.selectedNode.children[0].frame = 0;
         this.game.selectedNode = this;
         this.children[0].frame = 1;
     }
