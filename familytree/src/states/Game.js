@@ -6,7 +6,8 @@ import Person from '../model/Person'
 import english from '../language/language'
 import CanvasImageSaver from 'canvas-image-saver'
 import config from '../config';
-// import WebcamState from '../model/WebcamState'
+import WebcamPlugin from '../model/WebcamPlugin'
+import WebcamState from '../model/WebcamState'
 
 export default class extends Phaser.State {
     init() {
@@ -161,116 +162,14 @@ export default class extends Phaser.State {
         this.you = new Person(this.game, this.game.world.centerX, this.game.world.centerY, config);
         this.game.you = this.you;
         this.family.add(this.you);
+        this.picWidth = this.you.character.width;
+        this.picHeight = this.you.character.height;
         this.UI = [];
 
         this.addLeftControls();
         this.addRightControls();
         this.addBottomControls();
-        this.createWebcam();
-        // this.selectNode(this.you);
         this.you.selectNode();
-    }
-
-    createWebcam(){
-        this.shutterSound = game.add.sound('shutter', 0.8);
-        this.buttonSound = game.add.sound('click');
-        this.readySound = game.add.sound('ready');
-        this.beepSound = game.add.sound('beep', 0.3);
-
-        // Setup camera
-        this.camBitmap = game.add.bitmapData(config.camWidth, config.camHeight, 'cam');
-        this.cam = new Phaser.Plugin.Webcam(game, this);
-
-        this.webcamAvailable = !(navigator.getUserMedia === undefined);
-        if (!this.webcamAvailable) {
-            document.getElementById('instructions').style.display = "none";
-            document.getElementById('unsupported').style.display = "block";
-            document.getElementById('cam').style.display = "none";
-        } else {
-            this.cam.start(this.camBitmap.width, this.camBitmap.height, this.camBitmap.context);
-            this.cam.onConnect.add(this.cameraConnected, this);
-            this.cam.onError.add(this.cameraError, this);
-            game.add.plugin(this.cam);
-        }
-
-        // Setup working canvas
-        this.pixelBitmap = game.add.bitmapData(400, 400);
-        // this.pixelBitmap.anchor.setTo(0.5);
-
-        // Setup final display surface
-        this.surface = game.add.sprite(this.game.world.centerX, this.game.world.centerY, this.pixelBitmap);
-        this.surface.anchor.setTo(0.5);
-
-        // Message to turn on the camera
-        this.turnOnCamera = game.add.image(0, 0, 'sprites', 'turn-on-camera.png');
-        this.turnOnCamera.scale.set(2);
-
-        // Add UI
-        this.ui = game.add.group();
-        game.add.image(0, game.height/2 - 21, 'sprites', 'button-panel.png', this.ui);
-
-        this.shutter = game.add.sprite(game.width/4, game.height/2-22, 'sprites', 'button-01.png', this.ui);
-        this.shutter.anchor.set(0.5);
-        this.shutter.animations.add('shine', Phaser.Animation.generateFrameNames('button-', 1, 6, '.png', 2), 15);
-        this.shutter.animations.play('shine');
-        this.shutter.events.onInputDown.add(this.clickShutter, this);
-        this.shutter.events.onInputOver.add(function() { this.shutter.animations.play('shine'); }, this);
-        this.shutter.inputEnabled = true;
-
-        this.colorButton = game.add.sprite(game.width/2 - 39, 0, 'sprites', 'color.png', this.ui);
-        this.colorButton.events.onInputDown.add(this.colorButtonClicked, this);
-        this.colorButton.inputEnabled = true;
-
-        this.grayButton = game.add.sprite(game.width/2 - 39, 0, 'sprites', 'gray.png', this.ui);
-        this.grayButton.events.onInputDown.add(this.grayButtonClicked, this);
-        this.grayButton.visible = false;
-        this.grayButton.inputEnabled = true;
-
-        this.tintButton = game.add.sprite(game.width/2 - 39, 40, 'sprites', 'tint.png', this.ui);
-        this.tintButton.events.onInputDown.add(this.tintButtonClicked, this);
-        this.tintButton.inputEnabled = true;
-
-        this.sizeButton = game.add.sprite(game.width/2 - 39, 80, 'sprites', 'size.png', this.ui);
-        this.sizeButton.events.onInputDown.add(this.sizeButtonClicked, this);
-        this.sizeButton.inputEnabled = true;
-
-        this.ui.scale.set(2);
-        this.ui.visible = false;
-
-        // Add countdown
-        this.countdown = game.add.sprite(game.width/2, game.height/2, 'sprites', 'countdown-01.png');
-        this.countdown.anchor.set(0.5);
-        this.countdown.animations.add('go', Phaser.Animation.generateFrameNames('countdown-', 1, 3, '.png', 2), 2);
-        this.countdown.visible = false;
-        this.countdown.scale.set(2);
-
-        // Create flash
-        this.flash = game.add.graphics(0, 0);
-        this.flash.beginFill(0xffffff, 1);
-        this.flash.drawRect(0, 0, game.width, game.height);
-        this.flash.endFill();
-        this.flash.alpha = 0;
-
-        // Flags for taking picture
-        this.takePicture = false;
-        this.countdownPlaying = false;
-
-        // Flags for options
-        this.color = true;
-        this.tintValue = 0;
-        this.pixelSize = 5;
-
-        this.pixelSizes = [20, 15, 10, 8, 5];
-        this.tintChoices = [
-            { r:1, g:1, b:1 }, // none
-            { r:1, g:2, b:2 }, // cyan
-            { r:1, g:1.5, b:2 }, // blue
-            { r:2, g:2, b:1 }, // yellow
-            { r:2, g:1, b:1 }, // red
-            { r:2, g:1.5, b:1 }, // orange
-            { r:1, g:2, b:1 }, // green
-            { r:2, g:1, b:2 }, // purple
-        ];
     }
 
     addBottomControls() {
@@ -283,19 +182,28 @@ export default class extends Phaser.State {
     enableWebcam() {
         this.game.webcam = this.game.plugins.add(Phaser.Plugin.Webcam);
         console.log(this.game.webcam);
-        this.game.bmdPic = this.game.make.bitmapData(800, 600);
+        this.game.bmdPic = this.game.make.bitmapData(config.camWidth, config.camHeight);
         this.game.spritePic = this.game.bmdPic.addToWorld();
+        this.game.spritePic.x = this.game.world.centerX;
+        this.game.spritePic.y = this.game.world.centerY;
+        this.game.spritePic.anchor.setTo(0.5);
 
-        this.game.webcam.start(800, 600, this.game.bmdPic.context);
+        this.game.webcam.start(config.camWidth, config.camHeight, this.game.bmdPic.context);
 
         this.game.input.onDown.addOnce(this.takePicture, this);
     }
 
     takePicture() {
         this.game.webcam.stop();
+        this.game.webcam.grab(this.game.bmdPic.context, 0, 0);
+
+        this.game.cache.addBitmapData('pic', this.game.bmdPic);
+        this.game.selectedNode.character.loadTexture(this.game.cache.getBitmapData('pic'), 0);
+        this.game.selectedNode.character.width = this.picWidth;
+        this.game.selectedNode.character.height = this.picHeight;
+
+        this.game.spritePic.destroy();
         //  bmd.context now contains your webcam image
-        console.log(this.game.bmdPic.context);
-        console.log(this.game.spritePic);
         this.game.spritePic.tint = Math.random() * 0xff0000;
     }
 
@@ -710,8 +618,8 @@ export default class extends Phaser.State {
     }
 
     pixelate() {
-        var offsetX = config.camWidth/2 - game.width/2;
-        var offsetY = config.camHeight/2 - game.height/2;
+        var offsetX = config.camWidth/2 - this.game.world.width/2;
+        var offsetY = config.camHeight/2 - this.game.world.height/2;
 
         var pxContext = this.pixelBitmap.context;
 

@@ -617,8 +617,7 @@ module.exports = function (TYPE, $create) {
 
 
 /***/ }),
-/* 27 */,
-/* 28 */
+/* 27 */
 /*!******************************************************!*\
   !*** ./node_modules/core-js/modules/_typed-array.js ***!
   \******************************************************/
@@ -1110,7 +1109,7 @@ if (__webpack_require__(/*! ./_descriptors */ 6)) {
 
 
 /***/ }),
-/* 29 */
+/* 28 */
 /*!***************************************************!*\
   !*** ./node_modules/core-js/modules/_metadata.js ***!
   \***************************************************/
@@ -1172,6 +1171,7 @@ module.exports = {
 
 
 /***/ }),
+/* 29 */,
 /* 30 */
 /*!***********************************************!*\
   !*** ./node_modules/core-js/modules/_meta.js ***!
@@ -4909,14 +4909,11 @@ module.exports = Math.scale || function scale(x, inLow, inHigh, outLow, outHigh)
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_phaser__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_webfontloader__ = __webpack_require__(/*! webfontloader */ 134);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_webfontloader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_webfontloader__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__libs_phaser_state_transition_plugin__ = __webpack_require__(/*! ../libs/phaser-state-transition-plugin */ 347);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__libs_phaser_state_transition_plugin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__libs_phaser_state_transition_plugin__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__(/*! ../config */ 94);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config__ = __webpack_require__(/*! ../config */ 94);
 
 
 
@@ -4944,10 +4941,10 @@ module.exports = Math.scale || function scale(x, inLow, inHigh, outLow, outHigh)
     }
 
     preload() {
-        if (__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].webfonts.length) {
+        if (__WEBPACK_IMPORTED_MODULE_2__config__["a" /* default */].webfonts.length) {
             __WEBPACK_IMPORTED_MODULE_1_webfontloader___default.a.load({
                 google: {
-                    families: __WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].webfonts
+                    families: __WEBPACK_IMPORTED_MODULE_2__config__["a" /* default */].webfonts
                 },
                 active: this.fontsLoaded
             });
@@ -4993,10 +4990,10 @@ module.exports = Math.scale || function scale(x, inLow, inHigh, outLow, outHigh)
     }
 
     render() {
-        if (__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].webfonts.length && this.fontsReady) {
+        if (__WEBPACK_IMPORTED_MODULE_2__config__["a" /* default */].webfonts.length && this.fontsReady) {
             this.state.start('Preloader');
         }
-        if (!__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].webfonts.length) {
+        if (!__WEBPACK_IMPORTED_MODULE_2__config__["a" /* default */].webfonts.length) {
             this.state.start('Preloader');
         }
         this.state.start('Preloader');
@@ -8916,7 +8913,7 @@ $export($export.G + $export.W + $export.F * !__webpack_require__(/*! ./_typed */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ./_typed-array */ 28)('Int8', 1, function (init) {
+__webpack_require__(/*! ./_typed-array */ 27)('Int8', 1, function (init) {
   return function Int8Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
@@ -8932,7 +8929,7 @@ __webpack_require__(/*! ./_typed-array */ 28)('Int8', 1, function (init) {
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ./_typed-array */ 28)('Uint8', 1, function (init) {
+__webpack_require__(/*! ./_typed-array */ 27)('Uint8', 1, function (init) {
   return function Uint8Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
@@ -8948,7 +8945,7 @@ __webpack_require__(/*! ./_typed-array */ 28)('Uint8', 1, function (init) {
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ./_typed-array */ 28)('Uint8', 1, function (init) {
+__webpack_require__(/*! ./_typed-array */ 27)('Uint8', 1, function (init) {
   return function Uint8ClampedArray(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
@@ -8964,7 +8961,7 @@ __webpack_require__(/*! ./_typed-array */ 28)('Uint8', 1, function (init) {
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ./_typed-array */ 28)('Int16', 2, function (init) {
+__webpack_require__(/*! ./_typed-array */ 27)('Int16', 2, function (init) {
   return function Int16Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
@@ -8980,7 +8977,7 @@ __webpack_require__(/*! ./_typed-array */ 28)('Int16', 2, function (init) {
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ./_typed-array */ 28)('Uint16', 2, function (init) {
+__webpack_require__(/*! ./_typed-array */ 27)('Uint16', 2, function (init) {
   return function Uint16Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
@@ -8996,7 +8993,7 @@ __webpack_require__(/*! ./_typed-array */ 28)('Uint16', 2, function (init) {
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ./_typed-array */ 28)('Int32', 4, function (init) {
+__webpack_require__(/*! ./_typed-array */ 27)('Int32', 4, function (init) {
   return function Int32Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
@@ -9012,7 +9009,7 @@ __webpack_require__(/*! ./_typed-array */ 28)('Int32', 4, function (init) {
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ./_typed-array */ 28)('Uint32', 4, function (init) {
+__webpack_require__(/*! ./_typed-array */ 27)('Uint32', 4, function (init) {
   return function Uint32Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
@@ -9028,7 +9025,7 @@ __webpack_require__(/*! ./_typed-array */ 28)('Uint32', 4, function (init) {
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ./_typed-array */ 28)('Float32', 4, function (init) {
+__webpack_require__(/*! ./_typed-array */ 27)('Float32', 4, function (init) {
   return function Float32Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
@@ -9044,7 +9041,7 @@ __webpack_require__(/*! ./_typed-array */ 28)('Float32', 4, function (init) {
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ./_typed-array */ 28)('Float64', 8, function (init) {
+__webpack_require__(/*! ./_typed-array */ 27)('Float64', 8, function (init) {
   return function Float64Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
@@ -10391,7 +10388,7 @@ $export($export.S, 'Promise', { 'try': function (callbackfn) {
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata = __webpack_require__(/*! ./_metadata */ 29);
+var metadata = __webpack_require__(/*! ./_metadata */ 28);
 var anObject = __webpack_require__(/*! ./_an-object */ 1);
 var toMetaKey = metadata.key;
 var ordinaryDefineOwnMetadata = metadata.set;
@@ -10410,7 +10407,7 @@ metadata.exp({ defineMetadata: function defineMetadata(metadataKey, metadataValu
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata = __webpack_require__(/*! ./_metadata */ 29);
+var metadata = __webpack_require__(/*! ./_metadata */ 28);
 var anObject = __webpack_require__(/*! ./_an-object */ 1);
 var toMetaKey = metadata.key;
 var getOrCreateMetadataMap = metadata.map;
@@ -10436,7 +10433,7 @@ metadata.exp({ deleteMetadata: function deleteMetadata(metadataKey, target /* , 
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata = __webpack_require__(/*! ./_metadata */ 29);
+var metadata = __webpack_require__(/*! ./_metadata */ 28);
 var anObject = __webpack_require__(/*! ./_an-object */ 1);
 var getPrototypeOf = __webpack_require__(/*! ./_object-gpo */ 17);
 var ordinaryHasOwnMetadata = metadata.has;
@@ -10466,7 +10463,7 @@ metadata.exp({ getMetadata: function getMetadata(metadataKey, target /* , target
 
 var Set = __webpack_require__(/*! ./es6.set */ 120);
 var from = __webpack_require__(/*! ./_array-from-iterable */ 129);
-var metadata = __webpack_require__(/*! ./_metadata */ 29);
+var metadata = __webpack_require__(/*! ./_metadata */ 28);
 var anObject = __webpack_require__(/*! ./_an-object */ 1);
 var getPrototypeOf = __webpack_require__(/*! ./_object-gpo */ 17);
 var ordinaryOwnMetadataKeys = metadata.keys;
@@ -10494,7 +10491,7 @@ metadata.exp({ getMetadataKeys: function getMetadataKeys(target /* , targetKey *
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata = __webpack_require__(/*! ./_metadata */ 29);
+var metadata = __webpack_require__(/*! ./_metadata */ 28);
 var anObject = __webpack_require__(/*! ./_an-object */ 1);
 var ordinaryGetOwnMetadata = metadata.get;
 var toMetaKey = metadata.key;
@@ -10514,7 +10511,7 @@ metadata.exp({ getOwnMetadata: function getOwnMetadata(metadataKey, target /* , 
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata = __webpack_require__(/*! ./_metadata */ 29);
+var metadata = __webpack_require__(/*! ./_metadata */ 28);
 var anObject = __webpack_require__(/*! ./_an-object */ 1);
 var ordinaryOwnMetadataKeys = metadata.keys;
 var toMetaKey = metadata.key;
@@ -10533,7 +10530,7 @@ metadata.exp({ getOwnMetadataKeys: function getOwnMetadataKeys(target /* , targe
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata = __webpack_require__(/*! ./_metadata */ 29);
+var metadata = __webpack_require__(/*! ./_metadata */ 28);
 var anObject = __webpack_require__(/*! ./_an-object */ 1);
 var getPrototypeOf = __webpack_require__(/*! ./_object-gpo */ 17);
 var ordinaryHasOwnMetadata = metadata.has;
@@ -10560,7 +10557,7 @@ metadata.exp({ hasMetadata: function hasMetadata(metadataKey, target /* , target
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata = __webpack_require__(/*! ./_metadata */ 29);
+var metadata = __webpack_require__(/*! ./_metadata */ 28);
 var anObject = __webpack_require__(/*! ./_an-object */ 1);
 var ordinaryHasOwnMetadata = metadata.has;
 var toMetaKey = metadata.key;
@@ -10580,7 +10577,7 @@ metadata.exp({ hasOwnMetadata: function hasOwnMetadata(metadataKey, target /* , 
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-var $metadata = __webpack_require__(/*! ./_metadata */ 29);
+var $metadata = __webpack_require__(/*! ./_metadata */ 28);
 var anObject = __webpack_require__(/*! ./_an-object */ 1);
 var aFunction = __webpack_require__(/*! ./_a-function */ 10);
 var toMetaKey = $metadata.key;
@@ -11759,7 +11756,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_pixi___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_pixi__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_p2__ = __webpack_require__(/*! p2 */ 132);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_p2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_p2__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_phaser__ = __webpack_require__(/*! phaser */ 27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_phaser__ = __webpack_require__(/*! phaser */ 29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_phaser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_phaser__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__states_Boot__ = __webpack_require__(/*! ./states/Boot */ 133);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__states_Preloader__ = __webpack_require__(/*! ./states/Preloader */ 348);
@@ -11832,248 +11829,7 @@ if (window.cordova) {
 /* 344 */,
 /* 345 */,
 /* 346 */,
-/* 347 */
-/*!****************************************************!*\
-  !*** ./src/libs/phaser-state-transition-plugin.js ***!
-  \****************************************************/
-/*! dynamic exports provided */
-/***/ (function(module, exports) {
-
-/**
-  * StateTransition Plugin for Phaser
-  */
-(function (window, Phaser) {
-  'use strict';
-
-  Phaser.Plugin.StateTransition = function (game, parent) {
-    Phaser.Plugin.call(this, game, parent);
-
-    // Default transition settings
-    this.settings = {
-      duration: Phaser.Timer.SECOND * 0.3,
-      ease: Phaser.Easing.Exponential.InOut,
-      properties: {
-        alpha: 0
-      }
-    };
-    // Original implementations of state methods
-    this._originalStateMethods = {};
-  };
-
-  Phaser.Plugin.StateTransition.prototype = Object.create(Phaser.Plugin.prototype);
-
-  Phaser.Plugin.StateTransition.prototype.constructor = Phaser.Plugin.StateTransition;
-
-  Phaser.Plugin.StateTransition.prototype.configure = function (options) {
-    var property;
-
-    if (options) {
-      for (property in options) {
-        if (this.settings[property]) {
-          this.settings[property] = options[property];
-        }
-      }
-    } else {
-      return Object.create(this.settings);
-    }
-  };
-
-  /**
-    * Handles the state changes and transitions
-    */
-  Phaser.Plugin.StateTransition.prototype.to = function () {
-    var stateName = arguments[0],
-        _this = this,
-        _init,
-        _create;
-
-    if (!stateName) {
-      throw 'No state passed.';
-    }
-
-    // In case last transition went wrong
-    this._destroy();
-
-    // Pause game to take world snapshot
-    this.game.paused = true;
-
-    // Create current state texture
-    this._texture = new Phaser.RenderTexture(this.game, this.game.width, this.game.height, 'cover');
-
-    // Draw the current world to the render
-    this._texture.renderXY(this.game.world, -this.game.camera.x, -this.game.camera.y);
-
-    // Save original implementation of state's init and create methods
-    this._originalStateMethods[stateName] = this._originalStateMethods[stateName] || {
-      init: this.game.state.states[stateName].init,
-      create: this.game.state.states[stateName].create
-    };
-    _init = this._originalStateMethods[stateName].init;
-    _create = this._originalStateMethods[stateName].create;
-
-    // Extend state init method to add cover
-    this.game.state.states[stateName].init = function () {
-      this.game.add.existing(_this._newCover());
-      if (_init) {
-        _init.apply(this, arguments);
-      }
-    };
-
-    // Extend state create method to animate cover
-    this.game.state.states[stateName].create = function () {
-      if (_create) {
-        _create.apply(this, arguments);
-      }
-      _this.bringToTop();
-      _this._animateCover();
-    };
-
-    // Resume the game and start next state
-    this.game.paused = false;
-    this.game.state.start.apply(this.game.state, arguments);
-  };
-
-  /**
-    * Create previous state cover
-    */
-  Phaser.Plugin.StateTransition.prototype._newCover = function () {
-    // Create current state cover sprite
-    this._cover = new Phaser.Sprite(this.game, this.game.world.centerX, this.game.world.centerY, this._texture);
-    this._cover.anchor.setTo(0.5);
-    return this._cover;
-  };
-
-  /**
-    * Can be called in the create function of states that you transition to,
-    * to ensure that the transition-sprite is on top of everything
-    */
-  Phaser.Plugin.StateTransition.prototype.bringToTop = function () {
-    if (this._cover) {
-      this._cover.bringToTop();
-    }
-  };
-
-  Phaser.Plugin.StateTransition.prototype._animateCover = function () {
-    var propertyValueObject, property, tween;
-
-    for (property in this.settings.properties) {
-      if (typeof this.settings.properties[property] === 'object') {
-        // Create a tween for specific object property
-        tween = this.game.add.tween(this._cover[property]).to(this.settings.properties[property], this.settings.duration, this.settings.ease, true);
-      } else {
-        // Create properties object for specific property value
-        propertyValueObject = {};
-        propertyValueObject[property] = this.settings.properties[property];
-        tween = this.game.add.tween(this._cover).to(propertyValueObject, this.settings.duration, this.settings.ease, true);
-      }
-    }
-    // Since all tweens have the same duration we listen to the last one created
-    tween.onComplete.addOnce(this._destroy, this);
-  };
-
-  Phaser.Plugin.StateTransition.prototype._destroy = function () {
-    if (this._cover) {
-      this._cover.destroy();
-    }
-    if (this._texture) {
-      this._texture.destroy();
-    }
-  };
-
-  Phaser.Plugin.Webcam = function (game, parent) {
-
-    Phaser.Plugin.call(this, game, parent);
-
-    if (!game.device.getUserMedia) {
-      return false;
-    }
-
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-
-    this.context = null;
-    this.stream = null;
-
-    this.video = document.createElement('video');
-    this.video.autoplay = true;
-
-    this.onConnect = new Phaser.Signal();
-    this.onError = new Phaser.Signal();
-  };
-
-  Phaser.Plugin.Webcam.prototype = Object.create(Phaser.Plugin.prototype);
-  Phaser.Plugin.Webcam.prototype.constructor = Phaser.Plugin.Webcam;
-
-  Phaser.Plugin.Webcam.prototype.start = function (width, height, context) {
-
-    // console.log('Webcam start', width, height);
-
-    this.context = context;
-
-    if (!this.stream) {
-      navigator.getUserMedia({ video: { mandatory: { minWidth: width, minHeight: height } } }, this.connectCallback.bind(this), this.errorCallback.bind(this));
-    }
-  };
-
-  Phaser.Plugin.Webcam.prototype.stop = function () {
-
-    if (this.stream) {
-      this.stream.stop();
-      this.stream = null;
-    }
-  };
-
-  Phaser.Plugin.Webcam.prototype.connectCallback = function (stream) {
-
-    this.stream = stream;
-
-    this.video.src = window.URL.createObjectURL(this.stream);
-
-    this.onConnect.dispatch(this.video);
-  };
-
-  Phaser.Plugin.Webcam.prototype.errorCallback = function (event) {
-
-    this.onError.dispatch(event);
-  };
-
-  Phaser.Plugin.Webcam.prototype.grab = function (context, x, y) {
-
-    if (this.stream) {
-      context.drawImage(this.video, x, y);
-    }
-  };
-
-  Phaser.Plugin.Webcam.prototype.update = function () {
-
-    if (this.stream) {
-      try {
-        this.context.drawImage(this.video, 0, 0);
-      } catch (e) {
-        if (e.name == "NS_ERROR_NOT_AVAILABLE") {
-          // Just try again. This is a bug in Firefox.
-          // https://bugzilla.mozilla.org/show_bug.cgi?id=879717
-        } else {
-          throw e;
-        }
-      }
-    }
-  };
-
-  /**
-   * @name Phaser.Plugin.Webcam#active
-   * @property {boolean} active - Is this Webcam plugin capturing a video stream or not?
-   * @readonly
-   */
-  Object.defineProperty(Phaser.Plugin.Webcam.prototype, "active", {
-
-    get: function () {
-      return this.stream;
-    }
-
-  });
-})(window, Phaser);
-
-/***/ }),
+/* 347 */,
 /* 348 */
 /*!*********************************!*\
   !*** ./src/states/Preloader.js ***!
@@ -12083,7 +11839,7 @@ if (window.cordova) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_phaser__);
 
 
@@ -12162,7 +11918,7 @@ if (window.cordova) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_phaser__);
 
 
@@ -12191,7 +11947,7 @@ if (window.cordova) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_phaser__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__language_language__ = __webpack_require__(/*! ../language/language */ 95);
 
@@ -12262,7 +12018,7 @@ if (window.cordova) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_phaser__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_phaser_list_view__ = __webpack_require__(/*! phaser-list-view */ 352);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_phaser_list_view___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_phaser_list_view__);
@@ -12273,6 +12029,10 @@ if (window.cordova) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_canvas_image_saver__ = __webpack_require__(/*! canvas-image-saver */ 359);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_canvas_image_saver___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_canvas_image_saver__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__config__ = __webpack_require__(/*! ../config */ 94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__model_WebcamPlugin__ = __webpack_require__(/*! ../model/WebcamPlugin */ 361);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__model_WebcamPlugin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__model_WebcamPlugin__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__model_WebcamState__ = __webpack_require__(/*! ../model/WebcamState */ 362);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__model_WebcamState___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__model_WebcamState__);
 
 
 
@@ -12281,7 +12041,8 @@ if (window.cordova) {
 
 
 
-// import WebcamState from '../model/WebcamState'
+
+
 
 /* harmony default export */ __webpack_exports__["a"] = (class extends __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.State {
     init() {
@@ -12429,116 +12190,14 @@ if (window.cordova) {
         this.you = new __WEBPACK_IMPORTED_MODULE_4__model_Person__["a" /* default */](this.game, this.game.world.centerX, this.game.world.centerY, config);
         this.game.you = this.you;
         this.family.add(this.you);
+        this.picWidth = this.you.character.width;
+        this.picHeight = this.you.character.height;
         this.UI = [];
 
         this.addLeftControls();
         this.addRightControls();
         this.addBottomControls();
-        this.createWebcam();
-        // this.selectNode(this.you);
         this.you.selectNode();
-    }
-
-    createWebcam() {
-        this.shutterSound = game.add.sound('shutter', 0.8);
-        this.buttonSound = game.add.sound('click');
-        this.readySound = game.add.sound('ready');
-        this.beepSound = game.add.sound('beep', 0.3);
-
-        // Setup camera
-        this.camBitmap = game.add.bitmapData(__WEBPACK_IMPORTED_MODULE_7__config__["a" /* default */].camWidth, __WEBPACK_IMPORTED_MODULE_7__config__["a" /* default */].camHeight, 'cam');
-        this.cam = new __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Plugin.Webcam(game, this);
-
-        this.webcamAvailable = !(navigator.getUserMedia === undefined);
-        if (!this.webcamAvailable) {
-            document.getElementById('instructions').style.display = "none";
-            document.getElementById('unsupported').style.display = "block";
-            document.getElementById('cam').style.display = "none";
-        } else {
-            this.cam.start(this.camBitmap.width, this.camBitmap.height, this.camBitmap.context);
-            this.cam.onConnect.add(this.cameraConnected, this);
-            this.cam.onError.add(this.cameraError, this);
-            game.add.plugin(this.cam);
-        }
-
-        // Setup working canvas
-        this.pixelBitmap = game.add.bitmapData(400, 400);
-        // this.pixelBitmap.anchor.setTo(0.5);
-
-        // Setup final display surface
-        this.surface = game.add.sprite(this.game.world.centerX, this.game.world.centerY, this.pixelBitmap);
-        this.surface.anchor.setTo(0.5);
-
-        // Message to turn on the camera
-        this.turnOnCamera = game.add.image(0, 0, 'sprites', 'turn-on-camera.png');
-        this.turnOnCamera.scale.set(2);
-
-        // Add UI
-        this.ui = game.add.group();
-        game.add.image(0, game.height / 2 - 21, 'sprites', 'button-panel.png', this.ui);
-
-        this.shutter = game.add.sprite(game.width / 4, game.height / 2 - 22, 'sprites', 'button-01.png', this.ui);
-        this.shutter.anchor.set(0.5);
-        this.shutter.animations.add('shine', __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Animation.generateFrameNames('button-', 1, 6, '.png', 2), 15);
-        this.shutter.animations.play('shine');
-        this.shutter.events.onInputDown.add(this.clickShutter, this);
-        this.shutter.events.onInputOver.add(function () {
-            this.shutter.animations.play('shine');
-        }, this);
-        this.shutter.inputEnabled = true;
-
-        this.colorButton = game.add.sprite(game.width / 2 - 39, 0, 'sprites', 'color.png', this.ui);
-        this.colorButton.events.onInputDown.add(this.colorButtonClicked, this);
-        this.colorButton.inputEnabled = true;
-
-        this.grayButton = game.add.sprite(game.width / 2 - 39, 0, 'sprites', 'gray.png', this.ui);
-        this.grayButton.events.onInputDown.add(this.grayButtonClicked, this);
-        this.grayButton.visible = false;
-        this.grayButton.inputEnabled = true;
-
-        this.tintButton = game.add.sprite(game.width / 2 - 39, 40, 'sprites', 'tint.png', this.ui);
-        this.tintButton.events.onInputDown.add(this.tintButtonClicked, this);
-        this.tintButton.inputEnabled = true;
-
-        this.sizeButton = game.add.sprite(game.width / 2 - 39, 80, 'sprites', 'size.png', this.ui);
-        this.sizeButton.events.onInputDown.add(this.sizeButtonClicked, this);
-        this.sizeButton.inputEnabled = true;
-
-        this.ui.scale.set(2);
-        this.ui.visible = false;
-
-        // Add countdown
-        this.countdown = game.add.sprite(game.width / 2, game.height / 2, 'sprites', 'countdown-01.png');
-        this.countdown.anchor.set(0.5);
-        this.countdown.animations.add('go', __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Animation.generateFrameNames('countdown-', 1, 3, '.png', 2), 2);
-        this.countdown.visible = false;
-        this.countdown.scale.set(2);
-
-        // Create flash
-        this.flash = game.add.graphics(0, 0);
-        this.flash.beginFill(0xffffff, 1);
-        this.flash.drawRect(0, 0, game.width, game.height);
-        this.flash.endFill();
-        this.flash.alpha = 0;
-
-        // Flags for taking picture
-        this.takePicture = false;
-        this.countdownPlaying = false;
-
-        // Flags for options
-        this.color = true;
-        this.tintValue = 0;
-        this.pixelSize = 5;
-
-        this.pixelSizes = [20, 15, 10, 8, 5];
-        this.tintChoices = [{ r: 1, g: 1, b: 1 }, // none
-        { r: 1, g: 2, b: 2 }, // cyan
-        { r: 1, g: 1.5, b: 2 }, // blue
-        { r: 2, g: 2, b: 1 }, // yellow
-        { r: 2, g: 1, b: 1 }, // red
-        { r: 2, g: 1.5, b: 1 }, // orange
-        { r: 1, g: 2, b: 1 }, // green
-        { r: 2, g: 1, b: 2 }];
     }
 
     addBottomControls() {
@@ -12551,16 +12210,28 @@ if (window.cordova) {
     enableWebcam() {
         this.game.webcam = this.game.plugins.add(__WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Plugin.Webcam);
         console.log(this.game.webcam);
-        this.game.bmdPic = this.game.make.bitmapData(800, 600);
+        this.game.bmdPic = this.game.make.bitmapData(__WEBPACK_IMPORTED_MODULE_7__config__["a" /* default */].camWidth, __WEBPACK_IMPORTED_MODULE_7__config__["a" /* default */].camHeight);
         this.game.spritePic = this.game.bmdPic.addToWorld();
+        this.game.spritePic.x = this.game.world.centerX;
+        this.game.spritePic.y = this.game.world.centerY;
+        this.game.spritePic.anchor.setTo(0.5);
 
-        this.game.webcam.start(800, 600, this.game.bmdPic.context);
+        this.game.webcam.start(__WEBPACK_IMPORTED_MODULE_7__config__["a" /* default */].camWidth, __WEBPACK_IMPORTED_MODULE_7__config__["a" /* default */].camHeight, this.game.bmdPic.context);
 
         this.game.input.onDown.addOnce(this.takePicture, this);
     }
 
     takePicture() {
+        console.log(this.game.webcam);
         this.game.webcam.stop();
+        this.game.webcam.grab(this.game.bmdPic.context, 0, 0);
+
+        this.game.cache.addBitmapData('pic', this.game.bmdPic);
+        this.game.selectedNode.character.loadTexture(this.game.cache.getBitmapData('pic'), 0);
+        this.game.selectedNode.character.width = this.picWidth;
+        this.game.selectedNode.character.height = this.picHeight;
+
+        this.game.spritePic.destroy();
         //  bmd.context now contains your webcam image
         console.log(this.game.bmdPic.context);
         console.log(this.game.spritePic);
@@ -12954,8 +12625,8 @@ if (window.cordova) {
     }
 
     pixelate() {
-        var offsetX = __WEBPACK_IMPORTED_MODULE_7__config__["a" /* default */].camWidth / 2 - game.width / 2;
-        var offsetY = __WEBPACK_IMPORTED_MODULE_7__config__["a" /* default */].camHeight / 2 - game.height / 2;
+        var offsetX = __WEBPACK_IMPORTED_MODULE_7__config__["a" /* default */].camWidth / 2 - this.game.world.width / 2;
+        var offsetY = __WEBPACK_IMPORTED_MODULE_7__config__["a" /* default */].camHeight / 2 - this.game.world.height / 2;
 
         var pxContext = this.pixelBitmap.context;
 
@@ -14486,7 +14157,7 @@ exports.default = ScrollerEventDispatcher;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_phaser__);
 
 
@@ -14524,7 +14195,7 @@ class Person extends __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Button {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_phaser__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__language_language__ = __webpack_require__(/*! ../language/language */ 95);
 
@@ -15147,6 +14818,409 @@ CordovaCanvasSaver.prototype.save = function(canvas, successCallback, errorCallb
 };
 
 })(this);
+
+/***/ }),
+/* 360 */,
+/* 361 */
+/*!***********************************!*\
+  !*** ./src/model/WebcamPlugin.js ***!
+  \***********************************/
+/*! dynamic exports provided */
+/***/ (function(module, exports) {
+
+/**
+ * Created by Jabito on 16/03/2018.
+ */
+Phaser.Plugin.Webcam = function (game, parent) {
+
+    Phaser.Plugin.call(this, game, parent);
+
+    if (!game.device.getUserMedia) {
+        return false;
+    }
+
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+
+    this.context = null;
+    this.stream = null;
+
+    this.video = document.createElement('video');
+    this.video.autoplay = true;
+
+    this.onConnect = new Phaser.Signal();
+    this.onError = new Phaser.Signal();
+};
+
+Phaser.Plugin.Webcam.prototype = Object.create(Phaser.Plugin.prototype);
+Phaser.Plugin.Webcam.prototype.constructor = Phaser.Plugin.Webcam;
+
+Phaser.Plugin.Webcam.prototype.start = function (width, height, context) {
+
+    // console.log('Webcam start', width, height);
+
+    this.context = context;
+
+    if (!this.stream) {
+        navigator.getUserMedia({ video: { mandatory: { minWidth: width, minHeight: height } } }, this.connectCallback.bind(this), this.errorCallback.bind(this));
+    }
+};
+
+Phaser.Plugin.Webcam.prototype.stop = function () {
+
+    if (this.stream) {
+        this.stream.active = false;
+
+        this.stream = null;
+    }
+};
+
+Phaser.Plugin.Webcam.prototype.connectCallback = function (stream) {
+
+    this.stream = stream;
+
+    this.video.src = window.URL.createObjectURL(this.stream);
+
+    this.onConnect.dispatch(this.video);
+};
+
+Phaser.Plugin.Webcam.prototype.errorCallback = function (event) {
+
+    this.onError.dispatch(event);
+};
+
+Phaser.Plugin.Webcam.prototype.grab = function (context, x, y) {
+
+    if (this.stream) {
+        context.drawImage(this.video, x, y);
+    }
+};
+
+Phaser.Plugin.Webcam.prototype.update = function () {
+
+    if (this.stream) {
+        try {
+            this.context.drawImage(this.video, 0, 0);
+        } catch (e) {
+            if (e.name == "NS_ERROR_NOT_AVAILABLE") {
+                // Just try again. This is a bug in Firefox.
+                // https://bugzilla.mozilla.org/show_bug.cgi?id=879717
+            } else {
+                throw e;
+            }
+        }
+    }
+};
+
+/**
+ * @name Phaser.Plugin.Webcam#active
+ * @property {boolean} active - Is this Webcam plugin capturing a video stream or not?
+ * @readonly
+ */
+Object.defineProperty(Phaser.Plugin.Webcam.prototype, "active", {
+
+    get: function () {
+        return this.stream;
+    }
+
+});
+
+/***/ }),
+/* 362 */
+/*!**********************************!*\
+  !*** ./src/model/WebcamState.js ***!
+  \**********************************/
+/*! dynamic exports provided */
+/***/ (function(module, exports) {
+
+/**
+ * Added by Jabito on 16/03/2018.
+ */
+var WebcamState = function (game) {};
+
+WebcamState.prototype.preload = function () {
+    game.load.atlasJSONHash('sprites', 'assets/gfx/atlas/sprites.png', 'assets/gfx/atlas/sprites.json');
+
+    game.load.audio('shutter', ['assets/sfx/shutter.ogg', 'assets/sfx/shutter.mp3']);
+    game.load.audio('click', ['assets/sfx/click.ogg', 'assets/sfx/click.mp3']);
+    game.load.audio('ready', ['assets/sfx/ready.ogg', 'assets/sfx/ready.mp3']);
+    game.load.audio('beep', ['assets/sfx/beep.ogg', 'assets/sfx/beep.mp3']);
+
+    game.stage.smoothed = false;
+};
+
+WebcamState.prototype.create = function () {
+    game.stage.backgroundColor = G.backgroundColor;
+
+    this.shutterSound = game.add.sound('shutter', 0.8);
+    this.buttonSound = game.add.sound('click');
+    this.readySound = game.add.sound('ready');
+    this.beepSound = game.add.sound('beep', 0.3);
+
+    // Setup camera
+    this.camBitmap = game.add.bitmapData(G.camWidth, G.camHeight, 'cam');
+    this.cam = new Phaser.Plugin.Webcam(game, this);
+
+    this.webcamAvailable = !(navigator.getUserMedia === undefined);
+    if (!this.webcamAvailable) {
+        document.getElementById('instructions').style.display = "none";
+        document.getElementById('unsupported').style.display = "block";
+        document.getElementById('cam').style.display = "none";
+    } else {
+        this.cam.start(this.camBitmap.width, this.camBitmap.height, this.camBitmap.context);
+        this.cam.onConnect.add(this.cameraConnected, this);
+        this.cam.onError.add(this.cameraError, this);
+        game.add.plugin(this.cam);
+    }
+
+    // Setup working canvas
+    this.pixelBitmap = game.add.bitmapData(game.width, game.height);
+
+    // Setup final display surface
+    this.surface = game.add.sprite(0, 0, this.pixelBitmap);
+
+    // Message to turn on the camera
+    this.turnOnCamera = game.add.image(0, 0, 'sprites', 'turn-on-camera.png');
+    this.turnOnCamera.scale.set(2);
+
+    // Add UI
+    this.ui = game.add.group();
+    game.add.image(0, game.height / 2 - 21, 'sprites', 'button-panel.png', this.ui);
+
+    this.shutter = game.add.sprite(game.width / 4, game.height / 2 - 22, 'sprites', 'button-01.png', this.ui);
+    this.shutter.anchor.set(0.5);
+    this.shutter.animations.add('shine', Phaser.Animation.generateFrameNames('button-', 1, 6, '.png', 2), 15);
+    this.shutter.animations.play('shine');
+    this.shutter.events.onInputDown.add(this.clickShutter, this);
+    this.shutter.events.onInputOver.add(function () {
+        this.shutter.animations.play('shine');
+    }, this);
+    this.shutter.inputEnabled = true;
+
+    this.colorButton = game.add.sprite(game.width / 2 - 39, 0, 'sprites', 'color.png', this.ui);
+    this.colorButton.events.onInputDown.add(this.colorButtonClicked, this);
+    this.colorButton.inputEnabled = true;
+
+    this.grayButton = game.add.sprite(game.width / 2 - 39, 0, 'sprites', 'gray.png', this.ui);
+    this.grayButton.events.onInputDown.add(this.grayButtonClicked, this);
+    this.grayButton.visible = false;
+    this.grayButton.inputEnabled = true;
+
+    this.tintButton = game.add.sprite(game.width / 2 - 39, 40, 'sprites', 'tint.png', this.ui);
+    this.tintButton.events.onInputDown.add(this.tintButtonClicked, this);
+    this.tintButton.inputEnabled = true;
+
+    this.sizeButton = game.add.sprite(game.width / 2 - 39, 80, 'sprites', 'size.png', this.ui);
+    this.sizeButton.events.onInputDown.add(this.sizeButtonClicked, this);
+    this.sizeButton.inputEnabled = true;
+
+    this.ui.scale.set(2);
+    this.ui.visible = false;
+
+    // Add countdown
+    this.countdown = game.add.sprite(game.width / 2, game.height / 2, 'sprites', 'countdown-01.png');
+    this.countdown.anchor.set(0.5);
+    this.countdown.animations.add('go', Phaser.Animation.generateFrameNames('countdown-', 1, 3, '.png', 2), 2);
+    this.countdown.visible = false;
+    this.countdown.scale.set(2);
+
+    // Create flash
+    this.flash = game.add.graphics(0, 0);
+    this.flash.beginFill(0xffffff, 1);
+    this.flash.drawRect(0, 0, game.width, game.height);
+    this.flash.endFill();
+    this.flash.alpha = 0;
+
+    // Flags for taking picture
+    this.takePicture = false;
+    this.countdownPlaying = false;
+
+    // Flags for options
+    this.color = true;
+    this.tintValue = 0;
+    this.pixelSize = 5;
+
+    this.pixelSizes = [20, 15, 10, 8, 5];
+    this.tintChoices = [{ r: 1, g: 1, b: 1 }, // none
+    { r: 1, g: 2, b: 2 }, // cyan
+    { r: 1, g: 1.5, b: 2 }, // blue
+    { r: 2, g: 2, b: 1 }, // yellow
+    { r: 2, g: 1, b: 1 }, // red
+    { r: 2, g: 1.5, b: 1 }, // orange
+    { r: 1, g: 2, b: 1 }, // green
+    { r: 2, g: 1, b: 2 }];
+};
+
+WebcamState.prototype.update = function () {
+    if (!this.webcamAvailable) return;
+
+    this.pixelate();
+
+    this.countdownPlaying = this.countdown.animations.currentAnim.isPlaying;
+
+    if (!this.countdownPlaying && this.takePicture) {
+        this.shutterSound.play();
+
+        var data = this.pixelBitmap.canvas.toDataURL();
+        document.getElementById('output').style.display = "block";
+
+        var images = ['shot-full', 'shot-120', 'shot-72', 'shot-48'];
+        for (var i = 0; i < images.length; i++) {
+            var img = document.getElementById(images[i]);
+            img.src = data;
+            var parent = img.parentNode;
+            parent.href = data;
+        }
+
+        this.countdown.visible = false;
+        this.takePicture = false;
+        this.ui.visible = true;
+        this.shutter.animations.play('shine');
+
+        // Flash
+        this.flash.alpha = 1;
+        game.add.tween(this.flash).to({ alpha: 0 }, 250).start();
+    }
+};
+
+WebcamState.prototype.cameraConnected = function () {
+    this.turnOnCamera.visible = false;
+    this.ui.visible = true;
+
+    this.readySound.play();
+};
+
+WebcamState.prototype.cameraError = function () {
+    document.getElementById('cam').style.display = "none";
+    document.getElementById('notconnected').style.display = "block";
+    document.getElementById('instructions').style.display = "none";
+};
+
+WebcamState.prototype.clickShutter = function () {
+    this.buttonSound.play();
+
+    if (!this.countdownPlaying) {
+        this.countdown.alpha = 1;
+        this.countdown.scale.set(2);
+        this.countdown.visible = true;
+        this.countdown.animations.play('go');
+
+        this.beepSound.play();
+
+        this.add.tween(this.countdown.scale).to({ x: 5, y: 5 }, 500, Phaser.Easing.Cubic.In).repeat(2).start();
+        this.add.tween(this.countdown).to({ alpha: 0 }, 500, Phaser.Easing.Cubic.In).repeat(2).start();
+
+        this.ui.visible = false;
+        this.takePicture = true;
+    }
+};
+
+WebcamState.prototype.colorButtonClicked = function () {
+    this.buttonSound.play();
+
+    this.color = false;
+    this.colorButton.visible = false;
+    this.grayButton.visible = true;
+};
+
+WebcamState.prototype.grayButtonClicked = function () {
+    this.buttonSound.play();
+
+    this.color = true;
+    this.colorButton.visible = true;
+    this.grayButton.visible = false;
+};
+
+WebcamState.prototype.tintButtonClicked = function () {
+    this.buttonSound.play();
+
+    if (this.tintValue == this.tintChoices.length - 1) {
+        this.tintValue = 0;
+    } else {
+        this.tintValue++;
+    }
+};
+
+WebcamState.prototype.sizeButtonClicked = function () {
+    this.buttonSound.play();
+
+    var i = this.pixelSizes.indexOf(this.pixelSize) + 1;
+    if (this.pixelSizes.length > i) {
+        this.pixelSize = this.pixelSizes[i];
+    } else {
+        this.pixelSize = this.pixelSizes[0];
+    }
+};
+
+WebcamState.prototype.pixelate = function () {
+    var offsetX = G.camWidth / 2 - game.width / 2;
+    var offsetY = G.camHeight / 2 - game.height / 2;
+
+    var pxContext = this.pixelBitmap.context;
+
+    this.camBitmap.update();
+
+    var pixel = Phaser.Color.createColor();
+
+    for (var x = 0; x < game.width; x += this.pixelSize) {
+        for (var y = 0; y < game.height; y += this.pixelSize) {
+            // Sample color at x+offsetX,y+offsetY in camBitmap
+            this.camBitmap.getPixel(Math.floor(x + offsetX), Math.floor(y + offsetY), pixel);
+
+            // Modify color
+            this.posterizeFilter(pixel, 16);
+            if (!this.color) this.grayscaleFilter(pixel);
+            var tint = this.tintChoices[this.tintValue];
+            this.tintFilter(pixel, tint.r, tint.g, tint.b);
+
+            // Draw pixel at x,y in new bitmap
+            pxContext.fillStyle = "rgb(" + pixel.r + "," + pixel.g + "," + pixel.b + ")";
+            pxContext.fillRect(x, y, this.pixelSize, this.pixelSize);
+        }
+    }
+
+    this.camBitmap.dirty = true;
+    this.pixelBitmap.dirty = true;
+};
+
+WebcamState.prototype.grayscaleFilter = function (pixel) {
+    var c = Phaser.Color.RGBtoHSV(pixel.r, pixel.g, pixel.b);
+    c.s = 0;
+    Phaser.Color.HSVtoRGB(c.h, c.s, c.v, pixel);
+};
+
+WebcamState.prototype.tintFilter = function (pixel, r, g, b) {
+    pixel.r = Math.floor(pixel.r * r);
+    pixel.g = Math.floor(pixel.g * g);
+    pixel.b = Math.floor(pixel.b * b);
+};
+
+WebcamState.prototype.posterizeFilter = function (pixel, colors) {
+    // Posterize
+    var divisor = 256 / colors;
+    pixel.r = Math.floor(Math.floor(pixel.r / divisor) * divisor);
+    pixel.g = Math.floor(Math.floor(pixel.g / divisor) * divisor);
+    pixel.b = Math.floor(Math.floor(pixel.b / divisor) * divisor);
+
+    // Contrast
+    var thresh = 60;
+    var lowThresh = 40;
+    var highThresh = 220;
+    var amount = 30;
+    if (pixel.r > highThresh) pixel.r = 255;
+    if (pixel.r > thresh) pixel.r += amount;
+    if (pixel.r < thresh) pixel.r -= amount;
+    if (pixel.r < lowThresh) pixel.r = 0;
+
+    if (pixel.g > highThresh) pixel.g = 255;
+    if (pixel.g > thresh) pixel.g += amount;
+    if (pixel.g < thresh) pixel.g -= amount;
+    if (pixel.g < lowThresh) pixel.g = 0;
+
+    if (pixel.b > highThresh) pixel.b = 255;
+    if (pixel.b > thresh) pixel.b += amount;
+    if (pixel.b < thresh) pixel.b -= amount;
+    if (pixel.b < lowThresh) pixel.b = 0;
+};
 
 /***/ })
 ],[139]);
