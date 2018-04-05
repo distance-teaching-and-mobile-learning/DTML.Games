@@ -26,7 +26,7 @@ export default class Person extends Phaser.Sprite {
     }
 
     selectNode() {
-        if(this.relationToPlayer != english.you)
+        if(null != this.game.selectedNode)
             this.game.selectedNode.children[0].frame = 0;
         this.game.selectedNode = this;
         this.children[0].frame = 1;

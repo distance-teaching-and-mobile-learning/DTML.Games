@@ -2,7 +2,6 @@
 
 import Phaser from 'phaser'
 import WebFont from 'webfontloader'
-import StateTransition from '../libs/phaser-state-transition-plugin'
 import config from '../config';
 
 

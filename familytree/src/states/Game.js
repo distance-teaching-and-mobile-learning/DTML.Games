@@ -6,8 +6,8 @@ import Person from '../model/Person'
 import english from '../language/language'
 import CanvasImageSaver from 'canvas-image-saver'
 import config from '../config';
-import SiblingGroup from '../model/SiblingGroup'
-
+import WebcamPlugin from '../model/WebcamPlugin'
+import WebcamState from '../model/WebcamState'
 
 export default class extends Phaser.State {
     init() {
@@ -162,12 +162,13 @@ export default class extends Phaser.State {
         this.you = new Person(this.game, this.game.world.centerX, this.game.world.centerY, config);
         this.game.you = this.you;
         this.family.add(this.you);
+        this.picWidth = this.you.character.width;
+        this.picHeight = this.you.character.height;
         this.UI = [];
 
         this.addLeftControls();
         this.addRightControls();
         this.addBottomControls();
-        // this.selectNode(this.you);
         this.you.selectNode();
     }
 
@@ -175,6 +176,35 @@ export default class extends Phaser.State {
         this.deleteBtn = new Button(this.game, this.game.world.width * 0.3, this.game.world.height * 0.93, this.deleteSelectedNode.bind(this), 'Delete Person', 1.5, 1);
         this.moveBtn = new Button(this.game, this.game.world.width * 0.5, this.game.world.height * 0.93, this.enableKeyboardMove.bind(this), 'Move Person', 1.5, 1);
         this.downloadBtn = new Button(this.game, this.game.world.width * 0.7, this.game.world.height * 0.93, this.capture.bind(this), 'Download', 1.5, 1);
+        this.webcamBtn = new Button(this.game, this.game.world.width * 0.7, this.game.world.height * 0.93, this.enableWebcam.bind(this), 'Take Picture', 1.5, 1);
+    }
+
+    enableWebcam() {
+        this.game.webcam = this.game.plugins.add(Phaser.Plugin.Webcam);
+        console.log(this.game.webcam);
+        this.game.bmdPic = this.game.make.bitmapData(config.camWidth, config.camHeight);
+        this.game.spritePic = this.game.bmdPic.addToWorld();
+        this.game.spritePic.x = this.game.world.centerX;
+        this.game.spritePic.y = this.game.world.centerY;
+        this.game.spritePic.anchor.setTo(0.5);
+
+        this.game.webcam.start(config.camWidth, config.camHeight, this.game.bmdPic.context);
+
+        this.game.input.onDown.addOnce(this.takePicture, this);
+    }
+
+    takePicture() {
+        this.game.webcam.stop();
+        this.game.webcam.grab(this.game.bmdPic.context, 0, 0);
+
+        this.game.cache.addBitmapData('pic', this.game.bmdPic);
+        this.game.selectedNode.character.loadTexture(this.game.cache.getBitmapData('pic'), 0);
+        this.game.selectedNode.character.width = this.picWidth;
+        this.game.selectedNode.character.height = this.picHeight;
+
+        this.game.spritePic.destroy();
+        //  bmd.context now contains your webcam image
+        this.game.spritePic.tint = Math.random() * 0xff0000;
     }
 
     addRightControls() {
@@ -286,17 +316,17 @@ export default class extends Phaser.State {
         this.executeAnimation(this.closeRightMenu);
     }
 
-    deleteSelectedNode(){
-        if(this.game.selectedNode != this.you){
+    deleteSelectedNode() {
+        if (this.game.selectedNode != this.you) {
             this.game.selectedNode.deletePerson();
-            // this.selectNode(this.you);
+            this.game.selectedNode = null;
             this.you.selectNode();
         }
         // this.game.selectedNode.activateErase();
         // this.game.selectedNode = this.you;
     }
 
-    enableKeyboardMove(){
+    enableKeyboardMove() {
 
     }
 
@@ -425,6 +455,37 @@ export default class extends Phaser.State {
     }
 
     update() {
+        if (!this.webcamAvailable) return;
+
+        this.pixelate();
+
+        this.countdownPlaying = this.countdown.animations.currentAnim.isPlaying;
+
+        if (!this.countdownPlaying && this.takePicture) {
+            this.shutterSound.play();
+
+            var data = this.pixelBitmap.canvas.toDataURL();
+            document.getElementById('output').style.display = "block";
+
+            var images = ['shot-full', 'shot-120', 'shot-72', 'shot-48'];
+            for(var i = 0; i < images.length; i++) {
+                var img = document.getElementById(images[i]);
+                img.src = data;
+                var parent = img.parentNode;
+                parent.href = data;
+            }
+
+            this.countdown.visible = false;
+            this.takePicture = false;
+            this.ui.visible = true;
+            this.shutter.animations.play('shine');
+
+            // Flash
+            this.flash.alpha = 1;
+            game.add.tween(this.flash)
+                .to({ alpha: 0 }, 250)
+                .start();
+        }
     }
 
     removeKeyListener() {
@@ -480,6 +541,153 @@ export default class extends Phaser.State {
             }
         }, this);
     }
+
+    cameraConnected() {
+        this.turnOnCamera.visible = false;
+        this.ui.visible = true;
+
+        this.readySound.play();
+    }
+
+    cameraError() {
+        document.getElementById('cam').style.display = "none";
+        document.getElementById('notconnected').style.display = "block";
+        document.getElementById('instructions').style.display = "none";
+    }
+
+    clickShutter() {
+        this.buttonSound.play();
+
+        if (!this.countdownPlaying) {
+            this.countdown.alpha = 1;
+            this.countdown.scale.set(2);
+            this.countdown.visible = true;
+            this.countdown.animations.play('go');
+
+            this.beepSound.play();
+
+            this.add.tween(this.countdown.scale)
+                .to({ x: 5, y: 5 }, 500, Phaser.Easing.Cubic.In)
+                .repeat(2)
+                .start();
+            this.add.tween(this.countdown)
+                .to({ alpha: 0 }, 500, Phaser.Easing.Cubic.In)
+                .repeat(2)
+                .start();
+
+            this.ui.visible = false;
+            this.takePicture = true;
+        }
+    }
+
+    colorButtonClicked() {
+        this.buttonSound.play();
+
+        this.color = false;
+        this.colorButton.visible = false;
+        this.grayButton.visible = true;
+    }
+
+    grayButtonClicked() {
+        this.buttonSound.play();
+
+        this.color = true;
+        this.colorButton.visible = true;
+        this.grayButton.visible = false;
+    }
+
+    tintButtonClicked() {
+        this.buttonSound.play();
+
+        if (this.tintValue == this.tintChoices.length-1) {
+            this.tintValue = 0;
+        } else {
+            this.tintValue++;
+        }
+    }
+
+    sizeButtonClicked() {
+        this.buttonSound.play();
+
+        var i = this.pixelSizes.indexOf(this.pixelSize) + 1;
+        if (this.pixelSizes.length > i) {
+            this.pixelSize = this.pixelSizes[i];
+        } else {
+            this.pixelSize = this.pixelSizes[0];
+        }
+    }
+
+    pixelate() {
+        var offsetX = config.camWidth/2 - this.game.world.width/2;
+        var offsetY = config.camHeight/2 - this.game.world.height/2;
+
+        var pxContext = this.pixelBitmap.context;
+
+        this.camBitmap.update();
+
+        var pixel = Phaser.Color.createColor();
+
+        for(var x = 0; x < game.width; x += this.pixelSize) {
+            for(var y = 0; y < game.height; y += this.pixelSize) {
+                // Sample color at x+offsetX,y+offsetY in camBitmap
+                this.camBitmap.getPixel(Math.floor(x + offsetX), Math.floor(y + offsetY), pixel);
+
+                // Modify color
+                this.posterizeFilter(pixel, 16);
+                if (!this.color) this.grayscaleFilter(pixel);
+                var tint = this.tintChoices[this.tintValue];
+                this.tintFilter(pixel, tint.r, tint.g, tint.b);
+
+                // Draw pixel at x,y in new bitmap
+                pxContext.fillStyle = "rgb(" + pixel.r + "," + pixel.g + "," + pixel.b + ")"
+                pxContext.fillRect(x, y, this.pixelSize, this.pixelSize);
+            }
+        }
+
+        this.camBitmap.dirty = true;
+        this.pixelBitmap.dirty = true;
+    }
+
+    grayscaleFilter(pixel) {
+        var c = Phaser.Color.RGBtoHSV(pixel.r, pixel.g, pixel.b);
+        c.s = 0;
+        Phaser.Color.HSVtoRGB(c.h, c.s, c.v, pixel);
+    }
+
+    tintFilter(pixel, r, g, b) {
+        pixel.r = Math.floor(pixel.r * r);
+        pixel.g = Math.floor(pixel.g * g);
+        pixel.b = Math.floor(pixel.b * b);
+    }
+
+    posterizeFilter(pixel, colors) {
+        // Posterize
+        var divisor = 256 / colors;
+        pixel.r = Math.floor(Math.floor(pixel.r / divisor) * divisor);
+        pixel.g = Math.floor(Math.floor(pixel.g / divisor) * divisor);
+        pixel.b = Math.floor(Math.floor(pixel.b / divisor) * divisor);
+
+        // Contrast
+        var thresh = 60;
+        var lowThresh = 40;
+        var highThresh = 220;
+        var amount = 30;
+        if (pixel.r > highThresh) pixel.r = 255;
+        if (pixel.r > thresh) pixel.r += amount;
+        if (pixel.r < thresh) pixel.r -= amount;
+        if (pixel.r < lowThresh) pixel.r = 0;
+
+        if (pixel.g > highThresh) pixel.g = 255;
+        if (pixel.g > thresh) pixel.g += amount;
+        if (pixel.g < thresh) pixel.g -= amount;
+        if (pixel.g < lowThresh) pixel.g = 0;
+
+        if (pixel.b > highThresh) pixel.b = 255;
+        if (pixel.b > thresh) pixel.b += amount;
+        if (pixel.b < thresh) pixel.b -= amount;
+        if (pixel.b < lowThresh) pixel.b = 0;
+    }
+
     //     this.next_time = 0;
     //     this.click = false;
     //     this.genreType = false;

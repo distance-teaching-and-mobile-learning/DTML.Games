@@ -146,5 +146,4 @@
       this._texture.destroy();
     }
   };
-
 }(window, Phaser));
