@@ -1,0 +1,113 @@
+[
+    {
+        "key": "coin",
+        "value": {
+            "coin": {
+                "speed": 10,
+                "loop": true,
+                "frames": [
+                    "coin/1",
+                    "coin/2",
+                    "coin/3",
+                    "coin/4",
+                    "coin/5",
+                    "coin/6"
+                ]
+            }
+        }
+    },
+    {
+        "key": "play",
+        "value": {
+            "idle": {
+                "speed": 8,
+                "loop": true,
+                "frames": [
+                    "play/p1",
+                    "play/p2",
+                    "play/p3",
+                    "play/p4",
+                    "play/p3",
+                    "play/p2"
+                ]
+            },
+            "run": {
+                "speed": 14,
+                "loop": true,
+                "frames": [
+                    "play/p5",
+                    "play/p6",
+                    "play/p7",
+                    "play/p8",
+                    "play/p9",
+                    "play/p10",
+                    "play/p11",
+                    "play/p12",
+                    "play/p13",
+                    "play/p14"
+                ]
+            },
+            "jump": {
+                "speed": 1,
+                "loop": true,
+                "frames": [
+                    "play/p15"
+                ]
+            },
+            "push": {
+                "speed": 12,
+                "loop": true,
+                "frames": [
+                    "play/p16",
+                    "play/p17",
+                    "play/p18",
+                    "play/p19",
+                    "play/p20"
+                ]
+            },
+            "climb": {
+                "speed": 6,
+                "loop": true,
+                "frames": [
+                    "play/p21",
+                    "play/p22",
+                    "play/p21",
+                    "play/p23"
+                ]
+            },
+            "Squat": {
+                "speed": 10,
+                "loop": true,
+                "frames": [
+                    "play/p24",
+                    "play/p26",
+                    "play/p25"
+                ]
+            },
+            "kick": {
+                "speed": 1,
+                "loop": true,
+                "frames": [
+                    "play/P27"
+                ]
+            }
+        }
+    },
+    {
+        "key": "dust",
+        "value": {
+            "dust": {
+                "speed": 8,
+                "loop": true,
+                "frames": [
+                    "dust/dust1",
+                    "dust/dust2",
+                    "dust/dust3",
+                    "dust/dust4",
+                    "dust/dust5",
+                    "dust/dust6"
+                ]
+            }
+        }
+    }
+]
