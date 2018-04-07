@@ -1,19 +1,20 @@
-
-
 import Phaser from 'phaser'
 import WebFont from 'webfontloader'
-import StateTransition from '../libs/phaser-state-transition-plugin'
 import config from '../config';
+import StateTransition from '../libs/phaser-state-transition-plugin'
 
 
 export default class extends Phaser.State {
     init() {
+        this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         if (!this.game.device.desktop) {
-            this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
             this.game.scale.minWidth = 300;
             this.game.scale.minHeight = 100;
             this.game.scale.maxWidth = window.innerWidth * 2;
             this.game.scale.maxHeight = window.innerHeight * 2;
+        }else{
+            this.game.scale.maxHeight = window.innerHeight;
+            this.game.scale.maxWidth = window.innerHeight * (800/ 600);
         }
 
         this.scale.pageAlignHorizontally = false;
@@ -36,19 +37,15 @@ export default class extends Phaser.State {
           })
         }
 
-        this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        this.game.scale.maxHeight = window.innerHeight;
-        this.game.scale.maxWidth = window.innerHeight * (this.game.world.width/ this.game.world.height);
-
         let scale_ratio;
         let canvas_height_max = 900;
         let canvas_width_max = 1140;
         let width = this.game.world.width;//window.screen.availWidth * window.devicePixelRatio
         let height = this.game.world.height;//window.screen.availHeight * window.devicePixelRatio
-        game.aspectRatio = 1//width / height;
+        game.aspectRatio = width / height;
         game.scaleRatio = game.width / canvas_width_max;
 
-        console.log('game dimension: ', game.width, 'x', game.height, 'height * scaleRatio', game.height * game.scaleRatio)
+        console.log('game dimension: ', game.world.width, 'x', game.height, 'height * scaleRatio', game.height * game.scaleRatio)
         if (game.aspectRatio < 1) {
             game.scale.setGameSize(game.width, game.height * game.scaleRatio)
         } else {
@@ -65,14 +62,14 @@ export default class extends Phaser.State {
     }
 
     create() {
-        this.game.stateTransition = this.game.plugins.add(Phaser.Plugin.StateTransition);
-        this.game.stateTransition.configure({
-            duration: Phaser.Timer.SECOND * 1.5,
-            ease: Phaser.Easing.Exponential.Out,
-            properties: {
-                alpha: 0
-            }
-        });
+        // this.game.stateTransition = this.game.plugins.add(Phaser.Plugin.StateTransition);
+        // this.game.stateTransition.configure({
+        //     duration: Phaser.Timer.SECOND * 1.5,
+        //     ease: Phaser.Easing.Exponential.Out,
+        //     properties: {
+        //         alpha: 0
+        //     }
+        // });
     }
 
     render() {

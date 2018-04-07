@@ -45,6 +45,19 @@ export default class extends Phaser.State {
         this.load.spritesheet('sharebtn', 'assets/sharebtn.png',128,48);
         this.load.spritesheet('button', 'assets/button.png',175,85);
         this.load.spritesheet('characters', 'assets/characters.png', 96, 128);
+
+        /**
+         * For Webcam Plugin
+         * */
+
+        this.game.load.atlasJSONHash('sprites', 'assets/gfx/atlas/sprites.png', 'assets/gfx/atlas/sprites.json');
+
+        this.game.load.audio('shutter', ['assets/sfx/shutter.ogg', 'assets/sfx/shutter.mp3']);
+        this.game.load.audio('click', ['assets/sfx/click.ogg', 'assets/sfx/click.mp3']);
+        this.game.load.audio('ready', ['assets/sfx/ready.ogg', 'assets/sfx/ready.mp3']);
+        this.game.load.audio('beep', ['assets/sfx/beep.ogg', 'assets/sfx/beep.mp3']);
+
+        this.game.stage.smoothed = false;
     }
 
     create() {

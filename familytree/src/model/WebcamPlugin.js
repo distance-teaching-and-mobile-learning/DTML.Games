@@ -43,7 +43,8 @@ Phaser.Plugin.Webcam.prototype.stop = function () {
 
     if (this.stream)
     {
-        this.stream.stop();
+        this.stream.active = false;
+
         this.stream = null;
     }
 
