@@ -1,0 +1,349 @@
+{
+    "type": "Sprite",
+    "texture": "bg/bg",
+    "position": {
+        "x": -98,
+        "y": 541
+    },
+    "scale": {
+        "x": 1,
+        "y": 1
+    },
+    "anchor": {
+        "x": 0,
+        "y": 0
+    },
+    "rotation": 0,
+    "alpha": 1,
+    "tint": 16777215,
+    "blend_mode": "NORMAL",
+    "visible": true,
+    "renderable": true,
+    "children": [
+        {
+            "type": "Sprite",
+            "texture": "bg/vision",
+            "position": {
+                "x": 100,
+                "y": 0
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true
+        },
+        {
+            "type": "Sprite",
+            "texture": "bg/middle",
+            "position": {
+                "x": -1,
+                "y": -1
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true
+        },
+        {
+            "type": "Sprite",
+            "texture": "bg/middle_grass",
+            "position": {
+                "x": 0,
+                "y": 327
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true
+        },
+        {
+            "type": "Sprite",
+            "texture": "bg/close shot",
+            "position": {
+                "x": 1,
+                "y": 0
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true
+        },
+        {
+            "type": "Sprite",
+            "texture": "bg/light",
+            "position": {
+                "x": 405,
+                "y": -1
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true
+        },
+        {
+            "type": "NineSliceSprite",
+            "texture": "coin&distance_bar",
+            "texture_top": 18.5,
+            "texture_right": 37,
+            "texture_bottom": 18.5,
+            "texture_left": 37,
+            "width": 111,
+            "height": 37,
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "position": {
+                "x": 61,
+                "y": 32.5
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "visible": true,
+            "renderable": true,
+            "children": []
+        },
+        {
+            "type": "Sprite",
+            "texture": "UI_coin",
+            "position": {
+                "x": 38,
+                "y": 27
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true
+        },
+        {
+            "type": "NineSliceSprite",
+            "texture": "coin&distance_bar",
+            "texture_top": 18.5,
+            "texture_right": 37,
+            "texture_bottom": 18.5,
+            "texture_left": 37,
+            "width": 111,
+            "height": 37,
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "position": {
+                "x": 59.5,
+                "y": 89
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "visible": true,
+            "renderable": true,
+            "children": []
+        },
+        {
+            "type": "Sprite",
+            "texture": "UI_distance",
+            "position": {
+                "x": 36.5,
+                "y": 91.5
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true
+        },
+        {
+            "type": "Text",
+            "text": "1200",
+            "position": {
+                "x": 96,
+                "y": 38
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "_style": {
+                "styleID": 112,
+                "_align": "left",
+                "_breakWords": false,
+                "_dropShadow": false,
+                "_dropShadowAlpha": 1,
+                "_dropShadowAngle": 0.5235987755982988,
+                "_dropShadowBlur": 0,
+                "_dropShadowColor": "black",
+                "_dropShadowDistance": 5,
+                "_fill": "#000000",
+                "_fillGradientType": 0,
+                "_fillGradientStops": [],
+                "_fontFamily": "AbadiMT-CondensedExtraBold",
+                "_fontSize": 26,
+                "_fontStyle": "normal",
+                "_fontVariant": "normal",
+                "_fontWeight": "normal",
+                "_letterSpacing": 0,
+                "_lineHeight": 0,
+                "_lineJoin": "miter",
+                "_miterLimit": 10,
+                "_padding": 0,
+                "_stroke": "black",
+                "_strokeThickness": 0,
+                "_textBaseline": "alphabetic",
+                "_trim": false,
+                "_wordWrap": false,
+                "_wordWrapWidth": 100,
+                "_leading": 0
+            },
+            "visible": true,
+            "renderable": true
+        },
+        {
+            "type": "AnimatedSprite",
+            "frames": "coin",
+            "position": {
+                "x": 868,
+                "y": 67
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true,
+            "name": "coin"
+        },
+        {
+            "type": "AnimatedSprite",
+            "frames": "play",
+            "position": {
+                "x": 919,
+                "y": 307
+            },
+            "scale": {
+                "x": 0.7,
+                "y": 0.7
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true,
+            "name": "play"
+        },
+        {
+            "type": "AnimatedSprite",
+            "frames": "dust",
+            "position": {
+                "x": 889,
+                "y": 315
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true,
+            "name": "dust"
+        }
+    ],
+    "class": ""
+}
