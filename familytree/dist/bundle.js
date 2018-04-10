@@ -4914,7 +4914,7 @@ module.exports = Math.scale || function scale(x, inLow, inHigh, outLow, outHigh)
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_webfontloader__ = __webpack_require__(/*! webfontloader */ 134);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_webfontloader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_webfontloader__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config__ = __webpack_require__(/*! ../config */ 94);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__libs_phaser_state_transition_plugin__ = __webpack_require__(/*! ../libs/phaser-state-transition-plugin */ 362);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__libs_phaser_state_transition_plugin__ = __webpack_require__(/*! ../libs/phaser-state-transition-plugin */ 347);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__libs_phaser_state_transition_plugin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__libs_phaser_state_transition_plugin__);
 
 
@@ -11759,10 +11759,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_phaser__ = __webpack_require__(/*! phaser */ 29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_phaser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_phaser__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__states_Boot__ = __webpack_require__(/*! ./states/Boot */ 133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__states_Preloader__ = __webpack_require__(/*! ./states/Preloader */ 347);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__states_Intro__ = __webpack_require__(/*! ./states/Intro */ 348);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__states_Menu__ = __webpack_require__(/*! ./states/Menu */ 349);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__states_Game__ = __webpack_require__(/*! ./states/Game */ 350);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__states_Preloader__ = __webpack_require__(/*! ./states/Preloader */ 348);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__states_Intro__ = __webpack_require__(/*! ./states/Intro */ 349);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__states_Menu__ = __webpack_require__(/*! ./states/Menu */ 350);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__states_Game__ = __webpack_require__(/*! ./states/Game */ 351);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__config__ = __webpack_require__(/*! ./config */ 94);
 
 
@@ -11830,6 +11830,156 @@ if (window.cordova) {
 /* 345 */,
 /* 346 */,
 /* 347 */
+/*!****************************************************!*\
+  !*** ./src/libs/phaser-state-transition-plugin.js ***!
+  \****************************************************/
+/*! dynamic exports provided */
+/***/ (function(module, exports) {
+
+/**
+  * StateTransition Plugin for Phaser
+  */
+(function (window, Phaser) {
+  'use strict';
+
+  Phaser.Plugin.StateTransition = function (game, parent) {
+    Phaser.Plugin.call(this, game, parent);
+
+    // Default transition settings
+    this.settings = {
+      duration: Phaser.Timer.SECOND * 0.3,
+      ease: Phaser.Easing.Exponential.InOut,
+      properties: {
+        alpha: 0
+      }
+    };
+    // Original implementations of state methods
+    this._originalStateMethods = {};
+  };
+
+  Phaser.Plugin.StateTransition.prototype = Object.create(Phaser.Plugin.prototype);
+
+  Phaser.Plugin.StateTransition.prototype.constructor = Phaser.Plugin.StateTransition;
+
+  Phaser.Plugin.StateTransition.prototype.configure = function (options) {
+    var property;
+
+    if (options) {
+      for (property in options) {
+        if (this.settings[property]) {
+          this.settings[property] = options[property];
+        }
+      }
+    } else {
+      return Object.create(this.settings);
+    }
+  };
+
+  /**
+    * Handles the state changes and transitions
+    */
+  Phaser.Plugin.StateTransition.prototype.to = function () {
+    var stateName = arguments[0],
+        _this = this,
+        _init,
+        _create;
+
+    if (!stateName) {
+      throw 'No state passed.';
+    }
+
+    // In case last transition went wrong
+    this._destroy();
+
+    // Pause game to take world snapshot
+    this.game.paused = true;
+
+    // Create current state texture
+    this._texture = new Phaser.RenderTexture(this.game, this.game.width, this.game.height, 'cover');
+
+    // Draw the current world to the render
+    this._texture.renderXY(this.game.world, -this.game.camera.x, -this.game.camera.y);
+
+    // Save original implementation of state's init and create methods
+    this._originalStateMethods[stateName] = this._originalStateMethods[stateName] || {
+      init: this.game.state.states[stateName].init,
+      create: this.game.state.states[stateName].create
+    };
+    _init = this._originalStateMethods[stateName].init;
+    _create = this._originalStateMethods[stateName].create;
+
+    // Extend state init method to add cover
+    this.game.state.states[stateName].init = function () {
+      this.game.add.existing(_this._newCover());
+      if (_init) {
+        _init.apply(this, arguments);
+      }
+    };
+
+    // Extend state create method to animate cover
+    this.game.state.states[stateName].create = function () {
+      if (_create) {
+        _create.apply(this, arguments);
+      }
+      _this.bringToTop();
+      _this._animateCover();
+    };
+
+    // Resume the game and start next state
+    this.game.paused = false;
+    this.game.state.start.apply(this.game.state, arguments);
+  };
+
+  /**
+    * Create previous state cover
+    */
+  Phaser.Plugin.StateTransition.prototype._newCover = function () {
+    // Create current state cover sprite
+    this._cover = new Phaser.Sprite(this.game, this.game.world.centerX, this.game.world.centerY, this._texture);
+    this._cover.anchor.setTo(0.5);
+    return this._cover;
+  };
+
+  /**
+    * Can be called in the create function of states that you transition to,
+    * to ensure that the transition-sprite is on top of everything
+    */
+  Phaser.Plugin.StateTransition.prototype.bringToTop = function () {
+    if (this._cover) {
+      this._cover.bringToTop();
+    }
+  };
+
+  Phaser.Plugin.StateTransition.prototype._animateCover = function () {
+    var propertyValueObject, property, tween;
+
+    for (property in this.settings.properties) {
+      if (typeof this.settings.properties[property] === 'object') {
+        // Create a tween for specific object property
+        tween = this.game.add.tween(this._cover[property]).to(this.settings.properties[property], this.settings.duration, this.settings.ease, true);
+      } else {
+        // Create properties object for specific property value
+        propertyValueObject = {};
+        propertyValueObject[property] = this.settings.properties[property];
+        tween = this.game.add.tween(this._cover).to(propertyValueObject, this.settings.duration, this.settings.ease, true);
+      }
+    }
+    // Since all tweens have the same duration we listen to the last one created
+    tween.onComplete.addOnce(this._destroy, this);
+  };
+
+  Phaser.Plugin.StateTransition.prototype._destroy = function () {
+    if (this._cover) {
+      this._cover.destroy();
+    }
+    if (this._texture) {
+      this._texture.destroy();
+    }
+  };
+})(window, Phaser);
+
+/***/ }),
+/* 348 */
 /*!*********************************!*\
   !*** ./src/states/Preloader.js ***!
   \*********************************/
@@ -11908,7 +12058,7 @@ if (window.cordova) {
 });
 
 /***/ }),
-/* 348 */
+/* 349 */
 /*!*****************************!*\
   !*** ./src/states/Intro.js ***!
   \*****************************/
@@ -11937,7 +12087,7 @@ if (window.cordova) {
 });
 
 /***/ }),
-/* 349 */
+/* 350 */
 /*!****************************!*\
   !*** ./src/states/Menu.js ***!
   \****************************/
@@ -12008,7 +12158,7 @@ if (window.cordova) {
 });
 
 /***/ }),
-/* 350 */
+/* 351 */
 /*!****************************!*\
   !*** ./src/states/Game.js ***!
   \****************************/
@@ -12019,18 +12169,18 @@ if (window.cordova) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_phaser__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_phaser_list_view__ = __webpack_require__(/*! phaser-list-view */ 351);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_phaser_list_view__ = __webpack_require__(/*! phaser-list-view */ 352);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_phaser_list_view___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_phaser_list_view__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_Button__ = __webpack_require__(/*! ../model/Button */ 356);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_Button__ = __webpack_require__(/*! ../model/Button */ 357);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Boot__ = __webpack_require__(/*! ./Boot */ 133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__model_Person__ = __webpack_require__(/*! ../model/Person */ 357);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__model_Person__ = __webpack_require__(/*! ../model/Person */ 358);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__language_language__ = __webpack_require__(/*! ../language/language */ 95);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_canvas_image_saver__ = __webpack_require__(/*! canvas-image-saver */ 358);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_canvas_image_saver__ = __webpack_require__(/*! canvas-image-saver */ 359);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_canvas_image_saver___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_canvas_image_saver__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__config__ = __webpack_require__(/*! ../config */ 94);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__model_WebcamPlugin__ = __webpack_require__(/*! ../model/WebcamPlugin */ 359);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__model_WebcamPlugin__ = __webpack_require__(/*! ../model/WebcamPlugin */ 360);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__model_WebcamPlugin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__model_WebcamPlugin__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__model_WebcamState__ = __webpack_require__(/*! ../model/WebcamState */ 360);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__model_WebcamState__ = __webpack_require__(/*! ../model/WebcamState */ 361);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__model_WebcamState___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__model_WebcamState__);
 
 
@@ -12124,13 +12274,16 @@ if (window.cordova) {
         this.UI.push({ obj: this.girlBtn, x: game.scaleRatio, y: game.scaleRatio });
         this.iterate = 0;
         this.leftMenuIteration = 0;
+        this.rightMenuIteration = 0;
         this.personIteration = 0;
+        this.genderType = true;
 
         this.upKey = this.game.input.keyboard.addKey(__WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Keyboard.UP);
         this.downKey = this.game.input.keyboard.addKey(__WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Keyboard.DOWN);
         this.leftKey = this.game.input.keyboard.addKey(__WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Keyboard.LEFT);
         this.rightKey = this.game.input.keyboard.addKey(__WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Keyboard.RIGHT);
         this.enterKey = this.game.input.keyboard.addKey(__WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Keyboard.ENTER);
+        this.tabKey = this.game.input.keyboard.addKey(__WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Keyboard.TAB);
         this.upKey.onDown.add(function () {
             if (this.movingNode) {
                 this.moveDirection = 'up';
@@ -12175,6 +12328,10 @@ if (window.cordova) {
             this.moveDirection = '';
         }, this);
 
+        this.tabKey.onDown.add(function () {
+            this.swapGender();
+        }.bind(this));
+
         this.enterKey.onDown.add(function () {
             if (this.takingPicture) {
                 this.takePicture();
@@ -12194,7 +12351,9 @@ if (window.cordova) {
                         } catch (err) {}
                     }
                 }, this);
-            } else if (this.rightMenuOpen) {}
+            } else if (this.rightMenuOpen) {
+                this.addCharToNode(this.rightMenuButtons[this.rightMenuIteration].children[0]);
+            }
         }.bind(this));
     }
 
@@ -12231,6 +12390,26 @@ if (window.cordova) {
         }, this);
 
         if (this.UI[this.iterate].obj) this.UI[this.iterate].obj.scale.setTo(this.UI[this.iterate].obj.scale.x + 0.2);
+    }
+
+    triggerIterateRight(bool) {
+        this.iterateUIRight(bool);
+
+        var charSelection = this.rightMenuButtons[this.rightMenuIteration];
+        console.log("HERE");
+        console.log(charSelection.y);
+        console.log(this.listView);
+        if (charSelection.y >= this.listView.bounds.height) {
+            console.log("Below bracket.");
+        } else if (charSelection.y <= this.listView.bounds.y) {
+            console.log("Above brakcet.");
+        }
+
+        this.rightMenuButtons.forEach(function (elm) {
+            elm.scale.setTo(1);
+        }, this);
+
+        if (charSelection) charSelection.scale.setTo(charSelection.scale.x + 0.2);
     }
 
     triggerIterateLeft(bool) {
@@ -12277,6 +12456,7 @@ if (window.cordova) {
         this.people.push(this.you);
 
         this.leftMenuIterateLimit = this.leftMenuButtons.length;
+        this.rightMenuIterateLimit = this.rightMenuButtons.length;
         this.iterateLimitRight = 0;
     }
 
@@ -12304,6 +12484,23 @@ if (window.cordova) {
         this.game.webcam.start(__WEBPACK_IMPORTED_MODULE_7__config__["a" /* default */].camWidth, __WEBPACK_IMPORTED_MODULE_7__config__["a" /* default */].camHeight, this.game.bmdPic.context);
 
         this.game.input.onDown.addOnce(this.takePicture, this);
+    }
+
+    swapGender() {
+        console.log("Changed list.");
+        if (this.genderType) {
+            this.listView.grp.forEachAlive(function (character) {
+                if (this.genreType) character.children[0].frame -= 11;
+            }, this);
+
+            this.genreType = false;
+        } else {
+            this.listView.grp.forEachAlive(function (character) {
+                if (!this.genreType) character.children[0].frame += 11;
+            }, this);
+
+            this.genreType = true;
+        }
     }
 
     takePicture() {
@@ -12349,11 +12546,10 @@ if (window.cordova) {
             character.input.priorityID = 0;
             character.input.useHandCursor = true;
             character.events.onInputDown.add(this.addCharToNode, this);
-
             this.listView.add(item);
+            this.rightMenuButtons.push(item);
         }
         this.listView.grp.visible = false;
-        // this.rightMenu.addChild(this.listView.grp);
 
         this.openRightMenuBtn = this.game.add.button(-this.rightMenu.width * 0.45, 0, 'openMenu', function () {
             if (this.openRightMenuBtn.frame == 1) {
@@ -12535,6 +12731,16 @@ if (window.cordova) {
         } else {
             this.leftMenuIteration++;
             if (this.leftMenuIteration >= this.leftMenuButtons.length) this.leftMenuIteration = 0;
+        }
+    }
+
+    iterateUIRight(left) {
+        if (left) {
+            this.rightMenuIteration--;
+            if (this.rightMenuIteration < 0) this.rightMenuIteration = this.rightMenuIterateLimit - 1;
+        } else {
+            this.rightMenuIteration++;
+            if (this.rightMenuIteration >= this.rightMenuButtons.length) this.rightMenuIteration = 0;
         }
     }
 
@@ -12753,7 +12959,7 @@ if (window.cordova) {
 });
 
 /***/ }),
-/* 351 */
+/* 352 */
 /*!****************************************************!*\
   !*** ./node_modules/phaser-list-view/lib/index.js ***!
   \****************************************************/
@@ -12781,11 +12987,11 @@ var _list_view_core = __webpack_require__(/*! ./list_view_core */ 137);
 
 var _list_view_core2 = _interopRequireDefault(_list_view_core);
 
-var _swipe_carousel = __webpack_require__(/*! ./swipe_carousel */ 352);
+var _swipe_carousel = __webpack_require__(/*! ./swipe_carousel */ 353);
 
 var _swipe_carousel2 = _interopRequireDefault(_swipe_carousel);
 
-var _wheel_scroller = __webpack_require__(/*! ./wheel_scroller */ 353);
+var _wheel_scroller = __webpack_require__(/*! ./wheel_scroller */ 354);
 
 var _wheel_scroller2 = _interopRequireDefault(_wheel_scroller);
 
@@ -12793,11 +12999,11 @@ var _directional_scroller = __webpack_require__(/*! ./directional_scroller */ 13
 
 var _directional_scroller2 = _interopRequireDefault(_directional_scroller);
 
-var _basic_swiper = __webpack_require__(/*! ./basic_swiper */ 354);
+var _basic_swiper = __webpack_require__(/*! ./basic_swiper */ 355);
 
 var _basic_swiper2 = _interopRequireDefault(_basic_swiper);
 
-var _scroller_event_dispatcher = __webpack_require__(/*! ./scroller_event_dispatcher */ 355);
+var _scroller_event_dispatcher = __webpack_require__(/*! ./scroller_event_dispatcher */ 356);
 
 var _scroller_event_dispatcher2 = _interopRequireDefault(_scroller_event_dispatcher);
 
@@ -12830,7 +13036,7 @@ window.PhaserListView = PhaserListView;
 exports.default = PhaserListView;
 
 /***/ }),
-/* 352 */
+/* 353 */
 /*!*************************************************************!*\
   !*** ./node_modules/phaser-list-view/lib/swipe_carousel.js ***!
   \*************************************************************/
@@ -12891,7 +13097,7 @@ var SwipeCarousel = function (_ListView) {
 exports.default = SwipeCarousel;
 
 /***/ }),
-/* 353 */
+/* 354 */
 /*!*************************************************************!*\
   !*** ./node_modules/phaser-list-view/lib/wheel_scroller.js ***!
   \*************************************************************/
@@ -13048,7 +13254,7 @@ var WheelScroller = function (_Scroller) {
 exports.default = WheelScroller;
 
 /***/ }),
-/* 354 */
+/* 355 */
 /*!***********************************************************!*\
   !*** ./node_modules/phaser-list-view/lib/basic_swiper.js ***!
   \***********************************************************/
@@ -13315,7 +13521,7 @@ var BasicSwiper = function () {
 exports.default = BasicSwiper;
 
 /***/ }),
-/* 355 */
+/* 356 */
 /*!************************************************************************!*\
   !*** ./node_modules/phaser-list-view/lib/scroller_event_dispatcher.js ***!
   \************************************************************************/
@@ -13511,7 +13717,7 @@ var ScrollerEventDispatcher = function () {
 exports.default = ScrollerEventDispatcher;
 
 /***/ }),
-/* 356 */
+/* 357 */
 /*!*****************************!*\
   !*** ./src/model/Button.js ***!
   \*****************************/
@@ -13549,7 +13755,7 @@ class Person extends __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Button {
 
 
 /***/ }),
-/* 357 */
+/* 358 */
 /*!*****************************!*\
   !*** ./src/model/Person.js ***!
   \*****************************/
@@ -13884,7 +14090,7 @@ class Person extends __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Sprite {
 
 
 /***/ }),
-/* 358 */
+/* 359 */
 /*!******************************************************************!*\
   !*** ./node_modules/canvas-image-saver/dist/canvasImageSaver.js ***!
   \******************************************************************/
@@ -13991,7 +14197,7 @@ CordovaCanvasSaver.prototype.save = function(canvas, successCallback, errorCallb
 })(this);
 
 /***/ }),
-/* 359 */
+/* 360 */
 /*!***********************************!*\
   !*** ./src/model/WebcamPlugin.js ***!
   \***********************************/
@@ -14095,7 +14301,7 @@ Object.defineProperty(Phaser.Plugin.Webcam.prototype, "active", {
 });
 
 /***/ }),
-/* 360 */
+/* 361 */
 /*!**********************************!*\
   !*** ./src/model/WebcamState.js ***!
   \**********************************/
@@ -14391,157 +14597,6 @@ WebcamState.prototype.posterizeFilter = function (pixel, colors) {
     if (pixel.b < thresh) pixel.b -= amount;
     if (pixel.b < lowThresh) pixel.b = 0;
 };
-
-/***/ }),
-/* 361 */,
-/* 362 */
-/*!****************************************************!*\
-  !*** ./src/libs/phaser-state-transition-plugin.js ***!
-  \****************************************************/
-/*! dynamic exports provided */
-/***/ (function(module, exports) {
-
-/**
-  * StateTransition Plugin for Phaser
-  */
-(function (window, Phaser) {
-  'use strict';
-
-  Phaser.Plugin.StateTransition = function (game, parent) {
-    Phaser.Plugin.call(this, game, parent);
-
-    // Default transition settings
-    this.settings = {
-      duration: Phaser.Timer.SECOND * 0.3,
-      ease: Phaser.Easing.Exponential.InOut,
-      properties: {
-        alpha: 0
-      }
-    };
-    // Original implementations of state methods
-    this._originalStateMethods = {};
-  };
-
-  Phaser.Plugin.StateTransition.prototype = Object.create(Phaser.Plugin.prototype);
-
-  Phaser.Plugin.StateTransition.prototype.constructor = Phaser.Plugin.StateTransition;
-
-  Phaser.Plugin.StateTransition.prototype.configure = function (options) {
-    var property;
-
-    if (options) {
-      for (property in options) {
-        if (this.settings[property]) {
-          this.settings[property] = options[property];
-        }
-      }
-    } else {
-      return Object.create(this.settings);
-    }
-  };
-
-  /**
-    * Handles the state changes and transitions
-    */
-  Phaser.Plugin.StateTransition.prototype.to = function () {
-    var stateName = arguments[0],
-        _this = this,
-        _init,
-        _create;
-
-    if (!stateName) {
-      throw 'No state passed.';
-    }
-
-    // In case last transition went wrong
-    this._destroy();
-
-    // Pause game to take world snapshot
-    this.game.paused = true;
-
-    // Create current state texture
-    this._texture = new Phaser.RenderTexture(this.game, this.game.width, this.game.height, 'cover');
-
-    // Draw the current world to the render
-    this._texture.renderXY(this.game.world, -this.game.camera.x, -this.game.camera.y);
-
-    // Save original implementation of state's init and create methods
-    this._originalStateMethods[stateName] = this._originalStateMethods[stateName] || {
-      init: this.game.state.states[stateName].init,
-      create: this.game.state.states[stateName].create
-    };
-    _init = this._originalStateMethods[stateName].init;
-    _create = this._originalStateMethods[stateName].create;
-
-    // Extend state init method to add cover
-    this.game.state.states[stateName].init = function () {
-      this.game.add.existing(_this._newCover());
-      if (_init) {
-        _init.apply(this, arguments);
-      }
-    };
-
-    // Extend state create method to animate cover
-    this.game.state.states[stateName].create = function () {
-      if (_create) {
-        _create.apply(this, arguments);
-      }
-      _this.bringToTop();
-      _this._animateCover();
-    };
-
-    // Resume the game and start next state
-    this.game.paused = false;
-    this.game.state.start.apply(this.game.state, arguments);
-  };
-
-  /**
-    * Create previous state cover
-    */
-  Phaser.Plugin.StateTransition.prototype._newCover = function () {
-    // Create current state cover sprite
-    this._cover = new Phaser.Sprite(this.game, this.game.world.centerX, this.game.world.centerY, this._texture);
-    this._cover.anchor.setTo(0.5);
-    return this._cover;
-  };
-
-  /**
-    * Can be called in the create function of states that you transition to,
-    * to ensure that the transition-sprite is on top of everything
-    */
-  Phaser.Plugin.StateTransition.prototype.bringToTop = function () {
-    if (this._cover) {
-      this._cover.bringToTop();
-    }
-  };
-
-  Phaser.Plugin.StateTransition.prototype._animateCover = function () {
-    var propertyValueObject, property, tween;
-
-    for (property in this.settings.properties) {
-      if (typeof this.settings.properties[property] === 'object') {
-        // Create a tween for specific object property
-        tween = this.game.add.tween(this._cover[property]).to(this.settings.properties[property], this.settings.duration, this.settings.ease, true);
-      } else {
-        // Create properties object for specific property value
-        propertyValueObject = {};
-        propertyValueObject[property] = this.settings.properties[property];
-        tween = this.game.add.tween(this._cover).to(propertyValueObject, this.settings.duration, this.settings.ease, true);
-      }
-    }
-    // Since all tweens have the same duration we listen to the last one created
-    tween.onComplete.addOnce(this._destroy, this);
-  };
-
-  Phaser.Plugin.StateTransition.prototype._destroy = function () {
-    if (this._cover) {
-      this._cover.destroy();
-    }
-    if (this._texture) {
-      this._texture.destroy();
-    }
-  };
-})(window, Phaser);
 
 /***/ })
 ],[139]);

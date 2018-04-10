@@ -92,13 +92,16 @@ export default class extends Phaser.State {
         this.UI.push({obj: this.girlBtn, x: game.scaleRatio, y: game.scaleRatio});
         this.iterate = 0;
         this.leftMenuIteration = 0;
+        this.rightMenuIteration = 0;
         this.personIteration = 0;
+        this.genderType = true;
 
         this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
         this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
         this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
         this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
         this.enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+        this.tabKey = this.game.input.keyboard.addKey(Phaser.Keyboard.TAB);
         this.upKey.onDown.add(function () {
             if(this.movingNode){
                 this.moveDirection = 'up';
@@ -145,6 +148,9 @@ export default class extends Phaser.State {
         this.leftKey.onUp.add(()=>{ this.moveDirection = '';}, this);
         this.rightKey.onUp.add(()=>{ this.moveDirection = '';}, this);
 
+        this.tabKey.onDown.add(function(){
+            this.swapGender();
+        }.bind(this));
 
         this.enterKey.onDown.add(function () {
             if(this.takingPicture){
@@ -169,6 +175,7 @@ export default class extends Phaser.State {
                     }
                 }, this);
             } else if (this.rightMenuOpen) {
+                this.addCharToNode(this.rightMenuButtons[this.rightMenuIteration].children[0]);
             }
 
         }.bind(this));
@@ -218,6 +225,27 @@ export default class extends Phaser.State {
             this.UI[this.iterate].obj.scale.setTo(this.UI[this.iterate].obj.scale.x + 0.2);
     }
 
+    triggerIterateRight(bool){
+        this.iterateUIRight(bool);
+
+        var charSelection =this.rightMenuButtons[this.rightMenuIteration];
+        console.log("HERE");
+        console.log(charSelection.y);
+        console.log(this.listView);
+        if(charSelection.y >= this.listView.bounds.height){
+            console.log("Below bracket.");
+        }else if (charSelection.y <= this.listView.bounds.y){
+            console.log("Above brakcet.");
+        }
+
+        this.rightMenuButtons.forEach(function (elm) {
+            elm.scale.setTo(1);
+        }, this);
+
+        if (charSelection)
+            charSelection.scale.setTo(charSelection.scale.x + 0.2);
+    }
+
     triggerIterateLeft(bool) {
         this.iterateUILeft(bool);
 
@@ -263,6 +291,7 @@ export default class extends Phaser.State {
         this.people.push(this.you);
 
         this.leftMenuIterateLimit = this.leftMenuButtons.length;
+        this.rightMenuIterateLimit = this.rightMenuButtons.length;
         this.iterateLimitRight = 0;
     }
 
@@ -290,6 +319,25 @@ export default class extends Phaser.State {
         this.game.webcam.start(config.camWidth, config.camHeight, this.game.bmdPic.context);
 
         this.game.input.onDown.addOnce(this.takePicture, this);
+    }
+
+    swapGender(){
+        console.log("Changed list.");
+        if(this.genderType) {
+            this.listView.grp.forEachAlive(function (character) {
+                if (this.genreType)
+                    character.children[0].frame -= 11;
+            }, this);
+
+            this.genreType = false;
+        }else{
+            this.listView.grp.forEachAlive(function (character) {
+                if (!this.genreType)
+                    character.children[0].frame += 11;
+            }, this);
+
+            this.genreType = true;
+        }
     }
 
     takePicture() {
@@ -335,11 +383,10 @@ export default class extends Phaser.State {
             character.input.priorityID = 0;
             character.input.useHandCursor = true;
             character.events.onInputDown.add(this.addCharToNode, this);
-
             this.listView.add(item);
+            this.rightMenuButtons.push(item);
         }
         this.listView.grp.visible = false;
-        // this.rightMenu.addChild(this.listView.grp);
 
         this.openRightMenuBtn = this.game.add.button(-this.rightMenu.width * 0.45, 0, 'openMenu', function () {
             if (this.openRightMenuBtn.frame == 1) {
@@ -525,6 +572,18 @@ export default class extends Phaser.State {
             this.leftMenuIteration++;
             if (this.leftMenuIteration >= this.leftMenuButtons.length)
                 this.leftMenuIteration = 0;
+        }
+    }
+
+    iterateUIRight(left) {
+        if (left) {
+            this.rightMenuIteration--;
+            if (this.rightMenuIteration < 0)
+                this.rightMenuIteration = (this.rightMenuIterateLimit - 1);
+        } else {
+            this.rightMenuIteration++;
+            if (this.rightMenuIteration >= this.rightMenuButtons.length)
+                this.rightMenuIteration = 0;
         }
     }
 
