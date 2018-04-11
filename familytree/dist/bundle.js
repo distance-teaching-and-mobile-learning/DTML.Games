@@ -12218,13 +12218,6 @@ if (window.cordova) {
         this.game.hasInitialized = true;
     }
 
-    selectNode(node) {
-        console.log(node);
-        this.unselectAllNodes();
-        this.game.selectedNode = node;
-        this.game.selectedNode.children[0].frame = 0;
-    }
-
     initialMenu() {
         this.youText = this.game.add.text(this.game.world.centerX, this.game.world.centerY * 0.4, __WEBPACK_IMPORTED_MODULE_5__language_language__["a" /* default */].you, {
             font: "26px sans-serif", fill: "#ffffff", stroke: "#000000", strokeThickness: "6"
@@ -12276,7 +12269,7 @@ if (window.cordova) {
         this.leftMenuIteration = 0;
         this.rightMenuIteration = 0;
         this.personIteration = 0;
-        this.genderType = true;
+        this.genderType = false;
 
         this.upKey = this.game.input.keyboard.addKey(__WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Keyboard.UP);
         this.downKey = this.game.input.keyboard.addKey(__WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Keyboard.DOWN);
@@ -12346,7 +12339,6 @@ if (window.cordova) {
                 this.leftMenuButtons.forEach(function (elm) {
                     if (elm.obj.scale.x == elm.x + 0.2) {
                         try {
-                            console.log(elm.obj.events.onInputDown);
                             elm.obj.events.onInputUp.dispatch();
                         } catch (err) {}
                     }
@@ -12358,7 +12350,6 @@ if (window.cordova) {
     }
 
     moveIterationPerson(next) {
-        console.log("Iterating");
         if (next) {
             this.personIteration--;
             if (this.personIteration < 0) this.personIteration = this.people.length - 1;
@@ -12396,12 +12387,17 @@ if (window.cordova) {
         this.iterateUIRight(bool);
 
         var charSelection = this.rightMenuButtons[this.rightMenuIteration];
-        console.log("HERE");
-        console.log(charSelection.y);
-        console.log(this.listView);
-        if (charSelection.y >= this.listView.bounds.height) {
+        if (charSelection.y >= this.listView.bounds.height - 100) {
+            var distanceBetween = charSelection.y - this.listView.bounds.height * 0.5;
+            this.listView.grp.forEach(function (item) {
+                item.y -= distanceBetween;
+            }.bind(this));
             console.log("Below bracket.");
-        } else if (charSelection.y <= this.listView.bounds.y) {
+        } else if (charSelection.y <= this.listView.bounds.y + 100) {
+            var distanceBetween = this.listView.bounds.y + 100 - charSelection.y;
+            this.listView.grp.forEach(function (item) {
+                item.y += distanceBetween;
+            }.bind(this));
             console.log("Above brakcet.");
         }
 
@@ -12493,13 +12489,13 @@ if (window.cordova) {
                 if (this.genreType) character.children[0].frame -= 11;
             }, this);
 
-            this.genreType = false;
+            this.genderType = false;
         } else {
             this.listView.grp.forEachAlive(function (character) {
                 if (!this.genreType) character.children[0].frame += 11;
             }, this);
 
-            this.genreType = true;
+            this.genderType = true;
         }
     }
 
@@ -12533,7 +12529,7 @@ if (window.cordova) {
             searchForClicks: true
         };
 
-        this.listView = new __WEBPACK_IMPORTED_MODULE_1_phaser_list_view__["ListView"](this.game, this.game.world, new __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Rectangle(this.game.width - this.rightMenu.width * 0.8, 0, 220, this.rightMenu.height * 0.61), options);
+        this.listView = new __WEBPACK_IMPORTED_MODULE_1_phaser_list_view__["ListView"](this.game, this.game.world, new __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Rectangle(this.game.width - this.rightMenu.width * 0.8, 0, 220, this.rightMenu.height * 0.7), options);
 
         for (var i = 0; i < 11; i++) {
             var item = this.game.add.sprite(0, 0, 'sidebg');
@@ -12616,11 +12612,9 @@ if (window.cordova) {
         this.closeRightMenu = this.game.add.tween(this.rightMenu).to({ x: this.game.world.width + this.rightMenu.width * 0.5 }, 1000, __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Easing.Exponential.Out);
 
         this.openRightMenu.onStart.add(function () {
-            console.log("Opening right menu");
             this.bottomORside = true;
         }, this);
         this.closeRightMenu.onStart.add(function () {
-            console.log("Closing right menu");
             this.bottomORside = false;
         }, this);
 
@@ -12693,13 +12687,11 @@ if (window.cordova) {
         this.closeLeftMenu = this.game.add.tween(this.leftMenu).to({ x: -this.leftMenu.width * 0.5 }, 1000, __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Easing.Exponential.Out);
 
         this.openLeftMenu.onStart.add(function () {
-            console.log("Opening left menu");
             this.leftMenuOpen = true;
             // this.triggerIterateLeft(true);
             // this.triggerIterateLeft(false);
         }.bind(this), this);
         this.closeLeftMenu.onStart.add(function () {
-            console.log("Closing left menu");
             this.leftMenuOpen = false;
         }.bind(this), this);
 
