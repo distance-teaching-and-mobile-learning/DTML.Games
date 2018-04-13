@@ -90,6 +90,17 @@
                 "frames": [
                     "play/P27"
                 ]
+            },
+            "dead": {
+                "speed": 10,
+                "loop": true,
+                "frames": [
+                    "play/p28",
+                    "play/p29",
+                    "play/p30",
+                    "play/p31",
+                    "play/p32"
+                ]
             }
         }
     },
@@ -106,6 +117,69 @@
                     "dust/dust4",
                     "dust/dust5",
                     "dust/dust6"
+                ]
+            }
+        }
+    },
+    {
+        "key": "dragon",
+        "value": {
+            "fly": {
+                "speed": 8,
+                "loop": true,
+                "frames": [
+                    "dragon/fly_1",
+                    "dragon/fly_2",
+                    "dragon/fly_3",
+                    "dragon/fly_4",
+                    "dragon/fly_5",
+                    "dragon/fly_6"
+                ]
+            },
+            "atk": {
+                "speed": 5,
+                "loop": true,
+                "frames": [
+                    "dragon/atk1",
+                    "dragon/atk2"
+                ]
+            }
+        }
+    },
+    {
+        "key": "door",
+        "value": {
+            "close": {
+                "speed": 1,
+                "loop": true,
+                "frames": [
+                    "doorclose"
+                ]
+            },
+            "open": {
+                "speed": 1,
+                "loop": true,
+                "frames": [
+                    "dooropen"
+                ]
+            }
+        }
+    },
+    {
+        "key": "switch",
+        "value": {
+            "on": {
+                "speed": 1,
+                "loop": true,
+                "frames": [
+                    "powerswitchopen"
+                ]
+            },
+            "off": {
+                "speed": 1,
+                "loop": true,
+                "frames": [
+                    "powerswitchclose"
                 ]
             }
         }

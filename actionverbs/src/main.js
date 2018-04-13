@@ -38,7 +38,7 @@ window.onload = function() {
                     x: 0,
                     y: 400,
                 },
-                debug: true,
+                debug: false,
             },
         },
     });

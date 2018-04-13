@@ -278,6 +278,7 @@
         {
             "type": "AnimatedSprite",
             "frames": "coin",
+            "animation": "coin",
             "position": {
                 "x": 868,
                 "y": 67
@@ -301,6 +302,7 @@
         {
             "type": "AnimatedSprite",
             "frames": "play",
+            "animation": "idle",
             "position": {
                 "x": 919,
                 "y": 307
@@ -324,6 +326,7 @@
         {
             "type": "AnimatedSprite",
             "frames": "dust",
+            "animation": "dust",
             "position": {
                 "x": 889,
                 "y": 315
@@ -343,6 +346,165 @@
             "visible": true,
             "renderable": true,
             "name": "dust"
+        },
+        {
+            "type": "AnimatedSprite",
+            "frames": "dragon",
+            "animation": "fly",
+            "position": {
+                "x": 19,
+                "y": 218
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true
+        },
+        {
+            "type": "Sprite",
+            "texture": "platform",
+            "position": {
+                "x": 806,
+                "y": 237
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true,
+            "name": "move platform"
+        },
+        {
+            "type": "Sprite",
+            "texture": "boom",
+            "position": {
+                "x": 822,
+                "y": 392
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true,
+            "name": "boom"
+        },
+        {
+            "type": "Sprite",
+            "texture": "fireball",
+            "position": {
+                "x": 206,
+                "y": 319
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true
+        },
+        {
+            "type": "AnimatedSprite",
+            "frames": "switch",
+            "animation": "on",
+            "position": {
+                "x": 887,
+                "y": 212
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true
+        },
+        {
+            "type": "AnimatedSprite",
+            "frames": "door",
+            "animation": "close",
+            "position": {
+                "x": 919,
+                "y": 195
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true
+        },
+        {
+            "type": "Sprite",
+            "texture": "stone",
+            "position": {
+                "x": 1012,
+                "y": 340
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true
         }
     ],
     "class": ""

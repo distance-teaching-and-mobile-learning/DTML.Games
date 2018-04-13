@@ -71,42 +71,51 @@ export default new Phaser.Class({
         map.createStaticLayer('deco', tileset)
 
         var collisionMap = map.createStaticLayer('collide', tileset)
-        collisionMap.setCollision([36], true);
+        collisionMap.setCollision([39], true);
         console.log(collisionMap)
 
         this.createTriggers(map);
         this.createActors(map);
 
+        /*
         var debugGraphics = this.add.graphics();
         map.renderDebug(debugGraphics, {
             tileColor: null, // Non-colliding tiles
             collidingTileColor: new Phaser.Display.Color(243, 134, 48, 200), // Colliding tiles
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Colliding face edges
         });
+        */
 
         // Player
-        this.player = this.physics.add.sprite(100, 300, 'sprites', 'play/p1')
+        this.player = this.physics.add.sprite(900, 300, 'sprites', 'play/p1')
             .setSize(20, 70, false)
             .setOffset(28, 25)
+            .setDepth(10)
             .play('Stand')
 
         this.physics.add.collider(this.player, collisionMap)
         this.physics.add.overlap(this.player, this.triggers, function(player, trigger) {
-            // Show the button
-            this.buttons[trigger.name].show()
+            if (!this.buttons[trigger.name].visible) {
+                // Show the button
+                this.buttons[trigger.name].show()
 
-            // Start to guide
-            this.changeState(States.Guide, trigger)
+                // Start to guide
+                this.changeState(States.Guide, trigger)
+            }
 
             // Destroy the trigger
-            trigger.destroy()
-            this.triggers.remove(trigger)
+            // trigger.destroy()
+            // this.triggers.remove(trigger)
         }, null, this)
         this.physics.add.collider(this.actors, collisionMap);
         this.physics.add.collider(this.player, this.actors, function(player, actor) {
         }, function(player, actor) {
             switch (actor.name) {
                 case 'Coin': {
+                    if (!actor.visible) {
+                        return false;
+                    }
+
                     this.coin += 1;
 
                     var label = this.add.text(actor.x, actor.y, '+5', {
@@ -120,11 +129,13 @@ export default new Phaser.Class({
                         callbackScope: label,
                     })
 
-                    actor.destroy()
+                    // actor.destroy()
+                    actor.visible = false;
 
                     return false;
                 } break;
                 case 'Saw': {
+                    this.changeState(States.GameOver);
                     return false;
                 } break;
                 case 'Box': {
@@ -135,6 +146,21 @@ export default new Phaser.Class({
                     actor.body.immovable = true;
                     this.touchedPlatform = actor;
                     return true;
+                } break;
+                case 'Door': {
+                    this.touchedDoor = actor;
+                    return !actor.getData('is_open');
+                } break;
+                case 'End': {
+                    // Move player
+                    this.player.x = this.start.x - 16;
+                    this.player.y -= 2;
+
+                    // Enable actors
+                    this.actors.getChildren().forEach(function(a) {
+                        a.visible = true;
+                    });
+                    return false;
                 } break;
             }
 
@@ -173,6 +199,52 @@ export default new Phaser.Class({
             fontSize: 28,
         }).setOrigin(0, 0.5).setScrollFactor(0)
 
+        this.dimmer = this.add.graphics()
+            .fillStyle(0x000000, 0.5)
+            .fillRect(0, 0, 800, 600)
+            .setDepth(100)
+            .setScrollFactor(0)
+            .setVisible(false)
+
+        var modal = this.add.graphics()
+            .fillStyle(0x837697)
+            .fillRect(200, 100, 400, 400)
+        var title = this.add.text(400, 130, 'Game Over', {
+            fontSize: 32,
+        }).setOrigin(0.5, 0.5)
+        var coinIcon = this.add.image(320, 240, 'sprites', 'UI_coin')
+            .setOrigin(0, 0.5)
+        var coinLabel = this.add.text(390, 240, '0', {
+            fontSize: 28,
+        }).setOrigin(0, 0.5)
+        var distIcon = this.add.image(320, 340, 'sprites', 'UI_distance')
+            .setOrigin(0, 0.5)
+        var distLabel = this.add.text(390, 340, '0', {
+            fontSize: 28,
+        }).setOrigin(0, 0.5)
+        var prompt = this.add.text(400, 450, 'Touch to restart', {
+            fontSize: 24,
+        }).setOrigin(0.5, 0.5).setInteractive()
+
+        this.gameover = this.add.container(0, 0, [
+            modal,
+            title,
+            coinIcon, coinLabel,
+            distIcon, distLabel,
+            prompt,
+        ]).setDepth(200).setScrollFactor(0)
+        .setVisible(false)
+        this.gameover.show = function() {
+            this.dimmer.visible = true;
+            this.gameover.visible = true;
+            coinLabel.setText(this.coin);
+            distLabel.setText(Math.floor(this.distance));
+
+            this.input.once('pointerdown', function() {
+                this.scene.restart('GamePlay');
+            }, this)
+        }.bind(this);
+
         // State
         this.changeState(States.Wait, null)
     },
@@ -193,6 +265,7 @@ export default new Phaser.Class({
             case States.Wait: this.enter_wait(data); break
             case States.Play: this.enter_play(data); break
             case States.Guide: this.enter_guide(data); break
+            case States.GameOver: this.enter_gameover(data); break
         }
     },
 
@@ -229,8 +302,15 @@ export default new Phaser.Class({
         if (this.touchedPlatform && Math.abs(this.touchedPlatform.x - this.player.x) > 90) {
             this.touchedPlatform = false;
         }
+        if (this.touchedDoor && Math.abs(this.touchedDoor.x - this.player.x) > 40) {
+            this.touchedDoor = false;
+        }
 
         this['p_update_' + this.playerState](delta);
+
+        if (this.player.y > 660) {
+            this.changeState(States.GameOver);
+        }
     },
     enter_guide: function(data) {
         this.activeGuide = data.name;
@@ -264,6 +344,9 @@ export default new Phaser.Class({
 
         this.changeState(States.Play, null);
     },
+    enter_gameover: function() {
+        this.gameover.show();
+    },
 
     // Player states
     changePlayerState: function(state) {
@@ -282,6 +365,7 @@ export default new Phaser.Class({
             case 'Jump':
             case 'Squat':
             case 'Push':
+            case 'Open':
             case 'Stop': {
                 this.changePlayerState(action)
             } break;
@@ -359,6 +443,7 @@ export default new Phaser.Class({
             case 'Go':
             case 'Jump':
             case 'Push':
+            case 'Open':
             case 'Squat': {
                 this.changePlayerState(action)
             } break;
@@ -408,8 +493,10 @@ export default new Phaser.Class({
     },
     p_action_Push: function(action) {
         switch (action) {
+            case 'Go':
             case 'Jump':
             case 'Squat':
+            case 'Open':
             case 'Stop': {
                 this.isPushing = false;
                 this.changePlayerState(action)
@@ -446,6 +533,7 @@ export default new Phaser.Class({
             case 'Go':
             case 'Stop':
             case 'Push':
+            case 'Open':
             case 'Jump': {
                 this.player
                     .setSize(20, 70, false)
@@ -466,9 +554,29 @@ export default new Phaser.Class({
         }
     },
 
-    p_enter_Open: function() {},
+    p_enter_Open: function() {
+        if (this.touchedDoor && !this.touchedDoor.getData('is_open')) {
+            this.touchedDoor
+                .setData('is_open', true)
+                .setDepth(5)
+                .setTexture('sprites', 'dooropen')
+            this.touchedDoor = false;
+
+            this.changePlayerState('Stop');
+        }
+    },
     p_update_Open: function(delta) {},
-    p_action_Open: function(action) {},
+    p_action_Open: function(action) {
+        switch (action) {
+            case 'Go':
+            case 'Stop':
+            case 'Push':
+            case 'Open':
+            case 'Jump': {
+                this.changePlayerState(action)
+            } break;
+        }
+    },
 
     p_enter_Close: function() {},
     p_update_Close: function(delta) {},
@@ -524,7 +632,7 @@ export default new Phaser.Class({
         var button = this.add.image(x, y, 'sprites', 'button')
             .setScrollFactor(0)
             .setInteractive()
-        var label = this.add.text(x, y, Phaser.Utils.Array.GetRandomElement(actions))
+        var label = this.add.text(x, y, Phaser.Utils.Array.GetRandom(actions))
             .setOrigin(0.5, 0.5)
             .setScrollFactor(0)
 
@@ -576,12 +684,33 @@ export default new Phaser.Class({
         }));
         this.actors.addMultiple(map.createFromObjects('actor', 'Box', {
             key: 'sprites',
-            frame: 'box',
+            frame: 'stone',
         }));
         this.actors.addMultiple(map.createFromObjects('actor', 'Platform', {
             key: 'sprites',
             frame: 'platform',
         }));
+        this.actors.addMultiple(map.createFromObjects('actor', 'Trigger', {
+            key: 'sprites',
+            frame: 'powerswitchclose',
+        }));
+        var doors = map.createFromObjects('actor', 'Door', {
+            key: 'sprites',
+            frame: 'doorclose',
+        });
+        this.actors.addMultiple(doors);
+        doors.forEach(function(d) {
+            d.setData('is_open', false)
+                .setDepth(20)
+            d.body.immovable = true;
+        })
+        this.start = map.createFromObjects('trigger', 'Start')[0]
+            .setVisible(false)
+        this.ends = map.createFromObjects('trigger', 'End')
+        this.ends.forEach(function(end) {
+            end.setVisible(false);
+        })
+        this.actors.addMultiple(this.ends.concat(this.start));
 
         var saws = map.createFromObjects('actor', 'Saw', {
             key: 'sprites',
