@@ -195,37 +195,37 @@
             {
              "0":
                 {
-                 "image":"image\/sprites\/coin.png",
+                 "image":"..\/..\/assets\/image\/sprites\/coin.png",
                  "imageheight":30,
                  "imagewidth":35
                 },
              "1":
                 {
-                 "image":"image\/sprites\/saw.png",
+                 "image":"..\/..\/assets\/image\/sprites\/saw.png",
                  "imageheight":112,
                  "imagewidth":112
                 },
              "3":
                 {
-                 "image":"image\/sprites\/platform.png",
+                 "image":"..\/..\/assets\/image\/sprites\/platform.png",
                  "imageheight":31,
                  "imagewidth":128
                 },
              "4":
                 {
-                 "image":"image\/sprites\/stone.png",
+                 "image":"..\/..\/assets\/image\/sprites\/stone.png",
                  "imageheight":64,
                  "imagewidth":64
                 },
              "5":
                 {
-                 "image":"image\/sprites\/powerswitchclose.png",
+                 "image":"..\/..\/assets\/image\/sprites\/powerswitchclose.png",
                  "imageheight":49,
                  "imagewidth":44
                 },
              "6":
                 {
-                 "image":"image\/sprites\/doorclose.png",
+                 "image":"..\/..\/assets\/image\/sprites\/doorclose.png",
                  "imageheight":79,
                  "imagewidth":8
                 }
@@ -250,7 +250,7 @@
             {
              "0":
                 {
-                 "image":"image\/sprites\/Climb.png",
+                 "image":"..\/..\/assets\/image\/sprites\/Climb.png",
                  "imageheight":32,
                  "imagewidth":32,
                  "objectgroup":
@@ -267,7 +267,7 @@
                 },
              "1":
                 {
-                 "image":"image\/sprites\/Close.png",
+                 "image":"..\/..\/assets\/image\/sprites\/Close.png",
                  "imageheight":32,
                  "imagewidth":32,
                  "objectgroup":
@@ -284,7 +284,7 @@
                 },
              "2":
                 {
-                 "image":"image\/sprites\/Drop.png",
+                 "image":"..\/..\/assets\/image\/sprites\/Drop.png",
                  "imageheight":32,
                  "imagewidth":32,
                  "objectgroup":
@@ -301,7 +301,7 @@
                 },
              "3":
                 {
-                 "image":"image\/sprites\/Jump.png",
+                 "image":"..\/..\/assets\/image\/sprites\/Jump.png",
                  "imageheight":32,
                  "imagewidth":32,
                  "objectgroup":
@@ -318,7 +318,7 @@
                 },
              "4":
                 {
-                 "image":"image\/sprites\/Kick.png",
+                 "image":"..\/..\/assets\/image\/sprites\/Kick.png",
                  "imageheight":32,
                  "imagewidth":32,
                  "objectgroup":
@@ -335,7 +335,7 @@
                 },
              "5":
                 {
-                 "image":"image\/sprites\/Open.png",
+                 "image":"..\/..\/assets\/image\/sprites\/Open.png",
                  "imageheight":32,
                  "imagewidth":32,
                  "objectgroup":
@@ -352,7 +352,7 @@
                 },
              "6":
                 {
-                 "image":"image\/sprites\/Push.png",
+                 "image":"..\/..\/assets\/image\/sprites\/Push.png",
                  "imageheight":32,
                  "imagewidth":32,
                  "objectgroup":
@@ -369,7 +369,7 @@
                 },
              "7":
                 {
-                 "image":"image\/sprites\/Ride.png",
+                 "image":"..\/..\/assets\/image\/sprites\/Ride.png",
                  "imageheight":32,
                  "imagewidth":32,
                  "objectgroup":
@@ -386,7 +386,7 @@
                 },
              "8":
                 {
-                 "image":"image\/sprites\/Squat.png",
+                 "image":"..\/..\/assets\/image\/sprites\/Squat.png",
                  "imageheight":32,
                  "imagewidth":32,
                  "objectgroup":
@@ -403,7 +403,7 @@
                 },
              "9":
                 {
-                 "image":"image\/sprites\/Stop.png",
+                 "image":"..\/..\/assets\/image\/sprites\/Stop.png",
                  "imageheight":32,
                  "imagewidth":32,
                  "objectgroup":
@@ -424,7 +424,7 @@
         {
          "columns":22,
          "firstgid":18,
-         "image":"image\/tilemap.png",
+         "image":"..\/..\/assets\/image\/tilemap.png",
          "imageheight":320,
          "imagewidth":704,
          "margin":0,
