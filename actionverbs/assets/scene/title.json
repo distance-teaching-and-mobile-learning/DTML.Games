@@ -1,0 +1,203 @@
+{
+    "type": "Sprite",
+    "texture": "bg/bg",
+    "position": {
+        "x": 0,
+        "y": 0
+    },
+    "scale": {
+        "x": 1,
+        "y": 1
+    },
+    "anchor": {
+        "x": 0,
+        "y": 0
+    },
+    "rotation": 0,
+    "alpha": 1,
+    "tint": 16777215,
+    "blend_mode": "NORMAL",
+    "visible": true,
+    "renderable": true,
+    "children": [
+        {
+            "type": "Sprite",
+            "texture": "bg/vision",
+            "position": {
+                "x": 100,
+                "y": 0
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true
+        },
+        {
+            "type": "Sprite",
+            "texture": "bg/middle",
+            "position": {
+                "x": -1,
+                "y": -1
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true
+        },
+        {
+            "type": "Sprite",
+            "texture": "bg/middle_grass",
+            "position": {
+                "x": 0,
+                "y": 327
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true
+        },
+        {
+            "type": "Sprite",
+            "texture": "bg/close shot",
+            "position": {
+                "x": 1,
+                "y": 0
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true
+        },
+        {
+            "type": "Sprite",
+            "texture": "bg/light",
+            "position": {
+                "x": 405,
+                "y": -1
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true
+        },
+        {
+            "type": "AnimatedSprite",
+            "frames": "dragon",
+            "animation": "fly",
+            "position": {
+                "x": 23,
+                "y": 246
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true
+        },
+        {
+            "type": "Sprite",
+            "texture": "title",
+            "position": {
+                "x": 415,
+                "y": 224
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true
+        },
+        {
+            "type": "Sprite",
+            "texture": "play",
+            "position": {
+                "x": 402,
+                "y": 444
+            },
+            "scale": {
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "rotation": 0,
+            "alpha": 1,
+            "tint": 16777215,
+            "blend_mode": "NORMAL",
+            "visible": true,
+            "renderable": true,
+            "name": "button_play"
+        }
+    ],
+    "class": ""
+}

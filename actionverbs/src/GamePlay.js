@@ -22,7 +22,18 @@ export default new Phaser.Class({
     Extends: Phaser.Scene,
     initialize:
     function GamePlay() {
-        Phaser.Scene.call(this, { key: 'GamePlay' });
+        Phaser.Scene.call(this, {
+            key: 'GamePlay',
+            physics: {
+                arcade: {
+                    gravity: {
+                        x: 0,
+                        y: 400,
+                    },
+                    debug: false,
+                },
+            },
+        });
 
         this.state = '';
         this.playerState = PlayerStates.Stop;
@@ -45,6 +56,9 @@ export default new Phaser.Class({
         this.handMotion;
         this.touchedPlatform;
 
+        this.collisionMap;
+        this.activeMaps = [];
+
         // UI
         this.coinLabel;
         this.distLabel;
@@ -62,30 +76,6 @@ export default new Phaser.Class({
         // Background
         this.add.image(0, 0, 'sprites', 'bg/bg').setOrigin(0, 0).setScrollFactor(0)
 
-        // Map
-        var map = this.add.tilemap('map')
-        var tileset = map.addTilesetImage('tile', 'tilemap')
-
-        map.createStaticLayer('terrain', tileset)
-        map.createStaticLayer('grass', tileset)
-        map.createStaticLayer('deco', tileset)
-
-        var collisionMap = map.createStaticLayer('collide', tileset)
-        collisionMap.setCollision([39], true);
-        console.log(collisionMap)
-
-        this.createTriggers(map);
-        this.createActors(map);
-
-        /*
-        var debugGraphics = this.add.graphics();
-        map.renderDebug(debugGraphics, {
-            tileColor: null, // Non-colliding tiles
-            collidingTileColor: new Phaser.Display.Color(243, 134, 48, 200), // Colliding tiles
-            faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Colliding face edges
-        });
-        */
-
         // Player
         this.player = this.physics.add.sprite(900, 300, 'sprites', 'play/p1')
             .setSize(20, 70, false)
@@ -93,8 +83,11 @@ export default new Phaser.Class({
             .setDepth(10)
             .play('Stand')
 
-        this.physics.add.collider(this.player, collisionMap)
         this.physics.add.overlap(this.player, this.triggers, function(player, trigger) {
+            if (!this.buttons.hasOwnProperty(trigger.name)) {
+                return;
+            }
+
             if (!this.buttons[trigger.name].visible) {
                 // Show the button
                 this.buttons[trigger.name].show()
@@ -107,7 +100,7 @@ export default new Phaser.Class({
             // trigger.destroy()
             // this.triggers.remove(trigger)
         }, null, this)
-        this.physics.add.collider(this.actors, collisionMap);
+        // this.physics.add.collider(this.actors, collisionMap);
         this.physics.add.collider(this.player, this.actors, function(player, actor) {
         }, function(player, actor) {
             switch (actor.name) {
@@ -118,10 +111,11 @@ export default new Phaser.Class({
 
                     this.coin += 1;
 
-                    var label = this.add.text(actor.x, actor.y, '+5', {
-                        fontSize: '24px',
+                    var label = this.add.text(actor.x, actor.y - 16, '+5', {
+                        fontSize: '36px',
                         fill: 'gold',
-                    }).setOrigin(0.5, 1)
+                    }).setOrigin(0.5, 1).setDepth(20)
+                    .setShadow(2, 2, "#333333", 2, false, true)
                     this.tweens.add({
                         targets: label,
                         y: '-=40',
@@ -129,8 +123,7 @@ export default new Phaser.Class({
                         callbackScope: label,
                     })
 
-                    // actor.destroy()
-                    actor.visible = false;
+                    actor.destroy();
 
                     return false;
                 } break;
@@ -152,14 +145,14 @@ export default new Phaser.Class({
                     return !actor.getData('is_open');
                 } break;
                 case 'End': {
-                    // Move player
-                    this.player.x = this.start.x - 16;
-                    this.player.y -= 2;
-
-                    // Enable actors
+                    // Destroy actors
                     this.actors.getChildren().forEach(function(a) {
-                        a.visible = true;
+                        a.destroy();
                     });
+
+                    // Create a new map
+
+
                     return false;
                 } break;
             }
@@ -167,9 +160,13 @@ export default new Phaser.Class({
             return true;
         }, this);
 
+        // Map
+        this.activeMaps = [];
+        this.createMap('map');
+
         // Setup camera
-        this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
         this.cameraTarget = this.add.image(0, 0).setVisible(false)
+        this.cameras.main.setBounds(0, 0, Number.MAX_VALUE, 600)
         this.cameras.main.startFollow(this.cameraTarget, true)
 
         // Setup action buttons
@@ -187,7 +184,7 @@ export default new Phaser.Class({
             .setScrollFactor(0)
         this.coinLabel = this.add.text(82, 40, '0', {
             fontSize: 28,
-        }).setOrigin(0, 0.5).setScrollFactor(0)
+        }).setOrigin(0, 0.5).setScrollFactor(0).setShadow(2, 2, "#333333", 2, false, true)
 
         this.add.image(42, 80, 'sprites', 'coin&distance_bar')
             .setOrigin(0, 0.5)
@@ -197,7 +194,7 @@ export default new Phaser.Class({
             .setScrollFactor(0)
         this.distLabel = this.add.text(82, 80, '0', {
             fontSize: 28,
-        }).setOrigin(0, 0.5).setScrollFactor(0)
+        }).setOrigin(0, 0.5).setScrollFactor(0).setShadow(2, 2, "#333333", 2, false, true)
 
         this.dimmer = this.add.graphics()
             .fillStyle(0x000000, 0.5)
@@ -241,12 +238,15 @@ export default new Phaser.Class({
             distLabel.setText(Math.floor(this.distance));
 
             this.input.once('pointerdown', function() {
-                this.scene.restart('GamePlay');
+                this.scene.stop('GamePlay');
+                this.scene.start('GamePlay');
             }, this)
         }.bind(this);
 
         // State
         this.changeState(States.Wait, null)
+
+        this.cameras.main.fadeIn(400);
     },
     update: function(time, delta) {
         switch (this.state) {
@@ -324,6 +324,8 @@ export default new Phaser.Class({
         this.player
             .setVelocityX(0)
             .play('Stand');
+        this.playerState = 'Stop';
+        this.p_enter_Stop();
 
         // Show hand prompt
         this.hand.setPosition(this.buttons[this.activeGuide].x + 30, this.buttons[this.activeGuide].y + 20)
@@ -401,34 +403,40 @@ export default new Phaser.Class({
     p_action_Jump: function(action) {},
 
     p_enter_Climb: function() {
-        this.player.allowGravity = false;
-        this.player.x = this.climbX;
+        this.player.body.velocity.x = 0;
+        this.player.body.velocity.y = 0;
+        this.player.body.allowGravity = false;
+        this.player.x = this.climbX - 10;
         this.tweens.timeline({
             targets: this.player,
             tweens: [
                 {
-                    y: '-=180',
+                    y: '-=170',
                     duration: 1000,
                 },
                 {
-                    x: '+=30',
-                    duration: 200,
-                }
+                    x: '+=40',
+                    duration: 300,
+                },
             ],
             onComplete: function() {
                 this.canClimb = false;
-                this.player.allowGravity = true;
+                this.player.body.allowGravity = true;
                 this.changePlayerState('Go');
             },
             callbackScope: this,
         });
 
         this.player.play('Climb');
+
+        this.time.delayedCall(1000, function() {
+            this.player.play('Go')
+        }, [], this);
     },
     p_update_Climb: function(delta) {},
     p_action_Climb: function(action) {
         if (!this.canClimb) {
-            this.changePlayerState(action);
+            // this.changePlayerState(action);
         }
     },
 
@@ -465,7 +473,7 @@ export default new Phaser.Class({
         this.playerOffsetToPlatform = this.touchedPlatform.x - this.player.x;
     },
     p_update_Ride: function(delta) {
-        this.player.x = this.touchedPlatform.x + this.playerOffsetToPlatform;
+        this.player.x = this.touchedPlatform.x - this.playerOffsetToPlatform;
 
         if (this.touchedPlatform.body.velocity.x === 0) {
             this.changePlayerState('Stop')
@@ -488,7 +496,7 @@ export default new Phaser.Class({
     },
     p_update_Push: function(delta) {
         this.player
-            .setVelocityX(150)
+            .setVelocityX(120)
             .play('Push')
     },
     p_action_Push: function(action) {
@@ -635,6 +643,7 @@ export default new Phaser.Class({
         var label = this.add.text(x, y, Phaser.Utils.Array.GetRandom(actions))
             .setOrigin(0.5, 0.5)
             .setScrollFactor(0)
+            .setShadow(2, 2, "#333333", 2, false, true)
 
         button.on('pointerdown', function(event) {
             button.alpha = 0.6;
@@ -661,6 +670,53 @@ export default new Phaser.Class({
         return button;
     },
 
+    createMap: function(key) {
+        var x = 0;
+        if (this.activeMaps.length > 0) {
+            x = this.activeMaps[0].collision.x + this.activeMaps[0].map.widthInPixels;
+        }
+        console.log(`map at ${x}`)
+
+        var mapPack = {
+            map: null,
+            collision: null,
+            playerCollider: null,
+            actorCollider: null,
+        };
+        this.activeMaps.push(mapPack);
+
+        // Create a new map
+        var map = this.add.tilemap(key)
+        var tileset = map.addTilesetImage('tile', 'tilemap')
+        mapPack.map = map;
+
+        map.createStaticLayer('terrain', tileset)
+        map.createStaticLayer('grass', tileset)
+        map.createStaticLayer('deco', tileset)
+
+        var collisionMap = map.createStaticLayer('collide', tileset)
+        collisionMap.setCollision([39], true);
+        mapPack.collision = collisionMap;
+
+        mapPack.playerCollider = this.physics.add.collider(this.player, collisionMap);
+        mapPack.actorCollider = this.physics.add.collider(this.actors, collisionMap);
+
+        var width = 0;
+        for (var i = 0; i < this.activeMaps.length; i++) {
+            width += this.activeMaps[i].map.widthInPixels;
+        }
+
+        this.createTriggers(map);
+        this.createActors(map);
+
+        // Remove first map
+        if (this.activeMaps.length >= 3) {
+            var map = this.activeMaps.shift();
+            map.playerCollider.destroy();
+            map.actorCollider.destroy();
+            map.map.destroy();
+        }
+    },
     createTriggers: function(map) {
         this.triggers.addMultiple(map.createFromObjects('trigger', 'Jump'));
         this.triggers.addMultiple(map.createFromObjects('trigger', 'Climb'));
@@ -672,6 +728,8 @@ export default new Phaser.Class({
         this.triggers.addMultiple(map.createFromObjects('trigger', 'Open'));
         this.triggers.addMultiple(map.createFromObjects('trigger', 'Close'));
         this.triggers.addMultiple(map.createFromObjects('trigger', 'Drop'));
+
+        this.triggers.addMultiple(map.createFromObjects('trigger', 'End'));
 
         this.triggers.getChildren().forEach(function(trigger) {
             trigger.visible = false;
@@ -703,14 +761,7 @@ export default new Phaser.Class({
             d.setData('is_open', false)
                 .setDepth(20)
             d.body.immovable = true;
-        })
-        this.start = map.createFromObjects('trigger', 'Start')[0]
-            .setVisible(false)
-        this.ends = map.createFromObjects('trigger', 'End')
-        this.ends.forEach(function(end) {
-            end.setVisible(false);
-        })
-        this.actors.addMultiple(this.ends.concat(this.start));
+        });
 
         var saws = map.createFromObjects('actor', 'Saw', {
             key: 'sprites',

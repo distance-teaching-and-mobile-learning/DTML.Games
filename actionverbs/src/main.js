@@ -1,6 +1,7 @@
-import 'phaser';
+import 'phaser/src/phaser-arcade-physics';
 
 import Preloader from './Preloader';
+import Title from './Title';
 import GamePlay from './GamePlay';
 
 var game;
@@ -29,18 +30,9 @@ window.onload = function() {
         pixelArt: true,
         scene: [
             Preloader,
+            Title,
             GamePlay,
         ],
-        physics: {
-            default: 'arcade',
-            arcade: {
-                gravity: {
-                    x: 0,
-                    y: 400,
-                },
-                debug: false,
-            },
-        },
     });
 
     resize();

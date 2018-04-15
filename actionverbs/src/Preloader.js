@@ -11,6 +11,14 @@ export default new Phaser.Class({
         this.load.image('tilemap', 'media/tilemap.png')
         this.load.tilemapTiledJSON('map', 'media/map.json')
 
+        this.load.tilemapTiledJSON('climb', 'media/room/climb.json')
+        this.load.tilemapTiledJSON('jump', 'media/room/jump.json')
+        this.load.tilemapTiledJSON('stand', 'media/room/stand.json')
+        this.load.tilemapTiledJSON('push', 'media/room/push.json')
+        this.load.tilemapTiledJSON('squat', 'media/room/squat.json')
+        this.load.tilemapTiledJSON('ride', 'media/room/ride.json')
+        this.load.tilemapTiledJSON('open', 'media/room/open.json')
+
         // Loading bar
         var width = 300
         var bar = this.add.graphics({ x: (800 - width) / 2, y: 300 })
@@ -30,7 +38,7 @@ export default new Phaser.Class({
         this.loadAnimations();
     },
     update: function() {
-        this.scene.start('GamePlay');
+        this.scene.start('Title');
     },
 
     loadAnimations: function() {
@@ -94,6 +102,16 @@ export default new Phaser.Class({
                 frames: [27],
             }),
             frameRate: 1,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: 'dragon/fly',
+            frames: this.anims.generateFrameNames('sprites', {
+                prefix: 'dragon/fly_',
+                start: 1,
+                end: 6,
+            }),
+            frameRate: 8,
             repeat: -1,
         });
     },
