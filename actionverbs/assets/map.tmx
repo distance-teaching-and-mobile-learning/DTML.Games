@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0.0" orientation="orthogonal" renderorder="right-down" width="257" height="19" tilewidth="32" tileheight="32" nextobjectid="48">
+<map version="1.0.0" orientation="orthogonal" renderorder="right-down" width="257" height="19" tilewidth="32" tileheight="32" nextobjectid="50">
  <tileset firstgid="1" name="actor" tilewidth="128" tileheight="112" tilecount="6" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
@@ -179,6 +179,8 @@
   <object id="45" name="Ride" gid="15" x="5600" y="351" width="32" height="32"/>
   <object id="46" name="Ride" gid="15" x="5632" y="351" width="32" height="32"/>
   <object id="47" name="Ride" gid="15" x="5664" y="351" width="32" height="32"/>
+  <object id="48" name="Stop" gid="17" x="3424" y="288" width="32" height="32"/>
+  <object id="49" name="Stop" gid="17" x="3424" y="256" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="actor">
   <object id="5" name="Coin" gid="1" x="1056" y="256" width="35" height="30"/>

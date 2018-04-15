@@ -275,6 +275,30 @@
                  "width":32,
                  "x":5664,
                  "y":351
+                }, 
+                {
+                 "gid":17,
+                 "height":32,
+                 "id":48,
+                 "name":"Stop",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":3424,
+                 "y":288
+                }, 
+                {
+                 "gid":17,
+                 "height":32,
+                 "id":49,
+                 "name":"Stop",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":3424,
+                 "y":256
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -400,7 +424,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":48,
+ "nextobjectid":50,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
