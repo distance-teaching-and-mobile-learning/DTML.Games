@@ -47,7 +47,43 @@
         {
          "draworder":"topdown",
          "name":"trigger",
-         "objects":[],
+         "objects":[
+                {
+                 "gid":10,
+                 "height":32,
+                 "id":52,
+                 "name":"End",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":64,
+                 "y":320
+                }, 
+                {
+                 "gid":10,
+                 "height":32,
+                 "id":53,
+                 "name":"End",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":64,
+                 "y":256
+                }, 
+                {
+                 "gid":10,
+                 "height":32,
+                 "id":54,
+                 "name":"End",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":64,
+                 "y":288
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -136,7 +172,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":49,
+ "nextobjectid":55,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

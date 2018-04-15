@@ -45,6 +45,7 @@ export default new Phaser.Class({
         this.distance = 0;
         this.coin = 0;
         this.playerOffsetToPlatform = 0;
+        this.mapCreateCooldown = 0;
 
         this.buttons = {};
         this.buttonList;
@@ -77,15 +78,23 @@ export default new Phaser.Class({
         this.add.image(0, 0, 'sprites', 'bg/bg').setOrigin(0, 0).setScrollFactor(0)
 
         // Player
-        this.player = this.physics.add.sprite(900, 300, 'sprites', 'play/p1')
+        this.player = this.physics.add.sprite(/*900*/7300, 300, 'sprites', 'play/p1')
             .setSize(20, 70, false)
             .setOffset(28, 25)
             .setDepth(10)
             .play('Stand')
 
         this.physics.add.overlap(this.player, this.triggers, function(player, trigger) {
-            if (!this.buttons.hasOwnProperty(trigger.name)) {
+            if (trigger.name === 'End') {
+                trigger.destroy();
                 return;
+            }
+
+            switch (trigger.name) {
+                case 'Climb': {
+                    this.climbX = trigger.x;
+                    this.canClimb = true;
+                } break;
             }
 
             if (!this.buttons[trigger.name].visible) {
@@ -97,8 +106,7 @@ export default new Phaser.Class({
             }
 
             // Destroy the trigger
-            // trigger.destroy()
-            // this.triggers.remove(trigger)
+            trigger.destroy()
         }, null, this)
         // this.physics.add.collider(this.actors, collisionMap);
         this.physics.add.collider(this.player, this.actors, function(player, actor) {
@@ -143,17 +151,6 @@ export default new Phaser.Class({
                 case 'Door': {
                     this.touchedDoor = actor;
                     return !actor.getData('is_open');
-                } break;
-                case 'End': {
-                    // Destroy actors
-                    this.actors.getChildren().forEach(function(a) {
-                        a.destroy();
-                    });
-
-                    // Create a new map
-
-
-                    return false;
                 } break;
             }
 
@@ -273,7 +270,7 @@ export default new Phaser.Class({
     enter_wait: function(data) {
         // Hide buttons
         for (var i = 0; i < this.buttonList.length; i++) {
-            this.buttonList[i].hide()
+            // this.buttonList[i].hide()
         }
 
         // Now let's play
@@ -281,6 +278,10 @@ export default new Phaser.Class({
     },
     update_wait: function(delta) {},
     enter_play: function(data) {
+        if (this.mapCreateCooldown > 0) {
+            this.mapCreateCooldown -= delta;
+        }
+
         // Show first button
         this.buttons['Go'].show()
 
@@ -307,6 +308,27 @@ export default new Phaser.Class({
         }
 
         this['p_update_' + this.playerState](delta);
+
+        // Create map if required
+        var map = this.activeMaps[this.activeMaps.length - 1];
+        if (this.player.y > map.collision.x + 300) {
+            // Create a new map
+            this.createMap(Phaser.Utils.Array.GetRandom(MapList));
+        }
+
+        // Remove actors and triggers out of screen
+        var objs = this.cameras.main.cull(this.triggers.getChildren());
+        for (var i = 0; i < objs.length; i++) {
+            if (objs[i].x < this.player.x) {
+                objs[i].destroy();
+            }
+        }
+        objs = this.cameras.main.cull(this.actors.getChildren());
+        for (var i = 0; i < objs.length; i++) {
+            if (objs[i].x < this.player.x) {
+                objs[i].destroy();
+            }
+        }
 
         if (this.player.y > 660) {
             this.changeState(States.GameOver);
@@ -639,10 +661,12 @@ export default new Phaser.Class({
     addButton: function(x, y, actions, revActions) {
         var button = this.add.image(x, y, 'sprites', 'button')
             .setScrollFactor(0)
+            .setDepth(100)
             .setInteractive()
         var label = this.add.text(x, y, Phaser.Utils.Array.GetRandom(actions))
             .setOrigin(0.5, 0.5)
             .setScrollFactor(0)
+            .setDepth(100)
             .setShadow(2, 2, "#333333", 2, false, true)
 
         button.on('pointerdown', function(event) {
@@ -673,15 +697,16 @@ export default new Phaser.Class({
     createMap: function(key) {
         var x = 0;
         if (this.activeMaps.length > 0) {
-            x = this.activeMaps[0].collision.x + this.activeMaps[0].map.widthInPixels;
+            x = this.activeMaps[this.activeMaps.length - 1].collision.x + this.activeMaps[this.activeMaps.length - 1].map.widthInPixels;
         }
-        console.log(`map at ${x}`)
+        // console.log(`${key}`)
 
         var mapPack = {
             map: null,
             collision: null,
             playerCollider: null,
             actorCollider: null,
+            createdNext: false,
         };
         this.activeMaps.push(mapPack);
 
@@ -690,11 +715,11 @@ export default new Phaser.Class({
         var tileset = map.addTilesetImage('tile', 'tilemap')
         mapPack.map = map;
 
-        map.createStaticLayer('terrain', tileset)
-        map.createStaticLayer('grass', tileset)
-        map.createStaticLayer('deco', tileset)
+        map.createStaticLayer('terrain', tileset, x, 0)
+        map.createStaticLayer('grass', tileset, x, 0)
+        map.createStaticLayer('deco', tileset, x, 0)
 
-        var collisionMap = map.createStaticLayer('collide', tileset)
+        var collisionMap = map.createStaticLayer('collide', tileset, x, 0)
         collisionMap.setCollision([39], true);
         mapPack.collision = collisionMap;
 
@@ -706,8 +731,9 @@ export default new Phaser.Class({
             width += this.activeMaps[i].map.widthInPixels;
         }
 
-        this.createTriggers(map);
-        this.createActors(map);
+        // Create new triggers and actors
+        this.createTriggers(map, x);
+        this.createActors(map, x);
 
         // Remove first map
         if (this.activeMaps.length >= 3) {
@@ -717,7 +743,7 @@ export default new Phaser.Class({
             map.map.destroy();
         }
     },
-    createTriggers: function(map) {
+    createTriggers: function(map, offsetX) {
         this.triggers.addMultiple(map.createFromObjects('trigger', 'Jump'));
         this.triggers.addMultiple(map.createFromObjects('trigger', 'Climb'));
         this.triggers.addMultiple(map.createFromObjects('trigger', 'Stop'));
@@ -732,10 +758,12 @@ export default new Phaser.Class({
         this.triggers.addMultiple(map.createFromObjects('trigger', 'End'));
 
         this.triggers.getChildren().forEach(function(trigger) {
+            trigger.x += offsetX;
             trigger.visible = false;
         });
+        // console.log(this.triggers.getLength() + ' triggers')
     },
-    createActors: function(map) {
+    createActors: function(map, offsetX) {
         this.actors.addMultiple(map.createFromObjects('actor', 'Coin', {
             key: 'sprites',
             frame: 'coin',
@@ -789,6 +817,8 @@ export default new Phaser.Class({
 
         // Actors are not affected by gravity
         this.actors.getChildren().forEach(function(actor) {
+            actor.x += offsetX;
+
             if (actor.name !== 'Box') {
                 actor.body.allowGravity = false;
             }
