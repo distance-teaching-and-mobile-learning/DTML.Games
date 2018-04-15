@@ -1,3 +1,13 @@
+var MapList = [
+    'climb',
+    'jump',
+    'stand',
+    'push',
+    'squat',
+    'ride',
+    'open',
+];
+
 var States = {
     Wait: 0,
     Play: 1,
