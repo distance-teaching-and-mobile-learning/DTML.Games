@@ -88,10 +88,10 @@ export default new Phaser.Class({
         this.add.image(0, 0, 'sprites', 'bg/bg').setOrigin(0, 0).setScrollFactor(0)
 
         // Player
-        this.player = this.physics.add.sprite(/*900*/7300, 300, 'sprites', 'play/p1')
+        this.player = this.physics.add.sprite(900, 300, 'sprites', 'play/p1')
             .setSize(20, 70, false)
             .setOffset(28, 25)
-            .setDepth(10)
+            .setDepth(50)
             .play('Stand')
 
         this.physics.add.overlap(this.player, this.triggers, function(player, trigger) {
@@ -182,6 +182,7 @@ export default new Phaser.Class({
         // Setup UI
         this.hand = this.add.image(-100, -100, 'sprites', 'hand')
             .setScrollFactor(0)
+            .setDepth(2000)
 
         this.add.image(42, 40, 'sprites', 'coin&distance_bar')
             .setOrigin(0, 0.5)
@@ -280,7 +281,7 @@ export default new Phaser.Class({
     enter_wait: function(data) {
         // Hide buttons
         for (var i = 0; i < this.buttonList.length; i++) {
-            // this.buttonList[i].hide()
+            this.buttonList[i].hide()
         }
 
         // Now let's play
@@ -327,15 +328,15 @@ export default new Phaser.Class({
         }
 
         // Remove actors and triggers out of screen
-        var objs = this.cameras.main.cull(this.triggers.getChildren());
+        var objs = this.triggers.getChildren();
         for (var i = 0; i < objs.length; i++) {
-            if (objs[i].x < this.player.x) {
+            if (objs[i].x < this.player.x - 500) {
                 objs[i].destroy();
             }
         }
-        objs = this.cameras.main.cull(this.actors.getChildren());
+        objs = this.actors.getChildren();
         for (var i = 0; i < objs.length; i++) {
-            if (objs[i].x < this.player.x) {
+            if (objs[i].x < this.player.x - 500) {
                 objs[i].destroy();
             }
         }
@@ -435,6 +436,7 @@ export default new Phaser.Class({
     p_action_Jump: function(action) {},
 
     p_enter_Climb: function() {
+        console.log(this.player.x, this.climbX)
         this.player.body.velocity.x = 0;
         this.player.body.velocity.y = 0;
         this.player.body.allowGravity = false;
@@ -709,7 +711,7 @@ export default new Phaser.Class({
         if (this.activeMaps.length > 0) {
             x = this.activeMaps[this.activeMaps.length - 1].collision.x + this.activeMaps[this.activeMaps.length - 1].map.widthInPixels;
         }
-        // console.log(`${key}`)
+        console.log(`map: ${key}, x: ${x}`)
 
         var mapPack = {
             map: null,
@@ -754,61 +756,81 @@ export default new Phaser.Class({
         }
     },
     createTriggers: function(map, offsetX) {
-        this.triggers.addMultiple(map.createFromObjects('trigger', 'Jump'));
-        this.triggers.addMultiple(map.createFromObjects('trigger', 'Climb'));
-        this.triggers.addMultiple(map.createFromObjects('trigger', 'Stop'));
-        this.triggers.addMultiple(map.createFromObjects('trigger', 'Ride'));
-        this.triggers.addMultiple(map.createFromObjects('trigger', 'Kick'));
-        this.triggers.addMultiple(map.createFromObjects('trigger', 'Push'));
-        this.triggers.addMultiple(map.createFromObjects('trigger', 'Squat'));
-        this.triggers.addMultiple(map.createFromObjects('trigger', 'Open'));
-        this.triggers.addMultiple(map.createFromObjects('trigger', 'Close'));
-        this.triggers.addMultiple(map.createFromObjects('trigger', 'Drop'));
+        var list = [];
 
-        this.triggers.addMultiple(map.createFromObjects('trigger', 'End'));
+        list = list.concat(map.createFromObjects('trigger', 'Jump'));
+        list = list.concat(map.createFromObjects('trigger', 'Climb'));
+        list = list.concat(map.createFromObjects('trigger', 'Stop'));
+        list = list.concat(map.createFromObjects('trigger', 'Ride'));
+        list = list.concat(map.createFromObjects('trigger', 'Kick'));
+        list = list.concat(map.createFromObjects('trigger', 'Push'));
+        list = list.concat(map.createFromObjects('trigger', 'Squat'));
+        list = list.concat(map.createFromObjects('trigger', 'Open'));
+        list = list.concat(map.createFromObjects('trigger', 'Close'));
+        list = list.concat(map.createFromObjects('trigger', 'Drop'));
+        list = list.concat(map.createFromObjects('trigger', 'End'));
 
-        this.triggers.getChildren().forEach(function(trigger) {
+        list.forEach(function(trigger) {
             trigger.x += offsetX;
             trigger.visible = false;
         });
+
+        this.triggers.addMultiple(list);
         // console.log(this.triggers.getLength() + ' triggers')
     },
     createActors: function(map, offsetX) {
-        this.actors.addMultiple(map.createFromObjects('actor', 'Coin', {
+        var newActors = [];
+        var list;
+
+        list = map.createFromObjects('actor', 'Coin', {
             key: 'sprites',
             frame: 'coin',
-        }));
-        this.actors.addMultiple(map.createFromObjects('actor', 'Box', {
+        })
+        newActors = newActors.concat(list);
+        this.actors.addMultiple(list);
+
+        list = map.createFromObjects('actor', 'Box', {
             key: 'sprites',
             frame: 'stone',
-        }));
-        this.actors.addMultiple(map.createFromObjects('actor', 'Platform', {
+        })
+        newActors = newActors.concat(list);
+        this.actors.addMultiple(list);
+
+        list = map.createFromObjects('actor', 'Platform', {
             key: 'sprites',
             frame: 'platform',
-        }));
-        this.actors.addMultiple(map.createFromObjects('actor', 'Trigger', {
+        })
+        newActors = newActors.concat(list);
+        this.actors.addMultiple(list);
+
+        list = map.createFromObjects('actor', 'Trigger', {
             key: 'sprites',
             frame: 'powerswitchclose',
-        }));
-        var doors = map.createFromObjects('actor', 'Door', {
+        })
+        newActors = newActors.concat(list);
+        this.actors.addMultiple(list);
+
+        list = map.createFromObjects('actor', 'Door', {
             key: 'sprites',
             frame: 'doorclose',
-        });
-        this.actors.addMultiple(doors);
-        doors.forEach(function(d) {
+        })
+        newActors = newActors.concat(list);
+        this.actors.addMultiple(list);
+        list.forEach(function(d) {
             d.setData('is_open', false)
                 .setDepth(20)
             d.body.immovable = true;
         });
 
-        var saws = map.createFromObjects('actor', 'Saw', {
+
+        list = map.createFromObjects('actor', 'Saw', {
             key: 'sprites',
             frame: 'saw',
             scale: 0.3,
         });
         var moveUp = (function() {
             this.tweens.add({
-                targets: saws,
+                targets: list,
                 y: '-=300',
                 duration: 1600,
                 onComplete: moveDown,
@@ -816,22 +838,29 @@ export default new Phaser.Class({
         }).bind(this)
         var moveDown = (function() {
             this.tweens.add({
-                targets: saws,
+                targets: list,
                 y: '+=300',
                 duration: 1600,
                 onComplete: moveUp,
             })
         }).bind(this)
         moveUp();
-        this.actors.addMultiple(saws);
+        newActors = newActors.concat(list);
+        this.actors.addMultiple(list);
 
         // Actors are not affected by gravity
-        this.actors.getChildren().forEach(function(actor) {
+        newActors.forEach(function(actor) {
+            actor.setDepth(100);
+
             actor.x += offsetX;
 
             if (actor.name !== 'Box') {
                 actor.body.allowGravity = false;
             }
+
+            // console.log(`create actor: "${actor.name}" at (${actor.x}, ${actor.y})`)
         });
+
+        // console.log(`createActors(${this.actors.getLength()}): with offset ${offsetX}`)
     },
 });
