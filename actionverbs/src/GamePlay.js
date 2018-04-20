@@ -314,7 +314,8 @@ export default new Phaser.Class({
 
         // Move the dragon
         this.dragon.x += 40 * delta * 0.001;
-        this.dragon.x = Math.max(this.dragon.x, this.player.x - 500);
+        this.dragon.y += (this.player.y - 100 - this.dragon.y) * delta * 0.002;
+        this.dragon.x = Math.max(this.dragon.x, this.player.x - 320);
 
         if (this.dragon.x > this.player.x - 150) {
             this.changeState(States.Burn);
