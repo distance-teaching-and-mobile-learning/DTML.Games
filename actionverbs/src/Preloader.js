@@ -105,6 +105,21 @@ export default new Phaser.Class({
             repeat: -1,
         });
         this.anims.create({
+            key: 'Burn',
+            frames: this.anims.generateFrameNames('sprites', {
+                prefix: 'play/p',
+                frames: [
+                    28,28,28,28,28,
+                    28,28,28,28,28,
+                    28,28,28,28,28,
+                    28,28,28,28,28,
+                    29,30,31,32,
+                ],
+            }),
+            frameRate: 10,
+            repeat: 0,
+        });
+        this.anims.create({
             key: 'dragon/fly',
             frames: this.anims.generateFrameNames('sprites', {
                 prefix: 'dragon/fly_',
@@ -113,6 +128,16 @@ export default new Phaser.Class({
             }),
             frameRate: 8,
             repeat: -1,
+        });
+        this.anims.create({
+            key: 'dragon/atk',
+            frames: this.anims.generateFrameNames('sprites', {
+                prefix: 'dragon/atk',
+                start: 1,
+                end: 2,
+            }),
+            frameRate: 5,
+            repeat: 0,
         });
     },
 })

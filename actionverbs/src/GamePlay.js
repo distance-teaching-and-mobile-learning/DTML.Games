@@ -9,9 +9,11 @@ var MapList = [
 ];
 
 var States = {
-    Wait: 0,
-    Play: 1,
-    Guide: 2,
+    Wait: 'Wait',
+    Play: 'Play',
+    Guide: 'Guide',
+    Burn: 'Burn',
+    GameOver: 'GameOver',
 };
 
 var PlayerStates = {
@@ -93,6 +95,11 @@ export default new Phaser.Class({
             .setOffset(28, 25)
             .setDepth(50)
             .play('Stand')
+
+        // Dragon
+        this.dragon = this.add.sprite(500, 200)
+            .setDepth(60)
+            .play('dragon/fly')
 
         this.physics.add.overlap(this.player, this.triggers, function(player, trigger) {
             if (trigger.name === 'End') {
@@ -261,6 +268,7 @@ export default new Phaser.Class({
             case States.Wait: this.update_wait(delta); break
             case States.Play: this.update_play(delta); break
             case States.Guide: this.update_guide(delta); break
+            case States.Burn: this.update_burn(delta); break
         }
     },
     changeState: function(state, data) {
@@ -273,6 +281,7 @@ export default new Phaser.Class({
             case States.Wait: this.enter_wait(data); break
             case States.Play: this.enter_play(data); break
             case States.Guide: this.enter_guide(data); break
+            case States.Burn: this.enter_burn(data); break
             case States.GameOver: this.enter_gameover(data); break
         }
     },
@@ -302,6 +311,15 @@ export default new Phaser.Class({
     update_play: function(delta) {
         this.cameraTarget.x = this.player.x + 150;
         this.cameraTarget.y = this.player.y;
+
+        // Move the dragon
+        this.dragon.x += 40 * delta * 0.001;
+        this.dragon.x = Math.max(this.dragon.x, this.player.x - 500);
+
+        if (this.dragon.x > this.player.x - 150) {
+            this.changeState(States.Burn);
+            return;
+        }
 
         // Increase distance
         if (this.player.body.velocity.x > 0) {
@@ -379,6 +397,50 @@ export default new Phaser.Class({
 
         this.changeState(States.Play, null);
     },
+    enter_burn: function() {
+        // Hide buttons
+        for (var i = 0; i < this.buttonList.length; i++) {
+            this.buttonList[i].hide()
+        }
+
+        // Stop the player
+        this.player.body.velocity.x = 0;
+
+        // Dragon fire
+        this.dragon.play('dragon/atk');
+        var emitter;
+        this.time.delayedCall(200, function() {
+            var p = this.add.particles('sprites', 'fire')
+            var deathZone = new Phaser.Geom.Rectangle(this.dragon.x, this.dragon.y + 150, 400, 400);
+
+            emitter = p.createEmitter({
+                x: this.dragon.x + 80,
+                y: this.dragon.y + 40,
+                angle: { min: 30, max: 80 },
+                speed: 300,
+                gravityY: 200,
+                lifespan: { min: 1000, max: 2000 },
+                scale: { start: 0.75, end: 0.75 },
+                blendMode: 'ADD',
+                deathZone: { type: 'onEnter', source: deathZone },
+            })
+        }, [], this)
+
+        this.time.delayedCall(400, function() {
+            this.player.play('Burn')
+            this.player.once('animationcomplete', function() {
+                this.player.visible = false;
+            }, this);
+        }, [], this);
+        this.time.delayedCall(3200, function() {
+            emitter.killAll();
+
+            this.player.visible = false;
+            this.changeState(States.GameOver);
+        }, [], this)
+    },
+    update_burn: function() {},
+    exit_burn: function() {},
     enter_gameover: function() {
         this.gameover.show();
     },
