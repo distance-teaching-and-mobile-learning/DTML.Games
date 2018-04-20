@@ -116,7 +116,7 @@ export default new Phaser.Class({
                     29,30,31,32,
                 ],
             }),
-            frameRate: 10,
+            frameRate: 15,
             repeat: 0,
         });
         this.anims.create({
