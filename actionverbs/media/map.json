@@ -249,8 +249,8 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":5600,
-                 "y":351
+                 "x":5568,
+                 "y":350
                 }, 
                 {
                  "gid":15,
@@ -261,8 +261,8 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":5632,
-                 "y":351
+                 "x":5600,
+                 "y":350
                 }, 
                 {
                  "gid":15,
@@ -273,8 +273,8 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":5664,
-                 "y":351
+                 "x":5632,
+                 "y":350
                 }, 
                 {
                  "gid":17,
@@ -383,18 +383,6 @@
                  "y":320
                 }, 
                 {
-                 "gid":4,
-                 "height":32,
-                 "id":27,
-                 "name":"Platform",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":174,
-                 "x":5536,
-                 "y":352
-                }, 
-                {
                  "gid":5,
                  "height":64,
                  "id":30,
@@ -417,6 +405,18 @@
                  "width":8,
                  "x":6624,
                  "y":320
+                }, 
+                {
+                 "gid":4,
+                 "height":31,
+                 "id":50,
+                 "name":"Platform",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":5536,
+                 "y":352
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -424,7 +424,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":50,
+ "nextobjectid":51,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

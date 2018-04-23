@@ -95,18 +95,6 @@
          "name":"actor",
          "objects":[
                 {
-                 "gid":4,
-                 "height":32,
-                 "id":27,
-                 "name":"Platform",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":174,
-                 "x":576,
-                 "y":352
-                }, 
-                {
                  "gid":1,
                  "height":30,
                  "id":45,
@@ -177,6 +165,18 @@
                  "width":35,
                  "x":234,
                  "y":237
+                }, 
+                {
+                 "gid":4,
+                 "height":31,
+                 "id":54,
+                 "name":"Platform",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":576,
+                 "y":352
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -184,7 +184,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":54,
+ "nextobjectid":55,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
