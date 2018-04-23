@@ -100,6 +100,8 @@ export default new Phaser.Class({
         this.dragon = this.add.sprite(500, 200)
             .setDepth(60)
             .play('dragon/fly')
+            .setData('speed', 40)
+            .setData('accel', 0.5)
 
         this.physics.add.overlap(this.player, this.triggers, function(player, trigger) {
             if (trigger.name === 'End') {
@@ -313,7 +315,8 @@ export default new Phaser.Class({
         this.cameraTarget.y = this.player.y;
 
         // Move the dragon
-        this.dragon.x += 40 * delta * 0.001;
+        this.dragon.setData('speed', this.dragon.getData('speed') + this.dragon.getData('accel') * delta * 0.001)
+        this.dragon.x += this.dragon.getData('speed') * delta * 0.001;
         this.dragon.y += (this.player.y - 100 - this.dragon.y) * delta * 0.002;
         this.dragon.x = Math.max(this.dragon.x, this.player.x - 320);
 
@@ -341,7 +344,7 @@ export default new Phaser.Class({
 
         // Create map if required
         var map = this.activeMaps[this.activeMaps.length - 1];
-        if (this.player.y > map.collision.x + 300) {
+        if (this.player.x > map.collision.x + 300) {
             // Create a new map
             this.createMap(Phaser.Utils.Array.GetRandom(MapList));
         }
@@ -449,7 +452,7 @@ export default new Phaser.Class({
     // Player states
     changePlayerState: function(state) {
         this.playerState = state;
-        console.log('Player.' + state)
+        // console.log('Player.' + state)
         this['p_enter_' + this.playerState]();
     },
     p_enter_Go: function() {
@@ -492,7 +495,7 @@ export default new Phaser.Class({
             this.player.play('Fall');
         }
 
-        if (this.player.body.onFloor()) {
+        if (this.player.body.blocked.down || this.player.body.touching.down) {
             this.changePlayerState('Go')
         }
     },
