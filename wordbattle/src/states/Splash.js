@@ -26,7 +26,7 @@ export default class extends Phaser.State {
     }
 
     preload() {
-        //this.loaderBg = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'loaderBg')
+
         this.loaderBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'loaderBar')
         centerGameObjects([this.loaderBar])
 
@@ -49,8 +49,7 @@ export default class extends Phaser.State {
                 active: this.fontsLoaded
             })
         }
-        //
-        // this.load.video('intro', 'assets/videos/intro.webm');
+
         this.load.image('mushroom', 'assets/images/mushroom2.png')
          this.load.atlas('wizard', 'assets/images/wizard/atlas.png', 'assets/images/wizard/atlas.json')
         this.load.xml('wizardAnimations', 'assets/images/wizard/animations.scml')
@@ -95,26 +94,18 @@ export default class extends Phaser.State {
 
     fileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {
         this.loadingText.setText('File Complete: ' + progress + '% - ' + totalLoaded + ' out of ' + totalFiles);
-        // console.log('totalLoaded', totalLoaded)
+	console.log(cacheKey);
     }
 
     loadComplete() {
         game.world.remove(this.loadingText);
 
         this.time.advancedTiming = true;
-
-        // let video = this.add.video('intro');
-        // video.play(false);
-        // //  x, y, anchor x, anchor y, scale x, scale y
-        // video.addToWorld(game.world.centerX, game.world.centerY, 0.5, 0.5, 0.5, 0.5);
         let videoDuration = 0
         this.time.events.add(Phaser.Timer.SECOND * videoDuration, () => {
             document.querySelector('#intro').style.display = 'none'
             document.querySelector('#content').style.display = 'block'
             this.state.start('Menu')
-            // this.state.start('Game')
-            //   video.destroy()
-
         }, this)
     }
 

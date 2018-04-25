@@ -54,8 +54,6 @@ export default class extends Phaser.State {
 
         console.log('game dimension: ', game.width, 'x', game.height, 'height * scaleRatio', game.height * game.scaleRatio)
         if (game.aspectRatio < 1) {
-            //game.scaleRatio = width / canvas_height_max
-            // console.log(game.width, game.height)
             game.scale.setGameSize(game.width, game.height * game.scaleRatio)
         } else {
             game.scale.setGameSize(game.width, game.height)
@@ -67,12 +65,6 @@ export default class extends Phaser.State {
     }
 
     render() {
-        // if (config.webfonts.length && this.fontsReady) {
-        //   this.state.start('Splash')
-        // }
-        // if (!config.webfonts.length) {
-        //   this.state.start('Splash')
-        // }
         this.state.start('Splash')
     }
 }
