@@ -1,6 +1,4 @@
-# Phaser 3 template (ES5)
-
-Very basic template project for game development with Phaser 3.
+Distance Teaching and Mobile Learnig Action Verbs Game
 
 ## Feature
 
