@@ -258,6 +258,16 @@ export default new Phaser.Class({
                 this.scene.stop('GamePlay');
                 this.scene.start('GamePlay');
             }, this)
+
+            // API calls
+            var http = new XMLHttpRequest();
+            http.open('POST', 'https://dtml.org/Activity/RecordUserActivity/', true);
+            http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            http.send(
+                'id=actionverbs' +
+                '&coin=' + this.coin +
+                '&distance=' + Math.floor(this.distance)
+            );
         }.bind(this);
 
         // State
