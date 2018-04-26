@@ -97,6 +97,16 @@ export default new Phaser.Class({
     },
 
     create: function() {
+
+           // API calls
+            var http = new XMLHttpRequest();
+            http.open('POST', 'https://dtml.org/Activity/Record/', true);
+            http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            http.send(
+                'page=actionverbs' +
+                '&eventType=GameStarted'
+            );
+
         // Create groups
         this.triggers = this.physics.add.staticGroup()
         this.actors = this.physics.add.group()
