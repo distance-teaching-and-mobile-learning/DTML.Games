@@ -266,7 +266,8 @@ export default new Phaser.Class({
             http.send(
                 'id=actionverbs' +
                 '&coin=' + this.coin +
-                '&distance=' + Math.floor(this.distance)
+                '&distance=' + Math.floor(this.distance) +
+                '&score=' + (Math.floor(this.distance) + this.coin * 5)
             );
         }.bind(this);
 
