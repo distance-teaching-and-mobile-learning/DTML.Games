@@ -58,17 +58,5 @@ if (window.cordova) {
   app.initialize()
 }
 
-window.videoLoaded = false
+window.videoLoaded = true
 window.videoElapsed = 0
-window.addEventListener('load', () => {
-  let video = document.getElementById('intro')
-  function checkVideo() {
-    window.videoElapsed += 500
-    if (video.readyState === 4) {
-      window.videoLoaded = true
-    } else {
-      setTimeout(checkVideo, 500)
-    }
-  }
-  checkVideo()
-}, false)

@@ -31,7 +31,6 @@ export default class extends Phaser.State {
         centerGameObjects([this.loaderBar])
 
         this.load.setPreloadSprite(this.loaderBar)
-
         this.load.onLoadStart.add(this.loadStart, this);
         this.load.onFileComplete.add(this.fileComplete, this);
         this.load.onLoadComplete.add(this.loadComplete, this);
@@ -86,6 +85,7 @@ export default class extends Phaser.State {
     }
 
     loadStart() {
+	document.querySelector('#introtext').style.display = 'block';
         this.loadingText = this.add.text(20, this.world.height - 32, 'Loading...', {
             font: '20px Berkshire Swash',
             fill: '#ffffff'
@@ -99,14 +99,10 @@ export default class extends Phaser.State {
 
     loadComplete() {
         game.world.remove(this.loadingText);
-
-        this.time.advancedTiming = true;
-        let videoDuration = 0
-        this.time.events.add(Phaser.Timer.SECOND * videoDuration, () => {
-            document.querySelector('#intro').style.display = 'none'
-            document.querySelector('#content').style.display = 'block'
-            this.state.start('Menu')
-        }, this)
+	document.querySelector('#intro').style.display = 'none'
+	document.querySelector('#introtext').style.display = 'none'
+        document.querySelector('#content').style.display = 'block'
+        this.state.start('Menu')
     }
 
     create() {
