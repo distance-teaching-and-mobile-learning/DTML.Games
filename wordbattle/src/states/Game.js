@@ -18,6 +18,7 @@ import FreeText from '../sprites/FreeText'
 import Spriter from '../libs/spriter'
 import Background from '../sprites/background'
 import languages from '../sprites/Flags'
+import "isomorphic-fetch"
 
 export default class extends Phaser.State {
     init() {

@@ -17,6 +17,7 @@ import Phaser from 'phaser'
 import FreeText from '../sprites/FreeText'
 import {flags, languages} from '../sprites/Flags'
 import Border from '../sprites/Border'
+import "isomorphic-fetch"
 
 Array.prototype.chunk = function (n) {
     if (!this.length) {

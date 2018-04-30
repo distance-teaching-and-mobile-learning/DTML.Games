@@ -21,6 +21,7 @@ import {flags, languages} from '../sprites/Flags'
 import config from '../config';
 import WebFont from 'webfontloader'
 
+
 export default class extends Phaser.State {
     init() {
     }
@@ -94,7 +95,6 @@ export default class extends Phaser.State {
 
     fileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {
         this.loadingText.setText('File Complete: ' + progress + '% - ' + totalLoaded + ' out of ' + totalFiles);
-	console.log(cacheKey);
     }
 
     loadComplete() {
