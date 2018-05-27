@@ -28,10 +28,10 @@ export default class extends Phaser.State {
 
     preload() {
 
-        this.loaderBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'loaderBar')
-        centerGameObjects([this.loaderBar])
+        //this.loaderBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'loaderBar')
+        //centerGameObjects()
 
-        this.load.setPreloadSprite(this.loaderBar)
+        //this.load.setPreloadSprite()
         this.load.onLoadStart.add(this.loadStart, this);
         this.load.onFileComplete.add(this.fileComplete, this);
         this.load.onLoadComplete.add(this.loadComplete, this);
@@ -86,22 +86,19 @@ export default class extends Phaser.State {
     }
 
     loadStart() {
-	document.querySelector('#introtext').style.display = 'block';
-        this.loadingText = this.add.text(20, this.world.height - 32, 'Loading...', {
+        this.loadingText = this.add.text(this.game.world.centerX-140, this.game.world.centerY - 140, 'Loading...', {
             font: '20px Berkshire Swash',
             fill: '#ffffff'
         });
     }
 
     fileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {
-        this.loadingText.setText('File Complete: ' + progress + '% - ' + totalLoaded + ' out of ' + totalFiles);
+        this.loadingText.setText('Loading: ' + progress + '% - ' + totalLoaded + ' out of ' + totalFiles);
     }
 
     loadComplete() {
         game.world.remove(this.loadingText);
-	document.querySelector('#intro').style.display = 'none'
-	document.querySelector('#introtext').style.display = 'none'
-        document.querySelector('#content').style.display = 'block'
+		document.querySelector('#logo').style.display = 'none'
         this.state.start('Menu')
     }
 
