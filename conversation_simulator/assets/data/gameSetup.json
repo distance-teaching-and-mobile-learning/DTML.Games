@@ -1,0 +1,8 @@
+{ name:"Restourant",
+      datafile:"gameStates.json",
+      title:"In the restourant",
+      icon:"icon.jpg",
+      leftperson: "cook",
+      rightperson: "women",
+      background: "backgrounds/restourant.jpg"
+    }

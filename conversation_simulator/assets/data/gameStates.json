@@ -17,12 +17,26 @@
       "Question": "Do you want something to drink?",
       "AnswerWords": [ "Water", "Please", "Do", "Juice", "Table", "Orange" ],
       "Solutions": 
-      { "water": {"Score": 100, "Next":"End"},
-        "water please": {"Score": 150, "Next":"End"},
-        "juice": {"Score": 100, "Next":"End"},
-        "juice please": {"Score": 150, "Next":"End"},
-        "orange juice": {"Score": 200, "Next":"End"},
-        "orange juice please": {"Score": 300, "Next":"End"},
+      { "water": {"Score": 100, "Next":"WhatToEat"},
+        "water please": {"Score": 150, "Next":"WhatToEat"},
+        "juice": {"Score": 100, "Next":"WhatToEat},
+        "juice please": {"Score": 150, "Next":"WhatToEat"},
+        "orange juice": {"Score": 200, "Next":"WhatToEat"},
+        "orange juice please": {"Score": 300, "Next":"WhatToEat"},
+        "default": {"Score": -50, "Next": null}
+      }
+    },
+    "WhatToEat": { 
+      "Type": "Conversation",
+      "Question": "What would you like to eat?",
+      "AnswerWords": [ "Eggs", "Please", "Do", "omlet", "Table", "Chair", "Jogging", "Water" ],
+      "Solutions": 
+      { "eggs": {"Score": 100, "Next":"End"},
+        "eggs please": {"Score": 150, "Next":"End"},
+	"water": {"Score": 100, "Next":"WhatToDrink"},
+        "water please": {"Score": 150, "Next":"WhatToDrink"},
+        "omlet please": {"Score": 150, "Next":"End"},
+        "omlet please": {"Score": 150, "Next":"End"},
         "default": {"Score": -50, "Next": null}
       }
     },
