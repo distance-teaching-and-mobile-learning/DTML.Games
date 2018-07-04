@@ -19,7 +19,7 @@
       "Solutions": 
       { "water": {"Score": 100, "Next":"WhatToEat"},
         "water please": {"Score": 150, "Next":"WhatToEat"},
-        "juice": {"Score": 100, "Next":"WhatToEat},
+        "juice": {"Score": 100, "Next":"WhatToEat" },
         "juice please": {"Score": 150, "Next":"WhatToEat"},
         "orange juice": {"Score": 200, "Next":"WhatToEat"},
         "orange juice please": {"Score": 300, "Next":"WhatToEat"},
@@ -29,13 +29,13 @@
     "WhatToEat": { 
       "Type": "Conversation",
       "Question": "What would you like to eat?",
-      "AnswerWords": [ "Eggs", "Please", "Do", "omlet", "Table", "Chair", "Jogging", "Water" ],
+      "AnswerWords": [ "Eggs", "Please", "Do", "Omlet", "Table", "Chair", "Jogging", "Water" ],
       "Solutions": 
       { "eggs": {"Score": 100, "Next":"End"},
         "eggs please": {"Score": 150, "Next":"End"},
-	"water": {"Score": 100, "Next":"WhatToDrink"},
+	    "water": {"Score": 100, "Next":"WhatToDrink"},
         "water please": {"Score": 150, "Next":"WhatToDrink"},
-        "omlet please": {"Score": 150, "Next":"End"},
+        "Omlet": {"Score": 100, "Next":"End"},
         "omlet please": {"Score": 150, "Next":"End"},
         "default": {"Score": -50, "Next": null}
       }
