@@ -15,7 +15,6 @@ under the License.
 
 import Phaser from 'phaser'
 import FreeText from '../sprites/FreeText'
-import {flags, languages} from '../sprites/Flags'
 import Border from '../sprites/Border'
 
 Array.prototype.chunk = function (n) {

@@ -17,7 +17,6 @@ import Phaser from 'phaser'
 import {centerGameObjects} from '../utils'
 import PhaserInput from '../libs/phaser-input'
 import PhaserJuicy from '../libs/juicy'
-import {flags, languages} from '../sprites/Flags'
 import config from '../config';
 import WebFont from 'webfontloader'
 
