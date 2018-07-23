@@ -48,9 +48,6 @@ export default class extends Phaser.State {
         this.music = music;
         this.steps = game.add.audio('steps');
 
-        //this.createSideMenu();
-        this.createBottomMenu();
-
         this.spritesGroup = this.add.group();
 
         this.wiz = this.loadSpriter('wizard');
@@ -104,7 +101,7 @@ export default class extends Phaser.State {
 
         let inputW = 650;
         let inputH = 40;
-        this.textBox = this.add.inputField(this.world.centerX - (inputW / 2) * game.scaleRatio, this.game.height - 100 - (inputH * 2) * game.scaleRatio, {
+        this.textBox = this.add.inputField(this.world.centerX - (inputW / 2) * game.scaleRatio, this.game.height - 115 - (inputH * 2) * game.scaleRatio, {
             font: '40px Arial',
             fill: '#212121',
             fontWeight: 'bold',
@@ -229,7 +226,7 @@ export default class extends Phaser.State {
     }
 
     ConversationStart() {
-        this.SayItByCook(this.stateMachine.getQuestion());
+        this.SayItByCook(this.stateMachine.getQuestion(), true);
         // WAIT for input
     }
 
@@ -261,11 +258,11 @@ export default class extends Phaser.State {
             label.kill();
 
             // Once the player has said something, the cook should respond
-            this.SayItByCook(this.stateMachine.getQuestion());
+            this.SayItByCook(this.stateMachine.getQuestion(), this.stateMachine.submitSolutionResult);
         })
     }
 
-    SayItByCook(text) {
+    SayItByCook(text, submitResult) {
 
         if (text == '') {
             this.state.start('GameOver', true, false, this.scoreText.text)
@@ -275,6 +272,35 @@ export default class extends Phaser.State {
         this.wiz.playAnimationByName('_SAY');
         this.wiz.x = this.wiz.x - 120;
         this.wiz.y = this.wiz.y - 65;
+
+
+
+        if (!submitResult) {
+            var submitFailureText = "I'm sorry, I didn't understand you...";
+            this.textToSpeach(submitFailureText, 'Microsoft David');
+
+            let label2 = this.game.add.text(this.wiz.x - 190, this.wiz.y - 160, submitFailureText, {
+                font: "18px Berkshire Swash",
+                fill: "#000",
+                align: "center",
+                wordWrap: true,
+                wordWrapWidth: 150
+            });
+            label2.anchor.setTo(0.5);
+
+            this.time.events.add(4000, () => {
+                this.gnome.setAnimationSpeedPercent(30);
+                this.gnome.playAnimationByName('_IDLE');
+                label2.kill();
+    
+                this.wiz.x = this.wiz.x + 120;
+                this.wiz.y = this.wiz.y + 65;
+                // Once the player has said something, the cook should respond
+                this.SayItByCook(this.stateMachine.getQuestion(), true);
+            })
+            return;
+        }
+
         this.textToSpeach(text, 'Microsoft David');
 
         let label = this.game.add.text(this.wiz.x - 190, this.wiz.y - 160, text, {
@@ -284,23 +310,25 @@ export default class extends Phaser.State {
             wordWrap: true,
             wordWrapWidth: 150
         });
-
         label.anchor.setTo(0.5);
 
-        // Hack to move cook back to the right place
-        this.time.events.add(5000, () => {
-            this.wiz.setAnimationSpeedPercent(30);
-            this.wiz.playAnimationByName('_IDLE');
-            this.wiz.x = this.wiz.x + 120;
-            this.wiz.y = this.wiz.y + 65;
-            label.kill();
-        });
+        if (submitResult) {
+
+            // Hack to move cook back to the right place
+            this.time.events.add(5000, () => {
+                this.wiz.setAnimationSpeedPercent(30);
+                this.wiz.playAnimationByName('_IDLE');
+                this.wiz.x = this.wiz.x + 120;
+                this.wiz.y = this.wiz.y + 65;
+                label.kill();
+            });
 
 
-        // After cook speaks, the player should be able to answer
-        this.time.events.add(500, () => {
-            this.createSideMenu();
-        });
+            // After cook speaks, the player should be able to answer
+            this.time.events.add(500, () => {
+                this.createSideMenu();
+            });
+        }
     }
 
     sendAnswer(answer, attempt) {
@@ -442,7 +470,7 @@ export default class extends Phaser.State {
             searchForClicks: true,
         }
 
-        this.listView = new ListView(this.game, this.game.world, new Phaser.Rectangle(50, this.sidemenu.height - 100, this.sidemenu.width, this.sidemenu.height - 10), options);
+        this.listView = new ListView(this.game, this.game.world, new Phaser.Rectangle(50, this.sidemenu.height - 125, this.sidemenu.width, this.sidemenu.height - 10), options);
 
         var i = 0;
         this.stateMachine.getAnswerWords().forEach((word) => {
@@ -471,12 +499,6 @@ export default class extends Phaser.State {
     destroySideMenu() {
         this.sidemenu.kill();
         this.listView.grp.visible = false;
-    }
-
-    createBottomMenu() {
-        this.bottommenu = this.game.add.sprite(this.game.width * 0.5, this.game.height - 300, 'bottommenu');
-        this.bottommenu.x -= this.bottommenu.width * 0.5;
-        this.bottommenu.y += this.bottommenu.height;
     }
 
     loadSpriter(key) {
