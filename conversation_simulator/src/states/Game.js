@@ -211,7 +211,8 @@ export default class extends Phaser.State {
 
     textToSpeach(text, voice) {
         this.awaitVoices.then(() => {
-            var voices2 = window.speechSynthesis.getVoices().filter(a => a.name === voice)[0];
+            var listOfVoices = window.speechSynthesis.getVoices();
+            var voices2 = listOfVoices.filter(a => a.name.startsWith(voice))[0];
             var msg = new SpeechSynthesisUtterance();
 
             msg.voice = voices2;
@@ -241,7 +242,7 @@ export default class extends Phaser.State {
 
         this.gnome.setAnimationSpeedPercent(30);
         this.gnome.playAnimationByName('_SAY');
-        this.textToSpeach(text, 'Microsoft Zira Desktop - English (United States)');
+        this.textToSpeach(text, 'Microsoft Zira');
         let label = this.game.add.text(this.gnome.x + 140, this.gnome.y - 200, text, {
             font: "15px Berkshire Swash",
             fill: "#000",
@@ -274,7 +275,7 @@ export default class extends Phaser.State {
         this.wiz.playAnimationByName('_SAY');
         this.wiz.x = this.wiz.x - 120;
         this.wiz.y = this.wiz.y - 65;
-        this.textToSpeach(text, 'Microsoft David Desktop - English (United States)');
+        this.textToSpeach(text, 'Microsoft David');
 
         let label = this.game.add.text(this.wiz.x - 190, this.wiz.y - 160, text, {
             font: "18px Berkshire Swash",
