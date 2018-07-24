@@ -51,7 +51,7 @@ export default class extends Phaser.State {
         this.wiz = this.loadSpriter('wizard');
         this.wiz.scale.set(0.8 * game.scaleRatio, 0.8 * game.scaleRatio);
         this.wiz.x = -180 * game.scaleRatio;
-        this.wiz.y = this.world.height * 0.65 * game.scaleRatio;
+        this.wiz.y = this.world.height -325;
         this.spritesGroup.add(this.wiz);
 
         this.gnome = this.loadSpriter('gnome');
@@ -63,7 +63,7 @@ export default class extends Phaser.State {
 
         this.gnome.x = game.width + 180 * game.scaleRatio;
         this.gnome.startx = this.world.width * 0.75 * game.scaleRatio;
-        this.gnome.y = this.world.height * 0.65 * game.scaleRatio;
+        this.gnome.y = this.world.height -310;
         this.gnome.setAnimationSpeedPercent(40);
         this.gnome.playAnimationByName('_IDLE');
         this.spritesGroup.add(this.gnome);
@@ -133,28 +133,7 @@ export default class extends Phaser.State {
                 menuSpriteButton.input.priorityID = 0;
 
                 menuSpriteButton.events.onInputDown.add(this.openMenu, this);
-
-                //game.add.tween(iconAttack.scale).to({x: 0.5 * game.scaleRatio}, 500, Phaser.Easing.Bounce.Out, true)
             });
-/*             let inputW2 = 75;
-            this.sideMenutextBox = this.add.inputField(this.game.width-150 - (inputW2 / 2) * game.scaleRatio, 64 + (inputH * 2) * game.scaleRatio, {
-                font: '40px Arial',
-                fill: '#212121',
-                fontWeight: 'bold',
-                width: inputW2,
-                padding: 8,
-                borderWidth: 1,
-                borderColor: '#000',
-                borderRadius: 6,
-                placeHolder: 'Sound 1:',
-                focusOutOnEnter: false
-            });
-            this.sideMenutextBox.scale.set(0, 1 * game.scaleRatio);
-            game.add.tween(this.sideMenutextBox.scale).to({ x: 1 * game.scaleRatio }, 500, Phaser.Easing.Cubic.Out, true, 2500)
-                .onComplete.add(() => {
-
-                    //game.add.tween(iconAttack.scale).to({x: 0.5 * game.scaleRatio}, 500, Phaser.Easing.Bounce.Out, true)
-                }); */
 
         this.errorText = new FreeText({
             game: this.game,
@@ -234,7 +213,7 @@ export default class extends Phaser.State {
     textToSpeach(text, voice) {
         this.awaitVoices.then(() => {
             var listOfVoices = window.speechSynthesis.getVoices();
-            var voices2 = listOfVoices.filter(a => a.name.startsWith(voice))[0];
+            var voices2 = listOfVoices.filter(a => a.name.toLowerCase().includes(voice.toLowerCase()))[0];
             var msg = new SpeechSynthesisUtterance();
 
             msg.voice = voices2;
@@ -499,8 +478,8 @@ export default class extends Phaser.State {
 
     updateSounds()
     {
-        this.customerVoice = this.inputCustomerVoice.text;
-        this.cookVoice = this.inputCookVoice.text;
+        this.customerVoice = this.inputCustomerVoice.value;
+        this.cookVoice = this.inputCookVoice.value;
     }
 
     createSideMenu() {
