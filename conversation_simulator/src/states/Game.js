@@ -22,14 +22,12 @@ import StateMachine from '../StateMachine'
 
 export default class extends Phaser.State {
     init() {
-        this.wizDead = false;
-        this.restartEntered = false;
-        this.questionField = null;
-        this.scoreSubmitted = false;
         this.stateMachine = new StateMachine(this.game.cache.getJSON('stateData'));
         this.stateMachine.printDebugInfo();
         window.speechSynthesis.getVoices();
         this.awaitVoices = new Promise(done => window.speechSynthesis.onvoiceschanged = done);
+        this.cookVoice = 'Microsoft David';
+        this.customerVoice = 'Microsoft Zira';
     }
 
     create() {
@@ -116,19 +114,47 @@ export default class extends Phaser.State {
         this.textBox.scale.set(0, 1 * game.scaleRatio);
         game.add.tween(this.textBox.scale).to({ x: 1 * game.scaleRatio }, 500, Phaser.Easing.Cubic.Out, true, 2500)
             .onComplete.add(() => {
-                let iconAttack = game.add.sprite(0, 0, 'iconAttack');
-                iconAttack.scale.set(0.7 * game.scaleRatio);
-                iconAttack.anchor.set(0.5);
-                iconAttack.x = this.textBox.x + this.textBox.width * game.scaleRatio;
-                iconAttack.y = this.textBox.y + this.textBox.height / 2;
-                iconAttack.inputEnabled = true;
-                iconAttack.input.priorityID = 0;
+                let enterSpriteButton = game.add.sprite(0, 0, 'iconAttack');
+                enterSpriteButton.scale.set(0.7 * game.scaleRatio);
+                enterSpriteButton.anchor.set(0.5);
+                enterSpriteButton.x = this.textBox.x + this.textBox.width * game.scaleRatio;
+                enterSpriteButton.y = this.textBox.y + this.textBox.height / 2;
+                enterSpriteButton.inputEnabled = true;
+                enterSpriteButton.input.priorityID = 0;
 
                 this.ConversationStart();
 
-                iconAttack.events.onInputDown.add(this.SayItByCustomer, this);
+                enterSpriteButton.events.onInputDown.add(this.SayItByCustomer, this);
+
+                let menuSpriteButton = game.add.sprite(this.game.width-100, 100, 'openmenu');
+                menuSpriteButton.scale.set(0.7 * game.scaleRatio);
+                menuSpriteButton.anchor.set(0.5);
+                menuSpriteButton.inputEnabled = true;
+                menuSpriteButton.input.priorityID = 0;
+
+                menuSpriteButton.events.onInputDown.add(this.openMenu, this);
+
                 //game.add.tween(iconAttack.scale).to({x: 0.5 * game.scaleRatio}, 500, Phaser.Easing.Bounce.Out, true)
             });
+/*             let inputW2 = 75;
+            this.sideMenutextBox = this.add.inputField(this.game.width-150 - (inputW2 / 2) * game.scaleRatio, 64 + (inputH * 2) * game.scaleRatio, {
+                font: '40px Arial',
+                fill: '#212121',
+                fontWeight: 'bold',
+                width: inputW2,
+                padding: 8,
+                borderWidth: 1,
+                borderColor: '#000',
+                borderRadius: 6,
+                placeHolder: 'Sound 1:',
+                focusOutOnEnter: false
+            });
+            this.sideMenutextBox.scale.set(0, 1 * game.scaleRatio);
+            game.add.tween(this.sideMenutextBox.scale).to({ x: 1 * game.scaleRatio }, 500, Phaser.Easing.Cubic.Out, true, 2500)
+                .onComplete.add(() => {
+
+                    //game.add.tween(iconAttack.scale).to({x: 0.5 * game.scaleRatio}, 500, Phaser.Easing.Bounce.Out, true)
+                }); */
 
         this.errorText = new FreeText({
             game: this.game,
@@ -158,7 +184,6 @@ export default class extends Phaser.State {
     }
 
     gameOver() {
-        this.questionField.alpha = 0;
         this.wiz.kill();
         this.gnome.kill();
         this.textBox.kill();
@@ -226,7 +251,15 @@ export default class extends Phaser.State {
     }
 
     ConversationStart() {
+        //this.menu = this.game.add.sprite(this.game.width-100, 64, 'openmenu');
         this.SayItByCook(this.stateMachine.getQuestion(), true);
+
+        
+
+        
+        ////this.menu.events.onInputDown.add(this.openMenu, this);
+        //this.menu.events.onInputDown.add(this.openMenu, this);
+        //this.menu.events.onInputDown.add(this.openMenu, this);
         // WAIT for input
     }
 
@@ -239,7 +272,7 @@ export default class extends Phaser.State {
 
         this.gnome.setAnimationSpeedPercent(30);
         this.gnome.playAnimationByName('_SAY');
-        this.textToSpeach(text, 'Microsoft Zira');
+        this.textToSpeach(text, this.customerVoice);
         let label = this.game.add.text(this.gnome.x + 140, this.gnome.y - 200, text, {
             font: "15px Berkshire Swash",
             fill: "#000",
@@ -277,7 +310,7 @@ export default class extends Phaser.State {
 
         if (!submitResult) {
             var submitFailureText = "I'm sorry, I didn't understand you...";
-            this.textToSpeach(submitFailureText, 'Microsoft David');
+            this.textToSpeach(submitFailureText, this.cookVoice);
 
             let label2 = this.game.add.text(this.wiz.x - 190, this.wiz.y - 160, submitFailureText, {
                 font: "18px Berkshire Swash",
@@ -292,7 +325,7 @@ export default class extends Phaser.State {
                 this.gnome.setAnimationSpeedPercent(30);
                 this.gnome.playAnimationByName('_IDLE');
                 label2.kill();
-    
+
                 this.wiz.x = this.wiz.x + 120;
                 this.wiz.y = this.wiz.y + 65;
                 // Once the player has said something, the cook should respond
@@ -301,7 +334,7 @@ export default class extends Phaser.State {
             return;
         }
 
-        this.textToSpeach(text, 'Microsoft David');
+        this.textToSpeach(text, this.cookVoice);
 
         let label = this.game.add.text(this.wiz.x - 190, this.wiz.y - 160, text, {
             font: "18px Berkshire Swash",
@@ -329,9 +362,6 @@ export default class extends Phaser.State {
                 this.createSideMenu();
             });
         }
-    }
-
-    sendAnswer(answer, attempt) {
     }
 
     showScore() {
@@ -391,22 +421,6 @@ export default class extends Phaser.State {
     }
 
     update() {
-        /*   if (this.textBox.value != '') {
-              // if (!this.textBox.focus)
-                //   if (!this.wizDead)
-                       // this.submitAnswer();
-           }
-   */
-        if (!this.textBox.focus && !this.wizDead)
-            this.textBox.startFocus();
-        this.textBox.update();
-        /*
-                if (!this.wizDead)
-                    this.wiz.updateAnimation();
-                else
-                    this.scoreWiz.updateAnimation();
-                this.gnome.updateAnimation(); */
-
         // Keep the score up to date
         if (this.stateMachine && this.scoreText) {
             this.scoreText.text = this.stateMachine.getScore();
@@ -414,49 +428,84 @@ export default class extends Phaser.State {
 
     }
 
-    render() {
-        if (__DEV__) {
-            // this.game.debug.spriteInfo(this.mushroom, 32, 32)
-        }
-    }
-
-    createIcon(x, y, key) {
-        // create a group for the icon so they don't get sorted along with the sprites in the game.world
-        let iconGroup = game.add.group();
-
-        // position the icon
-        let icon = game.add.sprite(x, y, key);
-        icon.scale.set(0.45);
-        icon.anchor.set(0.5);
-
-        this.icon = icon;
-
-        return icon
-    }
-
 
     addCharToNode(sprite) {
-
-        var names = '';
-        var type = '';
-
-        var config = {
-            name: names,
-            type: type,
-            image: 'characters',
-            frame: sprite.frame,
-            sex: this.genreType
-        };
         this.textBox.setText(this.textBox.value + " " + sprite.text);
-        // this.textBox.value += sprite.text;
-        //this.selectedNode.setImageBg(config);
-
-        //this.processMenu(this.closeSidemenu);
-        // this.listView.grp.visible = false;
-        //this.openMenu.frame = 0;
-        //this.processMenu(this.openBottommenu);
     }
+
+    openMenu()
+    {
+        this.menu = this.game.add.sprite(this.game.width -250, 128, 'sidemenu');
+
+        var listOfVoices = window.speechSynthesis.getVoices();
+
+        
+        var options = {
+            direction: 'y',
+            overflow: 100,
+            padding: 10,
+            swipeEnabled: true,
+            offsetThreshold: 100,
+            searchForClicks: true,
+        }
+        var i = 0;
+        var listView = new ListView(this.game, this.game.world, new Phaser.Rectangle(this.sidemenu.width-225, 250, this.sidemenu.width-150, 300), options);
+        listOfVoices.forEach(element => {
+            
+            var character = this.game.add.text(0, 0, element.name, i++);
+            character.borderColor='Black';
+            character.borderWidth=5;
+            character.fontWeight='normal';
+            character.wordWrap=true;
+            character.wordWrapWidth=125;
+            character.maxWidth = 125;
+            listView.add(character);
+        });
+
+        this.inputCustomerVoice = this.add.inputField(this.game.width -225, 150, {
+            font: '20px Arial',
+            fill: '#212121',
+            fontWeight: 'bold',
+            width: 100,
+            padding: 8,
+            borderWidth: 1,
+            borderColor: '#000',
+            borderRadius: 6,
+            placeHolder: 'Sounrd 1',
+            focusOutOnEnter: false
+        });       
+       this.inputCookVoice =  this.add.inputField(this.game.width -225, 200, {
+            font: '20px Arial',
+            fill: '#212121',
+            fontWeight: 'bold',
+            width: 100,
+            padding: 8,
+            borderWidth: 1,
+            borderColor: '#000',
+            borderRadius: 6,
+            placeHolder: 'Sounrd 2',
+            focusOutOnEnter: false
+        });
+
+        
+        let enterSpriteButton = game.add.sprite(this.game.width -150, 605, 'iconAttack');
+        enterSpriteButton.scale.set(0.5);
+        enterSpriteButton.anchor.set(0.5);
+        enterSpriteButton.inputEnabled = true;
+        enterSpriteButton.input.priorityID = 0;
+
+        enterSpriteButton.events.onInputDown.add(this.updateSounds, this);
+    }
+
+    updateSounds()
+    {
+        this.customerVoice = this.inputCustomerVoice.text;
+        this.cookVoice = this.inputCookVoice.text;
+    }
+
     createSideMenu() {
+        
+
         this.sidemenu = this.game.add.sprite(this.game.width, this.game.height, 'sidemenu');
         this.sidemenu.height = this.game.height;
         this.sidemenu.width = this.game.width;

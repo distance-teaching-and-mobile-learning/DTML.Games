@@ -86,9 +86,10 @@ export default class extends Phaser.State {
         this.load.spritesheet('heart', 'assets/images/ss-heart.png', 48, 48, 6)
     
         //side menu
-        this.load.image('sidemenu', 'assets/images/sidemenu.png');
+        this.load.spritesheet('openmenu', 'assets/images/openMenu.png',64,64);
         this.load.spritesheet('sidebg', 'assets/images/sidebg.png',115,117);
         this.load.spritesheet('characters', 'assets/images/characters.png', 96, 128);
+        this.load.image('sidemenu', 'assets/images/sidemenu.png');
 
         // game state data
         this.load.json('stateData', 'assets/data/gameStates.json');

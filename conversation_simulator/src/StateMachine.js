@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import _ from 'lodash'
+import jQuery from 'jquery'
 
 export default class {
     constructor(stateData) {
@@ -50,7 +51,13 @@ export default class {
         var solution = this.currentState.Solutions[normalizedPhrase] || this.currentState.Solutions.default;
 
         // Apply score
-        this.score += solution.Score;
+
+        jQuery.get("https://dtml.org/api/GameService/ScorePhrase/?phrase=" + solutionPhrase.trim(), (result)=>{
+            this.score += result;
+        });
+        //https://dtml.org/api/GameService/ScorePhrase/?phrase=eggs%27please 
+
+        //this.score += solution.Score;
 
         // Transition to next state
         if (solution.Next !== null) {
