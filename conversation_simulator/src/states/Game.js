@@ -160,6 +160,9 @@ export default class extends Phaser.State {
             cloudEnabled: true
         });
         this.addScoreText.text.fill = "#00ff00";
+
+        var enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+        enterKey.onDown.add(this.SayItByCustomer, this);
     }
 
     gameOver() {
@@ -341,52 +344,6 @@ export default class extends Phaser.State {
                 this.createSideMenu();
             });
         }
-    }
-
-    showScore() {
-        let scoreDisplay = this.game.add.sprite(this.game.world.centerX * 1.3, this.game.world.centerY, 'scroll');
-        scoreDisplay.anchor.setTo(0.5);
-        scoreDisplay.scale.setTo(0.2);
-        this.spritesGroup.add(scoreDisplay);
-
-        let label = this.game.add.text(scoreDisplay.x, scoreDisplay.y - (scoreDisplay.height * 0.18), 'Final Score', {
-            font: "50px Berkshire Swash",
-            fill: "#000",
-            align: "center"
-        });
-        label.fontWeight = 'bold';
-        label.anchor.setTo(0.5);
-        label.setShadow(0, 0, 'rgba(0, 0, 0, 0.5)', 0);
-
-        let scoreText = this.game.add.text(scoreDisplay.x, scoreDisplay.y - (scoreDisplay.height * 0.05), this.scoreText.text, {
-            font: "70px Berkshire Swash",
-            fill: "#000",
-            align: "center"
-        });
-        scoreText.anchor.setTo(0.5);
-
-        let resetButton = this.game.add.text(scoreDisplay.x, scoreDisplay.y + (scoreDisplay.height * 0.2), 'RESTART', {
-            font: "50px Berkshire Swash",
-            fill: "#333",
-            align: "center"
-        });
-        resetButton.anchor.setTo(0.5);
-        resetButton.inputEnabled = true;
-        resetButton.events.onInputDown.add(() => {
-            this.showMenu();
-        });
-        resetButton.input.useHandCursor = true;
-
-        this.scoreWiz = this.loadSpriter('wizard');
-        this.scoreWiz.scale.set(0.38 * game.scaleRatio);
-        this.scoreWiz.x = scoreDisplay.x - (scoreDisplay.width);
-        this.scoreWiz.y = scoreDisplay.y + (scoreDisplay.height * 0.2);
-        this.scoreWiz.setAnimationSpeedPercent(40);
-        this.scoreWiz.playAnimationByName('_IDLE');
-        this.spritesGroup.add(this.scoreWiz);
-        this.spritesGroup.bringToTop(this.scoreWiz);
-
-        this.gameOver()
     }
 
     showMenu() {
