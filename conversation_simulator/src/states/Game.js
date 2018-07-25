@@ -31,6 +31,7 @@ export default class extends Phaser.State {
     }
 
     create() {
+
         this.language = this.game.state.states['Game']._language;
         this.langCode = this.game.state.states['Game']._langCode;
         let bg = new Background({ game: this.game });
@@ -46,56 +47,6 @@ export default class extends Phaser.State {
         this.music = music;
         this.steps = game.add.audio('steps');
 
-        this.spritesGroup = this.add.group();
-
-        this.wiz = this.loadSpriter('wizard');
-        this.wiz.scale.set(0.8 * game.scaleRatio, 0.8 * game.scaleRatio);
-        this.wiz.x = -180 * game.scaleRatio;
-        this.wiz.y = this.world.height -325;
-        this.spritesGroup.add(this.wiz);
-
-        this.gnome = this.loadSpriter('gnome');
-        this.gnome.scale.set(0.7 * game.scaleRatio, 0.7 * game.scaleRatio);
-
-        this.gnome.children.forEach(sprite => {
-            sprite.anchor.set(0, 1)
-        });
-
-        this.gnome.x = game.width + 180 * game.scaleRatio;
-        this.gnome.startx = this.world.width * 0.75 * game.scaleRatio;
-        this.gnome.y = this.world.height -310;
-        this.gnome.setAnimationSpeedPercent(40);
-        this.gnome.playAnimationByName('_IDLE');
-        this.spritesGroup.add(this.gnome);
-
-        // intro sequence
-        this.wiz.setAnimationSpeedPercent(100);
-        this.wiz.playAnimationByName('_RUN');
-        game.add.tween(this.wiz).to({ x: this.world.width * 0.5 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 1500)
-            .onComplete.add(() => {
-                this.wiz.setAnimationSpeedPercent(100);
-                this.wiz.playAnimationByName('_IDLE');
-            });
-
-        this.gnome.setAnimationSpeedPercent(200);
-        this.gnome.playAnimationByName('_RUN');
-        game.add.tween(this.gnome).to({ x: this.world.width * 0.6 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 1500)
-            .onComplete.add(() => {
-                this.gnome.setAnimationSpeedPercent(30);
-                this.gnome.playAnimationByName('_IDLE');
-
-
-                var label = game.add.text(this.world.width * 0.90, this.game.world.centerY * 0.1, 'Score: ', {
-                    font: "32px Berkshire Swash",
-                    fill: '#FFF'
-                });
-                label.anchor.setTo(0.5);
-                this.scoreText = game.add.text(this.world.width * 0.98, this.game.world.centerY * 0.1, '0', {
-                    font: "40px Berkshire Swash",
-                    fill: '#FFF'
-                });
-                this.scoreText.anchor.setTo(0.5);
-            });
 
         let inputW = 650;
         let inputH = 40;
@@ -122,18 +73,20 @@ export default class extends Phaser.State {
                 enterSpriteButton.inputEnabled = true;
                 enterSpriteButton.input.priorityID = 0;
 
-                this.ConversationStart();
 
                 enterSpriteButton.events.onInputDown.add(this.SayItByCustomer, this);
-
-                let menuSpriteButton = game.add.sprite(this.game.width-100, 100, 'openmenu');
-                menuSpriteButton.scale.set(0.7 * game.scaleRatio);
-                menuSpriteButton.anchor.set(0.5);
-                menuSpriteButton.inputEnabled = true;
-                menuSpriteButton.input.priorityID = 0;
-
-                menuSpriteButton.events.onInputDown.add(this.openMenu, this);
+                // let menuSpriteButton = game.add.sprite(this.game.width - 100, 100, 'openmenu');
+                // menuSpriteButton.scale.set(0.7 * game.scaleRatio);
+                // menuSpriteButton.anchor.set(0.5);
+                // menuSpriteButton.inputEnabled = true;
+                // menuSpriteButton.input.priorityID = 0;
+                // menuSpriteButton.events.onInputDown.add(this.openMenu, this);
             });
+
+            this.createSprites();
+    }
+
+    createSprites() {
 
         this.errorText = new FreeText({
             game: this.game,
@@ -142,7 +95,6 @@ export default class extends Phaser.State {
             text: 'Error connecting. Retrying...',
             cloudEnabled: true
         });
-
         this.fetchNextSet();
         this.correctText = new FreeText({
             game: this.game,
@@ -151,7 +103,6 @@ export default class extends Phaser.State {
             text: '0',
             cloudEnabled: true
         });
-
         this.addScoreText = new FreeText({
             game: this.game,
             x: this.world.width * 0.75,
@@ -160,9 +111,54 @@ export default class extends Phaser.State {
             cloudEnabled: true
         });
         this.addScoreText.text.fill = "#00ff00";
-
         var enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
         enterKey.onDown.add(this.SayItByCustomer, this);
+
+        this.spritesGroup = this.add.group();
+        this.wiz = this.loadSpriter('wizard');
+        this.wiz.scale.set(0.8 * game.scaleRatio, 0.8 * game.scaleRatio);
+        this.wiz.x = -180 * game.scaleRatio;
+        this.wiz.y = this.world.height - 325;
+        this.spritesGroup.add(this.wiz);
+        this.gnome = this.loadSpriter('gnome');
+        this.gnome.scale.set(0.7 * game.scaleRatio, 0.7 * game.scaleRatio);
+        this.gnome.children.forEach(sprite => {
+            sprite.anchor.set(0, 1);
+        });
+        this.gnome.x = game.width + 180 * game.scaleRatio;
+        this.gnome.startx = this.world.width * 0.75 * game.scaleRatio;
+        this.gnome.y = this.world.height - 310;
+        this.gnome.setAnimationSpeedPercent(40);
+        this.gnome.playAnimationByName('_IDLE');
+        this.spritesGroup.add(this.gnome);
+        // intro sequence
+        this.wiz.setAnimationSpeedPercent(100);
+        this.wiz.playAnimationByName('_RUN');
+        game.add.tween(this.wiz).to({ x: this.world.width * 0.5 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 1500)
+            .onComplete.add(() => {
+                this.wiz.setAnimationSpeedPercent(100);
+                this.wiz.playAnimationByName('_IDLE');
+                
+                this.ConversationStart();
+            });
+        this.gnome.setAnimationSpeedPercent(200);
+        this.gnome.playAnimationByName('_RUN');
+        game.add.tween(this.gnome).to({ x: this.world.width * 0.6 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 1500)
+            .onComplete.add(() => {
+                this.gnome.setAnimationSpeedPercent(30);
+                this.gnome.playAnimationByName('_IDLE');
+                var label = game.add.text(this.world.width * 0.90, this.game.world.centerY * 0.1, 'Score: ', {
+                    font: "32px Berkshire Swash",
+                    fill: '#FFF'
+                });
+                label.anchor.setTo(0.5);
+                this.scoreText = game.add.text(this.world.width * 0.98, this.game.world.centerY * 0.1, '0', {
+                    font: "40px Berkshire Swash",
+                    fill: '#FFF'
+                });
+                this.scoreText.anchor.setTo(0.5);
+            });
+
     }
 
     gameOver() {
@@ -233,16 +229,7 @@ export default class extends Phaser.State {
     }
 
     ConversationStart() {
-        //this.menu = this.game.add.sprite(this.game.width-100, 64, 'openmenu');
         this.SayItByCook(this.stateMachine.getQuestion(), true);
-
-        
-
-        
-        ////this.menu.events.onInputDown.add(this.openMenu, this);
-        //this.menu.events.onInputDown.add(this.openMenu, this);
-        //this.menu.events.onInputDown.add(this.openMenu, this);
-        // WAIT for input
     }
 
     SayItByCustomer() {
@@ -369,13 +356,12 @@ export default class extends Phaser.State {
         this.textBox.setText(this.textBox.value + " " + sprite.text);
     }
 
-    openMenu()
-    {
-        this.menu = this.game.add.sprite(this.game.width -250, 128, 'sidemenu');
+    openMenu() {
+        this.menu = this.game.add.sprite(this.game.width - 250, 128, 'sidemenu');
 
         var listOfVoices = window.speechSynthesis.getVoices();
 
-        
+
         var options = {
             direction: 'y',
             overflow: 100,
@@ -385,20 +371,20 @@ export default class extends Phaser.State {
             searchForClicks: true,
         }
         var i = 0;
-        var listView = new ListView(this.game, this.game.world, new Phaser.Rectangle(this.sidemenu.width-225, 250, this.sidemenu.width-150, 300), options);
+        var listView = new ListView(this.game, this.game.world, new Phaser.Rectangle(this.game.width - 225, 250, this.game.width - 150, 300), options);
         listOfVoices.forEach(element => {
-            
+
             var character = this.game.add.text(0, 0, element.name, i++);
-            character.borderColor='Black';
-            character.borderWidth=5;
-            character.fontWeight='normal';
-            character.wordWrap=true;
-            character.wordWrapWidth=125;
+            character.borderColor = 'Black';
+            character.borderWidth = 5;
+            character.fontWeight = 'normal';
+            character.wordWrap = true;
+            character.wordWrapWidth = 125;
             character.maxWidth = 125;
             listView.add(character);
         });
 
-        this.inputCustomerVoice = this.add.inputField(this.game.width -225, 150, {
+        this.inputCustomerVoice = this.add.inputField(this.game.width - 225, 150, {
             font: '20px Arial',
             fill: '#212121',
             fontWeight: 'bold',
@@ -407,24 +393,98 @@ export default class extends Phaser.State {
             borderWidth: 1,
             borderColor: '#000',
             borderRadius: 6,
-            placeHolder: 'Sounrd 1',
-            focusOutOnEnter: false
-        });       
-       this.inputCookVoice =  this.add.inputField(this.game.width -225, 200, {
-            font: '20px Arial',
-            fill: '#212121',
-            fontWeight: 'bold',
-            width: 100,
-            padding: 8,
-            borderWidth: 1,
-            borderColor: '#000',
-            borderRadius: 6,
-            placeHolder: 'Sounrd 2',
+            placeHolder: 'Customer voice',
             focusOutOnEnter: false
         });
 
-        
-        let enterSpriteButton = game.add.sprite(this.game.width -150, 605, 'iconAttack');
+        this.inputCookVoice = this.add.inputField(this.game.width - 225, 200, {
+            font: '20px Arial',
+            fill: '#212121',
+            fontWeight: 'bold',
+            width: 100,
+            padding: 8,
+            borderWidth: 1,
+            borderColor: '#000',
+            borderRadius: 6,
+            placeHolder: 'Cook voice',
+            focusOutOnEnter: false
+        });
+
+        this.inputCustomerSpritePng = this.add.inputField(this.game.width - 350, 150, {
+            font: '20px Arial',
+            fill: '#212121',
+            fontWeight: 'bold',
+            width: 100,
+            padding: 8,
+            borderWidth: 1,
+            borderColor: '#000',
+            borderRadius: 6,
+            placeHolder: 'Cus png',
+            focusOutOnEnter: false
+        });
+        this.inputCustomerSpriteJson = this.add.inputField(this.game.width - 500, 150, {
+            font: '20px Arial',
+            fill: '#212121',
+            fontWeight: 'bold',
+            width: 100,
+            padding: 8,
+            borderWidth: 1,
+            borderColor: '#000',
+            borderRadius: 6,
+            placeHolder: 'Cus json',
+            focusOutOnEnter: false
+        });
+        this.inputCustomerSpriteScml = this.add.inputField(this.game.width - 650, 150, {
+            font: '20px Arial',
+            fill: '#212121',
+            fontWeight: 'bold',
+            width: 100,
+            padding: 8,
+            borderWidth: 1,
+            borderColor: '#000',
+            borderRadius: 6,
+            placeHolder: 'Cus scml',
+            focusOutOnEnter: false
+        });
+        this.inputCookSpritePng = this.add.inputField(this.game.width - 350, 200, {
+            font: '20px Arial',
+            fill: '#212121',
+            fontWeight: 'bold',
+            width: 100,
+            padding: 8,
+            borderWidth: 1,
+            borderColor: '#000',
+            borderRadius: 6,
+            placeHolder: 'Co png',
+            focusOutOnEnter: false
+        });
+        this.inputCookSpriteJson = this.add.inputField(this.game.width - 500, 200, {
+            font: '20px Arial',
+            fill: '#212121',
+            fontWeight: 'bold',
+            width: 100,
+            padding: 8,
+            borderWidth: 1,
+            borderColor: '#000',
+            borderRadius: 6,
+            placeHolder: 'Co json',
+            focusOutOnEnter: false
+        });
+        this.inputCookSpriteScml = this.add.inputField(this.game.width - 650, 200, {
+            font: '20px Arial',
+            fill: '#212121',
+            fontWeight: 'bold',
+            width: 100,
+            padding: 8,
+            borderWidth: 1,
+            borderColor: '#000',
+            borderRadius: 6,
+            placeHolder: 'Co scml',
+            focusOutOnEnter: false
+        });
+
+
+        let enterSpriteButton = game.add.sprite(this.game.width - 150, 605, 'iconAttack');
         enterSpriteButton.scale.set(0.5);
         enterSpriteButton.anchor.set(0.5);
         enterSpriteButton.inputEnabled = true;
@@ -433,14 +493,22 @@ export default class extends Phaser.State {
         enterSpriteButton.events.onInputDown.add(this.updateSounds, this);
     }
 
-    updateSounds()
-    {
+    updateSounds() {
+
+
+        game.load.atlas('wizard', this.inputCookSpritePng.value, this.inputCookSpriteJson.value);
+        game.load.xml('wizardAnimations', this.inputCookSpriteScml.value);
+
+        game.load.atlas('gnome', this.inputCustomerSpritePng.value, this.inputCustomerSpriteJson.value);
+        game.load.xml('gnomeAnimations', this.inputCustomerSpriteScml.value);
+
+        
         this.customerVoice = this.inputCustomerVoice.value;
         this.cookVoice = this.inputCookVoice.value;
     }
 
     createSideMenu() {
-        
+
 
         this.sidemenu = this.game.add.sprite(this.game.width, this.game.height, 'sidemenu');
         this.sidemenu.height = this.game.height;
