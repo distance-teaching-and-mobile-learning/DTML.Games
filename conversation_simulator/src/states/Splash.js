@@ -14,7 +14,7 @@ under the License.
 */
 
 import Phaser from 'phaser'
-import {centerGameObjects} from '../utils'
+import { centerGameObjects } from '../utils'
 import PhaserInput from '../libs/phaser-input'
 import PhaserJuicy from '../libs/juicy'
 import config from '../config';
@@ -51,9 +51,16 @@ export default class extends Phaser.State {
         //
         // this.load.video('intro', 'assets/videos/intro.webm');
         this.load.image('mushroom', 'assets/images/mushroom2.png')
-        
-	this.load.atlas('wizard', 'assets/images/wizard/atlas.png', 'assets/images/wizard/atlas.json')
+
+        this.load.atlas('wizard', 'assets/images/wizard/atlas.png', 'assets/images/wizard/atlas.json')
         this.load.xml('wizardAnimations', 'assets/images/wizard/animations.scml')
+
+        // load bar for patience
+        this.load.spritesheet('patienceBar5', 'assets/images/Health5.png', 245, 28);
+        this.load.spritesheet('patienceBar4', 'assets/images/Health4.png', 200, 27);
+        this.load.spritesheet('patienceBar3', 'assets/images/Health3.png', 150, 27);
+        this.load.spritesheet('patienceBar2', 'assets/images/Health2.png', 103, 27);
+        this.load.spritesheet('patienceBar1', 'assets/images/Health1.png', 53, 27);
 
         this.load.atlas('gnome', 'assets/images/gnome2/atlas.png', 'assets/images/gnome2/atlas.json')
         this.load.xml('gnomeAnimations', 'assets/images/gnome2/animations.scml')
@@ -71,7 +78,7 @@ export default class extends Phaser.State {
         this.load.image('bg6', 'assets/images/layers/l6_bush02.png')
         this.load.image('bg7', 'assets/images/layers/l7_ground.png')
         this.load.image('cloud', 'assets/images/cloud.png');
-		this.load.image('gameover', 'assets/images/endgame.jpg');
+        this.load.image('gameover', 'assets/images/endgame.jpg');
         this.load.image('scroll', 'assets/images/scroll.png');
 
         // audio
@@ -84,11 +91,12 @@ export default class extends Phaser.State {
 
         //this.load.atlas('flags', 'assets/images/flags/flags.png', 'assets/images/flags/flags.json')
         this.load.spritesheet('heart', 'assets/images/ss-heart.png', 48, 48, 6)
-    
+
         //side menu
-        this.load.image('sidemenu', 'assets/images/sidemenu.png');
-        this.load.spritesheet('sidebg', 'assets/images/sidebg.png',115,117);
+        this.load.spritesheet('openmenu', 'assets/images/openMenu.png', 64, 64);
+        this.load.spritesheet('sidebg', 'assets/images/sidebg.png', 115, 117);
         this.load.spritesheet('characters', 'assets/images/characters.png', 96, 128);
+        this.load.image('sidemenu', 'assets/images/sidemenu.png');
 
         // game state data
         this.load.json('stateData', 'assets/data/gameStates.json');
