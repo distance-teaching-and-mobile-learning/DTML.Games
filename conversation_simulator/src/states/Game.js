@@ -115,38 +115,38 @@ export default class extends Phaser.State {
         enterKey.onDown.add(this.SayItByCustomer, this);
 
         this.spritesGroup = this.add.group();
-        this.wiz = this.loadSpriter('wizard');
-        this.wiz.scale.set(0.8 * game.scaleRatio, 0.8 * game.scaleRatio);
-        this.wiz.x = -180 * game.scaleRatio;
-        this.wiz.y = this.world.height - 325;
-        this.spritesGroup.add(this.wiz);
-        this.gnome = this.loadSpriter('gnome');
-        this.gnome.scale.set(0.7 * game.scaleRatio, 0.7 * game.scaleRatio);
-        this.gnome.children.forEach(sprite => {
+        this.cook = this.loadSpriter('wizard');
+        this.cook.scale.set(0.8 * game.scaleRatio, 0.8 * game.scaleRatio);
+        this.cook.x = -180 * game.scaleRatio;
+        this.cook.y = this.world.height - 325;
+        this.spritesGroup.add(this.cook);
+        this.customer = this.loadSpriter('gnome');
+        this.customer.scale.set(0.7 * game.scaleRatio, 0.7 * game.scaleRatio);
+        this.customer.children.forEach(sprite => {
             sprite.anchor.set(0, 1);
         });
-        this.gnome.x = game.width + 180 * game.scaleRatio;
-        this.gnome.startx = this.world.width * 0.75 * game.scaleRatio;
-        this.gnome.y = this.world.height - 310;
-        this.gnome.setAnimationSpeedPercent(40);
-        this.gnome.playAnimationByName('_IDLE');
-        this.spritesGroup.add(this.gnome);
+        this.customer.x = game.width + 180 * game.scaleRatio;
+        this.customer.startx = this.world.width * 0.75 * game.scaleRatio;
+        this.customer.y = this.world.height - 310;
+        this.customer.setAnimationSpeedPercent(40);
+        this.customer.playAnimationByName('_IDLE');
+        this.spritesGroup.add(this.customer);
         // intro sequence
-        this.wiz.setAnimationSpeedPercent(100);
-        this.wiz.playAnimationByName('_RUN');
-        game.add.tween(this.wiz).to({ x: this.world.width * 0.5 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 1500)
+        this.cook.setAnimationSpeedPercent(100);
+        this.cook.playAnimationByName('_RUN');
+        game.add.tween(this.cook).to({ x: this.world.width * 0.5 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 1500)
             .onComplete.add(() => {
-                this.wiz.setAnimationSpeedPercent(100);
-                this.wiz.playAnimationByName('_IDLE');
+                this.cook.setAnimationSpeedPercent(100);
+                this.cook.playAnimationByName('_IDLE');
                 
                 this.ConversationStart();
             });
-        this.gnome.setAnimationSpeedPercent(200);
-        this.gnome.playAnimationByName('_RUN');
-        game.add.tween(this.gnome).to({ x: this.world.width * 0.6 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 1500)
+        this.customer.setAnimationSpeedPercent(200);
+        this.customer.playAnimationByName('_RUN');
+        game.add.tween(this.customer).to({ x: this.world.width * 0.6 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 1500)
             .onComplete.add(() => {
-                this.gnome.setAnimationSpeedPercent(30);
-                this.gnome.playAnimationByName('_IDLE');
+                this.customer.setAnimationSpeedPercent(30);
+                this.customer.playAnimationByName('_IDLE');
                 var label = game.add.text(this.world.width * 0.90, this.game.world.centerY * 0.1, 'Score: ', {
                     font: "32px Berkshire Swash",
                     fill: '#FFF'
@@ -162,8 +162,8 @@ export default class extends Phaser.State {
     }
 
     gameOver() {
-        this.wiz.kill();
-        this.gnome.kill();
+        this.cook.kill();
+        this.customer.kill();
         this.textBox.kill();
 
         var enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
@@ -239,10 +239,10 @@ export default class extends Phaser.State {
         var text = this.textBox.value;
         this.textBox.setText('');
 
-        this.gnome.setAnimationSpeedPercent(30);
-        this.gnome.playAnimationByName('_SAY');
+        this.customer.setAnimationSpeedPercent(30);
+        this.customer.playAnimationByName('_SAY');
         this.textToSpeach(text, this.customerVoice);
-        let label = this.game.add.text(this.gnome.x + 140, this.gnome.y - 200, text, {
+        let label = this.game.add.text(this.customer.x + 140, this.customer.y - 200, text, {
             font: "15px Berkshire Swash",
             fill: "#000",
             align: "center",
@@ -255,8 +255,8 @@ export default class extends Phaser.State {
         label.anchor.setTo(0.5);
 
         this.time.events.add(2500, () => {
-            this.gnome.setAnimationSpeedPercent(30);
-            this.gnome.playAnimationByName('_IDLE');
+            this.customer.setAnimationSpeedPercent(30);
+            this.customer.playAnimationByName('_IDLE');
             label.kill();
 
             // Once the player has said something, the cook should respond
@@ -270,10 +270,10 @@ export default class extends Phaser.State {
             this.state.start('GameOver', true, false, this.scoreText.text)
         }
 
-        this.wiz.setAnimationSpeedPercent(30);
-        this.wiz.playAnimationByName('_SAY');
-        this.wiz.x = this.wiz.x - 120;
-        this.wiz.y = this.wiz.y - 65;
+        this.cook.setAnimationSpeedPercent(30);
+        this.cook.playAnimationByName('_SAY');
+        this.cook.x = this.cook.x - 120;
+        this.cook.y = this.cook.y - 65;
 
 
 
@@ -281,7 +281,7 @@ export default class extends Phaser.State {
             var submitFailureText = "I'm sorry, I didn't understand you...";
             this.textToSpeach(submitFailureText, this.cookVoice);
 
-            let label2 = this.game.add.text(this.wiz.x - 190, this.wiz.y - 160, submitFailureText, {
+            let label2 = this.game.add.text(this.cook.x - 190, this.cook.y - 160, submitFailureText, {
                 font: "18px Berkshire Swash",
                 fill: "#000",
                 align: "center",
@@ -291,12 +291,12 @@ export default class extends Phaser.State {
             label2.anchor.setTo(0.5);
 
             this.time.events.add(4000, () => {
-                this.gnome.setAnimationSpeedPercent(30);
-                this.gnome.playAnimationByName('_IDLE');
+                this.customer.setAnimationSpeedPercent(30);
+                this.customer.playAnimationByName('_IDLE');
                 label2.kill();
 
-                this.wiz.x = this.wiz.x + 120;
-                this.wiz.y = this.wiz.y + 65;
+                this.cook.x = this.cook.x + 120;
+                this.cook.y = this.cook.y + 65;
                 // Once the player has said something, the cook should respond
                 this.SayItByCook(this.stateMachine.getQuestion(), true);
             })
@@ -305,7 +305,7 @@ export default class extends Phaser.State {
 
         this.textToSpeach(text, this.cookVoice);
 
-        let label = this.game.add.text(this.wiz.x - 190, this.wiz.y - 160, text, {
+        let label = this.game.add.text(this.cook.x - 190, this.cook.y - 160, text, {
             font: "18px Berkshire Swash",
             fill: "#000",
             align: "center",
@@ -318,10 +318,10 @@ export default class extends Phaser.State {
 
             // Hack to move cook back to the right place
             this.time.events.add(5000, () => {
-                this.wiz.setAnimationSpeedPercent(30);
-                this.wiz.playAnimationByName('_IDLE');
-                this.wiz.x = this.wiz.x + 120;
-                this.wiz.y = this.wiz.y + 65;
+                this.cook.setAnimationSpeedPercent(30);
+                this.cook.playAnimationByName('_IDLE');
+                this.cook.x = this.cook.x + 120;
+                this.cook.y = this.cook.y + 65;
                 label.kill();
             });
 
