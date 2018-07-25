@@ -140,7 +140,15 @@ export default class extends Phaser.State {
             .onComplete.add(() => {
                 this.cook.setAnimationSpeedPercent(100);
                 this.cook.playAnimationByName('_IDLE');
-                this.patienceBar = this.cook.addChild(game.make.sprite(-100, -300, `patienceBar${this.patienceRemaining}`));
+                let numberOfPatienceBars = 5;
+
+                this.patienceBars = new Array(numberOfPatienceBars);
+                
+                this.patienceBars[4] = this.cook.addChild(game.make.sprite(-100, -300, 'patienceBar5'));
+                this.patienceBars[0] = this.cook.addChild(game.make.sprite(-100, -300, 'patienceBar1'));
+                this.patienceBars[1] = this.cook.addChild(game.make.sprite(-100, -300, 'patienceBar2'));
+                this.patienceBars[2] = this.cook.addChild(game.make.sprite(-100, -300, 'patienceBar3'));
+                this.patienceBars[3] = this.cook.addChild(game.make.sprite(-100, -300, 'patienceBar4'));
                 this.ConversationStart();
             });
         this.customer.setAnimationSpeedPercent(200);
@@ -280,9 +288,8 @@ export default class extends Phaser.State {
 
         if (!submitResult) {
             if (this.patienceRemaining > 1) {
+                this.patienceBars[this.patienceRemaining - 1].kill()
                 this.patienceRemaining -= 1;
-                this.patienceBar.kill();
-                this.patienceBar = this.cook.addChild(game.make.sprite(-100, -300, `patienceBar${this.patienceRemaining}`));
             } else {
                 this.state.start('GameOver', true, false, this.scoreText.text);
                 return;
