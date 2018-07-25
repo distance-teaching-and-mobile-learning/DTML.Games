@@ -33,8 +33,7 @@ export default class {
         return this.currentState.AnswerWords;
     }
 
-    set submitSolutionResult(value)
-    {
+    set submitSolutionResult(value) {
         this._submitSolutionResult = value;
     }
 
@@ -52,20 +51,22 @@ export default class {
 
         // Apply score
 
-        jQuery.get("https://dtml.org/api/GameService/ScorePhrase/?phrase=" + solutionPhrase.trim(), (result)=>{
-            this.score += result;
+        jQuery.get("https://dtml.org/api/GameService/ScorePhrase/?phrase=" + solutionPhrase.trim(), (result) => {
+
+            if (solution.Next !== null) {
+                this.setCurrentState(solution.Next, this.stateData.States[solution.Next]);
+                this.submitSolutionResult = true;
+                this.score += result;
+            }
+            else {
+                this.submitSolutionResult = false;
+                this.score -= result;
+            }
         });
         //https://dtml.org/api/GameService/ScorePhrase/?phrase=eggs%27please 
 
         //this.score += solution.Score;
 
         // Transition to next state
-        if (solution.Next !== null) {
-            this.setCurrentState(solution.Next, this.stateData.States[solution.Next]);
-            this.submitSolutionResult = true;
-        }
-        else {
-            this.submitSolutionResult =false;
-        }
     }
 }
