@@ -55,6 +55,13 @@ export default class extends Phaser.State {
         this.load.atlas('wizard', 'assets/images/wizard/atlas.png', 'assets/images/wizard/atlas.json')
         this.load.xml('wizardAnimations', 'assets/images/wizard/animations.scml')
 
+        // load bar for patience
+        this.load.spritesheet('patienceBar5', 'assets/images/health5.png', 245, 25);
+        this.load.spritesheet('patienceBar4', 'assets/images/health4.png', 200, 30);
+        this.load.spritesheet('patienceBar3', 'assets/images/health3.png', 150, 27);
+        this.load.spritesheet('patienceBar2', 'assets/images/health2.png', 103, 25);
+        this.load.spritesheet('patienceBar1', 'assets/images/health1.png', 53, 27);
+
         this.load.atlas('gnome', 'assets/images/gnome2/atlas.png', 'assets/images/gnome2/atlas.json')
         this.load.xml('gnomeAnimations', 'assets/images/gnome2/animations.scml')
 

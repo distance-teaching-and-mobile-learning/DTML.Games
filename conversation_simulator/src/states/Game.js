@@ -131,6 +131,8 @@ export default class extends Phaser.State {
         this.customer.setAnimationSpeedPercent(40);
         this.customer.playAnimationByName('_IDLE');
         this.spritesGroup.add(this.customer);
+
+        this.patienceRemaining = 5;
         // intro sequence
         this.cook.setAnimationSpeedPercent(100);
         this.cook.playAnimationByName('_RUN');
@@ -138,7 +140,7 @@ export default class extends Phaser.State {
             .onComplete.add(() => {
                 this.cook.setAnimationSpeedPercent(100);
                 this.cook.playAnimationByName('_IDLE');
-                
+                this.patienceBar = this.cook.addChild(game.make.sprite(-100, -300, `patienceBar${this.patienceRemaining}`));
                 this.ConversationStart();
             });
         this.customer.setAnimationSpeedPercent(200);
@@ -276,8 +278,15 @@ export default class extends Phaser.State {
         this.cook.y = this.cook.y - 65;
 
 
-
         if (!submitResult) {
+            if (this.patienceRemaining > 1) {
+                this.patienceRemaining -= 1;
+                this.patienceBar.kill();
+                this.patienceBar = this.cook.addChild(game.make.sprite(-100, -300, `patienceBar${this.patienceRemaining}`));
+            } else {
+                this.state.start('GameOver', true, false, this.scoreText.text);
+                return;
+            }
             var submitFailureText = "I'm sorry, I didn't understand you...";
             this.textToSpeach(submitFailureText, this.cookVoice);
 
