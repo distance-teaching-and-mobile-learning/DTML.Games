@@ -110,7 +110,6 @@ export default class extends Phaser.State {
             text: '0',
             cloudEnabled: true
         });
-        this.addScoreText.text.fill = "#00ff00";
         var enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
         enterKey.onDown.add(this.SayItByCustomer, this);
 
@@ -141,14 +140,29 @@ export default class extends Phaser.State {
                 this.cook.setAnimationSpeedPercent(100);
                 this.cook.playAnimationByName('_IDLE');
                 let numberOfPatienceBars = 5;
-
+                this.patienceBarsGroup = this.add.group();
                 this.patienceBars = new Array(numberOfPatienceBars);
                 
-                this.patienceBars[4] = this.cook.addChild(game.make.sprite(-100, -300, 'patienceBar5'));
-                this.patienceBars[0] = this.cook.addChild(game.make.sprite(-100, -300, 'patienceBar1'));
-                this.patienceBars[1] = this.cook.addChild(game.make.sprite(-100, -300, 'patienceBar2'));
-                this.patienceBars[2] = this.cook.addChild(game.make.sprite(-100, -300, 'patienceBar3'));
-                this.patienceBars[3] = this.cook.addChild(game.make.sprite(-100, -300, 'patienceBar4'));
+                var p = game.make.sprite(0, 0, 'patienceBar5');
+                this.patienceBarsGroup.add(p);
+                this.patienceBars[4] = p;
+
+                
+                var p1 = game.make.sprite(0, 0, 'patienceBar4');
+                this.patienceBarsGroup.add(p1);
+                this.patienceBars[3] = p1;
+                var p2 = game.make.sprite(0, 0, 'patienceBar3');
+                this.patienceBarsGroup.add(p2);
+                this.patienceBars[2] = p2;
+                var p3 = game.make.sprite(0, 0, 'patienceBar2');
+                this.patienceBarsGroup.add(p3);
+                this.patienceBars[1] = p3;
+                var p4 = game.make.sprite(0, 0, 'patienceBar1');
+                this.patienceBarsGroup.add(p4);
+                this.patienceBars[0] = p4;
+
+                this.patienceBarsGroup.x = this.cook.x - 100;
+                this.patienceBarsGroup.y = this.cook.y - 300;
                 this.ConversationStart();
             });
         this.customer.setAnimationSpeedPercent(200);
@@ -159,12 +173,12 @@ export default class extends Phaser.State {
                 this.customer.playAnimationByName('_IDLE');
                 var label = game.add.text(this.world.width * 0.90, this.game.world.centerY * 0.1, 'Score: ', {
                     font: "32px Berkshire Swash",
-                    fill: '#FFF'
+                    fill: 'black'
                 });
                 label.anchor.setTo(0.5);
                 this.scoreText = game.add.text(this.world.width * 0.98, this.game.world.centerY * 0.1, '0', {
                     font: "40px Berkshire Swash",
-                    fill: '#FFF'
+                    fill: 'black'
                 });
                 this.scoreText.anchor.setTo(0.5);
             });
