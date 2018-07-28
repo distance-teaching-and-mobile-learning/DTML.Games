@@ -1,25 +1,37 @@
 {  
-   "Comment":"DTML Restaurant Simulator",
+   "Comment":"DTML Grocery store Simulator",
    "StartAt":"Welcome",
    "States":{  
       "Welcome":{  
          "Type":"Conversation",
-         "Question":"Hello and welcome to our restaurant !",
+         "Question":"Hello. Welcome to our Grocery store. How may I help you?",
          "AnswerWords":[  
             "Hi",
             "Hello",
-            "Yes",
-            "No",
-			"Tomorrow"
+            "I",
+            "need",
+			"vegetables"
          ],
          "Solutions":{  
             "hi":{  
-               "Score":100.0,
-               "Next":"WhatToDrink"
+               "Score":-5.0,
+               "Next":"Welcome"
             },
             "hello":{  
+               "Score":-5.0,
+               "Next":"Welcome"
+            },
+			"hi i need vegetables":{  
+               "Score":100.0,
+               "Next":"Vegetables"
+            },
+            "hello  i need vegetables":{  
                "Score":150.0,
-               "Next":"WhatToDrink"
+               "Next":"Vegetables"
+            },
+			"i need vegetables":{  
+               "Score":150.0,
+               "Next":"Vegetables"
             },
             "default":{  
                "Score":-50,
@@ -27,31 +39,31 @@
             }
          }
       },
-      "WhatToDrink":{  
+      "Vegetables":{  
          "Type":"Conversation",
-         "Question":"May I start you off with something to drink?",
+         "Question":"We have a great selection of already picked vegetables. What kids of vegetables do you need?",
          "AnswerWords":[  
+            "Apples",
+            "Pears",
+            "and",
             "Water",
-            "Please",
-            "Do",
-            "Juice",
-            "Table",
-            "Orange"
+			"School",
+            "Table"
          ],
          "Solutions":{  
-            "water":{  
+            "Apples":{  
                "Score":100.0,
                "Next":"WaterOrdered"
             },
-            "water please":{  
+            "Pears":{  
                "Score":150.0,
                "Next":"WaterOrdered"
             },
-            "orange juice":{  
+            "Orange":{  
                "Score":200.0,
                "Next":"OrangeJuice"
             },
-            "orange juice please":{  
+            "Orange":{  
                "Score":300.0,
                "Next":"OrangeJuice"
             },
