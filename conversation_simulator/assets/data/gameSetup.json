@@ -1,8 +1,17 @@
-{ name:"Restourant",
-      datafile:"gameStates.json",
-      title:"In the restourant",
-      icon:"icon.jpg",
-      leftperson: "cook",
-      rightperson: "women",
-      background: "backgrounds/restourant.jpg"
-    }
+{     
+      "name":"Restourant",
+      "datafile":"gameStates.json",
+      "title":"In the restourant",
+      "icon":"icon.jpg",
+      "leftperson": "cook",
+      "rightperson": "man",
+      "background": "backgrounds/restourant.png",
+      "CallOutLeftX":"205",
+      "CallOutLeftY":"350",
+      "CallOutRightX":"175",
+      "CallOutRightY":"340",
+      "LeftVoice":"Microsoft David",
+      "RightVoice":"Microsoft Hazel",
+      "LeftPitch":"-100",
+      "RightPitch":"100"
+}

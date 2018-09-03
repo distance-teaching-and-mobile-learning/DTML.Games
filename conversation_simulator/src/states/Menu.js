@@ -16,208 +16,58 @@ under the License.
 import Phaser from 'phaser'
 import FreeText from '../sprites/FreeText'
 import Border from '../sprites/Border'
+import Spriter from '../libs/spriter'
+import Background from '../sprites/background'
 
-Array.prototype.chunk = function (n) {
-    if (!this.length) {
-        return [];
-    }
-    return [this.slice(0, n)].concat(this.slice(n).chunk(n));
-}
+
 
 export default class extends Phaser.State {
 
     init() {
-	var data = { "envelop": null, "page": "wordsbattle", "time": null, "eventType": "GameStarted", "eventData": navigator.userAgent };
-        fetch('https://dtml.org/Activity/Record/', 
-		{ method: 'post',
-		  credentials: 'same-origin', 
-		  body: JSON.stringify(data),
-		  headers: {
-      			   'content-type': 'application/json'
-    			   }
-		}).catch(err => {
-                console.log('err', err)
-            });
+
     }
 
     create() {
-        let bg1 = game.add.sprite(game.world.centerX, game.world.centerY, 'bg1');
-        bg1.anchor.set(0.5);
-        // bg1.scale.set(0.6 * game.scaleRatio);
+      
+             this.phaserJSON = this.cache.getJSON('gameSetup');
+              let bg = new Background({ game: this.game }, 0);
 
-        this.click = game.add.audio('click');
-        this.hover = game.add.audio('hover');
+           
+                let enterSpriteButton = game.add.sprite(0, 0, 'iconPlay');
+              //  enterSpriteButton.scale.set(0.7 * game.scaleRatio);
+                enterSpriteButton.anchor.set(0.5);
+                enterSpriteButton.x = game.world.centerX;
+                enterSpriteButton.y = game.world.centerY+200;
+                enterSpriteButton.inputEnabled = true;
+                enterSpriteButton.input.priorityID = 0;
+                enterSpriteButton.events.onInputDown.add(this.SayItByCustomer, this);
+                         enterSpriteButton.alpha = 0;
+                         game.add.tween(enterSpriteButton).to({x: game.world.centerX, alpha: 1}, 500, Phaser.Easing.Cubic.In, true, 2000)
 
-        let flagGroup = this.add.group();
-        this.indexedFlags = [];
-        let gapx = 30 * game.scaleRatio;
-        let posx = 40 * game.scaleRatio;
-        let posy = 20 * game.scaleRatio;
-        let width = 110 * game.scaleRatio;
-        let height = 50 * game.scaleRatio;
-        if (game.aspectRatio < 1) {
-            height = 45 * game.scaleRatio
-        }
+                  var style = { font: "bold 42px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
 
-        this.text = new FreeText({
-            game: this.game,
-            x: this.game.world.centerX,
-            y: this.game.world.centerY * 0.2,
-            text: '',
-            cloudEnabled: false
-        });
+    //  The Text is positioned at 0, 100
+    var text;
+    text = game.add.text(0, 0, this.phaserJSON.title, style);
+    text.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
 
-
-        Object.keys(flags).forEach((name, idx) => {
-            let flag = game.add.sprite(posx, posy, 'flags', flags[name] + '.png');
-            flag.name = name;
-            flag.anchor.set(0.5);
-            flag.width = width;
-            flag.height = height;
-            flag.inputEnabled = true;
-            flag.input.useHandCursor = true;
-            flag.events.onInputOver.add(() => {
-                this.hover.play();
-                this.text.display();
-                this.animateSelectedFlag(flag);
-            }, this);
-            flag.events.onInputDown.add(() => {
-                this.selectCurrentFlag(flag);
-            });
-
-            flagGroup.add(flag);
-            this.indexedFlags.push(flag);
-
-            posx += flag.width + gapx;
-            if (idx % 8 == 7) {
-                posx = 0 + 40 * game.scaleRatio;
-                posy += flag.height + 10;
-            }
-        });
-        flagGroup.x = this.world.centerX - flagGroup.width / 2;
-        flagGroup.y = this.world.centerY - flagGroup.height / 2;
-        this.flagGroup = flagGroup;
-
-        this.flagIndex = 0;
-        this.getFlag('');
-
-        /**
-         *  Adding Keyboard handlers for Flag selection
-         * */
-
-        var upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
-        upKey.onDown.add(() => {
-            this.getFlag('up');
-        }, this);
-
-        var downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-        downKey.onDown.add(() => {
-            this.getFlag('down');
-        }, this);
-
-        var leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-        leftKey.onDown.add(() => {
-            this.getFlag('left');
-        }, this);
-
-        var rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-        rightKey.onDown.add(() => {
-            this.getFlag('right');
-        }, this);
-
-        var enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
-        enterKey.onDown.add(() => {
-            this.selectCurrentFlag();
-        }, this);
-        /**End Keyboard handler*/
+    //  We'll set the bounds to be from x0, y100 and be 800px wide by 100px high
+    text.setTextBounds(0, 0, game.world.width, game.world.height);
+    text.alpha = 0;
+     game.add.tween(text).to({alpha: 1}, 500, Phaser.Easing.Cubic.In, true, 2500)
+           
+             // let menuSpriteButton = game.add.sprite(this.game.width - 100, 100, 'openmenu');
+                // menuSpriteButton.scale.set(0.7 * game.scaleRatio);
+                // menuSpriteButton.anchor.set(0.5);
+                // menuSpriteButton.inputEnabled = true;
+                // menuSpriteButton.input.priorityID = 0;
+                // menuSpriteButton.events.onInputDown.add(this.openMenu, this);
+      
     }
 
-    selectCurrentFlag() {
-        let flag = this.selectedFlag;
-        this.flagGroup.bringToTop(flag);
-        for (var x = 0; x < this.flagGroup.children.length; x++) {
-            this.flagGroup.children[x].input.enabled = false;
-        }
-
-        this.click.play();
-
-        this.game.add.tween(flag)
-            .to({
-                width: flag.width * 2,
-                height: flag.height * 2
-            }, 500, Phaser.Easing.Elastic.Out, true)
-            .onComplete.add(() => {
-            flag.alpha = 1;
-            this.flagGroup.children.forEach(flag => {
-                this.game.add.tween(flag)
-                    .to({width: 0, height: 0}, 1000, Phaser.Easing.Back.In, true)
-            });
-            this.game.state.states['Game']._language = flag.name;
-            this.game.state.states['Game']._langCode = languages[flag.name];
-
-            this.time.events.add(1100, () => {
-                this.text.hide();
-                this.state.start('Game')
-            })
-        })
+    SayItByCustomer() {
+            this.state.start('Game');
     }
 
-    getFlag(direction) {
-        let index = this.flagIndex;
-        switch (direction) {
-            case 'up':
-                if (index >= 8)
-                    index -= 8;
-                else {
-                    let offset = 8 - index;
-                    index = this.indexedFlags.length - offset;
-                }
-                break;
-            case 'down':
-                if (index < this.indexedFlags.length - 8)
-                    index += 8;
-                else {
-                    let offset = (index + 8) - this.indexedFlags.length;
-                    index = offset;
-                }
-                break;
-            case 'left':
-                if (index > 0)
-                    index -= 1;
-                else
-                    index = this.indexedFlags.length - 1;
-                break;
-            case 'right':
-                if (index < this.indexedFlags.length - 1)
-                    index += 1;
-                else
-                    index = 0;
-                break;
-            default:
-                break;
-        }
-        this.flagIndex = index;
-        this.animateSelectedFlag(this.indexedFlags[this.flagIndex]);
-    }
-
-    unselectPreviousFlag() {
-        this.game.add.tween(this.selectedFlag)
-            .to({width: 110 * game.scaleRatio, height: 50 * game.scaleRatio}, 200, Phaser.Easing.Back.Out, true)
-    }
-
-    animateSelectedFlag(flag) {
-        if (this.selectedFlag != flag) {
-            if(null != this.selectedFlag)
-                this.unselectPreviousFlag();
-            this.selectedFlag = flag;
-            this.game.add.tween(flag)
-                .to({width: flag.width * 2, height: flag.height * 2}, 200, Phaser.Easing.Back.Out, true)
-
-            this.flagIndex = this.indexedFlags.indexOf(flag);
-            this.text.changeText(flag.name);
-            this.text.display();
-            this.flagGroup.bringToTop(flag);
-            this.game.world.bringToTop(flag);
-        }
-    }
+    
 }

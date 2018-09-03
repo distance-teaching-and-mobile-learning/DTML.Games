@@ -22,9 +22,16 @@ import WebFont from 'webfontloader'
 
 export default class extends Phaser.State {
     init() {
+
     }
 
     preload() {
+        //this.load.json('gameSetup', 'assets/data/gameSetup.json');
+            //this.stateMachine = new StateMachine(this.game.cache.getJSON('gameSetup'));
+           // this.stateMachine.printDebugInfo();
+        var phaserJSON = this.cache.getJSON('gameSetup');
+        //console.log(phaserJSON.name);
+
         //this.loaderBg = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'loaderBg')
         this.loaderBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'loaderBar')
         centerGameObjects([this.loaderBar])
@@ -48,58 +55,47 @@ export default class extends Phaser.State {
                 active: this.fontsLoaded
             })
         }
-        //
-        // this.load.video('intro', 'assets/videos/intro.webm');
-        this.load.image('mushroom', 'assets/images/mushroom2.png')
+        
 
-        this.load.atlas('wizard', 'assets/images/wizard/atlas.png', 'assets/images/wizard/atlas.json')
-        this.load.xml('wizardAnimations', 'assets/images/wizard/animations.scml')
+        this.load.atlas('wizard', 'assets/images/res/'+phaserJSON.leftperson+'/anim.png', 'assets/images/res/'+phaserJSON.leftperson+'/anim.json')
+        this.load.xml('wizardAnimations', 'assets/images/res/'+phaserJSON.leftperson+'/anim.scml')
 
         // load bar for patience
-        this.load.spritesheet('patienceBar5', 'assets/images/Health5.png', 245, 28);
-        this.load.spritesheet('patienceBar4', 'assets/images/Health4.png', 200, 27);
-        this.load.spritesheet('patienceBar3', 'assets/images/Health3.png', 150, 27);
-        this.load.spritesheet('patienceBar2', 'assets/images/Health2.png', 103, 27);
-        this.load.spritesheet('patienceBar1', 'assets/images/Health1.png', 53, 27);
+        this.load.spritesheet('patienceBar5', 'assets/images/res/lopelope.png', 89, 75);
+        this.load.spritesheet('patienceBar4', 'assets/images/res/lopelope.png', 89, 75);
+        this.load.spritesheet('patienceBar3', 'assets/images/res/lopelope.png', 89, 75);
+        this.load.spritesheet('patienceBar2', 'assets/images/res/lopelope.png', 89, 75);
+        this.load.spritesheet('patienceBar1', 'assets/images/res/lopelope.png', 89, 75);
 
-        this.load.atlas('gnome', 'assets/images/gnome2/atlas.png', 'assets/images/gnome2/atlas.json')
-        this.load.xml('gnomeAnimations', 'assets/images/gnome2/animations.scml')
+        this.load.atlas('gnome', 'assets/images/res/'+phaserJSON.rightperson+'/anim.png', 'assets/images/res/'+phaserJSON.rightperson+'/anim.json')
+        this.load.xml('gnomeAnimations', 'assets/images/res/'+phaserJSON.rightperson+'/anim.scml')
 
-        this.load.atlas('fireball', 'assets/images/fire/atlas.png', 'assets/images/fire/atlas.json');
-        this.load.image('iconAttack', 'assets/images/icon-attack.png');
+     
+        this.load.image('iconAttack', 'assets/images/res/icon-attack.png');
         this.load.image('iconHome', 'assets/images/icon-home.png');
+        this.load.image('iconPlay', 'assets/images/res/button-start.png');
 
         // bg
-        this.load.image('bg1', 'assets/images/layers/l1_background.png')
-        this.load.image('bg2', 'assets/images/layers/l2_trees01.png')
-        this.load.image('bg3', 'assets/images/layers/l3_bush01.png')
-        this.load.image('bg4', 'assets/images/layers/l4_trees02.png')
-        this.load.image('bg5', 'assets/images/layers/l5_trees03.png')
-        this.load.image('bg6', 'assets/images/layers/l6_bush02.png')
-        this.load.image('bg7', 'assets/images/layers/l7_ground.png')
-        this.load.image('cloud', 'assets/images/cloud.png');
-        this.load.image('gameover', 'assets/images/endgame.jpg');
-        this.load.image('scroll', 'assets/images/scroll.png');
+        
+       // this.load.image('bg1', 'assets/images/layers/l1_background.png')
+        this.load.image('bg1', 'assets/images/res/'+phaserJSON.background)
+        this.load.image('bg2', 'assets/images/res/title.png');
+        this.load.image('bg3', 'assets/images/res/bar-mini-depan.png')
+        this.load.image('bg4', 'assets/images/res/l7_ground.png')
+        this.load.image('gameover', 'assets/images/res/endgame.png');
+        
 
         // audio
         this.load.audio('click', 'assets/audio/Click.wav')
-        this.load.audio('explosion', 'assets/audio/Explosion.wav')
-        this.load.audio('blaster', 'assets/audio/Blastwave_FX_FireballWhoosh_S08FI.42.mp3')
-        this.load.audio('hover', 'assets/audio/ButtonHover.wav')
-        this.load.audio('steps', 'assets/audio/LandingFootsteps.wav')
-        this.load.audio('woosh', 'assets/audio/Whoosh.wav')
-
+       
         //this.load.atlas('flags', 'assets/images/flags/flags.png', 'assets/images/flags/flags.json')
         this.load.spritesheet('heart', 'assets/images/ss-heart.png', 48, 48, 6)
 
         //side menu
-        this.load.spritesheet('openmenu', 'assets/images/openMenu.png', 64, 64);
-        this.load.spritesheet('sidebg', 'assets/images/sidebg.png', 115, 117);
-        this.load.spritesheet('characters', 'assets/images/characters.png', 96, 128);
-        this.load.image('sidemenu', 'assets/images/sidemenu.png');
+        this.load.spritesheet('sidebg', 'assets/images/res/sidebg.png', 115, 117);
 
         // game state data
-        this.load.json('stateData', 'assets/data/gameStates.json');
+        this.load.json('stateData', 'assets/data/'+phaserJSON.datafile);
     }
 
     loadStart() {
@@ -123,13 +119,13 @@ export default class extends Phaser.State {
         // video.play(false);
         // //  x, y, anchor x, anchor y, scale x, scale y
         // video.addToWorld(game.world.centerX, game.world.centerY, 0.5, 0.5, 0.5, 0.5);
-        let videoDuration = 0
+        let videoDuration = 6
         this.time.events.add(Phaser.Timer.SECOND * videoDuration, () => {
             document.querySelector('#intro').style.display = 'none'
             document.querySelector('#content').style.display = 'block'
             //this.state.start('GameOver', false, false, '4234')
-            this.state.start('Game')
-            //   video.destroy()
+            this.state.start('Menubefore');
+              
 
         }, this)
     }

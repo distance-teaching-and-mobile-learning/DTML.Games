@@ -19,7 +19,9 @@ import config from '../config';
 
 export default class extends Phaser.State {
   init() {
+    
       this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+      this.scale.windowConstraints.bottom = 'visual';
       this.game.scale.setResizeCallback(()=> {
           this.scale.setMaximum();
       });
@@ -40,9 +42,12 @@ export default class extends Phaser.State {
     // this.stage.backgroundColor = '#000000'
     // this.fontsReady = false
     // this.fontsLoaded = this.fontsLoaded.bind(this)
+    
   }
 
   preload() {
+     this.load.json('gameSetup', 'assets/data/gameSetup.json');
+     this.xxx = 0;
     console.log(game);
     console.log(window.innerWidth);
 
@@ -78,13 +83,15 @@ export default class extends Phaser.State {
     game.canvas.oncontextmenu = function (e) { e.preventDefault(); }
   }
 
+  
+
   render() {
-    // if (config.webfonts.length && this.fontsReady) {
-    //   this.state.start('Splash')
-    // }
-    // if (!config.webfonts.length) {
-    //   this.state.start('Splash')
-    // }
-    this.state.start('Splash')
+    
+ 
+        this.state.start('Splash')
+
+   
   }
+
+   
 }

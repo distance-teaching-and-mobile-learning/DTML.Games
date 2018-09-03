@@ -22,19 +22,23 @@ import StateMachine from '../StateMachine'
 
 export default class extends Phaser.State {
     init() {
+        
         this.stateMachine = new StateMachine(this.game.cache.getJSON('stateData'));
         this.stateMachine.printDebugInfo();
-        window.speechSynthesis.getVoices();
-        this.awaitVoices = new Promise(done => window.speechSynthesis.onvoiceschanged = done);
-        this.cookVoice = 'Microsoft David';
-        this.customerVoice = 'Microsoft Zira';
+       
     }
 
     create() {
+        this.phaserJSON = this.cache.getJSON('gameSetup');
+         window.speechSynthesis.getVoices();
 
+        this.awaitVoices = new Promise(done => window.speechSynthesis.onvoiceschanged = done);
+        this.cookVoice = this.phaserJSON.LeftVoice;
+        this.customerVoice = this.phaserJSON.RightVoice;
+       
         this.language = this.game.state.states['Game']._language;
         this.langCode = this.game.state.states['Game']._langCode;
-        let bg = new Background({ game: this.game });
+        let bg = new Background({ game: this.game }, 1);
 
         let music = game.add.audio('gameMusic');
         music.onDecoded.add(() => {
@@ -47,10 +51,10 @@ export default class extends Phaser.State {
         this.music = music;
         this.steps = game.add.audio('steps');
 
-
+         this.createSprites();
         let inputW = 650;
-        let inputH = 40;
-        this.textBox = this.add.inputField(this.world.centerX - (inputW / 2) * game.scaleRatio, this.game.height - 115 - (inputH * 2) * game.scaleRatio, {
+        let inputH = 50;
+        this.textBox = this.add.inputField(this.world.centerX - (inputW / 2) * game.scaleRatio, this.game.height - 115 - (inputH * 2) * game.scaleRatio +17, {
             font: '40px Arial',
             fill: '#212121',
             fontWeight: 'bold',
@@ -60,16 +64,19 @@ export default class extends Phaser.State {
             borderColor: '#000',
             borderRadius: 6,
             placeHolder: 'Your answer:',
-            focusOutOnEnter: false
+            focusOutOnEnter: true,
+            disabled : true
         });
-        this.textBox.scale.set(0, 1 * game.scaleRatio);
+
+        this.textBox.disabled = true;
+       this.textBox.scale.set(0, 1 * game.scaleRatio);
         game.add.tween(this.textBox.scale).to({ x: 1 * game.scaleRatio }, 500, Phaser.Easing.Cubic.Out, true, 2500)
             .onComplete.add(() => {
                 let enterSpriteButton = game.add.sprite(0, 0, 'iconAttack');
-                enterSpriteButton.scale.set(0.7 * game.scaleRatio);
+                //enterSpriteButton.scale.set(0.7 * game.scaleRatio);
                 enterSpriteButton.anchor.set(0.5);
                 enterSpriteButton.x = this.textBox.x + this.textBox.width * game.scaleRatio;
-                enterSpriteButton.y = this.textBox.y + this.textBox.height / 2;
+                enterSpriteButton.y = this.textBox.y + this.textBox.height / 2 ;
                 enterSpriteButton.inputEnabled = true;
                 enterSpriteButton.input.priorityID = 0;
 
@@ -83,7 +90,6 @@ export default class extends Phaser.State {
                 // menuSpriteButton.events.onInputDown.add(this.openMenu, this);
             });
 
-            this.createSprites();
     }
 
     createSprites() {
@@ -115,27 +121,30 @@ export default class extends Phaser.State {
 
         this.spritesGroup = this.add.group();
         this.cook = this.loadSpriter('wizard');
-        this.cook.scale.set(0.8 * game.scaleRatio, 0.8 * game.scaleRatio);
-        this.cook.x = -180 * game.scaleRatio;
-        this.cook.y = this.world.height - 325;
+       // this.cook.scale.set(0.7 * game.scaleRatio, 0.7 * game.scaleRatio);
+        this.cook.x = -200 * game.scaleRatio;
+        this.cook.y = this.world.height - 470;
         this.spritesGroup.add(this.cook);
         this.customer = this.loadSpriter('gnome');
-        this.customer.scale.set(0.7 * game.scaleRatio, 0.7 * game.scaleRatio);
+
+       // this.customer.scale.set(0.7 * game.scaleRatio, 0.7 * game.scaleRatio);
+        this.customer.scale.x *= -1;
         this.customer.children.forEach(sprite => {
             sprite.anchor.set(0, 1);
         });
         this.customer.x = game.width + 180 * game.scaleRatio;
         this.customer.startx = this.world.width * 0.75 * game.scaleRatio;
-        this.customer.y = this.world.height - 310;
-        this.customer.setAnimationSpeedPercent(40);
+        this.customer.y = this.world.height - 460;
+        this.customer.setAnimationSpeedPercent(100);
         this.customer.playAnimationByName('_IDLE');
         this.spritesGroup.add(this.customer);
 
         this.patienceRemaining = 5;
         // intro sequence
         this.cook.setAnimationSpeedPercent(100);
+       // this.cook.playAnimationByName('_RUN');
         this.cook.playAnimationByName('_RUN');
-        game.add.tween(this.cook).to({ x: this.world.width * 0.5 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 1500)
+        game.add.tween(this.cook).to({ x: this.world.width * 0.4 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 1500)
             .onComplete.add(() => {
                 this.cook.setAnimationSpeedPercent(100);
                 this.cook.playAnimationByName('_IDLE');
@@ -151,36 +160,34 @@ export default class extends Phaser.State {
                 var p1 = game.make.sprite(0, 0, 'patienceBar4');
                 this.patienceBarsGroup.add(p1);
                 this.patienceBars[3] = p1;
-                var p2 = game.make.sprite(0, 0, 'patienceBar3');
+                var p2 = game.make.sprite(90, 0, 'patienceBar3');
                 this.patienceBarsGroup.add(p2);
                 this.patienceBars[2] = p2;
-                var p3 = game.make.sprite(0, 0, 'patienceBar2');
+                var p3 = game.make.sprite(180, 0, 'patienceBar2');
                 this.patienceBarsGroup.add(p3);
                 this.patienceBars[1] = p3;
-                var p4 = game.make.sprite(0, 0, 'patienceBar1');
+                var p4 = game.make.sprite(270, 0, 'patienceBar1');
                 this.patienceBarsGroup.add(p4);
                 this.patienceBars[0] = p4;
 
-                this.patienceBarsGroup.x = this.cook.x - 100;
-                this.patienceBarsGroup.y = this.cook.y - 300;
+                this.patienceBarsGroup.x =  this.world.width * 0.1;
+                this.patienceBarsGroup.y = this.game.world.centerY * 0.1 - 15;
+
+                
                 this.ConversationStart();
             });
-        this.customer.setAnimationSpeedPercent(200);
+        this.customer.setAnimationSpeedPercent(100);
         this.customer.playAnimationByName('_RUN');
-        game.add.tween(this.customer).to({ x: this.world.width * 0.6 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 1500)
+        game.add.tween(this.customer).to({ x: this.world.width * 0.7 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 1500)
             .onComplete.add(() => {
-                this.customer.setAnimationSpeedPercent(30);
+                this.customer.setAnimationSpeedPercent(100);
                 this.customer.playAnimationByName('_IDLE');
-                var label = game.add.text(this.world.width * 0.90, this.game.world.centerY * 0.1, 'Score: ', {
-                    font: "32px Berkshire Swash",
-                    fill: 'black'
-                });
-                label.anchor.setTo(0.5);
-                this.scoreText = game.add.text(this.world.width * 0.98, this.game.world.centerY * 0.1, '0', {
+             
+                this.scoreText = game.add.text(this.world.width * 0.78, this.game.world.centerY * 0.1, 'Score : 0', {
                     font: "40px Berkshire Swash",
                     fill: 'black'
                 });
-                this.scoreText.anchor.setTo(0.5);
+                this.scoreText.anchor.setTo(0,0.5);
             });
 
     }
@@ -233,7 +240,7 @@ export default class extends Phaser.State {
             this.nextWord();
     }
 
-    textToSpeach(text, voice) {
+    textToSpeach(text, voice, pitch) {
         this.awaitVoices.then(() => {
             var listOfVoices = window.speechSynthesis.getVoices();
             var voices2 = listOfVoices.filter(a => a.name.toLowerCase().includes(voice.toLowerCase()))[0];
@@ -244,7 +251,7 @@ export default class extends Phaser.State {
             msg.voiceURI = 'native';
             msg.volume = 1;
             msg.rate = 1;
-            msg.pitch = 2;
+            msg.pitch = parseInt(pitch);
             msg.text = text;
             msg.lang = 'en-US';
             speechSynthesis.speak(msg);
@@ -257,21 +264,22 @@ export default class extends Phaser.State {
     }
 
     SayItByCustomer() {
-
+        console.log('textnya = ' +this.textBox.value.length)
+        if(this.textBox.value.length>0 ){
         this.destroySideMenu();
 
         var text = this.textBox.value;
         this.textBox.setText('');
 
-        this.customer.setAnimationSpeedPercent(30);
+        this.customer.setAnimationSpeedPercent(100);
         this.customer.playAnimationByName('_SAY');
-        this.textToSpeach(text, this.customerVoice);
-        let label = this.game.add.text(this.customer.x + 140, this.customer.y - 200, text, {
-            font: "15px Berkshire Swash",
+        this.textToSpeach(text, this.customerVoice, this.phaserJSON.RightPitch);
+        let label = this.game.add.text(this.customer.x + parseInt(this.phaserJSON.CallOutRightX), this.customer.y - parseInt(this.phaserJSON.CallOutRightY), text, {
+            font: "30px Berkshire Swash",
             fill: "#000",
             align: "center",
             wordWrap: true,
-            wordWrapWidth: 150
+            wordWrapWidth: 300
         });
 
         this.stateMachine.submitSolution(text);
@@ -279,13 +287,19 @@ export default class extends Phaser.State {
         label.anchor.setTo(0.5);
 
         this.time.events.add(2500, () => {
-            this.customer.setAnimationSpeedPercent(30);
+            this.customer.setAnimationSpeedPercent(100);
             this.customer.playAnimationByName('_IDLE');
             label.kill();
 
             // Once the player has said something, the cook should respond
+            if(this.stateMachine.currentStateName!="End"){
             this.SayItByCook(this.stateMachine.getQuestion(), this.stateMachine.submitSolutionResult);
+            }else{
+               this.state.start('GameOver', true, false, this.scoreText.text) 
+            }      
         })
+
+        }
     }
 
     SayItByCook(text, submitResult) {
@@ -294,10 +308,10 @@ export default class extends Phaser.State {
             this.state.start('GameOver', true, false, this.scoreText.text)
         }
 
-        this.cook.setAnimationSpeedPercent(30);
+        this.cook.setAnimationSpeedPercent(100);
         this.cook.playAnimationByName('_SAY');
-        this.cook.x = this.cook.x - 120;
-        this.cook.y = this.cook.y - 65;
+        //this.cook.x = this.cook.x - 120;
+        //this.cook.y = this.cook.y - 30;
 
 
         if (!submitResult) {
@@ -309,38 +323,38 @@ export default class extends Phaser.State {
                 return;
             }
             var submitFailureText = "I'm sorry, I didn't understand you...";
-            this.textToSpeach(submitFailureText, this.cookVoice);
+            this.textToSpeach(submitFailureText, this.cookVoice, this.phaserJSON.LeftPitch);
 
-            let label2 = this.game.add.text(this.cook.x - 190, this.cook.y - 160, submitFailureText, {
-                font: "18px Berkshire Swash",
+            let label2 = this.game.add.text(this.cook.x - parseInt(this.phaserJSON.CallOutLeftX), this.cook.y - parseInt(this.phaserJSON.CallOutLeftY), submitFailureText, {
+                font: "30px Berkshire Swash",
                 fill: "#000",
                 align: "center",
                 wordWrap: true,
-                wordWrapWidth: 150
+                wordWrapWidth: 300
             });
             label2.anchor.setTo(0.5);
 
             this.time.events.add(4000, () => {
-                this.customer.setAnimationSpeedPercent(30);
+                this.customer.setAnimationSpeedPercent(100);
                 this.customer.playAnimationByName('_IDLE');
                 label2.kill();
 
-                this.cook.x = this.cook.x + 120;
-                this.cook.y = this.cook.y + 65;
+                //this.cook.x = this.cook.x + 120;
+                //this.cook.y = this.cook.y + 65;
                 // Once the player has said something, the cook should respond
                 this.SayItByCook(this.stateMachine.getQuestion(), true);
             })
             return;
         }
 
-        this.textToSpeach(text, this.cookVoice);
+        this.textToSpeach(text, this.cookVoice, this.phaserJSON.LeftPitch);
 
-        let label = this.game.add.text(this.cook.x - 190, this.cook.y - 160, text, {
-            font: "18px Berkshire Swash",
+        let label = this.game.add.text(this.cook.x - parseInt(this.phaserJSON.CallOutLeftX), this.cook.y - parseInt(this.phaserJSON.CallOutLeftY), text, {
+            font: "30px Berkshire Swash",
             fill: "#000",
             align: "center",
             wordWrap: true,
-            wordWrapWidth: 150
+            wordWrapWidth: 300
         });
         label.anchor.setTo(0.5);
 
@@ -348,10 +362,10 @@ export default class extends Phaser.State {
 
             // Hack to move cook back to the right place
             this.time.events.add(5000, () => {
-                this.cook.setAnimationSpeedPercent(30);
+                this.cook.setAnimationSpeedPercent(100);
                 this.cook.playAnimationByName('_IDLE');
-                this.cook.x = this.cook.x + 120;
-                this.cook.y = this.cook.y + 65;
+               //this.cook.x = this.cook.x + 120;
+               // this.cook.y = this.cook.y + 65;
                 label.kill();
             });
 
@@ -374,9 +388,14 @@ export default class extends Phaser.State {
     }
 
     update() {
+        //this.spritesGroup.updateAnimation();
+        this.cook.updateAnimation();
+         this.customer.updateAnimation();
+       // if(this.textBox.) 
+        this.textBox.endFocus();
         // Keep the score up to date
         if (this.stateMachine && this.scoreText) {
-            this.scoreText.text = this.stateMachine.getScore();
+            this.scoreText.text = 'Score : '+this.stateMachine.getScore();
         }
 
     }
@@ -515,7 +534,7 @@ export default class extends Phaser.State {
 
 
         let enterSpriteButton = game.add.sprite(this.game.width - 150, 605, 'iconAttack');
-        enterSpriteButton.scale.set(0.5);
+        //enterSpriteButton.scale.set(0.5);
         enterSpriteButton.anchor.set(0.5);
         enterSpriteButton.inputEnabled = true;
         enterSpriteButton.input.priorityID = 0;
@@ -553,30 +572,40 @@ export default class extends Phaser.State {
             searchForClicks: true,
         }
 
-        this.listView = new ListView(this.game, this.game.world, new Phaser.Rectangle(50, this.sidemenu.height - 125, this.sidemenu.width, this.sidemenu.height - 10), options);
+        this.listView = new ListView(this.game, this.game.world, new Phaser.Rectangle(50, this.sidemenu.height - 128, this.sidemenu.width, this.sidemenu.height - 10), options);
 
         var i = 0;
+        var rect;
         this.stateMachine.getAnswerWords().forEach((word) => {
             var item = this.game.add.sprite(0, 0, 'sidebg');
+           // item.scale.set(0.8 * game.scaleRatio);
+            item.text = word;
+
             var character = this.game.add.text(0, 0, word, i++);// sprite(0, 0, 'characters',i);
 
-            character.alignIn(item, Phaser.CENTER, 0, 0);
+            character.scale.set((2.05 - (word.length*0.17)) * game.scaleRatio);
+            rect = new Phaser.Rectangle(item.x, item.y, item.width, item.height);
+            character.alignIn(rect, Phaser.CENTER, 0, 0);
             item.addChild(character);
 
             character.inputEnabled = true;
             character.input.priorityID = 0;
             character.input.useHandCursor = true;
             character.events.onInputDown.add(this.addCharToNode, this);
-            item.events.onInputDown.add(this.addCharToNode, this.character);
+            item.inputEnabled = true;
+           item.input.priorityID = 0;
+            item.input.useHandCursor = true;
+            item.events.onInputDown.add(this.addCharToNode, this);
             this.listView.add(item);
         });
-        this.listView.grp.visible = false;
+       /* this.listView.grp.visible = false;
         this.openSidemenu = this.game.add.tween(this.sidemenu).to({ y: this.game.height }, 1000, Phaser.Easing.Exponential.Out);
         this.closeSidemenu = this.game.add.tween(this.sidemenu).to({ y: this.game.height }, 1000, Phaser.Easing.Exponential.Out);
         this.openSidemenu.onStart.add(function () { this.bottomORside = true; this.listView.grp.visible = false; }, this);
         this.openSidemenu.onComplete.add(function () { this.listView.grp.visible = true; }, this);
         this.closeSidemenu.onStart.add(function () { this.bottomORside = false; }, this);
         this.openSidemenu.start();
+        */
     }
 
     destroySideMenu() {

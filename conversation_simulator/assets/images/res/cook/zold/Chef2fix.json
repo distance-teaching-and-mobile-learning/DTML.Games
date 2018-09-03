@@ -1,0 +1,140 @@
+{"frames": {
+
+"Arms/Tangan.png":
+{
+	"frame": {"x":178,"y":2,"w":128,"h":300},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":86,"y":0,"w":128,"h":300},
+	"sourceSize": {"w":300,"h":300}
+},
+"Body/Boddy.png":
+{
+	"frame": {"x":2,"y":749,"w":263,"h":293},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":18,"y":4,"w":263,"h":293},
+	"sourceSize": {"w":300,"h":300}
+},
+"Body/Body.png":
+{
+	"frame": {"x":297,"y":749,"w":267,"h":291},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":16,"y":5,"w":267,"h":291},
+	"sourceSize": {"w":300,"h":300}
+},
+"Body/Bodypsd.psd":
+{
+	"frame": {"x":590,"y":749,"w":269,"h":291},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":14,"y":5,"w":269,"h":291},
+	"sourceSize": {"w":300,"h":300}
+},
+"callout.png":
+{
+	"frame": {"x":2,"y":504,"w":285,"h":216},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":5,"w":285,"h":216},
+	"sourceSize": {"w":300,"h":226}
+},
+"Head/Headxx.png":
+{
+	"frame": {"x":2,"y":132,"w":184,"h":292},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":58,"y":4,"w":184,"h":292},
+	"sourceSize": {"w":300,"h":300}
+},
+"Kaki/Leg.png":
+{
+	"frame": {"x":480,"y":2,"w":150,"h":165},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":25,"y":18,"w":150,"h":165},
+	"sourceSize": {"w":200,"h":200}
+},
+"Kaki/Leging.psd":
+{
+	"frame": {"x":647,"y":2,"w":150,"h":165},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":25,"y":18,"w":150,"h":165},
+	"sourceSize": {"w":200,"h":200}
+},
+"Kepala/Head.png":
+{
+	"frame": {"x":296,"y":154,"w":184,"h":292},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":58,"y":4,"w":184,"h":292},
+	"sourceSize": {"w":300,"h":300}
+},
+"Kepala/Head1.png":
+{
+	"frame": {"x":590,"y":154,"w":184,"h":292},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":58,"y":4,"w":184,"h":292},
+	"sourceSize": {"w":300,"h":300}
+},
+"Kepala/Head2.png":
+{
+	"frame": {"x":2,"y":318,"w":184,"h":292},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":58,"y":4,"w":184,"h":292},
+	"sourceSize": {"w":300,"h":300}
+},
+"Kepala/Head3.png":
+{
+	"frame": {"x":296,"y":340,"w":184,"h":292},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":58,"y":4,"w":184,"h":292},
+	"sourceSize": {"w":300,"h":300}
+},
+"Kepala/Headpsd.psd":
+{
+	"frame": {"x":590,"y":340,"w":184,"h":292},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":58,"y":4,"w":184,"h":292},
+	"sourceSize": {"w":300,"h":300}
+},
+"Legs/Legr.png":
+{
+	"frame": {"x":2,"y":2,"w":106,"h":174},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":47,"y":13,"w":106,"h":174},
+	"sourceSize": {"w":200,"h":200}
+},
+"Tangan/Arm.png":
+{
+	"frame": {"x":289,"y":526,"w":221,"h":284},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":39,"y":8,"w":221,"h":284},
+	"sourceSize": {"w":300,"h":300}
+},
+"Tangan/Armpsd.psd":
+{
+	"frame": {"x":575,"y":526,"w":221,"h":284},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":39,"y":8,"w":221,"h":284},
+	"sourceSize": {"w":300,"h":300}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "Chef2fix.png",
+	"format": "RGBA8888",
+	"size": {"w":884,"h":1020},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:1e82aae8a07b927a44772e4a4025bc2e:ae9a696dabc94a38857b751392619748:fd8bcc100cc30a8ca12d0904e6d7eec0$"
+}
+}
