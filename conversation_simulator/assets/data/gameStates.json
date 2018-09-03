@@ -334,7 +334,7 @@
     },
     "RecommendationsNo": {
       "Type": "Conversation",
-      "Question": "Okey. We also can make eggs or omlet",
+      "Question": "Okay. We also can make eggs or omlet",
       "AnswerWords": [
         "You",
         "Please",
@@ -733,7 +733,7 @@
       "Type": "Conversation",
       "Question": "Here is your food. Please enjoy.",
       "AnswerWords": [
-        "great",
+        "Great",
         "Jupitor",
         "Lamp",
         "Thank",
@@ -755,6 +755,10 @@
         "great": {
           "Score": 50,
           "Next": "HowWasYourFood"
+        },
+        "default": {
+          "Score": -50,
+          "Next": null
         }
       }
     },
@@ -765,7 +769,7 @@
         "People",
         "Was",
         "Child",
-        "Okey",
+        "Ok",
         "Word",
         "Great",
         "Am",
@@ -781,9 +785,25 @@
           "Score": 150,
           "Next": "LikedIt"
         },
-        "it was okey": {
+        "great": {
+          "Score": 100,
+          "Next": "LikedIt"
+        },
+        "good": {
+          "Score": 150,
+          "Next": "LikedIt"
+        },
+        "it was ok": {
           "Score": 150,
           "Next": "DidNotLike"
+        },
+        "ok": {
+          "Score": 150,
+          "Next": "DidNotLike"
+        },
+        "default": {
+          "Score": -50,
+          "Next": null
         }
       }
     },
@@ -794,13 +814,13 @@
         "Thank",
         "Blue",
         "Red",
-        "No",
+        "Fly",
         "You",
-        "Don't",
+        "Spider",
         "I",
         "Will"
       ],
-      "Yes": {
+      "Solutions": {
         "thank you": {
           "Score": 100,
           "Next": "End"
@@ -812,6 +832,10 @@
         "thank you i will": {
           "Score": 150,
           "Next": "End"
+        },
+        "default": {
+          "Score": -50,
+          "Next": null
         }
       }
     },
@@ -819,7 +843,7 @@
       "Type": "Conversation",
       "Question": "Oh! I am sorry. What was wrong with it?",
       "AnswerWords": [
-        "Jupm",
+        "Jump",
         "Salty",
         "Dry",
         "Was",
@@ -828,7 +852,7 @@
         "It",
         "Will"
       ],
-      "Salty": {
+      "Solutions": {
         "it was too salty": {
           "Score": 100,
           "Next": "End"
@@ -852,9 +876,13 @@
         "too dry": {
           "Score": 150,
           "Next": "End"
-        }
+        },
+        "default": {
+          "Score": -50,
+          "Next": null
       }
-    },
+      }
+      },
     "End": {
       "Type": "End",
       "Question": "",
