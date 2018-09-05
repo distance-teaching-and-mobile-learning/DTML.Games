@@ -691,6 +691,7 @@
     "FinishOrder": {
       "Type": "Conversation",
       "Question": "I'll be back with your food. ",
+	  "OnStateExit": { "Left": "Leave", "Right":"IDLE"  },
       "AnswerWords": [
         "You",
         "Mass",
@@ -732,6 +733,7 @@
     "HereIsYourFood": {
       "Type": "Conversation",
       "Question": "Here is your food. Please enjoy.",
+	  "OnStateEnter": { "Left": "BringFood", "Right":"IDLE"  },
       "AnswerWords": [
         "Great",
         "Jupitor",
@@ -845,7 +847,7 @@
       "AnswerWords": [
         "Jump",
         "Salty",
-        "Dry",
+        "Cold",
         "Was",
         "Too",
         "Don't",
@@ -857,11 +859,11 @@
           "Score": 100,
           "Next": "End"
         },
-        "it was too dry": {
+        "it was too cold": {
           "Score": 150,
           "Next": "End"
         },
-        "it was dry": {
+        "it was cold": {
           "Score": 150,
           "Next": "End"
         },
@@ -873,7 +875,7 @@
           "Score": 150,
           "Next": "End"
         },
-        "too dry": {
+        "too cold": {
           "Score": 150,
           "Next": "End"
         },
