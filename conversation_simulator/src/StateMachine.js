@@ -60,7 +60,7 @@ export default class {
             }
             else {
                 this.submitSolutionResult = false;
-                this.score -= result;
+                //this.score -= result;
             }
         });
         //https://dtml.org/api/GameService/ScorePhrase/?phrase=eggs%27please 

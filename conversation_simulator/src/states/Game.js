@@ -29,6 +29,7 @@ export default class extends Phaser.State {
     }
 
     create() {
+        this.cursors = game.input.keyboard.createCursorKeys();
         this.phaserJSON = this.cache.getJSON('gameSetup');
          window.speechSynthesis.getVoices();
 
@@ -82,6 +83,19 @@ export default class extends Phaser.State {
 
 
                 enterSpriteButton.events.onInputDown.add(this.SayItByCustomer, this);
+
+
+
+                let deleteSpriteButton = game.add.sprite(0, 0, 'iconDelete');
+                //enterSpriteButton.scale.set(0.7 * game.scaleRatio);
+                deleteSpriteButton.anchor.set(0.5);
+                deleteSpriteButton.x = this.textBox.x + (this.textBox.width * game.scaleRatio) + enterSpriteButton.width+5;
+                deleteSpriteButton.y = this.textBox.y + this.textBox.height / 2 ;
+                deleteSpriteButton.inputEnabled = true;
+                deleteSpriteButton.input.priorityID = 0;
+
+
+                deleteSpriteButton.events.onInputDown.add(this.deleteBox, this);
                 // let menuSpriteButton = game.add.sprite(this.game.width - 100, 100, 'openmenu');
                 // menuSpriteButton.scale.set(0.7 * game.scaleRatio);
                 // menuSpriteButton.anchor.set(0.5);
@@ -109,6 +123,9 @@ export default class extends Phaser.State {
             text: '0',
             cloudEnabled: true
         });
+
+
+
         this.addScoreText = new FreeText({
             game: this.game,
             x: this.world.width * 0.75,
@@ -173,21 +190,22 @@ export default class extends Phaser.State {
                 this.patienceBarsGroup.x =  this.world.width * 0.1;
                 this.patienceBarsGroup.y = this.game.world.centerY * 0.1 - 15;
 
-                
                 this.ConversationStart();
             });
         this.customer.setAnimationSpeedPercent(100);
         this.customer.playAnimationByName('_RUN');
+
+
         game.add.tween(this.customer).to({ x: this.world.width * 0.7 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 1500)
             .onComplete.add(() => {
                 this.customer.setAnimationSpeedPercent(100);
                 this.customer.playAnimationByName('_IDLE');
-             
-                this.scoreText = game.add.text(this.world.width * 0.78, this.game.world.centerY * 0.1, 'Score : 0', {
-                    font: "40px Berkshire Swash",
+                var image = game.add.image(this.world.width * 0.78, this.game.world.centerY * 0.02, 'scoreBar');
+                this.scoreText = game.add.text(this.world.width * 0.89, this.game.world.centerY * 0.16, '0', {
+                    font: "60px Berkshire Swash",
                     fill: 'black'
                 });
-                this.scoreText.anchor.setTo(0,0.5);
+                this.scoreText.anchor.setTo(0.5,0.5);
             });
 
     }
@@ -264,8 +282,10 @@ export default class extends Phaser.State {
     }
 
     SayItByCustomer() {
+      
         console.log('textnya = ' +this.textBox.value.length)
         if(this.textBox.value.length>0 ){
+        this.onSelection = false;
         this.destroySideMenu();
 
         var text = this.textBox.value;
@@ -300,6 +320,12 @@ export default class extends Phaser.State {
         })
 
         }
+    }
+
+     deleteBox() {
+
+        this.textBox.setText("");
+        
     }
 
     SayItByCook(text, submitResult) {
@@ -388,6 +414,67 @@ export default class extends Phaser.State {
     }
 
     update() {
+        if(this.onSelection){
+            
+
+            if ( this.game.input.keyboard.justPressed(Phaser.KeyCode.RIGHT) ){
+                 console.log("just pressed 1");
+                 console.log("pencet kanan" + this.selection +" - "+this.ansLength);
+                 this.listView.items[this.selection].frame = 0;
+                
+
+                    this.selection+=1;
+                    if(this.selection>this.ansLength-1){
+                        this.selection = 0;
+                    }
+
+                     this.listView.items[this.selection].frame = 1;
+            }
+
+            if ( this.game.input.keyboard.justPressed(Phaser.KeyCode.LEFT) ){
+                 console.log("just pressed 1");
+                 console.log("pencet kanan" + this.selection +" - "+this.ansLength);
+                 this.listView.items[this.selection].frame = 0;
+                
+
+                    this.selection-=1;
+                    if(this.selection<0){
+                        this.selection = this.ansLength-1;
+                    }
+
+                     this.listView.items[this.selection].frame = 1;
+            }
+
+            if ( this.game.input.keyboard.justPressed(Phaser.KeyCode.UP) || this.game.input.keyboard.justPressed(Phaser.KeyCode.SPACEBAR) ){
+                 //SayItByCustomer(this.listView.items[this.selection].text);
+                 this.addCharToNode(this.listView.items[this.selection]);
+            }
+
+            if ( this.game.input.keyboard.justPressed(Phaser.KeyCode.DOWN) || this.game.input.keyboard.justPressed(Phaser.KeyCode.BACKSPACE) ){
+                 //SayItByCustomer(this.listView.items[this.selection].text);
+                 this.deleteBox();
+            }
+
+              if ( this.game.input.keyboard.justPressed(Phaser.KeyCode.ENTER) ){
+                 this.SayItByCustomer();
+               
+            }
+
+
+            /*
+            if (this.cursors.right.isDown)
+            {
+                
+
+            }
+            else if (this.cursors.left.isDown)
+            {
+                game.camera.x += 4;
+            }
+            */
+
+        }
+
         //this.spritesGroup.updateAnimation();
         this.cook.updateAnimation();
          this.customer.updateAnimation();
@@ -395,7 +482,7 @@ export default class extends Phaser.State {
         this.textBox.endFocus();
         // Keep the score up to date
         if (this.stateMachine && this.scoreText) {
-            this.scoreText.text = 'Score : '+this.stateMachine.getScore();
+            this.scoreText.text = this.stateMachine.getScore();
         }
 
     }
@@ -557,7 +644,7 @@ export default class extends Phaser.State {
     }
 
     createSideMenu() {
-
+        this.onSelection = true;
 
         this.sidemenu = this.game.add.sprite(this.game.width, this.game.height, 'sidemenu');
         this.sidemenu.height = this.game.height;
@@ -576,7 +663,13 @@ export default class extends Phaser.State {
 
         var i = 0;
         var rect;
+
+        this.selection = 0;
+        this.ansLength = 0;
+
+
         this.stateMachine.getAnswerWords().forEach((word) => {
+            this.ansLength+=1
             var item = this.game.add.sprite(0, 0, 'sidebg');
            // item.scale.set(0.8 * game.scaleRatio);
             item.text = word;
@@ -586,6 +679,7 @@ export default class extends Phaser.State {
             character.scale.set((2.05 - (word.length*0.17)) * game.scaleRatio);
             rect = new Phaser.Rectangle(item.x, item.y, item.width, item.height);
             character.alignIn(rect, Phaser.CENTER, 0, 0);
+            item.frame = 0;
             item.addChild(character);
 
             character.inputEnabled = true;
@@ -598,6 +692,10 @@ export default class extends Phaser.State {
             item.events.onInputDown.add(this.addCharToNode, this);
             this.listView.add(item);
         });
+
+        console.log("asd = "+ this.listView.items[2].text);
+        this.listView.items[this.selection].frame = 1;
+
        /* this.listView.grp.visible = false;
         this.openSidemenu = this.game.add.tween(this.sidemenu).to({ y: this.game.height }, 1000, Phaser.Easing.Exponential.Out);
         this.closeSidemenu = this.game.add.tween(this.sidemenu).to({ y: this.game.height }, 1000, Phaser.Easing.Exponential.Out);

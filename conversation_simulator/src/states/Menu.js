@@ -18,6 +18,7 @@ import FreeText from '../sprites/FreeText'
 import Border from '../sprites/Border'
 import Spriter from '../libs/spriter'
 import Background from '../sprites/background'
+import jQuery from 'jquery'
 
 
 
@@ -62,6 +63,7 @@ export default class extends Phaser.State {
                 // menuSpriteButton.inputEnabled = true;
                 // menuSpriteButton.input.priorityID = 0;
                 // menuSpriteButton.events.onInputDown.add(this.openMenu, this);
+                jQuery.post( "https://dtml.org/api/User/Activity", { activity: this.phaserJSON.title, time: "", eventType: "GameStarted", EventData: "" } );
       
     }
 

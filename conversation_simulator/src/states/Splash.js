@@ -61,11 +61,11 @@ export default class extends Phaser.State {
         this.load.xml('wizardAnimations', 'assets/images/res/'+phaserJSON.leftperson+'/anim.scml')
 
         // load bar for patience
-        this.load.spritesheet('patienceBar5', 'assets/images/res/lopelope.png', 89, 75);
-        this.load.spritesheet('patienceBar4', 'assets/images/res/lopelope.png', 89, 75);
-        this.load.spritesheet('patienceBar3', 'assets/images/res/lopelope.png', 89, 75);
-        this.load.spritesheet('patienceBar2', 'assets/images/res/lopelope.png', 89, 75);
-        this.load.spritesheet('patienceBar1', 'assets/images/res/lopelope.png', 89, 75);
+        this.load.spritesheet('patienceBar5', 'assets/images/res/lopelope.png', 95, 84);
+        this.load.spritesheet('patienceBar4', 'assets/images/res/lopelope.png', 95, 84);
+        this.load.spritesheet('patienceBar3', 'assets/images/res/lopelope.png', 95, 84);
+        this.load.spritesheet('patienceBar2', 'assets/images/res/lopelope.png', 95, 84);
+        this.load.spritesheet('patienceBar1', 'assets/images/res/lopelope.png', 95, 84);
 
         this.load.atlas('gnome', 'assets/images/res/'+phaserJSON.rightperson+'/anim.png', 'assets/images/res/'+phaserJSON.rightperson+'/anim.json')
         this.load.xml('gnomeAnimations', 'assets/images/res/'+phaserJSON.rightperson+'/anim.scml')
@@ -74,6 +74,8 @@ export default class extends Phaser.State {
         this.load.image('iconAttack', 'assets/images/res/icon-attack.png');
         this.load.image('iconHome', 'assets/images/icon-home.png');
         this.load.image('iconPlay', 'assets/images/res/button-start.png');
+         this.load.image('scoreBar', 'assets/images/res/score-board.png');
+         this.load.image('iconDelete', 'assets/images/res/icon-back.png');
 
         // bg
         
@@ -88,14 +90,14 @@ export default class extends Phaser.State {
         // audio
         this.load.audio('click', 'assets/audio/Click.wav')
        
-        //this.load.atlas('flags', 'assets/images/flags/flags.png', 'assets/images/flags/flags.json')
-        this.load.spritesheet('heart', 'assets/images/ss-heart.png', 48, 48, 6)
-
         //side menu
         this.load.spritesheet('sidebg', 'assets/images/res/sidebg.png', 115, 117);
 
         // game state data
         this.load.json('stateData', 'assets/data/'+phaserJSON.datafile);
+
+
+
     }
 
     loadStart() {
@@ -119,12 +121,13 @@ export default class extends Phaser.State {
         // video.play(false);
         // //  x, y, anchor x, anchor y, scale x, scale y
         // video.addToWorld(game.world.centerX, game.world.centerY, 0.5, 0.5, 0.5, 0.5);
-        let videoDuration = 6
+        let videoDuration = 1
         this.time.events.add(Phaser.Timer.SECOND * videoDuration, () => {
             document.querySelector('#intro').style.display = 'none'
             document.querySelector('#content').style.display = 'block'
             //this.state.start('GameOver', false, false, '4234')
             this.state.start('Menubefore');
+            //this.state.start('Game');
               
 
         }, this)
