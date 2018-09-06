@@ -691,7 +691,7 @@
     "FinishOrder": {
       "Type": "Conversation",
       "Question": "I'll be back with your food. ",
-	  "OnStateExit": { "Left": "Leave", "Right":"IDLE"  },
+	  "OnStateExit": { "Left": "Leave", "Right":"IDLE", "Background":""  },
       "AnswerWords": [
         "You",
         "Mass",
@@ -733,7 +733,7 @@
     "HereIsYourFood": {
       "Type": "Conversation",
       "Question": "Here is your food. Please enjoy.",
-	  "OnStateEnter": { "Left": "BringFood", "Right":"IDLE"  },
+	  "OnStateEnter": { "Left": "BringFood", "Right":"IDLE", "Background":""  },
       "AnswerWords": [
         "Great",
         "Jupitor",
