@@ -1,7 +1,7 @@
 {     
       "name":"Restourant",
       "datafile":"gameStates.json",
-      "title":"In the restourant",
+      "title":"At the restaurant",
       "icon":"icon.jpg",
       "leftperson": "cook",
       "rightperson": "man",
