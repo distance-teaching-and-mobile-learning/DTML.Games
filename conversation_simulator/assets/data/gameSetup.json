@@ -6,6 +6,8 @@
       "leftperson": "cook",
       "rightperson": "man",
       "background": "backgrounds/restourant.png",
+      "background0": "backgrounds/grocery.png",
+      "background1": "backgrounds/restourant.png",
       "CallOutLeftX":"205",
       "CallOutLeftY":"350",
       "CallOutRightX":"175",

@@ -1,5 +1,6 @@
 {"frames": [
 
+
 {
 	"filename":"TanganSide",
 	"frame": {"x":267,"y":876,"w":128,"h":300},
@@ -8,6 +9,7 @@
 	"spriteSourceSize": {"x":86,"y":0,"w":128,"h":300},
 	"sourceSize": {"w":300,"h":300}
 },
+
 {
 	"filename":"Boddy",
 	"frame": {"x":2,"y":876,"w":263,"h":293},
@@ -18,7 +20,7 @@
 },
 {
 	"filename":"Body",
-	"frame": {"x":225,"y":288,"w":267,"h":291},
+	"frame": {"x":273,"y":288,"w":267,"h":291},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":5,"w":267,"h":291},
@@ -34,22 +36,6 @@
 },
 {
 	"filename":"HeadSide",
-	"frame": {"x":374,"y":582,"w":184,"h":292},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":58,"y":4,"w":184,"h":292},
-	"sourceSize": {"w":300,"h":300}
-},
-{
-	"filename":"Leg",
-	"frame": {"x":424,"y":2,"w":150,"h":165},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":25,"y":18,"w":150,"h":165},
-	"sourceSize": {"w":200,"h":200}
-},
-{
-	"filename":"Head",
 	"frame": {"x":188,"y":582,"w":184,"h":292},
 	"rotated": false,
 	"trimmed": true,
@@ -57,15 +43,15 @@
 	"sourceSize": {"w":300,"h":300}
 },
 {
-	"filename":"Head1",
-	"frame": {"x":560,"y":582,"w":184,"h":292},
+	"filename":"Leg",
+	"frame": {"x":154,"y":2,"w":150,"h":165},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":58,"y":4,"w":184,"h":292},
-	"sourceSize": {"w":300,"h":300}
+	"spriteSourceSize": {"x":25,"y":18,"w":150,"h":165},
+	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename":"Head2",
+	"filename":"Head",
 	"frame": {"x":2,"y":582,"w":184,"h":292},
 	"rotated": false,
 	"trimmed": true,
@@ -73,8 +59,24 @@
 	"sourceSize": {"w":300,"h":300}
 },
 {
+	"filename":"Head1",
+	"frame": {"x":374,"y":582,"w":184,"h":292},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":58,"y":4,"w":184,"h":292},
+	"sourceSize": {"w":300,"h":300}
+},
+{
+	"filename":"Head2",
+	"frame": {"x":542,"y":288,"w":184,"h":292},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":58,"y":4,"w":184,"h":292},
+	"sourceSize": {"w":300,"h":300}
+},
+{
 	"filename":"Head3",
-	"frame": {"x":765,"y":288,"w":184,"h":292},
+	"frame": {"x":728,"y":288,"w":184,"h":292},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":58,"y":4,"w":184,"h":292},
@@ -82,7 +84,7 @@
 },
 {
 	"filename":"LegSide",
-	"frame": {"x":576,"y":2,"w":106,"h":174},
+	"frame": {"x":306,"y":2,"w":106,"h":174},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":47,"y":13,"w":106,"h":174},
@@ -90,27 +92,20 @@
 },
 {
 	"filename":"Arm",
-	"frame": {"x":2,"y":288,"w":221,"h":284},
+	"frame": {"x":637,"y":2,"w":221,"h":284},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":39,"y":8,"w":221,"h":284},
 	"sourceSize": {"w":300,"h":300}
-},
-{
-	"filename":"Mampan",
-	"frame": {"x":2,"y":2,"w":268,"h":148},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":18,"y":27,"w":268,"h":148},
-	"sourceSize": {"w":300,"h":300}
-}],
+}
+],
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
 	"version": "1.0",
 	"image": "anim.png",
 	"format": "RGBA8888",
-	"size": {"w":951,"h":1259},
+	"size": {"w":914,"h":1259},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:37580d3734eeffa99176c37cecd3ddf9:a676119855d93f428d5959e219abe458:6347dbebbf1304f1c390863db2a23cce$"
+	"smartupdate": "$TexturePacker:SmartUpdate:e64b40200160db14a7de9c9c040bfde2:eecdd2b7952922f6adaa199d553549a9:6347dbebbf1304f1c390863db2a23cce$"
 }
 }

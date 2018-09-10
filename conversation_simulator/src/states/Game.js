@@ -39,7 +39,7 @@ export default class extends Phaser.State {
        
         this.language = this.game.state.states['Game']._language;
         this.langCode = this.game.state.states['Game']._langCode;
-        let bg = new Background({ game: this.game }, 1);
+        this.bg = new Background({ game: this.game }, 1);
 
         let music = game.add.audio('gameMusic');
         music.onDecoded.add(() => {
@@ -68,7 +68,8 @@ export default class extends Phaser.State {
             focusOutOnEnter: true,
             disabled : true
         });
-
+        this.enter = null;
+        this.exit = null;
         this.textBox.disabled = true;
        this.textBox.scale.set(0, 1 * game.scaleRatio);
         game.add.tween(this.textBox.scale).to({ x: 1 * game.scaleRatio }, 500, Phaser.Easing.Cubic.Out, true, 2500)
@@ -80,10 +81,9 @@ export default class extends Phaser.State {
                 enterSpriteButton.y = this.textBox.y + this.textBox.height / 2 ;
                 enterSpriteButton.inputEnabled = true;
                 enterSpriteButton.input.priorityID = 0;
-
-
                 enterSpriteButton.events.onInputDown.add(this.SayItByCustomer, this);
-
+                this.enter = enterSpriteButton;
+                this.enter.visible = false;
 
 
                 let deleteSpriteButton = game.add.sprite(0, 0, 'iconDelete');
@@ -96,6 +96,8 @@ export default class extends Phaser.State {
 
 
                 deleteSpriteButton.events.onInputDown.add(this.deleteBox, this);
+                this.exit = deleteSpriteButton;
+                 //this.exit.visible = false;
                 // let menuSpriteButton = game.add.sprite(this.game.width - 100, 100, 'openmenu');
                 // menuSpriteButton.scale.set(0.7 * game.scaleRatio);
                 // menuSpriteButton.anchor.set(0.5);
@@ -282,7 +284,42 @@ export default class extends Phaser.State {
     }
 
     SayItByCustomer() {
-      
+        //this.exit.visible = false;
+        this.enter.visible = false;
+
+
+        this.lastState = this.stateMachine.currentStateName;
+        this.leftnya = '';
+        this.rightnya = '';
+        this.bgnya = '';
+
+          if(this.stateMachine.getOnExitLeft()!=null){
+            console.log('gaada'+ this.stateMachine.getOnExitLeft());
+            this.leftnya = this.stateMachine.getOnExitLeft();
+
+            }else{
+            console.log('gaada'); 
+            }
+
+
+            if(this.stateMachine.getOnExitRight()!=null){
+            console.log('gaada'+ this.stateMachine.getOnExitRight());
+            this.rightnya = this.stateMachine.getOnExitRight();
+
+            }else{
+            console.log('gaada'); 
+            }
+
+             if(this.stateMachine.getOnExitBg()!=null){
+            console.log('gaada'+ this.stateMachine.getOnExitBg());
+            this.bgnya = this.stateMachine.getOnExitBg();
+
+            }else{
+            console.log('gaada'); 
+            }
+
+
+
         console.log('textnya = ' +this.textBox.value.length)
         if(this.textBox.value.length>0 ){
         this.onSelection = false;
@@ -304,22 +341,101 @@ export default class extends Phaser.State {
 
         this.stateMachine.submitSolution(text);
 
+
+
+
+
+
         label.anchor.setTo(0.5);
 
         this.time.events.add(2500, () => {
+
+            this.timernya = 0;
+            
+            if( this.lastState != this.stateMachine.currentStateName){
+                console.log('masuk sini = '+ this.leftnya);
+
+                if(this.leftnya!=''){
+                    if(this.leftnya=='Leave'){
+
+                                    console.log('masuk sini');
+                                    this.cook.scale.x *= -1;
+                                    this.cook.playAnimationByName('_RUN');
+                                    game.add.tween(this.cook).to({ x: -300 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
+                                    .onComplete.add(() => {
+                                          //this.cook.scale.x *= 1;
+                                            this.cook.setAnimationSpeedPercent(100);
+                                            this.cook.playAnimationByName('_IDLE');
+                                    });
+
+                                    this.timernya = 2000;
+                    }else
+                    {
+                        this.cook.playAnimationByName(this.leftnya);
+                        this.timernya = 2000;
+
+                    }
+
+
+                }
+
+                if(this.rightnya!=''){
+                    if(this.rightnya=='Leave'){
+
+                                    console.log('masuk sini');
+                                    this.customer.scale.x *= -1;
+                                    this.customer.playAnimationByName('_RUN');
+                                    game.add.tween(this.customer).to({ x: game.width + 180 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
+                                    .onComplete.add(() => {
+                                         //this.customer.scale.x *= -1;
+                                            this.customer.setAnimationSpeedPercent(100);
+                                            this.customer.playAnimationByName('_IDLE');
+                                    });
+
+                                    this.timernya = 2000;
+                    }else
+                    {
+                        this.customer.playAnimationByName(this.rightnya);
+                        this.timernya = 2000;
+
+                    }
+
+
+                }
+
+                 if(this.bgnya!=''){
+                    //this.load.image('bgn', 'assets/images/res/backgrounds/'+this.bgnya);
+                    this.bg.bgs[0].loadTexture(this.bgnya);
+                }
+
+
+                
+
+            }
+
+
+
+
             this.customer.setAnimationSpeedPercent(100);
             this.customer.playAnimationByName('_IDLE');
             label.kill();
 
             // Once the player has said something, the cook should respond
             if(this.stateMachine.currentStateName!="End"){
-            this.SayItByCook(this.stateMachine.getQuestion(), this.stateMachine.submitSolutionResult);
+                this.time.events.add(this.timernya, () => {
+                    this.cekEnter = 0;
+
+
+                    this.SayItByCook(this.stateMachine.getQuestion(), this.stateMachine.submitSolutionResult);
+                });
             }else{
                this.state.start('GameOver', true, false, this.scoreText.text) 
             }      
         })
 
         }
+
+    
     }
 
      deleteBox() {
@@ -341,6 +457,7 @@ export default class extends Phaser.State {
 
 
         if (!submitResult) {
+            this.cekEnter = 1;
             if (this.patienceRemaining > 1) {
                 this.patienceBars[this.patienceRemaining - 1].kill()
                 this.patienceRemaining -= 1;
@@ -373,6 +490,103 @@ export default class extends Phaser.State {
             return;
         }
 
+
+        this.timernya = 0;
+        if(this.cekEnter==0){
+
+                this.leftnya = '';
+                this.rightnya = '';
+                this.bgnya = '';
+
+          if(this.stateMachine.getOnEnterLeft()!=null){
+            console.log('gaada'+ this.stateMachine.getOnEnterLeft());
+            this.leftnya = this.stateMachine.getOnEnterLeft();
+
+            }else{
+            console.log('gaada'); 
+            }
+
+
+            if(this.stateMachine.getOnEnterRight()!=null){
+            console.log('gaada'+ this.stateMachine.getOnEnterRight());
+            this.rightnya = this.stateMachine.getOnEnterRight();
+
+            }else{
+            console.log('gaada'); 
+            }
+
+
+             if(this.stateMachine.getOnEnterBg()!=null){
+            console.log('gaada'+ this.stateMachine.getOnEnterBg());
+            this.bgnya = this.stateMachine.getOnEnterBg();
+
+            }else{
+            console.log('gaada'); 
+            }
+
+
+
+
+            if(this.leftnya!=''){
+                    if(this.leftnya=='BringFood'){
+
+                                    console.log('masuk sini');
+                                    this.cook.scale.x *= -1;
+                                    this.cook.playAnimationByName('_WALK');
+                                    game.add.tween(this.cook).to({ x: this.world.width * 0.4 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
+                                    .onComplete.add(() => {
+                                          //this.cook.scale.x *= -1;
+                                            this.cook.setAnimationSpeedPercent(100);
+                                            this.cook.playAnimationByName('_IDLE');
+                                    });
+
+                                    this.timernya = 2000;
+                    }else
+                    {
+                        this.cook.playAnimationByName(this.leftnya);
+                        this.timernya = 2000;
+
+                    }
+
+
+                }
+
+                if(this.rightnya!=''){
+                    if(this.rightnya=='BringFood'){
+
+                                    console.log('masuk sini');
+                                    this.customer.scale.x *= -1;
+                                    this.customer.playAnimationByName('_WALK');
+                                    game.add.tween(this.customer).to({ x: this.world.width * 0.7 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
+                                    .onComplete.add(() => {
+                                         //this.customer.scale.x *= -1;
+                                            this.customer.setAnimationSpeedPercent(100);
+                                            this.customer.playAnimationByName('_IDLE');
+                                    });
+
+                                    this.timernya = 2000;
+                    }else
+                    {
+                        this.customer.playAnimationByName(this.rightnya);
+                        this.timernya = 2000;
+
+                    }
+
+
+                }
+
+
+                 if(this.bgnya!=''){
+                    //this.load.image('bgn', 'assets/images/res/backgrounds/'+this.bgnya);
+                    this.bg.bgs[0].loadTexture(this.bgnya);
+                }
+                
+
+            }
+
+          this.time.events.add(this.timernya, () => { 
+
+        this.cook.playAnimationByName('_SAY');
         this.textToSpeach(text, this.cookVoice, this.phaserJSON.LeftPitch);
 
         let label = this.game.add.text(this.cook.x - parseInt(this.phaserJSON.CallOutLeftX), this.cook.y - parseInt(this.phaserJSON.CallOutLeftY), text, {
@@ -390,6 +604,8 @@ export default class extends Phaser.State {
             this.time.events.add(5000, () => {
                 this.cook.setAnimationSpeedPercent(100);
                 this.cook.playAnimationByName('_IDLE');
+                 this.exit.visible = true;
+                this.enter.visible = true;
                //this.cook.x = this.cook.x + 120;
                // this.cook.y = this.cook.y + 65;
                 label.kill();
@@ -401,6 +617,7 @@ export default class extends Phaser.State {
                 this.createSideMenu();
             });
         }
+        });
     }
 
     showMenu() {
@@ -414,6 +631,30 @@ export default class extends Phaser.State {
     }
 
     update() {
+
+/*
+        if(this.cook.currentAnimationName!='_IDLE'){
+            if(this.enter!=null){
+             this.enter.visible = false;
+            }
+
+
+              if(this.exit!=null){
+             this.exit.visible = false; 
+            }
+        }else{
+             if(this.enter!=null){
+            this.enter.visible = true;
+            }
+
+        if(this.exit!=null){
+              this.exit.visible = true; 
+          }
+        }
+*/
+
+       // console.log("this.cook.animation = "+this.cook.currentAnimationName);
+
         if(this.onSelection){
             
 
@@ -456,7 +697,9 @@ export default class extends Phaser.State {
             }
 
               if ( this.game.input.keyboard.justPressed(Phaser.KeyCode.ENTER) ){
+                if(this.enter.visible==true){
                  this.SayItByCustomer();
+                }
                
             }
 

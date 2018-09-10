@@ -85,6 +85,9 @@ export default class extends Phaser.State {
         this.load.image('bg3', 'assets/images/res/bar-mini-depan.png')
         this.load.image('bg4', 'assets/images/res/l7_ground.png')
         this.load.image('gameover', 'assets/images/res/endgame.png');
+
+        this.load.image('bgx0', 'assets/images/res/'+phaserJSON.background0);
+        this.load.image('bgx1', 'assets/images/res/'+phaserJSON.background1);
         
 
         // audio
@@ -121,7 +124,7 @@ export default class extends Phaser.State {
         // video.play(false);
         // //  x, y, anchor x, anchor y, scale x, scale y
         // video.addToWorld(game.world.centerX, game.world.centerY, 0.5, 0.5, 0.5, 0.5);
-        let videoDuration = 1
+        let videoDuration = 5
         this.time.events.add(Phaser.Timer.SECOND * videoDuration, () => {
             document.querySelector('#intro').style.display = 'none'
             document.querySelector('#content').style.display = 'block'

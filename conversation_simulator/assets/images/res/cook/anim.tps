@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.3.5b1</string>
         <key>fileName</key>
-        <string>D:/Workspace/DTML/Conversation_Simulator/conversation_simulator/assets/images/res/cook/anim.tps</string>
+        <string>D:/Workspace/New/DTML2/conversation_simulator/assets/images/res/cook/anim.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">

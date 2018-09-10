@@ -29,6 +29,55 @@ export default class {
         return this.score;
     }
 
+    getOnEnterLeft(){
+        if(this.currentState.OnStateEnter!=null){
+        return this.currentState.OnStateEnter.Left;
+    }else{
+       return null; 
+    }
+    }
+
+    getOnEnterRight(){
+        if(this.currentState.OnStateEnter!=null){
+        return this.currentState.OnStateEnter.Right;
+    }else{
+       return null; 
+    }
+    }
+
+    getOnExitLeft(){
+        if(this.currentState.OnStateExit!=null){
+        return this.currentState.OnStateExit.Left;
+    }else{
+       return null; 
+    }
+    }
+
+     getOnExitRight(){
+        if(this.currentState.OnStateExit!=null){
+        return this.currentState.OnStateExit.Right;
+    }else{
+       return null; 
+    }
+    }
+
+    getOnExitBg(){
+        if(this.currentState.OnStateExit!=null){
+        return this.currentState.OnStateExit.Background;
+    }else{
+       return null; 
+    }
+    }
+
+    getOnEnterBg(){
+        if(this.currentState.OnStateEnter!=null){
+        return this.currentState.OnStateEnter.Background;
+    }else{
+       return null; 
+    }
+    }
+
+
     getAnswerWords() {
         return this.currentState.AnswerWords;
     }
