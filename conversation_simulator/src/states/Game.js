@@ -97,7 +97,7 @@ export default class extends Phaser.State {
 
                 deleteSpriteButton.events.onInputDown.add(this.deleteBox, this);
                 this.exit = deleteSpriteButton;
-                 //this.exit.visible = false;
+                 this.exit.visible = false;
                 // let menuSpriteButton = game.add.sprite(this.game.width - 100, 100, 'openmenu');
                 // menuSpriteButton.scale.set(0.7 * game.scaleRatio);
                 // menuSpriteButton.anchor.set(0.5);
@@ -284,7 +284,7 @@ export default class extends Phaser.State {
     }
 
     SayItByCustomer() {
-        //this.exit.visible = false;
+        this.exit.visible = false;
         this.enter.visible = false;
 
 
@@ -604,6 +604,7 @@ export default class extends Phaser.State {
             this.time.events.add(5000, () => {
                 this.cook.setAnimationSpeedPercent(100);
                 this.cook.playAnimationByName('_IDLE');
+                 this.createSideMenu();
                  this.exit.visible = true;
                 this.enter.visible = true;
                //this.cook.x = this.cook.x + 120;
@@ -613,9 +614,9 @@ export default class extends Phaser.State {
 
 
             // After cook speaks, the player should be able to answer
-            this.time.events.add(500, () => {
-                this.createSideMenu();
-            });
+           // this.time.events.add(500, () => {
+               // this.createSideMenu();
+           // });
         }
         });
     }
@@ -732,6 +733,28 @@ export default class extends Phaser.State {
 
 
     addCharToNode(sprite) {
+
+        //this.listView.items[this.selection].frame
+        var iii = 0;
+        var xxx = 0
+        this.listView.items.forEach(function(itemnya){
+            itemnya.frame = 0;
+            if(itemnya.text==sprite.text){
+                sprite.frame = 1;
+                iii = xxx;
+                console.log('indexnya = '+iii);
+                //this.game.selection = itemnya.index;
+            }
+            xxx++;
+
+        });
+
+        this.selection = iii;
+
+        console.log('indexnya = '+this.selection);
+        //this.selection = index;
+        //this.listView.items[this.selection].frame = 1;
+
         this.textBox.setText(this.textBox.value + " " + sprite.text);
     }
 
