@@ -1,4 +1,4 @@
-Apache License
+Apache License for Distance Teaching and Mobile Learnig https://dtml.org game
 
 Version 2.0, January 2004
 
