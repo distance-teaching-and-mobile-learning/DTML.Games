@@ -20,30 +20,24 @@ import Spriter from '../libs/spriter'
 import Background from '../sprites/background'
 import jQuery from 'jquery'
 
-
-
 export default class extends Phaser.State {
 
     init() {
 
     }
 
-    create() {
-      
-             this.phaserJSON = this.cache.getJSON('gameSetup');
-              let bg = new Background({ game: this.game }, 0);
-
-           
+    create() {      
+                this.phaserJSON = this.cache.getJSON('gameSetup');
+                let bg = new Background({ game: this.game }, 0);       
                 let enterSpriteButton = game.add.sprite(0, 0, 'iconPlay');
-              //  enterSpriteButton.scale.set(0.7 * game.scaleRatio);
                 enterSpriteButton.anchor.set(0.5);
                 enterSpriteButton.x = game.world.centerX;
                 enterSpriteButton.y = game.world.centerY+200;
                 enterSpriteButton.inputEnabled = true;
                 enterSpriteButton.input.priorityID = 0;
                 enterSpriteButton.events.onInputDown.add(this.SayItByCustomer, this);
-                         enterSpriteButton.alpha = 0;
-                         game.add.tween(enterSpriteButton).to({x: game.world.centerX, alpha: 1}, 500, Phaser.Easing.Cubic.In, true, 2000)
+                enterSpriteButton.alpha = 0;
+                game.add.tween(enterSpriteButton).to({x: game.world.centerX, alpha: 1}, 500, Phaser.Easing.Cubic.In, true, 2000)
 
                   var style = { font: "bold 42px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
 
@@ -56,14 +50,8 @@ export default class extends Phaser.State {
     text.setTextBounds(0, 0, game.world.width, game.world.height);
     text.alpha = 0;
      game.add.tween(text).to({alpha: 1}, 500, Phaser.Easing.Cubic.In, true, 2500)
-           
-             // let menuSpriteButton = game.add.sprite(this.game.width - 100, 100, 'openmenu');
-                // menuSpriteButton.scale.set(0.7 * game.scaleRatio);
-                // menuSpriteButton.anchor.set(0.5);
-                // menuSpriteButton.inputEnabled = true;
-                // menuSpriteButton.input.priorityID = 0;
-                // menuSpriteButton.events.onInputDown.add(this.openMenu, this);
-                jQuery.post( "https://dtml.org/api/User/Activity", { activity: this.phaserJSON.title, time: "", eventType: "GameStarted", EventData: "" } );
+         
+     jQuery.post( "https://dtml.org/api/User/User", { activity: this.phaserJSON.title, time: "", eventType: "GameStarted", EventData: "" } );
       
     }
 

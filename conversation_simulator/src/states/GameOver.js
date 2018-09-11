@@ -24,12 +24,12 @@ import jQuery from 'jquery'
 
 export default class extends Phaser.State {
     init(customParam) {
-        this.phaserJSON = this.cache.getJSON('gameSetup');	
-		this.game.stage.backgroundColor = "#00B3C1";
-	    let gameover = game.add.sprite(game.world.centerX, game.world.centerY, 'gameover');
-        gameover.anchor.set(0.5);
-        this.setText(customParam);
-         jQuery.post( "https://dtml.org/api/User/Activity", { activity: this.phaserJSON.title, time: "",  eventType: "GameCompleted", EventData: customParam } );
+         this.phaserJSON = this.cache.getJSON('gameSetup');	
+	 this.game.stage.backgroundColor = "#00B3C1";
+         let gameover = game.add.sprite(game.world.centerX, game.world.centerY, 'gameover');
+         gameover.anchor.set(0.5);
+         this.setText(customParam);
+         jQuery.post( "https://dtml.org/api/User/User", { activity: this.phaserJSON.title, time: "",  eventType: "GameCompleted", EventData: customParam } );
     }
 
     shutdown() {
@@ -37,22 +37,20 @@ export default class extends Phaser.State {
     }
 
      create() {
-         this.spritesGroup = this.add.group();
+        this.spritesGroup = this.add.group();
         this.cook = this.loadSpriter('wizard');
-       // this.cook.scale.set(0.7 * game.scaleRatio, 0.7 * game.scaleRatio);
         this.cook.x = 240 * game.scaleRatio;
         this.cook.y = this.world.height - 470;
         this.spritesGroup.add(this.cook);
-                this.cook.playAnimationByName('_IDLE');
-
+        this.cook.playAnimationByName('_IDLE');
 
         this.customer = this.loadSpriter('gnome');
 
-       // this.customer.scale.set(0.7 * game.scaleRatio, 0.7 * game.scaleRatio);
         this.customer.scale.x *= -1;
         this.customer.children.forEach(sprite => {
             sprite.anchor.set(0, 1);
         });
+
         this.customer.x = game.width - 260 * game.scaleRatio;
         this.customer.startx = this.world.width * 0.75 * game.scaleRatio;
         this.customer.y = this.world.height - 460;

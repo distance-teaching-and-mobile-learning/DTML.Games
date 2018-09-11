@@ -61,6 +61,7 @@ export default class extends Phaser.State {
             fontWeight: 'bold',
             width: inputW,
             padding: 8,
+			visible:false,
             borderWidth: 1,
             borderColor: '#000',
             borderRadius: 6,
@@ -70,42 +71,34 @@ export default class extends Phaser.State {
         });
         this.enter = null;
         this.exit = null;
-        this.textBox.disabled = true;
-       this.textBox.scale.set(0, 1 * game.scaleRatio);
+		this.textBox.scale.set(0, 1 * game.scaleRatio);
+      	this.textBox.disabled = true;
+		this.textBox.visible = false;
+       
         game.add.tween(this.textBox.scale).to({ x: 1 * game.scaleRatio }, 500, Phaser.Easing.Cubic.Out, true, 2500)
             .onComplete.add(() => {
                 let enterSpriteButton = game.add.sprite(0, 0, 'iconAttack');
-                //enterSpriteButton.scale.set(0.7 * game.scaleRatio);
                 enterSpriteButton.anchor.set(0.5);
                 enterSpriteButton.x = this.textBox.x + this.textBox.width * game.scaleRatio;
                 enterSpriteButton.y = this.textBox.y + this.textBox.height / 2 ;
                 enterSpriteButton.inputEnabled = true;
                 enterSpriteButton.input.priorityID = 0;
+				enterSpriteButton.input.useHandCursor = true;
                 enterSpriteButton.events.onInputDown.add(this.SayItByCustomer, this);
                 this.enter = enterSpriteButton;
                 this.enter.visible = false;
-
-
+				this.textBox.visible = false;
                 let deleteSpriteButton = game.add.sprite(0, 0, 'iconDelete');
-                //enterSpriteButton.scale.set(0.7 * game.scaleRatio);
                 deleteSpriteButton.anchor.set(0.5);
                 deleteSpriteButton.x = this.textBox.x + (this.textBox.width * game.scaleRatio) + enterSpriteButton.width+5;
                 deleteSpriteButton.y = this.textBox.y + this.textBox.height / 2 ;
                 deleteSpriteButton.inputEnabled = true;
                 deleteSpriteButton.input.priorityID = 0;
-
-
+				deleteSpriteButton.input.useHandCursor = true;
                 deleteSpriteButton.events.onInputDown.add(this.deleteBox, this);
                 this.exit = deleteSpriteButton;
-                 this.exit.visible = false;
-                // let menuSpriteButton = game.add.sprite(this.game.width - 100, 100, 'openmenu');
-                // menuSpriteButton.scale.set(0.7 * game.scaleRatio);
-                // menuSpriteButton.anchor.set(0.5);
-                // menuSpriteButton.inputEnabled = true;
-                // menuSpriteButton.input.priorityID = 0;
-                // menuSpriteButton.events.onInputDown.add(this.openMenu, this);
+                this.exit.visible = false;
             });
-
     }
 
     createSprites() {
@@ -126,8 +119,6 @@ export default class extends Phaser.State {
             cloudEnabled: true
         });
 
-
-
         this.addScoreText = new FreeText({
             game: this.game,
             x: this.world.width * 0.75,
@@ -135,18 +126,17 @@ export default class extends Phaser.State {
             text: '0',
             cloudEnabled: true
         });
+		
         var enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
         enterKey.onDown.add(this.SayItByCustomer, this);
 
         this.spritesGroup = this.add.group();
         this.cook = this.loadSpriter('wizard');
-       // this.cook.scale.set(0.7 * game.scaleRatio, 0.7 * game.scaleRatio);
         this.cook.x = -200 * game.scaleRatio;
         this.cook.y = this.world.height - 470;
         this.spritesGroup.add(this.cook);
         this.customer = this.loadSpriter('gnome');
 
-       // this.customer.scale.set(0.7 * game.scaleRatio, 0.7 * game.scaleRatio);
         this.customer.scale.x *= -1;
         this.customer.children.forEach(sprite => {
             sprite.anchor.set(0, 1);
@@ -161,7 +151,6 @@ export default class extends Phaser.State {
         this.patienceRemaining = 5;
         // intro sequence
         this.cook.setAnimationSpeedPercent(100);
-       // this.cook.playAnimationByName('_RUN');
         this.cook.playAnimationByName('_RUN');
         game.add.tween(this.cook).to({ x: this.world.width * 0.4 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 1500)
             .onComplete.add(() => {
@@ -174,7 +163,6 @@ export default class extends Phaser.State {
                 var p = game.make.sprite(0, 0, 'patienceBar5');
                 this.patienceBarsGroup.add(p);
                 this.patienceBars[4] = p;
-
                 
                 var p1 = game.make.sprite(0, 0, 'patienceBar4');
                 this.patienceBarsGroup.add(p1);
@@ -209,8 +197,7 @@ export default class extends Phaser.State {
                 });
                 this.scoreText.anchor.setTo(0.5,0.5);
             });
-
-    }
+			}
 
     gameOver() {
         this.cook.kill();
@@ -284,10 +271,6 @@ export default class extends Phaser.State {
     }
 
     SayItByCustomer() {
-        this.exit.visible = false;
-        this.enter.visible = false;
-
-
         this.lastState = this.stateMachine.currentStateName;
         this.leftnya = '';
         this.rightnya = '';
@@ -321,7 +304,12 @@ export default class extends Phaser.State {
 
 
         console.log('textnya = ' +this.textBox.value.length)
-        if(this.textBox.value.length>0 ){
+        if(this.textBox.value.length>0 )
+		{
+		this.exit.visible = false;
+        this.enter.visible = false;
+		this.textBox.visible = false;
+		
         this.onSelection = false;
         this.destroySideMenu();
 
@@ -340,11 +328,6 @@ export default class extends Phaser.State {
         });
 
         this.stateMachine.submitSolution(text);
-
-
-
-
-
 
         label.anchor.setTo(0.5);
 
@@ -434,8 +417,7 @@ export default class extends Phaser.State {
         })
 
         }
-
-    
+   
     }
 
      deleteBox() {
@@ -606,17 +588,10 @@ export default class extends Phaser.State {
                 this.cook.playAnimationByName('_IDLE');
                  this.createSideMenu();
                  this.exit.visible = true;
-                this.enter.visible = true;
-               //this.cook.x = this.cook.x + 120;
-               // this.cook.y = this.cook.y + 65;
+                 this.enter.visible = true;
+                 this.textBox.visible = true;
                 label.kill();
             });
-
-
-            // After cook speaks, the player should be able to answer
-           // this.time.events.add(500, () => {
-               // this.createSideMenu();
-           // });
         }
         });
     }
@@ -632,29 +607,6 @@ export default class extends Phaser.State {
     }
 
     update() {
-
-/*
-        if(this.cook.currentAnimationName!='_IDLE'){
-            if(this.enter!=null){
-             this.enter.visible = false;
-            }
-
-
-              if(this.exit!=null){
-             this.exit.visible = false; 
-            }
-        }else{
-             if(this.enter!=null){
-            this.enter.visible = true;
-            }
-
-        if(this.exit!=null){
-              this.exit.visible = true; 
-          }
-        }
-*/
-
-       // console.log("this.cook.animation = "+this.cook.currentAnimationName);
 
         if(this.onSelection){
             
@@ -703,20 +655,6 @@ export default class extends Phaser.State {
                 }
                
             }
-
-
-            /*
-            if (this.cursors.right.isDown)
-            {
-                
-
-            }
-            else if (this.cursors.left.isDown)
-            {
-                game.camera.x += 4;
-            }
-            */
-
         }
 
         //this.spritesGroup.updateAnimation();
