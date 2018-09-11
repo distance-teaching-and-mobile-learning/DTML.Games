@@ -434,9 +434,6 @@ export default class extends Phaser.State {
 
         this.cook.setAnimationSpeedPercent(100);
         this.cook.playAnimationByName('_SAY');
-        //this.cook.x = this.cook.x - 120;
-        //this.cook.y = this.cook.y - 30;
-
 
         if (!submitResult) {
             this.cekEnter = 1;
@@ -464,9 +461,6 @@ export default class extends Phaser.State {
                 this.customer.playAnimationByName('_IDLE');
                 label2.kill();
 
-                //this.cook.x = this.cook.x + 120;
-                //this.cook.y = this.cook.y + 65;
-                // Once the player has said something, the cook should respond
                 this.SayItByCook(this.stateMachine.getQuestion(), true);
             })
             return;
@@ -517,7 +511,6 @@ export default class extends Phaser.State {
                                     this.cook.playAnimationByName('_WALK');
                                     game.add.tween(this.cook).to({ x: this.world.width * 0.4 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
                                     .onComplete.add(() => {
-                                          //this.cook.scale.x *= -1;
                                             this.cook.setAnimationSpeedPercent(100);
                                             this.cook.playAnimationByName('_IDLE');
                                     });
@@ -559,10 +552,9 @@ export default class extends Phaser.State {
 
 
                  if(this.bgnya!=''){
-                    //this.load.image('bgn', 'assets/images/res/backgrounds/'+this.bgnya);
+
                     this.bg.bgs[0].loadTexture(this.bgnya);
-                }
-                
+                }              
 
             }
 
@@ -657,22 +649,16 @@ export default class extends Phaser.State {
             }
         }
 
-        //this.spritesGroup.updateAnimation();
         this.cook.updateAnimation();
-         this.customer.updateAnimation();
-       // if(this.textBox.) 
+        this.customer.updateAnimation();
         this.textBox.endFocus();
         // Keep the score up to date
         if (this.stateMachine && this.scoreText) {
             this.scoreText.text = this.stateMachine.getScore();
         }
-
     }
 
-
     addCharToNode(sprite) {
-
-        //this.listView.items[this.selection].frame
         var iii = 0;
         var xxx = 0
         this.listView.items.forEach(function(itemnya){
@@ -681,7 +667,6 @@ export default class extends Phaser.State {
                 sprite.frame = 1;
                 iii = xxx;
                 console.log('indexnya = '+iii);
-                //this.game.selection = itemnya.index;
             }
             xxx++;
 
@@ -690,161 +675,7 @@ export default class extends Phaser.State {
         this.selection = iii;
 
         console.log('indexnya = '+this.selection);
-        //this.selection = index;
-        //this.listView.items[this.selection].frame = 1;
-
         this.textBox.setText(this.textBox.value + " " + sprite.text);
-    }
-
-    openMenu() {
-        this.menu = this.game.add.sprite(this.game.width - 250, 128, 'sidemenu');
-
-        var listOfVoices = window.speechSynthesis.getVoices();
-
-
-        var options = {
-            direction: 'y',
-            overflow: 100,
-            padding: 10,
-            swipeEnabled: true,
-            offsetThreshold: 100,
-            searchForClicks: true,
-        }
-        var i = 0;
-        var listView = new ListView(this.game, this.game.world, new Phaser.Rectangle(this.game.width - 225, 250, this.game.width - 150, 300), options);
-        listOfVoices.forEach(element => {
-
-            var character = this.game.add.text(0, 0, element.name, i++);
-            character.borderColor = 'Black';
-            character.borderWidth = 5;
-            character.fontWeight = 'normal';
-            character.wordWrap = true;
-            character.wordWrapWidth = 125;
-            character.maxWidth = 125;
-            listView.add(character);
-        });
-
-        this.inputCustomerVoice = this.add.inputField(this.game.width - 225, 150, {
-            font: '20px Arial',
-            fill: '#212121',
-            fontWeight: 'bold',
-            width: 100,
-            padding: 8,
-            borderWidth: 1,
-            borderColor: '#000',
-            borderRadius: 6,
-            placeHolder: 'Customer voice',
-            focusOutOnEnter: false
-        });
-
-        this.inputCookVoice = this.add.inputField(this.game.width - 225, 200, {
-            font: '20px Arial',
-            fill: '#212121',
-            fontWeight: 'bold',
-            width: 100,
-            padding: 8,
-            borderWidth: 1,
-            borderColor: '#000',
-            borderRadius: 6,
-            placeHolder: 'Cook voice',
-            focusOutOnEnter: false
-        });
-
-        this.inputCustomerSpritePng = this.add.inputField(this.game.width - 350, 150, {
-            font: '20px Arial',
-            fill: '#212121',
-            fontWeight: 'bold',
-            width: 100,
-            padding: 8,
-            borderWidth: 1,
-            borderColor: '#000',
-            borderRadius: 6,
-            placeHolder: 'Cus png',
-            focusOutOnEnter: false
-        });
-        this.inputCustomerSpriteJson = this.add.inputField(this.game.width - 500, 150, {
-            font: '20px Arial',
-            fill: '#212121',
-            fontWeight: 'bold',
-            width: 100,
-            padding: 8,
-            borderWidth: 1,
-            borderColor: '#000',
-            borderRadius: 6,
-            placeHolder: 'Cus json',
-            focusOutOnEnter: false
-        });
-        this.inputCustomerSpriteScml = this.add.inputField(this.game.width - 650, 150, {
-            font: '20px Arial',
-            fill: '#212121',
-            fontWeight: 'bold',
-            width: 100,
-            padding: 8,
-            borderWidth: 1,
-            borderColor: '#000',
-            borderRadius: 6,
-            placeHolder: 'Cus scml',
-            focusOutOnEnter: false
-        });
-        this.inputCookSpritePng = this.add.inputField(this.game.width - 350, 200, {
-            font: '20px Arial',
-            fill: '#212121',
-            fontWeight: 'bold',
-            width: 100,
-            padding: 8,
-            borderWidth: 1,
-            borderColor: '#000',
-            borderRadius: 6,
-            placeHolder: 'Co png',
-            focusOutOnEnter: false
-        });
-        this.inputCookSpriteJson = this.add.inputField(this.game.width - 500, 200, {
-            font: '20px Arial',
-            fill: '#212121',
-            fontWeight: 'bold',
-            width: 100,
-            padding: 8,
-            borderWidth: 1,
-            borderColor: '#000',
-            borderRadius: 6,
-            placeHolder: 'Co json',
-            focusOutOnEnter: false
-        });
-        this.inputCookSpriteScml = this.add.inputField(this.game.width - 650, 200, {
-            font: '20px Arial',
-            fill: '#212121',
-            fontWeight: 'bold',
-            width: 100,
-            padding: 8,
-            borderWidth: 1,
-            borderColor: '#000',
-            borderRadius: 6,
-            placeHolder: 'Co scml',
-            focusOutOnEnter: false
-        });
-
-
-        let enterSpriteButton = game.add.sprite(this.game.width - 150, 605, 'iconAttack');
-        //enterSpriteButton.scale.set(0.5);
-        enterSpriteButton.anchor.set(0.5);
-        enterSpriteButton.inputEnabled = true;
-        enterSpriteButton.input.priorityID = 0;
-
-        enterSpriteButton.events.onInputDown.add(this.updateSounds, this);
-    }
-
-    updateSounds() {
-
-
-        game.load.atlas('wizard', this.inputCookSpritePng.value, this.inputCookSpriteJson.value);
-        game.load.xml('wizardAnimations', this.inputCookSpriteScml.value);
-
-        game.load.atlas('gnome', this.inputCustomerSpritePng.value, this.inputCustomerSpriteJson.value);
-        game.load.xml('gnomeAnimations', this.inputCustomerSpriteScml.value);
-
-        
-        this.customerVoice = this.inputCustomerVoice.value;
-        this.cookVoice = this.inputCookVoice.value;
     }
 
     createSideMenu() {

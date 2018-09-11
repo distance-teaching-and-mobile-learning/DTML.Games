@@ -26,16 +26,9 @@ export default class extends Phaser.State {
     }
 
     preload() {
-        //this.load.json('gameSetup', 'assets/data/gameSetup.json');
-            //this.stateMachine = new StateMachine(this.game.cache.getJSON('gameSetup'));
-           // this.stateMachine.printDebugInfo();
         var phaserJSON = this.cache.getJSON('gameSetup');
-        //console.log(phaserJSON.name);
-
-        //this.loaderBg = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'loaderBg')
         this.loaderBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'loaderBar')
         centerGameObjects([this.loaderBar])
-
         this.load.setPreloadSprite(this.loaderBar)
 
         this.load.onLoadStart.add(this.loadStart, this);
@@ -45,8 +38,7 @@ export default class extends Phaser.State {
         this.add.plugin(PhaserInput.Plugin);
         this.add.plugin(PhaserJuicy);
         this.game.juicy = this.add.plugin(new PhaserJuicy(this))
-        //
-        // load your assets
+
         if (config.webfonts.length) {
             WebFont.load({
                 google: {
@@ -98,9 +90,6 @@ export default class extends Phaser.State {
 
         // game state data
         this.load.json('stateData', 'assets/data/'+phaserJSON.datafile);
-
-
-
     }
 
     loadStart() {
@@ -112,26 +101,16 @@ export default class extends Phaser.State {
 
     fileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {
         this.loadingText.setText('File Complete: ' + progress + '% - ' + totalLoaded + ' out of ' + totalFiles);
-        // console.log('totalLoaded', totalLoaded)
     }
 
     loadComplete() {
         game.world.remove(this.loadingText);
-
         this.time.advancedTiming = true;
-
-        // let video = this.add.video('intro');
-        // video.play(false);
-        // //  x, y, anchor x, anchor y, scale x, scale y
-        // video.addToWorld(game.world.centerX, game.world.centerY, 0.5, 0.5, 0.5, 0.5);
         let videoDuration = 5
         this.time.events.add(Phaser.Timer.SECOND * videoDuration, () => {
             document.querySelector('#intro').style.display = 'none'
             document.querySelector('#content').style.display = 'block'
-            //this.state.start('GameOver', false, false, '4234')
-            this.state.start('Menubefore');
-            //this.state.start('Game');
-              
+            this.state.start('Menubefore');             
 
         }, this)
     }

@@ -37,6 +37,7 @@ export default class extends Phaser.State {
                 enterSpriteButton.input.priorityID = 0;
                 enterSpriteButton.events.onInputDown.add(this.SayItByCustomer, this);
                 enterSpriteButton.alpha = 0;
+		enterSpriteButton.input.useHandCursor = true;
                 game.add.tween(enterSpriteButton).to({x: game.world.centerX, alpha: 1}, 500, Phaser.Easing.Cubic.In, true, 2000)
 
                   var style = { font: "bold 42px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
