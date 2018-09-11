@@ -1,0 +1,20 @@
+{     
+      "name":"Grocery store",
+      "datafile":"gameStates.json",
+      "title":"At the grocery store",
+      "icon":"icon.jpg",
+      "leftperson": "storemanager",
+      "rightperson": "women",
+      "background": "backgrounds/store.png",
+      "background0": "backgrounds/vegetables.png",
+      "background1": "backgrounds/meats_and_eggs.png",
+      "background3": "backgrounds/bakery.png",
+      "CallOutLeftX":"205",
+      "CallOutLeftY":"350",
+      "CallOutRightX":"175",
+      "CallOutRightY":"340",
+      "LeftVoice":"Microsoft David",
+      "RightVoice":"Microsoft Hazel",
+      "LeftPitch":"-100",
+      "RightPitch":"100"
+}
