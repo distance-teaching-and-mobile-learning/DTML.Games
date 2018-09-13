@@ -32,6 +32,9 @@ export default class extends Phaser.State {
         this.language = this.game.state.states['Game']._language;
         this.langCode = this.game.state.states['Game']._langCode;
 
+         window.speechSynthesis.getVoices();
+         this.awaitVoices = new Promise(done => window.speechSynthesis.onvoiceschanged = done);
+
         let bg = new Background({game: this.game});
 
         let music = game.add.audio('gameMusic');
@@ -239,6 +242,25 @@ export default class extends Phaser.State {
         this.callGameOverService();
     }
 
+    textToSpeach(text, voice, pitch) {
+        this.awaitVoices.then(() => {
+            var listOfVoices = window.speechSynthesis.getVoices();
+            var voices2 = listOfVoices.filter(a => a.name.toLowerCase().includes(voice.toLowerCase()))[0];
+            var msg = new SpeechSynthesisUtterance();
+
+            msg.voice = voices2;
+            msg.default = false;
+            msg.voiceURI = 'native';
+            msg.volume = 1;
+            msg.rate = 1;
+            msg.pitch = parseInt(pitch);
+            msg.text = text;
+            msg.lang = 'en-US';
+            speechSynthesis.speak(msg);
+        });
+
+    }
+
     callGameOverService() {
         fetch('https://dtml.org/Activity/RecordUserActivity?id=wordsbattle&score=' +
             this.scoreText.text + '&complexity=' + this.complexity, {
@@ -259,7 +281,7 @@ export default class extends Phaser.State {
 
     fetchNextSet() {
         fetch('https://dtml.org/api/GameService/Words?step=' + this.currLevel, {
-			credentials: 'same-origin', 
+	    credentials: 'same-origin', 
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -272,8 +294,7 @@ export default class extends Phaser.State {
                 this.words = data.words;
                 this.currLevel++;
                 this.currIndex = 0;
-                this.loadNextAnswer();
-                this.nextWord();
+                this.nextWord(false);
             })
             .catch(err => {
                 this.errorText.display();
@@ -284,19 +305,24 @@ export default class extends Phaser.State {
             });
     }
 
-    nextWord() {
+    nextWord(say) {
         let word = this.words[this.currIndex];
         this.banner.text = this.correctText.properCase(word);
         this.currentWord = word;
         this.currIndex++;
         this.canFire = true;
+
+	if (say)
+	{
+	this.textToSpeach(word, "Microsoft David", 100);
+	}
     }
 
     loadNextAnswer() {
         if (this.currIndex >= this.words.length - 1)
             this.fetchNextSet();
         else
-            this.nextWord();
+            this.nextWord(true);
     }
 
     submitAnswer() {
@@ -440,14 +466,11 @@ export default class extends Phaser.State {
                     this.correctText.hide();
                     this.wizDead = true;
                     this.showScore();
+                    return;
                 }
 
                 this.loadNextAnswer();
             })
-
-            // game.add.tween(this.gnome).to({ x: this.wiz.x + this.wiz.width }, 1500, Phaser.Easing.Cubic.In, true)
-            // .onComplete.add(() => {
-            // })
         })
     }
 
@@ -458,7 +481,7 @@ export default class extends Phaser.State {
         this.spritesGroup.add(scoreDisplay);
 
         let label = this.game.add.text(scoreDisplay.x, scoreDisplay.y - (scoreDisplay.height * 0.18), 'Final Score', {
-            font: "50px Berkshire Swash",
+            font: "30px Berkshire Swash",
             fill: "#000",
             align: "center"
         });
@@ -467,14 +490,14 @@ export default class extends Phaser.State {
         label.setShadow(0, 0, 'rgba(0, 0, 0, 0.5)', 0);
 
         let scoreText = this.game.add.text(scoreDisplay.x, scoreDisplay.y - (scoreDisplay.height * 0.05), this.scoreText.text, {
-            font: "70px Berkshire Swash",
+            font: "30px Berkshire Swash",
             fill: "#000",
             align: "center"
         });
         scoreText.anchor.setTo(0.5);
 
         let resetButton = this.game.add.text(scoreDisplay.x, scoreDisplay.y + (scoreDisplay.height * 0.2), 'RESTART', {
-            font: "50px Berkshire Swash",
+            font: "30px Berkshire Swash",
             fill: "#333",
             align: "center"
         });
