@@ -52,7 +52,7 @@ export default class extends Phaser.State {
     text.alpha = 0;
      game.add.tween(text).to({alpha: 1}, 500, Phaser.Easing.Cubic.In, true, 2500)
          
-     jQuery.post( "https://dtml.org/api/User/User", { activity: this.phaserJSON.title, time: "", eventType: "GameStarted", EventData: "" } );
+     jQuery.post( "https://dtml.org/api/UserService/User", { activity: this.phaserJSON.title, time: "", eventType: "GameStarted", EventData: "" } );
       
     }
 
