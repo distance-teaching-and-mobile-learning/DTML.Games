@@ -22,9 +22,7 @@ import jQuery from 'jquery'
 
 export default class extends Phaser.State {
 
-    init() {
-
-    }
+    init() {   }
 
     create() {      
                 this.phaserJSON = this.cache.getJSON('gameSetup');
@@ -37,7 +35,7 @@ export default class extends Phaser.State {
                 enterSpriteButton.input.priorityID = 0;
                 enterSpriteButton.events.onInputDown.add(this.SayItByCustomer, this);
                 enterSpriteButton.alpha = 0;
-		enterSpriteButton.input.useHandCursor = true;
+	        	enterSpriteButton.input.useHandCursor = true;
                 game.add.tween(enterSpriteButton).to({x: game.world.centerX, alpha: 1}, 500, Phaser.Easing.Cubic.In, true, 2000)
 
                   var style = { font: "bold 42px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
@@ -52,7 +50,7 @@ export default class extends Phaser.State {
     text.alpha = 0;
      game.add.tween(text).to({alpha: 1}, 500, Phaser.Easing.Cubic.In, true, 2500)
          
-     jQuery.post( "https://dtml.org/api/UserService/User", { activity: this.phaserJSON.title, time: "", eventType: "GameStarted", EventData: "" } );
+     jQuery.post( "https://dtml.org/api/UserService/User", { activity: this.phaserJSON.gameid, time: "", eventType: "GameStarted", EventData: "" } );
       
     }
 

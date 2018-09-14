@@ -1,5 +1,6 @@
 {     
       "name":"Restourant",
+	  "gameid":"conversation_restaurant",
       "datafile":"gameStates.json",
       "title":"At the restaurant",
       "icon":"icon.jpg",
