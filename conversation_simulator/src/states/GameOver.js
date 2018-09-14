@@ -29,7 +29,7 @@ export default class extends Phaser.State {
          let gameover = game.add.sprite(game.world.centerX, game.world.centerY, 'gameover');
          gameover.anchor.set(0.5);
          this.setText(customParam);
-         jQuery.post( "https://dtml.org/api/UserService/User", { activity: this.phaserJSON.gameid, time: "",  eventType: "GameCompleted", EventData: customParam } );
+         jQuery.post("https://dtml.org/api/UserService/User", { activity: this.phaserJSON.gameid, time: "",  eventType: "GameCompleted", eventData: customParam } );
     }
 
     shutdown() {

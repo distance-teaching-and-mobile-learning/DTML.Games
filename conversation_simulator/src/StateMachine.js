@@ -97,10 +97,10 @@ export default class {
 
         // Select solution, or default
         var solution = this.currentState.Solutions[normalizedPhrase] || this.currentState.Solutions.default;
-
+	var success = solution == this.currentState.Solutions.default ? "False" : "True";
         // Apply score
 
-        jQuery.get("https://dtml.org/api/GameService/ScorePhrase/?phrase=" + solutionPhrase.trim(), (result) => {
+        jQuery.get("https://dtml.org/api/GameService/ScorePhrase/?source=conversation&success="+success +"&phrase=" + normalizedPhrase, (result) => {
 
             if (solution.Next !== null) {
                 this.setCurrentState(solution.Next, this.stateData.States[solution.Next]);
@@ -109,13 +109,8 @@ export default class {
             }
             else {
                 this.submitSolutionResult = false;
-                //this.score -= result;
+		this.score -= 5;
             }
         });
-        //https://dtml.org/api/GameService/ScorePhrase/?phrase=eggs%27please 
-
-        //this.score += solution.Score;
-
-        // Transition to next state
     }
 }
