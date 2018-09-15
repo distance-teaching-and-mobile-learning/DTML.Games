@@ -17,16 +17,16 @@ import 'isomorphic-fetch'
 
 var dtml = {
     urls:{
-        userService:'https://dtml.org/api/UserService/User'
+        userService:'https://dtml.org/Activity/Record/'
     	},
 		
 	//*****************************************************************
 	// API Call to record events of the game
 	//*****************************************************************
     recordGameEvent: function(name, eventType, eventData) {
-	var data = {"activity": name, "time": null, "eventType": eventType, "eventData": eventData };
-        fetch('https://dtml.org/api/UserService/User', 
-		{ method: 'post',
+ 	var data = { "envelop": null, "page": name, "time": null, "eventType": eventType, "eventData": eventData}
+        fetch('https://dtml.org/Activity/Record/', 
+		{ method: 'post', 
 		  credentials: 'same-origin', 
 		  body: JSON.stringify(data),
 		  headers: {
