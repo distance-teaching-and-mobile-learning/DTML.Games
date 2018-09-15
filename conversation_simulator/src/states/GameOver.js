@@ -20,16 +20,16 @@ import PhaserJuicy from '../libs/juicy'
 import config from '../config';
 import WebFont from 'webfontloader'
 import Spriter from '../libs/spriter'
-import jQuery from 'jquery'
+import {dtml} from '../dtmlSDK'
 
 export default class extends Phaser.State {
     init(customParam) {
          this.phaserJSON = this.cache.getJSON('gameSetup');	
-	 this.game.stage.backgroundColor = "#00B3C1";
+	     this.game.stage.backgroundColor = "#00B3C1";
          let gameover = game.add.sprite(game.world.centerX, game.world.centerY, 'gameover');
          gameover.anchor.set(0.5);
          this.setText(customParam);
-         jQuery.post("https://dtml.org/api/UserService/User", { activity: this.phaserJSON.gameid, time: "",  eventType: "GameCompleted", eventData: customParam } );
+		 dtml.recordGameEnd(this.phaserJSON.gameid, customParam);
     }
 
     shutdown() {

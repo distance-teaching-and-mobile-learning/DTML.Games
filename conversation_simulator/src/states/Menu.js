@@ -18,11 +18,9 @@ import FreeText from '../sprites/FreeText'
 import Border from '../sprites/Border'
 import Spriter from '../libs/spriter'
 import Background from '../sprites/background'
-import jQuery from 'jquery'
+import {dtml} from '../dtmlSDK'
 
 export default class extends Phaser.State {
-
-    init() {   }
 
     create() {      
                 this.phaserJSON = this.cache.getJSON('gameSetup');
@@ -46,12 +44,11 @@ export default class extends Phaser.State {
     text.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
 
     //  We'll set the bounds to be from x0, y100 and be 800px wide by 100px high
-    text.setTextBounds(0, 0, game.world.width, game.world.height);
-    text.alpha = 0;
+     text.setTextBounds(0, 0, game.world.width, game.world.height);
+     text.alpha = 0;
      game.add.tween(text).to({alpha: 1}, 500, Phaser.Easing.Cubic.In, true, 2500)
-         
-     jQuery.post( "https://dtml.org/api/UserService/User", { activity: this.phaserJSON.gameid, time: "", eventType: "GameStarted", eventData: "" } );
-      
+     dtml.recordGameStart(this.phaserJSON.gameid);
+     
     }
 
     SayItByCustomer() {
