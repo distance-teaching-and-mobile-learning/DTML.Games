@@ -38,38 +38,31 @@
       ],
       "Solutions": {
         "water": {
-          "Score": 100,
           "Next": "WaterOrdered"
         },
         "water please": {
-          "Score": 150,
           "Next": "WaterOrdered"
         },
         "orange juice": {
-          "Score": 200,
           "Next": "OrangeJuice"
         },
         "orange juice please": {
-          "Score": 300,
           "Next": "OrangeJuice"
         },
         "juice": {
-          "Score": 100,
           "Next": "Juice"
         },
         "juice please": {
-          "Score": 150,
           "Next": "Juice"
         },
         "default": {
-          "Score": -50,
           "Next": null
         }
       }
     },
     "WaterOrdered": {
       "Type": "Conversation",
-      "Question": "Do you want water with ice?",
+      "Question": "Do you want water with ice or no ice?",
       "AnswerWords": [
         "Ice",
         "No",
@@ -81,39 +74,28 @@
       ],
       "Solutions": {
         "with ice": {
-          "Score": 100,
           "Next": "OrderTime"
         },
         "no ice": {
-          "Score": 100,
           "Next": "OrderTime"
         },
         "no ice please": {
-          "Score": 150,
           "Next": "OrderTime"
         },
         "with no ice please": {
-          "Score": 200,
           "Next": "OrderTime"
         },
         "water with no ice": {
-          "Score": 300,
           "Next": "OrderTime"
         },
         "water with ice": {
-          "Score": 300,
           "Next": "OrderTime"
         },
         "not ice": {
-          "Score": -10,
+          "scoreadjustment": -5,
           "Next": "OrderTime"
         },
         "with ice please": {
-          "Score": -10,
-          "Next": "OrderTime"
-        },
-        "no": {
-          "Score": 50,
           "Next": "OrderTime"
         },
         "default": {
@@ -137,39 +119,32 @@
       ],
       "Solutions": {
         "apple juice": {
-          "Score": 100,
           "Next": "OrderTime"
         },
         "apple thank you": {
-          "Score": 10,
           "Next": "OrderTime"
         },
         "cranberry thank you": {
-          "Score": 10,
           "Next": "OrderTime"
         },
         "cranberry": {
-          "Score": 100,
           "Next": "OrderTime"
         },
         "cranberry please": {
-          "Score": 200,
           "Next": "OrderTime"
         },
         "apple juice please": {
-          "Score": 200,
           "Next": "OrderTime"
         },
         "cranberry juice please": {
-          "Score": 200,
           "Next": "OrderTime"
         },
         "no": {
-          "Score": 50,
+          "scoreadjustment": -10,
           "Next": "OrderTime"
         },
         "no thank you": {
-          "Score": 300,
+          "scoreadjustment": -5,
           "Next": "OrderTime"
         },
         "default": {
@@ -193,23 +168,20 @@
       ],
       "Solutions": {
         "apple": {
-          "Score": 100,
           "Next": "OrderTime"
         },
         "cranberry": {
-          "Score": 100,
           "Next": "OrderTime"
         },
         "apple is good": {
-          "Score": 300,
           "Next": "OrderTime"
         },
         "orange": {
-          "Score": 50,
+          "scoreadjustment": -10,
           "Next": "OrangeJuice"
         },
         "orange is good": {
-          "Score": 50,
+          "scoreadjustment": -10,
           "Next": "OrangeJuice"
         },
         "cranberry is good": {
@@ -238,47 +210,37 @@
       ],
       "Solutions": {
         "what would you recommend": {
-          "Score": 100,
+          "scoreadjustment": 10,
           "Next": "Recommendations"
         },
         "eggs": {
-          "Score": 100,
           "Next": "EggOrder"
         },
         "eggs omlette please": {
-          "Score": 100,
           "Next": "OmletteOrder"
         },
         "eggs please": {
-          "Score": 150,
           "Next": "EggOrder"
         },
         "omlette": {
-          "Score": 100,
           "Next": "OmletteOrder"
         },
         "eggs omlette": {
-          "Score": 100,
           "Next": "OmletteOrder"
         },
         "omlette please": {
-          "Score": 150,
           "Next": "OmletteOrder"
         },
         "waffle": {
-          "Score": 100,
           "Next": "WaffleOrder"
         },
         "waffle please": {
-          "Score": 150,
           "Next": "WaffleOrder"
         },
         "hashtag waffle": {
-          "Score": 200,
           "Next": "HashtagWaffle"
         },
         "hashtag waffle please": {
-          "Score": 200,
           "Next": "HashtagWaffle"
         },
         "default": {
@@ -303,27 +265,21 @@
       ],
       "Solutions": {
         "okay": {
-          "Score": 100,
           "Next": "WaffleOrder"
         },
         "sounds good": {
-          "Score": 200,
           "Next": "WaffleOrder"
         },
         "yes sounds good": {
-          "Score": 200,
           "Next": "WaffleOrder"
         },
         "okay sounds good": {
-          "Score": 300,
           "Next": "WaffleOrder"
         },
         "yes": {
-          "Score": 30,
           "Next": "WaffleOrder"
         },
         "no": {
-          "Score": 30,
           "Next": "RecommendationsNo"
         },
         "default": {
@@ -345,35 +301,27 @@
       ],
       "Solutions": {
         "what would you recommend": {
-          "Score": 100,
           "Next": "Recommendations"
         },
         "eggs": {
-          "Score": 100,
           "Next": "EggOrder"
         },
         "eggs omlette please": {
-          "Score": 100,
           "Next": "OmletteOrder"
         },
         "eggs please": {
-          "Score": 150,
           "Next": "EggOrder"
         },
         "omlette": {
-          "Score": 100,
           "Next": "OmletteOrder"
         },
         "eggs omlette": {
-          "Score": 100,
           "Next": "OmletteOrder"
         },
         "omlette please": {
-          "Score": 150,
           "Next": "OmletteOrder"
         },
         "waffle": {
-          "Score": 100,
           "Next": "WaffleOrder"
         },
         "default": {
@@ -396,11 +344,9 @@
       ],
       "Solutions": {
         "scrambled": {
-          "Score": 100,
           "Next": "ProgressOrder"
         },
         "sunny side up": {
-          "Score": 300,
           "Next": "ProgressOrder"
         },
         "default": {
@@ -424,35 +370,27 @@
       ],
       "Solutions": {
         "tomato": {
-          "Score": 100,
           "Next": "ProgressOrder"
         },
         "cheese": {
-          "Score": 150,
           "Next": "ProgressOrder"
         },
         "tomato and cheese": {
-          "Score": 100,
           "Next": "ProgressOrder"
         },
         "cheese and tomato": {
-          "Score": 100,
           "Next": "ProgressOrder"
         },
         "i want tomato": {
-          "Score": 150,
           "Next": "ProgressOrder"
         },
         "i want cheese": {
-          "Score": 250,
           "Next": "ProgressOrder"
         },
         "i want tomato and cheese": {
-          "Score": 300,
           "Next": "ProgressOrder"
         },
         "i want cheese and tomato": {
-          "Score": 300,
           "Next": "ProgressOrder"
         },
         "default": {
@@ -478,27 +416,24 @@
       ],
       "Solutions": {
         "that is fine": {
-          "Score": 100,
+          "scoreadjustment": -10,
           "Next": "ProgressOrder"
         },
         "that is okay": {
-          "Score": 100,
           "Next": "ProgressOrder"
         },
         "okay": {
-          "Score": 150,
           "Next": "ProgressOrder"
         },
         "i am allergic": {
-          "Score": 100,
           "Next": "AllergicProgressOrder"
         },
         "i am allergic to nuts": {
-          "Score": 100,
+          "scoreadjustment": 20,
           "Next": "AllergicProgressOrder"
         },
         "fine": {
-          "Score": 150,
+          "scoreadjustment": -10,
           "Next": "ProgressOrder"
         },
         "default": {
@@ -522,43 +457,45 @@
       ],
       "Solutions": {
         "ha": {
-          "Score": 50,
+          "Next": "ProgressOrder"
+        },
+		 "ha funny": {
+          "scoreadjustment": -10,
+          "Next": "ProgressOrder"
+        },
+		,
+		 "ha ha funny": {
+          "scoreadjustment": -10,
           "Next": "ProgressOrder"
         },
         "ha ha": {
-          "Score": 100,
           "Next": "ProgressOrder"
         },
         "funny": {
-          "Score": 150,
           "Next": "ProgressOrder"
         },
         "that is funny": {
-          "Score": 100,
+          "Next": "ProgressOrder"
+        },
+        "ha it is funny": {
           "Next": "ProgressOrder"
         },
         "it is funny": {
-          "Score": 150,
           "Next": "ProgressOrder"
         },
         "not funny": {
-          "Score": 150,
           "Next": "ProgressOrder"
         },
         "that is not funny": {
-          "Score": 200,
           "Next": "ProgressOrder"
         },
         "it is not funny": {
-          "Score": 200,
           "Next": "ProgressOrder"
         },
         "ha ha ha": {
-          "Score": 100,
           "Next": "ProgressOrder"
-        },
+        },		
         "(ha)": {
-          "Score": 100,
           "Next": "ProgressOrder",
           "MatchType": "RegEx"
         },
@@ -570,7 +507,7 @@
       },
     "AllergicProgressOrder": {
       "Type": "Conversation",
-      "Question": "Sorry to hear that. Would you want maple syrup?",
+      "Question": "Sorry to hear that. Would you want some maple syrup?",
       "AnswerWords": [
         "Yes",
         "Please",
@@ -583,27 +520,22 @@
       ],
       "Solutions": {
         "yes": {
-          "Score": 100,
           "Next": "FinishOrder"
         },
         "yes please": {
-          "Score": 250,
           "Next": "FinishOrder"
         },
         "no": {
-          "Score": 300,
           "Next": "FinishOrder"
         },
         "no i am good": {
-          "Score": 150,
           "Next": "FinishOrder"
         },
         "i am good": {
-          "Score": 200,
           "Next": "FinishOrder"
         },
         "please": {
-          "Score": 5,
+          "scoreadjustment": -5,
           "Next": "FinishOrder"
         },
         "default": {
@@ -628,31 +560,28 @@
       ],
       "Solutions": {
         "yes": {
-          "Score": 100,
           "Next": "FinishOrder"
         },
         "may i have a bagel": {
-          "Score": 250,
+          "Next": "Bagel"
+        },
+        "may i have bagel": {
+          "scoreadjustment": -10,
           "Next": "Bagel"
         },
         "may i also have a bagel": {
-          "Score": 300,
           "Next": "Bagel"
         },
         "bagel also": {
-          "Score": 150,
           "Next": "Bagel"
         },
         "a bagel also": {
-          "Score": 200,
           "Next": "Bagel"
         },
         "a bagel": {
-          "Score": 5,
           "Next": "Bagel"
         },
         "bagel": {
-          "Score": -5,
           "Next": "Bagel"
         },
         "default": {
@@ -675,11 +604,9 @@
       ],
       "Solutions": {
         "okay": {
-          "Score": 100,
           "Next": "FinishOrder"
         },
         "that works": {
-          "Score": 300,
           "Next": "FinishOrder"
         },
         "default": {
@@ -705,23 +632,18 @@
       ],
       "Solutions": {
         "thank you": {
-          "Score": 100,
           "Next": "HereIsYourFood"
         },
         "i am hungry": {
-          "Score": 150,
           "Next": "HereIsYourFood"
         },
         "thank you i am hungry": {
-          "Score": 200,
           "Next": "HereIsYourFood"
         },
         "i am getting hungry": {
-          "Score": 250,
           "Next": "HereIsYourFood"
         },
         "thank you i am getting hungry": {
-          "Score": 300,
           "Next": "HereIsYourFood"
         },
         "default": {
@@ -747,15 +669,12 @@
       ],
       "Solutions": {
         "looks great": {
-          "Score": 100,
           "Next": "HowWasYourFood"
         },
         "it looks great": {
-          "Score": 150,
           "Next": "HowWasYourFood"
         },
         "great": {
-          "Score": 50,
           "Next": "HowWasYourFood"
         },
         "default": {
@@ -780,27 +699,21 @@
       ],
       "Solutions": {
         "it was great": {
-          "Score": 100,
           "Next": "LikedIt"
         },
         "it was good": {
-          "Score": 150,
           "Next": "LikedIt"
         },
         "great": {
-          "Score": 100,
           "Next": "LikedIt"
         },
         "good": {
-          "Score": 150,
           "Next": "LikedIt"
         },
         "it was ok": {
-          "Score": 150,
           "Next": "DidNotLike"
         },
         "ok": {
-          "Score": 150,
           "Next": "DidNotLike"
         },
         "default": {
@@ -824,15 +737,12 @@
       ],
       "Solutions": {
         "thank you": {
-          "Score": 100,
           "Next": "End"
         },
         "i will": {
-          "Score": 150,
           "Next": "End"
         },
         "thank you i will": {
-          "Score": 150,
           "Next": "End"
         },
         "default": {
@@ -856,27 +766,21 @@
       ],
       "Solutions": {
         "it was too salty": {
-          "Score": 100,
           "Next": "End"
         },
         "it was too cold": {
-          "Score": 150,
           "Next": "End"
         },
         "it was cold": {
-          "Score": 150,
           "Next": "End"
         },
         "it was salty": {
-          "Score": 150,
           "Next": "End"
         },
         "too salty": {
-          "Score": 150,
           "Next": "End"
         },
         "too cold": {
-          "Score": 150,
           "Next": "End"
         },
         "default": {
