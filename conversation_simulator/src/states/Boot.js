@@ -26,6 +26,7 @@ export default class extends Phaser.State {
           this.scale.setMaximum();
       });
       if (!this.game.device.desktop) {
+		   this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
           this.scale.minWidth = 300;
           this.scale.minHeight = 100;
           this.scale.maxWidth = window.innerWidth * 2;
