@@ -92,7 +92,7 @@
           "Next": "OrderTime"
         },
         "not ice": {
-          "scoreadjustment": -5,
+          "scoreadjustment": -25,
           "Next": "OrderTime"
         },
         "with ice please": {
@@ -463,7 +463,6 @@
           "scoreadjustment": -10,
           "Next": "ProgressOrder"
         },
-		,
 		 "ha ha funny": {
           "scoreadjustment": -10,
           "Next": "ProgressOrder"

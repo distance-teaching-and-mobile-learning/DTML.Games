@@ -19,13 +19,31 @@ var dtml = {
     urls:{
         userService:'https://dtml.org/Activity/Record/'
     	},
+
+	//*****************************************************************
+	// API Call to score phrase
+	//*****************************************************************
+    scorePhrase: function(phrase, success, callback) {
+        fetch('https://dtml.org/api/GameService/ScorePhrase/?source=conversation&success='+success +"&phrase=" + phrase, 
+		{ method: 'get', 
+		  credentials: 'same-origin', 
+		}).catch(err => {
+                console.log('err', err);
+				callback(10);
+		}).then(res => res.json())
+           .then(data => {
+                console.log(data);
+				callback(data);
+
+            });
+	},
 		
 	//*****************************************************************
 	// API Call to record events of the game
 	//*****************************************************************
     recordGameEvent: function(name, eventType, eventData) {
  	var data = { "envelop": null, "page": name, "time": null, "eventType": eventType, "eventData": eventData}
-        fetch('https://dtml.org/Activity/Record/', 
+        fetch(this.urls.userService, 
 		{ method: 'post', 
 		  credentials: 'same-origin', 
 		  body: JSON.stringify(data),

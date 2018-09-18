@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 import _ from 'lodash'
-import jQuery from 'jquery'
+import {dtml} from './dtmlSDK'
 
 export default class {
     constructor(stateData) {
@@ -89,6 +89,10 @@ export default class {
     get submitSolutionResult() {
         return this._submitSolutionResult;
     }
+	
+	 isNumber(o) {
+    return typeof o == "number" || (typeof o == "object" && o["constructor"] === Number);
+     }
 
     submitSolution(solutionPhrase) {
 
@@ -97,19 +101,22 @@ export default class {
 
         // Select solution, or default
         var solution = this.currentState.Solutions[normalizedPhrase] || this.currentState.Solutions.default;
-	var success = solution == this.currentState.Solutions.default ? "False" : "True";
+	    var success = solution == this.currentState.Solutions.default ? "False" : "True";
+
         // Apply score
-
-        jQuery.get("https://dtml.org/api/GameService/ScorePhrase/?source=conversation&success="+success +"&phrase=" + normalizedPhrase, (result) => {
-
+		dtml.scorePhrase(normalizedPhrase, success, (result) => {
             if (solution.Next !== null) {
                 this.setCurrentState(solution.Next, this.stateData.States[solution.Next]);
                 this.submitSolutionResult = true;
                 this.score += result;
+				if (this.isNumber(solution.scoreadjustment))
+				{
+					this.score += solution.scoreadjustment;
+				}
             }
             else {
                 this.submitSolutionResult = false;
-		this.score -= 5;
+		        this.score -= 10;
             }
         });
     }

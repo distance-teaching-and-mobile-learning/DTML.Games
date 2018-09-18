@@ -19,13 +19,12 @@ import FreeText from '../sprites/FreeText'
 import Spriter from '../libs/spriter'
 import Background from '../sprites/background'
 import StateMachine from '../StateMachine'
+import {dtml} from '../dtmlSDK'
 
 export default class extends Phaser.State {
     init() {
         
-        this.stateMachine = new StateMachine(this.game.cache.getJSON('stateData'));
-        this.stateMachine.printDebugInfo();
-       
+        this.stateMachine = new StateMachine(this.game.cache.getJSON('stateData'));     
     }
 
     create() {
@@ -110,7 +109,7 @@ export default class extends Phaser.State {
             text: 'Error connecting. Retrying...',
             cloudEnabled: true
         });
-        this.fetchNextSet();
+
         this.correctText = new FreeText({
             game: this.game,
             x: this.world.width * 0.25,
@@ -209,42 +208,7 @@ export default class extends Phaser.State {
             this.showMenu();
         }, this);
 
-        this.callGameOverService();
-    }
-
-    callGameOverService() {
-        fetch('https://dtml.org/Activity/RecordUserActivity?id=restourant&score=' +
-            this.scoreText.text + '&complexity=' + this.complexity, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-            })
-            .catch(err => {
-                console.log('err', err)
-            });
-    }
-
-    fetchNextSet() {
-    }
-
-    nextWord() {
-        let word = this.words[this.currIndex];
-        this.banner.text = this.correctText.properCase(word);
-        this.currentWord = word;
-        this.currIndex++;
-        this.canFire = true;
-    }
-
-    loadNextAnswer() {
-        if (this.currIndex >= this.words.length - 1)
-            this.fetchNextSet();
-        else
-            this.nextWord();
+       dtml.recordGameEnd(this.phaserJSON.gameid, this.scoreText.text);
     }
 
     textToSpeach(text, voice, pitch) {
