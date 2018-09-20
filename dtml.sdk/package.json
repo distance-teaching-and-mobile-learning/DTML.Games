@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ['Distance Teaching and Mobile Learning','DTML'],
+  "keywords": ["Distance Teaching and Mobile Learning","DTML"],
   "author": "aleksin@dtml.org",
   "license": "ISC"
 }
