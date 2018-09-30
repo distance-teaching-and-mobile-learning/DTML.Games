@@ -14,6 +14,7 @@ under the License.
 */
 import Phaser from 'phaser'
 import 'isomorphic-fetch'
+//require('isomorphic-fetch');
 
 var dtml = {
     urls:{

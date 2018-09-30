@@ -49,8 +49,8 @@ export default class extends Phaser.State {
         }
         
 
-        this.load.atlas('wizard', 'assets/images/res/'+phaserJSON.leftperson+'/anim.png', 'assets/images/res/'+phaserJSON.leftperson+'/anim.json')
-        this.load.xml('wizardAnimations', 'assets/images/res/'+phaserJSON.leftperson+'/anim.scml')
+        this.load.atlas('seller', 'assets/images/res/'+phaserJSON.leftperson+'/anim.png', 'assets/images/res/'+phaserJSON.leftperson+'/anim.json')
+        this.load.xml('sellerAnimations', 'assets/images/res/'+phaserJSON.leftperson+'/anim.scml')
 
         // load bar for patience
         this.load.spritesheet('patienceBar5', 'assets/images/res/lopelope.png', 95, 84);
@@ -59,8 +59,8 @@ export default class extends Phaser.State {
         this.load.spritesheet('patienceBar2', 'assets/images/res/lopelope.png', 95, 84);
         this.load.spritesheet('patienceBar1', 'assets/images/res/lopelope.png', 95, 84);
 
-        this.load.atlas('gnome', 'assets/images/res/'+phaserJSON.rightperson+'/anim.png', 'assets/images/res/'+phaserJSON.rightperson+'/anim.json')
-        this.load.xml('gnomeAnimations', 'assets/images/res/'+phaserJSON.rightperson+'/anim.scml')
+        this.load.atlas('buyer', 'assets/images/res/'+phaserJSON.rightperson+'/anim.png', 'assets/images/res/'+phaserJSON.rightperson+'/anim.json')
+        this.load.xml('buyerAnimations', 'assets/images/res/'+phaserJSON.rightperson+'/anim.scml')
 
      
         this.load.image('iconAttack', 'assets/images/res/icon-attack.png');

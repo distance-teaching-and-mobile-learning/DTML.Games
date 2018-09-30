@@ -130,11 +130,11 @@ export default class extends Phaser.State {
         enterKey.onDown.add(this.SayItByCustomer, this);
 
         this.spritesGroup = this.add.group();
-        this.cook = this.loadSpriter('wizard');
+        this.cook = this.loadSpriter('seller');
         this.cook.x = -200 * game.scaleRatio;
-        this.cook.y = this.world.height - 470;
+        this.cook.y = this.world.height - 470 + parseInt(this.phaserJSON.leftAddY);
         this.spritesGroup.add(this.cook);
-        this.customer = this.loadSpriter('gnome');
+        this.customer = this.loadSpriter('buyer');
 
         this.customer.scale.x *= -1;
         this.customer.children.forEach(sprite => {
@@ -142,7 +142,7 @@ export default class extends Phaser.State {
         });
         this.customer.x = game.width + 180 * game.scaleRatio;
         this.customer.startx = this.world.width * 0.75 * game.scaleRatio;
-        this.customer.y = this.world.height - 460;
+        this.customer.y = this.world.height - 460 + parseInt(this.phaserJSON.rightAddY);
         this.customer.setAnimationSpeedPercent(100);
         this.customer.playAnimationByName('_IDLE');
         this.spritesGroup.add(this.customer);
@@ -239,6 +239,8 @@ export default class extends Phaser.State {
         this.leftnya = '';
         this.rightnya = '';
         this.bgnya = '';
+        this.leftdonya = '';
+        this.rightdonya = '';
 
           if(this.stateMachine.getOnExitLeft()!=null){
             console.log('gaada'+ this.stateMachine.getOnExitLeft());
@@ -264,6 +266,25 @@ export default class extends Phaser.State {
             }else{
             console.log('gaada'); 
             }
+
+
+            if(this.stateMachine.getOnExitLeftDo()!=null){
+            console.log('gaada'+ this.stateMachine.getOnExitLeftDo());
+            this.leftdonya = this.stateMachine.getOnExitLeftDo();
+
+            }else{
+            console.log('gaada'); 
+            }
+
+
+            if(this.stateMachine.getOnExitRightDo()!=null){
+            console.log('gaada'+ this.stateMachine.getOnExitRightDo());
+            this.rightdonya = this.stateMachine.getOnExitRightDo();
+
+            }else{
+            console.log('gaada'); 
+            }
+
 
 
 
@@ -302,51 +323,73 @@ export default class extends Phaser.State {
             if( this.lastState != this.stateMachine.currentStateName){
                 console.log('masuk sini = '+ this.leftnya);
 
-                if(this.leftnya!=''){
-                    if(this.leftnya=='Leave'){
-
+                if(this.leftdonya!=''){
+                 if(this.leftdonya=='in'){
                                     console.log('masuk sini');
-                                    this.cook.scale.x *= -1;
-                                    this.cook.playAnimationByName('_RUN');
-                                    game.add.tween(this.cook).to({ x: -300 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
+                                    this.cook.scale.x = Math.abs(this.cook.scale.x);
+                                    this.cook.x = -300 * game.scaleRatio;
+                                    game.add.tween(this.cook).to({ x: this.world.width * 0.4 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
                                     .onComplete.add(() => {
-                                          //this.cook.scale.x *= 1;
                                             this.cook.setAnimationSpeedPercent(100);
                                             this.cook.playAnimationByName('_IDLE');
                                     });
-
-                                    this.timernya = 2000;
-                    }else
-                    {
-                        this.cook.playAnimationByName(this.leftnya);
-                        this.timernya = 2000;
-
-                    }
+                 }
 
 
-                }
-
-                if(this.rightnya!=''){
-                    if(this.rightnya=='Leave'){
-
+                  if(this.leftdonya=='out'){
                                     console.log('masuk sini');
-                                    this.customer.scale.x *= -1;
-                                    this.customer.playAnimationByName('_RUN');
+                                    this.cook.scale.x = -(Math.abs(this.cook.scale.x));
+                                    this.cook.x = this.world.width * 0.4 * game.scaleRatio;
+                                    game.add.tween(this.cook).to({ x: -300 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
+                                    .onComplete.add(() => {
+                                            this.cook.setAnimationSpeedPercent(100);
+                                            this.cook.playAnimationByName('_IDLE');
+                                    });
+                 }
+
+             }
+
+              if(this.rightdonya!=''){
+                 if(this.rightdonya=='in'){
+                                    console.log('masuk sini');
+                                    this.customer.scale.x = -(Math.abs(this.customer.scale.x));
+                                    this.customer.x = game.width + 180 * game.scaleRatio;
+                                    game.add.tween(this.customer).to({ x: this.world.width * 0.7 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
+                                    .onComplete.add(() => {
+                                         //this.customer.scale.x *= -1;
+                                            this.customer.setAnimationSpeedPercent(100);
+                                            this.customer.playAnimationByName('_IDLE');
+                                    });
+                 }
+
+                 if(this.rightdonya=='out'){
+                                    console.log('masuk sini');
+                                    this.customer.scale.x = Math.abs(this.customer.scale.x);
+                                    this.customer.x = this.world.width * 0.7 * game.scaleRatio ;
                                     game.add.tween(this.customer).to({ x: game.width + 180 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
                                     .onComplete.add(() => {
                                          //this.customer.scale.x *= -1;
                                             this.customer.setAnimationSpeedPercent(100);
                                             this.customer.playAnimationByName('_IDLE');
                                     });
+                 }
 
-                                    this.timernya = 2000;
-                    }else
-                    {
-                        this.customer.playAnimationByName(this.rightnya);
+             }
+
+
+
+
+                if(this.leftnya!=''){
+                   
+                        this.cook.playAnimationByName(this.leftnya);
                         this.timernya = 2000;
 
-                    }
+                }
 
+                if(this.rightnya!=''){
+                  
+                        this.customer.playAnimationByName(this.rightnya);
+                        this.timernya = 2000;
 
                 }
 
@@ -437,8 +480,10 @@ export default class extends Phaser.State {
                 this.leftnya = '';
                 this.rightnya = '';
                 this.bgnya = '';
+                  this.leftdonya = '';
+                this.rightdonya = '';
 
-          if(this.stateMachine.getOnEnterLeft()!=null){
+            if(this.stateMachine.getOnEnterLeft()!=null){
             console.log('gaada'+ this.stateMachine.getOnEnterLeft());
             this.leftnya = this.stateMachine.getOnEnterLeft();
 
@@ -464,30 +509,80 @@ export default class extends Phaser.State {
             console.log('gaada'); 
             }
 
+            if(this.stateMachine.getOnEnterLeftDo()!=null){
+            console.log('gaada'+ this.stateMachine.getOnEnterLeftDo());
+            this.leftdonya = this.stateMachine.getOnEnterLeftDo();
+            }else{
+            console.log('gaada'); 
+            }
 
 
+            if(this.stateMachine.getOnEnterRightDo()!=null){
+            console.log('gaada'+ this.stateMachine.getOnEnterRightDo());
+            this.rightdonya = this.stateMachine.getOnEnterRightDo();
+            }else{
+            console.log('gaada'); 
+            }
 
-            if(this.leftnya!=''){
-                    if(this.leftnya=='BringFood'){
 
+             if(this.leftdonya!=''){
+                 if(this.leftdonya=='in'){
                                     console.log('masuk sini');
-                                    this.cook.scale.x *= -1;
-                                    this.cook.playAnimationByName('_WALK');
+                                    this.cook.scale.x = Math.abs(this.cook.scale.x);
+                                    this.cook.x = -300 * game.scaleRatio;
                                     game.add.tween(this.cook).to({ x: this.world.width * 0.4 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
                                     .onComplete.add(() => {
                                             this.cook.setAnimationSpeedPercent(100);
                                             this.cook.playAnimationByName('_IDLE');
                                     });
+                 }
 
-                                    this.timernya = 2000;
-                    }else
-                    {
+
+                  if(this.leftdonya=='out'){
+                                    console.log('masuk sini');
+                                    this.cook.scale.x = -(Math.abs(this.cook.scale.x));
+                                    this.cook.x = this.world.width * 0.4 * game.scaleRatio;
+                                    game.add.tween(this.cook).to({ x: -300 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
+                                    .onComplete.add(() => {
+                                            this.cook.setAnimationSpeedPercent(100);
+                                            this.cook.playAnimationByName('_IDLE');
+                                    });
+                 }
+
+             }
+
+              if(this.rightdonya!=''){
+                 if(this.rightdonya=='in'){
+                                    console.log('masuk sini');
+                                    this.customer.scale.x = -(Math.abs(this.customer.scale.x));
+                                    this.customer.x = game.width + 180 * game.scaleRatio;
+                                    game.add.tween(this.customer).to({ x: this.world.width * 0.7 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
+                                    .onComplete.add(() => {
+                                         //this.customer.scale.x *= -1;
+                                            this.customer.setAnimationSpeedPercent(100);
+                                            this.customer.playAnimationByName('_IDLE');
+                                    });
+                 }
+
+                 if(this.rightdonya=='out'){
+                                    console.log('masuk sini');
+                                    this.customer.scale.x = Math.abs(this.customer.scale.x);
+                                    this.customer.x = this.world.width * 0.7 * game.scaleRatio ;
+                                    game.add.tween(this.customer).to({ x: game.width + 180 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
+                                    .onComplete.add(() => {
+                                         //this.customer.scale.x *= -1;
+                                            this.customer.setAnimationSpeedPercent(100);
+                                            this.customer.playAnimationByName('_IDLE');
+                                    });
+                 }
+
+             }
+
+
+
+            if(this.leftnya!=''){
                         this.cook.playAnimationByName(this.leftnya);
                         this.timernya = 2000;
-
-                    }
-
-
                 }
 
                 if(this.rightnya!=''){
