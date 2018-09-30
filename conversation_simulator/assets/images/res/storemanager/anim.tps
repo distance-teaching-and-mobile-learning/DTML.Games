@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.3.5b1</string>
         <key>fileName</key>
-        <string>D:/Workspace/New/DTML2/conversation_simulator/assets/images/res/woman/anim.tps</string>
+        <string>D:/Workspace/New/DTML2/conversation_simulator/assets/images/res/storemanager/anim.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -174,12 +174,8 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>head.png</filename>
-            <filename>head1.png</filename>
-            <filename>body.png</filename>
-            <filename>arm.png</filename>
-            <filename>leg.png</filename>
-            <filename>head2.png</filename>
+            <filename>front</filename>
+            <filename>side</filename>
             <filename>callout.png</filename>
         </array>
         <key>ignoreFileList</key>

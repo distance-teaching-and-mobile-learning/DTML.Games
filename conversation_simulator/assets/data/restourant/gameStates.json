@@ -617,7 +617,7 @@
     "FinishOrder": {
       "Type": "Conversation",
       "Question": "I'll be back with your food. ",
-	  "OnStateExit": { "Left": "Leave", "Right":"_IDLE", "Background":""  },
+	  "OnStateExit": { "Left": "_RUN", "Right":"_IDLE", "Background":"", "LeftDo": "out"},
       "AnswerWords": [
         "You",
         "Mass",
@@ -654,7 +654,7 @@
     "HereIsYourFood": {
       "Type": "Conversation",
       "Question": "Here is your food. Please enjoy.",
-	  "OnStateEnter": { "Left": "BringFood", "Right":"_IDLE", "Background":"bgx0"  },
+	  "OnStateEnter": { "Left": "_WALK", "Right":"_IDLE", "Background":"bgx0", "LeftDo": "in" },
       "AnswerWords": [
         "Great",
         "Jupitor",

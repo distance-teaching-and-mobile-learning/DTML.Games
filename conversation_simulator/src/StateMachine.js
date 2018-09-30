@@ -45,6 +45,24 @@ export default class {
     }
     }
 
+
+     getOnEnterLeftDo(){
+        if(this.currentState.OnStateEnter!=null){
+        return this.currentState.OnStateEnter.LeftDo;
+    }else{
+       return null; 
+    }
+    }
+
+    getOnEnterRightDo(){
+        if(this.currentState.OnStateEnter!=null){
+        return this.currentState.OnStateEnter.RightDo;
+    }else{
+       return null; 
+    }
+    }
+
+
     getOnExitLeft(){
         if(this.currentState.OnStateExit!=null){
         return this.currentState.OnStateExit.Left;
@@ -60,6 +78,23 @@ export default class {
        return null; 
     }
     }
+
+    getOnExitLeftDo(){
+        if(this.currentState.OnStateExit!=null){
+        return this.currentState.OnStateExit.LeftDo;
+    }else{
+       return null; 
+    }
+    }
+
+    getOnExitRightDo(){
+        if(this.currentState.OnStateExit!=null){
+        return this.currentState.OnStateExit.RightDo;
+    }else{
+       return null; 
+    }
+    }
+
 
     getOnExitBg(){
         if(this.currentState.OnStateExit!=null){
