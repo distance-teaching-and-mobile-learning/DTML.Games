@@ -29,8 +29,8 @@ export var flags = {
 	"French": "fr",
 	"Spanish": "es",
 	"Colombia": "ke",
+	"Venezuela": "se",
 	"Georgian": "ge",
-	"Swedish": "se",
 	"German": "de",
 	"Greek": "gr",
 	"Telugu": "te",
@@ -91,4 +91,5 @@ export var languages = {
 	"Hungarian": "hu",
 	"Vietnamese": "vi",
 	"Colombia": "es",
+	"Venezuela": "es",
 };
