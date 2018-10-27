@@ -21,7 +21,10 @@ import Background from '../sprites/background'
 import StateMachine from '../StateMachine'
 import {dtml} from '../dtmlSDK'
 
+const STARTING_HEARTS = 5;
+
 export default class extends Phaser.State {
+
     init() {
         
         this.stateMachine = new StateMachine(this.game.cache.getJSON('stateData'));     
@@ -147,7 +150,7 @@ export default class extends Phaser.State {
         this.customer.playAnimationByName('_IDLE');
         this.spritesGroup.add(this.customer);
 
-        this.patienceRemaining = 5;
+        this.patienceRemaining = STARTING_HEARTS;
         // intro sequence
         this.cook.setAnimationSpeedPercent(100);
         this.cook.playAnimationByName('_RUN');
@@ -155,26 +158,31 @@ export default class extends Phaser.State {
             .onComplete.add(() => {
                 this.cook.setAnimationSpeedPercent(100);
                 this.cook.playAnimationByName('_IDLE');
-                let numberOfPatienceBars = 5;
                 this.patienceBarsGroup = this.add.group();
-                this.patienceBars = new Array(numberOfPatienceBars);
+                this.patienceBars = new Array(STARTING_HEARTS);
+
+                for (let index = 0; index < this.patienceBars.length; index++) {
+                    var p = game.make.sprite(90 * index, 0, 'patienceBar' + index);
+                    this.patienceBarsGroup.add(p);
+                    this.patienceBars.push(p);
+                }
                 
-                var p = game.make.sprite(0, 0, 'patienceBar5');
-                this.patienceBarsGroup.add(p);
-                this.patienceBars[4] = p;
+                // var p = game.make.sprite(0, 0, 'patienceBar5');
+                // this.patienceBarsGroup.add(p);
+                // this.patienceBars[4] = p;
                 
-                var p1 = game.make.sprite(0, 0, 'patienceBar4');
-                this.patienceBarsGroup.add(p1);
-                this.patienceBars[3] = p1;
-                var p2 = game.make.sprite(90, 0, 'patienceBar3');
-                this.patienceBarsGroup.add(p2);
-                this.patienceBars[2] = p2;
-                var p3 = game.make.sprite(180, 0, 'patienceBar2');
-                this.patienceBarsGroup.add(p3);
-                this.patienceBars[1] = p3;
-                var p4 = game.make.sprite(270, 0, 'patienceBar1');
-                this.patienceBarsGroup.add(p4);
-                this.patienceBars[0] = p4;
+                // var p1 = game.make.sprite(0, 0, 'patienceBar4');
+                // this.patienceBarsGroup.add(p1);
+                // this.patienceBars[3] = p1;
+                // var p2 = game.make.sprite(90, 0, 'patienceBar3');
+                // this.patienceBarsGroup.add(p2);
+                // this.patienceBars[2] = p2;
+                // var p3 = game.make.sprite(180, 0, 'patienceBar2');
+                // this.patienceBarsGroup.add(p3);
+                // this.patienceBars[1] = p3;
+                // var p4 = game.make.sprite(270, 0, 'patienceBar1');
+                // this.patienceBarsGroup.add(p4);
+                // this.patienceBars[0] = p4;
 
                 this.patienceBarsGroup.x =  this.world.width * 0.1;
                 this.patienceBarsGroup.y = this.game.world.centerY * 0.1 - 15;
@@ -451,6 +459,13 @@ export default class extends Phaser.State {
                 this.state.start('GameOver', true, false, this.scoreText.text);
                 return;
             }
+            // TODO insert hint code here
+
+            // if it's the right words in the wrong order...
+            // "the order of those words was confusing"
+
+            // if it has a wrong word
+
             var submitFailureText = "I'm sorry, I didn't understand you...";
             this.textToSpeach(submitFailureText, this.cookVoice, this.phaserJSON.LeftPitch);
 
