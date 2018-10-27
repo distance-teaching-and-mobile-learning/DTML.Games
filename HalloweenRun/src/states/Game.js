@@ -178,6 +178,25 @@ update() {
      
 }
 
+enterletter(a)
+{
+	alert(a);
+	  /* this.textBox = this.add.inputField(this.world.centerX - (inputW / 2) * game.scaleRatio, this.game.height - (inputH * 2) * game.scaleRatio, {
+            font: '40px Arial',
+            fill: '#212121',
+            fontWeight: 'bold',
+            width: inputW,
+            padding: 8,
+            borderWidth: 1,
+            borderColor: '#000',
+            borderRadius: 6,
+            placeHolder: 'Your answer:',
+            focusOutOnEnter: false
+        });
+        this.textBox.scale.set(0, 1 * game.scaleRatio); */
+       
+}
+
 // data is the input word that will display
 // letter is the buttons
 renderwords(data, that)
@@ -185,9 +204,13 @@ renderwords(data, that)
          that.wordsForLearning = data;
 	  for(var i = 0; i < data.words[0].length; i++)
 	  {
-	  	that.letters[i] = that.game.add.button(80+80*i, 10, 'letter', that.stop, that,1,0,0,0);
+	  	that.letters[i] = that.game.add.button(80+80*i, 10, 'letter', that.enterletter, that,1,0,0,0);
 	 	//that.game.add.text(that.letters[i].x, that.letters[i].y, " "+ data.words[0][i], {         font: "60px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"      });
 	  }
+	  
+	  that.sumbmitbutton = that.game.add.button(80+80*(data.words[0].length+1), 10, 'button', that.enterletter, that,1,0,0,0);
+	  that.game.add.text(that.sumbmitbutton.x, that.sumbmitbutton.y, "Submit", {         font: "60px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"      });
+	  
 }
 
 
