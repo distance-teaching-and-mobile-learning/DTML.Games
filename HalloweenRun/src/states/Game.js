@@ -10,6 +10,7 @@ export default class extends Phaser.State {
     this.game.load.tilemap('level1', 'assets/images/level1.json', null, Phaser.Tilemap.TILED_JSON);
     this.game.load.image('tiles-1', 'assets/images/tiles-1.png');
     this.game.load.spritesheet('dude', 'assets/images/dude.png', 32, 48);
+	this.game.load.spritesheet('pumpkin', 'assets/images/pumpkin.png', 32, 48);
     this.game.load.spritesheet('droid', 'assets/images/droid.png', 32, 32);
     this.game.load.image('starSmall', 'assets/images/star.png');
     this.game.load.image('starBig', 'assets/images/star2.png');
@@ -18,6 +19,13 @@ export default class extends Phaser.State {
 	
 update() {
     this.game.physics.arcade.collide(this.player, this.layer);
+	
+	for(var i = 0; i < this.maxPumpkins; i++)
+	{
+		this.game.physics.arcade.collide(this.pumpkin[i], this.layer);
+		this.game.physics.arcade.collide(this.player, this.pumpkin[i]);
+	}
+	  
     this.player.body.velocity.x = 0;
     if (this.cursors.left.isDown)
     {
@@ -60,7 +68,7 @@ update() {
     
     if (this.jumpButton.isDown && this.player.body.onFloor() && this.game.time.now > this.jumpTimer)
     {
-        this.player.body.velocit   y.y = -250;
+        this.player.body.velocity.y = -250;
         this.jumpTimer = this.game.time.now + 750;
     }
 
@@ -92,7 +100,20 @@ update() {
       this.game.physics.arcade.gravity.y = 250;
 
       this.player = game.add.sprite(32, 32, 'dude');
-      this.game.physics.enable( this.player, Phaser.Physics.ARCADE);
+	  this.pumpkin = {};
+	  this.maxPumpkins = 10;
+	  
+      for(var i = 0; i < this.maxPumpkins; i++)
+	  {
+ 	  this.pumpkin[i] = game.add.sprite(32, 32, 'pumpkin');
+	  this.pumpkin[i].x = 150+100*i;
+      this.game.physics.enable(this.pumpkin[i], Phaser.Physics.ARCADE); 
+	  this.pumpkin[i].body.collideWorldBounds = true;	  
+	  }
+	  
+	 
+      this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
+
 
       this.player.body.bounce.y = 0.2;
       this.player.body.collideWorldBounds = true;
