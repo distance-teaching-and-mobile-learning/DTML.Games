@@ -17,6 +17,10 @@ export default class {
         this.currentState = stateData;
     }
 
+    getCurrentSolutions() {
+        return this.currentState.Solutions;
+    }
+
     printDebugInfo() {
         console.log(JSON.stringify(this.stateData));
     }
@@ -129,24 +133,62 @@ export default class {
         return typeof o == "number" || (typeof o == "object" && o["constructor"] === Number);
     }
 
-    // submission can be: 
-    // correct - correct
-    // correct words but wrong order - wrongOrder
-    // all words correct except one 
-    // completely wrong
-    solutionQuality(solutions, phrase) {
-
-    }
-
     submitSolution(solutionPhrase) {
 
         var normalizedPhrase = solutionPhrase.toLowerCase().trim();
         console.log(`Checking solution: '${normalizedPhrase}'. Current state is '${this.currentStateName}'`);
 
         // Select solution, or default
+        var correct = false;
+        var wrongOrder = false;
 
-        var solution = this.currentState.Solutions[normalizedPhrase] || this.currentState.Solutions.default;
+        for (const possibility in this.currentState.Solutions) {
+            // possibility is perfect
+            if (possibility === normalizedPhrase) {
+                correct = true;
+                break;
+            }
 
+            // theres a chance all the words are correct
+            if (possibility.length === normalizedPhrase.length) {
+                var numWrong = 0;
+                var solutionWordsToFrequencies = new Map();
+                // load all words to freq
+                possibility.split(" ").forEach(word => {
+                    if (solutionWordsToFrequencies.has(word)) {
+                        solutionWordsToFrequencies.set(word, solutionWordsToFrequencies.get(word) + 1);
+                    } else {
+                        solutionWordsToFrequencies.set(word, 1);
+                    }
+                });
+
+                // check words in answer
+                normalizedPhrase.split(" ").forEach(word => {
+                    if (solutionWordsToFrequencies.has(word) && solutionWordsToFrequencies.get(word) > 0) {
+                        solutionWordsToFrequencies.set(word, solutionWordsToFrequencies.get(word) - 1);
+                    } else {
+                        // this word is fully incorrect, we've lost hope for correctness 
+                        numWrong++;
+                    }
+                });
+
+                if (numWrong > 0 && !wrongOrder) {
+                    this.failureType = "I'm sorry, I didn't understand you...";
+                } else {
+                    wrongOrder = true;
+                    this.failureType = "I'm sorry, the word order seems wrong...";
+                }
+            }
+        }
+
+        var solution = "";
+        if (!correct) {
+            solution = this.currentState.Solutions.default;
+        } else {
+            solution = this.currentState.Solutions[normalizedPhrase]
+        }
+
+        // var solution = this.currentState.Solutions[normalizedPhrase] || this.currentState.Solutions.default;
 
         var success = solution == this.currentState.Solutions.default ? "False" : "True";
 
