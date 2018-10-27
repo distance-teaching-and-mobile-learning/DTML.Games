@@ -180,21 +180,7 @@ update() {
 
 enterletter(a)
 {
-	alert(a);
-	  /* this.textBox = this.add.inputField(this.world.centerX - (inputW / 2) * game.scaleRatio, this.game.height - (inputH * 2) * game.scaleRatio, {
-            font: '40px Arial',
-            fill: '#212121',
-            fontWeight: 'bold',
-            width: inputW,
-            padding: 8,
-            borderWidth: 1,
-            borderColor: '#000',
-            borderRadius: 6,
-            placeHolder: 'Your answer:',
-            focusOutOnEnter: false
-        });
-        this.textBox.scale.set(0, 1 * game.scaleRatio); 
-		this.textBox.Hidden = false; */
+
        
 }
 
@@ -205,15 +191,29 @@ renderwords(data, that)
       that.wordsForLearning = data;
 	  //If word length is greater than 6 then generate another word
 	  var j = 0;
+	  that.textBox = {};
+	  
 	  while(data.words[j].length > 6)
 	  {
-			j++;
-		
+			j++;		
       }
 	
-	  for(var i = 0; i < data.words[j].length; i++)
-	  {
-	  	that.letters[i] = that.game.add.button(80+80*i, 10, 'letter', that.enterletter, that, 0,0,0,0);
+	  for(var i = 0; i < data.words[0].length; i++)
+	   {
+	  	that.letters[i] = that.game.add.button(80+80*i, 10, 'letter', that.enterletter, that,1,0,0,0);
+		that.textBox[i] = this.add.inputField(80+80*i, 10, {
+            font: '40px Arial',
+            fill: '#212121',
+            fontWeight: 'bold',
+            width: 10,
+            padding: 8,
+            borderWidth: 1,
+            borderColor: '#fff',
+            borderRadius: 6,
+            placeHolder: ' ',
+            focusOutOnEnter: false
+        });
+		
 	 	//that.game.add.text(that.letters[i].x, that.letters[i].y, " "+ data.words[0][i], {         font: "60px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"      });
 	  }
 	  that.sumbmitbutton = that.game.add.button(80*(data.words[j].length+1), 10, 'button', that.enterletter, that,1,0,0,0);
