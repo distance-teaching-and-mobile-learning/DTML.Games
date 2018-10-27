@@ -1,6 +1,5 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import Mushroom from '../sprites/Mushroom'
 import lang from '../lang'
 
 export default class extends Phaser.State {
@@ -17,13 +16,19 @@ export default class extends Phaser.State {
     this.game.load.image('background', 'assets/images/background2.png');
 	}
 	
+	
+hitPumpkin(player, bomb)
+{
+
+}
+	
 update() {
     this.game.physics.arcade.collide(this.player, this.layer);
 	
 	for(var i = 0; i < this.maxPumpkins; i++)
 	{
 		this.game.physics.arcade.collide(this.pumpkin[i], this.layer);
-		this.game.physics.arcade.collide(this.player, this.pumpkin[i]);
+		this.game.physics.arcade.collide(this.player, this.pumpkin[i], this.hitPumpkin, null, this);
 		
 		for(var j = 0; j < this.maxPumpkins; j++)
 		{
@@ -74,7 +79,7 @@ update() {
         }
     }
     
-    if (this.jumpButton.isDown && this.player.body.onFloor() && this.game.time.now > this.jumpTimer)
+    if (this.jumpButton.isDown && this.game.time.now > this.jumpTimer)
     {
         this.player.body.velocity.y = -250;
         this.jumpTimer = this.game.time.now + 750;
@@ -91,7 +96,7 @@ update() {
 
       this.game.stage.backgroundColor = '#000000';
 
-      this.bg = game.add.tileSprite(0, 0, 800, 600, 'background');
+      this.bg = this.game.add.tileSprite(0, 0, 800, 600, 'background');
       this.bg.fixedToCamera = true;
 
       this.map = this.game.add.tilemap('level1');

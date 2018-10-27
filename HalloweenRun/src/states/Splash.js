@@ -1,22 +1,57 @@
 import Phaser from 'phaser'
-import { centerGameObjects } from '../utils'
+
 
 export default class extends Phaser.State {
-  init () {}
+	preload()
+	{
+      this.load.spritesheet('button', 'assets/images/button.png',175,85);
+	  this.load.image('dtmlHalloween', 'assets/images/bg.png');		
+	}
+	
+    create() {  
+      this.bg = this.game.add.sprite(0, 0, 'dtmlHalloween');
+      this.bg.width = this.game.width;
+      this.bg.height = this.game.height;    
 
-  preload () {
-    this.loaderBg = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'loaderBg')
-    this.loaderBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'loaderBar')
-    centerGameObjects([this.loaderBg, this.loaderBar])
+      this.button = this.game.add.button(this.game.width*0.5, this.game.height*0.5, 'button', this.stop, this,1,0,0,0);
+      this.button.x -= this.button.width*0.5;
+      this.button.y += this.button.height;
+        
+      this.playButton = this.game.add.text(this.button.x, this.button.y, "START", { 
+        font: "20px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"
+      });
 
-    this.load.setPreloadSprite(this.loaderBar)
-    //
-    // load your assets
-    //
-    this.load.image('mushroom', 'assets/images/mushroom2.png')
-  }
+      this.playButton.alignIn(this.button, Phaser.TOP_CENTER, 0, -25);
 
-  create () {
-    this.state.start('Game')
-  }
+      this.enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+
+      this.enterKey.onDown.addOnce(function(){
+          this.enterKey.onDown.removeAll();
+          this.stop();
+      }.bind(this), this);
+      
+    }
+    
+    stop() {
+      try {
+
+      var data = { "envelop": null, "page": "halloween", "time": null, "eventType": "GameStarted", "eventData": navigator.userAgent }
+
+      $.ajax({
+          type: 'POST',
+          async: true,
+          processData: false,
+          contentType: 'application/json',
+          url: 'https://dtml.org/Activity/Record/',
+          data: JSON.stringify(data)
+      });
+     } catch (err) { }
+
+      this.startGame()
+    }
+
+    startGame() {
+          this.state.start('Game');
+        this.game.world.removeAll();
+    }
 }
