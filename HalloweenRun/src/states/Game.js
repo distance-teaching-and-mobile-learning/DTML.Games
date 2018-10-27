@@ -1,6 +1,7 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
 import lang from '../lang'
+import {dtml} from '../dtml-sdk'
 
 export default class extends Phaser.State {
   init() { }
@@ -14,12 +15,13 @@ export default class extends Phaser.State {
     this.game.load.image('starSmall', 'assets/images/star.png');
     this.game.load.image('starBig', 'assets/images/star2.png');
     this.game.load.image('background', 'assets/images/background2.png');
+	this.load.spritesheet('letter', 'assets/images/letters.png',75,85);
 	}
 	
 	
 hitPumpkin(player, bomb)
 {
-
+this.player.animations.play('smash');
 }
 	
 update() {
@@ -38,7 +40,8 @@ update() {
 			}
 		}	
 	}
-	  
+	
+  
     this.player.body.velocity.x = 0;
     if (this.cursors.left.isDown)
     {
@@ -90,6 +93,7 @@ update() {
 
  create() {
 	  this.facing = 'right';
+	
 	  this.jumpTimer = 0;
       this.scoreText = this.game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#fff' });
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -114,6 +118,7 @@ update() {
 
       this.player = game.add.sprite(32, 32, 'dude');
 	  this.pumpkin = {};
+	  this.letters = {};
 	  this.maxPumpkins = 10;
 	  
       for(var i = 0; i < this.maxPumpkins; i++)
@@ -134,15 +139,29 @@ update() {
       this.player.body.collideWorldBounds = true;
       this.player.body.setSize(20, 32, 5, 16);
 
+
       this.player.animations.add('left', [0, 1, 2, 3], 10, true);
       this.player.animations.add('turn', [4], 20, true);
       this.player.animations.add('right', [5, 6, 7, 8], 10, true);
 
-     this.game.camera.follow( this.player);
+     this.game.camera.follow(this.player);
 
      this.cursors =  this.game.input.keyboard.createCursorKeys();
      this.jumpButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+	 
+	 //this.wordsForLearning = dtml.getWords(1, this.renderwords, this);
 
+}
+
+renderwords(data, that)
+{
+	  for(var i = 0; i < data.words[0].length; i++)
+	  {
+	  that.letters[i] = that.game.add.button(80+80*i, 10, 'letter', that.stop, that,1,0,0,0);
+	  that.game.add.text(that.letters[i].x, that.letters[i].y, " "+data.words[0][i], { 
+        font: "60px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"
+      });
+	  }
 }
 
 

@@ -23,18 +23,17 @@ var dtml = {
 	//*****************************************************************
 	// API Call to get words
 	//*****************************************************************
-        getWords: function(level, success, callback) {
+        getWords: function(level, callback, sender) {
         fetch('https://dtml.org/api/GameService/Words/?step='+level, 
 		{ method: 'get', 
 		  credentials: 'same-origin', 
 		}).catch(err => {
                 console.log('err', err);
-				callback(10);
+		callback(null, sender);
 		}).then(res => res.json())
            .then(data => {
                 console.log(data);
-				callback(data);
-
+		callback(data, sender);
             });
 	},
 
