@@ -51,7 +51,8 @@
            "Tomatoes",
            "I",
            "need",
-           "Carrots"
+           "Carrots",
+           "Potatoes"
         ],
         "Hint": "Try a food word.",
         "Solutions":{  
@@ -75,9 +76,17 @@
               "Score":300.0,
               "Next":"CarrotsOrdered"
            },
-           "I need carrots":{  
+           "i need carrots":{  
               "Score":300.0,
               "Next":"CarrotsOrdered"
+           },
+           "i need potatoes":{
+             "Score":150.0,
+             "Next":"Potatoes"
+           },
+           "potatoes":{
+             "Score":150.0,
+             "Next":"Potatoes"
            },
            "default":{  
               "Score":-50,
@@ -120,6 +129,128 @@
            }
         }
      },
+     "Potatoes":{  
+       "Type":"Conversation",
+       "OnStateEnter": { "Left": "SHOW_CARROTS", "Right":"_IDLE", "Background":"", "LeftDo": "", "RightDo": ""},
+       "Question":"We have different shapes of potatoes. Which shape do you prefer?",
+       "AnswerWords":[  
+          "Oval",
+          "I",
+          "Triangle",
+          "Please",
+          "Want",
+          "Potatoes"
+       ],
+       "Solutions":{  
+          "oval":{  
+             "Score":10.0,
+             "Next":"OvalPotatoes"
+          },
+          "oval please" :{
+             "Score":10.0,
+             "Next":"OvalPotatoes"
+          },
+          "oval potatoes":{  
+             "Score":10.0,
+             "Next":"OvalPotatoes"
+          },
+         "oval potatoes please":{  
+             "Score":100.0,
+             "Next":"OvalPotatoes"
+          },
+          "I want oval potatoes":{  
+             "Score":200.0,
+             "Next":"OvalPotatoes"
+          },
+          "I want oval potatoes please":{  
+             "Score":300.0,
+             "Next":"OvalPotatoes"
+          },
+          "triangle":{  
+             "Score":10.0,
+             "Next":"TrianglePotatoes"
+          },
+          "triangle please":{  
+             "Score":100.0,
+             "Next":"TrianglePotatoes"
+          },
+          "triangle potatoes" :{
+             "Score":100.0,
+             "Next":"TrianglePotatoes"
+          },
+          "triangle potatoes please":{  
+             "Score":200.0,
+             "Next":"TrianglePotatoes"
+          },
+          "i want triangle potatoes please":{
+             "Score":300.0,
+             "Next":"TrianglePotatoes"
+          },
+          "default":{  
+             "Score":-50,
+             "Next":null
+          }
+       }
+    },
+    "OvalPotatoes":{  
+     "Type":"Conversation",
+     "OnStateEnter": { "Left": "SHOW_CARROTS", "Right":"_IDLE", "Background":"", "LeftDo": "", "RightDo": ""},
+     "Question":"Oval potatoes are sprouted! They are toxic now. Would you like to change to triangle shape?",
+     "AnswerWords":[  
+        "Yes",
+        "Am",
+        "Not",
+        "I",
+        "Please",
+        "Afraid",
+        "No"
+     ],
+     "Solutions":{  
+        "no":{  
+           "Score":10.0,
+           "Next":"Finish"
+        },
+      "no i am afraid not":{  
+           "Score":500.0,
+           "Next":"Finish"
+        },
+      "yes":{  
+           "Score":10.0,
+           "Next":"TrianglePotatoes"
+        },
+        "yes please":{  
+           "Score":500.0,
+           "Next":"TrianglePotatoes"
+        },
+        "default":{  
+           "Score":-50,
+           "Next":null
+        }
+     }
+  },
+  "TrianglePotatoes":{  
+   "Type":"Conversation",
+   "OnStateEnter": { "Left": "SHOW_CARROTS", "Right":"_IDLE", "Background":"", "LeftDo": "", "RightDo": ""},
+   "Question":"Triangle Potatotes are great for lunch bag. Hope you enjoy them!",
+   "AnswerWords":[  
+      "Thank",
+      "No",
+      "Carrots",
+      "Windy",
+      "Please",
+      "You"
+   ],
+   "Solutions":{  
+      "thank you":{  
+         "Score":100.0,
+         "Next":"Finish"
+      },
+      "default":{  
+         "Score":-50,
+         "Next":null
+      }
+   }
+},
      "CarrotsOrdered":{  
         "Type":"Conversation",
         "OnStateEnter": { "Left": "SHOW_CARROTS", "Right":"_IDLE", "Background":"", "LeftDo": "", "RightDo": ""},
@@ -430,6 +561,18 @@
               "Score":150.0,
               "Next":"AnyEggOrder"
            },
+           "yellow":{
+               "Score":100.0,
+               "Next":"YellowEggOrder"  
+           },
+           "yellow eggs please":{
+               "Score":100.0,
+               "Next":"YellowEggOrder"  
+           },
+           "yellow eggs":{
+             "Score":100.0,
+             "Next":"YellowEggOrder"  
+           },
            "default":{  
               "Score":-50,
               "Next":null
@@ -489,6 +632,39 @@
            }
         }
      },
+     "YellowEggOrder":{  
+       "Type":"Conversation",
+       "Question":"Yellow eggs are not in stock right now, would you like anything else?",
+       "AnswerWords":[  
+          "Of",
+          "Would",
+          "Off",
+          "That",
+          "Great",
+          "You",
+          "Not",
+          "Be",
+          "Thank"
+       ],
+       "Solutions":{ 
+          "of course":{  
+              "Score":50.0,
+              "Next":"AnyEggOrder"
+          },
+          "that would be great":{  
+            "Score":50.0,
+            "Next":"AnyEggOrder"
+          },
+          "thank you":{
+            "Score":50.0,
+            "Next":"AnyEggOrder"
+          },
+          "default":{  
+             "Score":-50,
+             "Next":null
+          }
+       }
+    },
      "Finish":{  
         "Type":"Conversation",
          "OnStateEnter": { "Left": "_RUN", "Right":"_RUN", "Background":"bg", "LeftDo": "in", "RightDo": "in"  },
