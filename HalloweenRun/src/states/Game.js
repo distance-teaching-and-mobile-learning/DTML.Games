@@ -24,6 +24,14 @@ update() {
 	{
 		this.game.physics.arcade.collide(this.pumpkin[i], this.layer);
 		this.game.physics.arcade.collide(this.player, this.pumpkin[i]);
+		
+		for(var j = 0; j < this.maxPumpkins; j++)
+		{
+			if (j != i)
+			{
+				this.game.physics.arcade.collide(this.pumpkin[j], this.pumpkin[i]);
+			}
+		}	
 	}
 	  
     this.player.body.velocity.x = 0;
@@ -76,9 +84,9 @@ update() {
 
 
  create() {
-	 this.facing = 'right';
-	 this.jumpTimer = 0;
-
+	  this.facing = 'right';
+	  this.jumpTimer = 0;
+      this.scoreText = this.game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#fff' });
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
       this.game.stage.backgroundColor = '#000000';
@@ -86,7 +94,7 @@ update() {
       this.bg = game.add.tileSprite(0, 0, 800, 600, 'background');
       this.bg.fixedToCamera = true;
 
-      this.map = game.add.tilemap('level1');
+      this.map = this.game.add.tilemap('level1');
 
       this.map.addTilesetImage('tiles-1');
 
