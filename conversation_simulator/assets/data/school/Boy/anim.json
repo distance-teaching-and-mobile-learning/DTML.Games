@@ -1,0 +1,68 @@
+{"frames": [
+
+{
+	"filename":"Arm",
+	"frame": {"x":2,"y":574,"w":63,"h":176},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":63,"h":176},
+	"sourceSize": {"w":63,"h":176}
+},
+{
+	"filename":"Body",
+	"frame": {"x":336,"y":545,"w":106,"h":153},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":106,"h":153},
+	"sourceSize": {"w":106,"h":153}
+},
+{
+	"filename":"callout",
+	"frame": {"x":2,"y":2,"w":507,"h":381},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":507,"h":381},
+	"sourceSize": {"w":507,"h":381}
+},
+{
+	"filename":"Head",
+	"frame": {"x":2,"y":385,"w":158,"h":187},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":158,"h":187},
+	"sourceSize": {"w":158,"h":187}
+},
+{
+	"filename":"Head1",
+	"frame": {"x":162,"y":385,"w":158,"h":187},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":158,"h":187},
+	"sourceSize": {"w":158,"h":187}
+},
+{
+	"filename":"Head2",
+	"frame": {"x":322,"y":385,"w":158,"h":187},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":158,"h":187},
+	"sourceSize": {"w":158,"h":187}
+},
+{
+	"filename":"Leg",
+	"frame": {"x":180,"y":574,"w":68,"h":154},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":68,"h":154},
+	"sourceSize": {"w":68,"h":154}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "anim.png",
+	"format": "RGBA8888",
+	"size": {"w":511,"h":653},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:6c581f85052e9ea83d33a8c7108e9b90:48d4370b206f0d33802f585230b43254:6347dbebbf1304f1c390863db2a23cce$"
+}
+}

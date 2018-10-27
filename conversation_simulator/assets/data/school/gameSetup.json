@@ -1,0 +1,21 @@
+{     
+      "name":"Restourant",
+      "datafile":"gameStates.json",
+      "title":"At the restaurant",
+      "icon":"icon.jpg",
+      "leftperson": "cook",
+      "rightperson": "man",
+      "leftAddY": "0",
+      "rightAddY": "0",
+      "background": "backgrounds/restourant.png",
+      "background0": "backgrounds/grocery.png",
+      "background1": "backgrounds/restourant.png",
+      "CallOutLeftX":"205",
+      "CallOutLeftY":"350",
+      "CallOutRightX":"175",
+      "CallOutRightY":"340",
+      "LeftVoice":"Microsoft David",
+      "RightVoice":"Microsoft Hazel",
+      "LeftPitch":"-100",
+      "RightPitch":"100"
+}
