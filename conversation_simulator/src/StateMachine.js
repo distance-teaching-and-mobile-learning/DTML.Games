@@ -145,7 +145,7 @@ export default class {
 
         // Select solution, or default
 
-        var solution = solutionQuality(this.currentState.Solutions, normalizedPhrase);
+        var solution = this.currentState.Solutions[normalizedPhrase] || this.currentState.Solutions.default;
 
 
         var success = solution == this.currentState.Solutions.default ? "False" : "True";
