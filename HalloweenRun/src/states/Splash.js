@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-
+import {dtml} from '../dtml-sdk'
 
 export default class extends Phaser.State {
 	preload()
@@ -12,7 +12,7 @@ export default class extends Phaser.State {
       this.bg = this.game.add.sprite(0, 0, 'dtmlHalloween');
       this.bg.width = this.game.width;
       this.bg.height = this.game.height;    
-
+	  this.wordsForLearning = dtml.getWords(1);
       this.button = this.game.add.button(this.game.width*0.5, this.game.height*0.5, 'button', this.stop, this,1,0,0,0);
       this.button.x -= this.button.width*0.5;
       this.button.y += this.button.height;
@@ -34,17 +34,7 @@ export default class extends Phaser.State {
     
     stop() {
       try {
-
-      var data = { "envelop": null, "page": "halloween", "time": null, "eventType": "GameStarted", "eventData": navigator.userAgent }
-
-      $.ajax({
-          type: 'POST',
-          async: true,
-          processData: false,
-          contentType: 'application/json',
-          url: 'https://dtml.org/Activity/Record/',
-          data: JSON.stringify(data)
-      });
+			dtml.recordGameStart("helloween");
      } catch (err) { }
 
       this.startGame()
