@@ -76,7 +76,7 @@ update() {
 
 
  create() {
-	 this.facing = 'left';
+	 this.facing = 'right';
 	 this.jumpTimer = 0;
 
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -106,9 +106,11 @@ update() {
       for(var i = 0; i < this.maxPumpkins; i++)
 	  {
  	  this.pumpkin[i] = game.add.sprite(32, 32, 'pumpkin');
-	  this.pumpkin[i].x = 150+100*i;
+	  this.pumpkin[i].x = 160+88*i;
       this.game.physics.enable(this.pumpkin[i], Phaser.Physics.ARCADE); 
 	  this.pumpkin[i].body.collideWorldBounds = true;	  
+	  this.pumpkin[i].body.bounce.y = 0.1;
+	  this.pumpkin[i].body.bounce.x = 0.1;
 	  }
 	  
 	 
