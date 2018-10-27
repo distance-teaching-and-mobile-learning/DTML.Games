@@ -103,7 +103,7 @@ export default class extends Phaser.State {
                 this.exit.visible = false;
 
                 
-                // TODO
+                // hint prompt. only visible if a hint exists for this dialogue option
                 var hint = game.add.sprite(0, 0, 'hintbtn');
 
                 hint.anchor.set(0.5);
@@ -140,7 +140,7 @@ export default class extends Phaser.State {
                 this.hint = hint;
                 this.hint.visible = false;
 
-                var repeat = game.add.sprite(0, 0, 'hintbtn');
+                var repeat = game.add.sprite(0, 0, 'rptbtn');
                 repeat.anchor.set(0.5);
                 repeat.x = this.textBox.x + this.textBox.width * game.scaleRatio + enterSpriteButton.width + deleteSpriteButton.width + hint.width + 15;
                 repeat.y = this.textBox.y + this.textBox.height / 2;
