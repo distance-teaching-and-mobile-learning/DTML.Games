@@ -149,12 +149,14 @@ export default class {
                 break;
             }
 
+            var solutionWords = possibility.split(" ");
+            var normalWords = normalizedPhrase.split(" ");
             // theres a chance all the words are correct
-            if (possibility.length === normalizedPhrase.length) {
+            if (solutionWords.length === normalWords.length) {
                 var numWrong = 0;
                 var solutionWordsToFrequencies = new Map();
                 // load all words to freq
-                possibility.split(" ").forEach(word => {
+                solutionWords.forEach(word => {
                     if (solutionWordsToFrequencies.has(word)) {
                         solutionWordsToFrequencies.set(word, solutionWordsToFrequencies.get(word) + 1);
                     } else {
@@ -163,7 +165,7 @@ export default class {
                 });
 
                 // check words in answer
-                normalizedPhrase.split(" ").forEach(word => {
+                normalWords.forEach(word => {
                     if (solutionWordsToFrequencies.has(word) && solutionWordsToFrequencies.get(word) > 0) {
                         solutionWordsToFrequencies.set(word, solutionWordsToFrequencies.get(word) - 1);
                     } else {

@@ -172,9 +172,7 @@ export default class extends Phaser.State {
                 hint.input.priorityID = 0;
                 hint.input.useHandCursor = true;
                 hint.events.onInputDown.add(function() {
-                    let allWords = this.stateMachine.getAnswerWords();
-                    let word = allWords[Math.floor(Math.random() * Math.floor(allWords.length))];
-                    console.log("OVER HERE " + word);
+                    // CALLBACK
                 }, this);
                 this.patienceBarsGroup.add(hint);
 
@@ -459,12 +457,6 @@ export default class extends Phaser.State {
                 this.state.start('GameOver', true, false, this.scoreText.text);
                 return;
             }
-            // TODO insert hint code here
-
-            // if it's the right words in the wrong order...
-            // "the order of those words was"
-
-            // if it has a wrong word
 
             var submitFailureText = this.stateMachine.failureType;
             this.textToSpeach(submitFailureText, this.cookVoice, this.phaserJSON.LeftPitch);
