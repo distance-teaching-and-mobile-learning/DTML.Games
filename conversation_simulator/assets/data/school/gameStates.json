@@ -4,20 +4,20 @@
   "States": {
     "Welcome": {
       "Type": "Conversation",
-      "Question": "Hello and welcome to our restaurant !",
+      "Question": "Hello students. My name is Mary and I will be your teacher!",
       "AnswerWords": [
         "Hi",
         "Hello",
         "Yes",
         "No",
-        "Tomorrow"
+        "Bye"
       ],
       "Solutions": {
         "hi": {
-          "Next": "WhatToDrink"
+          "Next": "WhatHobbies"
         },
         "hello": {
-          "Next": "WhatToDrink"
+          "Next": "WhatHobbies"
         },
         "default": {
           "Score": -50,
@@ -25,304 +25,337 @@
         }
       }
     },
-    "WhatToDrink": {
+    "WhatHobbies": {
       "Type": "Conversation",
-      "Question": "May I start you off with something to drink?",
+      "Question": "What are your hobbies?",
       "AnswerWords": [
-        "Water",
-        "Please",
-        "Do",
-        "Juice",
-        "Table",
-        "Orange"
+        "I",
+        "Like",
+        "To",
+        "Play",
+        "Videogames",
+        "Sports",
+        "Watch",
+        "TV",
+        "Bananas",
+        "Chicken"
       ],
       "Solutions": {
-        "water": {
+        "i like to play videogames": {
           "Next": "WaterOrdered"
         },
-        "water please": {
+        "i play videogames": {
           "Next": "WaterOrdered"
         },
-        "orange juice": {
-          "Next": "OrangeJuice"
+        "i like videogames": {
+          "Next": "WaterOrdered"
         },
-        "orange juice please": {
-          "Next": "OrangeJuice"
+        "i like to play sports": {
+          "Next": "Sports"
         },
-        "juice": {
-          "Next": "Juice"
+        "i play sports": {
+          "Next": "Sports"
         },
-        "juice please": {
-          "Next": "Juice"
+        "i like sports": {
+          "Next": "Sports"
         },
+        "i like to watch tv": {
+          "Next": "WaterOrdered"
+        },
+        "i watch tv": {
+          "Next": "WaterOrdered"
+        },
+        
         "default": {
           "Next": null
         }
       }
     },
-    "WaterOrdered": {
+    "Sports": {
       "Type": "Conversation",
-      "Question": "Do you want water with ice or no ice?",
+      "Question": "What sports do you play?",
       "AnswerWords": [
-        "Ice",
-        "No",
-        "Not",
-        "Rain",
-        "Snow",
-        "Water",
-        "With"
-      ],
-      "Solutions": {
-        "with ice": {
-          "Next": "OrderTime"
-        },
-        "no ice": {
-          "Next": "OrderTime"
-        },
-        "no ice please": {
-          "Next": "OrderTime"
-        },
-        "with no ice please": {
-          "Next": "OrderTime"
-        },
-        "water with no ice": {
-          "Next": "OrderTime"
-        },
-        "water with ice": {
-          "Next": "OrderTime"
-        },
-        "not ice": {
-          "scoreadjustment": -25,
-          "Next": "OrderTime"
-        },
-        "with ice please": {
-          "Next": "OrderTime"
-        },
-        "default": {
-          "Score": -50,
-          "Next": null
-        }
-      }
-    },
-    "OrangeJuice": {
-      "Type": "Conversation",
-      "Question": "Sorry we are out of orange juice. Do you want cranberry or apple juice?",
-      "AnswerWords": [
-        "Apple",
-        "Juice",
-        "Cranberry",
-        "Please",
-        "Beef",
-        "No",
-        "Thank",
-        "You"
-      ],
-      "Solutions": {
-        "apple juice": {
-          "Next": "OrderTime"
-        },
-        "apple thank you": {
-          "Next": "OrderTime"
-        },
-        "cranberry thank you": {
-          "Next": "OrderTime"
-        },
-        "cranberry": {
-          "Next": "OrderTime"
-        },
-        "cranberry please": {
-          "Next": "OrderTime"
-        },
-        "apple juice please": {
-          "Next": "OrderTime"
-        },
-        "cranberry juice please": {
-          "Next": "OrderTime"
-        },
-        "no": {
-          "scoreadjustment": -10,
-          "Next": "OrderTime"
-        },
-        "no thank you": {
-          "scoreadjustment": -5,
-          "Next": "OrderTime"
-        },
-        "default": {
-          "Score": -50,
-          "Next": null
-        }
-      }
-    },
-    "Juice": {
-      "Type": "Conversation",
-      "Question": "We have apple and cranberry juice.",
-      "AnswerWords": [
-        "Apple",
-        "Cranberry",
-        "Food",
-        "Time",
-        "Good",
-        "Orange",
-        "Is",
-        "Run"
-      ],
-      "Solutions": {
-        "apple": {
-          "Next": "OrderTime"
-        },
-        "cranberry": {
-          "Next": "OrderTime"
-        },
-        "apple is good": {
-          "Next": "OrderTime"
-        },
-        "orange": {
-          "scoreadjustment": -10,
-          "Next": "OrangeJuice"
-        },
-        "orange is good": {
-          "scoreadjustment": -10,
-          "Next": "OrangeJuice"
-        },
-        "cranberry is good": {
-          "Score": 300,
-          "Next": "OrderTime"
-        },
-        "default": {
-          "Score": -50,
-          "Next": null
-        }
-      }
-    },
-    "OrderTime": {
-      "Type": "Conversation",
-      "Question": "What would you like to eat?",
-      "AnswerWords": [
-        "You",
-        "Hashtag",
-        "Recommend",
-        "Waffle",
-        "Please",
-        "Eggs",
-        "Omlette",
+        "Basketball",
+        "Football",
+        "Hockey",
+        "Tennis",
+        "I",
+        "Play",
         "What",
-        "Would"
-      ],
-      "Solutions": {
-        "what would you recommend": {
-          "scoreadjustment": 10,
-          "Next": "Recommendations"
-        },
-        "eggs": {
-          "Next": "EggOrder"
-        },
-        "eggs omlette please": {
-          "Next": "OmletteOrder"
-        },
-        "eggs please": {
-          "Next": "EggOrder"
-        },
-        "omlette": {
-          "Next": "OmletteOrder"
-        },
-        "eggs omlette": {
-          "Next": "OmletteOrder"
-        },
-        "omlette please": {
-          "Next": "OmletteOrder"
-        },
-        "waffle": {
-          "Next": "WaffleOrder"
-        },
-        "waffle please": {
-          "Next": "WaffleOrder"
-        },
-        "hashtag waffle": {
-          "Next": "HashtagWaffle"
-        },
-        "hashtag waffle please": {
-          "Next": "HashtagWaffle"
-        },
-        "default": {
-          "Score": -50,
-          "Next": null
-        }
-      }
-    },
-    "Recommendations": {
-      "Type": "Conversation",
-      "Question": "Our waffles are very popular. Do you want to try them?",
-      "AnswerWords": [
-        "Good",
-        "Eat",
-        "Sounds",
-        "Time",
-        "Okay",
-        "Slow",
-        "Buy",
-        "No",
-        "Yes"
-      ],
-      "Solutions": {
-        "okay": {
-          "Next": "WaffleOrder"
-        },
-        "sounds good": {
-          "Next": "WaffleOrder"
-        },
-        "yes sounds good": {
-          "Next": "WaffleOrder"
-        },
-        "okay sounds good": {
-          "Next": "WaffleOrder"
-        },
-        "yes": {
-          "Next": "WaffleOrder"
-        },
-        "no": {
-          "Next": "RecommendationsNo"
-        },
-        "default": {
-          "Score": -50,
-          "Next": null
-        }
-      }
-    },
-    "RecommendationsNo": {
-      "Type": "Conversation",
-      "Question": "Okay. We also can make eggs or omlet",
-      "AnswerWords": [
-        "You",
         "Please",
-        "Eggs",
-        "Omlette",
         "School",
         "Table"
       ],
       "Solutions": {
-        "what would you recommend": {
+        "i play basketball": {
+          "Next": "Color"
+        },
+        "i play football": {
+          "Next": "Color"
+        },
+        "i play hockey": {
+          "Next": "Color"
+        },
+        "i play tennis": {
+          "Next": "Color"
+        },
+        
+        "default": {
+          "Score": -50,
+          "Next": null
+        }
+      }
+    },
+    "Color": {
+      "Type": "Conversation",
+      "Question": "Which color do you like?",
+      "AnswerWords": [
+        "Good",
+        "Bad",
+        "Red",
+        "Yellow",
+        "Blue",
+        "Green",
+        "White",
+        "Black",
+        "No",
+        "I",
+        "Like",
+        "Don't"
+      ],
+      "Solutions": {
+        "I like Red": {
+          "scoreadjustment": 25,
+          "Next": "Subject"
+        },
+        "I like Yellow": {
+          "scoreadjustment": 25,
+          "Next": "Subject"
+        },
+        "I like Blue": {
+          "scoreadjustment": 25,
+          "Next": "Subject"
+        },
+        "I like Green": {
+          "scoreadjustment": 25,
+          "Next": "Subject"
+        },
+        "I like White": {
+          "scoreadjustment": 25,
+          "Next": "Subject"
+        },
+        "I like Black": {
+          "scoreadjustment": 25,
+          "Next": "Subject"
+        },
+        "Red": {
+          "Next": "Subject"
+        },
+        "Yellow": {
+          "Next": "Subject"
+        },
+        "Blue": {
+          "Next": "Subject"
+        },
+        "Green": {
+          "Next": "Subject"
+        },
+        "White": {
+          "Next": "Subject"
+        },
+        "Black": {
+          "Next": "Subject"
+        },
+        "no": {
+          "scoreadjustment": -10,
+          "Next": "Subject"
+        },
+        "no I don't like": {
+          "scoreadjustment": -5,
+          "Next": "Subject"
+        },
+        "default": {
+          "Score": -50,
+          "Next": null
+        }
+      }
+    },
+    "Subject": {
+      "Type": "Conversation",
+      "Question": "Which subject do you like?",
+      "AnswerWords": [
+        "Apple",
+        "Math",
+        "Art",
+        "Science",
+        "Reading",
+        "Like",
+        "Don't",
+        "I",
+        "Yes",
+        "No"
+      ],
+      "Solutions": {
+        "i like Art": {
+          "Next": "ArtStudy"
+        },
+        "i like Science": {
+          "Next": "ScienceStudy"
+        },
+        "i like Math": {
+          "Next": "MathStudy"
+        },
+        "i like Reading": {
+          "Next": "ReadingStudy"
+        },
+        "no": {
+          "scoreadjustment": -10,
+          "Next": "Study"
+        },
+        "no, i don't like": {
+          "scoreadjustment": -5,
+          "Next": "Study"
+        },
+        "default": {
+          "Score": -50,
+          "Next": null
+        }
+      }
+    },
+    "ArtStudy": {
+      "Type": "Conversation",
+      "Question": "Let's draw some picture. What do you like to draw?",
+      "AnswerWords": [
+        "Pets",
+        "Houses",
+        "I",
+        "Would",
+        "Please",
+        "Like",
+        "To",
+        "What",
+        "Draw"
+      ],
+      "Solutions": {
+        "I would like to draw pets": {
+          "scoreadjustment": 30,
+          "Next": "ArtStudyCont"
+        },
+        "I would like to draw houses": {
+          "scoreadjustment": 30,
+          "Next": "ArtStudyCont"
+        },
+        "Pets": {
+          "Next": "ArtStudyCont"
+        },
+        "Houses": {
+          "Next": "ArtStudyCont"
+        },
+        "default": {
+          "Score": -50,
+          "Next": null
+        }
+      }
+    },
+    "ArtStudyCont": {
+      "Type": "Conversation",
+      "Question": "Let's draw some picture. What do you like to draw?",
+      "AnswerWords": [
+        "Pets",
+        "Houses",
+        "I",
+        "Would",
+        "Please",
+        "Like",
+        "To",
+        "What",
+        "Draw"
+      ],
+      "Solutions": {
+        "I would like to draw pets": {
+          "scoreadjustment": 30,
+          "Next": "close"
+        },
+        "I would like to draw houses": {
+          "scoreadjustment": 30,
+          "Next": "close"
+        },
+        "Pets": {
+          "Next": "close"
+        },
+        "Houses": {
+          "Next": "close"
+        },
+        "default": {
+          "Score": -50,
+          "Next": null
+        }
+      }
+    },
+    "ScienceStudy": {
+      "Type": "Conversation",
+      "Question": "Science is an interesting subject!.",
+      "AnswerWords": [
+        "Yes",
+        "No",
+        "I ",
+        "Like",
+        "Physics",
+        "Slow",
+        "Chemistry",
+        "Astronomy",
+        "Biology",
+        "Especially"
+      ],
+      "Solutions": {
+        "yes i like Physics especially": {
+          "scoreadjustment": 100,
+          "Next": "close"
+        },
+        "yes i like Chemistry especially": {
+          "scoreadjustment": 100,
+          "Next": "close"
+        },
+        "yes i like Astronomy especially": {
+          "scoreadjustment": 100,
+          "Next": "close"
+        },
+        "yes i like Biology especially": {
+          "scoreadjustment": 100,
+          "Next": "close"
+        },
+        "Physics": {
+          "Next": "close"
+        },
+        "Chemistry": {
+          "Next": "close"
+        },
+        "Astronomy": {
+          "Next": "close"
+        },
+        "Biology": {
+          "Next": "close"
+        },
+        "default": {
+          "Score": -50,
+          "Next": null
+        }
+      }
+    },
+    "close": {
+      "Type": "Conversation",
+      "Question": "Okay. Enjoy your school time",
+      "AnswerWords": [
+        "Thank",
+        "Yes",
+        "No",
+        "You",
+        "Like",
+        "I"
+      ],
+      "Solutions": {
+        "Thank You": {
           "Next": "Recommendations"
-        },
-        "eggs": {
-          "Next": "EggOrder"
-        },
-        "eggs omlette please": {
-          "Next": "OmletteOrder"
-        },
-        "eggs please": {
-          "Next": "EggOrder"
-        },
-        "omlette": {
-          "Next": "OmletteOrder"
-        },
-        "eggs omlette": {
-          "Next": "OmletteOrder"
-        },
-        "omlette please": {
-          "Next": "OmletteOrder"
-        },
-        "waffle": {
-          "Next": "WaffleOrder"
         },
         "default": {
           "Score": -50,
