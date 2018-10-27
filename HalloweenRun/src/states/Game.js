@@ -17,15 +17,39 @@ export default class extends Phaser.State {
     this.game.load.image('background', 'assets/images/background2.png');
 	this.load.spritesheet('letter', 'assets/images/letters.png',75,85);
 	}
+
 	
-	
-hitPumpkin(player, bomb)
+hitPumpkin(player, pumpkin)
 {
-this.player.animations.play('smash');
+    //this.player.animations.play('smash');
+    // just open up 1 letter
+    console.log(this.pumpkinHitCount);
+    console.log(this.wordsForLearning.words[0]);
+    console.log(this.wordsForLearning.words[0].length);
+    var wordLength = this.wordsForLearning.words[0].length;
+    pumpkin.kill();
+    this.game.add.text(this.letters[this.pumpkinHitCount].x, this.letters[this.pumpkinHitCount].y, " "+ this.wordsForLearning.words[0][this.pumpkinHitCount], { font: "60px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"      });
+	
+    if (this.pumpkinHitCount < wordLength)
+    {
+    	this.pumpkinHitCount++;
+    }
+    else if (this.pumpkinHitCount = wordLength)
+    {
+    	this.pumpkinHitCount = 0;
+	dtml.getWords(1, this.renderwords, this);
+
+    }    
+			
+
+
+   
 }
+
 	
 update() {
-    this.game.physics.arcade.collide(this.player, this.layer);
+
+    	this.game.physics.arcade.collide(this.player, this.layer);
 	
 	for(var i = 0; i < this.maxPumpkins; i++)
 	{
@@ -92,6 +116,9 @@ update() {
 
 
  create() {
+
+	this.pumpkinHitCount= 0;
+
 	  this.facing = 'right';
 	
 	  this.jumpTimer = 0;
@@ -130,10 +157,9 @@ update() {
 	  this.pumpkin[i].body.bounce.y = 0.1;
 	  this.pumpkin[i].body.bounce.x = 0.1;
 	  }
-	  
+  
 	 
       this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
-
 
       this.player.body.bounce.y = 0.2;
       this.player.body.collideWorldBounds = true;
@@ -148,23 +174,23 @@ update() {
 
      this.cursors =  this.game.input.keyboard.createCursorKeys();
      this.jumpButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-	 
-	 //this.wordsForLearning = dtml.getWords(1, this.renderwords, this);
-
+     dtml.getWords(1, this.renderwords, this);
+     
 }
 
+// data is the input word that will display
+// letter is the buttons
 renderwords(data, that)
 {
+         that.wordsForLearning = data;
 	  for(var i = 0; i < data.words[0].length; i++)
 	  {
-	  that.letters[i] = that.game.add.button(80+80*i, 10, 'letter', that.stop, that,1,0,0,0);
-	  that.game.add.text(that.letters[i].x, that.letters[i].y, " "+data.words[0][i], { 
-        font: "60px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"
-      });
+	  	that.letters[i] = that.game.add.button(80+80*i, 10, 'letter', that.stop, that,1,0,0,0);
+	 	//that.game.add.text(that.letters[i].x, that.letters[i].y, " "+ data.words[0][i], {         font: "60px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"      });
 	  }
 }
 
 
-  render() {
+render() {
   }
 }
