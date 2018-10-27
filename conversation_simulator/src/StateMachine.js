@@ -29,6 +29,10 @@ export default class {
         return this.currentState.Question;
     }
 
+    getHint() {
+        return this.currentState.Hint;
+    }
+
     getScore() {
         return this.score;
     }

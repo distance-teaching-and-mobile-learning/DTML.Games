@@ -4,7 +4,7 @@
   "States": {
     "Welcome": {
       "Type": "Conversation",
-      "Question": "Hello and welcome to our restaurant !",
+      "Question": "Hello and welcome to our restaurant!",
       "AnswerWords": [
         "Hi",
         "Hello",
@@ -12,6 +12,7 @@
         "No",
         "Tomorrow"
       ],
+      "Hint": "Try a word like 'hi'",
       "Solutions": {
         "hi": {
           "Next": "WhatToDrink"
@@ -36,6 +37,7 @@
         "Table",
         "Orange"
       ],
+      "Hint": "Try something like 'juice'",
       "Solutions": {
         "water": {
           "Next": "WaterOrdered"
@@ -72,6 +74,7 @@
         "Water",
         "With"
       ],
+      "Hint": "Try a word like 'ice'",
       "Solutions": {
         "with ice": {
           "Next": "OrderTime"
@@ -117,6 +120,7 @@
         "Thank",
         "You"
       ],
+      "Hint": "Try a fruit word",
       "Solutions": {
         "apple juice": {
           "Next": "OrderTime"
@@ -166,6 +170,7 @@
         "Is",
         "Run"
       ],
+      "Hint":"Try a fruit word",
       "Solutions": {
         "apple": {
           "Next": "OrderTime"
@@ -208,6 +213,7 @@
         "What",
         "Would"
       ],
+      "Hint":"Try a food word",
       "Solutions": {
         "what would you recommend": {
           "scoreadjustment": 10,
@@ -263,6 +269,7 @@
         "No",
         "Yes"
       ],
+      "Hint":"Try a word like 'okay'",
       "Solutions": {
         "okay": {
           "Next": "WaffleOrder"
@@ -290,7 +297,7 @@
     },
     "RecommendationsNo": {
       "Type": "Conversation",
-      "Question": "Okay. We also can make eggs or omlet",
+      "Question": "Okay. We also can make eggs or omlette",
       "AnswerWords": [
         "You",
         "Please",
@@ -299,6 +306,7 @@
         "School",
         "Table"
       ],
+      "Hint":"Try a food word",
       "Solutions": {
         "what would you recommend": {
           "Next": "Recommendations"
@@ -342,6 +350,7 @@
         "Plate",
         "Fog"
       ],
+      "Hint":"Try a word like 'sunny'",
       "Solutions": {
         "scrambled": {
           "Next": "ProgressOrder"
@@ -368,6 +377,7 @@
         "And",
         "I"
       ],
+      "Hint":"Try a food word",
       "Solutions": {
         "tomato": {
           "Next": "ProgressOrder"
@@ -414,6 +424,7 @@
         "Am",
         "I"
       ],
+      "Hint":"Try a word like 'okay'",
       "Solutions": {
         "that is fine": {
           "scoreadjustment": -10,
@@ -455,6 +466,7 @@
         "It",
         "Not"
       ],
+      "Hint": "Was that funny?",
       "Solutions": {
         "ha": {
           "Next": "ProgressOrder"
@@ -517,6 +529,7 @@
         "Chair",
         "Computer"
       ],
+      "Hint":"Try a word like 'okay'",
       "Solutions": {
         "yes": {
           "Next": "FinishOrder"
@@ -557,6 +570,7 @@
         "May",
         "Have"
       ],
+      "Hint": "Try a word like 'bagel'.",
       "Solutions": {
         "yes": {
           "Next": "FinishOrder"
@@ -601,6 +615,7 @@
         "Bowl",
         "Fact"
       ],
+      "Hint":"Try a word like 'okay'",
       "Solutions": {
         "okay": {
           "Next": "FinishOrder"
@@ -629,6 +644,7 @@
         "I",
         "Getting"
       ],
+      "Hint":"Try a word like 'hungry'",
       "Solutions": {
         "thank you": {
           "Next": "HereIsYourFood"
@@ -666,6 +682,7 @@
         "It",
         "Getting"
       ],
+      "Hint":"Try saying how it looks.",
       "Solutions": {
         "looks great": {
           "Next": "HowWasYourFood"
@@ -696,6 +713,7 @@
         "It",
         "Good"
       ],
+      "Hint":"Try a word like 'okay'",
       "Solutions": {
         "it was great": {
           "Next": "LikedIt"
@@ -734,6 +752,7 @@
         "I",
         "Will"
       ],
+      "Hint":"Try a word like 'thank you'",
       "Solutions": {
         "thank you": {
           "Next": "End"
@@ -763,6 +782,7 @@
         "It",
         "Will"
       ],
+      "Hint": "Try a word like 'cold' or 'salty'",
       "Solutions": {
         "it was too salty": {
           "Next": "End"

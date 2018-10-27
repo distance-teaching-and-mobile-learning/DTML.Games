@@ -14,6 +14,7 @@
 		      	"eggs",
 		      	"buy"
          ],
+         "Hint": "Try a food word.",
          "Solutions":{  
             "hello":{  
                "Score":-5.0,
@@ -52,6 +53,7 @@
 			      "need",
             "Carrots"
          ],
+         "Hint": "Try a food word.",
          "Solutions":{  
             "onions":{  
                "Score":100.0,
@@ -94,6 +96,7 @@
 		      	"eggs",
 		      	"buy"
          ],
+         "Hint":"Try a food word.",
         "Solutions":{  
 			     "i need vegetables":{  
                "Score":100.0,
@@ -130,6 +133,7 @@
             "School",
             "You"
          ],
+         "Hint":"Try a word like 'baby' or 'regular'.",
          "Solutions":{  
             "baby":{  
                "Score":100.0,
@@ -182,6 +186,7 @@
             "Is",
             "Run"
          ],
+         "Hint":"Try a word like 'thank you'.",
          "Solutions":{  
             "great":{  
                "Score":100.0,

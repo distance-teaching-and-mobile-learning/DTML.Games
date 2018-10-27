@@ -19,23 +19,23 @@ import FreeText from '../sprites/FreeText'
 import Spriter from '../libs/spriter'
 import Background from '../sprites/background'
 import StateMachine from '../StateMachine'
-import {dtml} from '../dtmlSDK'
+import { dtml } from '../dtmlSDK'
 
 export default class extends Phaser.State {
     init() {
-        
-        this.stateMachine = new StateMachine(this.game.cache.getJSON('stateData'));     
+
+        this.stateMachine = new StateMachine(this.game.cache.getJSON('stateData'));
     }
 
     create() {
         this.cursors = game.input.keyboard.createCursorKeys();
         this.phaserJSON = this.cache.getJSON('gameSetup');
-         window.speechSynthesis.getVoices();
+        window.speechSynthesis.getVoices();
 
         this.awaitVoices = new Promise(done => window.speechSynthesis.onvoiceschanged = done);
         this.cookVoice = this.phaserJSON.LeftVoice;
         this.customerVoice = this.phaserJSON.RightVoice;
-       
+
         this.language = this.game.state.states['Game']._language;
         this.langCode = this.game.state.states['Game']._langCode;
         this.bg = new Background({ game: this.game }, 1);
@@ -51,52 +51,108 @@ export default class extends Phaser.State {
         this.music = music;
         this.steps = game.add.audio('steps');
 
-         this.createSprites();
+        this.createSprites();
         let inputW = 650;
         let inputH = 50;
-        this.textBox = this.add.inputField(this.world.centerX - (inputW / 2) * game.scaleRatio, this.game.height - 115 - (inputH * 2) * game.scaleRatio +17, {
+        this.textBox = this.add.inputField(this.world.centerX - (inputW / 2) * game.scaleRatio, this.game.height - 115 - (inputH * 2) * game.scaleRatio + 17, {
             font: '40px Arial',
             fill: '#212121',
             fontWeight: 'bold',
             width: inputW,
             padding: 8,
-			visible:false,
+            visible: false,
             borderWidth: 1,
             borderColor: '#000',
             borderRadius: 6,
             placeHolder: 'Your answer:',
             focusOutOnEnter: true,
-            disabled : true
+            disabled: true
         });
         this.enter = null;
         this.exit = null;
-		this.textBox.scale.set(0, 1 * game.scaleRatio);
-      	this.textBox.disabled = true;
-		this.textBox.visible = false;
-       
+        this.hint = null;
+        this.repeat = null;
+        this.textBox.scale.set(0, 1 * game.scaleRatio);
+        this.textBox.disabled = true;
+        this.textBox.visible = false;
+
         game.add.tween(this.textBox.scale).to({ x: 1 * game.scaleRatio }, 500, Phaser.Easing.Cubic.Out, true, 2500)
             .onComplete.add(() => {
                 let enterSpriteButton = game.add.sprite(0, 0, 'iconAttack');
                 enterSpriteButton.anchor.set(0.5);
                 enterSpriteButton.x = this.textBox.x + this.textBox.width * game.scaleRatio;
-                enterSpriteButton.y = this.textBox.y + this.textBox.height / 2 ;
+                enterSpriteButton.y = this.textBox.y + this.textBox.height / 2;
                 enterSpriteButton.inputEnabled = true;
                 enterSpriteButton.input.priorityID = 0;
-				enterSpriteButton.input.useHandCursor = true;
+                enterSpriteButton.input.useHandCursor = true;
                 enterSpriteButton.events.onInputDown.add(this.SayItByCustomer, this);
                 this.enter = enterSpriteButton;
                 this.enter.visible = false;
-				this.textBox.visible = false;
+
+                this.textBox.visible = false;
+
                 let deleteSpriteButton = game.add.sprite(0, 0, 'iconDelete');
                 deleteSpriteButton.anchor.set(0.5);
-                deleteSpriteButton.x = this.textBox.x + (this.textBox.width * game.scaleRatio) + enterSpriteButton.width+5;
-                deleteSpriteButton.y = this.textBox.y + this.textBox.height / 2 ;
+                deleteSpriteButton.x = this.textBox.x + (this.textBox.width * game.scaleRatio) + enterSpriteButton.width + 5;
+                deleteSpriteButton.y = this.textBox.y + this.textBox.height / 2;
                 deleteSpriteButton.inputEnabled = true;
                 deleteSpriteButton.input.priorityID = 0;
-				deleteSpriteButton.input.useHandCursor = true;
+                deleteSpriteButton.input.useHandCursor = true;
                 deleteSpriteButton.events.onInputDown.add(this.deleteBox, this);
                 this.exit = deleteSpriteButton;
                 this.exit.visible = false;
+
+                
+                // TODO
+                var hint = game.add.sprite(0, 0, 'hintbtn');
+
+                hint.anchor.set(0.5);
+                hint.x = this.textBox.x + this.textBox.width * game.scaleRatio + deleteSpriteButton.width + enterSpriteButton.width + 10;
+                hint.y = this.textBox.y + this.textBox.height / 2;
+                hint.frame = 0;
+                hint.inputEnabled = true;
+                hint.input.priorityID = 0;
+                hint.input.useHandCursor = true;
+                hint.events.onInputDown.add(function () {
+                    this.cook.setAnimationSpeedPercent(100);
+                    this.cook.playAnimationByName('_SAY');
+
+                    let label2 = this.game.add.text(this.cook.x - parseInt(this.phaserJSON.CallOutLeftX), this.cook.y - parseInt(this.phaserJSON.CallOutLeftY), this.stateMachine.getHint(), {
+                        font: "30px Berkshire Swash",
+                        fill: "#000",
+                        align: "center",
+                        wordWrap: true,  
+                        wordWrapWidth: 300
+                    });
+                    label2.anchor.setTo(0.5);
+
+                    this.textToSpeach(this.stateMachine.getHint(), this.cookVoice, this.phaserJSON.LeftPitch);
+                    
+
+                    this.time.events.add(4000, () => {
+                        this.customer.setAnimationSpeedPercent(100);
+                        this.customer.playAnimationByName('_IDLE');
+                        label2.kill();
+
+                        this.SayItByCook(this.stateMachine.getQuestion(), true);
+                    })
+                }, this);
+                this.hint = hint;
+                this.hint.visible = false;
+
+                var repeat = game.add.sprite(0, 0, 'hintbtn');
+                repeat.anchor.set(0.5);
+                repeat.x = this.textBox.x + this.textBox.width * game.scaleRatio + enterSpriteButton.width + deleteSpriteButton.width + hint.width + 15;
+                repeat.y = this.textBox.y + this.textBox.height / 2;
+                repeat.frame = 0;
+                repeat.inputEnabled = true;
+                repeat.input.priorityID = 0;
+                repeat.input.useHandCursor = true;
+                repeat.events.onInputDown.add(function () {
+                    this.ConversationStart();
+                }, this);
+                this.repeat = repeat;
+                this.repeat.visible = false;
             });
     }
 
@@ -125,7 +181,7 @@ export default class extends Phaser.State {
             text: '0',
             cloudEnabled: true
         });
-		
+
         var enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
         enterKey.onDown.add(this.SayItByCustomer, this);
 
@@ -159,22 +215,6 @@ export default class extends Phaser.State {
                 this.patienceBarsGroup = this.add.group();
                 this.patienceBars = new Array(numberOfPatienceBars);
 
-                // TODO
-                var hint = game.make.sprite(360, 0, 'hintbtn');
-                let word = "Hint!";
-                // hint.text = word;
-
-                var character = this.game.add.text(0, 0, word, 1);// sprite(0, 0, 'characters',i);
-
-                let rect = new Phaser.Rectangle(hint.x, hint.y, hint.width, hint.height);
-                hint.frame = 0;
-                hint.inputEnabled = true;
-                hint.input.priorityID = 0;
-                hint.input.useHandCursor = true;
-                hint.events.onInputDown.add(function() {
-                    // CALLBACK
-                }, this);
-                this.patienceBarsGroup.add(hint);
 
                 for (let index = 0; index < numberOfPatienceBars; index++) {
                     var p = game.make.sprite(270 - 90 * index, 0, 'patienceBar' + (index + 1));
@@ -182,7 +222,7 @@ export default class extends Phaser.State {
                     this.patienceBars[index] = p;
                 }
 
-                this.patienceBarsGroup.x =  this.world.width * 0.1;
+                this.patienceBarsGroup.x = this.world.width * 0.1;
                 this.patienceBarsGroup.y = this.game.world.centerY * 0.1 - 15;
 
                 this.ConversationStart();
@@ -200,9 +240,9 @@ export default class extends Phaser.State {
                     font: "60px Berkshire Swash",
                     fill: 'black'
                 });
-                this.scoreText.anchor.setTo(0.5,0.5);
+                this.scoreText.anchor.setTo(0.5, 0.5);
             });
-			}
+    }
 
     gameOver() {
         this.cook.kill();
@@ -214,7 +254,7 @@ export default class extends Phaser.State {
             this.showMenu();
         }, this);
 
-       dtml.recordGameEnd(this.phaserJSON.gameid, this.scoreText.text);
+        dtml.recordGameEnd(this.phaserJSON.gameid, this.scoreText.text);
     }
 
     textToSpeach(text, voice, pitch) {
@@ -248,195 +288,196 @@ export default class extends Phaser.State {
         this.leftdonya = '';
         this.rightdonya = '';
 
-          if(this.stateMachine.getOnExitLeft()!=null){
-            console.log('gaada'+ this.stateMachine.getOnExitLeft());
+        if (this.stateMachine.getOnExitLeft() != null) {
+            console.log('gaada' + this.stateMachine.getOnExitLeft());
             this.leftnya = this.stateMachine.getOnExitLeft();
 
-            }else{
-            console.log('gaada'); 
-            }
+        } else {
+            console.log('gaada');
+        }
 
 
-            if(this.stateMachine.getOnExitRight()!=null){
-            console.log('gaada'+ this.stateMachine.getOnExitRight());
+        if (this.stateMachine.getOnExitRight() != null) {
+            console.log('gaada' + this.stateMachine.getOnExitRight());
             this.rightnya = this.stateMachine.getOnExitRight();
 
-            }else{
-            console.log('gaada'); 
-            }
+        } else {
+            console.log('gaada');
+        }
 
-             if(this.stateMachine.getOnExitBg()!=null){
-            console.log('gaada'+ this.stateMachine.getOnExitBg());
+        if (this.stateMachine.getOnExitBg() != null) {
+            console.log('gaada' + this.stateMachine.getOnExitBg());
             this.bgnya = this.stateMachine.getOnExitBg();
 
-            }else{
-            console.log('gaada'); 
-            }
+        } else {
+            console.log('gaada');
+        }
 
 
-            if(this.stateMachine.getOnExitLeftDo()!=null){
-            console.log('gaada'+ this.stateMachine.getOnExitLeftDo());
+        if (this.stateMachine.getOnExitLeftDo() != null) {
+            console.log('gaada' + this.stateMachine.getOnExitLeftDo());
             this.leftdonya = this.stateMachine.getOnExitLeftDo();
 
-            }else{
-            console.log('gaada'); 
-            }
+        } else {
+            console.log('gaada');
+        }
 
 
-            if(this.stateMachine.getOnExitRightDo()!=null){
-            console.log('gaada'+ this.stateMachine.getOnExitRightDo());
+        if (this.stateMachine.getOnExitRightDo() != null) {
+            console.log('gaada' + this.stateMachine.getOnExitRightDo());
             this.rightdonya = this.stateMachine.getOnExitRightDo();
 
-            }else{
-            console.log('gaada'); 
-            }
+        } else {
+            console.log('gaada');
+        }
 
 
 
 
-        console.log('textnya = ' +this.textBox.value.length)
-        if(this.textBox.value.length>0 )
-		{
-		this.exit.visible = false;
-        this.enter.visible = false;
-		this.textBox.visible = false;
-		
-        this.onSelection = false;
-        this.destroySideMenu();
+        console.log('textnya = ' + this.textBox.value.length)
+        if (this.textBox.value.length > 0) {
+            this.exit.visible = false;
+            this.enter.visible = false;
+            this.textBox.visible = false;
+            this.hint.visible = false;
+            this.repeat.visible = false;
 
-        var text = this.textBox.value;
-        this.textBox.setText('');
+            this.onSelection = false;
+            this.destroySideMenu();
 
-        this.customer.setAnimationSpeedPercent(100);
-        this.customer.playAnimationByName('_SAY');
-        this.textToSpeach(text, this.customerVoice, this.phaserJSON.RightPitch);
-        let label = this.game.add.text(this.customer.x + parseInt(this.phaserJSON.CallOutRightX), this.customer.y - parseInt(this.phaserJSON.CallOutRightY), text, {
-            font: "30px Berkshire Swash",
-            fill: "#000",
-            align: "center",
-            wordWrap: true,
-            wordWrapWidth: 300
-        });
+            var text = this.textBox.value;
+            this.textBox.setText('');
 
-        this.stateMachine.submitSolution(text);
+            this.customer.setAnimationSpeedPercent(100);
+            this.customer.playAnimationByName('_SAY');
+            this.textToSpeach(text, this.customerVoice, this.phaserJSON.RightPitch);
+            let label = this.game.add.text(this.customer.x + parseInt(this.phaserJSON.CallOutRightX), this.customer.y - parseInt(this.phaserJSON.CallOutRightY), text, {
+                font: "30px Berkshire Swash",
+                fill: "#000",
+                align: "center",
+                wordWrap: true,
+                wordWrapWidth: 300
+            });
 
-        label.anchor.setTo(0.5);
+            this.stateMachine.submitSolution(text);
 
-        this.time.events.add(2500, () => {
+            label.anchor.setTo(0.5);
 
-            this.timernya = 0;
-            
-            if( this.lastState != this.stateMachine.currentStateName){
-                console.log('masuk sini = '+ this.leftnya);
+            this.time.events.add(2500, () => {
 
-                if(this.leftdonya!=''){
-                 if(this.leftdonya=='in'){
-                                    console.log('masuk sini');
-                                    this.cook.scale.x = Math.abs(this.cook.scale.x);
-                                    this.cook.x = -300 * game.scaleRatio;
-                                    game.add.tween(this.cook).to({ x: this.world.width * 0.4 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
-                                    .onComplete.add(() => {
-                                            this.cook.setAnimationSpeedPercent(100);
-                                            this.cook.playAnimationByName('_IDLE');
-                                    });
-                 }
+                this.timernya = 0;
 
+                if (this.lastState != this.stateMachine.currentStateName) {
+                    console.log('masuk sini = ' + this.leftnya);
 
-                  if(this.leftdonya=='out'){
-                                    console.log('masuk sini');
-                                    this.cook.scale.x = -(Math.abs(this.cook.scale.x));
-                                    this.cook.x = this.world.width * 0.4 * game.scaleRatio;
-                                    game.add.tween(this.cook).to({ x: -300 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
-                                    .onComplete.add(() => {
-                                            this.cook.setAnimationSpeedPercent(100);
-                                            this.cook.playAnimationByName('_IDLE');
-                                    });
-                 }
-
-             }
-
-              if(this.rightdonya!=''){
-                 if(this.rightdonya=='in'){
-                                    console.log('masuk sini');
-                                    this.customer.scale.x = -(Math.abs(this.customer.scale.x));
-                                    this.customer.x = game.width + 180 * game.scaleRatio;
-                                    game.add.tween(this.customer).to({ x: this.world.width * 0.7 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
-                                    .onComplete.add(() => {
-                                         //this.customer.scale.x *= -1;
-                                            this.customer.setAnimationSpeedPercent(100);
-                                            this.customer.playAnimationByName('_IDLE');
-                                    });
-                 }
-
-                 if(this.rightdonya=='out'){
-                                    console.log('masuk sini');
-                                    this.customer.scale.x = Math.abs(this.customer.scale.x);
-                                    this.customer.x = this.world.width * 0.7 * game.scaleRatio ;
-                                    game.add.tween(this.customer).to({ x: game.width + 180 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
-                                    .onComplete.add(() => {
-                                         //this.customer.scale.x *= -1;
-                                            this.customer.setAnimationSpeedPercent(100);
-                                            this.customer.playAnimationByName('_IDLE');
-                                    });
-                 }
-
-             }
+                    if (this.leftdonya != '') {
+                        if (this.leftdonya == 'in') {
+                            console.log('masuk sini');
+                            this.cook.scale.x = Math.abs(this.cook.scale.x);
+                            this.cook.x = -300 * game.scaleRatio;
+                            game.add.tween(this.cook).to({ x: this.world.width * 0.4 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
+                                .onComplete.add(() => {
+                                    this.cook.setAnimationSpeedPercent(100);
+                                    this.cook.playAnimationByName('_IDLE');
+                                });
+                        }
 
 
+                        if (this.leftdonya == 'out') {
+                            console.log('masuk sini');
+                            this.cook.scale.x = -(Math.abs(this.cook.scale.x));
+                            this.cook.x = this.world.width * 0.4 * game.scaleRatio;
+                            game.add.tween(this.cook).to({ x: -300 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
+                                .onComplete.add(() => {
+                                    this.cook.setAnimationSpeedPercent(100);
+                                    this.cook.playAnimationByName('_IDLE');
+                                });
+                        }
+
+                    }
+
+                    if (this.rightdonya != '') {
+                        if (this.rightdonya == 'in') {
+                            console.log('masuk sini');
+                            this.customer.scale.x = -(Math.abs(this.customer.scale.x));
+                            this.customer.x = game.width + 180 * game.scaleRatio;
+                            game.add.tween(this.customer).to({ x: this.world.width * 0.7 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
+                                .onComplete.add(() => {
+                                    //this.customer.scale.x *= -1;
+                                    this.customer.setAnimationSpeedPercent(100);
+                                    this.customer.playAnimationByName('_IDLE');
+                                });
+                        }
+
+                        if (this.rightdonya == 'out') {
+                            console.log('masuk sini');
+                            this.customer.scale.x = Math.abs(this.customer.scale.x);
+                            this.customer.x = this.world.width * 0.7 * game.scaleRatio;
+                            game.add.tween(this.customer).to({ x: game.width + 180 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
+                                .onComplete.add(() => {
+                                    //this.customer.scale.x *= -1;
+                                    this.customer.setAnimationSpeedPercent(100);
+                                    this.customer.playAnimationByName('_IDLE');
+                                });
+                        }
+
+                    }
 
 
-                if(this.leftnya!=''){
-                   
+
+
+                    if (this.leftnya != '') {
+
                         this.cook.playAnimationByName(this.leftnya);
                         this.timernya = 2000;
 
-                }
+                    }
 
-                if(this.rightnya!=''){
-                  
+                    if (this.rightnya != '') {
+
                         this.customer.playAnimationByName(this.rightnya);
                         this.timernya = 2000;
 
+                    }
+
+                    if (this.bgnya != '') {
+                        //this.load.image('bgn', 'assets/images/res/backgrounds/'+this.bgnya);
+                        this.bg.bgs[0].loadTexture(this.bgnya);
+                    }
+
+
+
+
                 }
 
-                 if(this.bgnya!=''){
-                    //this.load.image('bgn', 'assets/images/res/backgrounds/'+this.bgnya);
-                    this.bg.bgs[0].loadTexture(this.bgnya);
+
+
+
+                this.customer.setAnimationSpeedPercent(100);
+                this.customer.playAnimationByName('_IDLE');
+                label.kill();
+
+                // Once the player has said something, the cook should respond
+                if (this.stateMachine.currentStateName != "End") {
+                    this.time.events.add(this.timernya, () => {
+                        this.cekEnter = 0;
+
+
+                        this.SayItByCook(this.stateMachine.getQuestion(), this.stateMachine.submitSolutionResult);
+                    });
+                } else {
+                    this.state.start('GameOver', true, false, this.scoreText.text)
                 }
-
-
-                
-
-            }
-
-
-
-
-            this.customer.setAnimationSpeedPercent(100);
-            this.customer.playAnimationByName('_IDLE');
-            label.kill();
-
-            // Once the player has said something, the cook should respond
-            if(this.stateMachine.currentStateName!="End"){
-                this.time.events.add(this.timernya, () => {
-                    this.cekEnter = 0;
-
-
-                    this.SayItByCook(this.stateMachine.getQuestion(), this.stateMachine.submitSolutionResult);
-                });
-            }else{
-               this.state.start('GameOver', true, false, this.scoreText.text) 
-            }      
-        })
+            })
 
         }
-   
+
     }
 
-     deleteBox() {
+    deleteBox() {
 
         this.textBox.setText("");
-        
+
     }
 
     SayItByCook(text, submitResult) {
@@ -482,175 +523,176 @@ export default class extends Phaser.State {
 
 
         this.timernya = 0;
-        if(this.cekEnter==0){
+        if (this.cekEnter == 0) {
 
-                this.leftnya = '';
-                this.rightnya = '';
-                this.bgnya = '';
-                  this.leftdonya = '';
-                this.rightdonya = '';
+            this.leftnya = '';
+            this.rightnya = '';
+            this.bgnya = '';
+            this.leftdonya = '';
+            this.rightdonya = '';
 
-            if(this.stateMachine.getOnEnterLeft()!=null){
-            console.log('gaada'+ this.stateMachine.getOnEnterLeft());
-            this.leftnya = this.stateMachine.getOnEnterLeft();
+            if (this.stateMachine.getOnEnterLeft() != null) {
+                console.log('gaada' + this.stateMachine.getOnEnterLeft());
+                this.leftnya = this.stateMachine.getOnEnterLeft();
 
-            }else{
-            console.log('gaada'); 
+            } else {
+                console.log('gaada');
             }
 
 
-            if(this.stateMachine.getOnEnterRight()!=null){
-            console.log('gaada'+ this.stateMachine.getOnEnterRight());
-            this.rightnya = this.stateMachine.getOnEnterRight();
+            if (this.stateMachine.getOnEnterRight() != null) {
+                console.log('gaada' + this.stateMachine.getOnEnterRight());
+                this.rightnya = this.stateMachine.getOnEnterRight();
 
-            }else{
-            console.log('gaada'); 
+            } else {
+                console.log('gaada');
             }
 
 
-             if(this.stateMachine.getOnEnterBg()!=null){
-            console.log('gaada'+ this.stateMachine.getOnEnterBg());
-            this.bgnya = this.stateMachine.getOnEnterBg();
+            if (this.stateMachine.getOnEnterBg() != null) {
+                console.log('gaada' + this.stateMachine.getOnEnterBg());
+                this.bgnya = this.stateMachine.getOnEnterBg();
 
-            }else{
-            console.log('gaada'); 
+            } else {
+                console.log('gaada');
             }
 
-            if(this.stateMachine.getOnEnterLeftDo()!=null){
-            console.log('gaada'+ this.stateMachine.getOnEnterLeftDo());
-            this.leftdonya = this.stateMachine.getOnEnterLeftDo();
-            }else{
-            console.log('gaada'); 
-            }
-
-
-            if(this.stateMachine.getOnEnterRightDo()!=null){
-            console.log('gaada'+ this.stateMachine.getOnEnterRightDo());
-            this.rightdonya = this.stateMachine.getOnEnterRightDo();
-            }else{
-            console.log('gaada'); 
+            if (this.stateMachine.getOnEnterLeftDo() != null) {
+                console.log('gaada' + this.stateMachine.getOnEnterLeftDo());
+                this.leftdonya = this.stateMachine.getOnEnterLeftDo();
+            } else {
+                console.log('gaada');
             }
 
 
-             if(this.leftdonya!=''){
-                 if(this.leftdonya=='in'){
-                                    console.log('masuk sini');
-                                    this.cook.scale.x = Math.abs(this.cook.scale.x);
-                                    this.cook.x = -300 * game.scaleRatio;
-                                    game.add.tween(this.cook).to({ x: this.world.width * 0.4 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
-                                    .onComplete.add(() => {
-                                            this.cook.setAnimationSpeedPercent(100);
-                                            this.cook.playAnimationByName('_IDLE');
-                                    });
-                 }
+            if (this.stateMachine.getOnEnterRightDo() != null) {
+                console.log('gaada' + this.stateMachine.getOnEnterRightDo());
+                this.rightdonya = this.stateMachine.getOnEnterRightDo();
+            } else {
+                console.log('gaada');
+            }
 
 
-                  if(this.leftdonya=='out'){
-                                    console.log('masuk sini');
-                                    this.cook.scale.x = -(Math.abs(this.cook.scale.x));
-                                    this.cook.x = this.world.width * 0.4 * game.scaleRatio;
-                                    game.add.tween(this.cook).to({ x: -300 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
-                                    .onComplete.add(() => {
-                                            this.cook.setAnimationSpeedPercent(100);
-                                            this.cook.playAnimationByName('_IDLE');
-                                    });
-                 }
-
-             }
-
-              if(this.rightdonya!=''){
-                 if(this.rightdonya=='in'){
-                                    console.log('masuk sini');
-                                    this.customer.scale.x = -(Math.abs(this.customer.scale.x));
-                                    this.customer.x = game.width + 180 * game.scaleRatio;
-                                    game.add.tween(this.customer).to({ x: this.world.width * 0.7 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
-                                    .onComplete.add(() => {
-                                         //this.customer.scale.x *= -1;
-                                            this.customer.setAnimationSpeedPercent(100);
-                                            this.customer.playAnimationByName('_IDLE');
-                                    });
-                 }
-
-                 if(this.rightdonya=='out'){
-                                    console.log('masuk sini');
-                                    this.customer.scale.x = Math.abs(this.customer.scale.x);
-                                    this.customer.x = this.world.width * 0.7 * game.scaleRatio ;
-                                    game.add.tween(this.customer).to({ x: game.width + 180 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
-                                    .onComplete.add(() => {
-                                         //this.customer.scale.x *= -1;
-                                            this.customer.setAnimationSpeedPercent(100);
-                                            this.customer.playAnimationByName('_IDLE');
-                                    });
-                 }
-
-             }
-
-
-
-            if(this.leftnya!=''){
-                        this.cook.playAnimationByName(this.leftnya);
-                        this.timernya = 2000;
+            if (this.leftdonya != '') {
+                if (this.leftdonya == 'in') {
+                    console.log('masuk sini');
+                    this.cook.scale.x = Math.abs(this.cook.scale.x);
+                    this.cook.x = -300 * game.scaleRatio;
+                    game.add.tween(this.cook).to({ x: this.world.width * 0.4 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
+                        .onComplete.add(() => {
+                            this.cook.setAnimationSpeedPercent(100);
+                            this.cook.playAnimationByName('_IDLE');
+                        });
                 }
 
-                if(this.rightnya!=''){
-                    if(this.rightnya=='BringFood'){
 
-                                    console.log('masuk sini');
-                                    this.customer.scale.x *= -1;
-                                    this.customer.playAnimationByName('_WALK');
-                                    game.add.tween(this.customer).to({ x: this.world.width * 0.7 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
-                                    .onComplete.add(() => {
-                                         //this.customer.scale.x *= -1;
-                                            this.customer.setAnimationSpeedPercent(100);
-                                            this.customer.playAnimationByName('_IDLE');
-                                    });
+                if (this.leftdonya == 'out') {
+                    console.log('masuk sini');
+                    this.cook.scale.x = -(Math.abs(this.cook.scale.x));
+                    this.cook.x = this.world.width * 0.4 * game.scaleRatio;
+                    game.add.tween(this.cook).to({ x: -300 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
+                        .onComplete.add(() => {
+                            this.cook.setAnimationSpeedPercent(100);
+                            this.cook.playAnimationByName('_IDLE');
+                        });
+                }
 
-                                    this.timernya = 2000;
-                    }else
-                    {
-                        this.customer.playAnimationByName(this.rightnya);
-                        this.timernya = 2000;
+            }
 
-                    }
+            if (this.rightdonya != '') {
+                if (this.rightdonya == 'in') {
+                    console.log('masuk sini');
+                    this.customer.scale.x = -(Math.abs(this.customer.scale.x));
+                    this.customer.x = game.width + 180 * game.scaleRatio;
+                    game.add.tween(this.customer).to({ x: this.world.width * 0.7 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
+                        .onComplete.add(() => {
+                            //this.customer.scale.x *= -1;
+                            this.customer.setAnimationSpeedPercent(100);
+                            this.customer.playAnimationByName('_IDLE');
+                        });
+                }
 
+                if (this.rightdonya == 'out') {
+                    console.log('masuk sini');
+                    this.customer.scale.x = Math.abs(this.customer.scale.x);
+                    this.customer.x = this.world.width * 0.7 * game.scaleRatio;
+                    game.add.tween(this.customer).to({ x: game.width + 180 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
+                        .onComplete.add(() => {
+                            //this.customer.scale.x *= -1;
+                            this.customer.setAnimationSpeedPercent(100);
+                            this.customer.playAnimationByName('_IDLE');
+                        });
+                }
+
+            }
+
+
+
+            if (this.leftnya != '') {
+                this.cook.playAnimationByName(this.leftnya);
+                this.timernya = 2000;
+            }
+
+            if (this.rightnya != '') {
+                if (this.rightnya == 'BringFood') {
+
+                    console.log('masuk sini');
+                    this.customer.scale.x *= -1;
+                    this.customer.playAnimationByName('_WALK');
+                    game.add.tween(this.customer).to({ x: this.world.width * 0.7 * game.scaleRatio }, 1500, Phaser.Easing.Linear.None, true, 0)
+                        .onComplete.add(() => {
+                            //this.customer.scale.x *= -1;
+                            this.customer.setAnimationSpeedPercent(100);
+                            this.customer.playAnimationByName('_IDLE');
+                        });
+
+                    this.timernya = 2000;
+                } else {
+                    this.customer.playAnimationByName(this.rightnya);
+                    this.timernya = 2000;
 
                 }
 
 
-                 if(this.bgnya!=''){
-
-                    this.bg.bgs[0].loadTexture(this.bgnya);
-                }              
-
             }
 
-          this.time.events.add(this.timernya, () => { 
 
-        this.cook.playAnimationByName('_SAY');
-        this.textToSpeach(text, this.cookVoice, this.phaserJSON.LeftPitch);
+            if (this.bgnya != '') {
 
-        let label = this.game.add.text(this.cook.x - parseInt(this.phaserJSON.CallOutLeftX), this.cook.y - parseInt(this.phaserJSON.CallOutLeftY), text, {
-            font: "30px Berkshire Swash",
-            fill: "#000",
-            align: "center",
-            wordWrap: true,
-            wordWrapWidth: 300
-        });
-        label.anchor.setTo(0.5);
+                this.bg.bgs[0].loadTexture(this.bgnya);
+            }
 
-        if (submitResult) {
-
-            // Hack to move cook back to the right place
-            this.time.events.add(5000, () => {
-                this.cook.setAnimationSpeedPercent(100);
-                this.cook.playAnimationByName('_IDLE');
-                 this.createSideMenu();
-                 this.exit.visible = true;
-                 this.enter.visible = true;
-                 this.textBox.visible = true;
-                label.kill();
-            });
         }
+
+        this.time.events.add(this.timernya, () => {
+
+            this.cook.playAnimationByName('_SAY');
+            this.textToSpeach(text, this.cookVoice, this.phaserJSON.LeftPitch);
+
+            let label = this.game.add.text(this.cook.x - parseInt(this.phaserJSON.CallOutLeftX), this.cook.y - parseInt(this.phaserJSON.CallOutLeftY), text, {
+                font: "30px Berkshire Swash",
+                fill: "#000",
+                align: "center",
+                wordWrap: true,
+                wordWrapWidth: 300
+            });
+            label.anchor.setTo(0.5);
+
+            if (submitResult) {
+
+                // Hack to move cook back to the right place
+                this.time.events.add(5000, () => {
+                    this.cook.setAnimationSpeedPercent(100);
+                    this.cook.playAnimationByName('_IDLE');
+                    this.createSideMenu();
+                    this.exit.visible = true;
+                    this.enter.visible = true;
+                    this.textBox.visible = true;
+                    this.hint.visible = this.stateMachine.getHint() !== undefined;
+                    this.repeat.visible = true;
+                    label.kill();
+                });
+            }
         });
     }
 
@@ -666,52 +708,52 @@ export default class extends Phaser.State {
 
     update() {
 
-        if(this.onSelection){
-            
+        if (this.onSelection) {
 
-            if ( this.game.input.keyboard.justPressed(Phaser.KeyCode.RIGHT) ){
-                 console.log("just pressed 1");
-                 console.log("pencet kanan" + this.selection +" - "+this.ansLength);
-                 this.listView.items[this.selection].frame = 0;
-                
 
-                    this.selection+=1;
-                    if(this.selection>this.ansLength-1){
-                        this.selection = 0;
-                    }
+            if (this.game.input.keyboard.justPressed(Phaser.KeyCode.RIGHT)) {
+                console.log("just pressed 1");
+                console.log("pencet kanan" + this.selection + " - " + this.ansLength);
+                this.listView.items[this.selection].frame = 0;
 
-                     this.listView.items[this.selection].frame = 1;
-            }
 
-            if ( this.game.input.keyboard.justPressed(Phaser.KeyCode.LEFT) ){
-                 console.log("just pressed 1");
-                 console.log("pencet kanan" + this.selection +" - "+this.ansLength);
-                 this.listView.items[this.selection].frame = 0;
-                
-
-                    this.selection-=1;
-                    if(this.selection<0){
-                        this.selection = this.ansLength-1;
-                    }
-
-                     this.listView.items[this.selection].frame = 1;
-            }
-
-            if ( this.game.input.keyboard.justPressed(Phaser.KeyCode.UP) || this.game.input.keyboard.justPressed(Phaser.KeyCode.SPACEBAR) ){
-                 //SayItByCustomer(this.listView.items[this.selection].text);
-                 this.addCharToNode(this.listView.items[this.selection]);
-            }
-
-            if ( this.game.input.keyboard.justPressed(Phaser.KeyCode.DOWN) || this.game.input.keyboard.justPressed(Phaser.KeyCode.BACKSPACE) ){
-                 //SayItByCustomer(this.listView.items[this.selection].text);
-                 this.deleteBox();
-            }
-
-              if ( this.game.input.keyboard.justPressed(Phaser.KeyCode.ENTER) ){
-                if(this.enter.visible==true){
-                 this.SayItByCustomer();
+                this.selection += 1;
+                if (this.selection > this.ansLength - 1) {
+                    this.selection = 0;
                 }
-               
+
+                this.listView.items[this.selection].frame = 1;
+            }
+
+            if (this.game.input.keyboard.justPressed(Phaser.KeyCode.LEFT)) {
+                console.log("just pressed 1");
+                console.log("pencet kanan" + this.selection + " - " + this.ansLength);
+                this.listView.items[this.selection].frame = 0;
+
+
+                this.selection -= 1;
+                if (this.selection < 0) {
+                    this.selection = this.ansLength - 1;
+                }
+
+                this.listView.items[this.selection].frame = 1;
+            }
+
+            if (this.game.input.keyboard.justPressed(Phaser.KeyCode.UP) || this.game.input.keyboard.justPressed(Phaser.KeyCode.SPACEBAR)) {
+                //SayItByCustomer(this.listView.items[this.selection].text);
+                this.addCharToNode(this.listView.items[this.selection]);
+            }
+
+            if (this.game.input.keyboard.justPressed(Phaser.KeyCode.DOWN) || this.game.input.keyboard.justPressed(Phaser.KeyCode.BACKSPACE)) {
+                //SayItByCustomer(this.listView.items[this.selection].text);
+                this.deleteBox();
+            }
+
+            if (this.game.input.keyboard.justPressed(Phaser.KeyCode.ENTER)) {
+                if (this.enter.visible == true) {
+                    this.SayItByCustomer();
+                }
+
             }
         }
 
@@ -727,12 +769,12 @@ export default class extends Phaser.State {
     addCharToNode(sprite) {
         var iii = 0;
         var xxx = 0
-        this.listView.items.forEach(function(itemnya){
+        this.listView.items.forEach(function (itemnya) {
             itemnya.frame = 0;
-            if(itemnya.text==sprite.text){
+            if (itemnya.text == sprite.text) {
                 sprite.frame = 1;
                 iii = xxx;
-                console.log('indexnya = '+iii);
+                console.log('indexnya = ' + iii);
             }
             xxx++;
 
@@ -740,7 +782,7 @@ export default class extends Phaser.State {
 
         this.selection = iii;
 
-        console.log('indexnya = '+this.selection);
+        console.log('indexnya = ' + this.selection);
         this.textBox.setText(this.textBox.value + " " + sprite.text);
     }
 
@@ -770,14 +812,14 @@ export default class extends Phaser.State {
 
 
         this.stateMachine.getAnswerWords().forEach((word) => {
-            this.ansLength+=1
+            this.ansLength += 1
             var item = this.game.add.sprite(0, 0, 'sidebg');
-           // item.scale.set(0.8 * game.scaleRatio);
+            // item.scale.set(0.8 * game.scaleRatio);
             item.text = word;
 
             var character = this.game.add.text(0, 0, word, i++);// sprite(0, 0, 'characters',i);
 
-            character.scale.set((2.05 - (word.length*0.17)) * game.scaleRatio);
+            character.scale.set((2.05 - (word.length * 0.17)) * game.scaleRatio);
             rect = new Phaser.Rectangle(item.x, item.y, item.width, item.height);
             character.alignIn(rect, Phaser.CENTER, 0, 0);
             item.frame = 0;
@@ -794,17 +836,17 @@ export default class extends Phaser.State {
             this.listView.add(item);
         });
 
-        console.log("asd = "+ this.listView.items[2].text);
+        console.log("asd = " + this.listView.items[2].text);
         this.listView.items[this.selection].frame = 1;
 
-       /* this.listView.grp.visible = false;
-        this.openSidemenu = this.game.add.tween(this.sidemenu).to({ y: this.game.height }, 1000, Phaser.Easing.Exponential.Out);
-        this.closeSidemenu = this.game.add.tween(this.sidemenu).to({ y: this.game.height }, 1000, Phaser.Easing.Exponential.Out);
-        this.openSidemenu.onStart.add(function () { this.bottomORside = true; this.listView.grp.visible = false; }, this);
-        this.openSidemenu.onComplete.add(function () { this.listView.grp.visible = true; }, this);
-        this.closeSidemenu.onStart.add(function () { this.bottomORside = false; }, this);
-        this.openSidemenu.start();
-        */
+        /* this.listView.grp.visible = false;
+         this.openSidemenu = this.game.add.tween(this.sidemenu).to({ y: this.game.height }, 1000, Phaser.Easing.Exponential.Out);
+         this.closeSidemenu = this.game.add.tween(this.sidemenu).to({ y: this.game.height }, 1000, Phaser.Easing.Exponential.Out);
+         this.openSidemenu.onStart.add(function () { this.bottomORside = true; this.listView.grp.visible = false; }, this);
+         this.openSidemenu.onComplete.add(function () { this.listView.grp.visible = true; }, this);
+         this.closeSidemenu.onStart.add(function () { this.bottomORside = false; }, this);
+         this.openSidemenu.start();
+         */
     }
 
     destroySideMenu() {
