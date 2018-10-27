@@ -193,7 +193,8 @@ enterletter(a)
             placeHolder: 'Your answer:',
             focusOutOnEnter: false
         });
-        this.textBox.scale.set(0, 1 * game.scaleRatio); */
+        this.textBox.scale.set(0, 1 * game.scaleRatio); 
+		this.textBox.Hidden = false; */
        
 }
 
@@ -201,15 +202,22 @@ enterletter(a)
 // letter is the buttons
 renderwords(data, that)
 {
-         that.wordsForLearning = data;
-	  for(var i = 0; i < data.words[0].length; i++)
+      that.wordsForLearning = data;
+	  //If word length is greater than 6 then generate another word
+	  var j = 0;
+	  while(data.words[j].length > 6)
 	  {
-	  	that.letters[i] = that.game.add.button(80+80*i, 10, 'letter', that.enterletter, that,1,0,0,0);
+			j++;
+		
+      }
+	
+	  for(var i = 0; i < data.words[j].length; i++)
+	  {
+	  	that.letters[i] = that.game.add.button(80+80*i, 10, 'letter', that.enterletter, that, 0,0,0,0);
 	 	//that.game.add.text(that.letters[i].x, that.letters[i].y, " "+ data.words[0][i], {         font: "60px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"      });
 	  }
-	  
-	  that.sumbmitbutton = that.game.add.button(80+80*(data.words[0].length+1), 10, 'button', that.enterletter, that,1,0,0,0);
-	  that.game.add.text(that.sumbmitbutton.x, that.sumbmitbutton.y, "Submit", {         font: "60px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"      });
+	  that.sumbmitbutton = that.game.add.button(80*(data.words[j].length+1), 10, 'button', that.enterletter, that,1,0,0,0);
+	  that.game.add.text(that.sumbmitbutton.x+30, that.sumbmitbutton.y+20, "Submit", { font: "30px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"      });
 	  
 }
 
