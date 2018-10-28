@@ -2,11 +2,16 @@
 import Phaser from 'phaser'
 import lang from '../lang'
 import {dtml} from '../dtml-sdk'
+import PhaserInput from '../libs/phaser-input'
 
 export default class extends Phaser.State {
-  init() { }
+  init() 
+  {
+  }
   
   preload() {
+ 
+    this.add.plugin(PhaserInput.Plugin);
     this.game.load.tilemap('level1', 'assets/images/level1.json', null, Phaser.Tilemap.TILED_JSON);
     this.game.load.image('tiles-1', 'assets/images/tiles-1.png');
     this.game.load.spritesheet('dude', 'assets/images/dude.png', 32, 48);
@@ -23,27 +28,20 @@ hitPumpkin(player, pumpkin)
 {
     //this.player.animations.play('smash');
     // just open up 1 letter
-    console.log(this.pumpkinHitCount);
-    console.log(this.wordsForLearning.words[0]);
-    console.log(this.wordsForLearning.words[0].length);
-    var wordLength = this.wordsForLearning.words[0].length;
+    var wordLength = this.currentWord.length;
+	var random = game.rnd.integerInRange(0, this.currentWord.length-1);
     pumpkin.kill();
-    this.game.add.text(this.letters[this.pumpkinHitCount].x, this.letters[this.pumpkinHitCount].y, " "+ this.wordsForLearning.words[0][this.pumpkinHitCount], { font: "60px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"      });
+    this.game.add.text(this.letters[this.pumpkinHitCount].x, this.letters[this.pumpkinHitCount].y, " "+ this.currentWord[this.pumpkinHitCount], { font: "60px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"      });
 	
-    if (this.pumpkinHitCount < wordLength)
+    if (this.pumpkinHitCount < wordLength - 1)
     {
     	this.pumpkinHitCount++;
     }
-    else if (this.pumpkinHitCount = wordLength)
+    else 
     {
     	this.pumpkinHitCount = 0;
-	dtml.getWords(1, this.renderwords, this);
-
-    }    
-			
-
-
-   
+	    dtml.getWords(1, this.renderwords, this);
+    }      
 }
 
 	
@@ -180,8 +178,34 @@ update() {
 
 enterletter(a)
 {
+     
+}
 
-       
+submitAnswer(a)
+{
+ var fail = false;
+ 
+ for(var i = 0; i < this.currentWord.length; i++)
+  {
+	 if  (this.textBox[i].value != this.currentWord[i])
+	 {
+       fail = true;		 
+	 }
+  }		  
+
+  if (fail)
+  {
+   for(var i = 0; i < this.currentWord.length; i++)
+   {
+	 this.textBox[i].resetText();
+	 this.textBox[i].hide;
+   }	
+  }
+    else
+	{
+		 dtml.getWords(1, this.renderwords, this);		
+	}
+
 }
 
 // data is the input word that will display
@@ -192,33 +216,45 @@ renderwords(data, that)
 	  //If word length is greater than 6 then generate another word
 	  var j = 0;
 	  that.textBox = {};
+	  that.letters =  {};
 	  
 	  while(data.words[j].length > 6)
 	  {
 			j++;		
       }
+	  
+	  that.currentWord = data.words[j];
 	
-	  for(var i = 0; i < data.words[0].length; i++)
+	  for(var i = 0; i < that.currentWord.length; i++)
 	   {
 	  	that.letters[i] = that.game.add.button(80+80*i, 10, 'letter', that.enterletter, that,1,0,0,0);
-		that.textBox[i] = this.add.inputField(80+80*i, 10, {
+		that.textBox[i] = that.add.inputField(80+80*i+10, 20, {
             font: '40px Arial',
-            fill: '#212121',
             fontWeight: 'bold',
-            width: 10,
+            width: 40,
             padding: 8,
+			fill: '#444121',
+			backgroundColor: 'transparent',
             borderWidth: 1,
-            borderColor: '#fff',
+            borderColor: '#000',
             borderRadius: 6,
-            placeHolder: ' ',
+            placeHolder: '',
             focusOutOnEnter: false
         });
-		
-	 	//that.game.add.text(that.letters[i].x, that.letters[i].y, " "+ data.words[0][i], {         font: "60px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"      });
+
 	  }
-	  that.sumbmitbutton = that.game.add.button(80*(data.words[j].length+1), 10, 'button', that.enterletter, that,1,0,0,0);
-	  that.game.add.text(that.sumbmitbutton.x+30, that.sumbmitbutton.y+20, "Submit", { font: "30px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"      });
+	  if (that.sumbmitbutton)
+	  {
+		  that.sumbmitbutton.kill();
+	  }
 	  
+	  if (that.sumbmitbuttonText)
+	  {
+		  that.sumbmitbuttonText.kill();
+	  }
+	  
+	  that.sumbmitbutton = that.game.add.button(80*(data.words[j].length+1), 10, 'button', that.submitAnswer, that,1,0,0,0);
+	  that.sumbmitbuttonText = that.game.add.text(that.sumbmitbutton.x+30, that.sumbmitbutton.y+20, "Submit", { font: "30px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"      });
 }
 
 
