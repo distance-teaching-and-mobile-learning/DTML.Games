@@ -1,518 +1,396 @@
-{  
-   "Comment":"DTML Grocery store Simulator",
-   "StartAt":"Welcome",
-   "States":{  
-      "Welcome":{  
-         "Type":"Conversation",
-         "Question":"Hello. Welcome to our Grocery store. How may I help you?",
-         "AnswerWords":[  
-            "to",
-            "Hello",
-            "I",
-            "need",
-		      	"vegetables",
-		      	"eggs",
-		      	"buy"
-         ],
-         "Solutions":{  
-            "hello":{  
-               "Score":-5.0,
-               "Next":"Assist"
-            },
-			     "i need vegetables":{  
-               "Score":100.0,
-               "Next":"Vegetables"
-            },
-            "i need to buy vegetables":{  
-               "Score":150.0,
-               "Next":"Vegetables"
-            },
-		     	"i need eggs":{  
-               "Score":150.0,
-               "Next":"Eggs"
-            },
-        	"i need to buy eggs":{  
-               "Score":150.0,
-               "Next":"Eggs"
-            },
-            "default":{  
-               "Score":-50,
-               "Next":null
-            }
-         }
-      },
-      "Vegetables":{  
-         "Type":"Conversation",
-         "OnStateEnter": { "Left": "_RUN", "Right":"_RUN", "Background":"bgx0", "LeftDo": "in", "RightDo": "in"  },
-         "Question":"We have a great selection of already picked vegetables. What kinds of vegetables do you need?",
-         "AnswerWords":[  
-            "Onions",
-            "Tomatoes",
-            "I",
-			      "need",
-            "Carrots"
-         ],
-         "Solutions":{  
-            "onions":{  
-               "Score":100.0,
-               "Next":"OnionsOrdered"
-            },
-            "i need onions":{  
-               "Score":100.0,
-               "Next":"OnionsOrdered"
-            },
-            "tomatoes":{  
-               "Score":150.0,
-               "Next":"TomatoesOrdered"
-            },
-            "i need tomatoes":{  
-               "Score":150.0,
-               "Next":"TomatoesOrdered"
-            },
-            "carrots":{  
-               "Score":300.0,
-               "Next":"CarrotsOrdered"
-            },
-            "I need carrots":{  
-               "Score":300.0,
-               "Next":"CarrotsOrdered"
-            },
-            "default":{  
-               "Score":-50,
-               "Next":null
-            }
-         }
-      },
-      "Assist":{  
-         "Type":"Conversation",
-         "Question":"Are you looking for something specific?",
-          "AnswerWords":[  
-            "to",
-            "I",
-            "need",
-		      	"vegetables",
-		      	"eggs",
-		      	"buy"
-         ],
-        "Solutions":{  
-			     "i need vegetables":{  
-               "Score":100.0,
-               "Next":"Vegetables"
-            },
-            "i need to buy vegetables":{  
-               "Score":150.0,
-               "Next":"Vegetables"
-            },
-		     	"i need eggs":{  
-               "Score":150.0,
-               "Next":"Eggs"
-            },
-        	"i need to buy eggs":{  
-               "Score":150.0,
-               "Next":"Eggs"
-            },
-            "default":{  
-               "Score":-50,
-               "Next":null
-            }
-         }
-      },
-      "CarrotsOrdered":{  
-         "Type":"Conversation",
-         "OnStateEnter": { "Left": "SHOW_CARROTS", "Right":"_IDLE", "Background":"", "LeftDo": "", "RightDo": ""},
-         "Question":"Baby carrots and regular carrots. Which one would you like to purchase?",
-         "AnswerWords":[  
-            "Cat",
-            "Baby",
-            "Carrots",
-            "Regular",
-            "Please",
-            "School",
-            "You"
-         ],
-         "Solutions":{  
-            "baby":{  
-               "Score":100.0,
-               "Next":"BabyCarrots"
-            },
-		    	"baby carrots":{  
-               "Score":10.0,
-               "Next":"BabyCarrots"
-            },
-			    "baby carrots please":{  
-               "Score":10.0,
-               "Next":"BabyCarrots"
-            },
-            "baby please":{  
-               "Score":100.0,
-               "Next":"BabyCarrots"
-            },
-            "regular":{  
-               "Score":200.0,
-               "Next":"RegularCarrots"
-            },
-            "regular please":{  
-               "Score":200.0,
-               "Next":"RegularCarrots"
-            },
-            "regular carrots":{  
-               "Score":50.0,
-               "Next":"RegularCarrots"
-            },
-            "regular carrots":{  
-               "Score":300.0,
-               "Next":"RegularCarrots"
-            },
-            "default":{  
-               "Score":-50,
-               "Next":null
-            }
-         }
-      },
-      "BabyCarrots":{  
-         "Type":"Conversation",
-         "Question":"Good choice. Baby carrots are delicious when stewed, caramelized or used raw in a salad.",
-         "AnswerWords":[  
-            "Great",
-            "You",
-            "Food",
-            "Thank",
-            "Good",
-			      "Orange",
-            "Is",
-            "Run"
-         ],
-         "Solutions":{  
-            "great":{  
-               "Score":100.0,
-               "Next":"Finish"
-            },
-            "thank you":{  
-               "Score":100.0,
-               "Next":"Finish"
-            },
-            "great thank you":{  
-               "Score":300.0,
-               "Next":"Finish"
-            },
-	            "default":{  
-               "Score":-50,
-               "Next":null
-            }
-         }
-      },
-      "RegularCarrots":{  
-         "Type":"Conversation",
-         "Question":"Great. Roasted carrots are my favorites. Do you want to know my recipe?",
-         "AnswerWords":[  
-            "No",
-            "You",
-            "Food",
-            "Thank",
-            "Good",
-			      "Orange",
-            "Course",
-            "Of"
-         ],
-         "Solutions":{  
-            "no":{  
-               "Score":100.0,
-               "Next":"Finish"
-            },
-            "no thank you":{  
-               "Score":100.0,
-               "Next":"Finish"
-            },
-            "of course":{  
-               "Score":300.0,
-               "Next":"Recipe"
-            },
-              "of course thank you":{  
-               "Score":300.0,
-               "Next":"Recipe"
-            },
-	            "default":{  
-               "Score":-50,
-               "Next":null
-            }
-         }
-      },
-      "Recipe":{  
-         "Type":"Conversation",
-         "Question":"It is simple. Peel carrots and trim green top. Roast them until tender and lightly browned. ",
-         "AnswerWords":[  
-            "Simple",
-            "Green",
-            "Enough",
-            "Cut",
-            "Is",
-            "Eggs",
-            "It"
-         ],
-         "Solutions":{  
-            "it is simple":{  
-               "Score":100.0,
-               "Next":"Finish"
-            },
-			"it is simple enough":{  
-               "Score":100.0,
-               "Next":"Finish"
-            },			
-			"simple enough":{  
-               "Score":100.0,
-               "Next":"Finish"
-            },
-            "default":{  
-               "Score":-50,
-               "Next":null
-            }
-         }
-      },
-      "OnionsOrdered":{  
-         "Type":"Conversation",
-         "Question":"We have red and yellow onions, which one do you like?",
-         "AnswerWords":[  
-            "Silver",
-            "Pink",
-            "Green",
-            "Red",
-            "Black",
-            "Yellow",
-            "Blue"
-         ],
-         "Solutions":{  
-            "red":{  
-               "Score":100.0,
-               "Next":"OnionsEnd"
-            },
-            "yellow":{  
-               "Score":200.0,
-               "Next":"OnionsEnd"
-            },
-            "default":{  
-               "Score":-50,
-               "Next":null
-            }
-         }
-      },
-      "OnionsEnd":{  
-         "Type":"Conversation",
-         "Question":"Onions really do make you cry. Hope you enjoy them!",
-         "AnswerWords":[  
-            "Sunny ",
-            "Up",
-            "Orange",
-            "Thanks",
-            "Side",
-            "Plate",
-            "Fog"
-         ],
-         "Solutions":{  
-            "thanks":{  
-               "Score":100.0,
-               "Next":"ProgressOrder"
-            },
-            "default":{  
-               "Score":-50,
-               "Next":null
-            }
-         }
-      },
-      "TomatoesOrdered":{  
-         "Type":"Conversation",
-         "Question":"Oh, Sorry! We are out of tomatoes. Would you want something else?",
-         "AnswerWords":[  
-            "About",
-            "Onions",
-            "What",
-            "You",
-            "No",
-            "Carrots",
-            "Thank",
-            "I"
-         ],
-         "Solutions":{  
-            "carrots":{  
-               "Score":10.0,
-               "Next":"CarrotsOrdered"
-            },
-            "what about carrots":{  
-               "Score":10.0,
-               "Next":"CarrotsOrdered"
-            },
-            "onions":{  
-               "Score":10.0,
-               "Next":"OnionsOrdered"
-            },
-            "what about onions":{  
-               "Score":10.0,
-               "Next":"OnionsOrdered"
-            },
-            "no":{  
-               "Score":10.0,
-               "Next":"Finish"
-            },
-            "no thank you":{  
-               "Score":20.0,
-               "Next":"Finish"
-            },
-            "default":{  
-               "Score":-50,
-               "Next":null
-            }
-         }
-      },
-      "Eggs":{  
-         "Type":"Conversation",
-         "Question":"We have both brows and white eggs. What type would you like?",
-         "AnswerWords":[  
-            "Red",
-            "Brown",
-            "White",
-            "Yellow",
-            "Blue",
-            "Allergic",
-            "eggs",
-            "Please"
-         ],
-         "Solutions":{  
-            "brown":{  
-               "Score":100.0,
-               "Next":"AnyEggOrder"
-            },
-              "brown eggs":{  
-               "Score":100.0,
-               "Next":"AnyEggOrder"
-            },
-            "white":{  
-               "Score":150.0,
-               "Next":"AnyEggOrder"
-            },
-             "white eggs":{  
-               "Score":150.0,
-               "Next":"AnyEggOrder"
-            },
-            "brown please":{  
-               "Score":100.0,
-               "Next":"AnyEggOrder"
-            },
-            "brown eggs please":{  
-               "Score":100.0,
-               "Next":"AnyEggOrder"
-            },
-             "white eggs please":{  
-               "Score":100.0,
-               "Next":"AnyEggOrder"
-            },
-            "blue please":{  
-               "Score":100.0,
-               "Next":"BlueEggOrder"
-            },
-            "blue eggs please":{  
-               "Score":100.0,
-               "Next":"BlueEggOrder"
-            },
-            "white please":{  
-               "Score":150.0,
-               "Next":"AnyEggOrder"
-            },
-            "default":{  
-               "Score":-50,
-               "Next":null
-            }
-         }
-      },
-      "AnyEggOrder":{  
-         "Type":"Conversation",
-         "Question":"Our farm fresh eggs are very delicious. Please enjoy.",
-         "AnswerWords":[  
-            "Chicken",
-            "Today",
-            "Thank",
-            "Is",
-            "That",
-            "Grass",
-            "You",
-            "Not"
-         ],
-         "Solutions":{ 
-            "thank you":{  
-               "Score":50.0,
-               "Next":"Finish"
-            },
-            "default":{  
-               "Score":-50,
-               "Next":null
-            }
-         }
-      },
-      "BlueEggOrder":{  
-         "Type":"Conversation",
-         "Question":"The Araucana chicken from Chile lays blue-shelled eggs. But we don't have any. Sorry.",
-         "AnswerWords":[  
-            "Yes",
-            "Okey",
-            "Well",
-            "Bagel",
-            "It",
-            "A",
-            "Walk",
-            "Is",
-            "Have"
-         ],
-         "Solutions":{  
-            "okey":{  
-               "Score":100.0,
-               "Next":"AnyEggOrder"
-            },
-            "it is okey":{  
-               "Score":150.0,
-               "Next":"AnyEggOrder"
-            },
-             "default":{  
-               "Score":-50,
-               "Next":null
-            }
-         }
-      },
-      "Finish":{  
-         "Type":"Conversation",
-          "OnStateEnter": { "Left": "_RUN", "Right":"_RUN", "Background":"bg", "LeftDo": "in", "RightDo": "in"  },
-         "Question":"Thank you for visiting. Have a good day",
-         "AnswerWords":[  
-            "Bark",
-            "Good",
-            "Jump",
-            "Thank",
-            "Too",
-            "Dog",
-            "You",
-            "Car"
-         ],
-         "Solutions":{  
-            "thank you":{  
-               "Score":100.0,
-               "Next":"End"
-            },
-             "thank you you too":{  
-               "Score":100.0,
-               "Next":"End"
-            },
-             "you too":{  
-               "Score":100.0,
-               "Next":"End"
-            },
-            "default":{  
-               "Score":-50,
-               "Next":null
-            }
-         }
-      },
-      "End":{  
-         "Type":"End",
-         "Question":"",
-         "AnswerWords":[],
-         "Solutions":{  }
+{
+  "Comment": "DTML Grocery store Simulator",
+  "StartAt": "Welcome",
+  "States": {
+    "Welcome": {
+      "Type": "Conversation",
+      "Question": "Hello. Welcome to our Kitchen today. What would you like to cook today?",
+      "AnswerWords": [
+        "to",
+        "Hello",
+        "I",
+        "Fountain",
+        "Want",
+        "cook",
+        "soup",
+        "chocolate"
+      ],
+      "Solutions": {
+        "i want to cook soup": {
+          "Score": 100.0,
+          "Next": "Soup"
+        },
+        "i want soup": {
+          "Score": 50.0,
+          "Next": "Soup"
+        },
+        "i want chocolate fountain": {
+          "Score": 50.0,
+          "Next": "ChocoFountain"
+        },
+        "i want to cook chocolate fountain": {
+          "Score": 150.0,
+          "Next": "ChocoFountain"
+        },
+        "default": {
+          "Score": -50,
+          "Next": null
+        }
       }
-   }
+    },
+    "ChocoFountain": {
+      "Type": "Conversation",
+      "OnStateEnter": {
+        "Left": "_RUN",
+        "Right": "_RUN",
+        "Background": "bgx0",
+        "LeftDo": "in",
+        "RightDo": "in"
+      },
+      "Question": "The best fountain in the world! What should we do first?",
+      "AnswerWords": [
+        "Chocolate",
+        "Me",
+        "Want",
+        "I",
+        "To",
+        "Give",
+        "Have"
+      ],
+      "Solutions": {
+        "give me chocolate": {
+          "Score": 100.0,
+          "Next": "ChocoDecision"
+        },
+        "i want to have chocolate": {
+          "Score": 100.0,
+          "Next": "ChocoDecision"
+        },
+        "default": {
+          "Score": -50,
+          "Next": null
+        }
+      }
+    },
+    "ChocoDecision": {
+      "Type": "Conversation",
+      "Question": "Which type of chocolate do you prefer?",
+      "AnswerWords": [
+        "to",
+        "I",
+        "have",
+        "dark",
+        "chocolate",
+        "want",
+        "milk"
+      ],
+      "Solutions": {
+        "i want to have dark chocolate": {
+          "Score": 100.0,
+          "Next": "DarkChocolate"
+        },
+        "i want dark chocolate": {
+          "Score": 150.0,
+          "Next": "DarkChocolate"
+        },
+        "dark chocolate": {
+          "Score": 150.0,
+          "Next": "DarkChocolate"
+        },
+        "i want to have milk chocolate": {
+          "Score": 150.0,
+          "Next": "MilkChocolate"
+        },
+        "i want milk chocolate": {
+          "Score": 150.0,
+          "Next": "MilkChocolate"
+        },
+        "milk chocolate": {
+          "Score": 150.0,
+          "Next": "MilkChocolate"
+        },
+        "default": {
+          "Score": -50,
+          "Next": null
+        }
+      }
+    },
+    "DarkChocolate": {
+      "Type": "Conversation",
+      "OnStateEnter": {
+        "Left": "SHOW_CARROTS",
+        "Right": "_IDLE",
+        "Background": "",
+        "LeftDo": "",
+        "RightDo": ""
+      },
+      "Question": "Bitter taste lover! What would you like for dipping?",
+      "AnswerWords": [
+        "Starwberry",
+        "I",
+        "Please",
+        "Want",
+        "Marshmallow"
+      ],
+      "Solutions": {
+        "marshmallow please": {
+          "Score": 10.0,
+          "Next": "Taste"
+        },
+        "marshmallow": {
+          "Score": 10.0,
+          "Next": "Taste"
+        },
+        "i want marshmallow": {
+          "Score": 10.0,
+          "Next": "Taste"
+        },
+        "strawberry": {
+          "Score": 100.0,
+          "Next": "Taste"
+        },
+        "i want strawberry": {
+          "Score": 200.0,
+          "Next": "Taste"
+        },
+        "i want marshmallow please": {
+          "Score": 300.0,
+          "Next": "Taste"
+        },
+        "i want strawberry please": {
+          "Score": 10.0,
+          "Next": "Taste"
+        },
+        "strawberry please": {
+          "Score": 100.0,
+          "Next": "Taste"
+        },
+        "default": {
+          "Score": -50,
+          "Next": null
+        }
+      }
+    },
+    "Soup": {
+      "Type": "Conversation",
+      "OnStateEnter": {
+        "Left": "SHOW_CARROTS",
+        "Right": "_IDLE",
+        "Background": "",
+        "LeftDo": "",
+        "RightDo": ""
+      },
+      "Question": "Pop up quiz, what is the key to make a good soup?",
+      "AnswerWords": [
+        "The",
+        "Potato",
+        "is",
+        "Pepper",
+        "Chicken",
+        "key"
+      ],
+      "Solutions": {
+        "potato": {
+          "Score": 10.0,
+          "Next": "CookSoup"
+        },
+        "potato is the key": {
+          "Score": 500.0,
+          "Next": "CookSoup"
+        },
+        "chicken": {
+          "Score": 10.0,
+          "Next": "CookSoup"
+        },
+        "chicken is the key": {
+          "Score": 500.0,
+          "Next": "CookSoup"
+        },
+        "default": {
+          "Score": -50,
+          "Next": null
+        }
+      }
+    },
+    "CookSoup": {
+      "Type": "Conversation",
+      "OnStateEnter": {
+        "Left": "SHOW_CARROTS",
+        "Right": "_IDLE",
+        "Background": "",
+        "LeftDo": "",
+        "RightDo": ""
+      },
+      "Question": "That sounds great! Put the key ingredient in! And...",
+      "AnswerWords": [
+        "Stir",
+        "us",
+        "let",
+        "add",
+        "Vegetables"
+      ],
+      "Solutions": {
+        "let us stir": {
+          "Score": 100.0,
+          "Next": "StirFirst"
+        },
+        "let us add vegetables": {
+          "Score": 150.0,
+          "Next": "AddVegetables"
+        },
+        "add vegetables": {
+          "Score": -50,
+          "Next": "AddVegetables"
+        },
+        "stir": {
+          "Score": 150.0,
+          "Next": "StirFirst"
+        },
+        "default": {
+          "Score": -50,
+          "Next": null
+        }
+      }
+    },
+    "StirFirst": {
+      "Type": "Conversation",
+      "OnStateEnter": {
+        "Left": "SHOW_CARROTS",
+        "Right": "_IDLE",
+        "Background": "",
+        "LeftDo": "",
+        "RightDo": ""
+      },
+      "Question": "Wait wait wait...we need more ingredients, right?",
+      "AnswerWords": [
+        "please",
+        "no",
+        "thank",
+        "yes",
+        "You"
+      ],
+      "Solutions": {
+        "no": {
+          "Score": 100.0,
+          "Next": "CookSoup"
+        },
+        "no thank you": {
+          "Score": 10.0,
+          "Next": "CookSoup"
+        },
+        "yes please": {
+          "Score": 10.0,
+          "Next": "AddVegetables"
+        },
+        "yes": {
+          "Score": 100.0,
+          "Next": "AddVegetables"
+        },
+        "default": {
+          "Score": -50,
+          "Next": null
+        }
+      }
+    },
+    "AddVegetables": {
+      "Type": "Conversation",
+      "Question": "Cabbage, carrots, and mushrooms... All of them are fantastic for the soup. Would you like some?",
+      "AnswerWords": [
+        "Great",
+        "You",
+        "Food",
+        "Thank",
+        "Good",
+        "Orange",
+        "Is",
+        "Run"
+      ],
+      "Solutions": {
+        "great": {
+          "Score": 100.0,
+          "Next": "Finish"
+        },
+        "thank you": {
+          "Score": 100.0,
+          "Next": "Finish"
+        },
+        "great thank you": {
+          "Score": 300.0,
+          "Next": "Finish"
+        },
+        "default": {
+          "Score": -50,
+          "Next": null
+        }
+      }
+    },
+    "Taste": {
+      "Type": "Conversation",
+      "Question": "...Fantastic food here! Let me taste it...",
+      "AnswerWords": [
+        "Food",
+        "How",
+        "It",
+        "Is"
+      ],
+      "Solutions": {
+        "how is food": {
+          "Score": 100.0,
+          "Next": "Finish"
+        },
+        "how is it": {
+          "Score": 100.0,
+          "Next": "Finish"
+        }
+      }
+    },
+    "Finish": {
+      "Type": "Conversation",
+      "OnStateEnter": {
+        "Left": "_RUN",
+        "Right": "_RUN",
+        "Background": "bg",
+        "LeftDo": "in",
+        "RightDo": "in"
+      },
+      "Question": "Lovely taste. I like it!",
+      "AnswerWords": [
+        "I",
+        "Enjoy",
+        "It",
+        "Thank",
+        "Dog",
+        "You",
+        "Hope"
+      ],
+      "Solutions": {
+        "thank you": {
+          "Score": 100.0,
+          "Next": "End"
+        },
+        "i hope you enjoy it": {
+          "Score": 100.0,
+          "Next": "End"
+        },
+        "hope you enjoy it": {
+          "Score": 100.0,
+          "Next": "End"
+        },
+        "enjoy": {
+          "Score": 100.0,
+          "Next": "End"
+        },
+        "default": {
+          "Score": -50,
+          "Next": null
+        }
+      }
+    },
+    "End": {
+      "Type": "End",
+      "Question": "",
+      "AnswerWords": [],
+      "Solutions": {}
+    }
+  }
 }

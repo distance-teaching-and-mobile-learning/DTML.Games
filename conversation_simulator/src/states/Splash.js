@@ -53,11 +53,13 @@ export default class extends Phaser.State {
         this.load.xml('sellerAnimations', 'assets/images/res/'+phaserJSON.leftperson+'/anim.scml')
 
         // load bar for patience
-        this.load.spritesheet('patienceBar5', 'assets/images/res/lopelope.png', 95, 84);
         this.load.spritesheet('patienceBar4', 'assets/images/res/lopelope.png', 95, 84);
         this.load.spritesheet('patienceBar3', 'assets/images/res/lopelope.png', 95, 84);
         this.load.spritesheet('patienceBar2', 'assets/images/res/lopelope.png', 95, 84);
         this.load.spritesheet('patienceBar1', 'assets/images/res/lopelope.png', 95, 84);
+
+        // load hint button
+        this.load.spritesheet('hintbtn', 'assets/images/res/sidebg.png', 95, 84);
 
         this.load.atlas('buyer', 'assets/images/res/'+phaserJSON.rightperson+'/anim.png', 'assets/images/res/'+phaserJSON.rightperson+'/anim.json')
         this.load.xml('buyerAnimations', 'assets/images/res/'+phaserJSON.rightperson+'/anim.scml')

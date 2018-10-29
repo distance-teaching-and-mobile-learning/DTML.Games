@@ -147,7 +147,7 @@ export default class extends Phaser.State {
         this.customer.playAnimationByName('_IDLE');
         this.spritesGroup.add(this.customer);
 
-        this.patienceRemaining = 5;
+        this.patienceRemaining = 4;
         // intro sequence
         this.cook.setAnimationSpeedPercent(100);
         this.cook.playAnimationByName('_RUN');
@@ -155,26 +155,32 @@ export default class extends Phaser.State {
             .onComplete.add(() => {
                 this.cook.setAnimationSpeedPercent(100);
                 this.cook.playAnimationByName('_IDLE');
-                let numberOfPatienceBars = 5;
+                let numberOfPatienceBars = 4;
                 this.patienceBarsGroup = this.add.group();
                 this.patienceBars = new Array(numberOfPatienceBars);
-                
-                var p = game.make.sprite(0, 0, 'patienceBar5');
-                this.patienceBarsGroup.add(p);
-                this.patienceBars[4] = p;
-                
-                var p1 = game.make.sprite(0, 0, 'patienceBar4');
-                this.patienceBarsGroup.add(p1);
-                this.patienceBars[3] = p1;
-                var p2 = game.make.sprite(90, 0, 'patienceBar3');
-                this.patienceBarsGroup.add(p2);
-                this.patienceBars[2] = p2;
-                var p3 = game.make.sprite(180, 0, 'patienceBar2');
-                this.patienceBarsGroup.add(p3);
-                this.patienceBars[1] = p3;
-                var p4 = game.make.sprite(270, 0, 'patienceBar1');
-                this.patienceBarsGroup.add(p4);
-                this.patienceBars[0] = p4;
+
+                // TODO
+                var hint = game.make.sprite(360, 0, 'hintbtn');
+                let word = "Hint!";
+                // hint.text = word;
+
+                var character = this.game.add.text(0, 0, word, 1);// sprite(0, 0, 'characters',i);
+
+                let rect = new Phaser.Rectangle(hint.x, hint.y, hint.width, hint.height);
+                hint.frame = 0;
+                hint.inputEnabled = true;
+                hint.input.priorityID = 0;
+                hint.input.useHandCursor = true;
+                hint.events.onInputDown.add(function() {
+                    // CALLBACK
+                }, this);
+                this.patienceBarsGroup.add(hint);
+
+                for (let index = 0; index < numberOfPatienceBars; index++) {
+                    var p = game.make.sprite(270 - 90 * index, 0, 'patienceBar' + (index + 1));
+                    this.patienceBarsGroup.add(p);
+                    this.patienceBars[index] = p;
+                }
 
                 this.patienceBarsGroup.x =  this.world.width * 0.1;
                 this.patienceBarsGroup.y = this.game.world.centerY * 0.1 - 15;
@@ -451,7 +457,8 @@ export default class extends Phaser.State {
                 this.state.start('GameOver', true, false, this.scoreText.text);
                 return;
             }
-            var submitFailureText = "I'm sorry, I didn't understand you...";
+
+            var submitFailureText = this.stateMachine.failureType;
             this.textToSpeach(submitFailureText, this.cookVoice, this.phaserJSON.LeftPitch);
 
             let label2 = this.game.add.text(this.cook.x - parseInt(this.phaserJSON.CallOutLeftX), this.cook.y - parseInt(this.phaserJSON.CallOutLeftY), submitFailureText, {
@@ -781,7 +788,7 @@ export default class extends Phaser.State {
             character.input.useHandCursor = true;
             character.events.onInputDown.add(this.addCharToNode, this);
             item.inputEnabled = true;
-           item.input.priorityID = 0;
+            item.input.priorityID = 0;
             item.input.useHandCursor = true;
             item.events.onInputDown.add(this.addCharToNode, this);
             this.listView.add(item);

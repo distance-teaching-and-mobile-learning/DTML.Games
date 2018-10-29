@@ -1,0 +1,359 @@
+{  
+  "Comment":"DTML  Simulator",
+  "StartAt":"Welcome",
+  "States":{  
+     "Welcome":{  
+        "Type":"Conversation",
+        "Question":"Hello. Welcome to our Kitchen today. What would you like to cook today?",
+        "AnswerWords":[  
+           "to",
+           "Hello",
+           "I",
+           "Fountain",
+           "Want",
+           "cook",
+           "soup",
+           "chocolate"
+        ],
+        "Solutions":{  
+          "i want to cook soup":{  
+              "Score":100.0,
+              "Next":"Soup"
+           },
+           "i want soup":{  
+              "Score":50.0,
+              "Next":"Soup"
+           },
+          "i want chocolate fountain":{  
+              "Score":50.0,
+              "Next":"ChocoFountain"
+           },
+         "i want to cook chocolate fountain":{  
+              "Score":150.0,
+              "Next":"ChocoFountain"
+           },
+         "default":{  
+              "Score":-50,
+              "Next":null
+           }
+        }
+     },
+     "ChocoFountain":{  
+        "Type":"Conversation",
+        "OnStateEnter": { "Left": "_RUN", "Right":"_RUN", "Background":"bgx0", "LeftDo": "in", "RightDo": "in"  },
+        "Question":"The best fountain in the world! What should we do first?",
+        "AnswerWords":[  
+           "Chocolate",
+           "Me",
+           "Want",
+           "I",
+           "To",
+           "Give",
+           "Have"
+        ],
+        "Solutions":{  
+           "give me chocolate":{  
+              "Score":100.0,
+              "Next":"ChocoDecision"
+           },
+           "i want to have chocolate":{  
+              "Score":100.0,
+              "Next":"ChocoDecision"
+           },
+           "default":{  
+              "Score":-50,
+              "Next":null
+           }
+        }
+     },
+     "ChocoDecision":{  
+        "Type":"Conversation",
+        "Question":"Which type of chocolate do you prefer?",
+         "AnswerWords":[  
+           "to",
+           "I",
+           "have",
+           "dark",
+           "chocolate",
+           "want",
+           "milk"
+        ],
+       "Solutions":{  
+          "i want to have dark chocolate":{  
+              "Score":100.0,
+              "Next":"DarkChocolate"
+           },
+           "i want dark chocolate":{  
+              "Score":150.0,
+              "Next":"DarkChocolate"
+           },
+          "dark chocolate":{  
+              "Score":150.0,
+              "Next":"DarkChocolate"
+           },
+         "i want to have milk chocolate":{  
+              "Score":150.0,
+              "Next":"MilkChocolate"
+           },
+           "i want milk chocolate":{  
+            "Score":150.0,
+            "Next":"MilkChocolate"
+          },
+          "milk chocolate":{  
+            "Score":150.0,
+            "Next":"MilkChocolate"
+         },
+           "default":{  
+              "Score":-50,
+              "Next":null
+           }
+        }
+     },
+     "DarkChocolate":{  
+       "Type":"Conversation",
+       "OnStateEnter": { "Left": "SHOW_CARROTS", "Right":"_IDLE", "Background":"", "LeftDo": "", "RightDo": ""},
+       "Question":"Bitter taste lover! What would you like for dipping?",
+       "AnswerWords":[  
+          "Starwberry",
+          "I",
+          "Please",
+          "Want",
+          "Marshmallow"
+       ],
+       "Solutions":{  
+          "marshmallow please":{  
+             "Score":10.0,
+             "Next":"Taste"
+          },
+          "marshmallow" :{
+             "Score":10.0,
+             "Next":"Taste"
+          },
+          "i want marshmallow":{  
+             "Score":10.0,
+             "Next":"Taste"
+          },
+         "strawberry":{  
+             "Score":100.0,
+             "Next":"Taste"
+          },
+          "i want strawberry":{  
+             "Score":200.0,
+             "Next":"Taste"
+          },
+          "i want marshmallow please":{  
+             "Score":300.0,
+             "Next":"Taste"
+          },
+          "i want strawberry please":{  
+             "Score":10.0,
+             "Next":"Taste"
+          },
+          "strawberry please":{  
+             "Score":100.0,
+             "Next":"Taste"
+          },
+          "default":{  
+             "Score":-50,
+             "Next":null
+          }
+       }
+    },
+    "Soup":{  
+     "Type":"Conversation",
+     "OnStateEnter": { "Left": "SHOW_CARROTS", "Right":"_IDLE", "Background":"", "LeftDo": "", "RightDo": ""},
+     "Question":"Pop up quiz, what is the key to make a good soup?",
+     "AnswerWords":[ 
+        "The", 
+        "Potato",
+        "is",
+        "Pepper",
+        "Chicken",
+        "key"
+     ],
+     "Solutions":{  
+        "potato":{  
+           "Score":10.0,
+           "Next":"CookSoup"
+        },
+      "potato is the key":{  
+           "Score":500.0,
+           "Next":"CookSoup"
+        },
+      "chicken":{  
+           "Score":10.0,
+           "Next":"CookSoup"
+        },
+        "chicken is the key":{  
+           "Score":500.0,
+           "Next":"CookSoup"
+        },
+        "default":{  
+           "Score":-50,
+           "Next":null
+        }
+     }
+  },
+  "CookSoup":{  
+   "Type":"Conversation",
+   "OnStateEnter": { "Left": "SHOW_CARROTS", "Right":"_IDLE", "Background":"", "LeftDo": "", "RightDo": ""},
+   "Question":"That sounds great! Put the key ingredient in! And...",
+   "AnswerWords":[  
+      "Stir",
+      "us",
+      "let",
+      "add",
+      "Vegetables"
+   ],
+   "Solutions":{  
+      "let us stir":{  
+         "Score":100.0,
+         "Next":"StirFirst"
+      },
+      "let us add vegetables":{  
+        "Score":150.0,
+        "Next":"AddVegetables"
+     },
+      "add vegetables":{  
+         "Score":-50,
+         "Next":"AddVegetables"
+      },
+      "stir":{  
+        "Score":150.0,
+        "Next":"StirFirst"
+     },
+     "default":{  
+      "Score":-50,
+      "Next":null
+   }
+},
+     "StirFirst":{  
+        "Type":"Conversation",
+        "OnStateEnter": { "Left": "SHOW_CARROTS", "Right":"_IDLE", "Background":"", "LeftDo": "", "RightDo": ""},
+        "Question":"Wait wait wait...we need more ingredients, right?",
+        "AnswerWords":[  
+           "please",
+           "no",
+           "thank",
+           "yes",
+           "You"
+        ],
+        "Solutions":{  
+           "no":{  
+              "Score":100.0,
+              "Next":"CookSoup"
+           },
+         "no thank you":{  
+              "Score":10.0,
+              "Next":"CookSoup"
+           },
+         "yes please":{  
+              "Score":10.0,
+              "Next":"AddVegetables"
+           },
+           "yes":{  
+              "Score":100.0,
+              "Next":"AddVegetables"
+           },
+           "default":{  
+              "Score":-50,
+              "Next":null
+           }
+        }
+     },
+     "AddVegetables":{  
+        "Type":"Conversation",
+        "Question":"Cabbage, carrots, and mushrooms... All of them are fantastic for the soup. Would you like some?",
+        "AnswerWords":[  
+           "Great",
+           "You",
+           "Food",
+           "Thank",
+           "Good",
+           "Orange",
+           "Is",
+           "Run"
+        ],
+        "Solutions":{  
+           "great":{  
+              "Score":100.0,
+              "Next":"Finish"
+           },
+           "thank you":{  
+              "Score":100.0,
+              "Next":"Finish"
+           },
+           "great thank you":{  
+              "Score":300.0,
+              "Next":"Finish"
+           },
+             "default":{  
+              "Score":-50,
+              "Next":null
+           }
+        }
+     },
+     "Taste":{  
+        "Type":"Conversation",
+        "Question":"...Fantastic food here! Let me taste it...",
+        "AnswerWords":[  
+           "Food",
+           "How",
+           "It",
+           "Is"
+        ],
+        "Solutions":{  
+           "how is food":{  
+              "Score":100.0,
+              "Next":"Finish"
+           },
+           "how is it":{  
+              "Score":100.0,
+              "Next":"Finish"
+           }
+        }
+     },
+     "Finish":{  
+        "Type":"Conversation",
+         "OnStateEnter": { "Left": "_RUN", "Right":"_RUN", "Background":"bg", "LeftDo": "in", "RightDo": "in"  },
+        "Question":"Lovely taste. I like it!",
+        "AnswerWords":[  
+           "I",
+           "Enjoy",
+           "It",
+           "Thank",
+           "Dog",
+           "You",
+           "Hope"
+        ],
+        "Solutions":{  
+           "thank you":{  
+              "Score":100.0,
+              "Next":"End"
+           },
+            "i hope you enjoy it":{  
+              "Score":100.0,
+              "Next":"End"
+           },
+           "hope you enjoy it":{  
+            "Score":100.0,
+            "Next":"End"
+           },
+            "enjoy":{  
+              "Score":100.0,
+              "Next":"End"
+           },
+           "default":{  
+              "Score":-50,
+              "Next":null
+           }
+        }
+     },
+     "End":{  
+        "Type":"End",
+        "Question":"",
+        "AnswerWords":[],
+        "Solutions":{  }
+     }
+  }
+}
