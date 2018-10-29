@@ -1,5 +1,5 @@
 {  
-  "Comment":"DTML Kitchen Simulator",
+  "Comment":"DTML  Simulator",
   "StartAt":"Welcome",
   "States":{  
      "Welcome":{  

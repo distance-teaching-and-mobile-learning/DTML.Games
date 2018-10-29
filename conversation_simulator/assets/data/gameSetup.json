@@ -1,7 +1,7 @@
 {     
       "name":"Grocery store",
       "datafile":"gameStates.json",
-      "title":"At the grocery store",
+      "title":"At the Kitchen",
       "icon":"icon.jpg",
       "leftperson": "storemanager",
       "rightperson": "woman",
