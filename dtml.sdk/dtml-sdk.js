@@ -17,24 +17,41 @@ import 'isomorphic-fetch'
 
 var dtml = {
     urls:{
-        userService:'https://dtml.org/Activity/Record/'
+        userService:'https://dtml.org/Activity/Record/',
+        gameService:'https://dtml.org/api/GameService/'
     	},
 
 	//*****************************************************************
-	// API Call to score phrase
+	// API Call to get words
 	//*****************************************************************
-    scorePhrase: function(phrase, success, callback) {
-        fetch('https://dtml.org/api/GameService/ScorePhrase/?source=conversation&success='+success +"&phrase=" + phrase, 
+        getWords: function(level, callback, sender) {
+        fetch(urls.gameService+"Words/?step='+level, 
 		{ method: 'get', 
 		  credentials: 'same-origin', 
 		}).catch(err => {
                 console.log('err', err);
-				callback(10);
+		callback(null, sender);
 		}).then(res => res.json())
-           .then(data => {
+                .then(data => {
                 console.log(data);
-				callback(data);
+		callback(data, sender);
+            });
+	},
 
+	//*****************************************************************
+	// API Call to score phrase
+	//*****************************************************************
+       scorePhrase: function(phrase, success, callback) {
+        fetch(urls.gameService+"ScorePhrase/?source=conversation&success='+success +"&phrase=" + phrase, 
+		{ method: 'get', 
+		  credentials: 'same-origin', 
+		}).catch(err => {
+                console.log('err', err);
+		callback(10);
+		}).then(res => res.json())
+                .then(data => {
+                console.log(data);
+		callback(data);
             });
 	},
 		
