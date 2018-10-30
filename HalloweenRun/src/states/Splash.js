@@ -12,7 +12,6 @@ export default class extends Phaser.State {
       this.bg = this.game.add.sprite(0, 0, 'dtmlHalloween');
       this.bg.width = this.game.width;
       this.bg.height = this.game.height;    
-	  this.wordsForLearning = dtml.getWords(1);
       this.button = this.game.add.button(this.game.width*0.5, this.game.height*0.5, 'button', this.stop, this,1,0,0,0);
       this.button.x -= this.button.width*0.5;
       this.button.y += this.button.height;

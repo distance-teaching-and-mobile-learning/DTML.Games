@@ -10,7 +10,6 @@ export default class extends Phaser.State {
   }
   
   preload() {
- 
     this.add.plugin(PhaserInput.Plugin);
     this.game.load.tilemap('level1', 'assets/images/level1.json', null, Phaser.Tilemap.TILED_JSON);
     this.game.load.image('tiles-1', 'assets/images/tiles-1.png');
@@ -21,8 +20,7 @@ export default class extends Phaser.State {
     this.game.load.image('starBig', 'assets/images/star2.png');
     this.game.load.image('background', 'assets/images/background2.png');
 	this.load.spritesheet('letter', 'assets/images/letters.png',75,85);
-	}
-
+}
 	
 hitPumpkin(player, pumpkin)
 {
@@ -43,12 +41,9 @@ hitPumpkin(player, pumpkin)
 	    dtml.getWords(1, this.renderwords, this);
     }      
 }
-
 	
 update() {
-
-    	this.game.physics.arcade.collide(this.player, this.layer);
-	
+  	this.game.physics.arcade.collide(this.player, this.layer);
 	for(var i = 0; i < this.maxPumpkins; i++)
 	{
 		this.game.physics.arcade.collide(this.pumpkin[i], this.layer);
@@ -61,8 +56,7 @@ update() {
 				this.game.physics.arcade.collide(this.pumpkin[j], this.pumpkin[i]);
 			}
 		}	
-	}
-	
+	}	
   
     this.player.body.velocity.x = 0;
     if (this.cursors.left.isDown)
@@ -109,19 +103,14 @@ update() {
         this.player.body.velocity.y = -250;
         this.jumpTimer = this.game.time.now + 750;
     }
-
 }
 
-
  create() {
-
-	this.pumpkinHitCount= 0;
-
-	  this.facing = 'right';
-	
-	  this.jumpTimer = 0;
-      this.scoreText = this.game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#fff' });
-      this.game.physics.startSystem(Phaser.Physics.ARCADE);
+    this.pumpkinHitCount= 0;
+    this.facing = 'right';
+	this.jumpTimer = 0;
+    this.scoreText = this.game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#fff' });
+    this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
       this.game.stage.backgroundColor = '#000000';
 
@@ -200,12 +189,11 @@ submitAnswer(a)
 	 this.textBox[i].resetText();
 	 this.textBox[i].hide;
    }	
-  }
+   }
     else
 	{
 		 dtml.getWords(1, this.renderwords, this);		
 	}
-
 }
 
 // data is the input word that will display

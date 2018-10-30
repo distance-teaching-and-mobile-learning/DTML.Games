@@ -98,12 +98,11 @@ export default class extends Phaser.State {
 
     loadComplete() {
         game.world.remove(this.loadingText);
-		document.querySelector('#logo').style.display = 'none'
+	document.querySelector('#logo').style.display = 'none'
         this.state.start('Menu')
     }
 
     create() {
-
     }
 
     fontsLoaded() {
