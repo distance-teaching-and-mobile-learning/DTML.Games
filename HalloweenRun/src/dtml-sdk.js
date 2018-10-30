@@ -17,22 +17,21 @@ import 'isomorphic-fetch'
 
 var dtml = {
     urls:{
-        userService:'https://dtml.org/Activity/Record/',
-        gameService:'https://dtml.org/api/GameService/'
+        userService:'https://dtml.org/Activity/Record/'
     	},
 
 	//*****************************************************************
 	// API Call to get words
 	//*****************************************************************
         getWords: function(level, callback, sender) {
-        fetch(urls.gameService+"Words/?step='+level, 
+        fetch('https://dtml.org/api/GameService/Words/?step='+level, 
 		{ method: 'get', 
 		  credentials: 'same-origin', 
 		}).catch(err => {
                 console.log('err', err);
 		callback(null, sender);
 		}).then(res => res.json())
-                .then(data => {
+           .then(data => {
                 console.log(data);
 		callback(data, sender);
             });
@@ -42,16 +41,17 @@ var dtml = {
 	// API Call to score phrase
 	//*****************************************************************
        scorePhrase: function(phrase, success, callback) {
-        fetch(urls.gameService+"ScorePhrase/?source=conversation&success='+success +"&phrase=" + phrase, 
+        fetch('https://dtml.org/api/GameService/ScorePhrase/?source=conversation&success='+success +"&phrase=" + phrase, 
 		{ method: 'get', 
 		  credentials: 'same-origin', 
 		}).catch(err => {
                 console.log('err', err);
-		callback(10);
+				callback(10);
 		}).then(res => res.json())
-                .then(data => {
+           .then(data => {
                 console.log(data);
-		callback(data);
+				callback(data);
+
             });
 	},
 		
