@@ -5,10 +5,10 @@ import {dtml} from '../dtml-sdk'
 import PhaserInput from '../libs/phaser-input'
 
 export default class extends Phaser.State {
-  init() 
+  init()
   {
   }
-  
+
   preload() {
     this.add.plugin(PhaserInput.Plugin);
     this.game.load.tilemap('level1', 'assets/images/level1.json', null, Phaser.Tilemap.TILED_JSON);
@@ -21,43 +21,42 @@ export default class extends Phaser.State {
     this.game.load.image('background', 'assets/images/background2.png');
 	this.load.spritesheet('letter', 'assets/images/letters.png',75,85);
 }
-	
+
 hitPumpkin(player, pumpkin)
 {
     //this.player.animations.play('smash');
     // just open up 1 letter
     var wordLength = this.currentWord.length;
-	var random = game.rnd.integerInRange(0, this.currentWord.length-1);
     pumpkin.kill();
-    this.game.add.text(this.letters[this.pumpkinHitCount].x, this.letters[this.pumpkinHitCount].y, " "+ this.currentWord[this.pumpkinHitCount], { font: "60px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"      });
-	
+
+    this.textBox[this.pumpkinHitCount].setText(this.currentWord[this.pumpkinHitCount]);
     if (this.pumpkinHitCount < wordLength - 1)
     {
     	this.pumpkinHitCount++;
     }
-    else 
+    else
     {
-    	this.pumpkinHitCount = 0;
-	    dtml.getWords(1, this.renderwords, this);
-    }      
+        this.reloadPumpkins();
+        this.getNewWord();
+    }
 }
-	
+
 update() {
   	this.game.physics.arcade.collide(this.player, this.layer);
 	for(var i = 0; i < this.maxPumpkins; i++)
 	{
 		this.game.physics.arcade.collide(this.pumpkin[i], this.layer);
 		this.game.physics.arcade.collide(this.player, this.pumpkin[i], this.hitPumpkin, null, this);
-		
+
 		for(var j = 0; j < this.maxPumpkins; j++)
 		{
 			if (j != i)
 			{
 				this.game.physics.arcade.collide(this.pumpkin[j], this.pumpkin[i]);
 			}
-		}	
-	}	
-  
+		}
+	}
+
     this.player.body.velocity.x = 0;
     if (this.cursors.left.isDown)
     {
@@ -97,7 +96,7 @@ update() {
             this.facing = 'idle';
         }
     }
-    
+
     if (this.jumpButton.isDown && this.game.time.now > this.jumpTimer)
     {
         this.player.body.velocity.y = -250;
@@ -108,12 +107,11 @@ update() {
  create() {
     this.pumpkinHitCount= 0;
     this.facing = 'right';
-	this.jumpTimer = 0;
-    this.scoreText = this.game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#fff' });
+    this.jumpTimer = 0;
+    this.score = 0;
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
       this.game.stage.backgroundColor = '#000000';
-
       this.bg = this.game.add.tileSprite(0, 0, 800, 600, 'background');
       this.bg.fixedToCamera = true;
 
@@ -131,21 +129,11 @@ update() {
       this.game.physics.arcade.gravity.y = 250;
 
       this.player = game.add.sprite(32, 32, 'dude');
-	  this.pumpkin = {};
+      this.pumpkin = {};
 	  this.letters = {};
-	  this.maxPumpkins = 10;
-	  
-      for(var i = 0; i < this.maxPumpkins; i++)
-	  {
- 	  this.pumpkin[i] = game.add.sprite(32, 32, 'pumpkin');
-	  this.pumpkin[i].x = 160+88*i;
-      this.game.physics.enable(this.pumpkin[i], Phaser.Physics.ARCADE); 
-	  this.pumpkin[i].body.collideWorldBounds = true;	  
-	  this.pumpkin[i].body.bounce.y = 0.1;
-	  this.pumpkin[i].body.bounce.x = 0.1;
-	  }
-  
-	 
+      this.maxPumpkins = 10;
+      this.pumpkinCount = 0;
+      this.addPumpkins(this.maxPumpkins);
       this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
 
       this.player.body.bounce.y = 0.2;
@@ -162,38 +150,98 @@ update() {
      this.cursors =  this.game.input.keyboard.createCursorKeys();
      this.jumpButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
      dtml.getWords(1, this.renderwords, this);
-     
+     this.scoreText = this.game.add.text(600, 96, 'Score: 0', { fontSize: '32px', fill: '#fff' });
 }
 
 enterletter(a)
 {
-     
+
 }
 
 submitAnswer(a)
 {
  var fail = false;
- 
+
  for(var i = 0; i < this.currentWord.length; i++)
   {
 	 if  (this.textBox[i].value != this.currentWord[i])
 	 {
-       fail = true;		 
+       fail = true;
+       break;
 	 }
-  }		  
+  }
 
-  if (fail)
+  this.clearTextBoxs();
+  if (!fail)
   {
-   for(var i = 0; i < this.currentWord.length; i++)
-   {
-	 this.textBox[i].resetText();
-	 this.textBox[i].hide;
-   }	
-   }
-    else
-	{
-		 dtml.getWords(1, this.renderwords, this);		
-	}
+      this.score += 10 * (this.currentWord.length - this.pumpkinHitCount);
+      this.scoreText.text = 'Score: ' + this.score.toString();
+  }
+
+  this.reloadPumpkins();
+  this.getNewWord();
+}
+
+clearTextBoxs() {
+    for(var i = 0; i < this.currentWord.length; i++)
+    {
+      this.textBox[i].resetText();
+      this.textBox[i].hide;
+    }
+}
+
+addPumpkins(numberOfPumpkins) {
+    for(var i = 0; i < numberOfPumpkins; i++)
+    {
+        this.pumpkin[this.pumpkinCount] = this.game.add.sprite(32, 32, 'pumpkin');
+        var x;
+        if (this.pumpkinCount <= 10) {
+            x = 160+88*(this.pumpkinCount%9);
+        } else {
+            x = game.rnd.integerInRange(0, 760);
+        }
+
+        this.pumpkin[this.pumpkinCount].x = x;
+        this.game.physics.enable(this.pumpkin[this.pumpkinCount], Phaser.Physics.ARCADE);
+        this.pumpkin[this.pumpkinCount].body.collideWorldBounds = true;
+        this.pumpkin[this.pumpkinCount].body.bounce.y = 0.1;
+        this.pumpkin[this.pumpkinCount].body.bounce.x = 0.1;
+        this.pumpkinCount++;
+    }
+}
+
+reloadPumpkins() {
+    // refill all the hit pumpkins
+    this.addPumpkins(this.pumpkinHitCount);
+    this.maxPumpkins += this.pumpkinHitCount;
+    this.pumpkinHitCount = 0;
+}
+getNewWord() {
+
+    dtml.getWords(1, this.renderwords, this);
+}
+removeObsoleteUI(that) {
+
+    if (that.sumbmitbutton)
+    {
+        that.sumbmitbutton.kill();
+    }
+
+    if (that.sumbmitbuttonText)
+    {
+        that.sumbmitbuttonText.kill();
+    }
+
+    // If we can figure out how to update their position,
+    // we don't need to kill them, just hide\reposition some components
+    if (that.currentWord)
+    {
+        for(var i = 0; i < that.currentWord.length; i++)
+        {
+            that.letters[i].kill();
+            that.textBox[i].kill();
+        }
+    }
 }
 
 // data is the input word that will display
@@ -202,17 +250,18 @@ renderwords(data, that)
 {
       that.wordsForLearning = data;
 	  //If word length is greater than 6 then generate another word
-	  var j = 0;
+      var j = 0;
+      that.removeObsoleteUI(that);
 	  that.textBox = {};
 	  that.letters =  {};
-	  
+
 	  while(data.words[j].length > 6)
 	  {
-			j++;		
+			j++;
       }
-	  
+
 	  that.currentWord = data.words[j];
-	
+
 	  for(var i = 0; i < that.currentWord.length; i++)
 	   {
 	  	that.letters[i] = that.game.add.button(80+80*i, 10, 'letter', that.enterletter, that,1,0,0,0);
@@ -221,26 +270,17 @@ renderwords(data, that)
             fontWeight: 'bold',
             width: 40,
             padding: 8,
-			fill: '#444121',
+			fill: '#fff',
 			backgroundColor: 'transparent',
             borderWidth: 1,
             borderColor: '#000',
             borderRadius: 6,
             placeHolder: '',
-            focusOutOnEnter: false
+            focusOutOnEnter: false,
         });
+	  }
 
-	  }
-	  if (that.sumbmitbutton)
-	  {
-		  that.sumbmitbutton.kill();
-	  }
-	  
-	  if (that.sumbmitbuttonText)
-	  {
-		  that.sumbmitbuttonText.kill();
-	  }
-	  
+
 	  that.sumbmitbutton = that.game.add.button(80*(data.words[j].length+1), 10, 'button', that.submitAnswer, that,1,0,0,0);
 	  that.sumbmitbuttonText = that.game.add.text(that.sumbmitbutton.x+30, that.sumbmitbutton.y+20, "Submit", { font: "30px sans-serif", fill: "#ffffff", stroke:"#000000", strokeThickness:"6"      });
 }
