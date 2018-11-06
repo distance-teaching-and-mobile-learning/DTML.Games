@@ -26,6 +26,22 @@ hitPumpkin(player, pumpkin)
 {
     //this.player.animations.play('smash');
     // just open up 1 letter
+    /*var p = this.game.add.particles('sprites', 'fire')
+    var deathZone = new Phaser.Geom.Rectangle(pumpkin.x - 50, pumpkin.y - 50, 400, 400);
+
+    var emitter = p.createEmitter({
+        x: pumpkin.x - 50,
+        y: pumpkin.y - 50,
+        angle: { min: 30, max: 80 },
+        speed: 300,
+        gravityY: 200,
+        lifespan: { min: 1000, max: 2000 },
+        scale: { start: 0.75, end: 0.75 },
+        blendMode: 'ADD',
+        deathZone: { type: 'onEnter', source: deathZone },
+    });
+    emitter.killAll();*/
+
     var wordLength = this.currentWord.length;
     pumpkin.kill();
 
@@ -177,6 +193,9 @@ submitAnswer(a)
       this.score += 10 * (this.currentWord.length - this.pumpkinHitCount);
       this.scoreText.text = 'Score: ' + this.score.toString();
   }
+  /*} else {
+      this.player.kill();
+  }*/
 
   this.reloadPumpkins();
   this.getNewWord();
@@ -195,8 +214,8 @@ addPumpkins(numberOfPumpkins) {
     {
         this.pumpkin[this.pumpkinCount] = this.game.add.sprite(32, 32, 'pumpkin');
         var x;
-        if (this.pumpkinCount <= 10) {
-            x = 160+88*(this.pumpkinCount%9);
+        if (this.pumpkinCount <= 9) {
+            x = 160+88*(this.pumpkinCount%10);
         } else {
             x = game.rnd.integerInRange(0, 760);
         }
