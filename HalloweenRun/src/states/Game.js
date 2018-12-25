@@ -19,7 +19,9 @@ export default class extends Phaser.State {
     this.game.load.image('starSmall', 'assets/images/star.png');
     this.game.load.image('starBig', 'assets/images/star2.png');
     this.game.load.image('background', 'assets/images/background2.png');
+	this.game.load.image('bat', 'assets/images/bat.gif', 32, 48);
 	this.load.spritesheet('letter', 'assets/images/letters.png',75,85);
+
 }
 
 hitPumpkin(player, pumpkin)
@@ -57,8 +59,18 @@ hitPumpkin(player, pumpkin)
     }
 }
 
+hitBat()
+{
+	this.killPlayer();
+	  this.reloadPumpkins();
+        this.getNewWord();
+		
+}
+
 update() {
   	this.game.physics.arcade.collide(this.player, this.layer);
+	//this.game.physics.arcade.collide(this.bat, this.player);
+
 	for(var i = 0; i < this.maxPumpkins; i++)
 	{
 		this.game.physics.arcade.collide(this.pumpkin[i], this.layer);
@@ -147,6 +159,7 @@ update() {
       this.player = game.add.sprite(32, 32, 'dude');
       this.pumpkin = {};
 	  this.letters = {};
+	  this.bats = {};
       this.maxPumpkins = 10;
       this.pumpkinCount = 0;
       this.addPumpkins(this.maxPumpkins);
@@ -166,7 +179,7 @@ update() {
      this.cursors =  this.game.input.keyboard.createCursorKeys();
      this.jumpButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
      dtml.getWords(1, this.renderwords, this);
-     this.scoreText = this.game.add.text(600, 96, 'Score: 0', { fontSize: '32px', fill: '#fff' });
+     this.scoreText = this.game.add.text(600, 96, 'Score: 0', { fontSize: '16px', fill: '#fff' });
 }
 
 enterletter(a)
@@ -192,6 +205,9 @@ submitAnswer(a)
   {
       this.score += 10 * (this.currentWord.length - this.pumpkinHitCount);
       this.scoreText.text = 'Score: ' + this.score.toString();
+  }
+  else{
+	 this.addBats();
   }
   /*} else {
       this.player.kill();
@@ -227,6 +243,23 @@ addPumpkins(numberOfPumpkins) {
         this.pumpkin[this.pumpkinCount].body.bounce.x = 0.1;
         this.pumpkinCount++;
     }
+}
+
+addBats()
+{
+	var image = this.game.add.sprite(800, 160, 'bat');
+	image.scale.setTo(0.5,0.5);
+	this.game.physics.enable(image, Phaser.Physics.ARCADE);
+	image.body.allowGravity = false;
+	image.body.velocity.x=-150;
+	this.game.physics.arcade.collide(this.bat, this.player, this.hitBat, null, this);
+
+	//image.body.collideWorldBounds = true;
+	this.reloadPumpkins();
+	
+	//image.body.onCollide = 
+	
+
 }
 
 reloadPumpkins() {
