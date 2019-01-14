@@ -7,7 +7,7 @@ export default class extends Phaser.State {
         this.load.spritesheet('button', 'assets/images/button.png',175,85);
         this.load.image('dtmlHalloween', 'assets/images/bg.png');
         this.load.image('cloud', 'assets/images/cloud.png');
-        this.load.image('gameover', 'assets/images/endgame1.png');
+        this.load.image('gameover', 'assets/images/endgame.png');
 	}
 	
     create() {

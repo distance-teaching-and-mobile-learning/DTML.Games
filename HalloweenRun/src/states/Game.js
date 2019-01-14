@@ -3,8 +3,7 @@ import Phaser from 'phaser'
 import lang from '../lang'
 import {dtml} from '../dtml-sdk'
 import PhaserInput from '../libs/phaser-input'
-// import PhaserInput from '../libs/spriter'
-import FreeText from '../sprites/FreeText'
+import utils from '../utils'
 
 export default class extends Phaser.State {
 
@@ -24,7 +23,7 @@ export default class extends Phaser.State {
         this.game.load.image('starSmall', 'assets/images/star.png');
         this.game.load.image('starBig', 'assets/images/star2.png');
         this.game.load.image('background', 'assets/images/background2.png');
-        this.game.load.image('bat', 'assets/images/bat.gif', 32, 48);
+        this.game.load.spritesheet('bat', 'assets/images/bat.png', 150, 150);
         this.load.spritesheet('letter', 'assets/images/letters.png',75,85);
 
         // audio
@@ -59,10 +58,6 @@ export default class extends Phaser.State {
         }, this);
 
         this.music = music;
-        // this.music = this.sound.add('gameMusic');
-        // this.music.play({
-        //     loop: true
-        // });
         this.explosion = game.add.audio('explosion');
         this.blaster = game.add.audio('blaster', 0.5);
         this.woosh = game.add.audio('woosh');
@@ -74,8 +69,6 @@ export default class extends Phaser.State {
 
         this.map.setCollisionByExclusion([ 13, 14, 15, 16, 46, 47, 48, 49, 50, 51 ]);
         this.layer = this.map.createLayer('Tile Layer 1');
-
-        // this.layer.debug = true;
 
         this.layer.resizeWorld();
 
@@ -98,7 +91,7 @@ export default class extends Phaser.State {
         this.player.animations.add('left', [0, 1, 2, 3], 10, true);
         this.player.animations.add('turn', [4], 20, true);
         this.player.animations.add('right', [5, 6, 7, 8], 10, true);
-
+        
         this.game.camera.follow(this.player);
 
         this.cursors =  this.game.input.keyboard.createCursorKeys();
@@ -110,7 +103,7 @@ export default class extends Phaser.State {
         this.scoreText = this.game.add.text(780, 30, 'Score: 0', { fontSize: '30px', fill: '#fff' });
         this.scoreText.fixedToCamera = true;
         
-        this.addScoreText = new FreeText({
+        this.addScoreText = new utils({
             game: this.game,
             x: this.world.width * 0.85,
             y: this.game.world.centerY * 0.7,
@@ -118,6 +111,15 @@ export default class extends Phaser.State {
             cloudEnabled: true
         });
         this.addScoreText.text.fill = "#ff0000";
+
+        this.currentWordText = new utils({
+            game: this.game,
+            x: this.world.width * 0.82,
+            y: this.game.world.centerY * 0.7,
+            text: '0',
+            cloudEnabled: true
+        });
+        this.currentWordText.text.fill = "#ff0000";
     }
 
     update() {
@@ -138,7 +140,6 @@ export default class extends Phaser.State {
         }
 
         this.player.body.velocity.x = 0;
-        // if (this.cursors.left.isDown)
         if (this.leftButton.isDown || this.cursors.left.isDown)
         {
             this.player.body.velocity.x = -150;
@@ -149,7 +150,6 @@ export default class extends Phaser.State {
                 this.facing = 'left';
             }
         }
-        // else if (this.cursors.right.isDown)
         else if (this.rightButton.isDown || this.cursors.right.isDown)
         {
             this.player.body.velocity.x = 150;
@@ -188,23 +188,6 @@ export default class extends Phaser.State {
 
     hitPumpkin(player, pumpkin)
     {
-        // this.player.animations.play('smash');
-        // just open up 1 letter
-        // var p = this.game.add.particles('sprites', 'fire')
-        // var deathZone = new Phaser.Geom.Rectangle(pumpkin.x - 50, pumpkin.y - 50, 400, 400);
-
-        // var emitter = p.createEmitter({
-        //     x: pumpkin.x - 50,
-        //     y: pumpkin.y - 50,
-        //     angle: { min: 30, max: 80 },
-        //     speed: 300,
-        //     gravityY: 200,
-        //     lifespan: { min: 1000, max: 2000 },
-        //     scale: { start: 0.75, end: 0.75 },
-        //     blendMode: 'ADD',
-        //     deathZone: { type: 'onEnter', source: deathZone },
-        // });
-        // emitter.killAll();
 
         var wordLength = this.currentWord.length;
 
@@ -225,8 +208,6 @@ export default class extends Phaser.State {
     hitBat()
     {
         this.killPlayer(this.player);
-        // this.reloadPumpkins();
-        // this.getNewWord();
     }
 
     enterletter(a)
@@ -258,10 +239,9 @@ export default class extends Phaser.State {
         else
         {
             this.addBats();
+            this.currentWordText.changeText(this.currentWord);
+            this.currentWordText.showTick()
         }
-        /*} else {
-            this.player.kill();
-        }*/
 
         this.reloadPumpkins();
         this.getNewWord();
@@ -300,12 +280,14 @@ export default class extends Phaser.State {
     addBats()
     {
         this.bat = this.game.add.sprite(800, 160, 'bat');
+        this.bat.animations.add('bat', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 10, true);
+        this.bat.animations.play('bat');
         this.bat.scale.setTo(0.5, 0.5);
         this.game.physics.enable(this.bat, Phaser.Physics.ARCADE);
         this.bat.body.allowGravity = false;
         this.bat.body.velocity.x=-Math.floor(Math.random() * 400);
         this.bat.body.velocity.y=Math.floor(Math.random() * 100);
-        this.bat.body.collideWorldBounds = true;
+        this.bat.body.collideWorldBounds = false;
         this.reloadPumpkins();
     }
 
@@ -355,7 +337,7 @@ export default class extends Phaser.State {
         that.textBox = {};
         that.letters =  {};
 
-        while(data.words[j].length > 6)
+        while(data.words[j].length > 6 || data.words[j].length < 3)
         {
             j++;
         }
@@ -401,26 +383,24 @@ export default class extends Phaser.State {
         player.kill();
         this.currentWord = '';
         this.music.destroy();
+        this.currentWordText.hide();
         this.game.state.start('GameOver', true, false, this.score);
     }
     
     autoFocusIn()
     {
         this.inputIndex = arguments[0] + 1;
-        console.log(this.inputIndex);
         this.game.input.keyboard.addCallbacks(this, null, null, this.keyPressFocusIn);
     }
 
     autoFocusOut()
     {
         this.inputIndex = arguments[0] + 1;
-        console.log(this.inputIndex);
         this.game.input.keyboard.addCallbacks(this, null, null, this.keyPressFocusOut);
     }
 
     keyPressFocusIn()
     {
-        console.log(this.inputIndex);
         if(this.inputIndex < this.currentWord.length)
         {
             this.textBox[this.inputIndex].startFocus();
@@ -429,7 +409,6 @@ export default class extends Phaser.State {
 
     keyPressFocusOut()
     {
-        console.log(this.inputIndex);
         if(this.inputIndex < this.currentWord.length)
         {
             this.textBox[this.inputIndex].endFocus();
