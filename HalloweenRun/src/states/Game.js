@@ -39,7 +39,8 @@ export default class extends Phaser.State {
     create()
     {
         this.inputIndex;
-        this.pumpkinHitCount= 0;
+        this.batCount = 0;
+        this.pumpkinHitCount = 0;
         this.facing = 'right';
         this.jumpTimer = 0;
         this.score = 0;
@@ -124,8 +125,9 @@ export default class extends Phaser.State {
 
     update() {
         this.game.physics.arcade.collide(this.player, this.layer);
-        this.game.physics.arcade.collide(this.bat, this.player, this.hitBat, null, this);
-
+        for(var j = 0; j < this.batCount; j++) {
+            this.game.physics.arcade.collide(this.bat[j], this.player, this.hitBat, null, this);
+        }
         for(var i = 0; i < this.maxPumpkins; i++)
         {
             this.game.physics.arcade.collide(this.pumpkin[i], this.layer);
@@ -279,16 +281,18 @@ export default class extends Phaser.State {
 
     addBats()
     {
-        this.bat = this.game.add.sprite(800, 160, 'bat');
-        this.bat.animations.add('bat', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 10, true);
-        this.bat.animations.play('bat');
-        this.bat.scale.setTo(0.5, 0.5);
-        this.game.physics.enable(this.bat, Phaser.Physics.ARCADE);
-        this.bat.body.allowGravity = false;
-        this.bat.body.velocity.x=-Math.floor(Math.random() * 400);
-        this.bat.body.velocity.y=Math.floor(Math.random() * 100);
-        this.bat.body.collideWorldBounds = false;
+        this.bat[this.batCount] = this.game.add.sprite(800, 160, 'bat');
+        this.bat[this.batCount].animations.add('bat', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 10, true);
+        this.bat[this.batCount].animations.play('bat');
+        this.bat[this.batCount].scale.setTo(0.5, 0.5);
+        this.game.physics.enable(this.bat[this.batCount], Phaser.Physics.ARCADE);
+        this.bat[this.batCount].body.allowGravity = false;
+        this.bat[this.batCount].body.velocity.x=-Math.floor(Math.random() * 400);
+        this.bat[this.batCount].body.velocity.y=Math.floor(Math.random() * 100);
+        this.bat[this.batCount].body.collideWorldBounds = true;
+        this.bat[this.batCount].body.bounce.set(1);
         this.reloadPumpkins();
+        this.batCount++;
     }
 
     reloadPumpkins()
