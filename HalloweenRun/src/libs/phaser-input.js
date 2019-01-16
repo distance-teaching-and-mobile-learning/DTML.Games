@@ -17,6 +17,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+
 var PhaserInput;
 (function (PhaserInput) {
     var InputType;
@@ -171,6 +172,7 @@ var PhaserInput;
     }());
     PhaserInput.InputElement = InputElement;
 })(PhaserInput || (PhaserInput = {}));
+
 var PhaserInput;
 (function (PhaserInput) {
     var ForceCase;
@@ -588,6 +590,7 @@ var PhaserInput;
     }(Phaser.Sprite));
     PhaserInput.InputField = InputField;
 })(PhaserInput || (PhaserInput = {}));
+
 var PhaserInput;
 (function (PhaserInput) {
     var InputBox = (function (_super) {

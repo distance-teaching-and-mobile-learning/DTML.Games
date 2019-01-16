@@ -58,8 +58,8 @@ var dtml = {
 	//*****************************************************************
 	// API Call to record events of the game
 	//*****************************************************************
-    recordGameEvent: function(name, eventType, eventData) {
- 	var data = { "envelop": null, "page": name, "time": null, "eventType": eventType, "eventData": eventData}
+    recordGameEvent: function(name, eventType, eventData, eventLabel) {
+ 	var data = { "envelop": null, "page": name, "time": null, "eventType": eventType, "eventData": eventData, "eventLabel":eventLabel}
         fetch(this.urls.userService, 
 		{ method: 'post', 
 		  credentials: 'same-origin', 
