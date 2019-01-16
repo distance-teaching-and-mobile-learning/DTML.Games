@@ -141,6 +141,14 @@ export default class extends Phaser.State {
             }
         }
 
+	for(var j = 0; j<this.batCount;j++)
+        {
+	if(this.bat[j].body.blocked.left || this.bat[j].body.blocked.right) 
+	{
+		this.bat[j].scale.x *= -1;
+	}
+        }
+
         this.player.body.velocity.x = 0;
         if (this.leftButton.isDown || this.cursors.left.isDown)
         {
@@ -233,6 +241,7 @@ export default class extends Phaser.State {
         this.clearTextBoxs();
         if (!fail)
         {
+	    dtml.recordGameEvent("haloween", "ReinforcementML", this.currentWord, "correct_word_guess	")
             this.score += 10 * (this.currentWord.length - this.pumpkinHitCount);
             this.scoreText.text = 'Score: ' + this.score.toString();
             this.addScoreText.changeText('+' + 10 * (this.currentWord.length - this.pumpkinHitCount));
@@ -240,6 +249,7 @@ export default class extends Phaser.State {
         }
         else
         {
+	    dtml.recordGameEvent("haloween", "ReinforcementML", this.currentWord, "wrong_word_guess")
             this.addBats();
             this.currentWordText.changeText(this.currentWord);
             this.currentWordText.showTick()
@@ -290,7 +300,8 @@ export default class extends Phaser.State {
         this.bat[this.batCount].body.velocity.x=-Math.floor(Math.random() * 400);
         this.bat[this.batCount].body.velocity.y=Math.floor(Math.random() * 100);
         this.bat[this.batCount].body.collideWorldBounds = true;
-        this.bat[this.batCount].body.bounce.set(1);
+	this.bat[this.batCount].anchor.setTo(0.5,0.5);
+	this.bat[this.batCount].body.bounce.setTo(1, 1);
         this.reloadPumpkins();
         this.batCount++;
     }

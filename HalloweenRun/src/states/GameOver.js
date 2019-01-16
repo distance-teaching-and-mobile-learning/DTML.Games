@@ -37,6 +37,7 @@ export default class extends Phaser.State {
 
     setText(text) {
         console.log(text);
+        dtml.recordGameEnd("helloween",text);
         let label = this.game.add.text(this.game.width*0.5, this.game.height*0.58, text, {
             font: "100px Berkshire Swash",
             fill: "#000",
