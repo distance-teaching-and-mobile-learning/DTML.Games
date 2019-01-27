@@ -17,7 +17,7 @@ import Spriter from '../libs/spriter'
 import { dtml } from '../dtmlSDK'
 
 export default class extends Phaser.State {
-  init (customParam) {
+  init (score) {
     this.phaserJSON = this.cache.getJSON('gameSetup')
     this.game.stage.backgroundColor = '#00B3C1'
     let gameover = game.add.sprite(
@@ -26,8 +26,8 @@ export default class extends Phaser.State {
       'gameover'
     )
     gameover.anchor.set(0.5)
-    this.setText(customParam)
-    dtml.recordGameEnd(this.phaserJSON.gameid, customParam)
+    this.setText(score)
+    dtml.recordGameEnd(this.phaserJSON.gameid, score)
   }
 
   shutdown () {
@@ -36,13 +36,13 @@ export default class extends Phaser.State {
 
   create () {
     this.spritesGroup = this.add.group()
-    this.cook = this.loadSpriter('wizard')
+    this.cook = this.loadSpriter('seller')
     this.cook.x = 240 * game.scaleRatio
     this.cook.y = this.world.height - 470
     this.spritesGroup.add(this.cook)
     this.cook.playAnimationByName('_IDLE')
 
-    this.customer = this.loadSpriter('gnome')
+    this.customer = this.loadSpriter('buyer')
 
     this.customer.scale.x *= -1
     this.customer.children.forEach(sprite => {

@@ -111,6 +111,66 @@ export default class extends Phaser.State {
       })
   }
 
+  update () {
+    if (this.onSelection) {
+      if (this.game.input.keyboard.justPressed(Phaser.KeyCode.RIGHT)) {
+        console.log('just pressed 1')
+        console.log('pencet kanan' + this.selection + ' - ' + this.ansLength)
+        this.listView.items[this.selection].frame = 0
+
+        this.selection += 1
+        if (this.selection > this.ansLength - 1) {
+          this.selection = 0
+        }
+
+        this.listView.items[this.selection].frame = 1
+      }
+
+      if (this.game.input.keyboard.justPressed(Phaser.KeyCode.LEFT)) {
+        console.log('just pressed 1')
+        console.log('pencet kanan' + this.selection + ' - ' + this.ansLength)
+        this.listView.items[this.selection].frame = 0
+
+        this.selection -= 1
+        if (this.selection < 0) {
+          this.selection = this.ansLength - 1
+        }
+
+        this.listView.items[this.selection].frame = 1
+      }
+
+      if (
+        this.game.input.keyboard.justPressed(Phaser.KeyCode.UP) ||
+        this.game.input.keyboard.justPressed(Phaser.KeyCode.SPACEBAR)
+      ) {
+        // SayItByCustomer(this.listView.items[this.selection].text);
+        this.addCharToNode(this.listView.items[this.selection])
+      }
+
+      if (
+        this.game.input.keyboard.justPressed(Phaser.KeyCode.DOWN) ||
+        this.game.input.keyboard.justPressed(Phaser.KeyCode.BACKSPACE)
+      ) {
+        // SayItByCustomer(this.listView.items[this.selection].text);
+        this.deleteBox()
+      }
+
+      if (this.game.input.keyboard.justPressed(Phaser.KeyCode.ENTER)) {
+        if (this.enter.visible === true) {
+          this.SayItByCustomer()
+        }
+      }
+    }
+
+    this.cook.updateAnimation()
+    this.customer.updateAnimation()
+    this.textBox.endFocus()
+    // Keep the score up to date
+    if (this.stateMachine && this.scoreText) {
+      this.scoreText.text = this.stateMachine.getScore()
+    }
+  }
+
   createSprites () {
     this.errorText = new FreeText({
       game: this.game,
@@ -725,66 +785,6 @@ export default class extends Phaser.State {
     this.addScoreText.destroy()
     this.music.destroy()
     this.state.start('Menu')
-  }
-
-  update () {
-    if (this.onSelection) {
-      if (this.game.input.keyboard.justPressed(Phaser.KeyCode.RIGHT)) {
-        console.log('just pressed 1')
-        console.log('pencet kanan' + this.selection + ' - ' + this.ansLength)
-        this.listView.items[this.selection].frame = 0
-
-        this.selection += 1
-        if (this.selection > this.ansLength - 1) {
-          this.selection = 0
-        }
-
-        this.listView.items[this.selection].frame = 1
-      }
-
-      if (this.game.input.keyboard.justPressed(Phaser.KeyCode.LEFT)) {
-        console.log('just pressed 1')
-        console.log('pencet kanan' + this.selection + ' - ' + this.ansLength)
-        this.listView.items[this.selection].frame = 0
-
-        this.selection -= 1
-        if (this.selection < 0) {
-          this.selection = this.ansLength - 1
-        }
-
-        this.listView.items[this.selection].frame = 1
-      }
-
-      if (
-        this.game.input.keyboard.justPressed(Phaser.KeyCode.UP) ||
-        this.game.input.keyboard.justPressed(Phaser.KeyCode.SPACEBAR)
-      ) {
-        // SayItByCustomer(this.listView.items[this.selection].text);
-        this.addCharToNode(this.listView.items[this.selection])
-      }
-
-      if (
-        this.game.input.keyboard.justPressed(Phaser.KeyCode.DOWN) ||
-        this.game.input.keyboard.justPressed(Phaser.KeyCode.BACKSPACE)
-      ) {
-        // SayItByCustomer(this.listView.items[this.selection].text);
-        this.deleteBox()
-      }
-
-      if (this.game.input.keyboard.justPressed(Phaser.KeyCode.ENTER)) {
-        if (this.enter.visible === true) {
-          this.SayItByCustomer()
-        }
-      }
-    }
-
-    this.cook.updateAnimation()
-    this.customer.updateAnimation()
-    this.textBox.endFocus()
-    // Keep the score up to date
-    if (this.stateMachine && this.scoreText) {
-      this.scoreText.text = this.stateMachine.getScore()
-    }
   }
 
   addCharToNode (sprite) {
