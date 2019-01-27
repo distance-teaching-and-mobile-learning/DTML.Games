@@ -114,8 +114,6 @@ export default class extends Phaser.State {
   update () {
     if (this.onSelection) {
       if (this.game.input.keyboard.justPressed(Phaser.KeyCode.RIGHT)) {
-        console.log('just pressed 1')
-        console.log('pencet kanan' + this.selection + ' - ' + this.ansLength)
         this.listView.items[this.selection].frame = 0
 
         this.selection += 1
@@ -127,8 +125,6 @@ export default class extends Phaser.State {
       }
 
       if (this.game.input.keyboard.justPressed(Phaser.KeyCode.LEFT)) {
-        console.log('just pressed 1')
-        console.log('pencet kanan' + this.selection + ' - ' + this.ansLength)
         this.listView.items[this.selection].frame = 0
 
         this.selection -= 1
@@ -339,41 +335,25 @@ export default class extends Phaser.State {
     this.rightdonya = ''
 
     if (this.stateMachine.getOnExitLeft() !== null) {
-      console.log('gaada' + this.stateMachine.getOnExitLeft())
       this.leftnya = this.stateMachine.getOnExitLeft()
-    } else {
-      console.log('gaada')
     }
 
     if (this.stateMachine.getOnExitRight() !== null) {
-      console.log('gaada' + this.stateMachine.getOnExitRight())
       this.rightnya = this.stateMachine.getOnExitRight()
-    } else {
-      console.log('gaada')
     }
 
     if (this.stateMachine.getOnExitBg() !== null) {
-      console.log('gaada' + this.stateMachine.getOnExitBg())
       this.bgnya = this.stateMachine.getOnExitBg()
-    } else {
-      console.log('gaada')
     }
 
     if (this.stateMachine.getOnExitLeftDo() !== null) {
-      console.log('gaada' + this.stateMachine.getOnExitLeftDo())
       this.leftdonya = this.stateMachine.getOnExitLeftDo()
-    } else {
-      console.log('gaada')
     }
 
     if (this.stateMachine.getOnExitRightDo() !== null) {
-      console.log('gaada' + this.stateMachine.getOnExitRightDo())
       this.rightdonya = this.stateMachine.getOnExitRightDo()
-    } else {
-      console.log('gaada')
     }
 
-    console.log('textnya = ' + this.textBox.value.length)
     if (this.textBox.value.length > 0) {
       this.exit.visible = false
       this.enter.visible = false
@@ -409,11 +389,9 @@ export default class extends Phaser.State {
         this.timernya = 0
 
         if (this.lastState !== this.stateMachine.currentStateName) {
-          console.log('masuk sini = ' + this.leftnya)
 
           if (this.leftdonya !== '') {
             if (this.leftdonya === 'in') {
-              console.log('masuk sini')
               this.cook.scale.x = Math.abs(this.cook.scale.x)
               this.cook.x = -300 * game.scaleRatio
               game.add
@@ -432,7 +410,6 @@ export default class extends Phaser.State {
             }
 
             if (this.leftdonya === 'out') {
-              console.log('masuk sini')
               this.cook.scale.x = -Math.abs(this.cook.scale.x)
               this.cook.x = this.world.width * 0.4 * game.scaleRatio
               game.add
@@ -453,7 +430,6 @@ export default class extends Phaser.State {
 
           if (this.rightdonya !== '') {
             if (this.rightdonya === 'in') {
-              console.log('masuk sini')
               this.customer.scale.x = -Math.abs(this.customer.scale.x)
               this.customer.x = game.width + 180 * game.scaleRatio
               game.add
@@ -473,7 +449,6 @@ export default class extends Phaser.State {
             }
 
             if (this.rightdonya === 'out') {
-              console.log('masuk sini')
               this.customer.scale.x = Math.abs(this.customer.scale.x)
               this.customer.x = this.world.width * 0.7 * game.scaleRatio
               game.add
@@ -591,43 +566,27 @@ export default class extends Phaser.State {
       this.rightdonya = ''
 
       if (this.stateMachine.getOnEnterLeft() !== null) {
-        console.log('gaada' + this.stateMachine.getOnEnterLeft())
         this.leftnya = this.stateMachine.getOnEnterLeft()
-      } else {
-        console.log('gaada')
       }
 
       if (this.stateMachine.getOnEnterRight() !== null) {
-        console.log('gaada' + this.stateMachine.getOnEnterRight())
         this.rightnya = this.stateMachine.getOnEnterRight()
-      } else {
-        console.log('gaada')
       }
 
       if (this.stateMachine.getOnEnterBg() !== null) {
-        console.log('gaada' + this.stateMachine.getOnEnterBg())
         this.bgnya = this.stateMachine.getOnEnterBg()
-      } else {
-        console.log('gaada')
       }
 
       if (this.stateMachine.getOnEnterLeftDo() !== null) {
-        console.log('gaada' + this.stateMachine.getOnEnterLeftDo())
         this.leftdonya = this.stateMachine.getOnEnterLeftDo()
-      } else {
-        console.log('gaada')
       }
 
       if (this.stateMachine.getOnEnterRightDo() !== null) {
-        console.log('gaada' + this.stateMachine.getOnEnterRightDo())
         this.rightdonya = this.stateMachine.getOnEnterRightDo()
-      } else {
-        console.log('gaada')
       }
 
       if (this.leftdonya !== '') {
         if (this.leftdonya === 'in') {
-          console.log('masuk sini')
           this.cook.scale.x = Math.abs(this.cook.scale.x)
           this.cook.x = -300 * game.scaleRatio
           game.add
@@ -646,7 +605,6 @@ export default class extends Phaser.State {
         }
 
         if (this.leftdonya === 'out') {
-          console.log('masuk sini')
           this.cook.scale.x = -Math.abs(this.cook.scale.x)
           this.cook.x = this.world.width * 0.4 * game.scaleRatio
           game.add
@@ -667,7 +625,6 @@ export default class extends Phaser.State {
 
       if (this.rightdonya !== '') {
         if (this.rightdonya === 'in') {
-          console.log('masuk sini')
           this.customer.scale.x = -Math.abs(this.customer.scale.x)
           this.customer.x = game.width + 180 * game.scaleRatio
           game.add
@@ -687,7 +644,6 @@ export default class extends Phaser.State {
         }
 
         if (this.rightdonya === 'out') {
-          console.log('masuk sini')
           this.customer.scale.x = Math.abs(this.customer.scale.x)
           this.customer.x = this.world.width * 0.7 * game.scaleRatio
           game.add
@@ -714,7 +670,6 @@ export default class extends Phaser.State {
 
       if (this.rightnya !== '') {
         if (this.rightnya === 'BringFood') {
-          console.log('masuk sini')
           this.customer.scale.x *= -1
           this.customer.playAnimationByName('_WALK')
           game.add
@@ -795,14 +750,12 @@ export default class extends Phaser.State {
       if (itemnya.text === sprite.text) {
         sprite.frame = 1
         iii = xxx
-        console.log('indexnya = ' + iii)
       }
       xxx++
     })
 
     this.selection = iii
 
-    console.log('indexnya = ' + this.selection)
     this.textBox.setText(this.textBox.value + ' ' + sprite.text)
   }
 
@@ -869,7 +822,6 @@ export default class extends Phaser.State {
       this.listView.add(item)
     })
 
-    console.log('asd = ' + this.listView.items[2].text)
     this.listView.items[this.selection].frame = 1
 
     /* this.listView.grp.visible = false;

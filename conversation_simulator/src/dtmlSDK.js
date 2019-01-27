@@ -33,7 +33,6 @@ var dtml = {
 				callback(10);
 		}).then(res => res.json())
            .then(data => {
-                console.log(data);
 				callback(data);
 
             });
