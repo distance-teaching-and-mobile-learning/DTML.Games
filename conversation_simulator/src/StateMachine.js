@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import { dtml } from './dtmlSDK'
 
 export default class {
@@ -124,7 +123,7 @@ export default class {
   isNumber (o) {
     return (
       typeof o === 'number' ||
-      (typeof o === 'object' && o['constructor'] === Number)
+      (typeof o === 'object' && o !== null && o['constructor'] === Number)
     )
   }
 

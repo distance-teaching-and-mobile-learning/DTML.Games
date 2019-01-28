@@ -1,5 +1,3 @@
-import Phaser from 'phaser'
-
 export default class {
   constructor ({ game }, apa) {
     // super(game)
