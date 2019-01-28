@@ -13,9 +13,9 @@ class Game extends Phaser.Game {
     // const width = docElement.clientWidth > config.gameWidth ? config.gameWidth : docElement.clientWidth
     // const height = docElement.clientHeight > config.gameHeight ? config.gameHeight : docElement.clientHeight
 
-    // super(1920, 1080, Phaser.AUTO, 'content', null)
+    super(1920, 1080, Phaser.AUTO, 'content', null)
 
-    super(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio, Phaser.AUTO, 'content', null)
+    // super(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio, Phaser.AUTO, 'content', null)
 
     this.state.add('Boot', BootState, false)
     this.state.add('Splash', SplashState, false)
