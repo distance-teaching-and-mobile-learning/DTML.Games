@@ -90,7 +90,7 @@ export default class extends Phaser.State {
         enterSpriteButton.inputEnabled = true
         enterSpriteButton.input.priorityID = 0
         enterSpriteButton.input.useHandCursor = true
-        enterSpriteButton.events.onInputDown.add(this.SayItByCustomer, this)
+        enterSpriteButton.events.onInputDown.add(this.rightCharacterSpeak, this)
         this.enter = enterSpriteButton
         this.enter.visible = false
         this.textBox.visible = false
@@ -139,7 +139,7 @@ export default class extends Phaser.State {
         this.game.input.keyboard.justPressed(Phaser.KeyCode.UP) ||
         this.game.input.keyboard.justPressed(Phaser.KeyCode.SPACEBAR)
       ) {
-        // SayItByCustomer(this.listView.items[this.selection].text);
+        // rightCharacterSpeak(this.listView.items[this.selection].text);
         this.addCharToNode(this.listView.items[this.selection])
       }
 
@@ -147,13 +147,13 @@ export default class extends Phaser.State {
         this.game.input.keyboard.justPressed(Phaser.KeyCode.DOWN) ||
         this.game.input.keyboard.justPressed(Phaser.KeyCode.BACKSPACE)
       ) {
-        // SayItByCustomer(this.listView.items[this.selection].text);
+        // rightCharacterSpeak(this.listView.items[this.selection].text);
         this.deleteBox()
       }
 
       if (this.game.input.keyboard.justPressed(Phaser.KeyCode.ENTER)) {
         if (this.enter.visible === true) {
-          this.SayItByCustomer()
+          this.rightCharacterSpeak()
         }
       }
     }
@@ -193,7 +193,7 @@ export default class extends Phaser.State {
     })
 
     var enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER)
-    enterKey.onDown.add(this.SayItByCustomer, this)
+    enterKey.onDown.add(this.rightCharacterSpeak, this)
 
     this.spritesGroup = this.add.group()
     this.leftCharacter = this.loadSpriter('leftCharacter')
@@ -323,10 +323,10 @@ export default class extends Phaser.State {
   }
 
   ConversationStart () {
-    this.SayItByCook(this.stateMachine.getQuestion(), true)
+    this.leftCharacterSpeak(this.stateMachine.getQuestion(), true)
   }
 
-  SayItByCustomer () {
+  rightCharacterSpeak () {
     this.lastState = this.stateMachine.currentStateName
     this.leftnya = ''
     this.rightnya = ''
@@ -493,7 +493,7 @@ export default class extends Phaser.State {
           this.time.events.add(this.timernya, () => {
             this.cekEnter = 0
 
-            this.SayItByCook(
+            this.leftCharacterSpeak(
               this.stateMachine.getQuestion(),
               this.stateMachine.submitSolutionResult
             )
@@ -509,7 +509,7 @@ export default class extends Phaser.State {
     this.textBox.setText('')
   }
 
-  SayItByCook (text, submitResult) {
+  leftCharacterSpeak (text, submitResult) {
     if (text === '') {
       this.state.start('GameOver', true, false, this.scoreText.text)
     }
@@ -552,7 +552,7 @@ export default class extends Phaser.State {
         this.rightCharacter.playAnimationByName('_IDLE')
         label2.kill()
 
-        this.SayItByCook(this.stateMachine.getQuestion(), true)
+        this.leftCharacterSpeak(this.stateMachine.getQuestion(), true)
       })
       return
     }
