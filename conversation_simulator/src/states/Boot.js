@@ -58,7 +58,7 @@ export default class extends Phaser.State {
       game.scale.setGameSize(game.width, game.height)
     }
 
-    game.canvas.oncontextmenu = function (e) { e.preventDefault(); }
+    game.canvas.oncontextmenu = function (e) { e.preventDefault() }
   }
 
   render () {

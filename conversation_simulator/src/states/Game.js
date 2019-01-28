@@ -33,8 +33,8 @@ export default class extends Phaser.State {
     this.awaitVoices = new Promise(
       resolve => (window.speechSynthesis.onvoiceschanged = resolve)
     )
-    this.cookVoice = this.phaserJSON.LeftVoice
-    this.customerVoice = this.phaserJSON.RightVoice
+    this.leftCharacterVoice = this.phaserJSON.LeftVoice
+    this.rightCharacterVoice = this.phaserJSON.RightVoice
 
     this.language = this.game.state.states['Game']._language
     this.langCode = this.game.state.states['Game']._langCode
@@ -158,8 +158,8 @@ export default class extends Phaser.State {
       }
     }
 
-    this.cook.updateAnimation()
-    this.customer.updateAnimation()
+    this.leftCharacter.updateAnimation()
+    this.rightCharacter.updateAnimation()
     this.textBox.endFocus()
     // Keep the score up to date
     if (this.stateMachine && this.scoreText) {
@@ -196,30 +196,30 @@ export default class extends Phaser.State {
     enterKey.onDown.add(this.SayItByCustomer, this)
 
     this.spritesGroup = this.add.group()
-    this.cook = this.loadSpriter('seller')
-    this.cook.x = -200 * game.scaleRatio
-    this.cook.y = this.world.height - 470 + parseInt(this.phaserJSON.leftAddY)
-    this.spritesGroup.add(this.cook)
-    this.customer = this.loadSpriter('buyer')
+    this.leftCharacter = this.loadSpriter('leftCharacter')
+    this.leftCharacter.x = -200 * game.scaleRatio
+    this.leftCharacter.y = this.world.height - 470 + parseInt(this.phaserJSON.leftAddY)
+    this.spritesGroup.add(this.leftCharacter)
 
-    this.customer.scale.x *= -1
-    this.customer.children.forEach(sprite => {
+    this.rightCharacter = this.loadSpriter('rightCharacter')
+    this.rightCharacter.scale.x *= -1
+    this.rightCharacter.children.forEach(sprite => {
       sprite.anchor.set(0, 1)
     })
-    this.customer.x = game.width + 180 * game.scaleRatio
-    this.customer.startx = this.world.width * 0.75 * game.scaleRatio
-    this.customer.y =
+    this.rightCharacter.x = game.width + 180 * game.scaleRatio
+    this.rightCharacter.startx = this.world.width * 0.75 * game.scaleRatio
+    this.rightCharacter.y =
       this.world.height - 460 + parseInt(this.phaserJSON.rightAddY)
-    this.customer.setAnimationSpeedPercent(100)
-    this.customer.playAnimationByName('_IDLE')
-    this.spritesGroup.add(this.customer)
+    this.rightCharacter.setAnimationSpeedPercent(100)
+    this.rightCharacter.playAnimationByName('_IDLE')
+    this.spritesGroup.add(this.rightCharacter)
 
     this.patienceRemaining = 5
     // intro sequence
-    this.cook.setAnimationSpeedPercent(100)
-    this.cook.playAnimationByName('_RUN')
+    this.leftCharacter.setAnimationSpeedPercent(100)
+    this.leftCharacter.playAnimationByName('_RUN')
     game.add
-      .tween(this.cook)
+      .tween(this.leftCharacter)
       .to(
         { x: this.world.width * 0.4 * game.scaleRatio },
         1500,
@@ -228,8 +228,8 @@ export default class extends Phaser.State {
         1500
       )
       .onComplete.add(() => {
-        this.cook.setAnimationSpeedPercent(100)
-        this.cook.playAnimationByName('_IDLE')
+        this.leftCharacter.setAnimationSpeedPercent(100)
+        this.leftCharacter.playAnimationByName('_IDLE')
         let numberOfPatienceBars = 5
         this.patienceBarsGroup = this.add.group()
         this.patienceBars = new Array(numberOfPatienceBars)
@@ -256,11 +256,11 @@ export default class extends Phaser.State {
 
         this.ConversationStart()
       })
-    this.customer.setAnimationSpeedPercent(100)
-    this.customer.playAnimationByName('_RUN')
+    this.rightCharacter.setAnimationSpeedPercent(100)
+    this.rightCharacter.playAnimationByName('_RUN')
 
     game.add
-      .tween(this.customer)
+      .tween(this.rightCharacter)
       .to(
         { x: this.world.width * 0.7 * game.scaleRatio },
         1500,
@@ -269,8 +269,8 @@ export default class extends Phaser.State {
         1500
       )
       .onComplete.add(() => {
-        this.customer.setAnimationSpeedPercent(100)
-        this.customer.playAnimationByName('_IDLE')
+        this.rightCharacter.setAnimationSpeedPercent(100)
+        this.rightCharacter.playAnimationByName('_IDLE')
         var image = game.add.image(
           this.world.width * 0.78,
           this.game.world.centerY * 0.02,
@@ -290,8 +290,8 @@ export default class extends Phaser.State {
   }
 
   gameOver () {
-    this.cook.kill()
-    this.customer.kill()
+    this.leftCharacter.kill()
+    this.rightCharacter.kill()
     this.textBox.kill()
 
     var enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER)
@@ -365,12 +365,12 @@ export default class extends Phaser.State {
       var text = this.textBox.value
       this.textBox.setText('')
 
-      this.customer.setAnimationSpeedPercent(100)
-      this.customer.playAnimationByName('_SAY')
-      this.textToSpeach(text, this.customerVoice, this.phaserJSON.RightPitch)
+      this.rightCharacter.setAnimationSpeedPercent(100)
+      this.rightCharacter.playAnimationByName('_SAY')
+      this.textToSpeach(text, this.rightCharacterVoice, this.phaserJSON.RightPitch)
       let label = this.game.add.text(
-        this.customer.x + parseInt(this.phaserJSON.CallOutRightX),
-        this.customer.y - parseInt(this.phaserJSON.CallOutRightY),
+        this.rightCharacter.x + parseInt(this.phaserJSON.CallOutRightX),
+        this.rightCharacter.y - parseInt(this.phaserJSON.CallOutRightY),
         text,
         {
           font: '30px Berkshire Swash',
@@ -392,10 +392,10 @@ export default class extends Phaser.State {
 
           if (this.leftdonya !== '') {
             if (this.leftdonya === 'in') {
-              this.cook.scale.x = Math.abs(this.cook.scale.x)
-              this.cook.x = -300 * game.scaleRatio
+              this.leftCharacter.scale.x = Math.abs(this.leftCharacter.scale.x)
+              this.leftCharacter.x = -300 * game.scaleRatio
               game.add
-                .tween(this.cook)
+                .tween(this.leftCharacter)
                 .to(
                   { x: this.world.width * 0.4 * game.scaleRatio },
                   1500,
@@ -404,16 +404,16 @@ export default class extends Phaser.State {
                   0
                 )
                 .onComplete.add(() => {
-                  this.cook.setAnimationSpeedPercent(100)
-                  this.cook.playAnimationByName('_IDLE')
+                  this.leftCharacter.setAnimationSpeedPercent(100)
+                  this.leftCharacter.playAnimationByName('_IDLE')
                 })
             }
 
             if (this.leftdonya === 'out') {
-              this.cook.scale.x = -Math.abs(this.cook.scale.x)
-              this.cook.x = this.world.width * 0.4 * game.scaleRatio
+              this.leftCharacter.scale.x = -Math.abs(this.leftCharacter.scale.x)
+              this.leftCharacter.x = this.world.width * 0.4 * game.scaleRatio
               game.add
-                .tween(this.cook)
+                .tween(this.leftCharacter)
                 .to(
                   { x: -300 * game.scaleRatio },
                   1500,
@@ -422,18 +422,18 @@ export default class extends Phaser.State {
                   0
                 )
                 .onComplete.add(() => {
-                  this.cook.setAnimationSpeedPercent(100)
-                  this.cook.playAnimationByName('_IDLE')
+                  this.leftCharacter.setAnimationSpeedPercent(100)
+                  this.leftCharacter.playAnimationByName('_IDLE')
                 })
             }
           }
 
           if (this.rightdonya !== '') {
             if (this.rightdonya === 'in') {
-              this.customer.scale.x = -Math.abs(this.customer.scale.x)
-              this.customer.x = game.width + 180 * game.scaleRatio
+              this.rightCharacter.scale.x = -Math.abs(this.rightCharacter.scale.x)
+              this.rightCharacter.x = game.width + 180 * game.scaleRatio
               game.add
-                .tween(this.customer)
+                .tween(this.rightCharacter)
                 .to(
                   { x: this.world.width * 0.7 * game.scaleRatio },
                   1500,
@@ -442,17 +442,17 @@ export default class extends Phaser.State {
                   0
                 )
                 .onComplete.add(() => {
-                  // this.customer.scale.x *= -1;
-                  this.customer.setAnimationSpeedPercent(100)
-                  this.customer.playAnimationByName('_IDLE')
+                  // this.rightCharacter.scale.x *= -1;
+                  this.rightCharacter.setAnimationSpeedPercent(100)
+                  this.rightCharacter.playAnimationByName('_IDLE')
                 })
             }
 
             if (this.rightdonya === 'out') {
-              this.customer.scale.x = Math.abs(this.customer.scale.x)
-              this.customer.x = this.world.width * 0.7 * game.scaleRatio
+              this.rightCharacter.scale.x = Math.abs(this.rightCharacter.scale.x)
+              this.rightCharacter.x = this.world.width * 0.7 * game.scaleRatio
               game.add
-                .tween(this.customer)
+                .tween(this.rightCharacter)
                 .to(
                   { x: game.width + 180 * game.scaleRatio },
                   1500,
@@ -461,20 +461,20 @@ export default class extends Phaser.State {
                   0
                 )
                 .onComplete.add(() => {
-                  // this.customer.scale.x *= -1;
-                  this.customer.setAnimationSpeedPercent(100)
-                  this.customer.playAnimationByName('_IDLE')
+                  // this.rightCharacter.scale.x *= -1;
+                  this.rightCharacter.setAnimationSpeedPercent(100)
+                  this.rightCharacter.playAnimationByName('_IDLE')
                 })
             }
           }
 
           if (this.leftnya !== '') {
-            this.cook.playAnimationByName(this.leftnya)
+            this.leftCharacter.playAnimationByName(this.leftnya)
             this.timernya = 2000
           }
 
           if (this.rightnya !== '') {
-            this.customer.playAnimationByName(this.rightnya)
+            this.rightCharacter.playAnimationByName(this.rightnya)
             this.timernya = 2000
           }
 
@@ -484,11 +484,11 @@ export default class extends Phaser.State {
           }
         }
 
-        this.customer.setAnimationSpeedPercent(100)
-        this.customer.playAnimationByName('_IDLE')
+        this.rightCharacter.setAnimationSpeedPercent(100)
+        this.rightCharacter.playAnimationByName('_IDLE')
         label.kill()
 
-        // Once the player has said something, the cook should respond
+        // Once the player has said something, the left character should respond
         if (this.stateMachine.currentStateName !== 'End') {
           this.time.events.add(this.timernya, () => {
             this.cekEnter = 0
@@ -514,8 +514,8 @@ export default class extends Phaser.State {
       this.state.start('GameOver', true, false, this.scoreText.text)
     }
 
-    this.cook.setAnimationSpeedPercent(100)
-    this.cook.playAnimationByName('_SAY')
+    this.leftCharacter.setAnimationSpeedPercent(100)
+    this.leftCharacter.playAnimationByName('_SAY')
 
     if (!submitResult) {
       this.cekEnter = 1
@@ -529,13 +529,13 @@ export default class extends Phaser.State {
       var submitFailureText = "I'm sorry, I didn't understand you..."
       this.textToSpeach(
         submitFailureText,
-        this.cookVoice,
+        this.leftCharacterVoice,
         this.phaserJSON.LeftPitch
       )
 
       let label2 = this.game.add.text(
-        this.cook.x - parseInt(this.phaserJSON.CallOutLeftX),
-        this.cook.y - parseInt(this.phaserJSON.CallOutLeftY),
+        this.leftCharacter.x - parseInt(this.phaserJSON.CallOutLeftX),
+        this.leftCharacter.y - parseInt(this.phaserJSON.CallOutLeftY),
         submitFailureText,
         {
           font: '30px Berkshire Swash',
@@ -548,8 +548,8 @@ export default class extends Phaser.State {
       label2.anchor.setTo(0.5)
 
       this.time.events.add(4000, () => {
-        this.customer.setAnimationSpeedPercent(100)
-        this.customer.playAnimationByName('_IDLE')
+        this.rightCharacter.setAnimationSpeedPercent(100)
+        this.rightCharacter.playAnimationByName('_IDLE')
         label2.kill()
 
         this.SayItByCook(this.stateMachine.getQuestion(), true)
@@ -587,10 +587,10 @@ export default class extends Phaser.State {
 
       if (this.leftdonya !== '') {
         if (this.leftdonya === 'in') {
-          this.cook.scale.x = Math.abs(this.cook.scale.x)
-          this.cook.x = -300 * game.scaleRatio
+          this.leftCharacter.scale.x = Math.abs(this.leftCharacter.scale.x)
+          this.leftCharacter.x = -300 * game.scaleRatio
           game.add
-            .tween(this.cook)
+            .tween(this.leftCharacter)
             .to(
               { x: this.world.width * 0.4 * game.scaleRatio },
               1500,
@@ -599,16 +599,16 @@ export default class extends Phaser.State {
               0
             )
             .onComplete.add(() => {
-              this.cook.setAnimationSpeedPercent(100)
-              this.cook.playAnimationByName('_IDLE')
+              this.leftCharacter.setAnimationSpeedPercent(100)
+              this.leftCharacter.playAnimationByName('_IDLE')
             })
         }
 
         if (this.leftdonya === 'out') {
-          this.cook.scale.x = -Math.abs(this.cook.scale.x)
-          this.cook.x = this.world.width * 0.4 * game.scaleRatio
+          this.leftCharacter.scale.x = -Math.abs(this.leftCharacter.scale.x)
+          this.leftCharacter.x = this.world.width * 0.4 * game.scaleRatio
           game.add
-            .tween(this.cook)
+            .tween(this.leftCharacter)
             .to(
               { x: -300 * game.scaleRatio },
               1500,
@@ -617,18 +617,18 @@ export default class extends Phaser.State {
               0
             )
             .onComplete.add(() => {
-              this.cook.setAnimationSpeedPercent(100)
-              this.cook.playAnimationByName('_IDLE')
+              this.leftCharacter.setAnimationSpeedPercent(100)
+              this.leftCharacter.playAnimationByName('_IDLE')
             })
         }
       }
 
       if (this.rightdonya !== '') {
         if (this.rightdonya === 'in') {
-          this.customer.scale.x = -Math.abs(this.customer.scale.x)
-          this.customer.x = game.width + 180 * game.scaleRatio
+          this.rightCharacter.scale.x = -Math.abs(this.rightCharacter.scale.x)
+          this.rightCharacter.x = game.width + 180 * game.scaleRatio
           game.add
-            .tween(this.customer)
+            .tween(this.rightCharacter)
             .to(
               { x: this.world.width * 0.7 * game.scaleRatio },
               1500,
@@ -637,17 +637,17 @@ export default class extends Phaser.State {
               0
             )
             .onComplete.add(() => {
-              // this.customer.scale.x *= -1;
-              this.customer.setAnimationSpeedPercent(100)
-              this.customer.playAnimationByName('_IDLE')
+              // this.rightCharacter.scale.x *= -1;
+              this.rightCharacter.setAnimationSpeedPercent(100)
+              this.rightCharacter.playAnimationByName('_IDLE')
             })
         }
 
         if (this.rightdonya === 'out') {
-          this.customer.scale.x = Math.abs(this.customer.scale.x)
-          this.customer.x = this.world.width * 0.7 * game.scaleRatio
+          this.rightCharacter.scale.x = Math.abs(this.rightCharacter.scale.x)
+          this.rightCharacter.x = this.world.width * 0.7 * game.scaleRatio
           game.add
-            .tween(this.customer)
+            .tween(this.rightCharacter)
             .to(
               { x: game.width + 180 * game.scaleRatio },
               1500,
@@ -656,24 +656,24 @@ export default class extends Phaser.State {
               0
             )
             .onComplete.add(() => {
-              // this.customer.scale.x *= -1;
-              this.customer.setAnimationSpeedPercent(100)
-              this.customer.playAnimationByName('_IDLE')
+              // this.rightCharacter.scale.x *= -1;
+              this.rightCharacter.setAnimationSpeedPercent(100)
+              this.rightCharacter.playAnimationByName('_IDLE')
             })
         }
       }
 
       if (this.leftnya !== '') {
-        this.cook.playAnimationByName(this.leftnya)
+        this.leftCharacter.playAnimationByName(this.leftnya)
         this.timernya = 2000
       }
 
       if (this.rightnya !== '') {
         if (this.rightnya === 'BringFood') {
-          this.customer.scale.x *= -1
-          this.customer.playAnimationByName('_WALK')
+          this.rightCharacter.scale.x *= -1
+          this.rightCharacter.playAnimationByName('_WALK')
           game.add
-            .tween(this.customer)
+            .tween(this.rightCharacter)
             .to(
               { x: this.world.width * 0.7 * game.scaleRatio },
               1500,
@@ -682,14 +682,14 @@ export default class extends Phaser.State {
               0
             )
             .onComplete.add(() => {
-              // this.customer.scale.x *= -1;
-              this.customer.setAnimationSpeedPercent(100)
-              this.customer.playAnimationByName('_IDLE')
+              // this.rightCharacter.scale.x *= -1;
+              this.rightCharacter.setAnimationSpeedPercent(100)
+              this.rightCharacter.playAnimationByName('_IDLE')
             })
 
           this.timernya = 2000
         } else {
-          this.customer.playAnimationByName(this.rightnya)
+          this.rightCharacter.playAnimationByName(this.rightnya)
           this.timernya = 2000
         }
       }
@@ -700,12 +700,12 @@ export default class extends Phaser.State {
     }
 
     this.time.events.add(this.timernya, () => {
-      this.cook.playAnimationByName('_SAY')
-      this.textToSpeach(text, this.cookVoice, this.phaserJSON.LeftPitch)
+      this.leftCharacter.playAnimationByName('_SAY')
+      this.textToSpeach(text, this.leftCharacterVoice, this.phaserJSON.LeftPitch)
 
       let label = this.game.add.text(
-        this.cook.x - parseInt(this.phaserJSON.CallOutLeftX),
-        this.cook.y - parseInt(this.phaserJSON.CallOutLeftY),
+        this.leftCharacter.x - parseInt(this.phaserJSON.CallOutLeftX),
+        this.leftCharacter.y - parseInt(this.phaserJSON.CallOutLeftY),
         text,
         {
           font: '30px Berkshire Swash',
@@ -718,10 +718,10 @@ export default class extends Phaser.State {
       label.anchor.setTo(0.5)
 
       if (submitResult) {
-        // Hack to move cook back to the right place
+        // Hack to move left character back to the right place
         this.time.events.add(5000, () => {
-          this.cook.setAnimationSpeedPercent(100)
-          this.cook.playAnimationByName('_IDLE')
+          this.leftCharacter.setAnimationSpeedPercent(100)
+          this.leftCharacter.playAnimationByName('_IDLE')
           this.createSideMenu()
           this.exit.visible = true
           this.enter.visible = true

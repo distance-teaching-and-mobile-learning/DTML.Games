@@ -9,7 +9,7 @@
         <file id="5" name="head2.png" width="250" height="250" pivot_x="0.62" pivot_y="0.17"/>
         <file id="6" name="callout.png" width="507" height="381" pivot_x="0" pivot_y="1"/>
     </folder>
-    <entity id="0" name="buyer">
+    <entity id="0" name="rightCharacter">
         <obj_info name="bone_000" type="bone" w="161.003" h="10"/>
         <obj_info name="bone_001" type="bone" w="140.129" h="10"/>
         <obj_info name="bone_002" type="bone" w="227.108" h="10"/>

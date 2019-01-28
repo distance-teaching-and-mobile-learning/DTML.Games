@@ -36,25 +36,24 @@ export default class extends Phaser.State {
 
   create () {
     this.spritesGroup = this.add.group()
-    this.cook = this.loadSpriter('seller')
-    this.cook.x = 240 * game.scaleRatio
-    this.cook.y = this.world.height - 470
-    this.spritesGroup.add(this.cook)
-    this.cook.playAnimationByName('_IDLE')
+    this.leftCharacter = this.loadSpriter('leftCharacter')
+    this.leftCharacter.x = 240 * game.scaleRatio
+    this.leftCharacter.y = this.world.height - 470
+    this.spritesGroup.add(this.leftCharacter)
+    this.leftCharacter.playAnimationByName('_IDLE')
 
-    this.customer = this.loadSpriter('buyer')
-
-    this.customer.scale.x *= -1
-    this.customer.children.forEach(sprite => {
+    this.rightCharacter = this.loadSpriter('rightCharacter')
+    this.rightCharacter.scale.x *= -1
+    this.rightCharacter.children.forEach(sprite => {
       sprite.anchor.set(0, 1)
     })
 
-    this.customer.x = game.width - 260 * game.scaleRatio
-    this.customer.startx = this.world.width * 0.75 * game.scaleRatio
-    this.customer.y = this.world.height - 460
-    this.customer.setAnimationSpeedPercent(100)
-    this.customer.playAnimationByName('_IDLE')
-    this.spritesGroup.add(this.customer)
+    this.rightCharacter.x = game.width - 260 * game.scaleRatio
+    this.rightCharacter.startx = this.world.width * 0.75 * game.scaleRatio
+    this.rightCharacter.y = this.world.height - 460
+    this.rightCharacter.setAnimationSpeedPercent(100)
+    this.rightCharacter.playAnimationByName('_IDLE')
+    this.spritesGroup.add(this.rightCharacter)
   }
 
   loadSpriter (key) {
@@ -88,8 +87,8 @@ export default class extends Phaser.State {
   }
 
   update () {
-    this.cook.updateAnimation()
-    this.customer.updateAnimation()
+    this.leftCharacter.updateAnimation()
+    this.rightCharacter.updateAnimation()
     if (game.input.activePointer.isDown) {
       this.nextState()
     }
