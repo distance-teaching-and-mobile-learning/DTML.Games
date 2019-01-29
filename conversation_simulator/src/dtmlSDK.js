@@ -12,7 +12,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-import Phaser from 'phaser'
 import 'isomorphic-fetch'
 //require('isomorphic-fetch');
 
@@ -33,7 +32,6 @@ var dtml = {
 				callback(10);
 		}).then(res => res.json())
            .then(data => {
-                console.log(data);
 				callback(data);
 
             });

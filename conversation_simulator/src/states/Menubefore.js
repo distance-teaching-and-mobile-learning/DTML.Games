@@ -1,5 +1,5 @@
 /* The Distance Teaching and Mobile learning licenses this file
-to you under the Apache License, Version 2.0 (the "License"); 
+to you under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance
 with the License.  You may obtain a copy of the License at
 
@@ -13,40 +13,25 @@ specific language governing permissions and limitations
 under the License.
 */
 
-import Phaser from 'phaser'
-
-
-
-
 export default class extends Phaser.State {
+  init () {
 
-    init() {
+  }
 
+  create () {
+    // this.state.start('Menu')
+  }
+
+  preload () {
+    this.delayTimer = 0
+  }
+
+  update () {
+    this.deltaTime = game.time.elapsed / 1000
+    this.delayTimer += 1 * this.deltaTime
+
+    if (this.delayTimer >= 2) {
+      this.state.start('Menu')
     }
-
-    create() {
-        // this.state.start('Menu')
-    }
-
-    preload(){
- this.xxx = 0;
-      
-    }
-
-    update() {
-     
-    this.deltaTime = game.time.elapsed/1000;
-    this.xxx+=1*this.deltaTime;
-
-    
-     if(this.xxx>=2){  //yg bener 6
-        this.state.start('Menu')
-         console.log('sss')
-     }else{
-        console.log('starting')
-
-     }
-    }
-
-    
+  }
 }

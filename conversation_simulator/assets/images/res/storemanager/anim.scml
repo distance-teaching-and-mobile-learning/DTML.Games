@@ -19,7 +19,7 @@
     <folder id="2">
         <file id="0" name="callout.png" width="507" height="381" pivot_x="0" pivot_y="1"/>
     </folder>
-    <entity id="0" name="seller">
+    <entity id="0" name="leftCharacter">
         <obj_info name="bone_000" type="bone" w="166.319" h="10"/>
         <obj_info name="bone_001" type="bone" w="159.786" h="10"/>
         <obj_info name="bone_002" type="bone" w="174.269" h="10"/>
