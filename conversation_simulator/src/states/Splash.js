@@ -85,7 +85,7 @@ export default class extends Phaser.State {
     this.load.spritesheet('sidebg', 'assets/images/res/sidebg.png', 115, 117)
 
     // game state data
-    this.load.json('stateData', 'assets/data/' + phaserJSON.datafile)
+    this.load.json('stateData', 'assets/data/' + game.gameDataFolder + '/' + phaserJSON.datafile)
   }
 
   loadStart () {

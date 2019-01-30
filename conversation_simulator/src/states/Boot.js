@@ -36,7 +36,7 @@ export default class extends Phaser.State {
   }
 
   preload () {
-    this.load.json('gameSetup', 'assets/data/gameSetup.json')
+    this.load.json('gameSetup', 'assets/data/' + game.gameDataFolder + '/gameSetup.json')
 
     this.load.image('loaderBg', './assets/images/logobackground.png')
     this.load.image('loaderBar', './assets/images/loading-logo.png')
