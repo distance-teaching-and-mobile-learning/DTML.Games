@@ -1,3 +1,14 @@
+# Building and Testing
+To test the game use:
+```npm run dev game:[name of game folder]```
+For example if you wanted to test the restuarant module you'd type:
+```npm run dev game:restaurant```
+
+To build the game use:
+```npm run deploy -- --define game:[name of game folder]```
+The extra set of hyphens is necessary. To build the store module you'd type:
+```npm run deploy -- --define game:store```
+
 # Phaser + ES6 + Webpack.
 #### A bootstrap project to create games with Phaser + ES6 + Webpack.
 
