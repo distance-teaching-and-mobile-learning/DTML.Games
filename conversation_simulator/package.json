@@ -8,16 +8,16 @@
     "dev": "webpack",
     "deploy": "webpack --config webpack.production.config.js",
     "cordova": "webpack --config webpack.cordova.config.js",
-    "test": "mocha --compilers js:@babel/register"
+    "test": "mocha --compilers js:@babel/register --require @babel/polyfill"
   },
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.2.2",
+    "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.3.1",
     "@babel/register": "^7.0.0",
     "babel-eslint": "^8.2.1",
     "babel-loader": "^8.0.5",
-    "babel-polyfill": "^6.26.0",
     "browser-sync": "^2.23.6",
     "browser-sync-webpack-plugin": "^2.0.1",
     "clean-webpack-plugin": "^0.1.18",
