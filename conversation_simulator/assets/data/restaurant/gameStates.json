@@ -4,7 +4,7 @@
   "States": {
     "Welcome": {
       "Type": "Conversation",
-      "Question": "Hello and welcome to our restaurant !",
+      "Question": "Hello and welcome to our restaurant!",
       "AnswerWords": [
         "Hi",
         "Hello",
@@ -290,7 +290,7 @@
     },
     "RecommendationsNo": {
       "Type": "Conversation",
-      "Question": "Okay. We also can make eggs or omlet",
+      "Question": "Okay. We also can make eggs or omlette",
       "AnswerWords": [
         "You",
         "Please",
@@ -414,7 +414,7 @@
         "Am",
         "I"
       ],
-      "Solutions": {
+       "Solutions": {
         "that is fine": {
           "scoreadjustment": -10,
           "Next": "ProgressOrder"
@@ -557,7 +557,7 @@
         "May",
         "Have"
       ],
-      "Solutions": {
+       "Solutions": {
         "yes": {
           "Next": "FinishOrder"
         },
@@ -734,7 +734,7 @@
         "I",
         "Will"
       ],
-      "Solutions": {
+       "Solutions": {
         "thank you": {
           "Next": "End"
         },
