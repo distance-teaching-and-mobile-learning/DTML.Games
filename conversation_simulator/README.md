@@ -1,31 +1,24 @@
+Conversation simulation games builder. 
+
+
+
 # Building and Testing
+
 To test the game use:
+
 ```npm run dev game:[name of game folder]```
+
 For example if you wanted to test the restaurant module you'd type:
+
 ```npm run dev game:restaurant```
 
 To build the game use:
+
 ```npm run deploy -- --define game:[name of game folder]```
+
 The extra set of hyphens is necessary. To build the store module you'd type:
+
 ```npm run deploy -- --define game:store```
-
-# Phaser + ES6 + Webpack.
-#### A bootstrap project to create games with Phaser + ES6 + Webpack.
-
-![Phaser+ES6+Webpack](https://raw.githubusercontent.com/lean/phaser-es6-webpack/master/assets/images/phaser-es6-webpack.jpg)
-
-[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
-
-
-## Features
-- ESLINT with JavaScript Standard Style configuration
-- Next generation of Javascript
-- Browsers are automatically updated as you change project files
-- Webpack ready
-- WebFont Loader
-
-## Typescript 
-If you need typescript support checkout the ```typescript``` branch. Thanks to @MatsMaker
 
 # Setup
 You'll need to install a few things before you have a working copy of the project.
