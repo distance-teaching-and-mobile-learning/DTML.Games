@@ -799,17 +799,22 @@ export default class extends Phaser.State {
 
     this.stateMachine.getAnswerWords().forEach(word => {
       this.ansLength += 1
+
+      // We make a parent group so we can scale the sprite without affecting the text
+      var parentGroup = this.game.add.group()
+
       var item = this.game.add.sprite(0, 0, 'sidebg')
-      // item.scale.set(0.8 * game.scaleRatio);
       item.text = word
 
-      var character = this.game.add.text(0, 0, word, i++) // sprite(0, 0, 'characters',i);
-
-      character.scale.set((2.05 - word.length * 0.17) * game.scaleRatio)
+      var character = this.game.add.text(0, 0, word)
+      var scaledWidth = Math.max(character.width + 50, item.width)
+      item.width = scaledWidth
       rect = new Phaser.Rectangle(item.x, item.y, item.width, item.height)
-      character.alignIn(rect, Phaser.CENTER, 0, 0)
+      character.alignIn(rect, Phaser.CENTER)
       item.frame = 0
-      item.addChild(character)
+      
+      parentGroup.addChild(item)
+      parentGroup.addChild(character)
 
       character.inputEnabled = true
       character.input.priorityID = 0
@@ -819,7 +824,7 @@ export default class extends Phaser.State {
       item.input.priorityID = 0
       item.input.useHandCursor = true
       item.events.onInputDown.add(this.addCharToNode, this)
-      this.listView.add(item)
+      this.listView.add(parentGroup)
     })
 
     this.listView.items[this.selection].frame = 1
