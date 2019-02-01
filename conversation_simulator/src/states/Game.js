@@ -119,7 +119,7 @@ export default class extends Phaser.State {
         repeatButton.inputEnabled = true
         repeatButton.input.priorityID = 0
         repeatButton.input.useHandCursor = true
-        repeatButton.events.onInputDown.add(this.repeatPrompt, this)
+        repeatButton.events.onInputDown.add(this.repeatQuestion, this)
         this.repeatButton = repeatButton
         this.repeatButton.visible = false
         // Hint button
@@ -344,7 +344,7 @@ export default class extends Phaser.State {
   }
 
   ConversationStart () {
-    this.leftCharacterSpeak(this.stateMachine.getQuestion(), true)
+    this.nextQuestion(this.stateMachine.getQuestion(), true)
   }
 
   submitSolution () {
@@ -368,6 +368,9 @@ export default class extends Phaser.State {
       var text = this.textBox.value
       this.textBox.setText('')
 
+      if (this.isLeftCharacterSpeaking()) {
+        this.leftCharacterStopSpeaking()
+      }
       this.rightCharacterSpeak(text)
 
       this.stateMachine.submitSolution(text)
@@ -479,7 +482,7 @@ export default class extends Phaser.State {
           this.time.events.add(this.timernya, () => {
             this.cekEnter = 0
 
-            this.leftCharacterSpeak(
+            this.nextQuestion(
               this.stateMachine.getQuestion(),
               this.stateMachine.submitSolutionResult
             )
@@ -517,13 +520,10 @@ export default class extends Phaser.State {
     this.textBox.setText('')
   }
 
-  leftCharacterSpeak (text, submitResult) {
+  nextQuestion (text, submitResult) {
     if (text === '') {
       this.state.start('GameOver', true, false, this.scoreText.text)
     }
-
-    this.leftCharacter.setAnimationSpeedPercent(100)
-    this.leftCharacter.playAnimationByName('_SAY')
 
     if (!submitResult) {
       this.cekEnter = 1
@@ -535,63 +535,23 @@ export default class extends Phaser.State {
         return
       }
       var submitFailureText = "I'm sorry, I didn't understand you..."
-      this.textToSpeach(
-        submitFailureText,
-        this.leftCharacterVoice,
-        this.phaserJSON.LeftPitch
-      )
-
-      let label2 = this.game.add.text(
-        this.leftCharacter.x - parseInt(this.phaserJSON.CallOutLeftX),
-        this.leftCharacter.y - parseInt(this.phaserJSON.CallOutLeftY),
-        submitFailureText,
-        {
-          font: '30px Berkshire Swash',
-          fill: '#000',
-          align: 'center',
-          wordWrap: true,
-          wordWrapWidth: 300
-        }
-      )
-      label2.anchor.setTo(0.5)
-
-      this.time.events.add(4000, () => {
+      this.leftCharacterSpeak(submitFailureText)
+      this.time.events.add(5000, () => {
         this.rightCharacter.setAnimationSpeedPercent(100)
         this.rightCharacter.playAnimationByName('_IDLE')
-        label2.kill()
 
-        this.leftCharacterSpeak(this.stateMachine.getQuestion(), true)
+        this.nextQuestion(this.stateMachine.getQuestion(), true)
       })
       return
     }
 
     this.timernya = 0
     if (this.cekEnter === 0) {
-      this.leftnya = ''
-      this.rightnya = ''
-      this.bgnya = ''
-      this.leftdonya = ''
-      this.rightdonya = ''
-
-      if (this.stateMachine.getOnEnterLeft() !== null) {
-        this.leftnya = this.stateMachine.getOnEnterLeft()
-      }
-
-      if (this.stateMachine.getOnEnterRight() !== null) {
-        this.rightnya = this.stateMachine.getOnEnterRight()
-      }
-
-      if (this.stateMachine.getOnEnterBg() !== null) {
-        this.bgnya = this.stateMachine.getOnEnterBg()
-      }
-
-      if (this.stateMachine.getOnEnterLeftDo() !== null) {
-        this.leftdonya = this.stateMachine.getOnEnterLeftDo()
-      }
-
-      if (this.stateMachine.getOnEnterRightDo() !== null) {
-        this.rightdonya = this.stateMachine.getOnEnterRightDo()
-      }
+      this.leftnya = this.stateMachine.getOnEnterLeft() || ''
+      this.rightnya = this.stateMachine.getOnEnterRight() || ''
+      this.bgnya = this.stateMachine.getOnEnterBg() || ''
+      this.leftdonya = this.stateMachine.getOnEnterLeftDo() || ''
+      this.rightdonya = this.stateMachine.getOnEnterRightDo() || ''
 
       if (this.leftdonya !== '') {
         if (this.leftdonya === 'in') {
@@ -708,22 +668,7 @@ export default class extends Phaser.State {
     }
 
     this.time.events.add(this.timernya, () => {
-      this.leftCharacter.playAnimationByName('_SAY')
-      this.textToSpeach(text, this.leftCharacterVoice, this.phaserJSON.LeftPitch)
-
-      let label = this.game.add.text(
-        this.leftCharacter.x - parseInt(this.phaserJSON.CallOutLeftX),
-        this.leftCharacter.y - parseInt(this.phaserJSON.CallOutLeftY),
-        text,
-        {
-          font: '30px Berkshire Swash',
-          fill: '#000',
-          align: 'center',
-          wordWrap: true,
-          wordWrapWidth: 300
-        }
-      )
-      label.anchor.setTo(0.5)
+      this.leftCharacterSpeak(text)
 
       if (submitResult) {
         // Hack to move left character back to the right place
@@ -736,16 +681,55 @@ export default class extends Phaser.State {
           this.textBox.visible = true
           this.repeatButton.visible = true
           this.hintButton.visible = true
-          label.kill()
         })
       }
     })
   }
 
-  repeatPrompt () {
+  leftCharacterSpeak (text) {
+    // If the left character is already talking then stop them
+    if (this.isLeftCharacterSpeaking()) {
+      this.leftCharacterStopSpeaking()
+    }
+
+    this.leftCharacter.setAnimationSpeedPercent(100)
+    this.leftCharacter.playAnimationByName('_SAY')
+    this.textToSpeach(text, this.leftCharacterVoice, this.phaserJSON.LeftPitch)
+    this.leftCharacterLabel = this.game.add.text(
+      this.leftCharacter.x - parseInt(this.phaserJSON.CallOutLeftX),
+      this.leftCharacter.y - parseInt(this.phaserJSON.CallOutLeftY),
+      text,
+      {
+        font: '30px Berkshire Swash',
+        fill: '#000',
+        align: 'center',
+        wordWrap: true,
+        wordWrapWidth: 300
+      }
+    )
+    this.leftCharacterLabel.anchor.setTo(0.5)
+    this.leftCharacterSpeechTimer = this.time.events.add(5000, () => {
+      this.leftCharacter.playAnimationByName('_IDLE')
+      this.leftCharacterLabel.kill()
+      this.leftCharacterLabel = null
+    })
+  }
+
+  leftCharacterStopSpeaking () {
+    this.leftCharacterLabel.kill()
+    this.time.events.remove(this.leftCharacterSpeechTimer)
+    this.leftCharacter.playAnimationByName('_IDLE')
+  }
+
+  isLeftCharacterSpeaking () {
+    if (this.leftCharacterLabel) {
+      return true
+    }
+  }
+
+  repeatQuestion () {
     this.leftCharacterSpeak(
-      this.stateMachine.getQuestion(),
-      this.stateMachine.submitSolutionResult
+      this.stateMachine.getQuestion()
     )
   }
 
