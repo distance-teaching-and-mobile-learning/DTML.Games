@@ -6,11 +6,11 @@ Conversation simulation games builder.
 
 To test the game use:
 
-```npm run dev game:[name of game folder]```
+```npm run dev -- -- define game:[name of game folder]```
 
 For example if you wanted to test the restaurant module you'd type:
 
-```npm run dev game:restaurant```
+```npm run dev -- -- define game:restaurant```
 
 To build the game use:
 
