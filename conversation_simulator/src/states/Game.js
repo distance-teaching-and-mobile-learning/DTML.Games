@@ -93,7 +93,7 @@ export default class extends Phaser.State {
         enterSpriteButton.inputEnabled = true
         enterSpriteButton.input.priorityID = 0
         enterSpriteButton.input.useHandCursor = true
-        enterSpriteButton.events.onInputDown.add(this.rightCharacterSpeak, this)
+        enterSpriteButton.events.onInputDown.add(this.submitSolution, this)
         this.enterButton = enterSpriteButton
         this.enterButton.visible = false
         this.textBox.visible = false
@@ -162,7 +162,6 @@ export default class extends Phaser.State {
         this.game.input.keyboard.justPressed(Phaser.KeyCode.UP) ||
         this.game.input.keyboard.justPressed(Phaser.KeyCode.SPACEBAR)
       ) {
-        // rightCharacterSpeak(this.listView.items[this.selection].text);
         this.addCharToNode(this.listView.items[this.selection])
       }
 
@@ -170,13 +169,12 @@ export default class extends Phaser.State {
         this.game.input.keyboard.justPressed(Phaser.KeyCode.DOWN) ||
         this.game.input.keyboard.justPressed(Phaser.KeyCode.BACKSPACE)
       ) {
-        // rightCharacterSpeak(this.listView.items[this.selection].text);
         this.deleteBox()
       }
 
       if (this.game.input.keyboard.justPressed(Phaser.KeyCode.ENTER)) {
         if (this.enterButton.visible === true) {
-          this.rightCharacterSpeak()
+          this.submitSolution()
         }
       }
     }
@@ -216,7 +214,7 @@ export default class extends Phaser.State {
     })
 
     var enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER)
-    enterKey.onDown.add(this.rightCharacterSpeak, this)
+    enterKey.onDown.add(this.submitSolution, this)
 
     this.spritesGroup = this.add.group()
     this.leftCharacter = this.loadSpriter('leftCharacter')
@@ -349,33 +347,13 @@ export default class extends Phaser.State {
     this.leftCharacterSpeak(this.stateMachine.getQuestion(), true)
   }
 
-  rightCharacterSpeak () {
+  submitSolution () {
     this.lastState = this.stateMachine.currentStateName
-    this.leftnya = ''
-    this.rightnya = ''
-    this.bgnya = ''
-    this.leftdonya = ''
-    this.rightdonya = ''
-
-    if (this.stateMachine.getOnExitLeft() !== null) {
-      this.leftnya = this.stateMachine.getOnExitLeft()
-    }
-
-    if (this.stateMachine.getOnExitRight() !== null) {
-      this.rightnya = this.stateMachine.getOnExitRight()
-    }
-
-    if (this.stateMachine.getOnExitBg() !== null) {
-      this.bgnya = this.stateMachine.getOnExitBg()
-    }
-
-    if (this.stateMachine.getOnExitLeftDo() !== null) {
-      this.leftdonya = this.stateMachine.getOnExitLeftDo()
-    }
-
-    if (this.stateMachine.getOnExitRightDo() !== null) {
-      this.rightdonya = this.stateMachine.getOnExitRightDo()
-    }
+    this.leftnya = this.stateMachine.getOnExitLeft() || ''
+    this.rightnya = this.stateMachine.getOnExitRight() || ''
+    this.bgnya = this.stateMachine.getOnExitBg() || ''
+    this.leftdonya = this.stateMachine.getOnExitLeftDo() || ''
+    this.rightdonya = this.stateMachine.getOnExitRightDo() || ''
 
     if (this.textBox.value.length > 0) {
       this.deleteButton.visible = false
@@ -390,25 +368,9 @@ export default class extends Phaser.State {
       var text = this.textBox.value
       this.textBox.setText('')
 
-      this.rightCharacter.setAnimationSpeedPercent(100)
-      this.rightCharacter.playAnimationByName('_SAY')
-      this.textToSpeach(text, this.rightCharacterVoice, this.phaserJSON.RightPitch)
-      let label = this.game.add.text(
-        this.rightCharacter.x + parseInt(this.phaserJSON.CallOutRightX),
-        this.rightCharacter.y - parseInt(this.phaserJSON.CallOutRightY),
-        text,
-        {
-          font: '30px Berkshire Swash',
-          fill: '#000',
-          align: 'center',
-          wordWrap: true,
-          wordWrapWidth: 300
-        }
-      )
+      this.rightCharacterSpeak(text)
 
       this.stateMachine.submitSolution(text)
-
-      label.anchor.setTo(0.5)
 
       this.time.events.add(2500, () => {
         this.timernya = 0
@@ -511,7 +473,6 @@ export default class extends Phaser.State {
 
         this.rightCharacter.setAnimationSpeedPercent(100)
         this.rightCharacter.playAnimationByName('_IDLE')
-        label.kill()
 
         // Once the player has said something, the left character should respond
         if (this.stateMachine.currentStateName !== 'End') {
@@ -528,6 +489,28 @@ export default class extends Phaser.State {
         }
       })
     }
+  }
+
+  rightCharacterSpeak (text) {
+    this.rightCharacter.setAnimationSpeedPercent(100)
+    this.rightCharacter.playAnimationByName('_SAY')
+    this.textToSpeach(text, this.rightCharacterVoice, this.phaserJSON.RightPitch)
+    let label = this.game.add.text(
+      this.rightCharacter.x + parseInt(this.phaserJSON.CallOutRightX),
+      this.rightCharacter.y - parseInt(this.phaserJSON.CallOutRightY),
+      text,
+      {
+        font: '30px Berkshire Swash',
+        fill: '#000',
+        align: 'center',
+        wordWrap: true,
+        wordWrapWidth: 300
+      }
+    )
+    label.anchor.setTo(0.5)
+    this.time.events.add(2500, function () {
+      label.kill()
+    })
   }
 
   deleteBox () {
