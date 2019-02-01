@@ -72,8 +72,10 @@ export default class extends Phaser.State {
         disabled: true
       }
     )
-    this.enter = null
-    this.exit = null
+    this.enterButton = null
+    this.deleteButton = null
+    this.repeatButton = null
+    this.hintButton = null
     this.textBox.scale.set(0, 1 * game.scaleRatio)
     this.textBox.disabled = true
     this.textBox.visible = false
@@ -82,6 +84,7 @@ export default class extends Phaser.State {
       .tween(this.textBox.scale)
       .to({ x: 1 * game.scaleRatio }, 500, Phaser.Easing.Cubic.Out, true, 2500)
       .onComplete.add(() => {
+        // Submit answer button
         let enterSpriteButton = game.add.sprite(0, 0, 'iconAttack')
         enterSpriteButton.anchor.set(0.5)
         enterSpriteButton.x =
@@ -91,9 +94,10 @@ export default class extends Phaser.State {
         enterSpriteButton.input.priorityID = 0
         enterSpriteButton.input.useHandCursor = true
         enterSpriteButton.events.onInputDown.add(this.rightCharacterSpeak, this)
-        this.enter = enterSpriteButton
-        this.enter.visible = false
+        this.enterButton = enterSpriteButton
+        this.enterButton.visible = false
         this.textBox.visible = false
+        // Clear text box button
         let deleteSpriteButton = game.add.sprite(0, 0, 'iconDelete')
         deleteSpriteButton.anchor.set(0.5)
         deleteSpriteButton.x =
@@ -106,8 +110,27 @@ export default class extends Phaser.State {
         deleteSpriteButton.input.priorityID = 0
         deleteSpriteButton.input.useHandCursor = true
         deleteSpriteButton.events.onInputDown.add(this.deleteBox, this)
-        this.exit = deleteSpriteButton
-        this.exit.visible = false
+        this.deleteButton = deleteSpriteButton
+        this.deleteButton.visible = false
+        // Repeat prompt button
+        let repeatButton = game.add.sprite(0, 0, 'iconRepeat')
+        repeatButton.x = game.stage.width - repeatButton.width - 10
+        repeatButton.y = game.stage.height - repeatButton.height - 150
+        repeatButton.inputEnabled = true
+        repeatButton.input.priorityID = 0
+        repeatButton.input.useHandCursor = true
+        repeatButton.events.onInputDown.add(this.repeatPrompt, this)
+        this.repeatButton = repeatButton
+        this.repeatButton.visible = false
+        // Hint button
+        let hintButton = game.add.sprite(0, 0, 'iconHint')
+        hintButton.x = repeatButton.x - hintButton.width - 20
+        hintButton.y = repeatButton.y
+        hintButton.inputEnabled = true
+        hintButton.input.useHandCursor = true
+        hintButton.events.onInputDown.add(this.showHint, this)
+        this.hintButton = hintButton
+        this.hintButton.visible = false
       })
   }
 
@@ -152,7 +175,7 @@ export default class extends Phaser.State {
       }
 
       if (this.game.input.keyboard.justPressed(Phaser.KeyCode.ENTER)) {
-        if (this.enter.visible === true) {
+        if (this.enterButton.visible === true) {
           this.rightCharacterSpeak()
         }
       }
@@ -355,9 +378,11 @@ export default class extends Phaser.State {
     }
 
     if (this.textBox.value.length > 0) {
-      this.exit.visible = false
-      this.enter.visible = false
+      this.deleteButton.visible = false
+      this.enterButton.visible = false
       this.textBox.visible = false
+      this.repeatButton.visible = false
+      this.hintButton.visible = false
 
       this.onSelection = false
       this.destroySideMenu()
@@ -723,13 +748,25 @@ export default class extends Phaser.State {
           this.leftCharacter.setAnimationSpeedPercent(100)
           this.leftCharacter.playAnimationByName('_IDLE')
           this.createSideMenu()
-          this.exit.visible = true
-          this.enter.visible = true
+          this.deleteButton.visible = true
+          this.enterButton.visible = true
           this.textBox.visible = true
+          this.repeatButton.visible = true
+          this.hintButton.visible = true
           label.kill()
         })
       }
     })
+  }
+
+  repeatPrompt () {
+    this.leftCharacterSpeak(
+      this.stateMachine.getQuestion(),
+      this.stateMachine.submitSolutionResult
+    )
+  }
+
+  showHint () {
   }
 
   showMenu () {
@@ -812,7 +849,7 @@ export default class extends Phaser.State {
       rect = new Phaser.Rectangle(item.x, item.y, item.width, item.height)
       character.alignIn(rect, Phaser.CENTER)
       item.frame = 0
-      
+
       parentGroup.addChild(item)
       parentGroup.addChild(character)
 
