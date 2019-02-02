@@ -51,6 +51,8 @@ export default class extends Phaser.State {
     this.music = music
     this.steps = game.add.audio('steps')
 
+    this.hintUsed = false
+
     this.createSprites()
     let inputW = 650
     let inputH = 50
@@ -373,7 +375,7 @@ export default class extends Phaser.State {
       }
       this.rightCharacterSpeak(text)
 
-      this.stateMachine.submitSolution(text)
+      this.stateMachine.submitSolution(text, this.hintUsed)
 
       this.time.events.add(2500, () => {
         this.timernya = 0
@@ -734,6 +736,29 @@ export default class extends Phaser.State {
   }
 
   showHint () {
+    // Get the shortest possible solution with a positive score
+    let shortestSolution = null
+    for (var key in this.stateMachine.currentState.Solutions) {
+      if (this.stateMachine.currentState.Solutions[key].Score > 0) {
+        if (!shortestSolution || key.split(' ').length < shortestSolution.split(' ').length) {
+          shortestSolution = key
+        }
+      }
+    }
+
+    // Remove words that aren't in the shortest solution
+    for (let i = this.listView.items.length - 1; i >= 0; i--) {
+      let parentGroup = this.listView.items[i]
+      for (let j = 0; j < parentGroup.length; j++) {
+        if (parentGroup.getChildAt(j).text && !shortestSolution.split(' ').includes(parentGroup.getChildAt(j).text.toLowerCase())) {
+          this.listView.remove(parentGroup)
+          parentGroup.destroy(true)
+        }
+      }
+    }
+
+    // Flag that we used a hint so we get no score
+    this.hintUsed = true
   }
 
   showMenu () {
@@ -765,6 +790,7 @@ export default class extends Phaser.State {
 
   createSideMenu () {
     this.onSelection = true
+    this.hintUsed = false
 
     this.sidemenu = this.game.add.sprite(
       this.game.width,
