@@ -65,6 +65,8 @@ export default class extends Phaser.State {
     this.load.image('iconPlay', 'assets/images/res/button-start.png')
     this.load.image('scoreBar', 'assets/images/res/score-board.png')
     this.load.image('iconDelete', 'assets/images/res/icon-back.png')
+    this.load.image('iconRepeat', 'assets/images/res/icon-repeat.png')
+    this.load.image('iconHint', 'assets/images/res/icon-hint.png')
 
     // bg
 

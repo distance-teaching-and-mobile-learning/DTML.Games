@@ -127,7 +127,7 @@ export default class {
     )
   }
 
-  submitSolution (solutionPhrase) {
+  submitSolution (solutionPhrase, hintUsed) {
     var normalizedPhrase = solutionPhrase.toLowerCase().trim()
 
     // Select solution, or default
@@ -145,7 +145,9 @@ export default class {
           this.stateData.States[solution.Next]
         )
         this.submitSolutionResult = true
-        this.score += result
+        if (result > 0 && !hintUsed) {
+          this.score += result
+        }
         if (this.isNumber(solution.scoreadjustment)) {
           this.score += solution.scoreadjustment
         }

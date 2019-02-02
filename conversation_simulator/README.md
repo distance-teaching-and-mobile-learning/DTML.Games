@@ -1,6 +1,6 @@
-Conversation simulation games builder. 
-
-
+# Phaser + ES6 + Webpack.
+#### A bootstrap project to create games with Phaser + ES6 + Webpack.
+Conversation simulation games builder.
 
 # Building and Testing
 

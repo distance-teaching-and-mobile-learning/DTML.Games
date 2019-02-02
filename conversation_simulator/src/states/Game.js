@@ -51,6 +51,8 @@ export default class extends Phaser.State {
     this.music = music
     this.steps = game.add.audio('steps')
 
+    this.hintUsed = false
+
     this.createSprites()
     let inputW = 650
     let inputH = 50
@@ -72,8 +74,10 @@ export default class extends Phaser.State {
         disabled: true
       }
     )
-    this.enter = null
-    this.exit = null
+    this.enterButton = null
+    this.deleteButton = null
+    this.repeatButton = null
+    this.hintButton = null
     this.textBox.scale.set(0, 1 * game.scaleRatio)
     this.textBox.disabled = true
     this.textBox.visible = false
@@ -82,6 +86,7 @@ export default class extends Phaser.State {
       .tween(this.textBox.scale)
       .to({ x: 1 * game.scaleRatio }, 500, Phaser.Easing.Cubic.Out, true, 2500)
       .onComplete.add(() => {
+        // Submit answer button
         let enterSpriteButton = game.add.sprite(0, 0, 'iconAttack')
         enterSpriteButton.anchor.set(0.5)
         enterSpriteButton.x =
@@ -90,10 +95,11 @@ export default class extends Phaser.State {
         enterSpriteButton.inputEnabled = true
         enterSpriteButton.input.priorityID = 0
         enterSpriteButton.input.useHandCursor = true
-        enterSpriteButton.events.onInputDown.add(this.rightCharacterSpeak, this)
-        this.enter = enterSpriteButton
-        this.enter.visible = false
+        enterSpriteButton.events.onInputDown.add(this.submitSolution, this)
+        this.enterButton = enterSpriteButton
+        this.enterButton.visible = false
         this.textBox.visible = false
+        // Clear text box button
         let deleteSpriteButton = game.add.sprite(0, 0, 'iconDelete')
         deleteSpriteButton.anchor.set(0.5)
         deleteSpriteButton.x =
@@ -106,8 +112,27 @@ export default class extends Phaser.State {
         deleteSpriteButton.input.priorityID = 0
         deleteSpriteButton.input.useHandCursor = true
         deleteSpriteButton.events.onInputDown.add(this.deleteBox, this)
-        this.exit = deleteSpriteButton
-        this.exit.visible = false
+        this.deleteButton = deleteSpriteButton
+        this.deleteButton.visible = false
+        // Repeat prompt button
+        let repeatButton = game.add.sprite(0, 0, 'iconRepeat')
+        repeatButton.x = game.stage.width - repeatButton.width - 10
+        repeatButton.y = game.stage.height - repeatButton.height - 150
+        repeatButton.inputEnabled = true
+        repeatButton.input.priorityID = 0
+        repeatButton.input.useHandCursor = true
+        repeatButton.events.onInputDown.add(this.repeatQuestion, this)
+        this.repeatButton = repeatButton
+        this.repeatButton.visible = false
+        // Hint button
+        let hintButton = game.add.sprite(0, 0, 'iconHint')
+        hintButton.x = repeatButton.x - hintButton.width - 20
+        hintButton.y = repeatButton.y
+        hintButton.inputEnabled = true
+        hintButton.input.useHandCursor = true
+        hintButton.events.onInputDown.add(this.showHint, this)
+        this.hintButton = hintButton
+        this.hintButton.visible = false
       })
   }
 
@@ -139,7 +164,6 @@ export default class extends Phaser.State {
         this.game.input.keyboard.justPressed(Phaser.KeyCode.UP) ||
         this.game.input.keyboard.justPressed(Phaser.KeyCode.SPACEBAR)
       ) {
-        // rightCharacterSpeak(this.listView.items[this.selection].text);
         this.addCharToNode(this.listView.items[this.selection])
       }
 
@@ -147,13 +171,12 @@ export default class extends Phaser.State {
         this.game.input.keyboard.justPressed(Phaser.KeyCode.DOWN) ||
         this.game.input.keyboard.justPressed(Phaser.KeyCode.BACKSPACE)
       ) {
-        // rightCharacterSpeak(this.listView.items[this.selection].text);
         this.deleteBox()
       }
 
       if (this.game.input.keyboard.justPressed(Phaser.KeyCode.ENTER)) {
-        if (this.enter.visible === true) {
-          this.rightCharacterSpeak()
+        if (this.enterButton.visible === true) {
+          this.submitSolution()
         }
       }
     }
@@ -193,7 +216,7 @@ export default class extends Phaser.State {
     })
 
     var enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER)
-    enterKey.onDown.add(this.rightCharacterSpeak, this)
+    enterKey.onDown.add(this.submitSolution, this)
 
     this.spritesGroup = this.add.group()
     this.leftCharacter = this.loadSpriter('leftCharacter')
@@ -323,41 +346,23 @@ export default class extends Phaser.State {
   }
 
   ConversationStart () {
-    this.leftCharacterSpeak(this.stateMachine.getQuestion(), true)
+    this.nextQuestion(this.stateMachine.getQuestion(), true)
   }
 
-  rightCharacterSpeak () {
+  submitSolution () {
     this.lastState = this.stateMachine.currentStateName
-    this.leftnya = ''
-    this.rightnya = ''
-    this.bgnya = ''
-    this.leftdonya = ''
-    this.rightdonya = ''
-
-    if (this.stateMachine.getOnExitLeft() !== null) {
-      this.leftnya = this.stateMachine.getOnExitLeft()
-    }
-
-    if (this.stateMachine.getOnExitRight() !== null) {
-      this.rightnya = this.stateMachine.getOnExitRight()
-    }
-
-    if (this.stateMachine.getOnExitBg() !== null) {
-      this.bgnya = this.stateMachine.getOnExitBg()
-    }
-
-    if (this.stateMachine.getOnExitLeftDo() !== null) {
-      this.leftdonya = this.stateMachine.getOnExitLeftDo()
-    }
-
-    if (this.stateMachine.getOnExitRightDo() !== null) {
-      this.rightdonya = this.stateMachine.getOnExitRightDo()
-    }
+    this.leftnya = this.stateMachine.getOnExitLeft() || ''
+    this.rightnya = this.stateMachine.getOnExitRight() || ''
+    this.bgnya = this.stateMachine.getOnExitBg() || ''
+    this.leftdonya = this.stateMachine.getOnExitLeftDo() || ''
+    this.rightdonya = this.stateMachine.getOnExitRightDo() || ''
 
     if (this.textBox.value.length > 0) {
-      this.exit.visible = false
-      this.enter.visible = false
+      this.deleteButton.visible = false
+      this.enterButton.visible = false
       this.textBox.visible = false
+      this.repeatButton.visible = false
+      this.hintButton.visible = false
 
       this.onSelection = false
       this.destroySideMenu()
@@ -365,25 +370,12 @@ export default class extends Phaser.State {
       var text = this.textBox.value
       this.textBox.setText('')
 
-      this.rightCharacter.setAnimationSpeedPercent(100)
-      this.rightCharacter.playAnimationByName('_SAY')
-      this.textToSpeach(text, this.rightCharacterVoice, this.phaserJSON.RightPitch)
-      let label = this.game.add.text(
-        this.rightCharacter.x + parseInt(this.phaserJSON.CallOutRightX),
-        this.rightCharacter.y - parseInt(this.phaserJSON.CallOutRightY),
-        text,
-        {
-          font: '30px Berkshire Swash',
-          fill: '#000',
-          align: 'center',
-          wordWrap: true,
-          wordWrapWidth: 300
-        }
-      )
+      if (this.isLeftCharacterSpeaking()) {
+        this.leftCharacterStopSpeaking()
+      }
+      this.rightCharacterSpeak(text)
 
-      this.stateMachine.submitSolution(text)
-
-      label.anchor.setTo(0.5)
+      this.stateMachine.submitSolution(text, this.hintUsed)
 
       this.time.events.add(2500, () => {
         this.timernya = 0
@@ -486,14 +478,13 @@ export default class extends Phaser.State {
 
         this.rightCharacter.setAnimationSpeedPercent(100)
         this.rightCharacter.playAnimationByName('_IDLE')
-        label.kill()
 
         // Once the player has said something, the left character should respond
         if (this.stateMachine.currentStateName !== 'End') {
           this.time.events.add(this.timernya, () => {
             this.cekEnter = 0
 
-            this.leftCharacterSpeak(
+            this.nextQuestion(
               this.stateMachine.getQuestion(),
               this.stateMachine.submitSolutionResult
             )
@@ -505,17 +496,36 @@ export default class extends Phaser.State {
     }
   }
 
+  rightCharacterSpeak (text) {
+    this.rightCharacter.setAnimationSpeedPercent(100)
+    this.rightCharacter.playAnimationByName('_SAY')
+    this.textToSpeach(text, this.rightCharacterVoice, this.phaserJSON.RightPitch)
+    let label = this.game.add.text(
+      this.rightCharacter.x + parseInt(this.phaserJSON.CallOutRightX),
+      this.rightCharacter.y - parseInt(this.phaserJSON.CallOutRightY),
+      text,
+      {
+        font: '30px Berkshire Swash',
+        fill: '#000',
+        align: 'center',
+        wordWrap: true,
+        wordWrapWidth: 300
+      }
+    )
+    label.anchor.setTo(0.5)
+    this.time.events.add(2500, function () {
+      label.kill()
+    })
+  }
+
   deleteBox () {
     this.textBox.setText('')
   }
 
-  leftCharacterSpeak (text, submitResult) {
+  nextQuestion (text, submitResult) {
     if (text === '') {
       this.state.start('GameOver', true, false, this.scoreText.text)
     }
-
-    this.leftCharacter.setAnimationSpeedPercent(100)
-    this.leftCharacter.playAnimationByName('_SAY')
 
     if (!submitResult) {
       this.cekEnter = 1
@@ -527,63 +537,23 @@ export default class extends Phaser.State {
         return
       }
       var submitFailureText = "I'm sorry, I didn't understand you..."
-      this.textToSpeach(
-        submitFailureText,
-        this.leftCharacterVoice,
-        this.phaserJSON.LeftPitch
-      )
-
-      let label2 = this.game.add.text(
-        this.leftCharacter.x - parseInt(this.phaserJSON.CallOutLeftX),
-        this.leftCharacter.y - parseInt(this.phaserJSON.CallOutLeftY),
-        submitFailureText,
-        {
-          font: '30px Berkshire Swash',
-          fill: '#000',
-          align: 'center',
-          wordWrap: true,
-          wordWrapWidth: 300
-        }
-      )
-      label2.anchor.setTo(0.5)
-
-      this.time.events.add(4000, () => {
+      this.leftCharacterSpeak(submitFailureText)
+      this.time.events.add(5000, () => {
         this.rightCharacter.setAnimationSpeedPercent(100)
         this.rightCharacter.playAnimationByName('_IDLE')
-        label2.kill()
 
-        this.leftCharacterSpeak(this.stateMachine.getQuestion(), true)
+        this.nextQuestion(this.stateMachine.getQuestion(), true)
       })
       return
     }
 
     this.timernya = 0
     if (this.cekEnter === 0) {
-      this.leftnya = ''
-      this.rightnya = ''
-      this.bgnya = ''
-      this.leftdonya = ''
-      this.rightdonya = ''
-
-      if (this.stateMachine.getOnEnterLeft() !== null) {
-        this.leftnya = this.stateMachine.getOnEnterLeft()
-      }
-
-      if (this.stateMachine.getOnEnterRight() !== null) {
-        this.rightnya = this.stateMachine.getOnEnterRight()
-      }
-
-      if (this.stateMachine.getOnEnterBg() !== null) {
-        this.bgnya = this.stateMachine.getOnEnterBg()
-      }
-
-      if (this.stateMachine.getOnEnterLeftDo() !== null) {
-        this.leftdonya = this.stateMachine.getOnEnterLeftDo()
-      }
-
-      if (this.stateMachine.getOnEnterRightDo() !== null) {
-        this.rightdonya = this.stateMachine.getOnEnterRightDo()
-      }
+      this.leftnya = this.stateMachine.getOnEnterLeft() || ''
+      this.rightnya = this.stateMachine.getOnEnterRight() || ''
+      this.bgnya = this.stateMachine.getOnEnterBg() || ''
+      this.leftdonya = this.stateMachine.getOnEnterLeftDo() || ''
+      this.rightdonya = this.stateMachine.getOnEnterRightDo() || ''
 
       if (this.leftdonya !== '') {
         if (this.leftdonya === 'in') {
@@ -700,22 +670,7 @@ export default class extends Phaser.State {
     }
 
     this.time.events.add(this.timernya, () => {
-      this.leftCharacter.playAnimationByName('_SAY')
-      this.textToSpeach(text, this.leftCharacterVoice, this.phaserJSON.LeftPitch)
-
-      let label = this.game.add.text(
-        this.leftCharacter.x - parseInt(this.phaserJSON.CallOutLeftX),
-        this.leftCharacter.y - parseInt(this.phaserJSON.CallOutLeftY),
-        text,
-        {
-          font: '30px Berkshire Swash',
-          fill: '#000',
-          align: 'center',
-          wordWrap: true,
-          wordWrapWidth: 300
-        }
-      )
-      label.anchor.setTo(0.5)
+      this.leftCharacterSpeak(text)
 
       if (submitResult) {
         // Hack to move left character back to the right place
@@ -723,13 +678,87 @@ export default class extends Phaser.State {
           this.leftCharacter.setAnimationSpeedPercent(100)
           this.leftCharacter.playAnimationByName('_IDLE')
           this.createSideMenu()
-          this.exit.visible = true
-          this.enter.visible = true
+          this.deleteButton.visible = true
+          this.enterButton.visible = true
           this.textBox.visible = true
-          label.kill()
+          this.repeatButton.visible = true
+          this.hintButton.visible = true
         })
       }
     })
+  }
+
+  leftCharacterSpeak (text) {
+    // If the left character is already talking then stop them
+    if (this.isLeftCharacterSpeaking()) {
+      this.leftCharacterStopSpeaking()
+    }
+
+    this.leftCharacter.setAnimationSpeedPercent(100)
+    this.leftCharacter.playAnimationByName('_SAY')
+    this.textToSpeach(text, this.leftCharacterVoice, this.phaserJSON.LeftPitch)
+    this.leftCharacterLabel = this.game.add.text(
+      this.leftCharacter.x - parseInt(this.phaserJSON.CallOutLeftX),
+      this.leftCharacter.y - parseInt(this.phaserJSON.CallOutLeftY),
+      text,
+      {
+        font: '30px Berkshire Swash',
+        fill: '#000',
+        align: 'center',
+        wordWrap: true,
+        wordWrapWidth: 300
+      }
+    )
+    this.leftCharacterLabel.anchor.setTo(0.5)
+    this.leftCharacterSpeechTimer = this.time.events.add(5000, () => {
+      this.leftCharacter.playAnimationByName('_IDLE')
+      this.leftCharacterLabel.kill()
+      this.leftCharacterLabel = null
+    })
+  }
+
+  leftCharacterStopSpeaking () {
+    this.leftCharacterLabel.kill()
+    this.time.events.remove(this.leftCharacterSpeechTimer)
+    this.leftCharacter.playAnimationByName('_IDLE')
+  }
+
+  isLeftCharacterSpeaking () {
+    if (this.leftCharacterLabel) {
+      return true
+    }
+  }
+
+  repeatQuestion () {
+    this.leftCharacterSpeak(
+      this.stateMachine.getQuestion()
+    )
+  }
+
+  showHint () {
+    // Get the shortest possible solution with a positive score
+    let shortestSolution = null
+    for (var key in this.stateMachine.currentState.Solutions) {
+      if (this.stateMachine.currentState.Solutions[key].Score > 0) {
+        if (!shortestSolution || key.split(' ').length < shortestSolution.split(' ').length) {
+          shortestSolution = key
+        }
+      }
+    }
+
+    // Remove words that aren't in the shortest solution
+    for (let i = this.listView.items.length - 1; i >= 0; i--) {
+      let parentGroup = this.listView.items[i]
+      for (let j = 0; j < parentGroup.length; j++) {
+        if (parentGroup.getChildAt(j).text && !shortestSolution.split(' ').includes(parentGroup.getChildAt(j).text.toLowerCase())) {
+          this.listView.remove(parentGroup)
+          parentGroup.destroy(true)
+        }
+      }
+    }
+
+    // Flag that we used a hint so we get no score
+    this.hintUsed = true
   }
 
   showMenu () {
@@ -761,6 +790,7 @@ export default class extends Phaser.State {
 
   createSideMenu () {
     this.onSelection = true
+    this.hintUsed = false
 
     this.sidemenu = this.game.add.sprite(
       this.game.width,
@@ -799,17 +829,22 @@ export default class extends Phaser.State {
 
     this.stateMachine.getAnswerWords().forEach(word => {
       this.ansLength += 1
+
+      // We make a parent group so we can scale the sprite without affecting the text
+      var parentGroup = this.game.add.group()
+
       var item = this.game.add.sprite(0, 0, 'sidebg')
-      // item.scale.set(0.8 * game.scaleRatio);
       item.text = word
 
-      var character = this.game.add.text(0, 0, word, i++) // sprite(0, 0, 'characters',i);
-
-      character.scale.set((2.05 - word.length * 0.17) * game.scaleRatio)
+      var character = this.game.add.text(0, 0, word)
+      var scaledWidth = Math.max(character.width + 50, item.width)
+      item.width = scaledWidth
       rect = new Phaser.Rectangle(item.x, item.y, item.width, item.height)
-      character.alignIn(rect, Phaser.CENTER, 0, 0)
+      character.alignIn(rect, Phaser.CENTER)
       item.frame = 0
-      item.addChild(character)
+
+      parentGroup.addChild(item)
+      parentGroup.addChild(character)
 
       character.inputEnabled = true
       character.input.priorityID = 0
@@ -819,7 +854,7 @@ export default class extends Phaser.State {
       item.input.priorityID = 0
       item.input.useHandCursor = true
       item.events.onInputDown.add(this.addCharToNode, this)
-      this.listView.add(item)
+      this.listView.add(parentGroup)
     })
 
     this.listView.items[this.selection].frame = 1
