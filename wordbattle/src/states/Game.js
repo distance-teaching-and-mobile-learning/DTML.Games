@@ -477,7 +477,7 @@ export default class extends Phaser.State {
     showScore() {
         let scoreDisplay = this.game.add.sprite(this.game.world.centerX * 1.3, this.game.world.centerY, 'scroll');
         scoreDisplay.anchor.setTo(0.5);
-        scoreDisplay.scale.setTo(0.2);
+        scoreDisplay.scale.setTo(0.5);
         this.spritesGroup.add(scoreDisplay);
 
         let label = this.game.add.text(scoreDisplay.x, scoreDisplay.y - (scoreDisplay.height * 0.18), 'Final Score', {
@@ -515,7 +515,7 @@ export default class extends Phaser.State {
         this.scoreWiz.setAnimationSpeedPercent(40);
         this.scoreWiz.playAnimationByName('_IDLE');
         this.spritesGroup.add(this.scoreWiz);
-        this.spritesGroup.bringToTop(this.scoreWiz);
+        this.spritesGroup.bringToTop(scoreDisplay);
 
         this.gameOver()
     }
