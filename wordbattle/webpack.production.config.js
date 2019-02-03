@@ -63,10 +63,16 @@ module.exports = {
       { test: /p2\.js/, use: ['expose-loader?p2'] }
     ]
   },
-optimization: {
-       namedModules: true, 
-       runtimeChunk: true,
-       concatenateModules: true
+  optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendor',
+                    chunks: 'all'
+                }
+            }
+        }
     },
 
   node: {

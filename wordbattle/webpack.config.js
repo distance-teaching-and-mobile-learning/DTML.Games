@@ -32,9 +32,9 @@ module.exports = {
   },
   watch: true,
 optimization: {
-       namedModules: true, 
-       runtimeChunk: true,
-       concatenateModules: true
+       namedModules: false,
+       runtimeChunk: false,
+       concatenateModules: false
     },
   plugins: [
     definePlugin,
