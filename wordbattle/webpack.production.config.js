@@ -39,7 +39,6 @@ module.exports = {
         comments: false
       }
     }),
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' /* chunkName= */ , filename: 'js/vendor.bundle.js' /* filename= */ }),
     new HtmlWebpackPlugin({
       filename: 'index.html', // path.resolve(__dirname, 'build', 'index.html'),
       template: './src/index.html',
@@ -69,6 +68,12 @@ module.exports = {
       { test: /p2\.js/, use: ['expose-loader?p2'] }
     ]
   },
+optimization: {
+       namedModules: true, 
+       runtimeChunk: true,
+       concatenateModules: true
+    },
+
   node: {
     fs: 'empty',
     net: 'empty',
