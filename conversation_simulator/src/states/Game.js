@@ -739,7 +739,8 @@ export default class extends Phaser.State {
     // Get the shortest possible solution with a positive score
     let shortestSolution = null
     for (var key in this.stateMachine.currentState.Solutions) {
-      if (this.stateMachine.currentState.Solutions[key].Score > 0) {
+      let score = this.stateMachine.currentState.Solutions[key].Score
+      if (!score || score > 0) {
         if (!shortestSolution || key.split(' ').length < shortestSolution.split(' ').length) {
           shortestSolution = key
         }
