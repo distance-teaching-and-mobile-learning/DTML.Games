@@ -740,26 +740,28 @@ export default class extends Phaser.State {
     let shortestSolution = null
     for (var key in this.stateMachine.currentState.Solutions) {
       let score = this.stateMachine.currentState.Solutions[key].Score
-      if (!score || score > 0) {
+      if (score > 0) {
         if (!shortestSolution || key.split(' ').length < shortestSolution.split(' ').length) {
           shortestSolution = key
         }
       }
     }
 
-    // Remove words that aren't in the shortest solution
-    for (let i = this.listView.items.length - 1; i >= 0; i--) {
-      let parentGroup = this.listView.items[i]
-      for (let j = 0; j < parentGroup.length; j++) {
-        if (parentGroup.getChildAt(j).text && !shortestSolution.split(' ').includes(parentGroup.getChildAt(j).text.toLowerCase())) {
-          this.listView.remove(parentGroup)
-          parentGroup.destroy(true)
+    if (shortestSolution) {
+      // Remove words that aren't in the shortest solution
+      for (let i = this.listView.items.length - 1; i >= 0; i--) {
+        let parentGroup = this.listView.items[i]
+        for (let j = 0; j < parentGroup.length; j++) {
+          if (parentGroup.getChildAt(j).text && !shortestSolution.split(' ').includes(parentGroup.getChildAt(j).text.toLowerCase())) {
+            this.listView.remove(parentGroup)
+            parentGroup.destroy(true)
+          }
         }
       }
-    }
 
-    // Flag that we used a hint so we get no score
-    this.hintUsed = true
+      // Flag that we used a hint so we get no score
+      this.hintUsed = true
+    }
   }
 
   showMenu () {
