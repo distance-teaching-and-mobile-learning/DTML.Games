@@ -326,23 +326,30 @@ export default class extends Phaser.State {
   }
 
   textToSpeach (text, voice, pitch) {
-    this.awaitVoices.then(() => {
-      var listOfVoices = window.speechSynthesis.getVoices()
-      var voices2 = listOfVoices.filter(a =>
-        a.name.toLowerCase().includes(voice.toLowerCase())
-      )[0]
-      var msg = new SpeechSynthesisUtterance()
+    if (speechSynthesis.speaking) {
+      speechSynthesis.cancel()
+      setTimeout(() => {
+        this.textToSpeach(text, voice, pitch)
+      }, 250)
+    } else {
+      this.awaitVoices.then(() => {
+        var listOfVoices = window.speechSynthesis.getVoices()
+        var voices2 = listOfVoices.filter(a =>
+          a.name.toLowerCase().includes(voice.toLowerCase())
+        )[0]
+        var msg = new SpeechSynthesisUtterance()
 
-      msg.voice = voices2
-      msg.default = false
-      msg.voiceURI = 'native'
-      msg.volume = 1
-      msg.rate = 1
-      msg.pitch = parseInt(pitch)
-      msg.text = text
-      msg.lang = 'en-US'
-      speechSynthesis.speak(msg)
-    })
+        msg.voice = voices2
+        msg.default = false
+        msg.voiceURI = 'native'
+        msg.volume = 1
+        msg.rate = 1
+        msg.pitch = parseInt(pitch)
+        msg.text = text
+        msg.lang = 'en-US'
+        speechSynthesis.speak(msg)
+      })
+    }
   }
 
   ConversationStart () {
