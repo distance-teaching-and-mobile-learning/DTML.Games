@@ -459,11 +459,11 @@
         "ha": {
           "Next": "ProgressOrder"
         },
-		 "ha funny": {
+        "ha funny": {
           "scoreadjustment": -10,
           "Next": "ProgressOrder"
         },
-		 "ha ha funny": {
+        "ha ha funny": {
           "scoreadjustment": -10,
           "Next": "ProgressOrder"
         },
@@ -617,7 +617,7 @@
     "FinishOrder": {
       "Type": "Conversation",
       "Question": "I'll be back with your food. ",
-	  "OnStateExit": { "Left": "_RUN", "Right":"_IDLE", "Background":"", "LeftDo": "out"},
+      "OnStateExit": { "Left": "_RUN", "Right":"_IDLE", "Background":"", "LeftDo": "out"},
       "AnswerWords": [
         "You",
         "Mass",
@@ -654,7 +654,7 @@
     "HereIsYourFood": {
       "Type": "Conversation",
       "Question": "Here is your food. Please enjoy.",
-	  "OnStateEnter": { "Left": "_WALK", "Right":"_IDLE", "Background":"bgx0", "LeftDo": "in" },
+      "OnStateEnter": { "Left": "_WALK", "Right":"_IDLE", "Background":"bgx0", "LeftDo": "in" },
       "AnswerWords": [
         "Great",
         "Jupitor",
