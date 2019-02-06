@@ -30,9 +30,15 @@ export default class extends Phaser.State {
     this.phaserJSON = this.cache.getJSON('gameSetup')
     window.speechSynthesis.getVoices()
 
-    this.awaitVoices = new Promise(
-      resolve => (window.speechSynthesis.onvoiceschanged = resolve)
-    )
+    this.listOfVoices = window.speechSynthesis.getVoices()
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+      window.speechSynthesis.onvoiceschanged = function () {
+        this.listOfVoices = window.speechSynthesis.getVoices()
+      }
+    }
+    // this.awaitVoices = new Promise(
+    //   resolve => (window.speechSynthesis.onvoiceschanged = resolve)
+    // )
     this.leftCharacterVoice = this.phaserJSON.LeftVoice
     this.rightCharacterVoice = this.phaserJSON.RightVoice
 
@@ -330,25 +336,22 @@ export default class extends Phaser.State {
       speechSynthesis.cancel()
       setTimeout(() => {
         this.textToSpeach(text, voice, pitch)
-      }, 250)
+      }, 500)
     } else {
-      this.awaitVoices.then(() => {
-        var listOfVoices = window.speechSynthesis.getVoices()
-        var voices2 = listOfVoices.filter(a =>
-          a.name.toLowerCase().includes(voice.toLowerCase())
-        )[0]
-        var msg = new SpeechSynthesisUtterance()
+      var voices2 = this.listOfVoices.filter(a =>
+        a.name.toLowerCase().includes(voice.toLowerCase())
+      )[0]
+      var msg = new SpeechSynthesisUtterance()
 
-        msg.voice = voices2
-        msg.default = false
-        msg.voiceURI = 'native'
-        msg.volume = 1
-        msg.rate = 1
-        msg.pitch = parseInt(pitch)
-        msg.text = text
-        msg.lang = 'en-US'
-        speechSynthesis.speak(msg)
-      })
+      msg.voice = voices2
+      msg.default = false
+      msg.voiceURI = 'native'
+      msg.volume = 1
+      msg.rate = 1
+      msg.pitch = parseInt(pitch)
+      msg.text = text
+      msg.lang = 'en-US'
+      speechSynthesis.speak(msg)
     }
   }
 
