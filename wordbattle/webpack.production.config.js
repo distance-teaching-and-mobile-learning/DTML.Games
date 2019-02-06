@@ -1,3 +1,4 @@
+process.traceDeprecation = true
 var path = require('path')
 var webpack = require('webpack')
 var CleanWebpackPlugin = require('clean-webpack-plugin')
@@ -23,23 +24,16 @@ module.exports = {
     vendor: ['pixi', 'p2', 'phaser', 'webfontloader']
 
   },
+  mode: 'production',
   output: {
     path: path.resolve(__dirname, 'build'),
     publicPath: './',
-    filename: 'js/bundle.js'
+    filename: 'js/[name].js'
   },
   plugins: [
     definePlugin,
     new CleanWebpackPlugin(['build']),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new webpack.optimize.UglifyJsPlugin({
-      drop_console: true,
-      minimize: true,
-      output: {
-        comments: false
-      }
-    }),
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' /* chunkName= */ , filename: 'js/vendor.bundle.js' /* filename= */ }),
     new HtmlWebpackPlugin({
       filename: 'index.html', // path.resolve(__dirname, 'build', 'index.html'),
       template: './src/index.html',
@@ -69,6 +63,18 @@ module.exports = {
       { test: /p2\.js/, use: ['expose-loader?p2'] }
     ]
   },
+  optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendor',
+                    chunks: 'all'
+                }
+            }
+        }
+    },
+
   node: {
     fs: 'empty',
     net: 'empty',

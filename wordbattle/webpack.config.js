@@ -1,3 +1,4 @@
+process.traceDeprecation = true
 var path = require('path')
 var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -22,16 +23,21 @@ module.exports = {
     vendor: ['pixi', 'p2', 'phaser', 'webfontloader']
   },
   devtool: 'cheap-source-map',
+  mode: 'development',
   output: {
     pathinfo: true,
     path: path.resolve(__dirname, 'dist'),
     publicPath: './dist/',
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
   watch: true,
+optimization: {
+       namedModules: false,
+       runtimeChunk: false,
+       concatenateModules: false
+    },
   plugins: [
     definePlugin,
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor'/* chunkName= */, filename: 'vendor.bundle.js'/* filename= */}),
     new HtmlWebpackPlugin({
       filename: '../index.html',
       template: './src/index.html',

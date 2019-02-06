@@ -40,7 +40,7 @@ https://nodejs.org/en/
 
 Navigate to the cloned repo's directory.
 
-Run:
+Run: 
 
 ```npm install``` 
 
@@ -48,49 +48,30 @@ or if you chose yarn, just run ```yarn```
 
 ## 4. Run the development server:
 
-Run:
+Run:```npm run dev -- -- define game:[name of game folder]```
 
-```npm run dev```
+if you wanted to run dev server with the restaurant module you'd type:
+
+```npm run dev -- -- define game:restaurant```
 
 This will run a server so you can run the game in a browser. It will also start a watch process, so you can change the source and the process will recompile and refresh the browser automatically.
 
 To run the game, open your browser and enter http://localhost:3000 into the address bar.
 
+## Execute unit tests
+Run tests use:
+
+```npm run tests``
 
 ## Build for deployment:
 
-Run:
+To build the game use:
 
-```npm run deploy```
+```npm run deploy -- --define game:[name of game folder]```
 
-This will optimize and minimize the compiled bundle.
+The extra set of hyphens is necessary. To build the store module you'd type:
 
-## Deploy for cordova:
-Make sure to uncomment the cordova.js file in the src/index.html and to update config.xml with your informations. (name/description...)
-
-More informations about the cordova configuration:
-https://cordova.apache.org/docs/en/latest/config_ref/
-
-There is 3 platforms actually tested and supported : 
-- browser
-- ios
-- android
-
-First run (ios example):
-
-```
-npm run cordova
-cordova platform add ios
-cordova run ios
-```
-
-Update (ios example):
-
-```
-npm run cordova
-cordova platform update ios
-cordova run ios
-```
+```npm run deploy -- --define game:store```
 
 This will optimize and minimize the compiled bundle.
 
