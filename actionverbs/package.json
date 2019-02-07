@@ -19,6 +19,7 @@
     "webpack-merge": "^4.1.2"
   },
   "dependencies": {
+    "npm": "^6.7.0",
     "phaser": "^3.6.0"
   }
 }
