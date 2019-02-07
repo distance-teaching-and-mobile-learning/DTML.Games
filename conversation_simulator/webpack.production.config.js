@@ -42,14 +42,6 @@ module.exports = {
     definePlugin,
     new CleanWebpackPlugin(['build']),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new webpack.optimize.UglifyJsPlugin({
-      drop_console: true,
-      minimize: true,
-      output: {
-        comments: false
-      }
-    }),
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' /* chunkName= */ , filename: 'js/vendor.bundle.js' /* filename= */ }),
     new HtmlWebpackPlugin({
       filename: 'index.html', // path.resolve(__dirname, 'build', 'index.html'),
       template: './src/index.html',
@@ -78,6 +70,17 @@ module.exports = {
       { test: /phaser-split\.js$/, use: ['expose-loader?Phaser'] },
       { test: /p2\.js/, use: ['expose-loader?p2'] }
     ]
+  },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        common: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all'
+        }
+      }
+    }
   },
   node: {
     fs: 'empty',

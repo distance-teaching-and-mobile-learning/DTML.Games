@@ -1,6 +1,24 @@
- Phaser + ES6 + Webpack.
+# Phaser + ES6 + Webpack.
 #### A bootstrap project to create games with Phaser + ES6 + Webpack.
 Conversation simulation games builder.
+
+# Building and Testing
+
+To test the game use:
+
+```npm run dev -- -- define game:[name of game folder]```
+
+For example if you wanted to test the restaurant module you'd type:
+
+```npm run dev -- -- define game:restaurant```
+
+To build the game use:
+
+```npm run deploy -- --define game:[name of game folder]```
+
+The extra set of hyphens is necessary. To build the store module you'd type:
+
+```npm run deploy -- --define game:store```
 
 # Setup
 You'll need to install a few things before you have a working copy of the project.

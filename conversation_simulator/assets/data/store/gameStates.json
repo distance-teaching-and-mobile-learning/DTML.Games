@@ -10,16 +10,16 @@
             "Hello",
             "I",
             "need",
-		      	"vegetables",
-		      	"eggs",
-		      	"buy"
+            "vegetables",
+            "eggs",
+            "buy"
          ],
          "Solutions":{  
             "hello":{  
                "Score":-5.0,
                "Next":"Assist"
             },
-			     "i need vegetables":{  
+            "i need vegetables":{  
                "Score":100.0,
                "Next":"Vegetables"
             },
@@ -31,7 +31,7 @@
                "Score":150.0,
                "Next":"Eggs"
             },
-        	"i need to buy eggs":{  
+            "i need to buy eggs":{  
                "Score":150.0,
                "Next":"Eggs"
             },
@@ -73,7 +73,7 @@
                "Score":300.0,
                "Next":"CarrotsOrdered"
             },
-            "I need carrots":{  
+            "i need carrots":{  
                "Score":300.0,
                "Next":"CarrotsOrdered"
             },
@@ -95,19 +95,19 @@
 		      	"buy"
          ],
         "Solutions":{  
-			     "i need vegetables":{  
+            "i need vegetables":{  
                "Score":100.0,
                "Next":"Vegetables"
             },
-            "i need to buy vegetables":{  
+            "i need to buy vegetables":{
                "Score":150.0,
                "Next":"Vegetables"
             },
-		     	"i need eggs":{  
+		     	"i need eggs":{
                "Score":150.0,
                "Next":"Eggs"
             },
-        	"i need to buy eggs":{  
+            "i need to buy eggs":{
                "Score":150.0,
                "Next":"Eggs"
             },
@@ -139,7 +139,7 @@
                "Score":10.0,
                "Next":"BabyCarrots"
             },
-			    "baby carrots please":{  
+            "baby carrots please":{  
                "Score":10.0,
                "Next":"BabyCarrots"
             },
@@ -153,10 +153,6 @@
             },
             "regular please":{  
                "Score":200.0,
-               "Next":"RegularCarrots"
-            },
-            "regular carrots":{  
-               "Score":50.0,
                "Next":"RegularCarrots"
             },
             "regular carrots":{  
@@ -195,7 +191,7 @@
                "Score":300.0,
                "Next":"Finish"
             },
-	            "default":{  
+            "default":{  
                "Score":-50,
                "Next":null
             }
@@ -227,11 +223,11 @@
                "Score":300.0,
                "Next":"Recipe"
             },
-              "of course thank you":{  
+            "of course thank you":{  
                "Score":300.0,
                "Next":"Recipe"
             },
-	            "default":{  
+            "default":{  
                "Score":-50,
                "Next":null
             }
@@ -254,11 +250,11 @@
                "Score":100.0,
                "Next":"Finish"
             },
-			"it is simple enough":{  
+            "it is simple enough":{  
                "Score":100.0,
                "Next":"Finish"
             },			
-			"simple enough":{  
+            "simple enough":{  
                "Score":100.0,
                "Next":"Finish"
             },
@@ -364,7 +360,7 @@
       },
       "Eggs":{  
          "Type":"Conversation",
-         "Question":"We have both brows and white eggs. What type would you like?",
+         "Question":"We have both brown and white eggs. What type would you like?",
          "AnswerWords":[  
             "Red",
             "Brown",
@@ -451,7 +447,7 @@
          "Question":"The Araucana chicken from Chile lays blue-shelled eggs. But we don't have any. Sorry.",
          "AnswerWords":[  
             "Yes",
-            "Okey",
+            "Okay",
             "Well",
             "Bagel",
             "It",
@@ -461,15 +457,15 @@
             "Have"
          ],
          "Solutions":{  
-            "okey":{  
+            "okay":{  
                "Score":100.0,
                "Next":"AnyEggOrder"
             },
-            "it is okey":{  
+            "it is okay":{  
                "Score":150.0,
                "Next":"AnyEggOrder"
             },
-             "default":{  
+            "default":{  
                "Score":-50,
                "Next":null
             }
@@ -477,7 +473,7 @@
       },
       "Finish":{  
          "Type":"Conversation",
-          "OnStateEnter": { "Left": "_RUN", "Right":"_RUN", "Background":"bg", "LeftDo": "in", "RightDo": "in"  },
+          "OnStateEnter": { "Left": "_RUN", "Right":"_RUN", "Background":"bgx1", "LeftDo": "in", "RightDo": "in"  },
          "Question":"Thank you for visiting. Have a good day",
          "AnswerWords":[  
             "Bark",
