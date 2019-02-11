@@ -522,9 +522,9 @@ joint.shapes.dialogue.State = joint.shapes.devs.Model.extend({
       attrs: {
         '.outPorts circle': { unlimitedConnections: ['dialogue.Solution'] }
       },
-      title: '',
       name: '',
-      values: []
+      prompt: '',
+      answerWords: ''
     },
     joint.shapes.dialogue.Base.prototype.defaults
   )
@@ -534,24 +534,88 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
     '<div class="node">',
     '<span class="label"> </span>',
     '<button class="delete">x</button>',
-    '<input type="choice" class="title" placeholder="State Name" />',
-    '<p> <textarea type="text" rows="4" cols="27" placeholder="Prompt"></textarea></p>',
+    '<input type="choice" class="name" placeholder="State Name" />',
+    '<p> <textarea type="text" class="prompt" rows="4" cols="27" placeholder="Prompt"></textarea></p>',
     '<span>Answer Words:</span>',
-    '<p> <textarea type="text" rows="4" cols="27" placeholder="hello, thanks, etc..."></textarea></p>',
+    '<p> <textarea type="text" class="answerWords" rows="4" cols="27" placeholder="hello, thanks, etc..."></textarea></p>',
     '</div>'
   ].join(''),
 
   initialize: function () {
     joint.shapes.dialogue.BaseView.prototype.initialize.apply(this, arguments)
-    this.$box.find('.add').on('click', _.bind(this.addPort, this))
-    this.$box.find('.remove').on('click', _.bind(this.removePort, this))
   },
 
-  removePort: function () {
-    if (this.model.get('outPorts').length > 1) {
-      var outPorts = this.model.get('outPorts').slice(0)
-      outPorts.pop()
-      this.model.set('outPorts', outPorts)
+  updateBox: function () {
+    joint.shapes.dialogue.BaseView.prototype.updateBox.apply(this, arguments)
+
+    var promptBox = $('textarea.prompt')
+    promptBox.on(
+      'change',
+      _.bind(function (evt) {
+        var newPrompt = $(evt.target).val()
+        this.model.set('prompt', newPrompt)
+      }, this)
+    )
+    var answerWordsBox = $('textarea.answerWords')
+    answerWordsBox.on(
+      'change',
+      _.bind(function (evt) {
+        var newAnswerWords = $(evt.target).val()
+        this.model.set('answerWords', newAnswerWords)
+      }, this)
+    )
+
+    // Update value fields
+    // var textAreas = this.$box.find('textarea')
+    // for (var i = 0; i < textAreas.length; i++) {
+    //   var field = $(textAreas[i])
+    //   if (!field.is(':focus')) field.val(textAreas[i])
+    // }
+  },
+
+  updateSize: function () {
+    var textField = this.$box.find('input.name')
+    var height = textField.outerHeight(true)
+    this.model.set('size', {
+      width: 200,
+      height:
+        100 + Math.max(0, (this.model.get('outPorts').length - 1) * height)
+    })
+  }
+})
+
+joint.shapes.dialogue.Solution = joint.shapes.devs.Model.extend({
+  defaults: joint.util.deepSupplement(
+    {
+      type: 'dialogue.Solution',
+      size: { width: 200, height: 100 },
+      inPorts: ['input'],
+      outPorts: ['output0'],
+      values: []
+    },
+    joint.shapes.dialogue.Base.prototype.defaults
+  )
+})
+joint.shapes.dialogue.SolutionView = joint.shapes.dialogue.BaseView.extend({
+  template: [
+    '<div class="node">',
+    '<span class="label"></span>',
+    '<button class="delete">x</button>',
+    '<button class="add">+</button>',
+    '<button class="remove">-</button>',
+    '<input type="text" class="value" placeholder="Answer Phrase" />',
+    '</div>'
+  ].join(''),
+
+  initialize: function () {
+    joint.shapes.dialogue.BaseView.prototype.initialize.apply(this, arguments)
+    this.$box.find('.add').on('click', _.bind(this.addAnswer, this))
+    this.$box.find('.remove').on('click', _.bind(this.removeAnswer, this))
+    this.addAnswer()
+  },
+
+  removeAnswer: function () {
+    if (this.model.get('values').length > 1) {
       var values = this.model.get('values').slice(0)
       values.pop()
       this.model.set('values', values)
@@ -559,10 +623,7 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
     }
   },
 
-  addPort: function () {
-    var outPorts = this.model.get('outPorts').slice(0)
-    outPorts.push('output' + outPorts.length.toString())
-    this.model.set('outPorts', outPorts)
+  addAnswer: function () {
     var values = this.model.get('values').slice(0)
     values.push(null)
     this.model.set('values', values)
@@ -578,7 +639,7 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
     for (var i = valueFields.length; i < values.length; i++) {
       // Prevent paper from handling pointerdown.
       var field = $('<input type="text" class="value" />')
-      field.attr('placeholder', 'Value ' + (i + 1).toString())
+      field.attr('placeholder', 'Answer ' + (i + 1).toString())
       field.attr('index', i)
       this.$box.append(field)
       field.on('mousedown click', function (evt) {
@@ -600,7 +661,7 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
     for (var i = values.length; i < valueFields.length; i++) { $(valueFields[i]).remove() }
 
     // Update value fields
-    valueFields = this.$box.find('input.value')
+    valueFields = this.$box.find('input.values')
     for (var i = 0; i < valueFields.length; i++) {
       var field = $(valueFields[i])
       if (!field.is(':focus')) field.val(values[i])
@@ -613,101 +674,7 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
     this.model.set('size', {
       width: 200,
       height:
-        100 + Math.max(0, (this.model.get('outPorts').length - 1) * height)
-    })
-  }
-})
-
-joint.shapes.dialogue.Solution = joint.shapes.devs.Model.extend({
-  defaults: joint.util.deepSupplement(
-    {
-      type: 'dialogue.Solution',
-      size: { width: 200, height: 80 },
-      inPorts: ['input'],
-      outPorts: ['output0'],
-      answerPhrases: []
-    },
-    joint.shapes.dialogue.Base.prototype.defaults
-  )
-})
-joint.shapes.dialogue.SolutionView = joint.shapes.dialogue.BaseView.extend({
-  template: [
-    '<div class="node">',
-    '<span class="label"></span>',
-    '<button class="delete">x</button>',
-    '<button class="add">+</button>',
-    '<button class="remove">-</button>',
-    '<input type="text" class="name" placeholder="Answer Phrase" />',
-    '</div>'
-  ].join(''),
-
-  initialize: function () {
-    joint.shapes.dialogue.BaseView.prototype.initialize.apply(this, arguments)
-    this.$box.find('.add').on('click', _.bind(this.addAnswer, this))
-    this.$box.find('.remove').on('click', _.bind(this.removeAnswer, this))
-  },
-
-  removeAnswer: function () {
-    if (this.model.get('answerPhrases').length > 1) {
-      var answerPhrases = this.model.get('answerPhrases').slice(0)
-      answerPhrases.pop()
-      this.model.set('answerPhrases', answerPhrases)
-      this.updateSize()
-    }
-  },
-
-  addAnswer: function () {
-    var answerPhrases = this.model.get('answerPhrases').slice(0)
-    answerPhrases.push(null)
-    this.model.set('answerPhrases', answerPhrases)
-    this.updateSize()
-  },
-
-  updateBox: function () {
-    joint.shapes.dialogue.BaseView.prototype.updateBox.apply(this, arguments)
-    var answerPhrases = this.model.get('answerPhrases')
-    var valueFields = this.$box.find('input.value')
-
-    // Add value fields if necessary
-    for (var i = valueFields.length; i < answerPhrases.length; i++) {
-      // Prevent paper from handling pointerdown.
-      var field = $('<input type="text" class="value" />')
-      field.attr('placeholder', 'Answer ' + (i + 2).toString())
-      field.attr('index', i)
-      this.$box.append(field)
-      field.on('mousedown click', function (evt) {
-        evt.stopPropagation()
-      })
-
-      // This is an example of reacting on the input change and storing the input data in the cell model.
-      field.on(
-        'change',
-        _.bind(function (evt) {
-          var answerPhrases = this.model.get('answerPhrases').slice(0)
-          answerPhrases[$(evt.target).attr('index')] = $(evt.target).val()
-          this.model.set('values', answerPhrases)
-        }, this)
-      )
-    }
-
-    // Remove value fields if necessary
-    for (var i = answerPhrases.length; i < valueFields.length; i++) { $(valueFields[i]).remove() }
-
-    // Update value fields
-    valueFields = this.$box.find('input.answerPhrases')
-    for (var i = 0; i < valueFields.length; i++) {
-      var field = $(valueFields[i])
-      if (!field.is(':focus')) field.val(answerPhrases[i])
-    }
-  },
-
-  updateSize: function () {
-    var textField = this.$box.find('input.name')
-    var height = textField.outerHeight(true)
-    this.model.set('size', {
-      width: 200,
-      height:
-        80 + Math.max(0, (this.model.get('answerPhrases').length - 1) * height)
+        80 + Math.max(0, (this.model.get('values').length - 1) * height)
     })
   }
 })
@@ -831,6 +798,7 @@ function promptFilename (callback) {
 
 function applyTextFields () {
   $('input[type=text]').blur()
+  $('textarea').blur()
 }
 
 function save () {
@@ -879,8 +847,81 @@ function load () {
 function exportFile () {
   if (!fs) {
     applyTextFields()
-    offerDownload(filename || defaultFilename, graph)
+    var gameState = convertToGameState(graph)
+    offerDownload(filename || defaultFilename, gameState)
   }
+}
+
+function convertToGameState (graph) {
+  var gameState = {
+    StartAt: 'Welcome',
+    States: {}
+  }
+
+  // Get all states
+  for (let i = 0; i < graph.attributes.cells.models.length; i++) {
+    let cell = graph.attributes.cells.models[i]
+    if (cell.attributes.type === 'dialogue.State') {
+      let newState = {
+        Type: 'Conversation',
+        Question: cell.attributes.prompt,
+        AnswerWords: cell.attributes.answerWords.split(', '),
+        Solutions: {}
+      }
+      gameState.States[cell.attributes.name] = newState
+    }
+  }
+
+  // Map of which solutions are in each state
+  let solutionMap = {}
+  // Add solutions to states
+  for (let i = 0; i < graph.attributes.cells.models.length; i++) {
+    let link = graph.attributes.cells.models[i]
+    if (link.attributes.type === 'link') {
+      let source = graph.getCell(link.attributes.source.id)
+      let target = graph.getCell(link.attributes.target.id)
+      if (source.attributes.type === 'dialogue.State') {
+        // Save which state the solution block is linked from
+        solutionMap[target.attributes.id] = source
+        // Add solutions to the state
+        for (let j = 0; j < target.attributes.values.length; j++) {
+          let solution = target.attributes.values[j]
+          gameState.States[source.attributes.name].Solutions[solution] = {
+            Score: 0,
+            Next: ''
+          }
+        }
+      }
+    }
+  }
+  // Set next state for each solution
+  for (let i = 0; i < graph.attributes.cells.models.length; i++) {
+    let link = graph.attributes.cells.models[i]
+    if (link.attributes.type === 'link') {
+      let source = graph.getCell(link.attributes.source.id)
+      let target = graph.getCell(link.attributes.target.id)
+      if (source.attributes.type === 'dialogue.Solution') {
+        let sourceState = solutionMap[source.attributes.id]
+        let targetStateName = target.attributes.name
+        // Set next state for each solution
+        for (let j = 0; j < source.attributes.values.length; j++) {
+          let solution = source.attributes.values[j]
+          gameState.States[sourceState.attributes.name].Solutions[solution].Next = targetStateName
+        }
+      }
+    }
+  }
+  // console.log(graph.z.z)
+
+  // Add end state
+  gameState.States.End = {
+    Type: 'End',
+    Question: '',
+    AnswerWords: [],
+    Solutions: { }
+  }
+
+  return gameState
 }
 
 function gameFilenameFromNormalFilename (f) {
@@ -1087,17 +1128,17 @@ $('#paper').contextmenu({
     { text: 'State', alias: '1-1', action: add(joint.shapes.dialogue.State) },
     { text: 'Solution', alias: '1-2', action: add(joint.shapes.dialogue.Solution) },
     { type: 'splitLine' },
-    { text: 'Save', alias: '2-1', action: save },
-    { text: 'Load', alias: '2-2', action: load },
-    { text: 'Import', id: 'import', alias: '2-3', action: importFile },
-    { text: 'New', alias: '2-4', action: clear },
-    { text: 'Export', id: 'export', alias: '2-5', action: exportFile },
-    {
-      text: 'Export game file',
-      id: 'export-game',
-      alias: '2-6',
-      action: exportGameFile
-    }
+    // { text: 'Save', alias: '2-1', action: save },
+    // { text: 'Load', alias: '2-2', action: load },
+    // { text: 'Import', id: 'import', alias: '2-3', action: importFile },
+    // { text: 'New', alias: '2-4', action: clear },
+    { text: 'Export', id: 'export', alias: '2-1', action: exportFile }
+    // {
+    //   text: 'Export game file',
+    //   id: 'export-game',
+    //   alias: '2-6',
+    //   action: exportGameFile
+    // }
   ]
 })
 
