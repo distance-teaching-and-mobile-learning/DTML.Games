@@ -58,7 +58,9 @@ var allowableConnections = [
   ['dialogue.Branch', 'dialogue.Set'],
   ['dialogue.Branch', 'dialogue.Branch'],
   ['dialogue.State', 'dialogue.Solution'],
-  ['dialogue.Solution', 'dialogue.State']
+  ['dialogue.Solution', 'dialogue.State'],
+  ['dialogue.Start', 'dialogue.State'],
+  ['dialogue.Solution', 'dialogue.End']
 ]
 
 function validateConnection (
@@ -693,6 +695,54 @@ joint.shapes.dialogue.SolutionView = joint.shapes.dialogue.BaseView.extend({
   }
 })
 
+joint.shapes.dialogue.Start = joint.shapes.devs.Model.extend({
+  defaults: joint.util.deepSupplement(
+    {
+      type: 'dialogue.Start',
+      outPorts: ['output'],
+      actor: '',
+      textarea: 'Start writing',
+      attrs: {
+        '.outPorts circle': { unlimitedConnections: ['dialogue.Choice'] }
+      },
+      size: { width: 150, height: 50 }
+    },
+    joint.shapes.dialogue.Base.prototype.defaults
+  )
+})
+joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
+  template: [
+    '<div class="node">',
+    '<span class="label"></span>',
+    '<button class="delete">x</button>',
+    '</div>'
+  ].join('')
+})
+
+joint.shapes.dialogue.End = joint.shapes.devs.Model.extend({
+  defaults: joint.util.deepSupplement(
+    {
+      type: 'dialogue.End',
+      inPorts: ['input'],
+      actor: '',
+      textarea: 'Start writing',
+      attrs: {
+        '.outPorts circle': { unlimitedConnections: ['dialogue.Choice'] }
+      },
+      size: { width: 150, height: 50 }
+    },
+    joint.shapes.dialogue.Base.prototype.defaults
+  )
+})
+joint.shapes.dialogue.EndView = joint.shapes.dialogue.BaseView.extend({
+  template: [
+    '<div class="node">',
+    '<span class="label"></span>',
+    '<button class="delete">x</button>',
+    '</div>'
+  ].join('')
+})
+
 function gameData () {
   var cells = graph.toJSON().cells
   var nodesByID = {}
@@ -868,8 +918,20 @@ function exportFile () {
 
 function convertToGameState (graph) {
   var gameState = {
-    StartAt: 'Welcome',
+    StartAt: '',
     States: {}
+  }
+
+  // Get Starting State Name
+  for (let i = 0; i < graph.attributes.cells.models.length; i++) {
+    let link = graph.attributes.cells.models[i]
+    if (link.attributes.type === 'link') {
+      let source = graph.getCell(link.attributes.source.id)
+      let target = graph.getCell(link.attributes.target.id)
+      if (source.attributes.type === 'dialogue.Start') {
+        gameState.StartAt = target.attributes.name
+      }
+    }
   }
 
   // Get all states
@@ -902,13 +964,14 @@ function convertToGameState (graph) {
           let solution = target.attributes.answers[j]
           let score = Number(target.attributes.scores[j])
           gameState.States[source.attributes.name].Solutions[solution] = {
-            Score: score,
+            Score: score || 0,
             Next: ''
           }
         }
       }
     }
   }
+
   // Set next state for each solution
   for (let i = 0; i < graph.attributes.cells.models.length; i++) {
     let link = graph.attributes.cells.models[i]
@@ -917,7 +980,12 @@ function convertToGameState (graph) {
       let target = graph.getCell(link.attributes.target.id)
       if (source.attributes.type === 'dialogue.Solution') {
         let sourceState = solutionMap[source.attributes.id]
-        let targetStateName = target.attributes.name
+        let targetStateName
+        if (target.attributes.type === 'dialogue.State') {
+          targetStateName = target.attributes.name
+        } else if (target.attributes.type === 'dialogue.End') {
+          targetStateName = 'End'
+        }
         // Set next state for each solution
         for (let j = 0; j < source.attributes.answers.length; j++) {
           let solution = source.attributes.answers[j]
@@ -1142,6 +1210,8 @@ $('#paper').contextmenu({
     // { text: 'Node', alias: '1-5', action: add(joint.shapes.dialogue.Node) },
     { text: 'State', alias: '1-1', action: add(joint.shapes.dialogue.State) },
     { text: 'Solution', alias: '1-2', action: add(joint.shapes.dialogue.Solution) },
+    { text: 'Start', alias: '1-3', action: add(joint.shapes.dialogue.Start) },
+    { text: 'End', alias: '1-4', action: add(joint.shapes.dialogue.End) },
     { type: 'splitLine' },
     // { text: 'Save', alias: '2-1', action: save },
     // { text: 'Load', alias: '2-2', action: load },
