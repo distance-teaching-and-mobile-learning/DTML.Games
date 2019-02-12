@@ -33,10 +33,11 @@ module.exports = {
     vendor: ['pixi', 'p2', 'phaser', 'webfontloader']
 
   },
+  mode: 'production',
   output: {
     path: path.resolve(__dirname, 'build'),
     publicPath: './',
-    filename: 'js/bundle.js'
+    filename: 'js/[name].js'
   },
   plugins: [
     definePlugin,
@@ -70,17 +71,6 @@ module.exports = {
       { test: /phaser-split\.js$/, use: ['expose-loader?Phaser'] },
       { test: /p2\.js/, use: ['expose-loader?p2'] }
     ]
-  },
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        common: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
-          chunks: 'all'
-        }
-      }
-    }
   },
   node: {
     fs: 'empty',

@@ -6,18 +6,28 @@
          "Type":"Conversation",
          "Question":"Hello. Welcome to our Grocery store. How may I help you?",
          "AnswerWords":[  
-            "to",
             "Hello",
+            "rain",
             "I",
+	    "to"
             "need",
             "vegetables",
             "eggs",
+	    "some"
             "buy"
          ],
          "Solutions":{  
             "hello":{  
-               "Score":-5.0,
+               "Score":5,
                "Next":"Assist"
+            },
+            "hello i need vegetables":{  
+               "Score":100.0,
+               "Next":"Vegetables"
+            },
+	    "hello i need to buy vegetables":{  
+               "Score":100.0,
+               "Next":"Vegetables"
             },
             "i need vegetables":{  
                "Score":100.0,
@@ -27,9 +37,17 @@
                "Score":150.0,
                "Next":"Vegetables"
             },
-		     	"i need eggs":{  
+	    "i need eggs":{  
                "Score":150.0,
                "Next":"Eggs"
+            },
+ 	"hello i need eggs":{  
+               "Score":100.0,
+               "Next":"Vegetables"
+            },
+ 	 "hello i need to buy eggs":{  
+               "Score":100.0,
+               "Next":"Vegetables"
             },
             "i need to buy eggs":{  
                "Score":150.0,
@@ -148,7 +166,7 @@
                "Next":"BabyCarrots"
             },
             "regular":{  
-               "Score":200.0,
+               "Score":20.0,
                "Next":"RegularCarrots"
             },
             "regular please":{  
@@ -397,10 +415,14 @@
                "Next":"AnyEggOrder"
             },
              "white eggs please":{  
-               "Score":100.0,
+               "Score":300.0,
                "Next":"AnyEggOrder"
             },
             "blue please":{  
+               "Score":100.0,
+               "Next":"BlueEggOrder"
+            },
+	   "blue eggs":{  
                "Score":100.0,
                "Next":"BlueEggOrder"
             },
@@ -490,7 +512,7 @@
                "Score":100.0,
                "Next":"End"
             },
-             "thank you you too":{  
+             "thank you too":{  
                "Score":100.0,
                "Next":"End"
             },
