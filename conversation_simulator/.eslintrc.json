@@ -14,7 +14,10 @@
   "globals": {
     "Phaser": true,
     "game": true,
-    "gameModule": true
+    "gameModule": true,
+    "$": true,
+    "joint": true,
+    "_": true
   },
   "settings": {
     
