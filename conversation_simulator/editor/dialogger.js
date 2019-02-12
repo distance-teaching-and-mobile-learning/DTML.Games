@@ -591,7 +591,8 @@ joint.shapes.dialogue.Solution = joint.shapes.devs.Model.extend({
       size: { width: 200, height: 100 },
       inPorts: ['input'],
       outPorts: ['output0'],
-      values: []
+      answers: [],
+      scores: []
     },
     joint.shapes.dialogue.Base.prototype.defaults
   )
@@ -603,7 +604,6 @@ joint.shapes.dialogue.SolutionView = joint.shapes.dialogue.BaseView.extend({
     '<button class="delete">x</button>',
     '<button class="add">+</button>',
     '<button class="remove">-</button>',
-    '<input type="text" class="value" placeholder="Answer Phrase" />',
     '</div>'
   ].join(''),
 
@@ -615,56 +615,70 @@ joint.shapes.dialogue.SolutionView = joint.shapes.dialogue.BaseView.extend({
   },
 
   removeAnswer: function () {
-    if (this.model.get('values').length > 1) {
-      var values = this.model.get('values').slice(0)
-      values.pop()
-      this.model.set('values', values)
+    if (this.model.get('answers').length > 1) {
+      var answers = this.model.get('answers').slice(0)
+      answers.pop()
+      this.model.set('answers', answers)
       this.updateSize()
     }
   },
 
   addAnswer: function () {
-    var values = this.model.get('values').slice(0)
-    values.push(null)
-    this.model.set('values', values)
+    var answers = this.model.get('answers').slice(0)
+    answers.push(null)
+    this.model.set('answers', answers)
     this.updateSize()
   },
 
   updateBox: function () {
     joint.shapes.dialogue.BaseView.prototype.updateBox.apply(this, arguments)
-    var values = this.model.get('values')
-    var valueFields = this.$box.find('input.value')
+    var answers = this.model.get('answers')
+    var answerFields = this.$box.find('input.answer')
 
     // Add value fields if necessary
-    for (var i = valueFields.length; i < values.length; i++) {
+    for (var i = answerFields.length; i < answers.length; i++) {
       // Prevent paper from handling pointerdown.
-      var field = $('<input type="text" class="value" />')
-      field.attr('placeholder', 'Answer ' + (i + 1).toString())
-      field.attr('index', i)
-      this.$box.append(field)
-      field.on('mousedown click', function (evt) {
+      var answerField = $('<input type="text" class="answer" style="width:70%; float:left;" />')
+      answerField.attr('placeholder', 'Answer ' + (i + 1).toString())
+      answerField.attr('index', i)
+      var scoreField = $('<input type="text" class="score" style="width:25%; float:right;" placeholder="Score" />')
+      scoreField.attr('index', i)
+      var combinedFields = $('<input type="text" />')
+      this.$box.append(answerField.add(scoreField))
+      answerField.on('mousedown click', function (evt) {
+        evt.stopPropagation()
+      })
+      scoreField.on('mousedown click', function (evt) {
         evt.stopPropagation()
       })
 
       // This is an example of reacting on the input change and storing the input data in the cell model.
-      field.on(
+      answerField.on(
         'change',
         _.bind(function (evt) {
-          var values = this.model.get('values').slice(0)
-          values[$(evt.target).attr('index')] = $(evt.target).val()
-          this.model.set('values', values)
+          var answers = this.model.get('answers').slice(0)
+          answers[$(evt.target).attr('index')] = $(evt.target).val()
+          this.model.set('answers', answers)
+        }, this)
+      )
+      scoreField.on(
+        'change',
+        _.bind(function (evt) {
+          var scores = this.model.get('scores').slice(0)
+          scores[$(evt.target).attr('index')] = $(evt.target).val()
+          this.model.set('scores', scores)
         }, this)
       )
     }
 
     // Remove value fields if necessary
-    for (var i = values.length; i < valueFields.length; i++) { $(valueFields[i]).remove() }
+    for (var i = answers.length; i < answerFields.length; i++) { $(answerFields[i]).remove() }
 
     // Update value fields
-    valueFields = this.$box.find('input.values')
-    for (var i = 0; i < valueFields.length; i++) {
-      var field = $(valueFields[i])
-      if (!field.is(':focus')) field.val(values[i])
+    answerFields = this.$box.find('input.answers')
+    for (var i = 0; i < answerFields.length; i++) {
+      var field = $(answerFields[i])
+      if (!field.is(':focus')) field.val(answers[i])
     }
   },
 
@@ -674,7 +688,7 @@ joint.shapes.dialogue.SolutionView = joint.shapes.dialogue.BaseView.extend({
     this.model.set('size', {
       width: 200,
       height:
-        80 + Math.max(0, (this.model.get('values').length - 1) * height)
+        80 + Math.max(0, (this.model.get('answers').length - 1) * height)
     })
   }
 })
@@ -884,10 +898,11 @@ function convertToGameState (graph) {
         // Save which state the solution block is linked from
         solutionMap[target.attributes.id] = source
         // Add solutions to the state
-        for (let j = 0; j < target.attributes.values.length; j++) {
-          let solution = target.attributes.values[j]
+        for (let j = 0; j < target.attributes.answers.length; j++) {
+          let solution = target.attributes.answers[j]
+          let score = Number(target.attributes.scores[j])
           gameState.States[source.attributes.name].Solutions[solution] = {
-            Score: 0,
+            Score: score,
             Next: ''
           }
         }
@@ -904,8 +919,8 @@ function convertToGameState (graph) {
         let sourceState = solutionMap[source.attributes.id]
         let targetStateName = target.attributes.name
         // Set next state for each solution
-        for (let j = 0; j < source.attributes.values.length; j++) {
-          let solution = source.attributes.values[j]
+        for (let j = 0; j < source.attributes.answers.length; j++) {
+          let solution = source.attributes.answers[j]
           gameState.States[sourceState.attributes.name].Solutions[solution].Next = targetStateName
         }
       }
