@@ -517,7 +517,7 @@ joint.shapes.dialogue.SetView = joint.shapes.dialogue.BaseView.extend({
 joint.shapes.dialogue.State = joint.shapes.devs.Model.extend({
   defaults: joint.util.deepSupplement(
     {
-      size: { width: 250, height: 250 },
+      size: { width: 250, height: 240 },
       type: 'dialogue.State',
       inPorts: ['input'],
       outPorts: ['output'],
@@ -526,7 +526,16 @@ joint.shapes.dialogue.State = joint.shapes.devs.Model.extend({
       },
       name: '',
       prompt: '',
-      answerWords: ''
+      answerWords: '',
+      background: null,
+      leftCharacter: {
+        animation: null,
+        direction: null
+      },
+      rightCharacter: {
+        animation: null,
+        direction: null
+      }
     },
     joint.shapes.dialogue.Base.prototype.defaults
   )
@@ -537,14 +546,16 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
     '<span class="label"> </span>',
     '<button class="delete">x</button>',
     '<input type="choice" class="name" placeholder="State Name" />',
-    '<p> <textarea type="text" class="prompt" rows="4" cols="27" placeholder="Prompt"></textarea></p>',
+    '<p> <textarea type="text" class="prompt" rows="3" cols="27" placeholder="Prompt"></textarea></p>',
     '<span>Answer Words:</span>',
-    '<p> <textarea type="text" class="answerWords" rows="4" cols="27" placeholder="hello, thanks, etc..."></textarea></p>',
+    '<p> <textarea type="text" class="answerWords" rows="2" cols="27" placeholder="hello, thanks, etc..."></textarea></p>',
+    '<button class="toggle" style="float:left;">+</button> <span>Options</span>',
     '</div>'
   ].join(''),
 
   initialize: function () {
     joint.shapes.dialogue.BaseView.prototype.initialize.apply(this, arguments)
+    this.$box.find('.toggle').on('click', _.bind(this.expandNode, this))
   },
 
   updateBox: function () {
@@ -575,14 +586,53 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
     // }
   },
 
-  updateSize: function () {
-    var textField = this.$box.find('input.name')
-    var height = textField.outerHeight(true)
+  expandNode: function () {
     this.model.set('size', {
-      width: 200,
-      height:
-        100 + Math.max(0, (this.model.get('outPorts').length - 1) * height)
+      width: 250,
+      height: 400
     })
+    this.$box.find('.toggle').unbind('click')
+    this.$box.find('.toggle').on('click', _.bind(this.collapseNode, this))
+    this.$box.find('.toggle').html = '-'
+    var elements = [
+      $('<input type="text" class="backgroundSelector" placeHolder="Background" />'),
+      $('<span class="leftCharacter">Left Character</span>'),
+      $('<input type="text" class="leftAnimation", placeHolder="Animation" />'),
+      $('<input type="text" class="leftDirection", placeHolder="in or out" />'),
+      $('<span class="rightCharacter">Right Character</span>'),
+      $('<input type="text" class="rightAnimation", placeHolder="Animation" />'),
+      $('<input type="text" class="rightDirection", placeHolder="in or out" />')
+    ]
+    var combinedElements = $('')
+    $(elements).each(function (index, element) {
+      combinedElements = combinedElements.add(element)
+    })
+    this.$box.append(combinedElements)
+
+    elements[0].on(
+      'change',
+      _.bind(function (evt) {
+        var background = $(evt.target).val()
+        this.model.set('background', background)
+      }, this)
+    )
+  },
+
+  collapseNode: function () {
+    this.model.set('size', {
+      width: 250,
+      height: 240
+    })
+    this.$box.find('.toggle').unbind('click')
+    this.$box.find('.toggle').on('click', _.bind(this.expandNode, this))
+    this.$box.find('.toggle').html = '+'
+    this.$box.find('.backgroundSelector').remove()
+    this.$box.find('.leftCharacter').remove()
+    this.$box.find('.leftAnimation').remove()
+    this.$box.find('.leftDirection').remove()
+    this.$box.find('.rightCharacter').remove()
+    this.$box.find('.rightAnimation').remove()
+    this.$box.find('.rightDirection').remove()
   }
 })
 
@@ -645,7 +695,6 @@ joint.shapes.dialogue.SolutionView = joint.shapes.dialogue.BaseView.extend({
       answerField.attr('index', i)
       var scoreField = $('<input type="text" class="score" style="width:25%; float:right;" placeholder="Score" />')
       scoreField.attr('index', i)
-      var combinedFields = $('<input type="text" />')
       this.$box.append(answerField.add(scoreField))
       answerField.on('mousedown click', function (evt) {
         evt.stopPropagation()
@@ -943,6 +992,11 @@ function convertToGameState (graph) {
         Question: cell.attributes.prompt,
         AnswerWords: cell.attributes.answerWords.split(', '),
         Solutions: {}
+      }
+      if (cell.attributes.background) {
+        newState.OnStateEnter = {
+          Background: cell.attributes.background
+        }
       }
       gameState.States[cell.attributes.name] = newState
     }
