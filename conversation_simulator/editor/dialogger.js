@@ -528,14 +528,10 @@ joint.shapes.dialogue.State = joint.shapes.devs.Model.extend({
       prompt: '',
       answerWords: '',
       background: null,
-      leftCharacter: {
-        animation: null,
-        direction: null
-      },
-      rightCharacter: {
-        animation: null,
-        direction: null
-      }
+      leftCharacterAnimation: null,
+      leftCharacterDirection: null,
+      rightCharacterAnimation: null,
+      rightCharacterDirection: null
     },
     joint.shapes.dialogue.Base.prototype.defaults
   )
@@ -593,7 +589,7 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
     })
     this.$box.find('.toggle').unbind('click')
     this.$box.find('.toggle').on('click', _.bind(this.collapseNode, this))
-    this.$box.find('.toggle').html = '-'
+    this.$box.find('.toggle').html('-')
     var elements = [
       $('<input type="text" class="backgroundSelector" placeHolder="Background" />'),
       $('<span class="leftCharacter">Left Character</span>'),
@@ -603,17 +599,61 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
       $('<input type="text" class="rightAnimation", placeHolder="Animation" />'),
       $('<input type="text" class="rightDirection", placeHolder="in or out" />')
     ]
-    var combinedElements = $('')
+    let _this = this
     $(elements).each(function (index, element) {
-      combinedElements = combinedElements.add(element)
+      _this.$box.append(element)
+      if (element.is('input')) {
+        element.on('click', function () { element.focus() })
+      }
     })
-    this.$box.append(combinedElements)
 
+    // elements[0].on('click', function () { elements[0].focus() })
+
+    // Fill in values
+    if (this.model.get('background')) { elements[0].val(this.model.get('background')) }
+    if (this.model.get('leftCharacterAnimation')) { elements[2].val(this.model.get('leftCharacterAnimation')) }
+    if (this.model.get('leftCharacterDirection')) { elements[3].val(this.model.get('leftCharacterDirection')) }
+    if (this.model.get('rightCharacterAnimation')) { elements[5].val(this.model.get('rightCharacterAnimation')) }
+    if (this.model.get('rightCharacterDirection')) { elements[6].val(this.model.get('rightCharacterDirection')) }
+
+    // Background
     elements[0].on(
       'change',
       _.bind(function (evt) {
         var background = $(evt.target).val()
         this.model.set('background', background)
+      }, this)
+    )
+    // Left Character Animation
+    elements[2].on(
+      'change',
+      _.bind(function (evt) {
+        var leftAnimation = $(evt.target).val()
+        this.model.set('leftCharacterAnimation', leftAnimation)
+      }, this)
+    )
+    // Left Character Direction
+    elements[3].on(
+      'change',
+      _.bind(function (evt) {
+        var leftDirection = $(evt.target).val()
+        this.model.set('leftCharacterDirection', leftDirection)
+      }, this)
+    )
+    // Right Character Animation
+    elements[5].on(
+      'change',
+      _.bind(function (evt) {
+        var rightAnimation = $(evt.target).val()
+        this.model.set('rightCharacterAnimation', rightAnimation)
+      }, this)
+    )
+    // Right Character Direction
+    elements[6].on(
+      'change',
+      _.bind(function (evt) {
+        var rightDirection = $(evt.target).val()
+        this.model.set('rightCharacterDirection', rightDirection)
       }, this)
     )
   },
@@ -625,7 +665,7 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
     })
     this.$box.find('.toggle').unbind('click')
     this.$box.find('.toggle').on('click', _.bind(this.expandNode, this))
-    this.$box.find('.toggle').html = '+'
+    this.$box.find('.toggle').html('+')
     this.$box.find('.backgroundSelector').remove()
     this.$box.find('.leftCharacter').remove()
     this.$box.find('.leftAnimation').remove()
@@ -991,12 +1031,23 @@ function convertToGameState (graph) {
         Type: 'Conversation',
         Question: cell.attributes.prompt,
         AnswerWords: cell.attributes.answerWords.split(', '),
-        Solutions: {}
+        Solutions: {},
+        OnStateEnter: {}
       }
       if (cell.attributes.background) {
-        newState.OnStateEnter = {
-          Background: cell.attributes.background
-        }
+        newState.OnStateEnter.Background = cell.attributes.background
+      }
+      if (cell.attributes.leftCharacterAnimation) {
+        newState.OnStateEnter.Left = cell.attributes.leftCharacterAnimation
+      }
+      if (cell.attributes.leftCharacterDirection) {
+        newState.OnStateEnter.LeftDo = cell.attributes.leftCharacterDirection
+      }
+      if (cell.attributes.rightCharacterAnimation) {
+        newState.OnStateEnter.Right = cell.attributes.rightCharacterAnimation
+      }
+      if (cell.attributes.rightCharacterDirection) {
+        newState.OnStateEnter.RightDo = cell.attributes.rightCharacterDirection
       }
       gameState.States[cell.attributes.name] = newState
     }
