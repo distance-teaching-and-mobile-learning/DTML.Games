@@ -9,11 +9,11 @@
             "Hello",
             "rain",
             "I",
-	          "to",
+	    "to",
             "need",
             "vegetables",
             "eggs",
-	          "some",
+	    "some",
             "buy"
          ],
          "Solutions":{  
@@ -22,6 +22,10 @@
                "Next":"Assist"
             },
             "hello i need vegetables":{  
+               "Score":100.0,
+               "Next":"Vegetables"
+            },
+	    "hello i need to buy some vegetables":{  
                "Score":100.0,
                "Next":"Vegetables"
             },
@@ -42,6 +46,10 @@
                "Next":"Eggs"
             },
  	"hello i need eggs":{  
+               "Score":100.0,
+               "Next":"Vegetables"
+            },
+ 	 "hello i need to buy eggs":{  
                "Score":100.0,
                "Next":"Vegetables"
             },
