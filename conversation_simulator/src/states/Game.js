@@ -332,6 +332,8 @@ export default class extends Phaser.State {
   }
 
   textToSpeach (text, voice, pitch) {
+    try
+    {
     if (speechSynthesis.speaking) {
       speechSynthesis.cancel()
       setTimeout(() => {
@@ -352,6 +354,10 @@ export default class extends Phaser.State {
       msg.text = text
       msg.lang = 'en-US'
       speechSynthesis.speak(msg)
+    }
+    } catch(e)
+    {
+       console.log(e);
     }
   }
 

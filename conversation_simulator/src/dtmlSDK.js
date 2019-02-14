@@ -56,7 +56,7 @@ var dtml = {
 
                 console.log(data);
 
-		allback(data);
+		callback(data);
             });
 	},
 
