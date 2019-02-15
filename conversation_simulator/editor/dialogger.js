@@ -1145,8 +1145,10 @@ function add (constructor) {
 }
 
 function clear () {
-  graph.clear()
-  filename = null
+  if (confirm('Are you sure you want to clear the graph?')) {
+    graph.clear()
+    filename = null
+  }
 }
 
 var paper = new joint.dia.Paper({
@@ -1318,11 +1320,11 @@ $('#paper').contextmenu({
     { text: 'Start', alias: '1-3', action: add(joint.shapes.dialogue.Start) },
     { text: 'End', alias: '1-4', action: add(joint.shapes.dialogue.End) },
     { type: 'splitLine' },
-    // { text: 'Save', alias: '2-1', action: save },
-    // { text: 'Load', alias: '2-2', action: load },
-    // { text: 'Import', id: 'import', alias: '2-3', action: importFile },
-    // { text: 'New', alias: '2-4', action: clear },
-    { text: 'Export', id: 'export', alias: '2-1', action: exportFile }
+    { text: 'Save', alias: '2-1', action: save },
+    { text: 'Load', alias: '2-2', action: load },
+    { text: 'Import', id: 'import', alias: '2-3', action: importFile },
+    { text: 'Export', id: 'export', alias: '2-4', action: exportFile },
+    { text: 'New', alias: '2-5', action: clear }
     // {
     //   text: 'Export game file',
     //   id: 'export-game',
