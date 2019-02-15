@@ -137,24 +137,43 @@ export default class {
     var success =
       solution === this.currentState.Solutions.default ? 'False' : 'True'
 
+    // var resultReceived = false
     // Apply score
     dtml.scorePhrase(normalizedPhrase, success, result => {
-      if (solution.Next !== null) {
-        this.setCurrentState(
-          solution.Next,
-          this.stateData.States[solution.Next]
-        )
-        this.submitSolutionResult = true
-        if (result > 0 && !hintUsed) {
-          this.score += result
-        }
-        if (this.isNumber(solution.scoreadjustment)) {
-          this.score += solution.scoreadjustment
+      // resultReceived = true
+      if (result === 10) {
+        let score = solution.Score || solution.scoreadjustment
+        if (this.isNumber(score)) {
+          this.scoreSolution(solution, score, hintUsed)
         }
       } else {
-        this.submitSolutionResult = false
-        this.score -= 10
+        this.scoreSolution(solution, result, hintUsed)
       }
     })
+    // setTimeout(function () {
+    //   console.log(resultReceived)
+    //   if (!resultReceived) {
+    //     let score = solution.score || solution.scoreadjustment
+    //     if (this.isNumber(score)) {
+    //       this.scoreSolution(solution, score, hintUsed)
+    //     }
+    //   }
+    // }, 5000)
+  }
+
+  scoreSolution (solution, score, hintUsed) {
+    if (solution.Next !== null) {
+      this.setCurrentState(
+        solution.Next,
+        this.stateData.States[solution.Next]
+      )
+      this.submitSolutionResult = true
+      if (score > 0 && !hintUsed) {
+        this.score += score
+      }
+    } else {
+      this.submitSolutionResult = false
+      this.score -= 10
+    }
   }
 }
