@@ -29,7 +29,7 @@ var dtml = {
 		  credentials: 'same-origin', 
 		}).catch(err => {
                 console.log('err', err);
-				callback(10);
+				callback(false);
 		}).then(res => res.json())
            .then(data => {
 				callback(data);

@@ -141,13 +141,13 @@ export default class {
     // Apply score
     dtml.scorePhrase(normalizedPhrase, success, result => {
       // resultReceived = true
-      if (result === 10) {
+      if (result) {
+        this.scoreSolution(solution, result, hintUsed)
+      } else {
         let score = solution.Score || solution.scoreadjustment
         if (this.isNumber(score)) {
           this.scoreSolution(solution, score, hintUsed)
         }
-      } else {
-        this.scoreSolution(solution, result, hintUsed)
       }
     })
     // setTimeout(function () {
