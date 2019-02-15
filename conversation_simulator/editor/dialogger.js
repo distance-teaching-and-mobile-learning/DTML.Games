@@ -557,7 +557,7 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
   updateBox: function () {
     joint.shapes.dialogue.BaseView.prototype.updateBox.apply(this, arguments)
 
-    var promptBox = $('textarea.prompt')
+    var promptBox = this.$box.find('textarea.prompt')
     promptBox.on(
       'change',
       _.bind(function (evt) {
@@ -565,7 +565,7 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
         this.model.set('prompt', newPrompt)
       }, this)
     )
-    var answerWordsBox = $('textarea.answerWords')
+    var answerWordsBox = this.$box.find('textarea.answerWords')
     answerWordsBox.on(
       'change',
       _.bind(function (evt) {
