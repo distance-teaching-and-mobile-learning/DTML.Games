@@ -481,7 +481,6 @@ export default class extends Phaser.State {
           }
 
           if (this.bgnya !== '') {
-            // this.load.image('bgn', 'assets/images/res/backgrounds/'+this.bgnya);
             this.bg.bgs[0].loadTexture(this.bgnya)
           }
         }
