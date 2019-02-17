@@ -24,7 +24,7 @@ var dtml = {
 	//*****************************************************************
 	// API Call to get words
 	//*****************************************************************
-        getWords: function(level, callback, sender) {
+        getWords: function(level, callback, sender, debug) {
         fetch(urls.gameService+"Words/?step='+level, 
 		{ method: 'get', 
 		  credentials: 'same-origin', 
@@ -33,24 +33,30 @@ var dtml = {
 		callback(null, sender);
 		}).then(res => res.json())
                 .then(data => {
+                if (debug)
+		{
                 console.log(data);
-		callback(data, sender);
+		}
+                callback(data, sender);
             });
 	},
 
 	//*****************************************************************
 	// API Call to score phrase
 	//*****************************************************************
-       scorePhrase: function(phrase, success, callback) {
+       scorePhrase: function(phrase, success, callback, debug) {
         fetch(urls.gameService+"ScorePhrase/?source=conversation&success='+success +"&phrase=" + phrase, 
 		{ method: 'get', 
 		  credentials: 'same-origin', 
 		}).catch(err => {
                 console.log('err', err);
-		callback(10);
+		callback(false);
 		}).then(res => res.json())
                 .then(data => {
+                if (debug)
+		{
                 console.log(data);
+		}
 		callback(data);
             });
 	},
@@ -75,14 +81,14 @@ var dtml = {
 	//*****************************************************************
 	// API Call to record start of the game
 	//*****************************************************************
-    recordGameStart: function(name) {
+        recordGameStart: function(name) {
 		this.recordGameEvent(name, "GameStarted", navigator.userAgent)
 	},
 	
 	//*****************************************************************
 	// API Call to record end of the game
 	//*****************************************************************
-    recordGameEnd: function(name, score) {
+        recordGameEnd: function(name, score) {
 		this.recordGameEvent(name, "GameCompleted", score)
 	},
 }
