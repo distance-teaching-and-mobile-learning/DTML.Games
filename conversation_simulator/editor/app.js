@@ -1,3 +1,5 @@
+import dtml from './dtmlSDK.js'
+
 var app = module.exports = require('appjs');
 
 app.serveFilesFrom(__dirname + '/content');
