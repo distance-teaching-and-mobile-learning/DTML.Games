@@ -14,9 +14,11 @@
       ],
       "Solutions": {
         "hi": {
+          "Score":100.0,
           "Next": "WhatToDrink"
         },
         "hello": {
+	  "Score":100.0,
           "Next": "WhatToDrink"
         },
         "default": {
@@ -86,6 +88,11 @@
           "Next": "OrderTime"
         },
         "water with no ice": {
+           "Score":100.0,
+          "Next": "OrderTime"
+        },
+	"water with ice please": {
+           "Score":100.0,
           "Next": "OrderTime"
         },
         "water with ice": {
@@ -274,6 +281,7 @@
           "Next": "WaffleOrder"
         },
         "okay sounds good": {
+ 	  "Score":100.0,
           "Next": "WaffleOrder"
         },
         "yes": {
@@ -388,6 +396,7 @@
           "Next": "ProgressOrder"
         },
         "i want tomato and cheese": {
+ 	  "Score":100.0,
           "Next": "ProgressOrder"
         },
         "i want cheese and tomato": {

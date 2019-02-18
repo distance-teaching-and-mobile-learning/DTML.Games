@@ -1076,7 +1076,6 @@ function convertToGameState (graph) {
       }
     }
   }
-
   // Set next state for each solution
   for (let i = 0; i < graph.attributes.cells.models.length; i++) {
     let link = graph.attributes.cells.models[i]
