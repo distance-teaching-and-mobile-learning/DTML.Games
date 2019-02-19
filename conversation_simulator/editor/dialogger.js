@@ -1008,7 +1008,8 @@ function exportFile () {
 function convertToGameState (graph) {
   var gameState = {
     StartAt: '',
-    States: {}
+    States: {},
+    graphData: graph
   }
 
   // Get Starting State Name
@@ -1098,7 +1099,6 @@ function convertToGameState (graph) {
       }
     }
   }
-  // console.log(graph.z.z)
 
   // Add end state
   gameState.States.End = {
@@ -1195,7 +1195,9 @@ function handleFiles (files) {
   var fileReader = new FileReader()
   fileReader.onload = function (e) {
     graph.clear()
-    graph.fromJSON(JSON.parse(e.target.result))
+    let fileData = JSON.parse(e.target.result)
+    let graphData = JSON.stringify(fileData.graphData)
+    graph.fromJSON(JSON.parse(graphData))
   }
   fileReader.readAsText(files[0])
 }
@@ -1319,11 +1321,11 @@ $('#paper').contextmenu({
     { text: 'Start', alias: '1-3', action: add(joint.shapes.dialogue.Start) },
     { text: 'End', alias: '1-4', action: add(joint.shapes.dialogue.End) },
     { type: 'splitLine' },
-    { text: 'Save', alias: '2-1', action: save },
-    { text: 'Load', alias: '2-2', action: load },
-    { text: 'Import', id: 'import', alias: '2-3', action: importFile },
-    { text: 'Export', id: 'export', alias: '2-4', action: exportFile },
-    { text: 'New', alias: '2-5', action: clear }
+    // { text: 'Save', alias: '2-1', action: save },
+    // { text: 'Load', alias: '2-2', action: load },
+    { text: 'Import', id: 'import', alias: '2-1', action: importFile },
+    { text: 'Export', id: 'export', alias: '2-2', action: exportFile },
+    { text: 'New', alias: '2-3', action: clear }
     // {
     //   text: 'Export game file',
     //   id: 'export-game',
