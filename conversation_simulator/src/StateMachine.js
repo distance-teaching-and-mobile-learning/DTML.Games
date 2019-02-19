@@ -1,5 +1,3 @@
-import { dtml } from './dtmlSDK'
-
 export default class {
   constructor (stateData) {
     this.score = 0

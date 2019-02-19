@@ -14,7 +14,6 @@ under the License.
 */
 
 import Background from '../sprites/background'
-import {dtml} from '../dtmlSDK'
 
 export default class extends Phaser.State {
 
