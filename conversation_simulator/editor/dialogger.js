@@ -1100,12 +1100,16 @@ function convertToGameState (graph) {
         solutionMap[target.attributes.id] = source
         // Add solutions to the state
         for (let j = 0; j < target.attributes.answers.length; j++) {
-          let solution = target.attributes.answers[j]
+          let solution = target.attributes.answers[j].toLowerCase()
           let score = Number(target.attributes.scores[j])
           gameState.States[source.attributes.name].Solutions[solution] = {
             Score: score || 0,
             Next: ''
           }
+        }
+        gameState.States[source.attributes.name].Solutions['default'] = {
+          Score: -50,
+          Next: null
         }
       }
     }
@@ -1126,7 +1130,7 @@ function convertToGameState (graph) {
         }
         // Set next state for each solution
         for (let j = 0; j < source.attributes.answers.length; j++) {
-          let solution = source.attributes.answers[j]
+          let solution = source.attributes.answers[j].toLowerCase()
           gameState.States[sourceState.attributes.name].Solutions[solution].Next = targetStateName
         }
       }
