@@ -788,6 +788,7 @@ joint.shapes.dialogue.SolutionView = joint.shapes.dialogue.BaseView.extend({
     // Remove value fields if necessary
     for (var i = answers.length; i < answerFields.length; i++) {
       $(answerFields[i]).remove()
+      $(scoreFields[i]).remove()
     }
 
     // Update value fields
@@ -804,12 +805,13 @@ joint.shapes.dialogue.SolutionView = joint.shapes.dialogue.BaseView.extend({
   },
 
   updateSize: function () {
-    var textField = this.$box.find('input.name')
+    console.log('update size')
+    var textField = $(this.$box.find('input.answer')[0])
     var height = textField.outerHeight(true)
     this.model.set('size', {
       width: 200,
       height:
-        80 + Math.max(0, (this.model.get('answers').length - 1) * height)
+        60 + Math.max(0, (this.model.get('answers').length - 1) * height)
     })
   }
 })
