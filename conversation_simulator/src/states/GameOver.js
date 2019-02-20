@@ -14,7 +14,6 @@ under the License.
 */
 
 import Spriter from '../libs/spriter'
-import { dtml } from '../dtmlSDK'
 
 export default class extends Phaser.State {
   init (score) {

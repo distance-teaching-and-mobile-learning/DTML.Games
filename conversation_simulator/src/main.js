@@ -5,6 +5,9 @@ import GameState from './states/Game'
 import GameOverState from './states/GameOver'
 import MenuBeforeState from './states/MenuBefore'
 
+// Get the actual dtml module
+dtml = dtml.dtml
+
 // import config from './config'
 
 class Game extends Phaser.Game {

@@ -18,7 +18,6 @@ import FreeText from '../sprites/FreeText'
 import Spriter from '../libs/spriter'
 import Background from '../sprites/background'
 import StateMachine from '../StateMachine'
-import { dtml } from '../dtmlSDK'
 
 export default class extends Phaser.State {
   init () {
