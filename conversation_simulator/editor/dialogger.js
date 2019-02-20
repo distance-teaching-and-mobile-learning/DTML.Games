@@ -552,6 +552,16 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
   initialize: function () {
     joint.shapes.dialogue.BaseView.prototype.initialize.apply(this, arguments)
     this.$box.find('.toggle').on('click', _.bind(this.expandNode, this))
+
+    // Expand and collapse the node in case the it's the wrong size when loaded
+    this.expandNode()
+    this.collapseNode()
+
+    // Fill in data if present when loaded
+    var promptBox = this.$box.find('textarea.prompt')
+    promptBox.val(this.model.get('prompt'))
+    var answerWordsBox = this.$box.find('textarea.answerWords')
+    answerWordsBox.val(this.model.get('answerWords'))
   },
 
   updateBox: function () {
@@ -703,7 +713,12 @@ joint.shapes.dialogue.SolutionView = joint.shapes.dialogue.BaseView.extend({
     joint.shapes.dialogue.BaseView.prototype.initialize.apply(this, arguments)
     this.$box.find('.add').on('click', _.bind(this.addAnswer, this))
     this.$box.find('.remove').on('click', _.bind(this.removeAnswer, this))
-    this.addAnswer()
+
+    // Create blank answer if there are no answers
+    let numberOfAnswers = this.model.get('answers').length
+    if (numberOfAnswers === 0) {
+      this.addAnswer()
+    }
   },
 
   removeAnswer: function () {
@@ -722,54 +737,69 @@ joint.shapes.dialogue.SolutionView = joint.shapes.dialogue.BaseView.extend({
     this.updateSize()
   },
 
+  addAnswerField: function (index) {
+    // Prevent paper from handling pointerdown.
+    var answerField = $('<input type="text" class="answer" style="width:70%; float:left;" />')
+    answerField.attr('placeholder', 'Answer ' + (index + 1).toString())
+    answerField.attr('index', index)
+    var scoreField = $('<input type="text" class="score" style="width:25%; float:right;" placeholder="Score" />')
+    scoreField.attr('index', index)
+    this.$box.append(answerField.add(scoreField))
+    answerField.on('mousedown click', function (evt) {
+      evt.stopPropagation()
+    })
+    scoreField.on('mousedown click', function (evt) {
+      evt.stopPropagation()
+    })
+
+    // This is an example of reacting on the input change and storing the input data in the cell model.
+    answerField.on(
+      'change',
+      _.bind(function (evt) {
+        var answers = this.model.get('answers').slice(0)
+        answers[$(evt.target).attr('index')] = $(evt.target).val()
+        this.model.set('answers', answers)
+      }, this)
+    )
+    scoreField.on(
+      'change',
+      _.bind(function (evt) {
+        var scores = this.model.get('scores').slice(0)
+        scores[$(evt.target).attr('index')] = $(evt.target).val()
+        this.model.set('scores', scores)
+      }, this)
+    )
+
+    let answerFields = this.$box.find('input.answer')
+  },
+
   updateBox: function () {
     joint.shapes.dialogue.BaseView.prototype.updateBox.apply(this, arguments)
     var answers = this.model.get('answers')
+    var scores = this.model.get('scores')
     var answerFields = this.$box.find('input.answer')
+    var scoreFields = this.$box.find('input.score')
 
     // Add value fields if necessary
     for (var i = answerFields.length; i < answers.length; i++) {
-      // Prevent paper from handling pointerdown.
-      var answerField = $('<input type="text" class="answer" style="width:70%; float:left;" />')
-      answerField.attr('placeholder', 'Answer ' + (i + 1).toString())
-      answerField.attr('index', i)
-      var scoreField = $('<input type="text" class="score" style="width:25%; float:right;" placeholder="Score" />')
-      scoreField.attr('index', i)
-      this.$box.append(answerField.add(scoreField))
-      answerField.on('mousedown click', function (evt) {
-        evt.stopPropagation()
-      })
-      scoreField.on('mousedown click', function (evt) {
-        evt.stopPropagation()
-      })
-
-      // This is an example of reacting on the input change and storing the input data in the cell model.
-      answerField.on(
-        'change',
-        _.bind(function (evt) {
-          var answers = this.model.get('answers').slice(0)
-          answers[$(evt.target).attr('index')] = $(evt.target).val()
-          this.model.set('answers', answers)
-        }, this)
-      )
-      scoreField.on(
-        'change',
-        _.bind(function (evt) {
-          var scores = this.model.get('scores').slice(0)
-          scores[$(evt.target).attr('index')] = $(evt.target).val()
-          this.model.set('scores', scores)
-        }, this)
-      )
+      this.addAnswerField(i)
     }
 
     // Remove value fields if necessary
-    for (var i = answers.length; i < answerFields.length; i++) { $(answerFields[i]).remove() }
+    for (var i = answers.length; i < answerFields.length; i++) {
+      $(answerFields[i]).remove()
+    }
 
     // Update value fields
-    answerFields = this.$box.find('input.answers')
-    for (var i = 0; i < answerFields.length; i++) {
-      var field = $(answerFields[i])
+    answerFields = this.$box.find('input.answer')
+    for (let i = 0; i < answerFields.length; i++) {
+      let field = $(answerFields[i])
       if (!field.is(':focus')) field.val(answers[i])
+    }
+    scoreFields = this.$box.find('input.score')
+    for (let i = 0; i < scoreFields.length; i++) {
+      let score = $(scoreFields[i])
+      if (!score.is(':focus')) score.val(scores[i])
     }
   },
 
