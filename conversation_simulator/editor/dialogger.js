@@ -981,6 +981,7 @@ function promptFilename (callback) {
 
 function applyTextFields () {
   $('input[type=text]').blur()
+  $('input[type=choice]').blur()
   $('textarea').blur()
 }
 
