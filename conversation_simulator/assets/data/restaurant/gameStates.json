@@ -5,20 +5,14 @@
     "Welcome": {
       "Type": "Conversation",
       "Question": "Hello and welcome to our restaurant!",
-      "AnswerWords": [
-        "Hi",
-        "Hello",
-        "Yes",
-        "No",
-        "Tomorrow"
-      ],
+      "AnswerWords": ["Hi", "Hello", "Yes", "No", "Tomorrow"],
       "Solutions": {
         "hi": {
-          "Score":100.0,
+          "Score": 100.0,
           "Next": "WhatToDrink"
         },
         "hello": {
-	  "Score":100.0,
+          "Score": 100.0,
           "Next": "WhatToDrink"
         },
         "default": {
@@ -30,14 +24,7 @@
     "WhatToDrink": {
       "Type": "Conversation",
       "Question": "May I start you off with something to drink?",
-      "AnswerWords": [
-        "Water",
-        "Please",
-        "Do",
-        "Juice",
-        "Table",
-        "Orange"
-      ],
+      "AnswerWords": ["Water", "Please", "Do", "Juice", "Table", "Orange"],
       "Solutions": {
         "water": {
           "Next": "WaterOrdered"
@@ -65,15 +52,7 @@
     "WaterOrdered": {
       "Type": "Conversation",
       "Question": "Do you want water with ice or no ice?",
-      "AnswerWords": [
-        "Ice",
-        "No",
-        "Not",
-        "Rain",
-        "Snow",
-        "Water",
-        "With"
-      ],
+      "AnswerWords": ["Ice", "No", "Not", "Rain", "Snow", "Water", "With"],
       "Solutions": {
         "with ice": {
           "Next": "OrderTime"
@@ -88,11 +67,11 @@
           "Next": "OrderTime"
         },
         "water with no ice": {
-           "Score":100.0,
+          "Score": 100.0,
           "Next": "OrderTime"
         },
-	"water with ice please": {
-           "Score":100.0,
+        "water with ice please": {
+          "Score": 100.0,
           "Next": "OrderTime"
         },
         "water with ice": {
@@ -281,7 +260,7 @@
           "Next": "WaffleOrder"
         },
         "okay sounds good": {
- 	  "Score":100.0,
+          "Score": 100.0,
           "Next": "WaffleOrder"
         },
         "yes": {
@@ -299,14 +278,7 @@
     "RecommendationsNo": {
       "Type": "Conversation",
       "Question": "Okay. We also can make eggs or omlette",
-      "AnswerWords": [
-        "You",
-        "Please",
-        "Eggs",
-        "Omlette",
-        "School",
-        "Table"
-      ],
+      "AnswerWords": ["You", "Please", "Eggs", "Omlette", "School", "Table"],
       "Solutions": {
         "what would you recommend": {
           "Next": "Recommendations"
@@ -396,7 +368,7 @@
           "Next": "ProgressOrder"
         },
         "i want tomato and cheese": {
- 	  "Score":100.0,
+          "Score": 100.0,
           "Next": "ProgressOrder"
         },
         "i want cheese and tomato": {
@@ -423,7 +395,7 @@
         "Am",
         "I"
       ],
-       "Solutions": {
+      "Solutions": {
         "that is fine": {
           "scoreadjustment": -10,
           "Next": "ProgressOrder"
@@ -454,16 +426,7 @@
     "HashtagWaffle": {
       "Type": "Conversation",
       "Question": "A waffle does look like a hashtag!",
-      "AnswerWords": [
-        "Ha",
-        "Kin",
-        "Funny",
-        "Is",
-        "That",
-        "Fry",
-        "It",
-        "Not"
-      ],
+      "AnswerWords": ["Ha", "Kin", "Funny", "Is", "That", "Fry", "It", "Not"],
       "Solutions": {
         "ha": {
           "Next": "ProgressOrder"
@@ -502,7 +465,7 @@
         },
         "ha ha ha": {
           "Next": "ProgressOrder"
-        },		
+        },
         "(ha)": {
           "Next": "ProgressOrder",
           "MatchType": "RegEx"
@@ -512,7 +475,7 @@
           "Next": null
         }
       }
-      },
+    },
     "AllergicProgressOrder": {
       "Type": "Conversation",
       "Question": "Sorry to hear that. Would you want some maple syrup?",
@@ -566,7 +529,7 @@
         "May",
         "Have"
       ],
-       "Solutions": {
+      "Solutions": {
         "yes": {
           "Next": "FinishOrder"
         },
@@ -626,7 +589,12 @@
     "FinishOrder": {
       "Type": "Conversation",
       "Question": "I'll be back with your food. ",
-      "OnStateExit": { "Left": "_RUN", "Right":"_IDLE", "Background":"", "LeftDo": "out"},
+      "OnStateExit": {
+        "Left": "_RUN",
+        "Right": "_IDLE",
+        "Background": "",
+        "LeftDo": "out"
+      },
       "AnswerWords": [
         "You",
         "Mass",
@@ -663,7 +631,12 @@
     "HereIsYourFood": {
       "Type": "Conversation",
       "Question": "Here is your food. Please enjoy.",
-      "OnStateEnter": { "Left": "_WALK", "Right":"_IDLE", "Background":"bgx0", "LeftDo": "in" },
+      "OnStateEnter": {
+        "Left": "_WALK",
+        "Right": "_IDLE",
+        "Background": "bgx0",
+        "LeftDo": "in"
+      },
       "AnswerWords": [
         "Great",
         "Jupitor",
@@ -691,7 +664,7 @@
         }
       }
     },
-      "HowWasYourFood": {
+    "HowWasYourFood": {
       "Type": "Conversation",
       "Question": "How was your food? Did you like it?",
       "AnswerWords": [
@@ -730,7 +703,7 @@
         }
       }
     },
-      "LikedIt": {
+    "LikedIt": {
       "Type": "Conversation",
       "Question": "I am glad you liked it. Please come back soon!",
       "AnswerWords": [
@@ -743,7 +716,7 @@
         "I",
         "Will"
       ],
-       "Solutions": {
+      "Solutions": {
         "thank you": {
           "Next": "End"
         },
@@ -794,9 +767,9 @@
         "default": {
           "Score": -50,
           "Next": null
+        }
       }
-      }
-      },
+    },
     "End": {
       "Type": "End",
       "Question": "",
