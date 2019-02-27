@@ -769,8 +769,6 @@ joint.shapes.dialogue.SolutionView = joint.shapes.dialogue.BaseView.extend({
         this.model.set('scores', scores)
       }, this)
     )
-
-    let answerFields = this.$box.find('input.answer')
   },
 
   updateBox: function () {
@@ -805,7 +803,6 @@ joint.shapes.dialogue.SolutionView = joint.shapes.dialogue.BaseView.extend({
   },
 
   updateSize: function () {
-    console.log('update size')
     var textField = $(this.$box.find('input.answer')[0])
     var height = textField.outerHeight(true)
     this.model.set('size', {
@@ -826,7 +823,20 @@ joint.shapes.dialogue.Start = joint.shapes.devs.Model.extend({
       attrs: {
         '.outPorts circle': { unlimitedConnections: ['dialogue.Choice'] }
       },
-      size: { width: 150, height: 50 }
+      size: { width: 180, height: 475 },
+      gameName: '',
+      gameTitle: '',
+      leftCharacter: null,
+      leftVoice: null,
+      leftPitch: null,
+      leftX: null,
+      leftY: null,
+      rightCharacter: null,
+      rightVoice: null,
+      rightPitch: null,
+      rightX: null,
+      rightY: null,
+      backgrounds: [null]
     },
     joint.shapes.dialogue.Base.prototype.defaults
   )
@@ -836,8 +846,143 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     '<div class="node">',
     '<span class="label"></span>',
     '<button class="delete">x</button>',
+    '<p><span>Name of the Game</span>',
+    '<input type="text" class="gameName" placeHolder="Name" /></p>',
+    '<p><span>Game Title</span>',
+    '<input type="text" class="gameTitle" placeHolder="Title" /></p>',
+    '<hr>',
+    '<span>Left Character</span>',
+    '<div style="overflow:hidden">',
+    '<span style="width:50%; float:left;">Character:</span><input type="text" class="leftCharacter" style="width:50%; float:right; clear:right;" />',
+    '</div>',
+    '<div style="overflow:hidden">',
+    '<span style="width:50%; float:left;">Voice:</span><input type="text" class="leftVoice" style="width:50%; float:right; clear:right;" />',
+    '</div>',
+    '<div style="overflow:hidden">',
+    '<span style="width:50%; float:left;">Pitch:</span><input type="text" class="leftPitch" style="width:50%; float:right; clear:right;" placeHolder="0" />',
+    '</div>',
+    '<div style="overflow:hidden">',
+    '<span style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="leftX" style="width:38px" placeHolder="205"></span><span style="width:33%; float:left; clear:right;">y: <input type="text" class="leftY" style="width:38px" placeHolder="350"></span>',
+    '</div>',
+    '<hr>',
+    '<span>Right Character</span>',
+    '<div style="overflow:hidden">',
+    '<span style="width:50%; float:left;">Character:</span><input type="text" class="rightCharacter" style="width:50%; float:right; clear:right;" />',
+    '</div>',
+    '<div style="overflow:hidden">',
+    '<span style="width:50%; float:left;">Voice:</span><input type="text" class="rightVoice" style="width:50%; float:right; clear:right;" />',
+    '</div>',
+    '<div style="overflow:hidden">',
+    '<span style="width:50%; float:left;">Pitch:</span><input type="text" class="rightPitch" style="width:50%; float:right; clear:right;" placeHolder="0" />',
+    '</div>',
+    '<div style="overflow:hidden">',
+    '<span style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="rightX" style="width:38px" placeHolder="175"></span><span style="width:33%; float:left; clear:right;">y: <input type="text" class="rightY" style="width:38px" placeHolder="340"></span>',
+    '</div>',
+    '<hr>',
+    '<span>Backgrounds</span> <button class="removeBackground">-</button> <button class="addBackground">+</button>',
+    '<input type="text" class="background" placeHolder="Starting Background" index="0" />',
     '</div>'
-  ].join('')
+  ].join(''),
+
+  initialize: function () {
+    joint.shapes.dialogue.BaseView.prototype.initialize.apply(this, arguments)
+
+    this.$box.find('.addBackground').on('click', _.bind(this.addBackground, this))
+    this.$box.find('.removeBackground').on('click', _.bind(this.removeBackground, this))
+
+    this.$box.find('input.gameName').on('change', _.bind(function (evt) { this.model.set('gameName', $(evt.target).val()) }, this))
+    this.$box.find('input.gameTitle').on('change', _.bind(function (evt) { this.model.set('gameTitle', $(evt.target).val()) }, this))
+    this.$box.find('input.leftCharacter').on('change', _.bind(function (evt) { this.model.set('leftCharacter', $(evt.target).val()) }, this))
+    this.$box.find('input.leftVoice').on('change', _.bind(function (evt) { this.model.set('leftVoice', $(evt.target).val()) }, this))
+    this.$box.find('input.leftPitch').on('change', _.bind(function (evt) { this.model.set('leftPitch', $(evt.target).val()) }, this))
+    this.$box.find('input.leftX').on('change', _.bind(function (evt) { this.model.set('leftX', $(evt.target).val()) }, this))
+    this.$box.find('input.leftY').on('change', _.bind(function (evt) { this.model.set('leftY', $(evt.target).val()) }, this))
+    this.$box.find('input.rightCharacter').on('change', _.bind(function (evt) { this.model.set('rightCharacter', $(evt.target).val()) }, this))
+    this.$box.find('input.rightVoice').on('change', _.bind(function (evt) { this.model.set('rightVoice', $(evt.target).val()) }, this))
+    this.$box.find('input.rightPitch').on('change', _.bind(function (evt) { this.model.set('rightPitch', $(evt.target).val()) }, this))
+    this.$box.find('input.rightX').on('change', _.bind(function (evt) { this.model.set('rightX', $(evt.target).val()) }, this))
+    this.$box.find('input.rightY').on('change', _.bind(function (evt) { this.model.set('rightY', $(evt.target).val()) }, this))
+    this.$box.find('input.background').on('change', _.bind(function (evt) {
+      let backgrounds = this.model.get('backgrounds').slice(0)
+      backgrounds[0] = $(evt.target).val()
+      this.model.set('backgrounds', backgrounds)
+    }, this))
+
+    // Fill in data if imported
+    this.$box.find('input.gameName').val(this.model.get('gameName'))
+    this.$box.find('input.gameTitle').val(this.model.get('gameTitle'))
+    this.$box.find('input.leftCharacter').val(this.model.get('leftCharacter'))
+    this.$box.find('input.leftVoice').val(this.model.get('leftVoice'))
+    this.$box.find('input.leftPitch').val(this.model.get('leftPitch'))
+    this.$box.find('input.leftX').val(this.model.get('leftX'))
+    this.$box.find('input.leftY').val(this.model.get('leftY'))
+    this.$box.find('input.rightCharacter').val(this.model.get('rightCharacter'))
+    this.$box.find('input.rightVoice').val(this.model.get('rightVoice'))
+    this.$box.find('input.rightPitch').val(this.model.get('rightPitch'))
+    this.$box.find('input.rightX').val(this.model.get('rightX'))
+    this.$box.find('input.rightY').val(this.model.get('rightY'))
+  },
+
+  addBackground: function () {
+    var backgrounds = this.model.get('backgrounds').slice(0)
+    backgrounds.push(null)
+    this.model.set('backgrounds', backgrounds)
+  },
+
+  removeBackground: function () {
+    if (this.model.get('backgrounds').length > 1) {
+      var backgrounds = this.model.get('backgrounds').slice(0)
+      backgrounds.pop()
+      this.model.set('backgrounds', backgrounds)
+    }
+  },
+
+  addBackgroundField (index) {
+    var backgrounds = this.model.get('backgrounds').slice(0)
+    var backgroundInput = $('<input type="text" class="background" />')
+    backgroundInput.attr('placeHolder', 'Background ' + backgrounds.length)
+    backgroundInput.attr('index', backgrounds.length - 1)
+    backgroundInput.on('change', _.bind(function (evt) {
+      let backgrounds = this.model.get('backgrounds').slice(0)
+      backgrounds[$(evt.target).attr('index')] = $(evt.target).val()
+      this.model.set('backgrounds', backgrounds)
+    }, this))
+    this.$box.append(backgroundInput)
+    this.updateSize()
+  },
+
+  updateBox: function () {
+    joint.shapes.dialogue.BaseView.prototype.updateBox.apply(this, arguments)
+    var backgrounds = this.model.get('backgrounds')
+    var backgroundFields = this.$box.find('input.background')
+
+    // Add value fields if necessary
+    for (let i = backgroundFields.length; i < backgrounds.length; i++) {
+      this.addBackgroundField(i)
+    }
+
+    // Remove value fields if necessary
+    for (let i = backgrounds.length; i < backgroundFields.length; i++) {
+      $(backgroundFields[i]).remove()
+      this.updateSize()
+    }
+
+    // Update value fields
+    for (let i = 0; i < backgroundFields.length; i++) {
+      let field = $(backgroundFields[i])
+      if (!field.is(':focus')) field.val(backgrounds[i])
+    }
+  },
+
+  updateSize: function () {
+    var textField = $(this.$box.find('input.background')[0])
+    var height = textField.outerHeight(true)
+    this.model.set('size', {
+      width: 180,
+      height:
+        475 + Math.max(0, (this.model.get('backgrounds').length - 1) * height)
+    })
+  }
 })
 
 joint.shapes.dialogue.End = joint.shapes.devs.Model.extend({
@@ -1040,9 +1185,31 @@ function exportFile () {
 
 function convertToGameState (graph) {
   var gameState = {
+    Setup: {},
     StartAt: '',
     States: {},
     graphData: graph
+  }
+
+  // Get the setup information
+  for (let i = 0; i < graph.attributes.cells.models.length; i++) {
+    let cell = graph.attributes.cells.models[i]
+    if (cell.attributes.type === 'dialogue.Start') {
+      gameState.Setup.Name = cell.attributes.gameName
+      gameState.Setup.Title = cell.attributes.gameTitle
+      gameState.Setup.LeftCharacter = cell.attributes.leftCharacter
+      gameState.Setup.LeftVoice = cell.attributes.leftVoice
+      gameState.Setup.LeftPitch = Number(cell.attributes.leftPitch) || 0
+      gameState.Setup.CallOutLeftX = Number(cell.attributes.leftX) || 205
+      gameState.Setup.CallOutLeftY = Number(cell.attributes.leftY) || 350
+      gameState.Setup.RightCharacter = cell.attributes.rightCharacter
+      gameState.Setup.RightVoice = cell.attributes.rightVoice
+      gameState.Setup.RightPitch = Number(cell.attributes.rightPitch) || 0
+      gameState.Setup.CallOutRightX = Number(cell.attributes.rightX) || 175
+      gameState.Setup.CallOutRightY = Number(cell.attributes.rightY) || 340
+      gameState.Setup.Backgrounds = cell.attributes.backgrounds
+      break
+    }
   }
 
   // Get Starting State Name

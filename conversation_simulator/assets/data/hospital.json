@@ -1,4 +1,19 @@
 {
+  "Setup": {
+    "Name": "Hospital",
+    "Title": "At the Hospital",
+    "LeftCharacter": "cook",
+    "LeftVoice": "Microsoft David",
+    "LeftPitch": -100,
+    "CallOutLeftX": 205,
+    "CallOutLeftY": 350,
+    "RightCharacter": "man",
+    "RightVoice": "Microsoft Hazel",
+    "RightPitch": 100,
+    "CallOutRightX": 175,
+    "CallOutRightY": 340,
+    "Backgrounds": ["hospital", "hospital_room", "hospital_room_2"]
+  },
   "StartAt": "Greetings",
   "States": {
     "Greetings": {
@@ -22,7 +37,7 @@
         "hi": { "Score": 0, "Next": "Visit Set" },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": { "Background": "bgx1" }
+      "OnStateEnter": { "Background": "2" }
     },
     "Visit Set": {
       "Type": "Conversation",
@@ -468,11 +483,25 @@
         "outPorts": ["output"],
         "actor": "",
         "textarea": "Start writing",
-        "size": { "width": 150, "height": 50 },
+        "size": { "width": 180, "height": 527 },
+        "gameName": "Hospital",
+        "gameTitle": "At the Hospital",
+        "leftCharacter": "cook",
+        "leftVoice": "Microsoft David",
+        "leftPitch": "-100",
+        "leftX": "205",
+        "leftY": "350",
+        "rightCharacter": "man",
+        "rightVoice": "Microsoft Hazel",
+        "rightPitch": "100",
+        "rightX": "175",
+        "rightY": "340",
+        "backgrounds": ["hospital", "hospital_room", "hospital_room_2"],
         "name": "",
         "inPorts": [],
-        "position": { "x": 32, "y": 464 },
+        "position": { "x": 16, "y": 400 },
         "angle": 0,
+        "leftAnimation": null,
         "id": "f19c6389-2174-4dbf-80be-de0e68e75e38",
         "z": 0,
         "attrs": {
@@ -484,14 +513,14 @@
         }
       },
       {
-        "size": { "width": 250, "height": 400 },
+        "size": { "width": 250, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "Greetings",
         "prompt": "Hey, good morning!",
         "answerWords": "Hi, Good, You, Surprise, Hey, Morning, A, What",
-        "background": "bgx1",
+        "background": "2",
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,

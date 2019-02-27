@@ -25,7 +25,7 @@ export default class extends Phaser.State {
   }
 
   preload () {
-    var phaserJSON = this.cache.getJSON('gameSetup')
+    var phaserJSON = this.cache.getJSON('gameData')
     this.loaderBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'loaderBar')
     centerGameObjects([this.loaderBar])
     this.load.setPreloadSprite(this.loaderBar)
@@ -47,8 +47,8 @@ export default class extends Phaser.State {
       })
     }
 
-    this.load.atlas('leftCharacter', 'assets/images/res/' + phaserJSON.leftperson + '/anim.png', 'assets/images/res/' + phaserJSON.leftperson + '/anim.json')
-    this.load.xml('leftCharacterAnimations', 'assets/images/res/' + phaserJSON.leftperson + '/anim.scml')
+    this.load.atlas('leftCharacter', 'assets/images/res/' + phaserJSON.Setup.LeftCharacter + '/anim.png', 'assets/images/res/' + phaserJSON.Setup.LeftCharacter + '/anim.json')
+    this.load.xml('leftCharacterAnimations', 'assets/images/res/' + phaserJSON.Setup.LeftCharacter + '/anim.scml')
 
     // load bar for patience
     this.load.spritesheet('patienceBar5', 'assets/images/res/lopelope.png', 95, 84)
@@ -57,8 +57,8 @@ export default class extends Phaser.State {
     this.load.spritesheet('patienceBar2', 'assets/images/res/lopelope.png', 95, 84)
     this.load.spritesheet('patienceBar1', 'assets/images/res/lopelope.png', 95, 84)
 
-    this.load.atlas('rightCharacter', 'assets/images/res/' + phaserJSON.rightperson + '/anim.png', 'assets/images/res/' + phaserJSON.rightperson + '/anim.json')
-    this.load.xml('rightCharacterAnimations', 'assets/images/res/' + phaserJSON.rightperson + '/anim.scml')
+    this.load.atlas('rightCharacter', 'assets/images/res/' + phaserJSON.Setup.RightCharacter + '/anim.png', 'assets/images/res/' + phaserJSON.Setup.RightCharacter + '/anim.json')
+    this.load.xml('rightCharacterAnimations', 'assets/images/res/' + phaserJSON.Setup.RightCharacter + '/anim.scml')
 
     this.load.image('iconAttack', 'assets/images/res/icon-attack.png')
     this.load.image('iconHome', 'assets/images/icon-home.png')
@@ -68,26 +68,22 @@ export default class extends Phaser.State {
     this.load.image('iconRepeat', 'assets/images/res/icon-repeat.png')
     this.load.image('iconHint', 'assets/images/res/icon-hint.png')
 
-    // bg
-
-    // this.load.image('bg1', 'assets/images/layers/l1_background.png')
-    this.load.image('bg1', 'assets/images/res/' + phaserJSON.background)
-    this.load.image('bg2', 'assets/images/res/title.png')
-    this.load.image('bg3', 'assets/images/res/bar-mini-depan.png')
-    this.load.image('bg4', 'assets/images/res/l7_ground.png')
+    // Backgrounds
+    for (let i = 0; i < phaserJSON.Setup.Backgrounds.length; i++) {
+      let background = phaserJSON.Setup.Backgrounds[i]
+      this.load.image('bg' + (i + 1), 'assets/images/res/backgrounds/' + background + '.png')
+    }
+    this.load.image('bg1', 'assets/images/res/' + phaserJSON.Setup.StartingBackground)
+    this.load.image('bg_title', 'assets/images/res/title.png')
+    this.load.image('bg_depan', 'assets/images/res/bar-mini-depan.png')
+    this.load.image('footer', 'assets/images/res/l7_ground.png')
     this.load.image('gameover', 'assets/images/res/endgame.png')
-
-    this.load.image('bgx0', 'assets/images/res/' + phaserJSON.background0)
-    this.load.image('bgx1', 'assets/images/res/' + phaserJSON.background1)
 
     // audio
     this.load.audio('click', 'assets/audio/Click.wav')
 
     // side menu
     this.load.spritesheet('sidebg', 'assets/images/res/sidebg.png', 115, 117)
-
-    // game state data
-    this.load.json('stateData', 'assets/data/' + game.gameDataFolder + '/' + phaserJSON.datafile)
   }
 
   loadStart () {
