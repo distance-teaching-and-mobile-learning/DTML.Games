@@ -25,7 +25,8 @@
         "hello": { "Score": 100, "Next": "WhatToDrink" },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "WhatToDrink": {
       "Type": "Conversation",
@@ -40,7 +41,8 @@
         "juice": { "Score": 0, "Next": "Juice" },
         "juice please": { "Score": 0, "Next": "Juice" }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "WaterOrdered": {
       "Type": "Conversation",
@@ -58,7 +60,8 @@
         "water with no ice": { "Score": 100, "Next": "OrderTime" },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "OrangeJuice": {
       "Type": "Conversation",
@@ -85,7 +88,8 @@
         "no thank you": { "Score": -5, "Next": "OrderTime" },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "Juice": {
       "Type": "Conversation",
@@ -109,7 +113,8 @@
         "apple is good": { "Score": 0, "Next": "OrderTime" },
         "cranberry is good": { "Score": 300, "Next": "OrderTime" }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "OrderTime": {
       "Type": "Conversation",
@@ -139,7 +144,8 @@
         "hashtag waffle": { "Score": 0, "Next": "HashtagWaffle" },
         "hashtag waffle please": { "Score": 0, "Next": "HashtagWaffle" }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "Recommendations": {
       "Type": "Conversation",
@@ -164,7 +170,8 @@
         "okay sounds good": { "Score": 100, "Next": "WaffleOrder" },
         "yes": { "Score": 0, "Next": "WaffleOrder" }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "EggOrder": {
       "Type": "Conversation",
@@ -183,7 +190,8 @@
         "sunny side up": { "Score": 0, "Next": "ProgressOrder" },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "OmeletteOrder": {
       "Type": "Conversation",
@@ -209,7 +217,8 @@
         "i want cheese and tomato": { "Score": 0, "Next": "ProgressOrder" },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "WaffleOrder": {
       "Type": "Conversation",
@@ -238,7 +247,8 @@
         "okay": { "Score": 0, "Next": "ProgressOrder" },
         "fine": { "Score": -10, "Next": "ProgressOrder" }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "HashtagWaffle": {
       "Type": "Conversation",
@@ -259,7 +269,8 @@
         "ha ha ha": { "Score": 0, "Next": "ProgressOrder" },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "RecommendationsNo": {
       "Type": "Conversation",
@@ -275,7 +286,8 @@
         "eggs omelette": { "Score": 0, "Next": "OmeletteOrder" },
         "omelette please": { "Score": 0, "Next": "OmeletteOrder" }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "ProgressOrder": {
       "Type": "Conversation",
@@ -301,7 +313,8 @@
         "a bagel": { "Score": 0, "Next": "Bagel" },
         "bagel": { "Score": 0, "Next": "Bagel" }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "AllergicProgressOrder": {
       "Type": "Conversation",
@@ -325,7 +338,8 @@
         "please": { "Score": -5, "Next": "FinishOrder" },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "FinishOrder": {
       "Type": "Conversation",
@@ -352,7 +366,8 @@
         },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": { "Left": "_RUN", "LeftDo": "out", "Right": "_IDLE" }
     },
     "Bagel": {
       "Type": "Conversation",
@@ -371,7 +386,8 @@
         "that works": { "Score": 0, "Next": "FinishOrder" },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "HereIsYourFood": {
       "Type": "Conversation",
@@ -393,7 +409,8 @@
         "great": { "Score": 0, "Next": "HowWasYourFood" },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": { "Left": "_WALK", "LeftDo": "in", "Right": "_IDLE" },
+      "OnStateExit": {}
     },
     "HowWasYourFood": {
       "Type": "Conversation",
@@ -418,7 +435,8 @@
         "it was ok": { "Score": 0, "Next": "DidNotLike" },
         "ok": { "Score": 0, "Next": "DidNotLike" }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "LikedIt": {
       "Type": "Conversation",
@@ -439,7 +457,8 @@
         "thank you i will": { "Score": 0, "Next": "End" },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "DidNotLike": {
       "Type": "Conversation",
@@ -463,7 +482,8 @@
         "too cold": { "Score": 0, "Next": "End" },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "End": { "Type": "End", "Question": "", "AnswerWords": [], "Solutions": {} }
   },
@@ -511,12 +531,20 @@
         "prompt": "Hello and welcome to our restaurant!",
         "answerWords": "hi, hello, yes, no, tomorrow",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 320, "y": 304 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 320, "y": 304 },
-        "angle": 0,
         "id": "2e24cd3a-eba8-48bf-a498-5bac135fbc5b",
         "z": 1,
         "attrs": {
@@ -604,12 +632,20 @@
         "prompt": "May I start you off with something to drink?",
         "answerWords": "water, please, do, juice, table, orange",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 896, "y": 288 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 896, "y": 288 },
-        "angle": 0,
         "id": "cf5f5f1d-a67e-4d7b-9f4a-445462a5c5b9",
         "z": 5,
         "attrs": {
@@ -653,12 +689,20 @@
         "prompt": "Do you want water with ice or no ice?",
         "answerWords": "ice, no, not, rain, snow, water, with",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 1952, "y": 48 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 1952, "y": 48 },
-        "angle": 0,
         "id": "4ee9051f-5ad4-422a-858d-8f542bcebfe6",
         "z": 7,
         "attrs": {
@@ -681,12 +725,20 @@
         "prompt": "Sorry we are out of orange juice. Do you want cranberry or apple juice?",
         "answerWords": "apple, juice, cranberry, please, beef, no, thank, you",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 1952, "y": 320 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 1952, "y": 320 },
-        "angle": 0,
         "id": "fe0f071e-f876-4a6d-93b1-045d35354d85",
         "z": 8,
         "attrs": {
@@ -709,12 +761,20 @@
         "prompt": "We have apple and cranberry juice.",
         "answerWords": "apple, cranberry, food, time, good, orange, is, run",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 1456, "y": 640 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 1456, "y": 640 },
-        "angle": 0,
         "id": "0d46aa10-baaf-4cc8-9f4c-8de3fb63f69d",
         "z": 9,
         "attrs": {
@@ -998,12 +1058,20 @@
         "prompt": "What would you like to eat?",
         "answerWords": "you, hashtag, recommend, waffle, please, eggs, omelette, what, would",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 2640, "y": 336 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 2640, "y": 336 },
-        "angle": 0,
         "id": "460a7724-b9cb-46d9-8034-5285d97aece1",
         "z": 22,
         "attrs": {
@@ -1241,12 +1309,20 @@
         "prompt": "Our waffles are very popular. Do you want to try them?",
         "answerWords": "good, eat, sounds, time, okay, slow, buy, no, yes",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 3040, "y": 48 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 3040, "y": 48 },
-        "angle": 0,
         "id": "97f05e60-acbb-48bf-9503-068d959b7f77",
         "z": 32,
         "attrs": {
@@ -1269,12 +1345,20 @@
         "prompt": "How would you like your eggs?",
         "answerWords": "sunny, up, orange, scrambled, side, plate, fog",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 4128, "y": 528 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 4128, "y": 528 },
-        "angle": 0,
         "id": "538dda6a-91f0-4ef7-beca-2d5a8f24d03b",
         "z": 33,
         "attrs": {
@@ -1297,12 +1381,20 @@
         "prompt": "What do you want in your omelette?",
         "answerWords": "tomato, cheese, test, boat, want, stop, and, i",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 4128, "y": 800 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 4128, "y": 800 },
-        "angle": 0,
         "id": "cdb9753e-dae2-42b1-80cb-1c4ad41f4084",
         "z": 34,
         "attrs": {
@@ -1325,12 +1417,20 @@
         "prompt": "Do you want pecans on your waffle?",
         "answerWords": "dog, fine, okay, is, that, to, nuts, allergic, am, i",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 4128, "y": 256 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 4128, "y": 256 },
-        "angle": 0,
         "id": "1d806532-9246-4901-b56e-626428ffbda3",
         "z": 35,
         "attrs": {
@@ -1353,12 +1453,20 @@
         "prompt": "A waffle does look like a hashtag!",
         "answerWords": "ha, funny, is, that, fry, it, not",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 4128, "y": 1072 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 4128, "y": 1072 },
-        "angle": 0,
         "id": "f67d3342-34b8-428f-9118-adbac6f26de2",
         "z": 36,
         "attrs": {
@@ -1381,12 +1489,20 @@
         "prompt": "Okay. We also can make eggs or an omelette.",
         "answerWords": "you, please, eggs, omelette, school, table",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 3584, "y": 32 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 3584, "y": 32 },
-        "angle": 0,
         "id": "7092f608-8090-42ee-91fa-e71828f8b770",
         "z": 37,
         "attrs": {
@@ -1409,12 +1525,20 @@
         "prompt": "Great. Is that all?",
         "answerWords": "yes, also,well, bagel, i, a, walk, may, have",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 4896, "y": 784 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 4896, "y": 784 },
-        "angle": 0,
         "id": "b604a022-3f02-4939-ba7a-dfd98dc9dad5",
         "z": 38,
         "attrs": {
@@ -1437,12 +1561,20 @@
         "prompt": "Sorry to hear that. Would you like some maple syrup?",
         "answerWords": "yes, please, no, good, i, am, chair, computer",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 4896, "y": 480 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 4896, "y": 480 },
-        "angle": 0,
         "id": "06631851-67ca-4a90-bfd4-76341d6d0883",
         "z": 39,
         "attrs": {
@@ -1457,7 +1589,7 @@
         }
       },
       {
-        "size": { "width": 250, "height": 240 },
+        "size": { "width": 250, "height": 405 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
@@ -1465,12 +1597,20 @@
         "prompt": "I'll be back with your food.",
         "answerWords": "you, mass, jump, thank, hungry, spring, am, i, getting",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": "_RUN",
+        "exitLeftDirection": "out",
+        "exitRightAnimation": "_IDLE",
+        "exitRightDirection": null,
+        "position": { "x": 6080, "y": 624 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 6080, "y": 624 },
-        "angle": 0,
         "id": "8ef47078-c7d4-4167-a81d-8a1ba4a00185",
         "z": 40,
         "attrs": {
@@ -1493,12 +1633,20 @@
         "prompt": "Is a plain bagel okay?",
         "answerWords": "works, okay, orange, chicken, that, bowl, fact",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 5472, "y": 960 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 5472, "y": 960 },
-        "angle": 0,
         "id": "edede189-dd7c-49d3-8a8f-2c74c9c6fbb3",
         "z": 41,
         "attrs": {
@@ -1513,7 +1661,7 @@
         }
       },
       {
-        "size": { "width": 250, "height": 240 },
+        "size": { "width": 250, "height": 405 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
@@ -1521,12 +1669,20 @@
         "prompt": "Here is your food. Please enjoy.",
         "answerWords": "great, jupiter, lamp, thank, looks, spring, am, it, getting",
         "background": null,
+        "enterLeftAnimation": "_WALK",
+        "enterLeftDirection": "in",
+        "enterRightAnimation": "_IDLE",
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 6688, "y": 608 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 6688, "y": 608 },
-        "angle": 0,
         "id": "67d17980-d621-4989-8d46-06de13b9e07e",
         "z": 42,
         "attrs": {
@@ -1549,12 +1705,20 @@
         "prompt": "How was your food? Did you like it?",
         "answerWords": "people, was, child, ok, word, great, am, it, good",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 7264, "y": 576 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 7264, "y": 576 },
-        "angle": 0,
         "id": "60efa2b8-24e9-4a44-a946-9cc10df08efd",
         "z": 43,
         "attrs": {
@@ -1577,12 +1741,20 @@
         "prompt": "I am glad you liked it. Please come back soon!",
         "answerWords": "thank, blue, red, fly, you, spider, i, will",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 7888, "y": 432 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 7888, "y": 432 },
-        "angle": 0,
         "id": "5b83d147-4f0f-4eab-856c-7891b5dc472a",
         "z": 44,
         "attrs": {
@@ -1605,12 +1777,20 @@
         "prompt": "Oh! I am sorry. What was wrong with it?",
         "answerWords": "jump, salty, cold, was, too, don't, it, will",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 7888, "y": 768 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 7888, "y": 768 },
-        "angle": 0,
         "id": "1ba45c7d-7966-458b-851a-3426e69f1705",
         "z": 45,
         "attrs": {
