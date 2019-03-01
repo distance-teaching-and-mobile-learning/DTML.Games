@@ -528,10 +528,14 @@ joint.shapes.dialogue.State = joint.shapes.devs.Model.extend({
       prompt: '',
       answerWords: '',
       background: null,
-      leftCharacterAnimation: null,
-      leftCharacterDirection: null,
-      rightCharacterAnimation: null,
-      rightCharacterDirection: null
+      enterLeftAnimation: null,
+      enterLeftDirection: null,
+      enterRightAnimation: null,
+      enterRightDirection: null,
+      exitLeftAnimation: null,
+      exitLeftDirection: null,
+      exitRightAnimation: null,
+      exitRightDirection: null
     },
     joint.shapes.dialogue.Base.prototype.defaults
   )
@@ -595,19 +599,28 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
   expandNode: function () {
     this.model.set('size', {
       width: 250,
-      height: 400
+      height: 405
     })
     this.$box.find('.toggle').unbind('click')
     this.$box.find('.toggle').on('click', _.bind(this.collapseNode, this))
     this.$box.find('.toggle').html('-')
     var elements = [
       $('<input type="text" class="backgroundSelector" placeHolder="Background" />'),
-      $('<span class="leftCharacter">Left Character</span>'),
-      $('<input type="text" class="leftAnimation", placeHolder="Animation" />'),
-      $('<input type="text" class="leftDirection", placeHolder="in or out" />'),
-      $('<span class="rightCharacter">Right Character</span>'),
-      $('<input type="text" class="rightAnimation", placeHolder="Animation" />'),
-      $('<input type="text" class="rightDirection", placeHolder="in or out" />')
+      $('<span class="collapseDelete" style="font-weight:bold">On State Enter</span><br class="collapseDelete" />'),
+      $('<span class="collapseDelete" style="width:50px">Left Character: </span>'),
+      $('<input type="text" class="enterLeftAnimation" style="width:70px" placeHolder="Animation" />'),
+      $('<input type="text" class="enterLeftDirection" style="width:70px; margin-left:5px" placeHolder="in or out" /><br class="collapseDelete" />'),
+      $('<span class="collapseDelete" style="width:50px">Right Character: </span>'),
+      $('<input type="text" class="enterRightAnimation" style="width:65px" placeHolder="Animation" />'),
+      $('<input type="text" class="enterRightDirection" style="width:66px; margin-left:5px" placeHolder="in or out" /><br class="collapseDelete" />'),
+      $('<hr class="collapseDelete" />'),
+      $('<span class="collapseDelete" style="font-weight:bold">On State Exit</span><br class="collapseDelete" />'),
+      $('<span class="collapseDelete" style="width:50px">Left Character: </span>'),
+      $('<input type="text" class="exitLeftAnimation" style="width:70px" placeHolder="Animation" />'),
+      $('<input type="text" class="exitLeftDirection" style="width:70px; margin-left:5px" placeHolder="in or out" /><br class="collapseDelete" />'),
+      $('<span class="collapseDelete" style="width:50px">Right Character: </span>'),
+      $('<input type="text" class="exitRightAnimation" style="width:65px" placeHolder="Animation" />'),
+      $('<input type="text" class="exitRightDirection" style="width:66px; margin-left:5px" placeHolder="in or out" /><br class="collapseDelete" />')
     ]
     let _this = this
     $(elements).each(function (index, element) {
@@ -617,14 +630,16 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
       }
     })
 
-    // elements[0].on('click', function () { elements[0].focus() })
-
     // Fill in values
     if (this.model.get('background')) { elements[0].val(this.model.get('background')) }
-    if (this.model.get('leftCharacterAnimation')) { elements[2].val(this.model.get('leftCharacterAnimation')) }
-    if (this.model.get('leftCharacterDirection')) { elements[3].val(this.model.get('leftCharacterDirection')) }
-    if (this.model.get('rightCharacterAnimation')) { elements[5].val(this.model.get('rightCharacterAnimation')) }
-    if (this.model.get('rightCharacterDirection')) { elements[6].val(this.model.get('rightCharacterDirection')) }
+    if (this.model.get('enterLeftAnimation')) { elements[3].val(this.model.get('enterLeftAnimation')) }
+    if (this.model.get('enterLeftDirection')) { elements[4].val(this.model.get('enterLeftDirection')) }
+    if (this.model.get('enterRightAnimation')) { elements[6].val(this.model.get('enterRightAnimation')) }
+    if (this.model.get('enterRightDirection')) { elements[7].val(this.model.get('enterRightDirection')) }
+    if (this.model.get('exitLeftAnimation')) { elements[11].val(this.model.get('exitLeftAnimation')) }
+    if (this.model.get('exitLeftDirection')) { elements[12].val(this.model.get('exitLeftDirection')) }
+    if (this.model.get('exitRightAnimation')) { elements[14].val(this.model.get('exitRightAnimation')) }
+    if (this.model.get('exitRightDirection')) { elements[15].val(this.model.get('exitRightDirection')) }
 
     // Background
     elements[0].on(
@@ -634,38 +649,38 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
         this.model.set('background', background)
       }, this)
     )
-    // Left Character Animation
-    elements[2].on(
-      'change',
-      _.bind(function (evt) {
-        var leftAnimation = $(evt.target).val()
-        this.model.set('leftCharacterAnimation', leftAnimation)
-      }, this)
-    )
-    // Left Character Direction
-    elements[3].on(
-      'change',
-      _.bind(function (evt) {
-        var leftDirection = $(evt.target).val()
-        this.model.set('leftCharacterDirection', leftDirection)
-      }, this)
-    )
-    // Right Character Animation
-    elements[5].on(
-      'change',
-      _.bind(function (evt) {
-        var rightAnimation = $(evt.target).val()
-        this.model.set('rightCharacterAnimation', rightAnimation)
-      }, this)
-    )
-    // Right Character Direction
-    elements[6].on(
-      'change',
-      _.bind(function (evt) {
-        var rightDirection = $(evt.target).val()
-        this.model.set('rightCharacterDirection', rightDirection)
-      }, this)
-    )
+    // Enter Left Animation
+    elements[3].on('change', _.bind(function (evt) {
+      this.model.set('enterLeftAnimation', $(evt.target).val())
+    }, this))
+    // Enter Left Direction
+    elements[4].on('change', _.bind(function (evt) {
+      this.model.set('enterLeftDirection', $(evt.target).val())
+    }, this))
+    // Enter Right Animation
+    elements[6].on('change', _.bind(function (evt) {
+      this.model.set('enterRightAnimation', $(evt.target).val())
+    }, this))
+    // Enter Right Direction
+    elements[7].on('change', _.bind(function (evt) {
+      this.model.set('enterRightDirection', $(evt.target).val())
+    }, this))
+    // Exit Left Animation
+    elements[11].on('change', _.bind(function (evt) {
+      this.model.set('exitLeftAnimation', $(evt.target).val())
+    }, this))
+    // Exit Left Direction
+    elements[12].on('change', _.bind(function (evt) {
+      this.model.set('exitLeftDirection', $(evt.target).val())
+    }, this))
+    // Exit Right Animation
+    elements[14].on('change', _.bind(function (evt) {
+      this.model.set('exitRightAnimation', $(evt.target).val())
+    }, this))
+    // Exit Right Direction
+    elements[15].on('change', _.bind(function (evt) {
+      this.model.set('exitRightDirection', $(evt.target).val())
+    }, this))
   },
 
   collapseNode: function () {
@@ -676,13 +691,16 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
     this.$box.find('.toggle').unbind('click')
     this.$box.find('.toggle').on('click', _.bind(this.expandNode, this))
     this.$box.find('.toggle').html('+')
+    this.$box.find('.collapseDelete').remove()
     this.$box.find('.backgroundSelector').remove()
-    this.$box.find('.leftCharacter').remove()
-    this.$box.find('.leftAnimation').remove()
-    this.$box.find('.leftDirection').remove()
-    this.$box.find('.rightCharacter').remove()
-    this.$box.find('.rightAnimation').remove()
-    this.$box.find('.rightDirection').remove()
+    this.$box.find('.enterLeftAnimation').remove()
+    this.$box.find('.enterLeftDirection').remove()
+    this.$box.find('.enterRightAnimation').remove()
+    this.$box.find('.enterRightDirection').remove()
+    this.$box.find('.exitLeftAnimation').remove()
+    this.$box.find('.exitLeftDirection').remove()
+    this.$box.find('.exitRightAnimation').remove()
+    this.$box.find('.exitRightDirection').remove()
   }
 })
 
@@ -1233,22 +1251,35 @@ function convertToGameState (graph) {
         Question: cell.attributes.prompt,
         AnswerWords: cell.attributes.answerWords.split(', '),
         Solutions: {},
-        OnStateEnter: {}
+        OnStateEnter: {},
+        OnStateExit: {}
       }
       if (cell.attributes.background) {
         newState.OnStateEnter.Background = cell.attributes.background
       }
-      if (cell.attributes.leftCharacterAnimation) {
-        newState.OnStateEnter.Left = cell.attributes.leftCharacterAnimation
+      if (cell.attributes.enterLeftAnimation) {
+        newState.OnStateEnter.Left = cell.attributes.enterLeftAnimation
       }
-      if (cell.attributes.leftCharacterDirection) {
-        newState.OnStateEnter.LeftDo = cell.attributes.leftCharacterDirection
+      if (cell.attributes.enterLeftDirection) {
+        newState.OnStateEnter.LeftDo = cell.attributes.enterLeftDirection
       }
-      if (cell.attributes.rightCharacterAnimation) {
-        newState.OnStateEnter.Right = cell.attributes.rightCharacterAnimation
+      if (cell.attributes.enterRightAnimation) {
+        newState.OnStateEnter.Right = cell.attributes.enterRightAnimation
       }
-      if (cell.attributes.rightCharacterDirection) {
-        newState.OnStateEnter.RightDo = cell.attributes.rightCharacterDirection
+      if (cell.attributes.enterRightDirection) {
+        newState.OnStateEnter.RightDo = cell.attributes.enterRightDirection
+      }
+      if (cell.attributes.exitLeftAnimation) {
+        newState.OnStateExit.Left = cell.attributes.exitLeftAnimation
+      }
+      if (cell.attributes.exitLeftDirection) {
+        newState.OnStateExit.LeftDo = cell.attributes.exitLeftDirection
+      }
+      if (cell.attributes.exitRightAnimation) {
+        newState.OnStateExit.Right = cell.attributes.exitRightAnimation
+      }
+      if (cell.attributes.exitRightDirection) {
+        newState.OnStateExit.RightDo = cell.attributes.exitRightDirection
       }
       gameState.States[cell.attributes.name] = newState
     }
