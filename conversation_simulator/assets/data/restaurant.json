@@ -5,11 +5,13 @@
     "LeftCharacter": "cook",
     "LeftVoice": "Microsoft David",
     "LeftPitch": -100,
+    "LeftAddY": 0,
     "CallOutLeftX": 205,
     "CallOutLeftY": 350,
     "RightCharacter": "man",
     "RightVoice": "Microsoft Hazel",
     "RightPitch": 100,
+    "RightAddY": 0,
     "CallOutRightX": 175,
     "CallOutRightY": 340,
     "Backgrounds": ["restaurant"]
@@ -294,7 +296,8 @@
       "Question": "Great. Is that all?",
       "AnswerWords": [
         "yes",
-        "also,well",
+        "also",
+        "well",
         "bagel",
         "i",
         "a",
@@ -490,39 +493,6 @@
   "graphData": {
     "cells": [
       {
-        "type": "dialogue.Start",
-        "outPorts": ["output"],
-        "actor": "",
-        "textarea": "Start writing",
-        "size": { "width": 180, "height": 475 },
-        "gameName": "Restaurant",
-        "gameTitle": "At the Restaurant",
-        "leftCharacter": "cook",
-        "leftVoice": "Microsoft David",
-        "leftPitch": "-100",
-        "leftX": null,
-        "leftY": null,
-        "rightCharacter": "man",
-        "rightVoice": "Microsoft Hazel",
-        "rightPitch": "100",
-        "rightX": null,
-        "rightY": null,
-        "backgrounds": ["restaurant"],
-        "name": "",
-        "inPorts": [],
-        "position": { "x": 96, "y": 192 },
-        "angle": 0,
-        "id": "7eb60a61-70df-4120-b615-2002be6b1570",
-        "z": 0,
-        "attrs": {
-          ".outPorts>.port0>text": { "text": "output" },
-          ".outPorts>.port0>circle": {
-            "port": { "id": "output", "type": "out" }
-          },
-          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
-        }
-      },
-      {
         "size": { "width": 250, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
@@ -556,27 +526,6 @@
             "port": { "id": "output", "type": "out" }
           },
           ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
-        }
-      },
-      {
-        "type": "link",
-        "id": "af2e1f73-1c6f-42a2-b56f-cb8f96ee1938",
-        "smooth": true,
-        "embeds": "",
-        "source": {
-          "id": "7eb60a61-70df-4120-b615-2002be6b1570",
-          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
-          "port": "output"
-        },
-        "target": {
-          "id": "2e24cd3a-eba8-48bf-a498-5bac135fbc5b",
-          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
-          "port": "input"
-        },
-        "z": 2,
-        "attrs": {
-          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
-          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
         }
       },
       {
@@ -1589,7 +1538,7 @@
         }
       },
       {
-        "size": { "width": 250, "height": 405 },
+        "size": { "width": 250, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
@@ -1661,7 +1610,7 @@
         }
       },
       {
-        "size": { "width": 250, "height": 405 },
+        "size": { "width": 250, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
@@ -3512,6 +3461,62 @@
         "attrs": {
           ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
           ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "f8af2b6d-981e-46fb-8c75-94f458fa5fa7",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "18ffe6fd-f3fe-407e-9604-709dac557f3a",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "2e24cd3a-eba8-48bf-a498-5bac135fbc5b",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 121,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "dialogue.Start",
+        "outPorts": ["output"],
+        "actor": "",
+        "textarea": "Start writing",
+        "size": { "width": 180, "height": 525 },
+        "gameName": "Restaurant",
+        "gameTitle": "At the Restaurant",
+        "leftCharacter": "cook",
+        "leftVoice": "Microsoft David",
+        "leftPitch": "-100",
+        "leftYOffset": null,
+        "leftX": null,
+        "leftY": null,
+        "rightCharacter": "man",
+        "rightVoice": "Microsoft Hazel",
+        "rightPitch": "100",
+        "rightYOffset": null,
+        "rightX": null,
+        "rightY": null,
+        "backgrounds": ["restaurant"],
+        "name": "",
+        "inPorts": [],
+        "position": { "x": 80, "y": 160 },
+        "angle": 0,
+        "id": "18ffe6fd-f3fe-407e-9604-709dac557f3a",
+        "z": 122,
+        "attrs": {
+          ".outPorts>.port0>text": { "text": "output" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
         }
       }
     ]

@@ -227,8 +227,7 @@ export default class extends Phaser.State {
     this.spritesGroup = this.add.group()
     this.leftCharacter = this.loadSpriter('leftCharacter')
     this.leftCharacter.x = -200 * game.scaleRatio
-    // this.leftCharacter.y = this.world.height - 470 + parseInt(this.phaserJSON.Setup.leftAddY)
-    this.leftCharacter.y = this.world.height - 470
+    this.leftCharacter.y = this.world.height - 470 + parseInt(this.phaserJSON.Setup.LeftAddY)
     this.spritesGroup.add(this.leftCharacter)
 
     this.rightCharacter = this.loadSpriter('rightCharacter')
@@ -238,9 +237,7 @@ export default class extends Phaser.State {
     })
     this.rightCharacter.x = game.width + 180 * game.scaleRatio
     this.rightCharacter.startx = this.world.width * 0.75 * game.scaleRatio
-    this.rightCharacter.y =
-    // this.world.height - 460 + parseInt(this.phaserJSON.Setup.rightAddY)
-    this.world.height - 460
+    this.rightCharacter.y = this.world.height - 460 + parseInt(this.phaserJSON.Setup.RightAddY)
     this.rightCharacter.setAnimationSpeedPercent(100)
     this.rightCharacter.playAnimationByName('_IDLE')
     this.spritesGroup.add(this.rightCharacter)

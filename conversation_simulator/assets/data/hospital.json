@@ -5,11 +5,13 @@
     "LeftCharacter": "cook",
     "LeftVoice": "Microsoft David",
     "LeftPitch": -100,
+    "LeftAddY": 55,
     "CallOutLeftX": 205,
     "CallOutLeftY": 350,
     "RightCharacter": "man",
     "RightVoice": "Microsoft Hazel",
     "RightPitch": 100,
+    "RightAddY": 55,
     "CallOutRightX": 175,
     "CallOutRightY": 340,
     "Backgrounds": ["hospital", "hospital_room", "hospital_room_2"]
@@ -37,7 +39,8 @@
         "hi": { "Score": 0, "Next": "Visit Set" },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": { "Background": "2" }
+      "OnStateEnter": { "Background": "2" },
+      "OnStateExit": {}
     },
     "Visit Set": {
       "Type": "Conversation",
@@ -64,7 +67,8 @@
         "thanks for coming": { "Score": 0, "Next": "Health Status" },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "Health Status": {
       "Type": "Conversation",
@@ -95,7 +99,8 @@
         "i feel bored": { "Score": 0, "Next": "Motivating Statement" },
         "bored": { "Score": 0, "Next": "Motivating Statement" }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "What Happened": {
       "Type": "Conversation",
@@ -125,7 +130,8 @@
         "i crashed": { "Score": 0, "Next": "How it happened" },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "Motivating Statement": {
       "Type": "Conversation",
@@ -150,7 +156,8 @@
         "all right thank you": { "Score": 0, "Next": "What Happened" },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "How it happened": {
       "Type": "Conversation",
@@ -176,7 +183,8 @@
         },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "Details Inquiring": {
       "Type": "Conversation",
@@ -201,7 +209,8 @@
         "no, not at all": { "Score": 0, "Next": "Explanation Request" },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "Explanation Request": {
       "Type": "Conversation",
@@ -229,7 +238,8 @@
         },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "Further Explanation": {
       "Type": "Conversation",
@@ -262,7 +272,8 @@
         },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "Congratulations": {
       "Type": "Conversation",
@@ -293,7 +304,8 @@
         },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "Introduction to Joke": {
       "Type": "Conversation",
@@ -320,7 +332,8 @@
         "default": { "Score": -50, "Next": null },
         "please go away": { "Score": 0, "Next": "Homework Subject" }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "Homework Subject": {
       "Type": "Conversation",
@@ -352,7 +365,8 @@
           "Next": "Accept Joke"
         }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "Joke": {
       "Type": "Conversation",
@@ -382,7 +396,8 @@
         "ha ha ha you made my day": { "Score": 0, "Next": "Homework Subject" },
         "that was not funny": { "Score": 0, "Next": "Homework Subject" }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "Excuse Accepted": {
       "Type": "Conversation",
@@ -419,7 +434,8 @@
         },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "Where to Start": {
       "Type": "Conversation",
@@ -449,7 +465,8 @@
         "i like geography": { "Score": 0, "Next": "End" },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "Accept Joke": {
       "Type": "Conversation",
@@ -472,7 +489,8 @@
         "thank you you are a real friend": { "Score": 0, "Next": "End" },
         "default": { "Score": -50, "Next": null }
       },
-      "OnStateEnter": {}
+      "OnStateEnter": {},
+      "OnStateExit": {}
     },
     "End": { "Type": "End", "Question": "", "AnswerWords": [], "Solutions": {} }
   },
@@ -483,23 +501,25 @@
         "outPorts": ["output"],
         "actor": "",
         "textarea": "Start writing",
-        "size": { "width": 180, "height": 527 },
+        "size": { "width": 180, "height": 577 },
         "gameName": "Hospital",
         "gameTitle": "At the Hospital",
         "leftCharacter": "cook",
         "leftVoice": "Microsoft David",
         "leftPitch": "-100",
+        "leftYOffset": "55",
         "leftX": "205",
         "leftY": "350",
         "rightCharacter": "man",
         "rightVoice": "Microsoft Hazel",
         "rightPitch": "100",
+        "rightYOffset": "55",
         "rightX": "175",
         "rightY": "340",
         "backgrounds": ["hospital", "hospital_room", "hospital_room_2"],
         "name": "",
         "inPorts": [],
-        "position": { "x": 16, "y": 400 },
+        "position": { "x": 16, "y": 272 },
         "angle": 0,
         "leftAnimation": null,
         "id": "f19c6389-2174-4dbf-80be-de0e68e75e38",
@@ -521,12 +541,20 @@
         "prompt": "Hey, good morning!",
         "answerWords": "Hi, Good, You, Surprise, Hey, Morning, A, What",
         "background": "2",
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 224, "y": 368 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 224, "y": 368 },
-        "angle": 0,
         "id": "ce8c1399-408b-40d6-b50e-21aba7581633",
         "z": 1,
         "attrs": {
@@ -620,12 +648,20 @@
         "prompt": "I heard you had an accident and wanted to see you.",
         "answerWords": "Cool, Great, You, Thank, I, Never, For, Coming, Thanks, See",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 784, "y": 368 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 784, "y": 368 },
-        "angle": 0,
         "id": "d6418b0a-88f6-40fb-b856-c8c23cb1b93e",
         "z": 5,
         "attrs": {
@@ -721,12 +757,20 @@
         "prompt": "So, how do you feel? Does it hurt?",
         "answerWords": "Thank, you, better, now, no, it, I, doesn't, bored, feel",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 1344, "y": 384 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 1344, "y": 384 },
-        "angle": 0,
         "id": "e3b843e1-c8ce-4803-8907-5b332b7c10bc",
         "z": 9,
         "attrs": {
@@ -866,12 +910,20 @@
         "prompt": "So, how was it?",
         "answerWords": "Hit, a, I, better, tree, got, accidentally, fall, crashed, into",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 2320, "y": 256 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 2320, "y": 256 },
-        "angle": 0,
         "id": "77da04b3-5e07-4c0d-a130-5dd6699bc865",
         "z": 15,
         "attrs": {
@@ -894,12 +946,20 @@
         "prompt": "Come on, you don't look so bad!",
         "answerWords": "Ok, all, you, thank, appreciate, I, kite, well, that, it",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 1728, "y": 608 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 1728, "y": 608 },
-        "angle": 0,
         "id": "b2a64863-b7bd-448b-9dce-d4e03c946941",
         "z": 16,
         "attrs": {
@@ -1016,12 +1076,20 @@
         "prompt": "Were you skating?",
         "answerWords": "No, sorry, ball, course, was, my, I, bike, riding, not",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 2880, "y": 240 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 2880, "y": 240 },
-        "angle": 0,
         "id": "b54e8506-f3fb-4608-940e-92f55ef855f1",
         "z": 21,
         "attrs": {
@@ -1114,12 +1182,20 @@
         "prompt": "So, were you distracted?",
         "answerWords": "Maybe, no, exactly, all, not, at, well, sometimes, please, course",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 3456, "y": 240 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 3456, "y": 240 },
-        "angle": 0,
         "id": "3a4293a8-7320-47cf-81cb-6d3fd666253a",
         "z": 25,
         "attrs": {
@@ -1213,12 +1289,20 @@
         "prompt": "What do you mean?",
         "answerWords": "you, avoided, ask, a, I, little, road, crossing, girl, the",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 4080, "y": 240 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 4080, "y": 240 },
-        "angle": 0,
         "id": "435a2412-0f05-4b20-bce6-78e1ed731039",
         "z": 29,
         "attrs": {
@@ -1309,12 +1393,20 @@
         "prompt": "Oh...",
         "answerWords": "the, on, tree, a, sidewalk, hit, I, and, sharply, turned",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 4624, "y": 192 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 4624, "y": 192 },
-        "angle": 0,
         "id": "c5a2983a-e8fc-4686-b2ad-608d56427ead",
         "z": 33,
         "attrs": {
@@ -1407,12 +1499,20 @@
         "prompt": "Well congratulations! You are a hero. You saved a little girl's life!",
         "answerWords": "Guess, thumbs, oh, sure, thing, up, good, is, a, that",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 5216, "y": 192 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 5216, "y": 192 },
-        "angle": 0,
         "id": "eef9b3aa-481f-43ad-b0cb-3907426dd6ba",
         "z": 37,
         "attrs": {
@@ -1577,12 +1677,20 @@
         "prompt": "Well, there is another good thing",
         "answerWords": "away, oh, would, really, go, please, what, be, it, is, that",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 5856, "y": 160 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 5856, "y": 160 },
-        "angle": 0,
         "id": "212331af-586b-4c91-af55-1a1f9260d7cc",
         "z": 44,
         "attrs": {
@@ -1720,12 +1828,20 @@
         "prompt": "Ha ha ha! I also brought your Math, Geography and Literature homework.",
         "answerWords": "well, let's, stopped, really, you, funny, being, there, great, start",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 7616, "y": 432 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 7616, "y": 432 },
-        "angle": 0,
         "id": "02aa57f4-c477-44ce-a957-7a2c9ea37d83",
         "z": 50,
         "attrs": {
@@ -1769,12 +1885,20 @@
         "prompt": "The other good thing is that if you get out of here before tomorrow afternoon, you can come to the school Halloween party desgised as a mummy!",
         "answerWords": "not, do, please, how, ha, you, funny, is, think, it, that",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 6432, "y": 96 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 6432, "y": 96 },
-        "angle": 0,
         "id": "9dda4dfa-2011-4e18-aecd-f76727a0240b",
         "z": 52,
         "attrs": {
@@ -1866,12 +1990,20 @@
         "prompt": "No, sorry, but it could be!",
         "answerWords": "ok, little, worry, don't, yes, a, is, funny, it, that, was",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 6992, "y": 128 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 6992, "y": 128 },
-        "angle": 0,
         "id": "d3a471e7-336f-443f-8693-2538bee2e363",
         "z": 56,
         "attrs": {
@@ -2057,12 +2189,20 @@
         "prompt": "Would you like to start with Math, Geography, or Literature?",
         "answerWords": "let's, geography, I, with, like, start, math, maybe, literature, first",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 8208, "y": 208 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 8208, "y": 208 },
-        "angle": 0,
         "id": "1d03b4bd-4497-4961-96ae-9b695404b898",
         "z": 64,
         "attrs": {
@@ -2085,12 +2225,20 @@
         "prompt": "Don't worry, it's easy and I'm staying to do it with you.",
         "answerWords": "you, thank, are, my, a, friend, best, really",
         "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 8192, "y": 608 },
+        "angle": 0,
         "leftCharacterAnimation": null,
         "leftCharacterDirection": null,
         "rightCharacterAnimation": null,
         "rightCharacterDirection": null,
-        "position": { "x": 8192, "y": 608 },
-        "angle": 0,
         "id": "3c89a43b-6e18-4f6e-8c51-51a88fcb0d9e",
         "z": 65,
         "attrs": {

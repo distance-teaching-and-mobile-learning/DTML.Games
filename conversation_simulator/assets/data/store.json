@@ -5,11 +5,13 @@
     "LeftCharacter": "storemanager",
     "LeftVoice": "Microsoft Zira",
     "LeftPitch": -100,
+    "LeftAddY": 25,
     "CallOutLeftX": 190,
     "CallOutLeftY": 370,
     "RightCharacter": "woman",
     "RightVoice": "Microsoft Zira",
     "RightPitch": 100,
+    "RightAddY": -80,
     "CallOutRightX": 175,
     "CallOutRightY": 340,
     "Backgrounds": ["bg_store", "bg_vegetable_stand", "bg_store_exit"]
@@ -344,17 +346,19 @@
         "outPorts": ["output"],
         "actor": "",
         "textarea": "Start writing",
-        "size": { "width": 180, "height": 527 },
+        "size": { "width": 180, "height": 577 },
         "gameName": "Grocery Store",
         "gameTitle": "At the Grocery Store",
         "leftCharacter": "storemanager",
         "leftVoice": "Microsoft Zira",
         "leftPitch": "-100",
+        "leftYOffset": "25",
         "leftX": "190",
         "leftY": "370",
         "rightCharacter": "woman",
         "rightVoice": "Microsoft Zira",
         "rightPitch": "100",
+        "rightYOffset": "-80",
         "rightX": "175",
         "rightY": "340",
         "backgrounds": ["bg_store", "bg_vegetable_stand", "bg_store_exit"],
@@ -458,7 +462,7 @@
         }
       },
       {
-        "size": { "width": 250, "height": 405 },
+        "size": { "width": 250, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
@@ -792,7 +796,7 @@
         }
       },
       {
-        "size": { "width": 250, "height": 405 },
+        "size": { "width": 250, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
@@ -1349,7 +1353,7 @@
         }
       },
       {
-        "size": { "width": 250, "height": 405 },
+        "size": { "width": 250, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],

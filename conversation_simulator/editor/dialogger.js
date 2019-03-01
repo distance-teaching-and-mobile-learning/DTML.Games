@@ -841,17 +841,19 @@ joint.shapes.dialogue.Start = joint.shapes.devs.Model.extend({
       attrs: {
         '.outPorts circle': { unlimitedConnections: ['dialogue.Choice'] }
       },
-      size: { width: 180, height: 475 },
+      size: { width: 180, height: 525 },
       gameName: '',
       gameTitle: '',
       leftCharacter: null,
       leftVoice: null,
       leftPitch: null,
+      leftYOffset: null,
       leftX: null,
       leftY: null,
       rightCharacter: null,
       rightVoice: null,
       rightPitch: null,
+      rightYOffset: null,
       rightX: null,
       rightY: null,
       backgrounds: [null]
@@ -880,6 +882,9 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     '<span style="width:50%; float:left;">Pitch:</span><input type="text" class="leftPitch" style="width:50%; float:right; clear:right;" placeHolder="0" />',
     '</div>',
     '<div style="overflow:hidden">',
+    '<span style="width:50%; float:left;">Y Offset:</span><input type="text" class="leftYOffset" style="width:50%; float:right; clear:right;" placeHolder="0" />',
+    '</div>',
+    '<div style="overflow:hidden">',
     '<span style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="leftX" style="width:38px" placeHolder="205"></span><span style="width:33%; float:left; clear:right;">y: <input type="text" class="leftY" style="width:38px" placeHolder="350"></span>',
     '</div>',
     '<hr>',
@@ -892,6 +897,9 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     '</div>',
     '<div style="overflow:hidden">',
     '<span style="width:50%; float:left;">Pitch:</span><input type="text" class="rightPitch" style="width:50%; float:right; clear:right;" placeHolder="0" />',
+    '</div>',
+    '<div style="overflow:hidden">',
+    '<span style="width:50%; float:left;">Y Offset:</span><input type="text" class="rightYOffset" style="width:50%; float:right; clear:right;" placeHolder="0" />',
     '</div>',
     '<div style="overflow:hidden">',
     '<span style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="rightX" style="width:38px" placeHolder="175"></span><span style="width:33%; float:left; clear:right;">y: <input type="text" class="rightY" style="width:38px" placeHolder="340"></span>',
@@ -913,11 +921,13 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     this.$box.find('input.leftCharacter').on('change', _.bind(function (evt) { this.model.set('leftCharacter', $(evt.target).val()) }, this))
     this.$box.find('input.leftVoice').on('change', _.bind(function (evt) { this.model.set('leftVoice', $(evt.target).val()) }, this))
     this.$box.find('input.leftPitch').on('change', _.bind(function (evt) { this.model.set('leftPitch', $(evt.target).val()) }, this))
+    this.$box.find('input.leftYOffset').on('change', _.bind(function (evt) { this.model.set('leftYOffset', $(evt.target).val()) }, this))
     this.$box.find('input.leftX').on('change', _.bind(function (evt) { this.model.set('leftX', $(evt.target).val()) }, this))
     this.$box.find('input.leftY').on('change', _.bind(function (evt) { this.model.set('leftY', $(evt.target).val()) }, this))
     this.$box.find('input.rightCharacter').on('change', _.bind(function (evt) { this.model.set('rightCharacter', $(evt.target).val()) }, this))
     this.$box.find('input.rightVoice').on('change', _.bind(function (evt) { this.model.set('rightVoice', $(evt.target).val()) }, this))
     this.$box.find('input.rightPitch').on('change', _.bind(function (evt) { this.model.set('rightPitch', $(evt.target).val()) }, this))
+    this.$box.find('input.rightYOffset').on('change', _.bind(function (evt) { this.model.set('rightYOffset', $(evt.target).val()) }, this))
     this.$box.find('input.rightX').on('change', _.bind(function (evt) { this.model.set('rightX', $(evt.target).val()) }, this))
     this.$box.find('input.rightY').on('change', _.bind(function (evt) { this.model.set('rightY', $(evt.target).val()) }, this))
     this.$box.find('input.background').on('change', _.bind(function (evt) {
@@ -932,11 +942,13 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     this.$box.find('input.leftCharacter').val(this.model.get('leftCharacter'))
     this.$box.find('input.leftVoice').val(this.model.get('leftVoice'))
     this.$box.find('input.leftPitch').val(this.model.get('leftPitch'))
+    this.$box.find('input.leftYOffset').val(this.model.get('leftYOffset'))
     this.$box.find('input.leftX').val(this.model.get('leftX'))
     this.$box.find('input.leftY').val(this.model.get('leftY'))
     this.$box.find('input.rightCharacter').val(this.model.get('rightCharacter'))
     this.$box.find('input.rightVoice').val(this.model.get('rightVoice'))
     this.$box.find('input.rightPitch').val(this.model.get('rightPitch'))
+    this.$box.find('input.rightYOffset').val(this.model.get('rightYOffset'))
     this.$box.find('input.rightX').val(this.model.get('rightX'))
     this.$box.find('input.rightY').val(this.model.get('rightY'))
   },
@@ -966,6 +978,9 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
       this.model.set('backgrounds', backgrounds)
     }, this))
     this.$box.append(backgroundInput)
+    if (backgroundInput.is('input')) {
+      backgroundInput.on('click', function () { backgroundInput.focus() })
+    }
     this.updateSize()
   },
 
@@ -998,7 +1013,7 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     this.model.set('size', {
       width: 180,
       height:
-        475 + Math.max(0, (this.model.get('backgrounds').length - 1) * height)
+        525 + Math.max(0, (this.model.get('backgrounds').length - 1) * height)
     })
   }
 })
@@ -1218,11 +1233,13 @@ function convertToGameState (graph) {
       gameState.Setup.LeftCharacter = cell.attributes.leftCharacter
       gameState.Setup.LeftVoice = cell.attributes.leftVoice
       gameState.Setup.LeftPitch = Number(cell.attributes.leftPitch) || 0
+      gameState.Setup.LeftAddY = Number(cell.attributes.leftYOffset) || 0
       gameState.Setup.CallOutLeftX = Number(cell.attributes.leftX) || 205
       gameState.Setup.CallOutLeftY = Number(cell.attributes.leftY) || 350
       gameState.Setup.RightCharacter = cell.attributes.rightCharacter
       gameState.Setup.RightVoice = cell.attributes.rightVoice
       gameState.Setup.RightPitch = Number(cell.attributes.rightPitch) || 0
+      gameState.Setup.RightAddY = Number(cell.attributes.rightYOffset) || 0
       gameState.Setup.CallOutRightX = Number(cell.attributes.rightX) || 175
       gameState.Setup.CallOutRightY = Number(cell.attributes.rightY) || 340
       gameState.Setup.Backgrounds = cell.attributes.backgrounds
