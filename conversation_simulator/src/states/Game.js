@@ -21,12 +21,12 @@ import StateMachine from '../StateMachine'
 
 export default class extends Phaser.State {
   init () {
-    this.stateMachine = new StateMachine(this.game.cache.getJSON('stateData'))
+    this.stateMachine = new StateMachine(this.game.cache.getJSON('gameData'))
   }
 
   create () {
     this.cursors = game.input.keyboard.createCursorKeys()
-    this.phaserJSON = this.cache.getJSON('gameSetup')
+    this.phaserJSON = this.cache.getJSON('gameData')
     window.speechSynthesis.getVoices()
 
     this.listOfVoices = window.speechSynthesis.getVoices()
@@ -38,12 +38,13 @@ export default class extends Phaser.State {
     // this.awaitVoices = new Promise(
     //   resolve => (window.speechSynthesis.onvoiceschanged = resolve)
     // )
-    this.leftCharacterVoice = this.phaserJSON.LeftVoice
-    this.rightCharacterVoice = this.phaserJSON.RightVoice
+    this.leftCharacterVoice = this.phaserJSON.Setup.LeftVoice
+    this.rightCharacterVoice = this.phaserJSON.Setup.RightVoice
 
     this.language = this.game.state.states['Game']._language
     this.langCode = this.game.state.states['Game']._langCode
-    this.bg = new Background({ game: this.game }, 1)
+    let startingBackground = this.stateMachine.getOnEnterBg() || 1
+    this.bg = new Background({ game: this.game }, startingBackground)
 
     let music = game.add.audio('gameMusic')
     music.onDecoded.add(() => {
@@ -226,7 +227,7 @@ export default class extends Phaser.State {
     this.spritesGroup = this.add.group()
     this.leftCharacter = this.loadSpriter('leftCharacter')
     this.leftCharacter.x = -200 * game.scaleRatio
-    this.leftCharacter.y = this.world.height - 470 + parseInt(this.phaserJSON.leftAddY)
+    this.leftCharacter.y = this.world.height - 470 + parseInt(this.phaserJSON.Setup.LeftAddY)
     this.spritesGroup.add(this.leftCharacter)
 
     this.rightCharacter = this.loadSpriter('rightCharacter')
@@ -236,8 +237,7 @@ export default class extends Phaser.State {
     })
     this.rightCharacter.x = game.width + 180 * game.scaleRatio
     this.rightCharacter.startx = this.world.width * 0.75 * game.scaleRatio
-    this.rightCharacter.y =
-      this.world.height - 460 + parseInt(this.phaserJSON.rightAddY)
+    this.rightCharacter.y = this.world.height - 460 + parseInt(this.phaserJSON.Setup.RightAddY)
     this.rightCharacter.setAnimationSpeedPercent(100)
     this.rightCharacter.playAnimationByName('_IDLE')
     this.spritesGroup.add(this.rightCharacter)
@@ -327,34 +327,31 @@ export default class extends Phaser.State {
       this.showMenu()
     }, this)
 
-    dtml.recordGameEnd(this.phaserJSON.gameid, this.scoreText.text)
+    dtml.recordGameEnd(this.phaserJSON.Setup.gameid, this.scoreText.text)
   }
 
   textToSpeach (text, voice, pitch) {
-    try
-    {
-    if (speechSynthesis.speaking) {
-      speechSynthesis.cancel()
-      setTimeout(() => {
-        this.textToSpeach(text, voice, pitch)
-      }, 500)
-    } else {
-      var voicename = this.listOfVoices.filter(a =>a.name.toLowerCase().includes(voice.toLowerCase()));     
-      var msg = new SpeechSynthesisUtterance();
-      msg.voice = voicename.length > 0 ? voicename[0] : this.listOfVoices[0];
-      console.log(msg.voice);
-      msg.default = false
-      msg.voiceURI = 'native'
-      msg.volume = 1
-      msg.rate = 1
-      msg.pitch = parseInt(pitch)
-      msg.text = text
-      msg.lang = 'en-US'
-      speechSynthesis.speak(msg)
-    }
-    } catch(e)
-    {
-       console.log(e);
+    try {
+      if (speechSynthesis.speaking) {
+        speechSynthesis.cancel()
+        setTimeout(() => {
+          this.textToSpeach(text, voice, pitch)
+        }, 500)
+      } else {
+        var voicename = this.listOfVoices.filter(a =>a.name.toLowerCase().includes(voice.toLowerCase()));     
+        var msg = new SpeechSynthesisUtterance();
+        msg.voice = voicename.length > 0 ? voicename[0] : this.listOfVoices[0];
+        msg.default = false
+        msg.voiceURI = 'native'
+        msg.volume = 1
+        msg.rate = 1
+        msg.pitch = parseInt(pitch)
+        msg.text = text
+        msg.lang = 'en-US'
+        speechSynthesis.speak(msg)
+      }
+    } catch (e) {
+      console.log(e)
     }
   }
 
@@ -484,7 +481,7 @@ export default class extends Phaser.State {
           }
 
           if (this.bgnya !== '') {
-            this.bg.bgs[0].loadTexture(this.bgnya)
+            this.bg.gameBackground.loadTexture('bg' + this.bgnya)
           }
         }
 
@@ -511,10 +508,10 @@ export default class extends Phaser.State {
   rightCharacterSpeak (text) {
     this.rightCharacter.setAnimationSpeedPercent(100)
     this.rightCharacter.playAnimationByName('_SAY')
-    this.textToSpeach(text, this.rightCharacterVoice, this.phaserJSON.RightPitch)
+    this.textToSpeach(text, this.rightCharacterVoice, this.phaserJSON.Setup.RightPitch)
     let label = this.game.add.text(
-      this.rightCharacter.x + parseInt(this.phaserJSON.CallOutRightX),
-      this.rightCharacter.y - parseInt(this.phaserJSON.CallOutRightY),
+      this.rightCharacter.x + parseInt(this.phaserJSON.Setup.CallOutRightX),
+      this.rightCharacter.y - parseInt(this.phaserJSON.Setup.CallOutRightY),
       text,
       {
         font: '30px Berkshire Swash',
@@ -677,7 +674,7 @@ export default class extends Phaser.State {
       }
 
       if (this.bgnya !== '') {
-        this.bg.bgs[0].loadTexture(this.bgnya)
+        this.bg.gameBackground.loadTexture('bg' + this.bgnya)
       }
     }
 
@@ -708,10 +705,10 @@ export default class extends Phaser.State {
 
     this.leftCharacter.setAnimationSpeedPercent(100)
     this.leftCharacter.playAnimationByName('_SAY')
-    this.textToSpeach(text, this.leftCharacterVoice, this.phaserJSON.LeftPitch)
+    this.textToSpeach(text, this.leftCharacterVoice, this.phaserJSON.Setup.LeftPitch)
     this.leftCharacterLabel = this.game.add.text(
-      this.leftCharacter.x - parseInt(this.phaserJSON.CallOutLeftX),
-      this.leftCharacter.y - parseInt(this.phaserJSON.CallOutLeftY),
+      this.leftCharacter.x - parseInt(this.phaserJSON.Setup.CallOutLeftX),
+      this.leftCharacter.y - parseInt(this.phaserJSON.Setup.CallOutLeftY),
       text,
       {
         font: '30px Berkshire Swash',

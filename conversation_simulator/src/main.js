@@ -35,7 +35,7 @@ class Game extends Phaser.Game {
 }
 
 window.game = new Game()
-game.gameDataFolder = gameModule
+game.gameModule = gameModule
 
 if (window.cordova) {
   var app = {

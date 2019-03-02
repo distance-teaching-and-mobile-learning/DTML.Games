@@ -17,7 +17,8 @@
     "gameModule": true,
     "$": true,
     "joint": true,
-    "_": true
+    "_": true,
+    "dtml": true
   },
   "settings": {
     

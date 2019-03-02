@@ -135,10 +135,8 @@ export default class {
     var success =
       solution === this.currentState.Solutions.default ? 'False' : 'True'
 
-    // var resultReceived = false
     // Apply score
     dtml.scorePhrase(normalizedPhrase, success, result => {
-      // resultReceived = true
       if (result) {
         this.scoreSolution(solution, result, hintUsed)
       } else {
@@ -148,15 +146,6 @@ export default class {
         }
       }
     })
-    // setTimeout(function () {
-    //   console.log(resultReceived)
-    //   if (!resultReceived) {
-    //     let score = solution.score || solution.scoreadjustment
-    //     if (this.isNumber(score)) {
-    //       this.scoreSolution(solution, score, hintUsed)
-    //     }
-    //   }
-    // }, 5000)
   }
 
   scoreSolution (solution, score, hintUsed) {

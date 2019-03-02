@@ -17,7 +17,7 @@ import Spriter from '../libs/spriter'
 
 export default class extends Phaser.State {
   init (score) {
-    this.phaserJSON = this.cache.getJSON('gameSetup')
+    this.phaserJSON = this.cache.getJSON('gameData')
     this.game.stage.backgroundColor = '#00B3C1'
     let gameover = game.add.sprite(
       game.world.centerX,
@@ -26,7 +26,7 @@ export default class extends Phaser.State {
     )
     gameover.anchor.set(0.5)
     this.setText(score)
-    dtml.recordGameEnd(this.phaserJSON.gameid, score)
+    dtml.recordGameEnd(this.phaserJSON.Setup.gameid, score)
   }
 
   shutdown () {

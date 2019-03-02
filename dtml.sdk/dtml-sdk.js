@@ -25,7 +25,7 @@ var dtml = {
 	// API Call to get words
 	//*****************************************************************
         getWords: function(level, callback, sender, debug) {
-        fetch(urls.gameService+"Words/?step="+level, 
+        fetch(this.urls.gameService+"Words/?step="+level, 
 		{ method: 'get', 
 		  credentials: 'same-origin', 
 		}).catch(err => {
@@ -45,7 +45,7 @@ var dtml = {
 	// API Call to score phrase
 	//*****************************************************************
        scorePhrase: function(phrase, success, callback, debug) {
-        fetch(urls.gameService+"ScorePhrase/?source=conversation&success="+success +"&phrase=" + phrase, 
+        fetch(this.urls.gameService+"ScorePhrase/?source=conversation&success="+success +"&phrase=" + phrase, 
 		{ method: 'get', 
 		  credentials: 'same-origin', 
 		}).catch(err => {
