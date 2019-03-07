@@ -841,7 +841,8 @@ joint.shapes.dialogue.Start = joint.shapes.devs.Model.extend({
       attrs: {
         '.outPorts circle': { unlimitedConnections: ['dialogue.Choice'] }
       },
-      size: { width: 180, height: 525 },
+      size: { width: 180, height: 170 },
+      expanded: false,
       gameName: '',
       gameTitle: '',
       leftCharacter: null,
@@ -870,54 +871,76 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     '<input type="text" class="gameName" placeHolder="Name" /></p>',
     '<p><span>Game Title</span>',
     '<input type="text" class="gameTitle" placeHolder="Title" /></p>',
-    '<hr>',
-    '<span>Left Character</span>',
-    '<div style="overflow:hidden">',
-    '<span style="width:50%; float:left;">Character:</span><input type="text" class="leftCharacter" style="width:50%; float:right; clear:right;" />',
-    '</div>',
-    '<div style="overflow:hidden">',
-    '<span style="width:50%; float:left;">Voice:</span><input type="text" class="leftVoice" style="width:50%; float:right; clear:right;" />',
-    '</div>',
-    '<div style="overflow:hidden">',
-    '<span style="width:50%; float:left;">Pitch:</span><input type="text" class="leftPitch" style="width:50%; float:right; clear:right;" placeHolder="0" />',
-    '</div>',
-    '<div style="overflow:hidden">',
-    '<span style="width:50%; float:left;">Y Offset:</span><input type="text" class="leftYOffset" style="width:50%; float:right; clear:right;" placeHolder="0" />',
-    '</div>',
-    '<div style="overflow:hidden">',
-    '<span style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="leftX" style="width:38px" placeHolder="205"></span><span style="width:33%; float:left; clear:right;">y: <input type="text" class="leftY" style="width:38px" placeHolder="350"></span>',
-    '</div>',
-    '<hr>',
-    '<span>Right Character</span>',
-    '<div style="overflow:hidden">',
-    '<span style="width:50%; float:left;">Character:</span><input type="text" class="rightCharacter" style="width:50%; float:right; clear:right;" />',
-    '</div>',
-    '<div style="overflow:hidden">',
-    '<span style="width:50%; float:left;">Voice:</span><input type="text" class="rightVoice" style="width:50%; float:right; clear:right;" />',
-    '</div>',
-    '<div style="overflow:hidden">',
-    '<span style="width:50%; float:left;">Pitch:</span><input type="text" class="rightPitch" style="width:50%; float:right; clear:right;" placeHolder="0" />',
-    '</div>',
-    '<div style="overflow:hidden">',
-    '<span style="width:50%; float:left;">Y Offset:</span><input type="text" class="rightYOffset" style="width:50%; float:right; clear:right;" placeHolder="0" />',
-    '</div>',
-    '<div style="overflow:hidden">',
-    '<span style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="rightX" style="width:38px" placeHolder="175"></span><span style="width:33%; float:left; clear:right;">y: <input type="text" class="rightY" style="width:38px" placeHolder="340"></span>',
-    '</div>',
-    '<hr>',
-    '<span>Backgrounds</span> <button class="removeBackground">-</button> <button class="addBackground">+</button>',
-    '<input type="text" class="background" placeHolder="Starting Background" index="0" />',
+    '<button class="toggle" style="float:left;">+</button> <span>Options</span>',
     '</div>'
   ].join(''),
 
   initialize: function () {
     joint.shapes.dialogue.BaseView.prototype.initialize.apply(this, arguments)
 
-    this.$box.find('.addBackground').on('click', _.bind(this.addBackground, this))
-    this.$box.find('.removeBackground').on('click', _.bind(this.removeBackground, this))
+    this.$box.find('.toggle').on('click', _.bind(this.expandNode, this))
 
     this.$box.find('input.gameName').on('change', _.bind(function (evt) { this.model.set('gameName', $(evt.target).val()) }, this))
     this.$box.find('input.gameTitle').on('change', _.bind(function (evt) { this.model.set('gameTitle', $(evt.target).val()) }, this))
+
+    // Fill in data if imported
+    this.$box.find('input.gameName').val(this.model.get('gameName'))
+    this.$box.find('input.gameTitle').val(this.model.get('gameTitle'))
+
+    // Expand and collapse to fix is the size if imported
+    this.expandNode()
+    this.collapseNode()
+  },
+
+  expandNode: function () {
+    this.$box.find('.toggle').unbind('click')
+    this.$box.find('.toggle').on('click', _.bind(this.collapseNode, this))
+    this.$box.find('.toggle').html('-')
+
+    var elements = [
+      $('<hr class="collapseDelete">'),
+      $('<span class="collapseDelete">Left Character</span>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Character:</span><input type="text" class="leftCharacter collapseDelete" style="width:50%; float:right; clear:right;" /></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Voice:</span><input type="text" class="leftVoice collapseDelete" style="width:50%; float:right; clear:right;" /></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Pitch:</span><input type="text" class="leftPitch collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Y Offset:</span><input type="text" class="leftYOffset collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="leftX collapseDelete" style="width:38px" placeHolder="205"></span><span class="collapseDelete" style="width:33%; float:left; clear:right;">y: <input type="text" class="leftY collapseDelete" style="width:38px" placeHolder="350"></span></div>'),
+      $('<hr class="collapseDelete">'),
+      $('<span class="collapseDelete">Right Character</span>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Character:</span><input type="text" class="rightCharacter collapseDelete" style="width:50%; float:right; clear:right;" /></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Voice:</span><input type="text" class="rightVoice collapseDelete" style="width:50%; float:right; clear:right;" /></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Pitch:</span><input type="text" class="rightPitch collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Y Offset:</span><input type="text" class="rightYOffset collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="rightX collapseDelete" style="width:38px" placeHolder="175"></span><span class="collapseDelete" style="width:33%; float:left; clear:right;">y: <input type="text" class="rightY collapseDelete" style="width:38px" placeHolder="340"></span></div>'),
+      $('<hr class="collapseDelete">'),
+      $('<span class="collapseDelete">Backgrounds</span> <button class="removeBackground collapseDelete">-</button> <button class="addBackground collapseDelete">+</button>'),
+    ]
+    let _this = this
+    $(elements).each(function (index, element) {
+      _this.$box.append(element)
+      // if (element.is('input')) {
+      //   element.on('click', function () { element.focus() })
+      // }
+    })
+    this.$box.find('input').on('click', function (evt) { $(evt.target).focus() })
+
+    // Fill in values
+    this.$box.find('input.gameName').val(this.model.get('gameName'))
+    this.$box.find('input.gameTitle').val(this.model.get('gameTitle'))
+    this.$box.find('input.leftCharacter').val(this.model.get('leftCharacter'))
+    this.$box.find('input.leftVoice').val(this.model.get('leftVoice'))
+    this.$box.find('input.leftPitch').val(this.model.get('leftPitch'))
+    this.$box.find('input.leftYOffset').val(this.model.get('leftYOffset'))
+    this.$box.find('input.leftX').val(this.model.get('leftX'))
+    this.$box.find('input.leftY').val(this.model.get('leftY'))
+    this.$box.find('input.rightCharacter').val(this.model.get('rightCharacter'))
+    this.$box.find('input.rightVoice').val(this.model.get('rightVoice'))
+    this.$box.find('input.rightPitch').val(this.model.get('rightPitch'))
+    this.$box.find('input.rightYOffset').val(this.model.get('rightYOffset'))
+    this.$box.find('input.rightX').val(this.model.get('rightX'))
+    this.$box.find('input.rightY').val(this.model.get('rightY'))
+
+    // Bind fields to data
     this.$box.find('input.leftCharacter').on('change', _.bind(function (evt) { this.model.set('leftCharacter', $(evt.target).val()) }, this))
     this.$box.find('input.leftVoice').on('change', _.bind(function (evt) { this.model.set('leftVoice', $(evt.target).val()) }, this))
     this.$box.find('input.leftPitch').on('change', _.bind(function (evt) { this.model.set('leftPitch', $(evt.target).val()) }, this))
@@ -936,21 +959,22 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
       this.model.set('backgrounds', backgrounds)
     }, this))
 
-    // Fill in data if imported
-    this.$box.find('input.gameName').val(this.model.get('gameName'))
-    this.$box.find('input.gameTitle').val(this.model.get('gameTitle'))
-    this.$box.find('input.leftCharacter').val(this.model.get('leftCharacter'))
-    this.$box.find('input.leftVoice').val(this.model.get('leftVoice'))
-    this.$box.find('input.leftPitch').val(this.model.get('leftPitch'))
-    this.$box.find('input.leftYOffset').val(this.model.get('leftYOffset'))
-    this.$box.find('input.leftX').val(this.model.get('leftX'))
-    this.$box.find('input.leftY').val(this.model.get('leftY'))
-    this.$box.find('input.rightCharacter').val(this.model.get('rightCharacter'))
-    this.$box.find('input.rightVoice').val(this.model.get('rightVoice'))
-    this.$box.find('input.rightPitch').val(this.model.get('rightPitch'))
-    this.$box.find('input.rightYOffset').val(this.model.get('rightYOffset'))
-    this.$box.find('input.rightX').val(this.model.get('rightX'))
-    this.$box.find('input.rightY').val(this.model.get('rightY'))
+    this.$box.find('.addBackground').on('click', _.bind(this.addBackground, this))
+    this.$box.find('.removeBackground').on('click', _.bind(this.removeBackground, this))
+
+    this.model.set('expanded', true)
+  },
+
+  collapseNode: function () {
+    this.$box.find('.toggle').unbind('click')
+    this.$box.find('.toggle').on('click', _.bind(this.expandNode, this))
+    this.$box.find('.toggle').html('+')
+
+    this.$box.find('.collapseDelete').remove()
+
+    this.model.set('expanded', false)
+
+    this.model.set('size', { width: 180, height: 170 })
   },
 
   addBackground: function () {
@@ -968,10 +992,10 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
   },
 
   addBackgroundField (index) {
-    var backgrounds = this.model.get('backgrounds').slice(0)
-    var backgroundInput = $('<input type="text" class="background" />')
-    backgroundInput.attr('placeHolder', 'Background ' + backgrounds.length)
-    backgroundInput.attr('index', backgrounds.length - 1)
+    var backgroundInput = $('<input type="text" class="background collapseDelete" />')
+    let placeHolder = index === 0 ? 'Starting Background' : 'Background ' + (index + 1)
+    backgroundInput.attr('placeHolder', placeHolder)
+    backgroundInput.attr('index', index)
     backgroundInput.on('change', _.bind(function (evt) {
       let backgrounds = this.model.get('backgrounds').slice(0)
       backgrounds[$(evt.target).attr('index')] = $(evt.target).val()
@@ -990,8 +1014,10 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     var backgroundFields = this.$box.find('input.background')
 
     // Add value fields if necessary
-    for (let i = backgroundFields.length; i < backgrounds.length; i++) {
-      this.addBackgroundField(i)
+    if (this.model.get('expanded') === true) {
+      for (let i = backgroundFields.length; i < backgrounds.length; i++) {
+        this.addBackgroundField(i)
+      }
     }
 
     // Remove value fields if necessary
@@ -1013,7 +1039,7 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     this.model.set('size', {
       width: 180,
       height:
-        525 + Math.max(0, (this.model.get('backgrounds').length - 1) * height)
+        550 + Math.max(0, (this.model.get('backgrounds').length - 1) * height)
     })
   }
 })
