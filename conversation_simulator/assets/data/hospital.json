@@ -8,7 +8,7 @@
     "LeftAddY": 55,
     "CallOutLeftX": 205,
     "CallOutLeftY": 350,
-    "RightCharacter": "boyCrutches",
+    "RightCharacter": "man",
     "RightVoice": "Microsoft Hazel",
     "RightPitch": 100,
     "RightAddY": 55,
@@ -504,7 +504,7 @@
         "size": { "width": 180, "height": 577 },
         "gameName": "Hospital",
         "gameTitle": "At the Hospital",
-        "leftCharacter": "Boy",
+        "leftCharacter": "cook"
         "leftVoice": "Microsoft David",
         "leftPitch": "-100",
         "leftYOffset": "55",
