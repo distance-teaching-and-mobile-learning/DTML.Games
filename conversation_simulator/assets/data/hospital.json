@@ -33,9 +33,11 @@
       ],
       "Solutions": {
         "hey": { "Score": 0, "Next": "Visit Set" },
-        "good morning": { "Score": 0, "Next": "Visit Set" },
+        "[good] morning": { "Score": 0, "Next": "Visit Set" },
         "hello": { "Score": 0, "Next": "Visit Set" },
-        "hey what a surprise": { "Score": 0, "Next": "Visit Set" },
+		"[good morning] what a [good] surprise": { "Score": 0, "Next": "Visit Set" },
+        "[hey] what a [good] surprise": { "Score": 0, "Next": "Visit Set" },
+		"[hi] what a [good] surprise": { "Score": 0, "Next": "Visit Set" },
         "hi": { "Score": 0, "Next": "Visit Set" },
         "default": { "Score": -50, "Next": null }
       },
@@ -87,12 +89,12 @@
       ],
       "Solutions": {
         "better thank you": { "Score": 0, "Next": "What Happened" },
-        "no it doesn't feel better": { "Score": 0, "Next": "What Happened" },
-        "no it doesn't i feel better now": {
+		"no it doesn't [thank you]": { "Score": 0, "Next": "What Happened" },
+        "no it doesn't [i] feel better [now]": {
           "Score": 0,
           "Next": "What Happened"
         },
-        "no i feel better now": { "Score": 0, "Next": "What Happened" },
+        "[no] i feel better [now] [thank you]": { "Score": 0, "Next": "What Happened" },
         "no it doesn't": { "Score": 0, "Next": "What Happened" },
         "i feel better now thank you": { "Score": 0, "Next": "What Happened" },
         "default": { "Score": -50, "Next": null },
@@ -121,7 +123,7 @@
         "i got hit": { "Score": 0, "Next": "How it happened" },
         "i crashed into a tree": { "Score": 0, "Next": "How it happened" },
         "i fell": { "Score": 0, "Next": "How it happened" },
-        "i accidentally crashed into a tree": {
+        "i [accidentally] crashed into a tree": {
           "Score": 0,
           "Next": "How it happened"
         },
@@ -175,9 +177,9 @@
         "not"
       ],
       "Solutions": {
-        "no i was not": { "Score": 0, "Next": "Details Inquiring" },
-        "no i was riding my bike": { "Score": 0, "Next": "Details Inquiring" },
-        "i was not i was riding my bike": {
+        "no [i was not]": { "Score": 0, "Next": "Details Inquiring" },
+        "[no] i was riding my bike": { "Score": 0, "Next": "Details Inquiring" },
+        "i was not [i was riding my bike]": {
           "Score": 0,
           "Next": "Details Inquiring"
         },
@@ -228,11 +230,7 @@
         "the"
       ],
       "Solutions": {
-        "i avoided a little girl": {
-          "Score": 0,
-          "Next": "Further Explanation"
-        },
-        "i avoided a little girl corssing the road": {
+        "i avoided a [little] girl [crossing the road]": {
           "Score": 0,
           "Next": "Further Explanation"
         },
@@ -243,7 +241,7 @@
     },
     "Further Explanation": {
       "Type": "Conversation",
-      "Question": "Oh...",
+      "Question": "Oh...tell me more",
       "AnswerWords": [
         "the",
         "on",
@@ -257,16 +255,11 @@
         "turned"
       ],
       "Solutions": {
-        "and i hit a tree": { "Score": 0, "Next": "Congratulations" },
-        "i turned sharp and hit a tree on the sidewalk": {
+        "i turned [sharply] and hit a tree [on the sidewalk]": {
           "Score": 0,
           "Next": "Congratulations"
         },
-        "i turened sharply and hit a tree on the sidewalk": {
-          "Score": 0,
-          "Next": "Congratulations"
-        },
-        "and i hit a tree on the sidewalk": {
+        "i hit a tree [on the sidewalk]": {
           "Score": 0,
           "Next": "Congratulations"
         },
@@ -311,7 +304,7 @@
       "Type": "Conversation",
       "Question": "Well, there is another good thing",
       "AnswerWords": [
-        "away",
+        "stop",
         "oh",
         "would",
         "really",
@@ -325,12 +318,11 @@
       ],
       "Solutions": {
         "oh really": { "Score": 0, "Next": "Joke" },
-        "what would that be": { "Score": 0, "Next": "Joke" },
         "what is it": { "Score": 0, "Next": "Joke" },
-        "oh really what would that be": { "Score": 0, "Next": "Joke" },
-        "oh really waht is it": { "Score": 0, "Next": "Joke" },
+        "[oh] [really] what would that be": { "Score": 0, "Next": "Joke" },
+        "[oh] [really] what is it": { "Score": 0, "Next": "Joke" },
         "default": { "Score": -50, "Next": null },
-        "please go away": { "Score": 0, "Next": "Homework Subject" }
+        "[please] stop [it]": { "Score": 0, "Next": "Homework Subject" }
       },
       "OnStateEnter": {},
       "OnStateExit": {}
