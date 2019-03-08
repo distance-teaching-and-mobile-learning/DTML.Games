@@ -881,7 +881,7 @@
             </timeline>
             <timeline id="12" name="callout">
                 <key id="0" spin="0">
-                    <object folder="0" file="6" x="-393.93939" y="478.78788" scale_x="0.85" scale_y="0.85"/>
+                    <object folder="0" file="6" x="-393.93939" y="478.78788" angle="0" scale_x="0.85" scale_y="0.85"/>
                 </key>
             </timeline>
         </animation>

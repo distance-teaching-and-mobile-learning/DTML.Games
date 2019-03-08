@@ -2,19 +2,19 @@
   "Setup": {
     "Name": "Hospital",
     "Title": "At the Hospital",
-    "LeftCharacter": "storemanager",
+    "LeftCharacter": "boy",
     "LeftVoice": "Microsoft David",
     "LeftPitch": -100,
-    "LeftAddY": 55,
+    "LeftAddY": 130,
     "CallOutLeftX": 205,
     "CallOutLeftY": 350,
-    "RightCharacter": "man",
+    "RightCharacter": "boycrutches",
     "RightVoice": "Microsoft Hazel",
     "RightPitch": 100,
-    "RightAddY": 55,
+    "RightAddY": -55,
     "CallOutRightX": 175,
     "CallOutRightY": 340,
-    "Backgrounds": ["hospital", "hospital_room", "hospital_room_2"]
+    "Backgrounds": ["hospital", "hospital_room_2", "hospital_room"]
   },
   "StartAt": "Greetings",
   "States": {
@@ -504,7 +504,7 @@
         "size": { "width": 180, "height": 577 },
         "gameName": "Hospital",
         "gameTitle": "At the Hospital",
-        "leftCharacter": "cook"
+        "leftCharacter": "cook",
         "leftVoice": "Microsoft David",
         "leftPitch": "-100",
         "leftYOffset": "55",
@@ -516,7 +516,7 @@
         "rightYOffset": "55",
         "rightX": "175",
         "rightY": "340",
-        "backgrounds": ["hospital", "hospital_room", "hospital_room_2"],
+        "backgrounds": ["hospital", "hospital_room_2", "hospital_room"],
         "name": "",
         "inPorts": [],
         "position": { "x": 16, "y": 272 },

@@ -35,9 +35,7 @@ export default class extends Phaser.State {
         this.listOfVoices = window.speechSynthesis.getVoices()
       }
     }
-    // this.awaitVoices = new Promise(
-    //   resolve => (window.speechSynthesis.onvoiceschanged = resolve)
-    // )
+
     this.leftCharacterVoice = this.phaserJSON.Setup.LeftVoice
     this.rightCharacterVoice = this.phaserJSON.Setup.RightVoice
 
@@ -871,15 +869,7 @@ export default class extends Phaser.State {
 
     this.listView.items[this.selection].frame = 1
 
-    /* this.listView.grp.visible = false;
-        this.openSidemenu = this.game.add.tween(this.sidemenu).to({ y: this.game.height }, 1000, Phaser.Easing.Exponential.Out);
-        this.closeSidemenu = this.game.add.tween(this.sidemenu).to({ y: this.game.height }, 1000, Phaser.Easing.Exponential.Out);
-        this.openSidemenu.onStart.add(function () { this.bottomORside = true; this.listView.grp.visible = false; }, this);
-        this.openSidemenu.onComplete.add(function () { this.listView.grp.visible = true; }, this);
-        this.closeSidemenu.onStart.add(function () { this.bottomORside = false; }, this);
-        this.openSidemenu.start();
-        */
-  }
+     }
 
   destroySideMenu () {
     this.sidemenu.kill()
@@ -887,6 +877,7 @@ export default class extends Phaser.State {
   }
 
   loadSpriter (key) {
+	  console.log(key);
     if (!this.spriterLoader) this.spriterLoader = new Spriter.Loader()
 
     let spriterFile = new Spriter.SpriterXml(
@@ -895,7 +886,8 @@ export default class extends Phaser.State {
 
     // process loaded xml/json and create internal Spriter objects - these data can be used repeatly for many instances of the same animation
     let spriter = this.spriterLoader.load(spriterFile)
-
-    return new Spriter.SpriterGroup(game, spriter, key, key)
+	let entity = spriter._entities["_items"][0].name;
+	
+    return new Spriter.SpriterGroup(game, spriter, key, entity)
   }
 }
