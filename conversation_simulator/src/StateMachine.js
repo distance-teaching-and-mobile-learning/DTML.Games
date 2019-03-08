@@ -126,14 +126,21 @@ export default class {
   }
 
   submitSolution (solutionPhrase, hintUsed) {
-    var normalizedPhrase = solutionPhrase.toLowerCase().trim()
+    let normalizedPhrase = solutionPhrase.toLowerCase().trim()
 
-    // Select solution, or default
-    var solution =
-      this.currentState.Solutions[normalizedPhrase] ||
-      this.currentState.Solutions.default
-    var success =
-      solution === this.currentState.Solutions.default ? 'False' : 'True'
+    // Find a phrase matching the submitted phrase if one exists
+    let solution
+    for (let possibleSolution in this.currentState.Solutions) {
+      if (this.currentState.Solutions.hasOwnProperty(possibleSolution)) {
+        let submittedWords = this.splitString(normalizedPhrase)
+        let solutionWords = this.splitString(possibleSolution)
+        if (possibleSolution !== 'default' && this.checkSolution(submittedWords, solutionWords)) {
+          solution = possibleSolution
+          break
+        }
+      }
+    }
+    let success = solution !== undefined ? 'True' : 'False'
 
     // Apply score
     dtml.scorePhrase(normalizedPhrase, success, result => {
@@ -149,10 +156,11 @@ export default class {
   }
 
   scoreSolution (solution, score, hintUsed) {
-    if (solution.Next !== null) {
+    if (solution !== undefined) {
+      let nextState = this.currentState.Solutions[solution].Next
       this.setCurrentState(
-        solution.Next,
-        this.stateData.States[solution.Next]
+        nextState,
+        this.stateData.States[nextState]
       )
       this.submitSolutionResult = true
       if (score > 0 && !hintUsed) {
@@ -162,5 +170,56 @@ export default class {
       this.submitSolutionResult = false
       this.score -= 10
     }
+  }
+
+  // Recursively compare a submitted phrase vs a solution phrase
+  checkSolution (submittedWords, solutionWords) {
+    for (let i = 0; i < solutionWords.length; i++) {
+      let phraseLength = 1
+      let solutionWord = solutionWords[i]
+      let optional = (solutionWord[0] === '[' && solutionWord[solutionWord.length - 1] === ']')
+      if (optional) {
+        phraseLength = solutionWord.split(' ').length
+        solutionWord = solutionWord.replace('[', '')
+        solutionWord = solutionWord.replace(']', '')
+      }
+      let checkWord = this.getConcatWords(submittedWords, phraseLength)
+      if (checkWord === solutionWord) {
+        // Matched
+        if (submittedWords.length === phraseLength) {
+          // We've matched the whole phrase
+          return true
+        } else {
+          // There are still more words to match
+          return this.checkSolution(submittedWords.slice(phraseLength), solutionWords.slice(i + 1))
+        }
+      } else if (!optional) {
+        // Not a match and word isn't optional
+        return false
+      }
+    }
+    // Ran out of solution words to try and match
+    return false
+  }
+
+  // Concatonates an amount of words from an array
+  getConcatWords (words, count) {
+    let concatPhrase = words[0]
+    for (let i = 1; i < count; i++) {
+      concatPhrase = concatPhrase.concat(' ', words[i])
+    }
+    return concatPhrase
+  }
+
+  splitString (input) {
+    // Split the string but keep groups of words inside brackets intact
+    let split = input.match(/(\[.*?\]|\s.*?\s|.*?\s|.*)/g)
+    for (let i = split.length - 1; i >= 0; i--) {
+      split[i] = split[i].trim()
+      if (split[i].length === 0) {
+        split.splice(i, 1)
+      }
+    }
+    return split
   }
 }
