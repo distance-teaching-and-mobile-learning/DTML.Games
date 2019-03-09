@@ -63,6 +63,13 @@ var allowableConnections = [
   ['dialogue.Solution', 'dialogue.End']
 ]
 
+var voiceList = window.speechSynthesis.getVoices()
+if (window.speechSynthesis.onvoiceschanged !== undefined) {
+  window.speechSynthesis.onvoiceschanged = function () {
+    voiceList = window.speechSynthesis.getVoices()
+  }
+}
+
 function validateConnection (
   cellViewS,
   magnetS,
@@ -517,7 +524,7 @@ joint.shapes.dialogue.SetView = joint.shapes.dialogue.BaseView.extend({
 joint.shapes.dialogue.State = joint.shapes.devs.Model.extend({
   defaults: joint.util.deepSupplement(
     {
-      size: { width: 250, height: 240 },
+      size: { width: 260, height: 240 },
       type: 'dialogue.State',
       inPorts: ['input'],
       outPorts: ['output'],
@@ -598,7 +605,7 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
 
   expandNode: function () {
     this.model.set('size', {
-      width: 250,
+      width: 260,
       height: 405
     })
     this.$box.find('.toggle').unbind('click')
@@ -608,19 +615,19 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
       $('<input type="text" class="backgroundSelector" placeHolder="Background" />'),
       $('<span class="collapseDelete" style="font-weight:bold">On State Enter</span><br class="collapseDelete" />'),
       $('<span class="collapseDelete" style="width:50px">Left Character: </span>'),
-      $('<input type="text" class="enterLeftAnimation" style="width:70px" placeHolder="Animation" />'),
-      $('<input type="text" class="enterLeftDirection" style="width:70px; margin-left:5px" placeHolder="in or out" /><br class="collapseDelete" />'),
+      $('<input type="text" class="enterLeftAnimation" style="width:65px" placeHolder="Animation" />'),
+      $('<input type="text" class="enterLeftDirection" style="width:65px; margin-left:5px" placeHolder="in or out" /><br class="collapseDelete" />'),
       $('<span class="collapseDelete" style="width:50px">Right Character: </span>'),
-      $('<input type="text" class="enterRightAnimation" style="width:65px" placeHolder="Animation" />'),
-      $('<input type="text" class="enterRightDirection" style="width:66px; margin-left:5px" placeHolder="in or out" /><br class="collapseDelete" />'),
+      $('<input type="text" class="enterRightAnimation" style="width:64px" placeHolder="Animation" />'),
+      $('<input type="text" class="enterRightDirection" style="width:64px; margin-left:5px" placeHolder="in or out" /><br class="collapseDelete" />'),
       $('<hr class="collapseDelete" />'),
       $('<span class="collapseDelete" style="font-weight:bold">On State Exit</span><br class="collapseDelete" />'),
       $('<span class="collapseDelete" style="width:50px">Left Character: </span>'),
-      $('<input type="text" class="exitLeftAnimation" style="width:70px" placeHolder="Animation" />'),
-      $('<input type="text" class="exitLeftDirection" style="width:70px; margin-left:5px" placeHolder="in or out" /><br class="collapseDelete" />'),
+      $('<input type="text" class="exitLeftAnimation" style="width:65px" placeHolder="Animation" />'),
+      $('<input type="text" class="exitLeftDirection" style="width:65px; margin-left:5px" placeHolder="in or out" /><br class="collapseDelete" />'),
       $('<span class="collapseDelete" style="width:50px">Right Character: </span>'),
-      $('<input type="text" class="exitRightAnimation" style="width:65px" placeHolder="Animation" />'),
-      $('<input type="text" class="exitRightDirection" style="width:66px; margin-left:5px" placeHolder="in or out" /><br class="collapseDelete" />')
+      $('<input type="text" class="exitRightAnimation" style="width:64px" placeHolder="Animation" />'),
+      $('<input type="text" class="exitRightDirection" style="width:64px; margin-left:5px" placeHolder="in or out" /><br class="collapseDelete" />')
     ]
     let _this = this
     $(elements).each(function (index, element) {
@@ -685,7 +692,7 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
 
   collapseNode: function () {
     this.model.set('size', {
-      width: 250,
+      width: 260,
       height: 240
     })
     this.$box.find('.toggle').unbind('click')
@@ -847,13 +854,13 @@ joint.shapes.dialogue.Start = joint.shapes.devs.Model.extend({
       gameTitle: '',
       leftCharacter: null,
       leftVoice: null,
-      leftPitch: null,
+      leftPitch: 0,
       leftYOffset: null,
       leftX: null,
       leftY: null,
       rightCharacter: null,
       rightVoice: null,
-      rightPitch: null,
+      rightPitch: 0,
       rightYOffset: null,
       rightX: null,
       rightY: null,
@@ -901,14 +908,14 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
       $('<hr class="collapseDelete">'),
       $('<span class="collapseDelete">Left Character</span>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Character:</span><input type="text" class="leftCharacter collapseDelete" style="width:50%; float:right; clear:right;" /></div>'),
-      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Voice:</span><input type="text" class="leftVoice collapseDelete" style="width:50%; float:right; clear:right;" /></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:40%; float:left;">Voice:</span><select class="leftVoice collapseDelete" style="width: 50%; float:left; clear:right;"></select><button class="testLeftVoice collapseDelete" style="float:right;">></button></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Pitch:</span><input type="text" class="leftPitch collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Y Offset:</span><input type="text" class="leftYOffset collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="leftX collapseDelete" style="width:38px" placeHolder="205"></span><span class="collapseDelete" style="width:33%; float:left; clear:right;">y: <input type="text" class="leftY collapseDelete" style="width:38px" placeHolder="350"></span></div>'),
       $('<hr class="collapseDelete">'),
       $('<span class="collapseDelete">Right Character</span>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Character:</span><input type="text" class="rightCharacter collapseDelete" style="width:50%; float:right; clear:right;" /></div>'),
-      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Voice:</span><input type="text" class="rightVoice collapseDelete" style="width:50%; float:right; clear:right;" /></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:40%; float:left;">Voice:</span><select class="rightVoice collapseDelete" style="width: 50%; float:left; clear:right;"></select><button class="testRightVoice collapseDelete" style="float:right;">></button></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Pitch:</span><input type="text" class="rightPitch collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Y Offset:</span><input type="text" class="rightYOffset collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="rightX collapseDelete" style="width:38px" placeHolder="175"></span><span class="collapseDelete" style="width:33%; float:left; clear:right;">y: <input type="text" class="rightY collapseDelete" style="width:38px" placeHolder="340"></span></div>'),
@@ -918,23 +925,33 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     let _this = this
     $(elements).each(function (index, element) {
       _this.$box.append(element)
-      // if (element.is('input')) {
-      //   element.on('click', function () { element.focus() })
-      // }
     })
-    this.$box.find('input').on('click', function (evt) { $(evt.target).focus() })
+    this.$box.find('input,select').on('mousedown click', function (evt) { evt.stopPropagation() })
+
+    // Populate voice list
+    for (let i = 0; i < voiceList.length; i++) {
+      let voice = voiceList[i]
+      this.$box.find('select.leftVoice').append($('<option>', {
+        value: voice.name,
+        text: voice.name
+      }))
+      this.$box.find('select.rightVoice').append($('<option>', {
+        value: voice.name,
+        text: voice.name
+      }))
+    }
 
     // Fill in values
     this.$box.find('input.gameName').val(this.model.get('gameName'))
     this.$box.find('input.gameTitle').val(this.model.get('gameTitle'))
     this.$box.find('input.leftCharacter').val(this.model.get('leftCharacter'))
-    this.$box.find('input.leftVoice').val(this.model.get('leftVoice'))
+    this.$box.find('select.leftVoice').val(this.model.get('leftVoice'))
     this.$box.find('input.leftPitch').val(this.model.get('leftPitch'))
     this.$box.find('input.leftYOffset').val(this.model.get('leftYOffset'))
     this.$box.find('input.leftX').val(this.model.get('leftX'))
     this.$box.find('input.leftY').val(this.model.get('leftY'))
     this.$box.find('input.rightCharacter').val(this.model.get('rightCharacter'))
-    this.$box.find('input.rightVoice').val(this.model.get('rightVoice'))
+    this.$box.find('select.rightVoice').val(this.model.get('rightVoice'))
     this.$box.find('input.rightPitch').val(this.model.get('rightPitch'))
     this.$box.find('input.rightYOffset').val(this.model.get('rightYOffset'))
     this.$box.find('input.rightX').val(this.model.get('rightX'))
@@ -942,13 +959,13 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
 
     // Bind fields to data
     this.$box.find('input.leftCharacter').on('change', _.bind(function (evt) { this.model.set('leftCharacter', $(evt.target).val()) }, this))
-    this.$box.find('input.leftVoice').on('change', _.bind(function (evt) { this.model.set('leftVoice', $(evt.target).val()) }, this))
+    this.$box.find('select.leftVoice').on('change', _.bind(function (evt) { this.model.set('leftVoice', $(evt.target).val()) }, this))
     this.$box.find('input.leftPitch').on('change', _.bind(function (evt) { this.model.set('leftPitch', $(evt.target).val()) }, this))
     this.$box.find('input.leftYOffset').on('change', _.bind(function (evt) { this.model.set('leftYOffset', $(evt.target).val()) }, this))
     this.$box.find('input.leftX').on('change', _.bind(function (evt) { this.model.set('leftX', $(evt.target).val()) }, this))
     this.$box.find('input.leftY').on('change', _.bind(function (evt) { this.model.set('leftY', $(evt.target).val()) }, this))
     this.$box.find('input.rightCharacter').on('change', _.bind(function (evt) { this.model.set('rightCharacter', $(evt.target).val()) }, this))
-    this.$box.find('input.rightVoice').on('change', _.bind(function (evt) { this.model.set('rightVoice', $(evt.target).val()) }, this))
+    this.$box.find('select.rightVoice').on('change', _.bind(function (evt) { this.model.set('rightVoice', $(evt.target).val()) }, this))
     this.$box.find('input.rightPitch').on('change', _.bind(function (evt) { this.model.set('rightPitch', $(evt.target).val()) }, this))
     this.$box.find('input.rightYOffset').on('change', _.bind(function (evt) { this.model.set('rightYOffset', $(evt.target).val()) }, this))
     this.$box.find('input.rightX').on('change', _.bind(function (evt) { this.model.set('rightX', $(evt.target).val()) }, this))
@@ -959,6 +976,9 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
       this.model.set('backgrounds', backgrounds)
     }, this))
 
+    // Buttons
+    this.$box.find('.testLeftVoice').on('click', _.bind(function () { this.textToSpeech('This is the left character\'s voice', this.model.get('leftVoice'), this.model.get('leftPitch')) }, this))
+    this.$box.find('.testRightVoice').on('click', _.bind(function () { this.textToSpeech('This is the right character\'s voice', this.model.get('rightVoice'), this.model.get('rightPitch')) }, this))
     this.$box.find('.addBackground').on('click', _.bind(this.addBackground, this))
     this.$box.find('.removeBackground').on('click', _.bind(this.removeBackground, this))
 
@@ -1041,6 +1061,33 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
       height:
         550 + Math.max(0, (this.model.get('backgrounds').length - 1) * height)
     })
+  },
+
+  textToSpeech (text, voice, pitch) {
+    if (voice) {
+      try {
+        if (speechSynthesis.speaking) {
+          speechSynthesis.cancel()
+          setTimeout(() => {
+            this.textToSpeech(text, voice, pitch)
+          }, 500)
+        } else {
+          var voicename = voiceList.filter(a => a.name.toLowerCase().includes(voice.toLowerCase()));    
+          var msg = new SpeechSynthesisUtterance()
+          msg.voice = voicename.length > 0 ? voicename[0] : voiceList[0]
+          msg.default = false
+          msg.voiceURI = 'native'
+          msg.volume = 1
+          msg.rate = 1
+          msg.pitch = parseInt(pitch)
+          msg.text = text
+          msg.lang = 'en-US'
+          speechSynthesis.speak(msg)
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
   }
 })
 
@@ -1257,13 +1304,13 @@ function convertToGameState (graph) {
       gameState.Setup.Name = cell.attributes.gameName
       gameState.Setup.Title = cell.attributes.gameTitle
       gameState.Setup.LeftCharacter = cell.attributes.leftCharacter
-      gameState.Setup.LeftVoice = cell.attributes.leftVoice
+      gameState.Setup.LeftVoice = cell.attributes.leftVoice || voiceList[0].name
       gameState.Setup.LeftPitch = Number(cell.attributes.leftPitch) || 0
       gameState.Setup.LeftAddY = Number(cell.attributes.leftYOffset) || 0
       gameState.Setup.CallOutLeftX = Number(cell.attributes.leftX) || 205
       gameState.Setup.CallOutLeftY = Number(cell.attributes.leftY) || 350
       gameState.Setup.RightCharacter = cell.attributes.rightCharacter
-      gameState.Setup.RightVoice = cell.attributes.rightVoice
+      gameState.Setup.RightVoice = cell.attributes.rightVoice || voiceList[0].name
       gameState.Setup.RightPitch = Number(cell.attributes.rightPitch) || 0
       gameState.Setup.RightAddY = Number(cell.attributes.rightYOffset) || 0
       gameState.Setup.CallOutRightX = Number(cell.attributes.rightX) || 175

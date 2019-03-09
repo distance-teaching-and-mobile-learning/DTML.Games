@@ -153,6 +153,17 @@ Node styles
    
 }
 
+.node select
+{
+	/* Enable interacting with inputs only. */
+	pointer-events: auto;	
+	border: none;
+	box-sizing: border-box;
+	background-color: #456;
+	color: #fff;
+   
+}
+
 
 .node input[type="actor"]
 {
