@@ -854,13 +854,13 @@ joint.shapes.dialogue.Start = joint.shapes.devs.Model.extend({
       gameTitle: '',
       leftCharacter: null,
       leftVoice: null,
-      leftPitch: null,
+      leftPitch: 0,
       leftYOffset: null,
       leftX: null,
       leftY: null,
       rightCharacter: null,
       rightVoice: null,
-      rightPitch: null,
+      rightPitch: 0,
       rightYOffset: null,
       rightX: null,
       rightY: null,
@@ -908,14 +908,14 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
       $('<hr class="collapseDelete">'),
       $('<span class="collapseDelete">Left Character</span>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Character:</span><input type="text" class="leftCharacter collapseDelete" style="width:50%; float:right; clear:right;" /></div>'),
-      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:40%; float:left;">Voice:</span><select class="leftVoice collapseDelete" style="width: 50%; float:right; clear:right;"></select></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:40%; float:left;">Voice:</span><select class="leftVoice collapseDelete" style="width: 50%; float:left; clear:right;"></select><button class="testLeftVoice collapseDelete" style="float:right;">></button></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Pitch:</span><input type="text" class="leftPitch collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Y Offset:</span><input type="text" class="leftYOffset collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="leftX collapseDelete" style="width:38px" placeHolder="205"></span><span class="collapseDelete" style="width:33%; float:left; clear:right;">y: <input type="text" class="leftY collapseDelete" style="width:38px" placeHolder="350"></span></div>'),
       $('<hr class="collapseDelete">'),
       $('<span class="collapseDelete">Right Character</span>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Character:</span><input type="text" class="rightCharacter collapseDelete" style="width:50%; float:right; clear:right;" /></div>'),
-      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Voice:</span><select class="rightVoice collapseDelete" style="width: 50%; float:right; clear:right;"></select></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:40%; float:left;">Voice:</span><select class="rightVoice collapseDelete" style="width: 50%; float:left; clear:right;"></select><button class="testRightVoice collapseDelete" style="float:right;">></button></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Pitch:</span><input type="text" class="rightPitch collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Y Offset:</span><input type="text" class="rightYOffset collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="rightX collapseDelete" style="width:38px" placeHolder="175"></span><span class="collapseDelete" style="width:33%; float:left; clear:right;">y: <input type="text" class="rightY collapseDelete" style="width:38px" placeHolder="340"></span></div>'),
@@ -976,6 +976,9 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
       this.model.set('backgrounds', backgrounds)
     }, this))
 
+    // Buttons
+    this.$box.find('.testLeftVoice').on('click', _.bind(function () { this.textToSpeech('This is the left character\'s voice', this.model.get('leftVoice'), this.model.get('leftPitch')) }, this))
+    this.$box.find('.testRightVoice').on('click', _.bind(function () { this.textToSpeech('This is the right character\'s voice', this.model.get('rightVoice'), this.model.get('rightPitch')) }, this))
     this.$box.find('.addBackground').on('click', _.bind(this.addBackground, this))
     this.$box.find('.removeBackground').on('click', _.bind(this.removeBackground, this))
 
@@ -1058,6 +1061,33 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
       height:
         550 + Math.max(0, (this.model.get('backgrounds').length - 1) * height)
     })
+  },
+
+  textToSpeech (text, voice, pitch) {
+    if (voice) {
+      try {
+        if (speechSynthesis.speaking) {
+          speechSynthesis.cancel()
+          setTimeout(() => {
+            this.textToSpeech(text, voice, pitch)
+          }, 500)
+        } else {
+          var voicename = voiceList.filter(a => a.name.toLowerCase().includes(voice.toLowerCase()));    
+          var msg = new SpeechSynthesisUtterance()
+          msg.voice = voicename.length > 0 ? voicename[0] : voiceList[0]
+          msg.default = false
+          msg.voiceURI = 'native'
+          msg.volume = 1
+          msg.rate = 1
+          msg.pitch = parseInt(pitch)
+          msg.text = text
+          msg.lang = 'en-US'
+          speechSynthesis.speak(msg)
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
   }
 })
 
