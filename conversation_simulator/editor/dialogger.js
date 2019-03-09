@@ -853,13 +853,13 @@ joint.shapes.dialogue.Start = joint.shapes.devs.Model.extend({
       gameName: '',
       gameTitle: '',
       leftCharacter: null,
-      leftVoice: voiceList[0].name,
+      leftVoice: null,
       leftPitch: null,
       leftYOffset: null,
       leftX: null,
       leftY: null,
       rightCharacter: null,
-      rightVoice: voiceList[0].name,
+      rightVoice: null,
       rightPitch: null,
       rightYOffset: null,
       rightX: null,
@@ -1274,13 +1274,13 @@ function convertToGameState (graph) {
       gameState.Setup.Name = cell.attributes.gameName
       gameState.Setup.Title = cell.attributes.gameTitle
       gameState.Setup.LeftCharacter = cell.attributes.leftCharacter
-      gameState.Setup.LeftVoice = cell.attributes.leftVoice
+      gameState.Setup.LeftVoice = cell.attributes.leftVoice || voiceList[0].name
       gameState.Setup.LeftPitch = Number(cell.attributes.leftPitch) || 0
       gameState.Setup.LeftAddY = Number(cell.attributes.leftYOffset) || 0
       gameState.Setup.CallOutLeftX = Number(cell.attributes.leftX) || 205
       gameState.Setup.CallOutLeftY = Number(cell.attributes.leftY) || 350
       gameState.Setup.RightCharacter = cell.attributes.rightCharacter
-      gameState.Setup.RightVoice = cell.attributes.rightVoice
+      gameState.Setup.RightVoice = cell.attributes.rightVoice || voiceList[0].name
       gameState.Setup.RightPitch = Number(cell.attributes.rightPitch) || 0
       gameState.Setup.RightAddY = Number(cell.attributes.rightYOffset) || 0
       gameState.Setup.CallOutRightX = Number(cell.attributes.rightX) || 175
