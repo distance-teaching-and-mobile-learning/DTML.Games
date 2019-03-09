@@ -47,8 +47,13 @@ export default class extends Phaser.State {
       })
     }
 
-    this.load.atlas('leftCharacter', 'assets/images/res/' + phaserJSON.Setup.LeftCharacter + '/anim.png', 'assets/images/res/' + phaserJSON.Setup.LeftCharacter + '/anim.json')
-    this.load.xml('leftCharacterAnimations', 'assets/images/res/' + phaserJSON.Setup.LeftCharacter + '/anim.scml')
+	console.log("left character:"+phaserJSON.Setup.LeftCharacter.trim())
+    this.load.atlas('leftCharacter', 'assets/images/res/' + phaserJSON.Setup.LeftCharacter.trim() + '/anim.png', 'assets/images/res/' + phaserJSON.Setup.LeftCharacter.trim() + '/anim.json')
+    this.load.xml('leftCharacterAnimations', 'assets/images/res/' + phaserJSON.Setup.LeftCharacter.trim()  + '/anim.scml')
+
+	console.log("right character:"+phaserJSON.Setup.RightCharacter.trim())
+    this.load.atlas('rightCharacter', 'assets/images/res/' + phaserJSON.Setup.RightCharacter.trim() + '/anim.png', 'assets/images/res/' + phaserJSON.Setup.RightCharacter.trim() + '/anim.json')
+    this.load.xml('rightCharacterAnimations', 'assets/images/res/' + phaserJSON.Setup.RightCharacter.trim() + '/anim.scml')
 
     // load bar for patience
     this.load.spritesheet('patienceBar5', 'assets/images/res/lopelope.png', 95, 84)
@@ -57,9 +62,7 @@ export default class extends Phaser.State {
     this.load.spritesheet('patienceBar2', 'assets/images/res/lopelope.png', 95, 84)
     this.load.spritesheet('patienceBar1', 'assets/images/res/lopelope.png', 95, 84)
 
-    this.load.atlas('rightCharacter', 'assets/images/res/' + phaserJSON.Setup.RightCharacter + '/anim.png', 'assets/images/res/' + phaserJSON.Setup.RightCharacter + '/anim.json')
-    this.load.xml('rightCharacterAnimations', 'assets/images/res/' + phaserJSON.Setup.RightCharacter + '/anim.scml')
-
+	
     this.load.image('iconAttack', 'assets/images/res/icon-attack.png')
     this.load.image('iconHome', 'assets/images/icon-home.png')
     this.load.image('iconPlay', 'assets/images/res/button-start.png')
