@@ -524,7 +524,7 @@ joint.shapes.dialogue.SetView = joint.shapes.dialogue.BaseView.extend({
 joint.shapes.dialogue.State = joint.shapes.devs.Model.extend({
   defaults: joint.util.deepSupplement(
     {
-      size: { width: 250, height: 240 },
+      size: { width: 260, height: 240 },
       type: 'dialogue.State',
       inPorts: ['input'],
       outPorts: ['output'],
@@ -605,7 +605,7 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
 
   expandNode: function () {
     this.model.set('size', {
-      width: 250,
+      width: 260,
       height: 405
     })
     this.$box.find('.toggle').unbind('click')
@@ -692,7 +692,7 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
 
   collapseNode: function () {
     this.model.set('size', {
-      width: 250,
+      width: 260,
       height: 240
     })
     this.$box.find('.toggle').unbind('click')
