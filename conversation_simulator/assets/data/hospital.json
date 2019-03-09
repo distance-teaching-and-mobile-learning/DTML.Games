@@ -504,7 +504,7 @@
         "size": { "width": 180, "height": 577 },
         "gameName": "Hospital",
         "gameTitle": "At the Hospital",
-        "leftCharacter": "cook"
+        "leftCharacter": "cook",
         "leftVoice": "Microsoft David",
         "leftPitch": "-100",
         "leftYOffset": "55",
