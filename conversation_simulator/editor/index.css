@@ -73,6 +73,12 @@ html, body
 	display: none;
 }
 
+.svg-inline
+{
+	width:1em;
+	color:black;
+}
+
 /*
 Editor tools
 */
@@ -156,10 +162,14 @@ Node styles
 .node select
 {
 	/* Enable interacting with inputs only. */
+        display:block;
 	pointer-events: auto;	
 	border: none;
 	box-sizing: border-box;
 	background-color: #456;
+	height:25px;
+        margin-top:3px;
+        margin-bottom:3px;
 	color: #fff;
    
 }
@@ -173,10 +183,10 @@ Node styles
 	box-sizing: border-box;
 	background-color: #456;
 	color: #fff;
-    width: 50%;
+        width: 50%;
 	padding: 4px;
-    margin-right: 10px;
-    float:right;
+        margin-right: 10px;
+        float:right;
 
 }
 
@@ -189,10 +199,10 @@ Node styles
 	box-sizing: border-box;
 	background-color: #456;
 	color: #fff;
-    width: 50%;
+        width: 50%;
 	padding: 4px;
-    margin-right: 10px;
-    float:right;
+        margin-right: 10px;
+        float:right;
 
 }
 

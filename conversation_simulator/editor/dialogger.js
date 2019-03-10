@@ -34,6 +34,13 @@ var defaultLink = new joint.dia.Link({
 
 defaultLink.set('smooth', true)
 
+var viewTemplates= 
+{
+	'options':'<button class="toggle" style="float:left;margin-right:5px;">+</button> <span>Options</span>',
+	'mic':'<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="microphone" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" class="svg-inline"><path fill="currentColor" d="M176 352c53.02 0 96-42.98 96-96V96c0-53.02-42.98-96-96-96S80 42.98 80 96v160c0 53.02 42.98 96 96 96zm160-160h-16c-8.84 0-16 7.16-16 16v48c0 74.8-64.49 134.82-140.79 127.38C96.71 376.89 48 317.11 48 250.3V208c0-8.84-7.16-16-16-16H16c-8.84 0-16 7.16-16 16v40.16c0 89.64 63.97 169.55 152 181.69V464H96c-8.84 0-16 7.16-16 16v16c0 8.84 7.16 16 16 16h160c8.84 0 16-7.16 16-16v-16c0-8.84-7.16-16-16-16h-56v-33.77C285.71 418.47 352 344.9 352 256v-48c0-8.84-7.16-16-16-16z" class=""></path></svg>',
+	'speaker':'<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="volume-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="svg-inline"><path fill="currentColor" d="M215.03 72.04L126.06 161H24c-13.26 0-24 10.74-24 24v144c0 13.25 10.74 24 24 24h102.06l88.97 88.95c15.03 15.03 40.97 4.47 40.97-16.97V89.02c0-21.47-25.96-31.98-40.97-16.98zm123.2 108.08c-11.58-6.33-26.19-2.16-32.61 9.45-6.39 11.61-2.16 26.2 9.45 32.61C327.98 229.28 336 242.62 336 257c0 14.38-8.02 27.72-20.92 34.81-11.61 6.41-15.84 21-9.45 32.61 6.43 11.66 21.05 15.8 32.61 9.45 28.23-15.55 45.77-45 45.77-76.88s-17.54-61.32-45.78-76.87z" class=""></path></svg>'
+}
+
 var allowableConnections = [
   ['dialogue.Text', 'dialogue.Text'],
   ['dialogue.Text', 'dialogue.Node'],
@@ -556,7 +563,7 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
     '<p> <textarea type="text" class="prompt" rows="3" cols="27" placeholder="Prompt"></textarea></p>',
     '<span>Answer Words:</span>',
     '<p> <textarea type="text" class="answerWords" rows="2" cols="27" placeholder="hello, thanks, etc..."></textarea></p>',
-    '<button class="toggle" style="float:left;">+</button> <span>Options</span>',
+    viewTemplates.options,
     '</div>'
   ].join(''),
 
@@ -606,28 +613,28 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
   expandNode: function () {
     this.model.set('size', {
       width: 260,
-      height: 405
+      height: 455
     })
     this.$box.find('.toggle').unbind('click')
     this.$box.find('.toggle').on('click', _.bind(this.collapseNode, this))
     this.$box.find('.toggle').html('-')
     var elements = [
-      $('<input type="text" class="backgroundSelector" placeHolder="Background" />'),
-      $('<span class="collapseDelete" style="font-weight:bold">On State Enter</span><br class="collapseDelete" />'),
-      $('<span class="collapseDelete" style="width:50px">Left Character: </span>'),
-      $('<input type="text" class="enterLeftAnimation" style="width:65px" placeHolder="Animation" />'),
-      $('<input type="text" class="enterLeftDirection" style="width:65px; margin-left:5px" placeHolder="in or out" /><br class="collapseDelete" />'),
-      $('<span class="collapseDelete" style="width:50px">Right Character: </span>'),
-      $('<input type="text" class="enterRightAnimation" style="width:64px" placeHolder="Animation" />'),
-      $('<input type="text" class="enterRightDirection" style="width:64px; margin-left:5px" placeHolder="in or out" /><br class="collapseDelete" />'),
-      $('<hr class="collapseDelete" />'),
-      $('<span class="collapseDelete" style="font-weight:bold">On State Exit</span><br class="collapseDelete" />'),
-      $('<span class="collapseDelete" style="width:50px">Left Character: </span>'),
-      $('<input type="text" class="exitLeftAnimation" style="width:65px" placeHolder="Animation" />'),
-      $('<input type="text" class="exitLeftDirection" style="width:65px; margin-left:5px" placeHolder="in or out" /><br class="collapseDelete" />'),
-      $('<span class="collapseDelete" style="width:50px">Right Character: </span>'),
-      $('<input type="text" class="exitRightAnimation" style="width:64px" placeHolder="Animation" />'),
-      $('<input type="text" class="exitRightDirection" style="width:64px; margin-left:5px" placeHolder="in or out" /><br class="collapseDelete" />')
+      $('<p><input type="text" class="backgroundSelector" placeHolder="Background" /></p>'),
+	  $('<hr class="collapseDelete" /></p>'),
+      $('<p><span class="collapseDelete" style="font-weight:bold">On State Enter</span><br class="collapseDelete" /></p>'),
+      $('<div class="collapseDelete" style="float:left;padding-top:6px">Left Character: </div>'),
+      $('<input type="text" class="enterLeftAnimation" style="width:74px; float:right;" placeHolder="Animation" />'),
+      $('<input type="text" class="enterLeftDirection" style="width:54px; float:right; margin-right:5px" placeHolder="in or out" /><br class="collapseDelete" />'),
+      $('<div class="collapseDelete" style="float:left;padding-top:6px">Right Character: </div>'),
+      $('<input type="text" class="enterRightAnimation" style="width:74px; float:right;" placeHolder="Animation" />'),
+      $('<input type="text" class="enterRightDirection" style="width:54px; float:right; margin-right:5px" placeHolder="in or out" /><br class="collapseDelete" /><br class="collapseDelete" />'),
+      $('<p><span class="collapseDelete" style="font-weight:bold">On State Exit</span><br class="collapseDelete" /></p>'),
+      $('<div class="collapseDelete" style="float:left;padding-top:8px">Left Character: </div>'),
+      $('<input type="text" class="exitLeftAnimation" style="width:74px;float:right" placeHolder="Animation" />'),
+      $('<input type="text" class="exitLeftDirection" style="width:54px; float:right; margin-right:5px" placeHolder="in or out" /><br class="collapseDelete" />'),
+      $('<div class="collapseDelete" style="float:left;padding-top:8px">Right Character: </div>'),
+      $('<input type="text" class="exitRightAnimation" style="width:74px;float:right" placeHolder="Animation" />'),
+      $('<input type="text" class="exitRightDirection" style="width:54px; margin-right:5px;float:right" placeHolder="in or out" /><br class="collapseDelete" />'), 
     ]
     let _this = this
     $(elements).each(function (index, element) {
@@ -878,7 +885,7 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     '<input type="text" class="gameName" placeHolder="Name" /></p>',
     '<p><span>Game Title</span>',
     '<input type="text" class="gameTitle" placeHolder="Title" /></p>',
-    '<button class="toggle" style="float:left;">+</button> <span>Options</span>',
+    viewTemplates.options,
     '</div>'
   ].join(''),
 
@@ -905,22 +912,24 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     this.$box.find('.toggle').html('-')
 
     var elements = [
+	  $('<div style="display:block">'),
       $('<hr class="collapseDelete">'),
-      $('<span class="collapseDelete">Left Character</span>'),
+      $('<p><span class="collapseDelete" style="pa">Left Character</span></p>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Character:</span><input type="text" class="leftCharacter collapseDelete" style="width:50%; float:right; clear:right;" /></div>'),
-      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:40%; float:left;">Voice:</span><select class="leftVoice collapseDelete" style="width: 50%; float:left; clear:right;"></select><button class="testLeftVoice collapseDelete" style="float:right;">></button></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><button class="testLeftVoice" style="background:none;float:left">'+viewTemplates.speaker +'</button><span class="collapseDelete" style="width:40%; float:left;">Voice:</span><select class="leftVoice collapseDelete" style="width: 50%; float:right; clear:right;"></select></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Pitch:</span><input type="text" class="leftPitch collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Y Offset:</span><input type="text" class="leftYOffset collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="leftX collapseDelete" style="width:38px" placeHolder="205"></span><span class="collapseDelete" style="width:33%; float:left; clear:right;">y: <input type="text" class="leftY collapseDelete" style="width:38px" placeHolder="350"></span></div>'),
       $('<hr class="collapseDelete">'),
-      $('<span class="collapseDelete">Right Character</span>'),
+      $('<p><span class="collapseDelete">Right Character</span></p>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Character:</span><input type="text" class="rightCharacter collapseDelete" style="width:50%; float:right; clear:right;" /></div>'),
-      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:40%; float:left;">Voice:</span><select class="rightVoice collapseDelete" style="width: 50%; float:left; clear:right;"></select><button class="testRightVoice collapseDelete" style="float:right;">></button></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><button class="testRightVoice" style="background:none;float:left">'+viewTemplates.speaker +'</button><span class="collapseDelete" style="width:40%; float:left;">Voice:</span><select class="rightVoice collapseDelete" style="width: 50%; float:left; clear:right;"></select></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Pitch:</span><input type="text" class="rightPitch collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Y Offset:</span><input type="text" class="rightYOffset collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="rightX collapseDelete" style="width:38px" placeHolder="175"></span><span class="collapseDelete" style="width:33%; float:left; clear:right;">y: <input type="text" class="rightY collapseDelete" style="width:38px" placeHolder="340"></span></div>'),
       $('<hr class="collapseDelete">'),
-      $('<span class="collapseDelete">Backgrounds</span> <button class="removeBackground collapseDelete">-</button> <button class="addBackground collapseDelete">+</button>'),
+      $('<p><span class="collapseDelete">Backgrounds</span> <button class="removeBackground collapseDelete">-</button> <button class="addBackground collapseDelete">+</button></p>'),
+	  $('</div>'),
     ]
     let _this = this
     $(elements).each(function (index, element) {
@@ -933,11 +942,12 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
       let voice = voiceList[i]
       this.$box.find('select.leftVoice').append($('<option>', {
         value: voice.name,
-        text: voice.name
+        text: voice.name,
       }))
+	  
       this.$box.find('select.rightVoice').append($('<option>', {
         value: voice.name,
-        text: voice.name
+        text: voice.name,
       }))
     }
 
@@ -1059,7 +1069,7 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     this.model.set('size', {
       width: 180,
       height:
-        550 + Math.max(0, (this.model.get('backgrounds').length - 1) * height)
+        650 + Math.max(0, (this.model.get('backgrounds').length - 1) * height)
     })
   },
 
