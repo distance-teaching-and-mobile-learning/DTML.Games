@@ -280,7 +280,7 @@ export default class extends Phaser.State {
     }
 
     fetchNextSet() {
-        fetch('https://dtml.org/api/GameService/Words?step=' + this.currLevel, {
+        fetch('https://dtml.org/api/GameService/Words?step=' + this.currLevel+"&ensurelanguage=true&lang="+this.langCode, {
 	    credentials: 'same-origin', 
             headers: {
                 'Accept': 'application/json',
@@ -481,7 +481,7 @@ export default class extends Phaser.State {
         this.spritesGroup.add(scoreDisplay);
 
         let label = this.game.add.text(scoreDisplay.x, scoreDisplay.y - (scoreDisplay.height * 0.18), 'Final Score', {
-            font: "30px Berkshire Swash",
+            font: "50px Berkshire Swash",
             fill: "#000",
             align: "center"
         });
@@ -490,7 +490,7 @@ export default class extends Phaser.State {
         label.setShadow(0, 0, 'rgba(0, 0, 0, 0.5)', 0);
 
         let scoreText = this.game.add.text(scoreDisplay.x, scoreDisplay.y - (scoreDisplay.height * 0.05), this.scoreText.text, {
-            font: "30px Berkshire Swash",
+            font: "80px Berkshire Swash",
             fill: "#000",
             align: "center"
         });
