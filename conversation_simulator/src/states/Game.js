@@ -675,13 +675,13 @@ export default class extends Phaser.State {
         this.bg.gameBackground.loadTexture('bg' + this.bgnya)
       }
     }
-
+	
     this.time.events.add(this.timernya, () => {
       this.leftCharacterSpeak(text)
 
       if (submitResult) {
         // Hack to move left character back to the right place
-        this.time.events.add(5000, () => {
+        this.time.events.add(this.timeToSpeak(text), () => {
           this.leftCharacter.setAnimationSpeedPercent(100)
           this.leftCharacter.playAnimationByName('_IDLE')
           this.createSideMenu()
@@ -715,13 +715,33 @@ export default class extends Phaser.State {
         wordWrap: true,
         wordWrapWidth: 300
       }
-    )
-    this.leftCharacterLabel.anchor.setTo(0.5)
-    this.leftCharacterSpeechTimer = this.time.events.add(5000, () => {
+    )	
+	
+	let timer = this.timeToSpeak(text);
+    this.leftCharacterLabel.anchor.setTo(0.5);
+	
+    this.leftCharacterSpeechTimer = this.time.events.add(timer, () => {
       this.leftCharacter.playAnimationByName('_IDLE')
       this.leftCharacterLabel.kill()
       this.leftCharacterLabel = null
     })
+  }
+  
+  timeToSpeak(text) {
+	/*
+	An auctioneer speaks at 250 words per minute. 
+	Henry Kissinger, in public interviews, speaks at a rate of 90 words per minute. 
+	An ideal rate for a face-to-face pitch or conversation is 190 words per minute.
+	Assuming 2 words per second with minimun of 4 seconds.
+	*/
+	
+	let speedOfSpeach = 2; // 2 words per second
+	let minLenght = 4; // 4 seconds
+	
+	let words = text.split(' ').length;
+	let timetospeak = words / speedOfSpeach;
+	timetospeak = timetospeak > minLenght ? timetospeak : minLenght;
+	return timetospeak * 1000;
   }
 
   leftCharacterStopSpeaking () {
@@ -737,6 +757,7 @@ export default class extends Phaser.State {
   }
 
   repeatQuestion () {
+	dtml.recordGameEnd(this.phaserJSON.Setup.gameid, "repeat", this.stateMachine.currentState.name);
     this.leftCharacterSpeak(
       this.stateMachine.getQuestion()
     )
@@ -746,15 +767,14 @@ export default class extends Phaser.State {
     // Get the shortest possible solution with a positive score
     let shortestSolution = null
     for (var key in this.stateMachine.currentState.Solutions) {
-      let score = this.stateMachine.currentState.Solutions[key].Score
-      if (score > 0) {
-        if (!shortestSolution || key.split(' ').length < shortestSolution.split(' ').length) {
-          shortestSolution = key
-        }
+        if (key !='default' && (!shortestSolution || key.split(' ').length < shortestSolution.split(' ').length)) {
+          shortestSolution = key;
       }
     }
 
-    if (shortestSolution) {
+    if (shortestSolution && shortestSolution.length > 0) {	  
+	   console.log(shortestSolution);
+	   dtml.recordGameEnd(this.phaserJSON.Setup.gameid, "hint", this.stateMachine.currentState.name);
       // Remove words that aren't in the shortest solution
       for (let i = this.listView.items.length - 1; i >= 0; i--) {
         let parentGroup = this.listView.items[i]

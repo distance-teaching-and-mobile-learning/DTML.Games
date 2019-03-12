@@ -46,7 +46,7 @@
     },
     "Visit Set": {
       "Type": "Conversation",
-      "Question": "I heard you had an accident and wanted to see you.",
+      "Question": "I heard you had an accident, so I wanted to see you.",
       "AnswerWords": [
         "Cool",
         "Great",
@@ -88,15 +88,14 @@
         "feel"
       ],
       "Solutions": {
-        "better thank you": { "Score": 0, "Next": "What Happened" },
-		"no it doesn't [thank you]": { "Score": 0, "Next": "What Happened" },
-        "no it doesn't [i] feel better [now]": {
+        "better [now] thank you": { "Score": 0, "Next": "What Happened" },
+		"[no] it doesn't [thank you]": { "Score": 0, "Next": "What Happened" },
+        "[no] it doesn't [i] feel better [now]": {
           "Score": 0,
           "Next": "What Happened"
         },
         "[no] i feel better [now] [thank you]": { "Score": 0, "Next": "What Happened" },
         "no it doesn't": { "Score": 0, "Next": "What Happened" },
-        "i feel better now thank you": { "Score": 0, "Next": "What Happened" },
         "default": { "Score": -50, "Next": null },
         "i feel bored": { "Score": 0, "Next": "Motivating Statement" },
         "bored": { "Score": 0, "Next": "Motivating Statement" }
@@ -284,14 +283,14 @@
         "that"
       ],
       "Solutions": {
-        "sure": { "Score": 0, "Next": "Introduction to Joke" },
-        "thumbs up": { "Score": 0, "Next": "Introduction to Joke" },
+        "[oh] sure [thing]": { "Score": 0, "Next": "Introduction to Joke" },
+        "[oh] thumbs up": { "Score": 0, "Next": "Introduction to Joke" },
         "sure that is a good thing": {
           "Score": 0,
           "Next": "Introduction to Joke"
         },
         "sure that is good": { "Score": 0, "Next": "Introduction to Joke" },
-        "oh sure that is a good thing": {
+        "[oh] sure that is a good thing": {
           "Score": 0,
           "Next": "Introduction to Joke"
         },
