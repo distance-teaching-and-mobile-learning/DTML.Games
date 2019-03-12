@@ -757,7 +757,7 @@ export default class extends Phaser.State {
   }
 
   repeatQuestion () {
-	dtml.recordGameEnd(this.phaserJSON.Setup.gameid, "repeat", this.stateMachine.currentState.name);
+	dtml.recordGameEvent(this.phaserJSON.Setup.gameid, "repeat", this.stateMachine.currentState.name);
     this.leftCharacterSpeak(
       this.stateMachine.getQuestion()
     )
@@ -774,7 +774,7 @@ export default class extends Phaser.State {
 
     if (shortestSolution && shortestSolution.length > 0) {	  
 	   console.log(shortestSolution);
-	   dtml.recordGameEnd(this.phaserJSON.Setup.gameid, "hint", this.stateMachine.currentState.name);
+	   dtml.recordGameEvent(this.phaserJSON.Setup.gameid, "hint", this.stateMachine.currentState.name);
       // Remove words that aren't in the shortest solution
       for (let i = this.listView.items.length - 1; i >= 0; i--) {
         let parentGroup = this.listView.items[i]
