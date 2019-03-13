@@ -634,7 +634,7 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
       $('<input type="text" class="exitLeftDirection" style="width:54px; float:right; margin-right:5px" placeHolder="in or out" /><br class="collapseDelete" />'),
       $('<div class="collapseDelete" style="float:left;padding-top:8px">Right Character: </div>'),
       $('<input type="text" class="exitRightAnimation" style="width:74px;float:right" placeHolder="Animation" />'),
-      $('<input type="text" class="exitRightDirection" style="width:54px; margin-right:5px;float:right" placeHolder="in or out" /><br class="collapseDelete" 
+      $('<input type="text" class="exitRightDirection" style="width:54px; margin-right:5px;float:right" placeHolder="in or out" /><br class="collapseDelete" />')
     ]
     let _this = this
     $(elements).each(function (index, element) {
@@ -1196,6 +1196,78 @@ function gameData () {
   return nodes
 }
 
+function validateGraph () {
+  let graphErrors = getGraphErrors()
+  if (graphErrors.length > 0) {
+    let errorConcat = graphErrors.join('\n')
+    alert(errorConcat)
+  } else {
+    alert('No errors found!')
+  }
+}
+
+function getGraphErrors () {
+  let errors = []
+
+  for (let i = 0; i < graph.attributes.cells.models.length; i++) {
+    let cell = graph.attributes.cells.models[i]
+    if (cell.attributes.type === 'dialogue.Solution') {
+      let inputStates = getInputCells(cell)
+      if (inputStates.length > 0) {
+        let stateWords = splitWords(inputStates[0].attributes.answerWords)
+        for (let j = 0; j < cell.attributes.answers.length; j++) {
+          let answer = cell.attributes.answers[j]
+          let solutionWords = splitWords(answer)
+          for (let k = 0; k < solutionWords.length; k++) {
+            if (!wordInArray(solutionWords[k], stateWords)) {
+              errors.push('Solution phrase: "' + answer + '" contains a word not in its state\'s answer words')
+            }
+          }
+        }
+      } else {
+        errors.push('Solution node has no input state')
+      }
+    }
+  }
+
+  return errors
+}
+
+function splitWords (answer) {
+  let splitWords = answer.split(' ')
+
+  for (let i = 0; i < splitWords.length; i++) {
+    splitWords[i] = splitWords[i].trim()
+    if (splitWords[i][0] === '[') splitWords[i] = splitWords[i].slice(1)
+    if (splitWords[i][splitWords[i].length - 1] === ']') splitWords[i] = splitWords[i].slice(0, -1)
+    if (splitWords[i][splitWords[i].length - 1] === ',') splitWords[i] = splitWords[i].slice(0, -1)
+  }
+
+  return splitWords
+}
+
+function getInputCells (cell) {
+  let cells = []
+  for (let i = 0; i < graph.attributes.cells.models.length; i++) {
+    let link = graph.attributes.cells.models[i]
+    if (link.attributes.type === 'link') {
+      let source = graph.getCell(link.attributes.source.id)
+      let target = graph.getCell(link.attributes.target.id)
+      if (target === cell) cells.push(source)
+    }
+  }
+  return cells
+}
+
+function wordInArray (word, array) {
+  for (let i = 0; i < array.length; i++) {
+    if (word.toLowerCase() === array[i].toLowerCase()) {
+      return true
+    }
+  }
+  return false
+}
+
 var filename = null
 var defaultFilename = 'dialogue.json'
 
@@ -1660,7 +1732,8 @@ $('#paper').contextmenu({
     // { text: 'Load', alias: '2-2', action: load },
     { text: 'Import', id: 'import', alias: '2-1', action: importFile },
     { text: 'Export', id: 'export', alias: '2-2', action: exportFile },
-    { text: 'New', alias: '2-3', action: clear }
+    { text: 'New', alias: '2-3', action: clear },
+    { text: 'Validate', alias: '2-4', action: validateGraph }
     // {
     //   text: 'Export game file',
     //   id: 'export-game',
