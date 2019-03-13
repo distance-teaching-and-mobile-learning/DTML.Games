@@ -1366,8 +1366,13 @@ function load () {
 function exportFile () {
   if (!fs) {
     applyTextFields()
-    var gameState = convertToGameState(graph)
-    offerDownload(filename || defaultFilename, gameState)
+    let errors = getGraphErrors()
+    if (errors.length === 0) {
+      var gameState = convertToGameState(graph)
+      offerDownload(filename || defaultFilename, gameState)
+    } else {
+      alert('Errors in project. Use the \'Validate\' option to find errors.')
+    }
   }
 }
 
