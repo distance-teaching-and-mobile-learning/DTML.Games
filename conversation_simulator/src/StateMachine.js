@@ -25,6 +25,10 @@ export default class {
   getScore () {
     return this.score
   }
+  
+ getCurrentStateName () {
+    return  this.currentStateName
+  }
 
   getOnEnterLeft () {
     if (this.currentState.OnStateEnter != null) {
