@@ -17,7 +17,7 @@ import Spriter from '../libs/spriter'
 
 export default class extends Phaser.State {
   init (score) {
-    this.phaserJSON = this.cache.getJSON('gameData')
+    this.phaserJSON = game.gameModule
     this.game.stage.backgroundColor = '#00B3C1'
     let gameover = game.add.sprite(
       game.world.centerX,

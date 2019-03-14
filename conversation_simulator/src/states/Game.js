@@ -21,12 +21,12 @@ import StateMachine from '../StateMachine'
 
 export default class extends Phaser.State {
   init () {
-    this.stateMachine = new StateMachine(this.game.cache.getJSON('gameData'))
+    this.stateMachine = new StateMachine(game.gameModule)
   }
 
   create () {
     this.cursors = game.input.keyboard.createCursorKeys()
-    this.phaserJSON = this.cache.getJSON('gameData')
+    this.phaserJSON = game.gameModule
     window.speechSynthesis.getVoices()
 
     this.listOfVoices = window.speechSynthesis.getVoices()
