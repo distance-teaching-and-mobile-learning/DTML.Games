@@ -50,7 +50,13 @@ let xmlHttp = new XMLHttpRequest()
 xmlHttp.open('Get', 'https://dtml.org/api/DialogService/Dialog?name=' + gameName + '&version=' + gameVersion, false)
 xmlHttp.send(null)
 
-game.gameModule = JSON.parse(xmlHttp.responseText)
+// No response from server
+if (xmlHttp.responseText === '') {
+  // Attempt to load file locally
+  game.gameModule = gameName
+} else {
+  game.gameModule = JSON.parse(xmlHttp.responseText)
+}
 
 if (window.cordova) {
   var app = {
