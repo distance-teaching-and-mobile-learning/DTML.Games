@@ -1,3 +1,5 @@
+import Validator from './validator.js'
+
 function getURLParameter (name) {
   return (
     decodeURIComponent(
@@ -620,7 +622,7 @@ joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
     this.$box.find('.toggle').html('-')
     var elements = [
       $('<p><input type="text" class="backgroundSelector" placeHolder="Background" /></p>'),
-	  $('<hr class="collapseDelete" /></p>'),
+      $('<hr class="collapseDelete" /></p>'),
       $('<p><span class="collapseDelete" style="font-weight:bold">On State Enter</span><br class="collapseDelete" /></p>'),
       $('<div class="collapseDelete" style="float:left;padding-top:6px">Left Character: </div>'),
       $('<input type="text" class="enterLeftAnimation" style="width:74px; float:right;" placeHolder="Animation" />'),
@@ -912,24 +914,24 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     this.$box.find('.toggle').html('-')
 
     var elements = [
-	  $('<div style="display:block">'),
+      $('<div style="display:block">'),
       $('<hr class="collapseDelete">'),
       $('<p><span class="collapseDelete" style="pa">Left Character</span></p>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Character:</span><input type="text" class="leftCharacter collapseDelete" style="width:50%; float:right; clear:right;" /></div>'),
-      $('<div class="collapseDelete" style="overflow:hidden"><button class="testLeftVoice" style="background:none;float:left">'+viewTemplates.speaker +'</button><span class="collapseDelete" style="width:40%; float:left;">Voice:</span><select class="leftVoice collapseDelete" style="width: 50%; float:right; clear:right;"></select></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><button class="testLeftVoice" style="background:none;float:left">' + viewTemplates.speaker + '</button><span class="collapseDelete" style="width:40%; float:left;">Voice:</span><select class="leftVoice collapseDelete" style="width: 50%; float:right; clear:right;"></select></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Pitch:</span><input type="text" class="leftPitch collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Y Offset:</span><input type="text" class="leftYOffset collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="leftX collapseDelete" style="width:38px" placeHolder="205"></span><span class="collapseDelete" style="width:33%; float:left; clear:right;">y: <input type="text" class="leftY collapseDelete" style="width:38px" placeHolder="350"></span></div>'),
       $('<hr class="collapseDelete">'),
       $('<p><span class="collapseDelete">Right Character</span></p>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Character:</span><input type="text" class="rightCharacter collapseDelete" style="width:50%; float:right; clear:right;" /></div>'),
-      $('<div class="collapseDelete" style="overflow:hidden"><button class="testRightVoice" style="background:none;float:left">'+viewTemplates.speaker +'</button><span class="collapseDelete" style="width:40%; float:left;">Voice:</span><select class="rightVoice collapseDelete" style="width: 50%; float:left; clear:right;"></select></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><button class="testRightVoice" style="background:none;float:left">' + viewTemplates.speaker + '</button><span class="collapseDelete" style="width:40%; float:left;">Voice:</span><select class="rightVoice collapseDelete" style="width: 50%; float:left; clear:right;"></select></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Pitch:</span><input type="text" class="rightPitch collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Y Offset:</span><input type="text" class="rightYOffset collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="rightX collapseDelete" style="width:38px" placeHolder="175"></span><span class="collapseDelete" style="width:33%; float:left; clear:right;">y: <input type="text" class="rightY collapseDelete" style="width:38px" placeHolder="340"></span></div>'),
       $('<hr class="collapseDelete">'),
       $('<p><span class="collapseDelete">Backgrounds</span> <button class="removeBackground collapseDelete">-</button> <button class="addBackground collapseDelete">+</button></p>'),
-	  $('</div>'),
+      $('</div>')
     ]
     let _this = this
     $(elements).each(function (index, element) {
@@ -944,7 +946,7 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
         value: voice.name,
         text: voice.name,
       }))
-	  
+
       this.$box.find('select.rightVoice').append($('<option>', {
         value: voice.name,
         text: voice.name,
@@ -1082,7 +1084,7 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
             this.textToSpeech(text, voice, pitch)
           }, 500)
         } else {
-          var voicename = voiceList.filter(a => a.name.toLowerCase().includes(voice.toLowerCase()));    
+          var voicename = voiceList.filter(a => a.name.toLowerCase().includes(voice.toLowerCase())) 
           var msg = new SpeechSynthesisUtterance()
           msg.voice = voicename.length > 0 ? voicename[0] : voiceList[0]
           msg.default = false
@@ -1194,78 +1196,6 @@ function gameData () {
     }
   }
   return nodes
-}
-
-function validateGraph () {
-  let graphErrors = getGraphErrors()
-  if (graphErrors.length > 0) {
-    let errorConcat = graphErrors.join('\n')
-    alert(errorConcat)
-  } else {
-    alert('No errors found!')
-  }
-}
-
-function getGraphErrors () {
-  let errors = []
-
-  for (let i = 0; i < graph.attributes.cells.models.length; i++) {
-    let cell = graph.attributes.cells.models[i]
-    if (cell.attributes.type === 'dialogue.Solution') {
-      let inputStates = getInputCells(cell)
-      if (inputStates.length > 0) {
-        let stateWords = splitWords(inputStates[0].attributes.answerWords)
-        for (let j = 0; j < cell.attributes.answers.length; j++) {
-          let answer = cell.attributes.answers[j]
-          let solutionWords = splitWords(answer)
-          for (let k = 0; k < solutionWords.length; k++) {
-            if (!wordInArray(solutionWords[k], stateWords)) {
-              errors.push('Solution phrase: "' + answer + '" contains a word not in its state\'s answer words')
-            }
-          }
-        }
-      } else {
-        errors.push('Solution node has no input state')
-      }
-    }
-  }
-
-  return errors
-}
-
-function splitWords (answer) {
-  let splitWords = answer.split(' ')
-
-  for (let i = 0; i < splitWords.length; i++) {
-    splitWords[i] = splitWords[i].trim()
-    if (splitWords[i][0] === '[') splitWords[i] = splitWords[i].slice(1)
-    if (splitWords[i][splitWords[i].length - 1] === ']') splitWords[i] = splitWords[i].slice(0, -1)
-    if (splitWords[i][splitWords[i].length - 1] === ',') splitWords[i] = splitWords[i].slice(0, -1)
-  }
-
-  return splitWords
-}
-
-function getInputCells (cell) {
-  let cells = []
-  for (let i = 0; i < graph.attributes.cells.models.length; i++) {
-    let link = graph.attributes.cells.models[i]
-    if (link.attributes.type === 'link') {
-      let source = graph.getCell(link.attributes.source.id)
-      let target = graph.getCell(link.attributes.target.id)
-      if (target === cell) cells.push(source)
-    }
-  }
-  return cells
-}
-
-function wordInArray (word, array) {
-  for (let i = 0; i < array.length; i++) {
-    if (word.toLowerCase() === array[i].toLowerCase()) {
-      return true
-    }
-  }
-  return false
 }
 
 var filename = null
@@ -1738,7 +1668,7 @@ $('#paper').contextmenu({
     { text: 'Import', id: 'import', alias: '2-1', action: importFile },
     { text: 'Export', id: 'export', alias: '2-2', action: exportFile },
     { text: 'New', alias: '2-3', action: clear },
-    { text: 'Validate', alias: '2-4', action: validateGraph }
+    { text: 'Validate', alias: '2-4', action: function () { Validator.validateGraph(graph) } }
     // {
     //   text: 'Export game file',
     //   id: 'export-game',
