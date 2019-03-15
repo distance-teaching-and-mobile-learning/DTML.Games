@@ -30,14 +30,15 @@ export default class extends Phaser.State {
     window.speechSynthesis.getVoices()
 
     this.listOfVoices = window.speechSynthesis.getVoices()
-    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+    if (typeof speechSynthesis !== 'undefined' && window.speechSynthesis.onvoiceschanged !== undefined) {
+	  var that = this;
       window.speechSynthesis.onvoiceschanged = function () {
-        this.listOfVoices = window.speechSynthesis.getVoices()
+        that.listOfVoices = window.speechSynthesis.getVoices();
       }
     }
 
-    this.leftCharacterVoice = this.phaserJSON.Setup.LeftVoice
-    this.rightCharacterVoice = this.phaserJSON.Setup.RightVoice
+    this.leftCharacterVoice = this.phaserJSON.Setup.LeftVoice;
+    this.rightCharacterVoice = this.phaserJSON.Setup.RightVoice;
 
     this.language = this.game.state.states['Game']._language
     this.langCode = this.game.state.states['Game']._langCode
@@ -336,9 +337,11 @@ export default class extends Phaser.State {
           this.textToSpeach(text, voice, pitch)
         }, 500)
       } else {
+		console.log(this.listOfVoices);
         var voicename = this.listOfVoices.filter(a =>a.name.toLowerCase().includes(voice.toLowerCase()));     
         var msg = new SpeechSynthesisUtterance();
         msg.voice = voicename.length > 0 ? voicename[0] : this.listOfVoices[0];
+		console.log(msg.voice);
         msg.default = false
         msg.voiceURI = 'native'
         msg.volume = 1
@@ -703,7 +706,7 @@ export default class extends Phaser.State {
 
     this.leftCharacter.setAnimationSpeedPercent(100)
     this.leftCharacter.playAnimationByName('_SAY')
-    this.textToSpeach(text, this.leftCharacterVoice, this.phaserJSON.Setup.LeftPitch)
+    this.textToSpeach(text, this.phaserJSON.Setup.LeftVoice, this.phaserJSON.Setup.LeftPitch)
     this.leftCharacterLabel = this.game.add.text(
       this.leftCharacter.x - parseInt(this.phaserJSON.Setup.CallOutLeftX),
       this.leftCharacter.y - parseInt(this.phaserJSON.Setup.CallOutLeftY),
@@ -756,8 +759,8 @@ export default class extends Phaser.State {
     }
   }
 
-  repeatQuestion () {
-	dtml.recordGameEnd(this.phaserJSON.Setup.gameid, "repeat", this.stateMachine.currentState.name);
+  repeatQuestion (sprite) { 
+	dtml.recordGameEvent(this.phaserJSON.Setup.Name, "repeat", this.stateMachine.getCurrentStateName());
     this.leftCharacterSpeak(
       this.stateMachine.getQuestion()
     )
@@ -774,7 +777,7 @@ export default class extends Phaser.State {
 
     if (shortestSolution && shortestSolution.length > 0) {	  
 	   console.log(shortestSolution);
-	   dtml.recordGameEnd(this.phaserJSON.Setup.gameid, "hint", this.stateMachine.currentState.name);
+	   dtml.recordGameEvent(this.phaserJSON.Setup.Name, "hint", this.stateMachine.getCurrentStateName());
       // Remove words that aren't in the shortest solution
       for (let i = this.listView.items.length - 1; i >= 0; i--) {
         let parentGroup = this.listView.items[i]
