@@ -18,7 +18,7 @@ import 'isomorphic-fetch'
 var dtml = {
     urls: {
         userService: 'https://dtml.org/Activity/Record/',
-        gameService: 'https://dtml.org/api/GameService/'
+        gameService: 'https://dtml.org/api/GameService/',
         speechService: 'https://dtml.org/api/SpeechService/'
     },
 
