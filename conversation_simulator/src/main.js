@@ -46,17 +46,11 @@ if (!gameName || !gameVersion) {
   gameVersion = prompt('Which version would you like to run?')
 }
 
-let xmlHttp = new XMLHttpRequest()
-xmlHttp.open('Get', 'https://dtml.org/api/DialogService/Dialog?name=' + gameName + '&version=' + gameVersion, false)
-xmlHttp.send(null)
-
-// No response from server
-if (xmlHttp.responseText === '') {
-  // Attempt to load file locally
+requestGameDataFromServer(gameName, gameVersion).then(function (response) {
+  game.gameModule = JSON.parse(response)
+}).catch(function (response) {
   game.gameModule = gameName
-} else {
-  game.gameModule = JSON.parse(xmlHttp.responseText)
-}
+})
 
 if (window.cordova) {
   var app = {
@@ -123,3 +117,17 @@ window.addEventListener('load', () => {
   }
   checkVideo()
 }, false)
+
+function requestGameDataFromServer (name, version) {
+  return new Promise(function (resolve, reject) {
+    let xmlHttp = new XMLHttpRequest()
+    xmlHttp.open('Get', 'https://dtml.org/api/DialogService/Dialog?name=' + name + '&version=' + version, false)
+    xmlHttp.send(null)
+    console.log(xmlHttp.statusText)
+    if (xmlHttp.responseText === '') {
+      reject(xmlHttp.statusText)
+    } else {
+      resolve(xmlHttp.responseText)
+    }
+  })
+}
