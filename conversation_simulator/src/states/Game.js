@@ -27,21 +27,14 @@ export default class extends Phaser.State {
   create () {
     this.cursors = game.input.keyboard.createCursorKeys()
     this.phaserJSON = game.gameModule
-    window.speechSynthesis.getVoices()
-
-    this.listOfVoices = window.speechSynthesis.getVoices()
-    if (typeof speechSynthesis !== 'undefined' && window.speechSynthesis.onvoiceschanged !== undefined) {
-	  var that = this;
-      window.speechSynthesis.onvoiceschanged = function () {
-        that.listOfVoices = window.speechSynthesis.getVoices();
-      }
-    }
-
-    this.leftCharacterVoice = this.phaserJSON.Setup.LeftVoice;
+    
+	dtml.initVoices();
+	this.leftCharacterVoice = this.phaserJSON.Setup.LeftVoice;
     this.rightCharacterVoice = this.phaserJSON.Setup.RightVoice;
 
     this.language = this.game.state.states['Game']._language
     this.langCode = this.game.state.states['Game']._langCode
+	
     let startingBackground = this.stateMachine.getOnEnterBg() || 1
     this.bg = new Background({ game: this.game }, startingBackground)
 
@@ -261,22 +254,12 @@ export default class extends Phaser.State {
         this.patienceBarsGroup = this.add.group()
         this.patienceBars = new Array(numberOfPatienceBars)
 
-        var p = game.make.sprite(0, 0, 'patienceBar5')
-        this.patienceBarsGroup.add(p)
-        this.patienceBars[4] = p
-
-        var p1 = game.make.sprite(0, 0, 'patienceBar4')
-        this.patienceBarsGroup.add(p1)
-        this.patienceBars[3] = p1
-        var p2 = game.make.sprite(90, 0, 'patienceBar3')
-        this.patienceBarsGroup.add(p2)
-        this.patienceBars[2] = p2
-        var p3 = game.make.sprite(180, 0, 'patienceBar2')
-        this.patienceBarsGroup.add(p3)
-        this.patienceBars[1] = p3
-        var p4 = game.make.sprite(270, 0, 'patienceBar1')
-        this.patienceBarsGroup.add(p4)
-        this.patienceBars[0] = p4
+		 //Populate bar with hearts which indicate number of lives	
+		 for (let j = 1; j < numberOfPatienceBars+1; j++) {			 
+		   var heart = game.make.sprite(90*(j-1), 0, 'patienceBar'+j)
+		   this.patienceBarsGroup.add(heart)
+		   this.patienceBars[numberOfPatienceBars-j] = heart
+		 }
 
         this.patienceBarsGroup.x = this.world.width * 0.1
         this.patienceBarsGroup.y = this.game.world.centerY * 0.1 - 15
@@ -327,31 +310,6 @@ export default class extends Phaser.State {
     }, this)
 
     dtml.recordGameEnd(this.phaserJSON.Setup.gameid, this.scoreText.text)
-  }
-
-  textToSpeach (text, voice, pitch) {
-    try {
-      if (speechSynthesis.speaking) {
-        speechSynthesis.cancel()
-        setTimeout(() => {
-          this.textToSpeach(text, voice, pitch)
-        }, 500)
-      } else {
-        var voicename = this.listOfVoices.filter(a =>a.name.toLowerCase().includes(voice.toLowerCase()));     
-        var msg = new SpeechSynthesisUtterance();
-        msg.voice = voicename.length > 0 ? voicename[0] : this.listOfVoices[0];
-        msg.default = false
-        msg.voiceURI = 'native'
-        msg.volume = 1
-        msg.rate = 1
-        msg.pitch = parseInt(pitch)
-        msg.text = text
-        msg.lang = 'en-US'
-        speechSynthesis.speak(msg)
-      }
-    } catch (e) {
-      console.log(e)
-    }
   }
 
   ConversationStart () {
@@ -507,7 +465,7 @@ export default class extends Phaser.State {
   rightCharacterSpeak (text) {
     this.rightCharacter.setAnimationSpeedPercent(100)
     this.rightCharacter.playAnimationByName('_SAY')
-    this.textToSpeach(text, this.rightCharacterVoice, this.phaserJSON.Setup.RightPitch)
+    dtml.textToSpeech(text, this.rightCharacterVoice, this.phaserJSON.Setup.RightPitch)
     let label = this.game.add.text(
       this.rightCharacter.x + parseInt(this.phaserJSON.Setup.CallOutRightX),
       this.rightCharacter.y - parseInt(this.phaserJSON.Setup.CallOutRightY),
@@ -704,7 +662,7 @@ export default class extends Phaser.State {
 
     this.leftCharacter.setAnimationSpeedPercent(100)
     this.leftCharacter.playAnimationByName('_SAY')
-    this.textToSpeach(text, this.phaserJSON.Setup.LeftVoice, this.phaserJSON.Setup.LeftPitch)
+    dtml.textToSpeech(text, this.phaserJSON.Setup.LeftVoice, this.phaserJSON.Setup.LeftPitch)
     this.leftCharacterLabel = this.game.add.text(
       this.leftCharacter.x - parseInt(this.phaserJSON.Setup.CallOutLeftX),
       this.leftCharacter.y - parseInt(this.phaserJSON.Setup.CallOutLeftY),
