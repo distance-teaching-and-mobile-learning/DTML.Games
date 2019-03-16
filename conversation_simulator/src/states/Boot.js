@@ -36,18 +36,22 @@ export default class extends Phaser.State {
   }
 
   preload () {
+    this.load.image('loaderBg', './assets/images/logobackground.png')
+    this.load.image('loaderBar', './assets/images/loading-logo.png')
+
     if (typeof game.gameModule === 'string') {
       let gameData = this.load.json('gameData', 'assets/data/' + game.gameModule + '.json')
       gameData.onLoadComplete.add(function () {
         game.gameModule = this.game.cache.getJSON('gameData')
         if (game.gameModule === null) {
-          alert('Could not load module')
+          let errorText = game.add.text(game.world.centerX, game.world.centerY, 'Could not load game module', { fill: '#FFFFFF' })
+          errorText.anchor.set(0.5)
+          this.failedToLoad = true
+          document.querySelector('#intro').style.display = 'none'
+          document.querySelector('#content').style.display = 'block'
         }
       }, this)
     }
-
-    this.load.image('loaderBg', './assets/images/logobackground.png')
-    this.load.image('loaderBar', './assets/images/loading-logo.png')
 
     let scaleRatio
     let canvasHeightMax = 900
@@ -70,6 +74,8 @@ export default class extends Phaser.State {
   }
 
   render () {
-    this.state.start('Splash')
+    if (!this.failedToLoad) {
+      this.state.start('Splash')
+    }
   }
 }

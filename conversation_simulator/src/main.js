@@ -123,7 +123,6 @@ function requestGameDataFromServer (name, version) {
     let xmlHttp = new XMLHttpRequest()
     xmlHttp.open('Get', 'https://dtml.org/api/DialogService/Dialog?name=' + name + '&version=' + version, false)
     xmlHttp.send(null)
-    console.log(xmlHttp.statusText)
     if (xmlHttp.responseText === '') {
       reject(xmlHttp.statusText)
     } else {
