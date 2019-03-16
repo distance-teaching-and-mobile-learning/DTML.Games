@@ -31,12 +31,11 @@ var dtml = {
         fetch(this.urls.gameService + "Words/?step=" + level, {
             method: 'get',
             credentials: 'same-origin',
-        }).
-        catch (err = > {
+        }).catch (err => {
             console.log('err', err);
             callback(null, sender);
-        }).then(res = > res.json())
-            .then(data = > {
+        }).then(res => res.json())
+            .then(data => {
                 if (debug) {
                     console.log(data);
                 }
@@ -51,12 +50,11 @@ var dtml = {
         fetch(this.urls.gameService + "ScorePhrase/?source=conversation&success=" + success + "&phrase=" + phrase, {
             method: 'get',
             credentials: 'same-origin',
-        }).
-        catch (err = > {
+        }).catch (err => {
             console.log('err', err);
             callback(false);
-        }).then(res = > res.json())
-            .then(data = > {
+        }).then(res => res.json())
+            .then(data => {
                 if (debug) {
                     console.log(data);
                 }
@@ -82,8 +80,7 @@ var dtml = {
             headers: {
                 'content-type': 'application/json'
             }
-        }).
-        catch (err = > {
+        }).catch (err => {
             console.log('err', err)
         });
     },
@@ -131,11 +128,11 @@ var dtml = {
             if (typeof speechSynthesis !== 'undefined' && window.speechSynthesis.onvoiceschanged !== undefined && provider != "dtml-speech-service") {
                 if (speechSynthesis.speaking) {
                     speechSynthesis.cancel()
-                    setTimeout(() = > {
+                    setTimeout(() => {
                         this.textToSpeach(text, voice, pitch)
                     }, 500)
                 } else {
-                    let voicename = this.listOfVoices.filter(a = > a.name.toLowerCase().includes(voice.toLowerCase()));
+                    let voicename = this.listOfVoices.filter(a => a.name.toLowerCase().includes(voice.toLowerCase()));
                     let msg = new SpeechSynthesisUtterance();
                     msg.voice = voicename.length > 0 ? voicename[0] : this.listOfVoices[0];
                     msg.default = false
