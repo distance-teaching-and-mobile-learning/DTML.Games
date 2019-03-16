@@ -337,11 +337,9 @@ export default class extends Phaser.State {
           this.textToSpeach(text, voice, pitch)
         }, 500)
       } else {
-		console.log(this.listOfVoices);
         var voicename = this.listOfVoices.filter(a =>a.name.toLowerCase().includes(voice.toLowerCase()));     
         var msg = new SpeechSynthesisUtterance();
         msg.voice = voicename.length > 0 ? voicename[0] : this.listOfVoices[0];
-		console.log(msg.voice);
         msg.default = false
         msg.voiceURI = 'native'
         msg.volume = 1

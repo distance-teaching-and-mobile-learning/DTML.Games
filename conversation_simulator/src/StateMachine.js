@@ -1,3 +1,5 @@
+import UserContext from './userContext'
+
 export default class {
   constructor (stateData) {
     this.score = 0
@@ -7,7 +9,7 @@ export default class {
       this.stateData.States[this.stateData.StartAt]
     )
     this.submitSolutionResult = true
-    this.visitedStates = {}
+    this.userContext = new UserContext()
   }
 
   setCurrentState (stateName, stateData) {
@@ -26,9 +28,9 @@ export default class {
   getScore () {
     return this.score
   }
-  
- getCurrentStateName () {
-    return  this.currentStateName
+
+  getCurrentStateName () {
+    return this.currentStateName
   }
 
   getOnEnterLeft () {
@@ -164,11 +166,11 @@ export default class {
     if (solution !== undefined) {
       let nextState = this.currentState.Solutions[solution].Next
       this.submitSolutionResult = true
-      if (score > 0 && !hintUsed && !this.checkIfSolutionUsed(this.currentState, solution)) {
+      if (score > 0 && !hintUsed && !this.userContext.hasSolutionBeenUsed(this.getCurrentStateName(), solution)) {
         this.score += score
       }
       // Save state/answer so it can't be used again for points
-      this.markSolution(this.currentState, solution)
+      this.userContext.markSolution(this.getCurrentStateName(), solution)
       // Go to next state
       this.setCurrentState(
         nextState,
@@ -229,33 +231,5 @@ export default class {
       }
     }
     return split
-  }
-
-  // Marks that a specific answer was already used on a certain state
-  markSolution (state, answer) {
-    let stateName = this.getStateName(state)
-    if (!this.visitedStates[stateName]) {
-      this.visitedStates[stateName] = []
-    }
-    this.visitedStates[stateName].push(answer)
-  }
-
-  // Checks to see if a solution has already been used
-  checkIfSolutionUsed (state, answer) {
-    let stateName = this.getStateName(state)
-    if (this.visitedStates[stateName] && this.visitedStates[stateName].indexOf(answer) !== -1) {
-      return true
-    } else {
-      return false
-    }
-  }
-
-  // Finds a state object's name
-  getStateName (state) {
-    for (let stateName in this.stateData.States) {
-      if (state === this.stateData.States[stateName]) {
-        return stateName
-      }
-    }
   }
 }
