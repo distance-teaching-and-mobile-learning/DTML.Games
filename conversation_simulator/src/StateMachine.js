@@ -1,3 +1,5 @@
+import UserContext from './userContext'
+
 export default class {
   constructor (stateData) {
     this.score = 0
@@ -7,6 +9,7 @@ export default class {
       this.stateData.States[this.stateData.StartAt]
     )
     this.submitSolutionResult = true
+    this.userContext = new UserContext()
   }
 
   setCurrentState (stateName, stateData) {
@@ -25,9 +28,9 @@ export default class {
   getScore () {
     return this.score
   }
-  
- getCurrentStateName () {
-    return  this.currentStateName
+
+  getCurrentStateName () {
+    return this.currentStateName
   }
 
   getOnEnterLeft () {
@@ -162,14 +165,17 @@ export default class {
   scoreSolution (solution, score, hintUsed) {
     if (solution !== undefined) {
       let nextState = this.currentState.Solutions[solution].Next
+      this.submitSolutionResult = true
+      if (score > 0 && !hintUsed && !this.userContext.hasSolutionBeenUsed(this.getCurrentStateName(), solution)) {
+        this.score += score
+      }
+      // Save state/answer so it can't be used again for points
+      this.userContext.markSolution(this.getCurrentStateName(), solution)
+      // Go to next state
       this.setCurrentState(
         nextState,
         this.stateData.States[nextState]
       )
-      this.submitSolutionResult = true
-      if (score > 0 && !hintUsed) {
-        this.score += score
-      }
     } else {
       this.submitSolutionResult = false
       this.score -= 10

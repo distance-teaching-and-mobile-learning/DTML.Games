@@ -3,7 +3,6 @@ var path = require('path')
 var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin')
-var assert = require('assert')
 
 // Phaser webpack config
 var phaserModule = path.join(__dirname, '/node_modules/phaser-ce/')
@@ -11,19 +10,6 @@ var phaser = path.join(phaserModule, 'build/custom/phaser-split.js')
 var pixi = path.join(phaserModule, 'build/custom/pixi.js')
 var p2 = path.join(phaserModule, 'build/custom/p2.js')
 var dtml = path.join(__dirname, '/node_modules/dtml.sdk')
-
-var gameModule
-for (let i = 0; i < process.argv.length; i++) {
-  if (process.argv[i].startsWith('game:')) {
-    gameModule = process.argv[i].slice(5)
-  }
-}
-assert(gameModule, 'No game module selected. Check the README for building and testing instructions.')
-
-var definePlugin = new webpack.DefinePlugin({
-  __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true')),
-  gameModule: JSON.stringify(gameModule)
-})
 
 module.exports = {
   entry: {
@@ -48,7 +34,6 @@ module.exports = {
     concatenateModules: false
   },
   plugins: [
-    definePlugin,
     new HtmlWebpackPlugin({
       filename: '../index.html',
       template: './src/index.html',

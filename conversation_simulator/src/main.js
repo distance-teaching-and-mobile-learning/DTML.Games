@@ -35,7 +35,22 @@ class Game extends Phaser.Game {
 }
 
 window.game = new Game()
-game.gameModule = gameModule
+
+// Load game json
+let queryString = new URLSearchParams(window.location.search)
+let gameName = queryString.get('name')
+let gameVersion = queryString.get('version')
+
+if (!gameName || !gameVersion) {
+  gameName = prompt('Which game module would you like to run?')
+  gameVersion = prompt('Which version would you like to run?')
+}
+
+requestGameDataFromServer(gameName, gameVersion).then(function (response) {
+  game.gameModule = JSON.parse(response)
+}).catch(function (response) {
+  game.gameModule = gameName
+})
 
 if (window.cordova) {
   var app = {
@@ -102,3 +117,16 @@ window.addEventListener('load', () => {
   }
   checkVideo()
 }, false)
+
+function requestGameDataFromServer (name, version) {
+  return new Promise(function (resolve, reject) {
+    let xmlHttp = new XMLHttpRequest()
+    xmlHttp.open('Get', 'https://dtml.org/api/DialogService/Dialog?name=' + name + '&version=' + version, false)
+    xmlHttp.send(null)
+    if (xmlHttp.responseText === '') {
+      reject(xmlHttp.statusText)
+    } else {
+      resolve(xmlHttp.responseText)
+    }
+  })
+}

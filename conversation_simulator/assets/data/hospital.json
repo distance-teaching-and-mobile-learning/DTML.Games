@@ -2,16 +2,16 @@
   "Setup": {
     "Name": "Hospital",
     "Title": "At the Hospital",
-    "LeftCharacter": "boy",
+    "LeftCharacter": "cook",
     "LeftVoice": "Microsoft David",
     "LeftPitch": -100,
-    "LeftAddY": 130,
+    "LeftAddY": 55,
     "CallOutLeftX": 205,
     "CallOutLeftY": 350,
-    "RightCharacter": "boycrutches",
+    "RightCharacter": "man",
     "RightVoice": "Microsoft Hazel",
     "RightPitch": 100,
-    "RightAddY": -55,
+    "RightAddY": 55,
     "CallOutRightX": 175,
     "CallOutRightY": 340,
     "Backgrounds": ["hospital", "hospital_room_2", "hospital_room"]
@@ -29,15 +29,14 @@
         "Hey",
         "Morning",
         "A",
-        "What"
+        "What",
+        "Hello"
       ],
       "Solutions": {
         "hey": { "Score": 0, "Next": "Visit Set" },
-        "[good] morning": { "Score": 0, "Next": "Visit Set" },
+        "good morning": { "Score": 0, "Next": "Visit Set" },
         "hello": { "Score": 0, "Next": "Visit Set" },
-		"[good morning] what a [good] surprise": { "Score": 0, "Next": "Visit Set" },
-        "[hey] what a [good] surprise": { "Score": 0, "Next": "Visit Set" },
-		"[hi] what a [good] surprise": { "Score": 0, "Next": "Visit Set" },
+        "hey what a surprise": { "Score": 0, "Next": "Visit Set" },
         "hi": { "Score": 0, "Next": "Visit Set" },
         "default": { "Score": -50, "Next": null }
       },
@@ -46,7 +45,7 @@
     },
     "Visit Set": {
       "Type": "Conversation",
-      "Question": "I heard you had an accident, so I wanted to see you.",
+      "Question": "I heard you had an accident and wanted to see you.",
       "AnswerWords": [
         "Cool",
         "Great",
@@ -57,7 +56,8 @@
         "For",
         "Coming",
         "Thanks",
-        "See"
+        "See",
+        "you"
       ],
       "Solutions": {
         "great thank you": { "Score": 0, "Next": "Health Status" },
@@ -88,14 +88,15 @@
         "feel"
       ],
       "Solutions": {
-        "better [now] thank you": { "Score": 0, "Next": "What Happened" },
-		"[no] it doesn't [thank you]": { "Score": 0, "Next": "What Happened" },
-        "[no] it doesn't [i] feel better [now]": {
+        "better thank you": { "Score": 0, "Next": "What Happened" },
+        "no it doesn't feel better": { "Score": 0, "Next": "What Happened" },
+        "no it doesn't i feel better now": {
           "Score": 0,
           "Next": "What Happened"
         },
-        "[no] i feel better [now] [thank you]": { "Score": 0, "Next": "What Happened" },
+        "no i feel better now": { "Score": 0, "Next": "What Happened" },
         "no it doesn't": { "Score": 0, "Next": "What Happened" },
+        "i feel better now thank you": { "Score": 0, "Next": "What Happened" },
         "default": { "Score": -50, "Next": null },
         "i feel bored": { "Score": 0, "Next": "Motivating Statement" },
         "bored": { "Score": 0, "Next": "Motivating Statement" }
@@ -114,7 +115,7 @@
         "tree",
         "got",
         "accidentally",
-        "fall",
+        "fell",
         "crashed",
         "into"
       ],
@@ -122,7 +123,7 @@
         "i got hit": { "Score": 0, "Next": "How it happened" },
         "i crashed into a tree": { "Score": 0, "Next": "How it happened" },
         "i fell": { "Score": 0, "Next": "How it happened" },
-        "i [accidentally] crashed into a tree": {
+        "i accidentally crashed into a tree": {
           "Score": 0,
           "Next": "How it happened"
         },
@@ -147,7 +148,8 @@
         "kite",
         "well",
         "that",
-        "it"
+        "it",
+        "right"
       ],
       "Solutions": {
         "thank you": { "Score": 0, "Next": "What Happened" },
@@ -176,9 +178,9 @@
         "not"
       ],
       "Solutions": {
-        "no [i was not]": { "Score": 0, "Next": "Details Inquiring" },
-        "[no] i was riding my bike": { "Score": 0, "Next": "Details Inquiring" },
-        "i was not [i was riding my bike]": {
+        "no i was not": { "Score": 0, "Next": "Details Inquiring" },
+        "no i was riding my bike": { "Score": 0, "Next": "Details Inquiring" },
+        "i was not i was riding my bike": {
           "Score": 0,
           "Next": "Details Inquiring"
         },
@@ -229,7 +231,11 @@
         "the"
       ],
       "Solutions": {
-        "i avoided a [little] girl [crossing the road]": {
+        "i avoided a little girl": {
+          "Score": 0,
+          "Next": "Further Explanation"
+        },
+        "i avoided a little girl crossing the road": {
           "Score": 0,
           "Next": "Further Explanation"
         },
@@ -240,7 +246,7 @@
     },
     "Further Explanation": {
       "Type": "Conversation",
-      "Question": "Oh...tell me more",
+      "Question": "Oh...",
       "AnswerWords": [
         "the",
         "on",
@@ -254,11 +260,12 @@
         "turned"
       ],
       "Solutions": {
-        "i turned [sharply] and hit a tree [on the sidewalk]": {
+        "and i hit a tree": { "Score": 0, "Next": "Congratulations" },
+        "i turned sharply and hit a tree on the sidewalk": {
           "Score": 0,
           "Next": "Congratulations"
         },
-        "i hit a tree [on the sidewalk]": {
+        "and i hit a tree on the sidewalk": {
           "Score": 0,
           "Next": "Congratulations"
         },
@@ -283,14 +290,14 @@
         "that"
       ],
       "Solutions": {
-        "[oh] sure [thing]": { "Score": 0, "Next": "Introduction to Joke" },
-        "[oh] thumbs up": { "Score": 0, "Next": "Introduction to Joke" },
+        "sure": { "Score": 0, "Next": "Introduction to Joke" },
+        "thumbs up": { "Score": 0, "Next": "Introduction to Joke" },
         "sure that is a good thing": {
           "Score": 0,
           "Next": "Introduction to Joke"
         },
         "sure that is good": { "Score": 0, "Next": "Introduction to Joke" },
-        "[oh] sure that is a good thing": {
+        "oh sure that is a good thing": {
           "Score": 0,
           "Next": "Introduction to Joke"
         },
@@ -303,7 +310,7 @@
       "Type": "Conversation",
       "Question": "Well, there is another good thing",
       "AnswerWords": [
-        "stop",
+        "away",
         "oh",
         "would",
         "really",
@@ -317,11 +324,12 @@
       ],
       "Solutions": {
         "oh really": { "Score": 0, "Next": "Joke" },
+        "what would that be": { "Score": 0, "Next": "Joke" },
         "what is it": { "Score": 0, "Next": "Joke" },
-        "[oh] [really] what would that be": { "Score": 0, "Next": "Joke" },
-        "[oh] [really] what is it": { "Score": 0, "Next": "Joke" },
+        "oh really what would that be": { "Score": 0, "Next": "Joke" },
+        "oh really what is it": { "Score": 0, "Next": "Joke" },
         "default": { "Score": -50, "Next": null },
-        "[please] stop [it]": { "Score": 0, "Next": "Homework Subject" }
+        "please go away": { "Score": 0, "Next": "Homework Subject" }
       },
       "OnStateEnter": {},
       "OnStateExit": {}
@@ -373,7 +381,11 @@
         "is",
         "think",
         "it",
-        "that"
+        "that",
+        "my",
+        "made",
+        "day",
+        "was"
       ],
       "Solutions": {
         "do you think that is funny": { "Score": 0, "Next": "Excuse Accepted" },
@@ -470,7 +482,10 @@
         "a",
         "friend",
         "best",
-        "really"
+        "really",
+        "for",
+        "coming",
+        "real"
       ],
       "Solutions": {
         "you are my best friend": { "Score": 0, "Next": "End" },
@@ -492,7 +507,8 @@
         "outPorts": ["output"],
         "actor": "",
         "textarea": "Start writing",
-        "size": { "width": 180, "height": 577 },
+        "size": { "width": 180, "height": 170 },
+        "expanded": false,
         "gameName": "Hospital",
         "gameTitle": "At the Hospital",
         "leftCharacter": "cook",
@@ -524,13 +540,13 @@
         }
       },
       {
-        "size": { "width": 250, "height": 240 },
+        "size": { "width": 260, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "Greetings",
         "prompt": "Hey, good morning!",
-        "answerWords": "Hi, Good, You, Surprise, Hey, Morning, A, What",
+        "answerWords": "Hi, Good, You, Surprise, Hey, Morning, A, What, Hello",
         "background": "2",
         "enterLeftAnimation": null,
         "enterLeftDirection": null,
@@ -565,11 +581,11 @@
         "inPorts": ["input"],
         "outPorts": ["output0"],
         "answers": [
-          "Hey",
-          "Good Morning",
-          "Hello",
-          "Hey What a Surprise",
-          "Hi"
+          "hey",
+          "good morning",
+          "hello",
+          "hey what a surprise",
+          "hi"
         ],
         "scores": [],
         "name": "",
@@ -631,13 +647,13 @@
         }
       },
       {
-        "size": { "width": 250, "height": 240 },
+        "size": { "width": 260, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "Visit Set",
         "prompt": "I heard you had an accident and wanted to see you.",
-        "answerWords": "Cool, Great, You, Thank, I, Never, For, Coming, Thanks, See",
+        "answerWords": "Cool, Great, You, Thank, I, Never, For, Coming, Thanks, See, you",
         "background": null,
         "enterLeftAnimation": null,
         "enterLeftDirection": null,
@@ -740,7 +756,7 @@
         }
       },
       {
-        "size": { "width": 250, "height": 240 },
+        "size": { "width": 260, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
@@ -893,13 +909,13 @@
         }
       },
       {
-        "size": { "width": 250, "height": 240 },
+        "size": { "width": 260, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "What Happened",
         "prompt": "So, how was it?",
-        "answerWords": "Hit, a, I, better, tree, got, accidentally, fall, crashed, into",
+        "answerWords": "Hit, a, I, better, tree, got, accidentally, fell, crashed, into",
         "background": null,
         "enterLeftAnimation": null,
         "enterLeftDirection": null,
@@ -929,13 +945,13 @@
         }
       },
       {
-        "size": { "width": 250, "height": 240 },
+        "size": { "width": 260, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "Motivating Statement",
         "prompt": "Come on, you don't look so bad!",
-        "answerWords": "Ok, all, you, thank, appreciate, I, kite, well, that, it",
+        "answerWords": "Ok, all, you, thank, appreciate, I, kite, well, that, it, right",
         "background": null,
         "enterLeftAnimation": null,
         "enterLeftDirection": null,
@@ -1059,7 +1075,7 @@
         }
       },
       {
-        "size": { "width": 250, "height": 240 },
+        "size": { "width": 260, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
@@ -1165,7 +1181,7 @@
         }
       },
       {
-        "size": { "width": 250, "height": 240 },
+        "size": { "width": 260, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
@@ -1272,7 +1288,7 @@
         }
       },
       {
-        "size": { "width": 250, "height": 240 },
+        "size": { "width": 260, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
@@ -1335,7 +1351,7 @@
         "outPorts": ["output0"],
         "answers": [
           "I avoided a little girl",
-          "I avoided a little girl corssing the road"
+          "I avoided a little girl crossing the road"
         ],
         "scores": [],
         "name": "",
@@ -1376,7 +1392,7 @@
         }
       },
       {
-        "size": { "width": 250, "height": 240 },
+        "size": { "width": 260, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
@@ -1439,8 +1455,8 @@
         "outPorts": ["output0"],
         "answers": [
           "and I hit a tree",
-          "I turned sharp and hit a tree on the sidewalk",
-          "I turened sharply and hit a tree on the sidewalk",
+          "I turned sharply and hit a tree on the sidewalk",
+          "I turned sharply and hit a tree on the sidewalk",
           "and I hit a tree on the sidewalk"
         ],
         "scores": [],
@@ -1482,7 +1498,7 @@
         }
       },
       {
-        "size": { "width": 250, "height": 240 },
+        "size": { "width": 260, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
@@ -1660,7 +1676,7 @@
         }
       },
       {
-        "size": { "width": 250, "height": 240 },
+        "size": { "width": 260, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
@@ -1726,7 +1742,7 @@
           "what would that be",
           "what is it",
           "oh really what would that be",
-          "oh really waht is it"
+          "oh really what is it"
         ],
         "scores": [],
         "name": "",
@@ -1811,7 +1827,7 @@
         }
       },
       {
-        "size": { "width": 250, "height": 240 },
+        "size": { "width": 260, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
@@ -1868,13 +1884,13 @@
         }
       },
       {
-        "size": { "width": 250, "height": 240 },
+        "size": { "width": 260, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "Joke",
         "prompt": "The other good thing is that if you get out of here before tomorrow afternoon, you can come to the school Halloween party desgised as a mummy!",
-        "answerWords": "not, do, please, how, ha, you, funny, is, think, it, that",
+        "answerWords": "not, do, please, how, ha, you, funny, is, think, it, that, my, made, day, was",
         "background": null,
         "enterLeftAnimation": null,
         "enterLeftDirection": null,
@@ -1973,7 +1989,7 @@
         }
       },
       {
-        "size": { "width": 250, "height": 240 },
+        "size": { "width": 260, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
@@ -2172,7 +2188,7 @@
         }
       },
       {
-        "size": { "width": 250, "height": 240 },
+        "size": { "width": 260, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
@@ -2208,13 +2224,13 @@
         }
       },
       {
-        "size": { "width": 250, "height": 240 },
+        "size": { "width": 260, "height": 240 },
         "type": "dialogue.State",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "Accept Joke",
         "prompt": "Don't worry, it's easy and I'm staying to do it with you.",
-        "answerWords": "you, thank, are, my, a, friend, best, really",
+        "answerWords": "you, thank, are, my, a, friend, best, really, for, coming, real",
         "background": null,
         "enterLeftAnimation": null,
         "enterLeftDirection": null,

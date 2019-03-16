@@ -16,7 +16,7 @@ under the License.
 export default class extends Phaser.State {
 
   create () {
-    this.phaserJSON = this.cache.getJSON('gameData')
+    this.phaserJSON = game.gameModule
     this.createBackground()
     let enterSpriteButton = game.add.sprite(0, 0, 'iconPlay')
     enterSpriteButton.anchor.set(0.5)
