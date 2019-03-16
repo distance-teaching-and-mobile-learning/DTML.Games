@@ -146,7 +146,7 @@ var dtml = {
                 }
             } else {
 
-                let audio = new Audio(this.urls.speechService + 'SpeachService/SayPhrase/?text=' + text + "&gender=" + gender);
+                let audio = new Audio(this.urls.speechService + 'SayPhrase/?text=' + text + "&gender=" + gender);
                 audio.play();
             }
 
