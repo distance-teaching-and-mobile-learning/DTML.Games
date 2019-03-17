@@ -95,15 +95,8 @@ var dtml = {
     //*****************************************************************
     // API Call to record end of the game
     //*****************************************************************
-    recordGameEnd: function(name, score) {
-        this.recordGameEvent(name, "GameCompleted", score)
-    },
-
-    //*****************************************************************
-    // API Call to record end of the game
-    //*****************************************************************
-    recordGameEnd: function(name, score) {
-        this.recordGameEvent(name, "GameCompleted", score)
+    recordGameEnd: function(name, score, eventData) {
+        this.recordGameEvent(name, "GameCompleted", score, eventData)
     },
 
     //*****************************************************************
