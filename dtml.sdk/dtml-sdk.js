@@ -46,18 +46,15 @@ var dtml = {
     //*****************************************************************
     // API Call to score phrase
     //*****************************************************************
-    scorePhrase: function(phrase, success, callback, debug) {
-        fetch(this.urls.gameService + "ScorePhrase/?source=conversation&success=" + success + "&phrase=" + phrase, {
+    scorePhrase: function(phrase, success, callback, source, state) {
+        fetch(this.urls.gameService + "ScorePhrase/?state="+state+"&source="+source+"&success=" + success + "&phrase=" + phrase, {
             method: 'get',
             credentials: 'same-origin',
         }).catch (err => {
             console.log('err', err);
             callback(false);
         }).then(res => res.json())
-            .then(data => {
-                if (debug) {
-                    console.log(data);
-                }
+		    .then(data => {
                 callback(data);
             });
     },
