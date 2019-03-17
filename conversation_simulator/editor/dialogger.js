@@ -1296,7 +1296,7 @@ function load () {
 function exportFile () {
   if (!fs) {
     applyTextFields()
-    let errors = getGraphErrors()
+    let errors = Validator.getGraphErrors(graph);
     if (errors.length === 0) {
       var gameState = convertToGameState(graph)
       offerDownload(filename || defaultFilename, gameState)
