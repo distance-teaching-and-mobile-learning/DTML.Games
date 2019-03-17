@@ -477,7 +477,7 @@ export default class extends Phaser.State {
 
   nextQuestion (text, submitResult) {
     if (text === '') {
-	  dtml.recordGameEnd(t"conversation_"+this.phaserJSON.Setup.Name, this.scoreText.text, "End");
+	  dtml.recordGameEnd("conversation_"+this.phaserJSON.Setup.Name, this.scoreText.text, "End");
       this.state.start('GameOver', true, false, this.scoreText.text)	  
     }
 
