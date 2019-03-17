@@ -1,6 +1,6 @@
 {
   "Setup": {
-    "Name": "Grocery Store",
+    "Name": "store",
     "Title": "At the Grocery Store",
     "LeftCharacter": "storemanager",
     "LeftVoice": "Zira",

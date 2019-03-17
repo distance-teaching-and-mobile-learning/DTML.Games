@@ -299,19 +299,6 @@ export default class extends Phaser.State {
       })
   }
 
-  gameOver () {
-    this.leftCharacter.kill()
-    this.rightCharacter.kill()
-    this.textBox.kill()
-
-    var enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER)
-    enterKey.onDown.add(() => {
-      this.showMenu()
-    }, this)
-
-    dtml.recordGameEnd(this.phaserJSON.Setup.gameid, this.scoreText.text)
-  }
-
   ConversationStart () {
     this.nextQuestion(this.stateMachine.getQuestion(), true)
   }
@@ -490,7 +477,8 @@ export default class extends Phaser.State {
 
   nextQuestion (text, submitResult) {
     if (text === '') {
-      this.state.start('GameOver', true, false, this.scoreText.text)
+	  dtml.recordGameEnd(t"conversation_"+this.phaserJSON.Setup.Name, this.scoreText.text, "End");
+      this.state.start('GameOver', true, false, this.scoreText.text)	  
     }
 
     if (!submitResult) {
@@ -499,6 +487,7 @@ export default class extends Phaser.State {
         this.patienceBars[this.patienceRemaining - 1].kill()
         this.patienceRemaining -= 1
       } else {
+		dtml.recordGameEnd("conversation_"+this.phaserJSON.Setup.Name, this.scoreText.text, this.stateMachine.getCurrentStateName());
         this.state.start('GameOver', true, false, this.scoreText.text)
         return
       }
@@ -716,7 +705,7 @@ export default class extends Phaser.State {
   }
 
   repeatQuestion (sprite) { 
-	dtml.recordGameEvent(this.phaserJSON.Setup.Name, "repeat", this.stateMachine.getCurrentStateName());
+	dtml.recordGameEvent("conversation_"+this.phaserJSON.Setup.Name, "repeat", this.stateMachine.getCurrentStateName());
     this.leftCharacterSpeak(
       this.stateMachine.getQuestion()
     )
@@ -733,7 +722,7 @@ export default class extends Phaser.State {
 
     if (shortestSolution && shortestSolution.length > 0) {	  
 	   console.log(shortestSolution);
-	   dtml.recordGameEvent(this.phaserJSON.Setup.Name, "hint", this.stateMachine.getCurrentStateName());
+	   dtml.recordGameEvent("conversation_"+this.phaserJSON.Setup.Name, "hint", this.stateMachine.getCurrentStateName());
       // Remove words that aren't in the shortest solution
       for (let i = this.listView.items.length - 1; i >= 0; i--) {
         let parentGroup = this.listView.items[i]

@@ -26,7 +26,6 @@ export default class extends Phaser.State {
     )
     gameover.anchor.set(0.5)
     this.setText(score)
-    dtml.recordGameEnd(this.phaserJSON.Setup.gameid, score)
   }
 
   shutdown () {

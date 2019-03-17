@@ -61,10 +61,8 @@ export default class extends Phaser.State {
     game.aspectRatio = width / height
     game.scaleRatio = 1 // game.width / canvas_width_max
 
-    // console.log('game dimension: ', game.width, 'x', game.height, 'height * scaleRatio', game.height * game.scaleRatio)
+    console.log('game dimension: ', game.width, 'x', game.height, 'height * scaleRatio', game.height * game.scaleRatio)
     if (game.aspectRatio < 1) {
-      // game.scaleRatio = width / canvas_height_max
-      // console.log(game.width, game.height)
       game.scale.setGameSize(game.width, game.height * game.scaleRatio)
     } else {
       game.scale.setGameSize(game.width, game.height)
