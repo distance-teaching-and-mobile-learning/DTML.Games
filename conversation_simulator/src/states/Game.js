@@ -329,7 +329,7 @@ export default class extends Phaser.State {
       }
       this.rightCharacterSpeak(text)
 
-      this.stateMachine.submitSolution(text, this.hintUsed)
+      this.stateMachine.submitSolution(text, this.hintUsed, "conversation_"+this.phaserJSON.Setup.Name)
 
       this.time.events.add(2500, () => {
         this.timernya = 0
