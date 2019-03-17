@@ -30,7 +30,6 @@ export default class extends Phaser.State {
   }
 
   preload () {
-
     var phaserJSON = game.gameModule
     this.loaderBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'loaderBar')
     centerGameObjects([this.loaderBar])

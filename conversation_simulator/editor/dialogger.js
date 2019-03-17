@@ -1653,18 +1653,11 @@ $(window).trigger('resize')
 $('#paper').contextmenu({
   width: 150,
   items: [
-    // { text: 'Text', alias: '1-1', action: add(joint.shapes.dialogue.Text) },
-    // { text: 'Choice', alias: '1-2', action: add(joint.shapes.dialogue.Choice) },
-    // { text: 'Branch', alias: '1-3', action: add(joint.shapes.dialogue.Branch) },
-    // { text: 'Set', alias: '1-4', action: add(joint.shapes.dialogue.Set) },
-    // { text: 'Node', alias: '1-5', action: add(joint.shapes.dialogue.Node) },
     { text: 'State', alias: '1-1', action: add(joint.shapes.dialogue.State) },
     { text: 'Solution', alias: '1-2', action: add(joint.shapes.dialogue.Solution) },
     { text: 'Start', alias: '1-3', action: add(joint.shapes.dialogue.Start) },
     { text: 'End', alias: '1-4', action: add(joint.shapes.dialogue.End) },
     { type: 'splitLine' },
-    // { text: 'Save', alias: '2-1', action: save },
-    // { text: 'Load', alias: '2-2', action: load },
     { text: 'Import', id: 'import', alias: '2-1', action: importFile },
     { text: 'Export', id: 'export', alias: '2-2', action: exportFile },
     { text: 'New', alias: '2-3', action: clear },
