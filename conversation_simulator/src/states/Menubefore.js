@@ -19,7 +19,10 @@ export default class extends Phaser.State {
   }
 
   create () {
-    // this.state.start('Menu')
+      this.loadingText = this.add.text(this.game.world.centerX-100, this.game.world.centerY - 140, 'Loading game... please wait', {
+      font: '20px Berkshire Swash',
+      fill: '#ffffff'
+    })
   }
 
   preload () {
@@ -27,11 +30,14 @@ export default class extends Phaser.State {
   }
 
   update () {
+	  //Why do we need this delay?
     this.deltaTime = game.time.elapsed / 1000
     this.delayTimer += 1 * this.deltaTime
-
     if (this.delayTimer >= 2) {
+	  game.world.remove(this.loadingText);	
       this.state.start('Menu')
     }
+	let progress = parseInt(this.delayTimer/2*100);
+    this.loadingText.setText('Loading: ' + progress + '%');
   }
 }
