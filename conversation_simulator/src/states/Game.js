@@ -443,6 +443,7 @@ export default class extends Phaser.State {
             )
           })
         } else {
+		  dtml.recordGameEnd("conversation_"+this.phaserJSON.Setup.Name, this.scoreText.text, "End");
           this.state.start('GameOver', true, false, this.scoreText.text)
         }
       })
@@ -487,10 +488,12 @@ export default class extends Phaser.State {
         this.patienceBars[this.patienceRemaining - 1].kill()
         this.patienceRemaining -= 1
       } else {
+		  debugger;
 		dtml.recordGameEnd("conversation_"+this.phaserJSON.Setup.Name, this.scoreText.text, this.stateMachine.getCurrentStateName());
         this.state.start('GameOver', true, false, this.scoreText.text)
         return
       }
+	  
       var submitFailureText = "I'm sorry, I didn't understand you..."
       this.leftCharacterSpeak(submitFailureText)
       this.time.events.add(5000, () => {

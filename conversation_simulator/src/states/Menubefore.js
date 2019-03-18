@@ -33,11 +33,11 @@ export default class extends Phaser.State {
 	  //Why do we need this delay?
     this.deltaTime = game.time.elapsed / 1000
     this.delayTimer += 1 * this.deltaTime
-    if (this.delayTimer >= 2) {
+    if (this.delayTimer >= 1) {
 	  game.world.remove(this.loadingText);	
       this.state.start('Menu')
     }
-	let progress = parseInt(this.delayTimer/2*100);
+	let progress = parseInt(this.delayTimer/1*100);
     this.loadingText.setText('Loading: ' + progress + '%');
   }
 }
