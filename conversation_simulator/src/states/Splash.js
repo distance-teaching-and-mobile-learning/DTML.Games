@@ -13,11 +13,16 @@ specific language governing permissions and limitations
 under the License.
 */
 
-import { centerGameObjects } from '../utils'
 import PhaserInput from '../libs/phaser-input'
 import PhaserJuicy from '../libs/juicy'
 import config from '../config'
 import WebFont from 'webfontloader'
+
+const centerGameObjects = (objects) => {
+  objects.forEach(function (object) {
+    object.anchor.setTo(0.5)
+  })
+}
 
 export default class extends Phaser.State {
   init () {
@@ -25,6 +30,7 @@ export default class extends Phaser.State {
   }
 
   preload () {
+
     var phaserJSON = game.gameModule
     this.loaderBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'loaderBar')
     centerGameObjects([this.loaderBar])

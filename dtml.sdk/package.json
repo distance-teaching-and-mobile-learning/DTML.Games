@@ -1,15 +1,29 @@
 {
   "name": "dtml.sdk",
-  "version": "1.1.0",
-  "description": "",
+  "version": "2.1.4",
+  "description": "DTML SDK",
   "main": "dtml-sdk.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --compilers js:@babel/register --require @babel/polyfill"
   },
   "keywords": [
     "Distance Teaching and Mobile Learning",
     "DTML"
   ],
   "author": "aleksin@dtml.org",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/polyfill": "^7.2.5",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/register": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.5",
+    "isomorphic-fetch": "^2.2.1",
+    "mocha": "^5.2.0",
+    "mock-browser": "^0.92.14",
+    "phaser": "^3.16.2",
+    "phaser-ce": "^2.11.1",
+    "sinon": "^7.2.3"
+  }
 }
