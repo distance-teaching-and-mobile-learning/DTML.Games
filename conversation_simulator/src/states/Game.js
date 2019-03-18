@@ -27,18 +27,17 @@ export default class extends Phaser.State {
   create () {
     this.cursors = game.input.keyboard.createCursorKeys()
     this.phaserJSON = game.gameModule
-    window.speechSynthesis.getVoices()
 
     this.listOfVoices = window.speechSynthesis.getVoices()
     if (typeof speechSynthesis !== 'undefined' && window.speechSynthesis.onvoiceschanged !== undefined) {
-	  var that = this;
+      var that = this
       window.speechSynthesis.onvoiceschanged = function () {
-        that.listOfVoices = window.speechSynthesis.getVoices();
+        that.listOfVoices = window.speechSynthesis.getVoices()
       }
     }
 
-    this.leftCharacterVoice = this.phaserJSON.Setup.LeftVoice;
-    this.rightCharacterVoice = this.phaserJSON.Setup.RightVoice;
+    this.leftCharacterVoice = this.phaserJSON.Setup.LeftVoice
+    this.rightCharacterVoice = this.phaserJSON.Setup.RightVoice
 
     this.language = this.game.state.states['Game']._language
     this.langCode = this.game.state.states['Game']._langCode
