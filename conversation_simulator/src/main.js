@@ -120,12 +120,18 @@ window.addEventListener('load', () => {
 
 function requestGameDataFromServer (name, version) {
   return new Promise(function (resolve, reject) {
+    // Timeout in case of slow connections
+    let timer = setTimeout(function () {
+      reject(new Error('Took too long to load game data'))
+    }, 10000)
     let xmlHttp = new XMLHttpRequest()
-    xmlHttp.open('Get', 'https://dtml.org/api/DialogService/Dialog?name=' + name + '&version=' + version, false)
+    xmlHttp.open('Get', 'https://dtml.org/api/DialogService/Dialog?name=' + name + '&version=' + version + '&bypassCache=true')
     xmlHttp.send(null)
     if (xmlHttp.responseText === '') {
+      clearTimeout(timer)
       reject(xmlHttp.statusText)
     } else {
+      clearTimeout(timer)
       resolve(xmlHttp.responseText)
     }
   })
