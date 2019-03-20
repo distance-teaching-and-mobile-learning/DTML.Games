@@ -3,7 +3,6 @@ import SplashState from './states/Splash'
 import MenuState from './states/Menu'
 import GameState from './states/Game'
 import GameOverState from './states/GameOver'
-import MenuBeforeState from './states/MenuBefore'
 
 // Get the actual dtml module
 dtml = dtml.dtml
@@ -25,7 +24,6 @@ class Game extends Phaser.Game {
     this.state.add('Menu', MenuState, false)
     this.state.add('Game', GameState, false)
     this.state.add('GameOver', GameOverState, false)
-    this.state.add('MenuBefore', MenuBeforeState, false)
 
     // with Cordova with need to wait that the device is ready so we will call the Boot state in another file
     if (!window.cordova) {
