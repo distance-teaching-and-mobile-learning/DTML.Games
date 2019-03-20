@@ -30,7 +30,7 @@ export default class extends Phaser.State {
   }
 
   preload () {
-
+ 	
     var phaserJSON = game.gameModule
     this.loaderBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'loaderBar')
     centerGameObjects([this.loaderBar])
@@ -95,24 +95,27 @@ export default class extends Phaser.State {
     this.load.spritesheet('sidebg', 'assets/images/res/sidebg.png', 115, 117)
   }
 
-  loadStart () {
-    this.loadingText = this.add.text(20, this.world.height - 32, 'Loading...', {
-      font: '20px Berkshire Swash',
-      fill: '#ffffff'
-    })
-  }
+  loadStart() {
+	    console.log('loadStart');
+        this.loadingText = this.add.text(this.game.world.centerX-140, this.game.world.centerY - 140, 'Loading...', {
+            font: '20px Berkshire Swash',
+            fill: '#ffffff'
+        });
+    }
 
-  fileComplete (progress, cacheKey, success, totalLoaded, totalFiles) {
-    this.loadingText.setText('File Complete: ' + progress + '% - ' + totalLoaded + ' out of ' + totalFiles)
-  }
+    fileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {
+		  console.log('Loading: ' + progress + '% - ' + totalLoaded + ' out of ' + totalFiles);
+        this.loadingText.setText('Loading: ' + progress + '% - ' + totalLoaded + ' out of ' + totalFiles);
+    }
 
   loadComplete () {
-    game.world.remove(this.loadingText)
     this.time.advancedTiming = true
     let videoDuration = 5
+	console.log('loadComplete');
     this.time.events.add(Phaser.Timer.SECOND * videoDuration, () => {
       document.querySelector('#intro').style.display = 'none'
       document.querySelector('#content').style.display = 'block'
+	  game.world.remove(this.loadingText)
       this.state.start('MenuBefore')
     }, this)
   }
