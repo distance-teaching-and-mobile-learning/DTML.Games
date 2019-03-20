@@ -66,9 +66,9 @@ var allowableConnections = [
   ['dialogue.Branch', 'dialogue.Node'],
   ['dialogue.Branch', 'dialogue.Set'],
   ['dialogue.Branch', 'dialogue.Branch'],
-  ['dialogue.State', 'dialogue.Solution'],
-  ['dialogue.Solution', 'dialogue.State'],
-  ['dialogue.Start', 'dialogue.State'],
+  ['dialogue.Question', 'dialogue.Solution'],
+  ['dialogue.Solution', 'dialogue.Question'],
+  ['dialogue.Start', 'dialogue.Question'],
   ['dialogue.Solution', 'dialogue.End']
 ]
 
@@ -533,11 +533,11 @@ joint.shapes.dialogue.SetView = joint.shapes.dialogue.BaseView.extend({
   }
 })
 
-joint.shapes.dialogue.State = joint.shapes.devs.Model.extend({
+joint.shapes.dialogue.Question = joint.shapes.devs.Model.extend({
   defaults: joint.util.deepSupplement(
     {
       size: { width: 260, height: 240 },
-      type: 'dialogue.State',
+      type: 'dialogue.Question',
       inPorts: ['input'],
       outPorts: ['output'],
       attrs: {
@@ -559,12 +559,12 @@ joint.shapes.dialogue.State = joint.shapes.devs.Model.extend({
     joint.shapes.dialogue.Base.prototype.defaults
   )
 })
-joint.shapes.dialogue.StateView = joint.shapes.dialogue.BaseView.extend({
+joint.shapes.dialogue.QuestionView = joint.shapes.dialogue.BaseView.extend({
   template: [
     '<div class="node">',
     '<span class="label"> </span>',
     '<button class="delete">x</button>',
-    '<input type="choice" class="name" placeholder="State Name" />',
+    '<input type="choice" class="name" placeholder="Name" />',
     '<p> <textarea type="text" class="prompt" rows="3" cols="27" placeholder="Prompt"></textarea></p>',
     '<span>Answer Words:</span>',
     '<p> <textarea type="text" class="answerWords" rows="2" cols="27" placeholder="hello, thanks, etc..."></textarea></p>',
@@ -1355,7 +1355,7 @@ function convertToGameState (graph) {
   // Get all states
   for (let i = 0; i < graph.attributes.cells.models.length; i++) {
     let cell = graph.attributes.cells.models[i]
-    if (cell.attributes.type === 'dialogue.State') {
+    if (cell.attributes.type === 'dialogue.Question') {
       let newState = {
         Type: 'Conversation',
         Question: cell.attributes.prompt,
@@ -1403,7 +1403,7 @@ function convertToGameState (graph) {
     if (link.attributes.type === 'link') {
       let source = graph.getCell(link.attributes.source.id)
       let target = graph.getCell(link.attributes.target.id)
-      if (source.attributes.type === 'dialogue.State') {
+      if (source.attributes.type === 'dialogue.Question') {
         // Save which state the solution block is linked from
         solutionMap[target.attributes.id] = source
         // Add solutions to the state
@@ -1431,7 +1431,7 @@ function convertToGameState (graph) {
       if (source.attributes.type === 'dialogue.Solution') {
         let sourceState = solutionMap[source.attributes.id]
         let targetStateName
-        if (target.attributes.type === 'dialogue.State') {
+        if (target.attributes.type === 'dialogue.Question') {
           targetStateName = target.attributes.name
         } else if (target.attributes.type === 'dialogue.End') {
           targetStateName = 'End'
@@ -1715,7 +1715,7 @@ $(function () {
       }
       return {
         items: {
-          'state': { 'name': 'State', 'callback': add(joint.shapes.dialogue.State) },
+          'question': { 'name': 'Question', 'callback': add(joint.shapes.dialogue.Question) },
           'solution': { 'name': 'Solution', 'callback': add(joint.shapes.dialogue.Solution) },
           'start': { 'name': 'Start', 'callback': add(joint.shapes.dialogue.Start) },
           'end': { 'name': 'End', 'callback': add(joint.shapes.dialogue.End) },
