@@ -40,7 +40,8 @@ export default class extends Phaser.State {
     text.setTextBounds(0, 0, game.world.width, game.world.height)
     text.alpha = 0
     game.add.tween(text).to({ alpha: 1 }, 500, Phaser.Easing.Cubic.In, true, 2500)
-    dtml.recordGameStart(this.phaserJSON.Setup.gameid)
+	console.log(this.phaserJSON.Setup.gameid);
+	dtml.recordGameStart("conversation_"+this.phaserJSON.Setup.Name)
   }
 
   createBackground () {

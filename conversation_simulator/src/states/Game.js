@@ -299,19 +299,6 @@ export default class extends Phaser.State {
       })
   }
 
-  gameOver () {
-    this.leftCharacter.kill()
-    this.rightCharacter.kill()
-    this.textBox.kill()
-
-    var enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER)
-    enterKey.onDown.add(() => {
-      this.showMenu()
-    }, this)
-
-    dtml.recordGameEnd(this.phaserJSON.Setup.gameid, this.scoreText.text)
-  }
-
   ConversationStart () {
     this.nextQuestion(this.stateMachine.getQuestion(), true)
   }
@@ -342,7 +329,7 @@ export default class extends Phaser.State {
       }
       this.rightCharacterSpeak(text)
 
-      this.stateMachine.submitSolution(text, this.hintUsed)
+      this.stateMachine.submitSolution(text, this.hintUsed, "conversation_"+this.phaserJSON.Setup.Name)
 
       this.time.events.add(2500, () => {
         this.timernya = 0
@@ -456,6 +443,7 @@ export default class extends Phaser.State {
             )
           })
         } else {
+		  dtml.recordGameEnd("conversation_"+this.phaserJSON.Setup.Name, this.scoreText.text, "End");
           this.state.start('GameOver', true, false, this.scoreText.text)
         }
       })
@@ -490,7 +478,8 @@ export default class extends Phaser.State {
 
   nextQuestion (text, submitResult) {
     if (text === '') {
-      this.state.start('GameOver', true, false, this.scoreText.text)
+	  dtml.recordGameEnd("conversation_"+this.phaserJSON.Setup.Name, this.scoreText.text, "End");
+      this.state.start('GameOver', true, false, this.scoreText.text)	  
     }
 
     if (!submitResult) {
@@ -499,9 +488,12 @@ export default class extends Phaser.State {
         this.patienceBars[this.patienceRemaining - 1].kill()
         this.patienceRemaining -= 1
       } else {
+		  debugger;
+		dtml.recordGameEnd("conversation_"+this.phaserJSON.Setup.Name, this.scoreText.text, this.stateMachine.getCurrentStateName());
         this.state.start('GameOver', true, false, this.scoreText.text)
         return
       }
+	  
       var submitFailureText = "I'm sorry, I didn't understand you..."
       this.leftCharacterSpeak(submitFailureText)
       this.time.events.add(5000, () => {
@@ -716,7 +708,7 @@ export default class extends Phaser.State {
   }
 
   repeatQuestion (sprite) { 
-	dtml.recordGameEvent(this.phaserJSON.Setup.Name, "repeat", this.stateMachine.getCurrentStateName());
+	dtml.recordGameEvent("conversation_"+this.phaserJSON.Setup.Name, "repeat", this.stateMachine.getCurrentStateName());
     this.leftCharacterSpeak(
       this.stateMachine.getQuestion()
     )
@@ -733,7 +725,7 @@ export default class extends Phaser.State {
 
     if (shortestSolution && shortestSolution.length > 0) {	  
 	   console.log(shortestSolution);
-	   dtml.recordGameEvent(this.phaserJSON.Setup.Name, "hint", this.stateMachine.getCurrentStateName());
+	   dtml.recordGameEvent("conversation_"+this.phaserJSON.Setup.Name, "hint", this.stateMachine.getCurrentStateName());
       // Remove words that aren't in the shortest solution
       for (let i = this.listView.items.length - 1; i >= 0; i--) {
         let parentGroup = this.listView.items[i]

@@ -132,7 +132,7 @@ export default class {
     )
   }
 
-  submitSolution (solutionPhrase, hintUsed) {
+  submitSolution (solutionPhrase, hintUsed, source) {
     let normalizedPhrase = solutionPhrase.toLowerCase().trim()
 
     // Find a phrase matching the submitted phrase if one exists
@@ -148,7 +148,6 @@ export default class {
       }
     }
     let success = solution !== undefined ? 'True' : 'False'
-
     // Apply score
     dtml.scorePhrase(normalizedPhrase, success, result => {
       if (result) {
@@ -159,7 +158,7 @@ export default class {
           this.scoreSolution(solution, score, hintUsed)
         }
       }
-    })
+    }, source, this.getCurrentStateName())
   }
 
   scoreSolution (solution, score, hintUsed) {
