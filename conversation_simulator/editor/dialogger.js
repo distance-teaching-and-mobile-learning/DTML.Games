@@ -79,6 +79,9 @@ if (window.speechSynthesis.onvoiceschanged !== undefined) {
   }
 }
 
+var remoteModules
+updateRemoteModuleList()
+
 function validateConnection (
   cellViewS,
   magnetS,
@@ -1471,9 +1474,56 @@ function importFile () {
   if (!fs) $('#file').click()
 }
 
+function importRemoteFile (name, version) {
+  getRemoteModule(name, version).then(function (data) {
+    graph.clear()
+    let fileData = JSON.parse(data)
+    let graphData = JSON.stringify(fileData.graphData)
+    graph.fromJSON(JSON.parse(graphData))
+  }).catch(function (error) {
+    console.log(error + ' - Could not load remote game module')
+  })
+}
+
+function getRemoteModule (name, version) {
+  return new Promise(function (resolve, reject) {
+    let xmlHttp = new XMLHttpRequest()
+    xmlHttp.onreadystatechange = function () {
+      if (xmlHttp.readyState === 4) resolve(xmlHttp.responseText)
+    }
+    xmlHttp.addEventListener('error', function (evt) {
+      reject(evt)
+    })
+    xmlHttp.open('Get', 'https://dtml.org/api/DialogService/Dialog?name=' + name + '&version=' + version + '&bypassCache=true')
+    xmlHttp.send(null)
+  })
+}
+
+function getModuleList () {
+  return new Promise(function (resolve, reject) {
+    let xmlHttp = new XMLHttpRequest()
+    xmlHttp.onreadystatechange = function () {
+      if (xmlHttp.readyState === 4) resolve(xmlHttp.responseText)
+    }
+    xmlHttp.addEventListener('error', function (evt) {
+      reject(evt)
+    })
+    xmlHttp.open('Get', 'https://dtml.org/api/DialogService/List')
+    xmlHttp.send(null)
+  })
+}
+
+function updateRemoteModuleList () {
+  getModuleList().then(function (data) {
+    remoteModules = JSON.parse(data)
+  }).catch(function (error) {
+    console.log(error + ' - Could not load remote game modules')
+  })
+}
+
 function add (constructor) {
   return function () {
-    var position = $('#cmroot').position()
+    var position = $('.context-menu-root').position()
     var container = $('#container')[0]
     var element = new constructor({
       position: {
@@ -1650,25 +1700,48 @@ $('#menu button.close').click(function () {
 
 $(window).trigger('resize')
 
-$('#paper').contextmenu({
-  width: 150,
-  items: [
-    { text: 'State', alias: '1-1', action: add(joint.shapes.dialogue.State) },
-    { text: 'Solution', alias: '1-2', action: add(joint.shapes.dialogue.Solution) },
-    { text: 'Start', alias: '1-3', action: add(joint.shapes.dialogue.Start) },
-    { text: 'End', alias: '1-4', action: add(joint.shapes.dialogue.End) },
-    { type: 'splitLine' },
-    { text: 'Import', id: 'import', alias: '2-1', action: importFile },
-    { text: 'Export', id: 'export', alias: '2-2', action: exportFile },
-    { text: 'New', alias: '2-3', action: clear },
-    { text: 'Validate', alias: '2-4', action: function () { Validator.validateGraph(graph) } }
-    // {
-    //   text: 'Export game file',
-    //   id: 'export-game',
-    //   alias: '2-6',
-    //   action: exportGameFile
-    // }
-  ]
+$(function () {
+  $.contextMenu({
+    selector: '#paper',
+    build: function ($triggerElement, e) {
+      let remoteModuleOptions = {}
+      if (remoteModules) {
+        for (let i = 0; i < remoteModules.length; i++) {
+          remoteModuleOptions[i] = {
+            'name': remoteModules[i].Name,
+            'callback': function () { importRemoteFile(remoteModules[i].Name, remoteModules[i].Version) }
+          }
+        }
+      }
+      return {
+        items: {
+          'state': { 'name': 'State', 'callback': add(joint.shapes.dialogue.State) },
+          'solution': { 'name': 'Solution', 'callback': add(joint.shapes.dialogue.Solution) },
+          'start': { 'name': 'Start', 'callback': add(joint.shapes.dialogue.Start) },
+          'end': { 'name': 'End', 'callback': add(joint.shapes.dialogue.End) },
+          'split': '-----',
+          'import': {
+            'name': 'Import',
+            'items': {
+              'local': { 'name': 'Local File', 'callback': importFile },
+              'remote': {
+                'name': 'Remote File',
+                'items': remoteModuleOptions
+              }
+            }
+          },
+          'export': { 'name': 'Export', 'callback': exportFile },
+          'clear': { 'name': 'Clear', 'callback': clear },
+          'validate': {
+            'name': 'Validate',
+            'callback': function () {
+              Validator.validateGraph(graph)
+            }
+          }
+        }
+      }
+    }
+  })
 })
 
 /// AUTOLOAD IF URL HAS ? WILDCARD
