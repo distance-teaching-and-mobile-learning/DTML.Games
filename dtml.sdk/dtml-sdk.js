@@ -19,7 +19,8 @@ var dtml = {
     urls: {
         userService: 'https://dtml.org/Activity/Record/',
         gameService: 'https://dtml.org/api/GameService/',
-        speechService: 'https://dtml.org/api/SpeechService/'
+        speechService: 'https://dtml.org/api/SpeechService/',
+		dialogService: 'https://dtml.org/api/DialogService/'
     },
 
     listOfVoices: [],
@@ -94,6 +95,58 @@ var dtml = {
     //*****************************************************************
     recordGameEnd: function(name, score, eventData) {
         this.recordGameEvent(name, "GameCompleted", score, eventData)
+    },
+	
+	//*****************************************************************
+    // Validate Did you mean state
+    //*****************************************************************
+    getSuggestedPath: function(gameId, state, userInput, stateOptions, callback) {
+		var formBody = new URLSearchParams();
+		formBody.append('name', gameId);
+		formBody.append('state', state);
+		formBody.append('input', userInput);
+		formBody.append('options', JSON.stringify(stateOptions));
+
+   	    fetch(this.urls.dialogService+"DidYouMean", {
+            method: 'POST',
+            credentials: 'same-origin',
+            body: formBody,
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded;charset=UTF-8'
+            }
+        })
+		.catch (err => {
+            callback(err);
+        }).then(res => res.json())
+            .then(data => {
+                callback(data);
+            });
+    },
+	
+    //*****************************************************************
+    // Publish conversational Dialog
+    //*****************************************************************
+    publishDialog: function(gameId, gameVersion, publisherKey, json, callback) {
+		var formBody = new URLSearchParams();
+		formBody.append('Name', gameId);
+		formBody.append('Version', gameVersion);
+		formBody.append('APIKey', publisherKey);
+		formBody.append('DialogJSON', JSON.stringify(json));
+
+   	    fetch(this.urls.dialogService+"Dialog", {
+            method: 'POST',
+            credentials: 'same-origin',
+            body: formBody,
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded;charset=UTF-8'
+            }
+        })
+		.catch (err => {
+            callback(err);
+        }).then(res => res.json())
+            .then(data => {
+                callback(data);
+            });
     },
 
     //*****************************************************************
