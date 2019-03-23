@@ -478,7 +478,7 @@ export default class extends Phaser.State {
 
   nextQuestion (text, submitResult) {
     if (text === '') {
-      dtml.recordGameEvent("conversation_"+this.phaserJSON.Setup.Name, "emptyText", this.stateMachine.getCurrentStateName());
+      dtml.recordGameEvent("conversation_"+this.phaserJSON.Setup.Name, "EmptyText", this.stateMachine.getCurrentStateName());
       this.state.start('GameOver', true, false, this.scoreText.text)	  
     }
 
@@ -488,7 +488,8 @@ export default class extends Phaser.State {
         this.patienceBars[this.patienceRemaining - 1].kill()
         this.patienceRemaining -= 1
       } else {
-	dtml.recordGameEnd("conversation_"+this.phaserJSON.Setup.Name, this.scoreText.text, his.stateMachine.getCurrentStateName());
+
+        dtml.recordGameEvent("conversation_"+this.phaserJSON.Setup.Name, "LivesEnded", this.scoreText.text);
         this.state.start('GameOver', true, false, this.scoreText.text)
         return
       }
