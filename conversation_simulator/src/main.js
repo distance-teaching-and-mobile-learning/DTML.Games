@@ -27,7 +27,7 @@ class Game extends Phaser.Game {
 
     // with Cordova with need to wait that the device is ready so we will call the Boot state in another file
     if (!window.cordova) {
-      this.state.start('Boot')
+      // this.state.start('Boot')
     }
   }
 }
@@ -44,10 +44,13 @@ if (!gameName || !gameVersion) {
   gameVersion = prompt('Which version would you like to run?')
 }
 
-requestGameDataFromServer(gameName, gameVersion).then(function (response) {
+requestGameDataFromServer(gameName, gameVersion).then((response) => {
   game.gameModule = JSON.parse(response)
-}).catch(function (response) {
+  game.state.start('Boot')
+}).catch((response) => {
+  console.log('Error loading module: ' + response)
   game.gameModule = gameName
+  game.state.start('Boot')
 })
 
 if (window.cordova) {
@@ -123,14 +126,18 @@ function requestGameDataFromServer (name, version) {
       reject(new Error('Took too long to load game data'))
     }, 10000)
     let xmlHttp = new XMLHttpRequest()
-    xmlHttp.open('Get', 'https://dtml.org/api/DialogService/Dialog?name=' + name + '&version=' + version + '&bypassCache=true')
-    xmlHttp.send(null)
-    if (xmlHttp.responseText === '') {
-      clearTimeout(timer)
-      reject(xmlHttp.statusText)
-    } else {
-      clearTimeout(timer)
-      resolve(xmlHttp.responseText)
+    xmlHttp.onreadystatechange = function () {
+      if (xmlHttp.readyState === 4) {
+        clearTimeout(timer)
+        resolve(xmlHttp.responseText)
+      }
     }
+    xmlHttp.addEventListener('error', function (evt) {
+      clearTimeout(timer)
+      reject(evt)
+    })
+    let url = 'https://dtml.org/api/DialogService/Dialog?name=' + name + '&version=' + version
+    xmlHttp.open('Get', url)
+    xmlHttp.send(null)
   })
 }
