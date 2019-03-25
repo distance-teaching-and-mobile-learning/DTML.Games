@@ -478,7 +478,7 @@ export default class extends Phaser.State {
 
   nextQuestion (text, submitResult) {
     if (text === '') {
-	  dtml.recordGameEnd("conversation_"+this.phaserJSON.Setup.Name, this.scoreText.text, "End");
+      dtml.recordGameEvent("conversation_"+this.phaserJSON.Setup.Name, "EmptyText", this.stateMachine.getCurrentStateName());
       this.state.start('GameOver', true, false, this.scoreText.text)	  
     }
 
@@ -488,8 +488,8 @@ export default class extends Phaser.State {
         this.patienceBars[this.patienceRemaining - 1].kill()
         this.patienceRemaining -= 1
       } else {
-		  debugger;
-		dtml.recordGameEnd("conversation_"+this.phaserJSON.Setup.Name, this.scoreText.text, this.stateMachine.getCurrentStateName());
+
+        dtml.recordGameEvent("conversation_"+this.phaserJSON.Setup.Name, "LivesEnded", this.scoreText.text);
         this.state.start('GameOver', true, false, this.scoreText.text)
         return
       }
@@ -565,7 +565,6 @@ export default class extends Phaser.State {
               0
             )
             .onComplete.add(() => {
-              // this.rightCharacter.scale.x *= -1;
               this.rightCharacter.setAnimationSpeedPercent(100)
               this.rightCharacter.playAnimationByName('_IDLE')
             })
