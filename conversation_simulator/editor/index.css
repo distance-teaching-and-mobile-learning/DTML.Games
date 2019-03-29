@@ -26,7 +26,7 @@ html, body
 	position: relative;
 	display: inline-block;
 	background: transparent;
-	background-image: url(images/grid.png);
+	background-image: url('~./images/grid.png');
 }
 
 #paper svg
@@ -333,4 +333,29 @@ span
 .b-m-ifocus
 {
     background-color: #000;
+}
+
+.port-label
+{
+	display: none;
+}
+
+.marker-arrowhead-group-source
+{
+	display: none;
+}
+
+.marker-arrowhead-group-target
+{
+	display: none;
+}
+
+path.connection
+{
+	fill: none;
+}
+
+path.connection-wrap
+{
+	fill: none;
 }
