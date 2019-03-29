@@ -541,7 +541,7 @@
       },
       {
         "size": { "width": 260, "height": 240 },
-        "type": "dialogue.State",
+        "type": "dialogue.Question",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "Greetings",
@@ -648,7 +648,7 @@
       },
       {
         "size": { "width": 260, "height": 240 },
-        "type": "dialogue.State",
+        "type": "dialogue.Question",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "Visit Set",
@@ -757,7 +757,7 @@
       },
       {
         "size": { "width": 260, "height": 240 },
-        "type": "dialogue.State",
+        "type": "dialogue.Question",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "Health Status",
@@ -910,7 +910,7 @@
       },
       {
         "size": { "width": 260, "height": 240 },
-        "type": "dialogue.State",
+        "type": "dialogue.Question",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "What Happened",
@@ -946,7 +946,7 @@
       },
       {
         "size": { "width": 260, "height": 240 },
-        "type": "dialogue.State",
+        "type": "dialogue.Question",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "Motivating Statement",
@@ -1076,7 +1076,7 @@
       },
       {
         "size": { "width": 260, "height": 240 },
-        "type": "dialogue.State",
+        "type": "dialogue.Question",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "How it happened",
@@ -1182,7 +1182,7 @@
       },
       {
         "size": { "width": 260, "height": 240 },
-        "type": "dialogue.State",
+        "type": "dialogue.Question",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "Details Inquiring",
@@ -1289,7 +1289,7 @@
       },
       {
         "size": { "width": 260, "height": 240 },
-        "type": "dialogue.State",
+        "type": "dialogue.Question",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "Explanation Request",
@@ -1393,7 +1393,7 @@
       },
       {
         "size": { "width": 260, "height": 240 },
-        "type": "dialogue.State",
+        "type": "dialogue.Question",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "Further Explanation",
@@ -1499,7 +1499,7 @@
       },
       {
         "size": { "width": 260, "height": 240 },
-        "type": "dialogue.State",
+        "type": "dialogue.Question",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "Congratulations",
@@ -1677,7 +1677,7 @@
       },
       {
         "size": { "width": 260, "height": 240 },
-        "type": "dialogue.State",
+        "type": "dialogue.Question",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "Introduction to Joke",
@@ -1828,7 +1828,7 @@
       },
       {
         "size": { "width": 260, "height": 240 },
-        "type": "dialogue.State",
+        "type": "dialogue.Question",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "Homework Subject",
@@ -1885,7 +1885,7 @@
       },
       {
         "size": { "width": 260, "height": 240 },
-        "type": "dialogue.State",
+        "type": "dialogue.Question",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "Joke",
@@ -1990,7 +1990,7 @@
       },
       {
         "size": { "width": 260, "height": 240 },
-        "type": "dialogue.State",
+        "type": "dialogue.Question",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "Excuse Accepted",
@@ -2189,7 +2189,7 @@
       },
       {
         "size": { "width": 260, "height": 240 },
-        "type": "dialogue.State",
+        "type": "dialogue.Question",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "Where to Start",
@@ -2225,7 +2225,7 @@
       },
       {
         "size": { "width": 260, "height": 240 },
-        "type": "dialogue.State",
+        "type": "dialogue.Question",
         "inPorts": ["input"],
         "outPorts": ["output"],
         "name": "Accept Joke",

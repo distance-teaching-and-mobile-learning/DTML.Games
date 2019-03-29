@@ -1,3 +1,7 @@
+import './index.css'
+import './lib/jquery.contextMenu.css'
+import './lib/jquery.contextMenu.js'
+import './lib/jquery.ui.position.js'
 import Validator from './validator.js'
 
 function getURLParameter (name) {
@@ -27,20 +31,52 @@ addEventListener('app-ready', function (e) {
 
 var graph = new joint.dia.Graph()
 
-var defaultLink = new joint.dia.Link({
-  attrs: {
-    '.marker-target': { d: 'M 10 0 L 0 5 L 10 10 z' },
-    '.link-tools .tool-remove circle, .marker-vertex': { r: 8 }
-  }
-})
+// var defaultLinkToolView = new joint.dia.ToolsView({
+//   name: 'defaultTools',
+//   tools: [new joint.linkTools.Remove()]
+// })
 
-defaultLink.set('smooth', true)
+// joint.dia.Link.define('DefaultLink', {
+//   attrs: {
+//     line: {
+//       connection: true,
+//       stroke: '#FFFFFF',
+//       strokeWidth: 2,
+//       strokeLinejoin: 'round',
+//       targetMarker: {
+//         'type': 'path',
+//         'd': 'M 10 -5 0 0 10 5 z'
+//       }
+//     },
+//     wrapper: {
+//       connection: true,
+//       strokeWidth: 10,
+//       strokeLinejoin: 'round'
+//     }
+//   }
+// }, {
+//   markup: [{
+//     tagName: 'path',
+//     selector: 'wrapper',
+//     attributes: {
+//       'fill': 'none',
+//       'cursor': 'pointer',
+//       'stroke': 'transparent'
+//     }
+//   }, {
+//     tagName: 'path',
+//     selector: 'line',
+//     attributes: {
+//       'fill': 'none',
+//       'pointer-events': 'none'
+//     }
+//   }]
+// })
 
-var viewTemplates= 
-{
-	'options':'<button class="toggle" style="float:left;margin-right:5px;">+</button> <span>Options</span>',
-	'mic':'<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="microphone" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" class="svg-inline"><path fill="currentColor" d="M176 352c53.02 0 96-42.98 96-96V96c0-53.02-42.98-96-96-96S80 42.98 80 96v160c0 53.02 42.98 96 96 96zm160-160h-16c-8.84 0-16 7.16-16 16v48c0 74.8-64.49 134.82-140.79 127.38C96.71 376.89 48 317.11 48 250.3V208c0-8.84-7.16-16-16-16H16c-8.84 0-16 7.16-16 16v40.16c0 89.64 63.97 169.55 152 181.69V464H96c-8.84 0-16 7.16-16 16v16c0 8.84 7.16 16 16 16h160c8.84 0 16-7.16 16-16v-16c0-8.84-7.16-16-16-16h-56v-33.77C285.71 418.47 352 344.9 352 256v-48c0-8.84-7.16-16-16-16z" class=""></path></svg>',
-	'speaker':'<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="volume-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="svg-inline"><path fill="currentColor" d="M215.03 72.04L126.06 161H24c-13.26 0-24 10.74-24 24v144c0 13.25 10.74 24 24 24h102.06l88.97 88.95c15.03 15.03 40.97 4.47 40.97-16.97V89.02c0-21.47-25.96-31.98-40.97-16.98zm123.2 108.08c-11.58-6.33-26.19-2.16-32.61 9.45-6.39 11.61-2.16 26.2 9.45 32.61C327.98 229.28 336 242.62 336 257c0 14.38-8.02 27.72-20.92 34.81-11.61 6.41-15.84 21-9.45 32.61 6.43 11.66 21.05 15.8 32.61 9.45 28.23-15.55 45.77-45 45.77-76.88s-17.54-61.32-45.78-76.87z" class=""></path></svg>'
+var viewTemplates = {
+  'options': '<button class="toggle" style="float:left;margin-right:5px;">+</button> <span>Options</span>',
+  'mic': '<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="microphone" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" class="svg-inline"><path fill="currentColor" d="M176 352c53.02 0 96-42.98 96-96V96c0-53.02-42.98-96-96-96S80 42.98 80 96v160c0 53.02 42.98 96 96 96zm160-160h-16c-8.84 0-16 7.16-16 16v48c0 74.8-64.49 134.82-140.79 127.38C96.71 376.89 48 317.11 48 250.3V208c0-8.84-7.16-16-16-16H16c-8.84 0-16 7.16-16 16v40.16c0 89.64 63.97 169.55 152 181.69V464H96c-8.84 0-16 7.16-16 16v16c0 8.84 7.16 16 16 16h160c8.84 0 16-7.16 16-16v-16c0-8.84-7.16-16-16-16h-56v-33.77C285.71 418.47 352 344.9 352 256v-48c0-8.84-7.16-16-16-16z" class=""></path></svg>',
+  'speaker': '<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="volume-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="svg-inline"><path fill="currentColor" d="M215.03 72.04L126.06 161H24c-13.26 0-24 10.74-24 24v144c0 13.25 10.74 24 24 24h102.06l88.97 88.95c15.03 15.03 40.97 4.47 40.97-16.97V89.02c0-21.47-25.96-31.98-40.97-16.98zm123.2 108.08c-11.58-6.33-26.19-2.16-32.61 9.45-6.39 11.61-2.16 26.2 9.45 32.61C327.98 229.28 336 242.62 336 257c0 14.38-8.02 27.72-20.92 34.81-11.61 6.41-15.84 21-9.45 32.61 6.43 11.66 21.05 15.8 32.61 9.45 28.23-15.55 45.77-45 45.77-76.88s-17.54-61.32-45.78-76.87z" class=""></path></svg>'
 }
 
 var allowableConnections = [
@@ -96,7 +132,7 @@ function validateConnection (
   if (cellViewS === cellViewT) return false
 
   // Can't connect to an output port
-  if (magnetT.attributes.magnet.nodeValue !== 'passive') return false
+  if (magnetT.attributes['port-group'].value === 'out') return false
 
   var sourceType = cellViewS.model.attributes.type
   var targetType = cellViewT.model.attributes.type
@@ -118,7 +154,13 @@ function validateMagnet (cellView, magnet) {
 
   // If unlimited connections attribute is null, we can only ever connect to one object
   // If it is not null, it is an array of type strings which are allowed to have unlimited connections
-  var unlimitedConnections = magnet.getAttribute('unlimitedConnections')
+  var unlimitedConnections = false
+  for (let i = 0; i < magnet.attributes.length; i++) {
+    if (magnet.attributes[i].name === 'unlimited-connections' && magnet.attributes[i].value === 'true') {
+      unlimitedConnections = true
+      break
+    }
+  }
   var links = graph.getConnectedLinks(cellView.model)
   for (var i = 0; i < links.length; i++) {
     var link = links[i]
@@ -128,11 +170,7 @@ function validateMagnet (cellView, magnet) {
     ) {
       // This port already has a connection
       if (unlimitedConnections && link.attributes.target.id) {
-        var targetCell = graph.getCell(link.attributes.target.id)
-        if (unlimitedConnections.indexOf(targetCell.attributes.type) !== -1) {
-        // It's okay because this target type has unlimited connections
-          return true
-        }
+        return true
       }
       return false
     }
@@ -159,7 +197,7 @@ joint.shapes.dialogue.Base = joint.shapes.devs.Model.extend({
     joint.shapes.devs.Model.prototype.defaults
   )
 })
-joint.shapes.dialogue.BaseView = joint.shapes.devs.ModelView.extend({
+joint.shapes.dialogue.BaseView = joint.dia.ElementView.extend({
   template: [
     '<div class="node">',
     '<span class="label"></span>',
@@ -171,7 +209,7 @@ joint.shapes.dialogue.BaseView = joint.shapes.devs.ModelView.extend({
 
   initialize: function () {
     _.bindAll(this, 'updateBox')
-    joint.shapes.devs.ModelView.prototype.initialize.apply(this, arguments)
+    joint.dia.ElementView.prototype.initialize.apply(this, arguments)
 
     this.$box = $(_.template(this.template)())
     // Prevent paper from handling pointerdown.
@@ -218,7 +256,7 @@ joint.shapes.dialogue.BaseView = joint.shapes.devs.ModelView.extend({
   },
 
   render: function () {
-    joint.shapes.devs.ModelView.prototype.render.apply(this, arguments)
+    joint.dia.ElementView.prototype.render.apply(this, arguments)
     this.paper.$el.prepend(this.$box)
     this.updateBox()
     return this
@@ -258,7 +296,7 @@ joint.shapes.dialogue.BaseView = joint.shapes.devs.ModelView.extend({
   }
 })
 
-joint.shapes.dialogue.ChoiceView = joint.shapes.devs.ModelView.extend({
+joint.shapes.dialogue.ChoiceView = joint.dia.ElementView.extend({
   template: [
     '<div class="node">',
     '<span class="label"> </span>',
@@ -270,7 +308,7 @@ joint.shapes.dialogue.ChoiceView = joint.shapes.devs.ModelView.extend({
 
   initialize: function () {
     _.bindAll(this, 'updateBox')
-    joint.shapes.devs.ModelView.prototype.initialize.apply(this, arguments)
+    joint.dia.ElementView.prototype.initialize.apply(this, arguments)
 
     this.$box = $(_.template(this.template)())
     // Prevent paper from handling pointerdown.
@@ -310,7 +348,7 @@ joint.shapes.dialogue.ChoiceView = joint.shapes.devs.ModelView.extend({
   },
 
   render: function () {
-    joint.shapes.devs.ModelView.prototype.render.apply(this, arguments)
+    joint.dia.ElementView.prototype.render.apply(this, arguments)
     this.paper.$el.prepend(this.$box)
     this.updateBox()
     return this
@@ -540,8 +578,17 @@ joint.shapes.dialogue.Question = joint.shapes.devs.Model.extend({
       type: 'dialogue.Question',
       inPorts: ['input'],
       outPorts: ['output'],
-      attrs: {
-        '.outPorts circle': { unlimitedConnections: ['dialogue.Solution'] }
+      ports: {
+        groups: {
+          'in': {},
+          'out': {
+            attrs: {
+              '.port-body': {
+                unlimitedConnections: true
+              }
+            }
+          }
+        }
       },
       name: '',
       prompt: '',
@@ -1299,12 +1346,53 @@ function load () {
 function exportFile () {
   if (!fs) {
     applyTextFields()
-    let errors = Validator.getGraphErrors(graph);
+    let errors = Validator.getGraphErrors(graph)
     if (errors.length === 0) {
       var gameState = convertToGameState(graph)
       offerDownload(filename || defaultFilename, gameState)
     } else {
       alert('Errors in project. Use the \'Validate\' option to find errors.')
+    }
+  }
+}
+
+function publish () {
+  let publisherKey = prompt('Enter your publisher key')
+  let version = prompt('Enter the version number')
+  applyTextFields()
+  let errors = Validator.getGraphErrors(graph)
+  if (errors.length === 0) {
+    var gameState = convertToGameState(graph)
+    let name = gameState.Setup.name
+    dtml.PublishDialog(version, name, publisherKey, JSON.stringify(gameState), function () {})
+    // pushModule(publisherKey, version, JSON.stringify(gameState)).then(function (response) {
+    //   console.log(response)
+    // }).catch(function (error) {
+    //   console.log(error)
+    // })
+  }
+}
+
+function pushModule (key, version, graphData) {
+  return new Promise(function (resolve, reject) {
+    let xmlHttp = new XMLHttpRequest()
+    xmlHttp.onreadystatechange = function () {
+      if (xmlHttp.readyState === 4) resolve(xmlHttp.responseText)
+    }
+    xmlHttp.addEventListener('error', function (evt) {
+      reject(evt)
+    })
+    xmlHttp.open('POST', 'https://dtml.org/api/DialogService/Dialog')
+    xmlHttp.setRequestHeader('Content-type', 'application/json')
+    xmlHttp.send('APIKey=' + key + '&Name=' + getModuleName() + '&Version=' + version + '&DialogJSON=' + graphData)
+  })
+}
+
+function getModuleName () {
+  for (let i = 0; i < graph.attributes.cells.models.length; i++) {
+    let cell = graph.attributes.cells.models[i]
+    if (cell.attributes.type === 'dialogue.Start') {
+      return cell.attributes.gameName
     }
   }
 }
@@ -1542,17 +1630,46 @@ function clear () {
   }
 }
 
+var removeTool = new joint.linkTools.Remove()
+var toolsView = new joint.dia.ToolsView({
+  tools: [removeTool]
+})
+
+// var defaultLinkView = new joint.dia.LinkView()
+// defaultLinkView.addTools(toolsView)
+// defaultLinkView.hideTools()
+
+var defaultLink = new joint.dia.Link({
+  // toolMarkup: ['<g class="element-tools">',
+  //   '<g class="element-tool-remove"><circle fill="red" r="11"/>',
+  //   '<path transform="scale(.8) translate(-16, -16)" d="M24.778,21.419 19.276,15.917 24.777,10.415 21.949,7.585 16.447,13.087 10.945,7.585 8.117,10.415 13.618,15.917 8.116,21.419 10.946,24.248 16.447,18.746 21.948,24.248z"/>',
+  //   '<title>Remove this element from the model</title>',
+  //   '</g>',
+  //   '</g>'].join('')
+})
+defaultLink.connector('smooth')
+
 var paper = new joint.dia.Paper({
   el: $('#paper'),
   width: 16000,
   height: 8000,
-  model: graph,
   gridSize: 16,
-  defaultLink: defaultLink,
-  validateConnection: validateConnection,
+  model: graph,
   validateMagnet: validateMagnet,
-  snapLinks: { radius: 75 }
+  snapLinks: { radius: 75 },
+  defaultLink: defaultLink,
+  // linkView: defaultLinkView,
+  validateConnection: validateConnection,
+  linkPinning: false
 })
+
+// paper.on('link:mouseenter', function (linkView) {
+//   linkView.showTools()
+// })
+
+// paper.on('link:mouseleave', function (linkView) {
+//   linkView.hideTools()
+// })
 
 var panning = false
 var mousePosition = { x: 0, y: 0 }
@@ -1588,10 +1705,22 @@ function handleFiles (files) {
   fileReader.onload = function (e) {
     graph.clear()
     let fileData = JSON.parse(e.target.result)
+    fileData = convertStatesToQuestions(fileData)
     let graphData = JSON.stringify(fileData.graphData)
     graph.fromJSON(JSON.parse(graphData))
   }
   fileReader.readAsText(files[0])
+}
+
+// Converts any nodes from the old 'State' format to the new 'Question' format
+function convertStatesToQuestions (graph) {
+  for (let i = 0; i < graph.graphData.cells.length; i++) {
+    let cell = graph.graphData.cells[i]
+    if (cell.type === 'dialogue.State') {
+      graph.graphData.cells[i].type = 'dialogue.Question'
+    }
+  }
+  return graph
 }
 
 $('#file').on('change', function () {
@@ -1731,6 +1860,7 @@ $(function () {
             }
           },
           'export': { 'name': 'Export', 'callback': exportFile },
+          'publish': { 'name': 'Publish', 'callback': publish },
           'clear': { 'name': 'Clear', 'callback': clear },
           'validate': {
             'name': 'Validate',
