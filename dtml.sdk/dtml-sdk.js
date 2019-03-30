@@ -116,8 +116,7 @@ var dtml = {
         })
 		.catch (err => {
             callback(err);
-        }).then(res => res.json())
-            .then(data => {
+        }).then(data => {
                 callback(data);
             });
     },
@@ -142,8 +141,7 @@ var dtml = {
         })
 		.catch (err => {
             callback(err);
-        }).then(res => res.json())
-            .then(data => {
+        }).then(data => {
                 callback(data);
             });
     },
