@@ -1,10 +1,11 @@
 {
   "name": "dtml.sdk",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "description": "DTML SDK",
   "main": "dtml-sdk.js",
   "scripts": {
-    "test": "mocha --compilers js:@babel/register --require @babel/polyfill"
+    "test": "mocha --compilers js:@babel/register --require @babel/polyfill -r jsdom-global/register",
+    "browser-test": "mocha --inspect-brk test/dtml-sdk-test.js --compilers js:@babel/register --require @babel/polyfill"
   },
   "keywords": [
     "Distance Teaching and Mobile Learning",

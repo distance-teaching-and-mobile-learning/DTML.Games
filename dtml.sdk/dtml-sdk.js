@@ -12,7 +12,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-import Phaser from 'phaser'
 import 'isomorphic-fetch'
 
 var dtml = {
@@ -20,7 +19,7 @@ var dtml = {
         userService: 'https://dtml.org/Activity/Record/',
         gameService: 'https://dtml.org/api/GameService/',
         speechService: 'https://dtml.org/api/SpeechService/',
-		dialogService: 'https://dtml.org/api/DialogService/'
+	dialogService: 'https://dtml.org/api/DialogService/'
     },
 
     listOfVoices: [],
@@ -152,10 +151,10 @@ var dtml = {
     //*****************************************************************
     // Init voice
     //*****************************************************************
-    initVoices: function() {
-        this.listOfVoices = window.speechSynthesis.getVoices()
+    initVoices: function() {   
         if (typeof speechSynthesis !== 'undefined' && window.speechSynthesis.onvoiceschanged !== undefined) {
             var that = this;
+	    this.listOfVoices = window.speechSynthesis.getVoices()
             window.speechSynthesis.onvoiceschanged = function() {
                 that.listOfVoices = window.speechSynthesis.getVoices();
             }
@@ -166,7 +165,7 @@ var dtml = {
     // Say text
     //*****************************************************************
     textToSpeech: function(text, voice, pitch, provider, gender) {
-
+	
         try {
             if (typeof speechSynthesis !== 'undefined' && window.speechSynthesis.onvoiceschanged !== undefined && provider != "dtml-speech-service") {
                 if (speechSynthesis.speaking) {
