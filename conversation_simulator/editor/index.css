@@ -359,3 +359,8 @@ path.connection-wrap
 {
 	fill: none;
 }
+
+.tool-options
+{
+	display: none;
+}
