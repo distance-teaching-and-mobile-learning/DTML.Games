@@ -1321,27 +1321,17 @@ function publish () {
   let errors = Validator.getGraphErrors(graph)
   if (errors.length === 0) {
     var gameState = convertToGameState(graph)
-    let name = gameState.Setup.Name
-    console.log(name)
-    dtml.dtml.publishDialog(name, version, publisherKey, gameState, function (data) {
-      console.log(data)
+    let name = getModuleName()
+    dtml.dtml.publishDialog(name, version, publisherKey, gameState, function (result) {
+      if (result.ok) {
+        alert('The dialog has been published')
+      } else {
+        alert('There was an error. Please try again')
+      }
     })
+  } else {
+    alert('Errors in project. Use the \'Validate\' option to find errors.')
   }
-}
-
-function pushModule (key, version, graphData) {
-  return new Promise(function (resolve, reject) {
-    let xmlHttp = new XMLHttpRequest()
-    xmlHttp.onreadystatechange = function () {
-      if (xmlHttp.readyState === 4) resolve(xmlHttp.responseText)
-    }
-    xmlHttp.addEventListener('error', function (evt) {
-      reject(evt)
-    })
-    xmlHttp.open('POST', 'https://dtml.org/api/DialogService/Dialog')
-    xmlHttp.setRequestHeader('Content-type', 'application/json')
-    xmlHttp.send('APIKey=' + key + '&Name=' + getModuleName() + '&Version=' + version + '&DialogJSON=' + graphData)
-  })
 }
 
 function getModuleName () {
