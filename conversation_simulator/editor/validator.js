@@ -168,13 +168,17 @@ function checkEnding (graph) {
 function splitWords (answer) {
   let splitWords = answer.split(' ')
 
-  for (let i = 0; i < splitWords.length; i++) {
+  for (let i = splitWords.length - 1; i >= 0; i--) {
     splitWords[i] = splitWords[i].trim()
     if (splitWords[i][0] === '[') splitWords[i] = splitWords[i].slice(1)
     if (splitWords[i][splitWords[i].length - 1] === ']') splitWords[i] = splitWords[i].slice(0, -1)
     if (splitWords[i][splitWords[i].length - 1] === ',') splitWords[i] = splitWords[i].slice(0, -1)
+    if (splitWords[i] === '') {
+      splitWords.splice(i, 1)
+    }
   }
 
+  console.log(splitWords)
   return splitWords
 }
 

@@ -23,12 +23,6 @@ module.exports = {
     publicPath: './',
     filename: '[name].js'
   },
-  watch: true,
-  optimization: {
-    namedModules: false,
-    runtimeChunk: false,
-    concatenateModules: false
-  },
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
@@ -37,14 +31,14 @@ module.exports = {
       chunks: ['vendor', 'app'],
       chunksSortMode: 'manual',
       minify: {
-        removeAttributeQuotes: false,
-        collapseWhitespace: false,
-        html5: false,
-        minifyCSS: false,
-        minifyJS: false,
-        minifyURLs: false,
-        removeComments: false,
-        removeEmptyAttributes: false
+        removeAttributeQuotes: true,
+        collapseWhitespace: true,
+        html5: true,
+        minifyCSS: true,
+        minifyJS: true,
+        minifyURLs: true,
+        removeComments: true,
+        removeEmptyAttributes: true
       },
       hash: false
     })

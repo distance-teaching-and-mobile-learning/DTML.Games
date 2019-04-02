@@ -1321,13 +1321,17 @@ function publish () {
   let errors = Validator.getGraphErrors(graph)
   if (errors.length === 0) {
     var gameState = convertToGameState(graph)
-    let name = getModuleName();
-    dtml.dtml.publishDialog(name, version, publisherKey, gameState, function(result){ if (result.ok) { alert("The dialog has been published"); } else alert("There was an error. Please try again");  } );
+    let name = getModuleName()
+    dtml.dtml.publishDialog(name, version, publisherKey, gameState, function (result) {
+      if (result.ok) {
+        alert('The dialog has been published')
+      } else {
+        alert('There was an error. Please try again')
+      }
+    })
+  } else {
+    alert('Errors in project. Use the \'Validate\' option to find errors.')
   }
- else
- {
-      alert('Errors in project. Use the \'Validate\' option to find errors.')
- }
 }
 
 function getModuleName () {
@@ -1572,6 +1576,10 @@ function clear () {
   }
 }
 
+function openHelp () {
+  window.open('https://docs.dtml.org/conversational-games/conversational-games-concept')
+}
+
 var removeTool = new joint.linkTools.Remove()
 var toolsView = new joint.dia.ToolsView({
   tools: [removeTool]
@@ -1775,6 +1783,7 @@ $(function () {
   $.contextMenu({
     selector: '#paper',
     build: function ($triggerElement, e) {
+      updateRemoteModuleList()
       let remoteModuleOptions = {}
       if (remoteModules) {
         for (let i = 0; i < remoteModules.length; i++) {
@@ -1809,7 +1818,8 @@ $(function () {
             'callback': function () {
               Validator.validateGraph(graph)
             }
-          }
+          },
+          'help': { 'name': 'Help', 'callback': openHelp }
         }
       }
     }
