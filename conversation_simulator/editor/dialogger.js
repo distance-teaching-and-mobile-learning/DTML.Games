@@ -31,48 +31,6 @@ addEventListener('app-ready', function (e) {
 
 var graph = new joint.dia.Graph()
 
-// var defaultLinkToolView = new joint.dia.ToolsView({
-//   name: 'defaultTools',
-//   tools: [new joint.linkTools.Remove()]
-// })
-
-// joint.dia.Link.define('DefaultLink', {
-//   attrs: {
-//     line: {
-//       connection: true,
-//       stroke: '#FFFFFF',
-//       strokeWidth: 2,
-//       strokeLinejoin: 'round',
-//       targetMarker: {
-//         'type': 'path',
-//         'd': 'M 10 -5 0 0 10 5 z'
-//       }
-//     },
-//     wrapper: {
-//       connection: true,
-//       strokeWidth: 10,
-//       strokeLinejoin: 'round'
-//     }
-//   }
-// }, {
-//   markup: [{
-//     tagName: 'path',
-//     selector: 'wrapper',
-//     attributes: {
-//       'fill': 'none',
-//       'cursor': 'pointer',
-//       'stroke': 'transparent'
-//     }
-//   }, {
-//     tagName: 'path',
-//     selector: 'line',
-//     attributes: {
-//       'fill': 'none',
-//       'pointer-events': 'none'
-//     }
-//   }]
-// })
-
 var viewTemplates = {
   'options': '<button class="toggle" style="float:left;margin-right:5px;">+</button> <span>Options</span>',
   'mic': '<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="microphone" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" class="svg-inline"><path fill="currentColor" d="M176 352c53.02 0 96-42.98 96-96V96c0-53.02-42.98-96-96-96S80 42.98 80 96v160c0 53.02 42.98 96 96 96zm160-160h-16c-8.84 0-16 7.16-16 16v48c0 74.8-64.49 134.82-140.79 127.38C96.71 376.89 48 317.11 48 250.3V208c0-8.84-7.16-16-16-16H16c-8.84 0-16 7.16-16 16v40.16c0 89.64 63.97 169.55 152 181.69V464H96c-8.84 0-16 7.16-16 16v16c0 8.84 7.16 16 16 16h160c8.84 0 16-7.16 16-16v-16c0-8.84-7.16-16-16-16h-56v-33.77C285.71 418.47 352 344.9 352 256v-48c0-8.84-7.16-16-16-16z" class=""></path></svg>',
