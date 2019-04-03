@@ -59,6 +59,7 @@ export default class Racing extends v.Node2D {
         this.can_control = true;
         this.current_time = 0;
         this.is_racing = false;
+        this.is_time_out = false;
 
         this.voice = null;
 
@@ -67,12 +68,15 @@ export default class Racing extends v.Node2D {
         /** @type {Car[]} */
         this.other_cars = [];
 
+        this.time_label = null;
         this.wait_view = null;
         this.wait_timer = null;
 
         this.dimmer = null;
 
         this.target_label = null;
+        this.rank_label = null;
+
         this.input = null;
 
         // network
@@ -98,6 +102,11 @@ export default class Racing extends v.Node2D {
         this.wait_timer = /** @type {v.Label} */(this.get_node('wait_view/sec'));
         this.wait_view.visible = true;
         this.dimmer.visible = true;
+
+        this.time_label = /** @type {v.Label} */(this.get_node('top/time'));
+
+        this.rank_label = /** @type {v.Label} */(this.get_node('bottom/rank/label'));
+        this.rank_label.set_text('1st');
 
         this.target_label = /** @type {v.Label} */(this.get_node('top/TextureRect/Label'));
         this.target_label.set_text('');
@@ -141,6 +150,14 @@ export default class Racing extends v.Node2D {
 
         this.is_racing = true;
         this.self_car.last_accel_time = this.current_time;
+    }
+    time_over() {
+        this.is_racing = false;
+        this.time_label.set_text('Time Over');
+
+        this.dimmer.visible = true;
+
+        // TODO: show rank view
     }
 
     async fetch_next_set() {
@@ -304,18 +321,33 @@ export default class Racing extends v.Node2D {
         room.listen('current_time', (change) => {
             this.current_time = change.value;
         })
+        room.listen('rest_time', (change) => {
+            if (!this.is_time_out) {
+                const time = change.value;
+                const min = Math.floor(time / 60);
+                const sec = Math.floor(time % 60);
+                this.time_label.set_text(`Time: ${pad(min)}:${pad(sec)}`);
+            }
+        })
 
         room.onMessage.add((msg) => {
             switch (msg) {
                 case 'game_start': {
                     this.start_racing();
                 } break;
+                case 'timeover': {
+                    this.time_over();
+                } break;
             }
         })
 
         room.onStateChange.add((/** @type {State} */data) => {
+            /** @type {Player[]} */
+            const players = [];
             for (const k in data.players) {
                 const player = data.players[k];
+                players.push(player);
+
                 if (player.uid !== this.session_id) {
                     for (const car of this.other_cars) {
                         if (car.uid === player.uid) {
@@ -330,7 +362,42 @@ export default class Racing extends v.Node2D {
                     }
                 }
             }
+
+            // update rank info
+            players.sort((a, b) => {
+                if (a.pos !== b.pos) {
+                    return b.pos - a.pos;
+                } else {
+                    return b.last_accel_time - a.last_accel_time;
+                }
+            })
+
+            for (let i = 0; i < players.length; i++) {
+                if (players[i].uid === this.session_id) {
+                    this.rank_label.set_text(rank_text(i + 1))
+                }
+            }
         });
+    }
+}
+
+/**
+ * @param {number} number
+ */
+function pad(number) {
+    if (number < 10) {
+        return `0${number}`
+    } else {
+        return `${number}`
+    }
+}
+
+function rank_text(num) {
+    switch (num) {
+        case 1: return '1st';
+        case 2: return '2nd';
+        case 3: return '3rd';
+        default: return `${num}th`;
     }
 }
 

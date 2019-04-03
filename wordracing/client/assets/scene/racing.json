@@ -166,7 +166,8 @@
                             },
                             "texture": "@ext#6"
                         }
-                    ]
+                    ],
+                    "editor/display_folded": true
                 }
             ]
         },
@@ -182,6 +183,25 @@
                 "a": 1
             },
             "children": [
+                {
+                    "type": "Label",
+                    "name": "time",
+                    "self_modulate": {
+                        "r": 0.0156863,
+                        "g": 1,
+                        "b": 0.470588,
+                        "a": 1
+                    },
+                    "margin_bottom": 71,
+                    "margin_left": 18,
+                    "margin_top": 9,
+                    "margin_right": 196,
+                    "text": "Time: 10:00",
+                    "valign": 1,
+                    "font": "@ext#2",
+                    "children": [],
+                    "custom_fonts/font": "@ext#2"
+                },
                 {
                     "type": "TextureRect",
                     "name": "TextureRect",
@@ -208,10 +228,10 @@
                             "children": [],
                             "custom_fonts/font": "@ext#2"
                         }
-                    ]
+                    ],
+                    "editor/display_folded": true
                 }
-            ],
-            "editor/display_folded": true
+            ]
         },
         {
             "type": "ColorRect",
@@ -235,12 +255,27 @@
                     "margin_top": -51.5,
                     "margin_right": 173,
                     "texture": "@ext#8",
-                    "children": []
+                    "children": [
+                        {
+                            "type": "Label",
+                            "name": "label",
+                            "margin_bottom": 101,
+                            "margin_left": 70,
+                            "margin_top": 28,
+                            "margin_right": 161,
+                            "align": 1,
+                            "text": "2nd",
+                            "valign": 1,
+                            "font": "@ext#9",
+                            "children": [],
+                            "custom_fonts/font": "@ext#9"
+                        }
+                    ]
                 },
                 {
                     "type": "Scene",
                     "name": "input",
-                    "filename": "@ext#9",
+                    "filename": "@ext#10",
                     "children": [],
                     "parent": "bottom",
                     "position": {
@@ -251,8 +286,7 @@
                     "height": 40,
                     "show_button": 1
                 }
-            ],
-            "editor/display_folded": true
+            ]
         },
         {
             "type": "ColorRect",
@@ -276,7 +310,7 @@
                 "y": 286
             },
             "visible": false,
-            "texture": "@ext#10",
+            "texture": "@ext#11",
             "children": [
                 {
                     "type": "Label",
@@ -288,11 +322,12 @@
                     "align": 1,
                     "text": "10s",
                     "valign": 1,
-                    "font": "@ext#11",
+                    "font": "@ext#9",
                     "children": [],
-                    "custom_fonts/font": "@ext#11"
+                    "custom_fonts/font": "@ext#9"
                 }
-            ]
+            ],
+            "editor/display_folded": true
         }
     ],
     "__meta__": {
@@ -305,9 +340,9 @@
             "6": "car/5",
             "7": "ui/top",
             "8": "ui/rank",
-            "9": "res://scene/input.tscn",
-            "10": "ui/wait_view",
-            "11": "black_40"
+            "9": "black_40",
+            "10": "res://scene/input.tscn",
+            "11": "ui/wait_view"
         },
         "sub": {}
     }

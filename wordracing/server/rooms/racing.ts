@@ -2,6 +2,7 @@ import { Room, Client, EntityMap, nosync } from "colyseus";
 
 const MAX_PLAYERS_PER_ROOM = 5;
 const ROOM_WAIT_TIME = 10;
+const GAME_LENGTH = 1 * 60;
 
 class Player {
     uid: string;
@@ -20,8 +21,10 @@ class Player {
 
 class State {
     @nosync is_waiting: boolean = true;
+    @nosync is_timeover: boolean = false;
     wait_timer: number = ROOM_WAIT_TIME;
     current_time: number;
+    rest_time: number = GAME_LENGTH;
     players: EntityMap<Player> = {};
 }
 
@@ -55,6 +58,16 @@ export class Racing extends Room<State> {
             }
         } else {
             state.current_time += delta;
+
+            if (!state.is_timeover) {
+                state.rest_time -= delta;
+                if (state.rest_time < 0) {
+                    state.rest_time = 0;
+                    state.is_timeover = true;
+
+                    this.broadcast('time_over');
+                }
+            }
         }
     }
 

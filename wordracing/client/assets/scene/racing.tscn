@@ -8,9 +8,9 @@
 [ext_resource path="res://image/sprites/car/5.png" type="Texture" id=6]
 [ext_resource path="res://image/sprites/ui/top.png" type="Texture" id=7]
 [ext_resource path="res://image/sprites/ui/rank.png" type="Texture" id=8]
-[ext_resource path="res://scene/input.tscn" type="PackedScene" id=9]
-[ext_resource path="res://image/sprites/ui/wait_view.png" type="Texture" id=10]
-[ext_resource path="res://bitmapfont/black_40.fnt" type="BitmapFont" id=11]
+[ext_resource path="res://bitmapfont/black_40.fnt" type="BitmapFont" id=9]
+[ext_resource path="res://scene/input.tscn" type="PackedScene" id=10]
+[ext_resource path="res://image/sprites/ui/wait_view.png" type="Texture" id=11]
 
 [node name="racing" type="Node2D"]
 __meta__ = {
@@ -28,6 +28,7 @@ color = Color( 0.27451, 0.286275, 0.45098, 1 )
 position = Vector2( 0, 116 )
 
 [node name="cars" type="Node2D" parent="track"]
+editor/display_folded = true
 
 [node name="1" parent="track/cars" instance=ExtResource( 1 )]
 position = Vector2( 300, 170 )
@@ -99,12 +100,22 @@ align = 2
 valign = 1
 
 [node name="top" type="ColorRect" parent="."]
-editor/display_folded = true
 margin_right = 800.0
 margin_bottom = 84.0
 color = Color( 0.196078, 0.227451, 0.235294, 1 )
 
+[node name="time" type="Label" parent="top"]
+self_modulate = Color( 0.0156863, 1, 0.470588, 1 )
+margin_left = 18.0
+margin_top = 9.0
+margin_right = 196.0
+margin_bottom = 71.0
+custom_fonts/font = ExtResource( 2 )
+text = "Time: 10:00"
+valign = 1
+
 [node name="TextureRect" type="TextureRect" parent="top"]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -125,7 +136,6 @@ align = 1
 valign = 1
 
 [node name="bottom" type="ColorRect" parent="."]
-editor/display_folded = true
 margin_top = 472.0
 margin_right = 800.0
 margin_bottom = 600.0
@@ -139,7 +149,17 @@ margin_right = 173.0
 margin_bottom = 51.5
 texture = ExtResource( 8 )
 
-[node name="input" parent="bottom" instance=ExtResource( 9 )]
+[node name="label" type="Label" parent="bottom/rank"]
+margin_left = 70.0
+margin_top = 28.0
+margin_right = 161.0
+margin_bottom = 101.0
+custom_fonts/font = ExtResource( 9 )
+text = "2nd"
+align = 1
+valign = 1
+
+[node name="input" parent="bottom" instance=ExtResource( 10 )]
 position = Vector2( 246, 46 )
 width = 280
 height = 40
@@ -152,16 +172,17 @@ margin_bottom = 600.0
 color = Color( 0, 0, 0, 0.392157 )
 
 [node name="wait_view" type="Sprite" parent="."]
+editor/display_folded = true
 visible = false
 position = Vector2( 382, 286 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
 [node name="sec" type="Label" parent="wait_view"]
 margin_left = -133.0
 margin_top = 1.0
 margin_right = 131.0
 margin_bottom = 60.0
-custom_fonts/font = ExtResource( 11 )
+custom_fonts/font = ExtResource( 9 )
 text = "10s"
 align = 1
 valign = 1
