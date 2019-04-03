@@ -4,6 +4,9 @@ export default class Car extends v.Sprite {
     constructor() {
         super();
 
+        this.uid = null;
+        this.player_name = '';
+
         this.pos = 0;
         this.last_accel_time = 0;
     }

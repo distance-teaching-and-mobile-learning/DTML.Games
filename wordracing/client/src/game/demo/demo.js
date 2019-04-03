@@ -59,7 +59,9 @@ export default class Demo extends v.Node2D {
             set_name(input.input_elem.value);
         }
 
-        set_room(client.join('racing'))
+        set_room(client.join('racing', {
+            name: get_name(),
+        }))
         this.get_tree().change_scene('res://scene/racing.tscn');
     }
 }

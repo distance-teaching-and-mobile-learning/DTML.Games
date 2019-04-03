@@ -13,6 +13,8 @@ class Player {
         this.uid = uid;
         this.name = name;
         this.index = index;
+        this.pos = 0;
+        this.last_accel_time = 0;
     }
 }
 
@@ -20,6 +22,7 @@ class State {
     constructor() {
         /** @type {Object<string, Player>} */
         this.players = {};
+        this.current_time = 0;
     }
 }
 
@@ -76,6 +79,7 @@ export default class Racing extends v.Node2D {
 
         // network
         this.session_id = '';
+        this.room = null;
     }
     async _ready() {
         this.set_process(true);
@@ -87,6 +91,7 @@ export default class Racing extends v.Node2D {
         // car
         this.self_mark = /** @type {v.Label} */(this.get_node('track/self_mark'));
         this.self_mark.visible = false;
+        this.other_cars = /** @type {Car[]} */(this.get_node('track/cars').children.slice());
 
         // ui
         this.dimmer = this.get_node('dimmer');
@@ -115,16 +120,14 @@ export default class Racing extends v.Node2D {
      * @param {number} delta
      */
     _process(delta) {
-        this.current_time += delta;
-
         // update background scrolling
         if (this.is_racing) {
             this.road.tile_position.x -= this.get_car_velocity(this.self_car) * delta;
-        }
 
-        // update state of other cars
-        for (const car of this.other_cars) {
-            this.update_car_position(car);
+            // update state of other cars
+            for (const car of this.other_cars) {
+                this.update_car_position(car);
+            }
         }
     }
 
@@ -136,6 +139,7 @@ export default class Racing extends v.Node2D {
         this.input.show();
 
         this.is_racing = true;
+        this.self_car.last_accel_time = this.current_time;
     }
 
     async fetch_next_set() {
@@ -174,6 +178,10 @@ export default class Racing extends v.Node2D {
             this.input.clear();
 
             this.self_car.accelerate(this.current_time);
+            this.room.send({
+                action: 'accelerate',
+                time: this.current_time,
+            })
 
             const tween = this.target_label.tweens.create()
                 .interpolate_property(this.target_label, 'rect_scale', this.target_label.rect_scale, new v.Vector2(0, 0), 0.1, 'Quadratic.Out', 0)
@@ -249,6 +257,7 @@ export default class Racing extends v.Node2D {
 
     setup_sync(room) {
         const client = get_client();
+        this.room = room;
 
         this.session_id = client.id;
         room.listen("players/:id", (change) => {
@@ -261,13 +270,22 @@ export default class Racing extends v.Node2D {
                     player.name = get_name();
 
                     this.self_car = /** @type {Car} */(this.get_node(`track/cars/${player.index + 1}`));
+                    this.self_car.uid = player.uid;
+                    for (let i = 0; i < this.other_cars.length; i++) {
+                        if (this.other_cars[i] === this.self_car) {
+                            v.remove_items(this.other_cars, i, 1);
+                            break;
+                        }
+                    }
+
                     this.self_mark.rect_position.y = this.self_car.y - (170 - 142);
                     this.self_mark.visible = true;
-
+                } else {
                     const cars = /** @type {Car[]} */(this.get_node('track/cars').children);
                     for (const c of cars) {
-                        if (c !== this.self_car) {
-                            this.other_cars.push(c);
+                        if (c.name === `${player.index + 1}`) {
+                            c.uid = player.uid;
+                            c.player_name = player.name;
                         }
                     }
                 }
@@ -280,6 +298,9 @@ export default class Racing extends v.Node2D {
                 this.wait_timer.set_text(`${Math.floor(time)}s`)
             }
         })
+        room.listen('current_time', (change) => {
+            this.current_time = change.value;
+        })
 
         room.onMessage.add((msg) => {
             switch (msg) {
@@ -290,19 +311,15 @@ export default class Racing extends v.Node2D {
         })
 
         room.onStateChange.add((/** @type {State} */data) => {
-            let players = [];
             for (const k in data.players) {
-                const p = data.players[k];
-                players.push(p);
-            }
-            players = players.sort((a, b) => a.index - b.index);
-
-            for (let i = 0; i < players.length; i++) {
-                const player = players[i];
-
-                const is_myself = player.uid === this.session_id;
-
-                if (is_myself) {
+                const player = data.players[k];
+                if (player.uid !== this.session_id) {
+                    for (const car of this.other_cars) {
+                        if (car.uid === player.uid) {
+                            car.pos = player.pos;
+                            car.last_accel_time = player.last_accel_time;
+                        }
+                    }
                 }
             }
         });
