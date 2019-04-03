@@ -38,6 +38,19 @@ export class Racing extends Room<State> {
 
                 state.current_time = 0;
 
+                // create bots for cars without player
+                const player_count : number = Object.keys(state.players).length;
+                if (player_count < MAX_PLAYERS_PER_ROOM) {
+                    for (let i = player_count; i < MAX_PLAYERS_PER_ROOM; i++) {
+                        // TODO: real uuid
+                        const id = (Math.random() * 10000000).toString().substr(0, 7);
+                        const player = new Player(id, '[Bot]', i);
+                        state.players[id] = player;
+
+                        console.log(`Bot [${id}] joined!`);
+                    }
+                }
+
                 this.broadcast('game_start');
             }
         } else {

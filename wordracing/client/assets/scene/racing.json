@@ -36,7 +36,22 @@
                             "type": "Scene",
                             "name": "1",
                             "filename": "@ext#1",
-                            "children": [],
+                            "children": [
+                                {
+                                    "type": "Label",
+                                    "name": "label",
+                                    "margin_bottom": 25,
+                                    "margin_left": -467,
+                                    "margin_top": -28,
+                                    "margin_right": -64,
+                                    "align": 2,
+                                    "text": "You ->",
+                                    "valign": 1,
+                                    "font": "@ext#2",
+                                    "children": [],
+                                    "custom_fonts/font": "@ext#2"
+                                }
+                            ],
                             "parent": "track/cars",
                             "position": {
                                 "x": 300,
@@ -47,68 +62,113 @@
                             "type": "Scene",
                             "name": "2",
                             "filename": "@ext#1",
-                            "children": [],
+                            "children": [
+                                {
+                                    "type": "Label",
+                                    "name": "label",
+                                    "margin_bottom": 24,
+                                    "margin_left": -465,
+                                    "margin_top": -29,
+                                    "margin_right": -64,
+                                    "align": 2,
+                                    "text": "You ->",
+                                    "valign": 1,
+                                    "font": "@ext#2",
+                                    "children": [],
+                                    "custom_fonts/font": "@ext#2"
+                                }
+                            ],
                             "parent": "track/cars",
                             "position": {
                                 "x": 300,
                                 "y": 233
                             },
-                            "texture": "@ext#2"
+                            "texture": "@ext#3"
                         },
                         {
                             "type": "Scene",
                             "name": "3",
                             "filename": "@ext#1",
-                            "children": [],
+                            "children": [
+                                {
+                                    "type": "Label",
+                                    "name": "label",
+                                    "margin_bottom": 27,
+                                    "margin_left": -466,
+                                    "margin_top": -26,
+                                    "margin_right": -64,
+                                    "align": 2,
+                                    "text": "You ->",
+                                    "valign": 1,
+                                    "font": "@ext#2",
+                                    "children": [],
+                                    "custom_fonts/font": "@ext#2"
+                                }
+                            ],
                             "parent": "track/cars",
                             "position": {
                                 "x": 300,
                                 "y": 296
                             },
-                            "texture": "@ext#3"
+                            "texture": "@ext#4"
                         },
                         {
                             "type": "Scene",
                             "name": "4",
                             "filename": "@ext#1",
-                            "children": [],
+                            "children": [
+                                {
+                                    "type": "Label",
+                                    "name": "label",
+                                    "margin_bottom": 24,
+                                    "margin_left": -466,
+                                    "margin_top": -29,
+                                    "margin_right": -64,
+                                    "align": 2,
+                                    "text": "You ->",
+                                    "valign": 1,
+                                    "font": "@ext#2",
+                                    "children": [],
+                                    "custom_fonts/font": "@ext#2"
+                                }
+                            ],
                             "parent": "track/cars",
                             "position": {
                                 "x": 300,
                                 "y": 359
                             },
-                            "texture": "@ext#4"
+                            "texture": "@ext#5"
                         },
                         {
                             "type": "Scene",
                             "name": "5",
                             "filename": "@ext#1",
-                            "children": [],
+                            "children": [
+                                {
+                                    "type": "Label",
+                                    "name": "label",
+                                    "margin_bottom": 25,
+                                    "margin_left": -467,
+                                    "margin_top": -28,
+                                    "margin_right": -64,
+                                    "align": 2,
+                                    "text": "You ->",
+                                    "valign": 1,
+                                    "font": "@ext#2",
+                                    "children": [],
+                                    "custom_fonts/font": "@ext#2"
+                                }
+                            ],
                             "parent": "track/cars",
                             "position": {
                                 "x": 300,
                                 "y": 422
                             },
-                            "texture": "@ext#5"
+                            "texture": "@ext#6"
                         }
                     ]
-                },
-                {
-                    "type": "Label",
-                    "name": "self_mark",
-                    "margin_bottom": 195,
-                    "margin_left": 90,
-                    "margin_top": 142,
-                    "margin_right": 236,
-                    "align": 2,
-                    "text": "You ->",
-                    "valign": 1,
-                    "font": "@ext#6",
-                    "children": [],
-                    "custom_fonts/font": "@ext#6"
                 }
-            ],
-            "editor/display_folded": true
+            ]
         },
         {
             "type": "ColorRect",
@@ -144,9 +204,9 @@
                             "align": 1,
                             "text": "knowledge",
                             "valign": 1,
-                            "font": "@ext#6",
+                            "font": "@ext#2",
                             "children": [],
-                            "custom_fonts/font": "@ext#6"
+                            "custom_fonts/font": "@ext#2"
                         }
                     ]
                 }
@@ -186,7 +246,10 @@
                     "position": {
                         "x": 246,
                         "y": 46
-                    }
+                    },
+                    "width": 280,
+                    "height": 40,
+                    "show_button": 1
                 }
             ],
             "editor/display_folded": true
@@ -194,6 +257,7 @@
         {
             "type": "ColorRect",
             "name": "dimmer",
+            "visible": false,
             "margin_bottom": 600,
             "margin_right": 800,
             "color": {
@@ -211,6 +275,7 @@
                 "x": 382,
                 "y": 286
             },
+            "visible": false,
             "texture": "@ext#10",
             "children": [
                 {
@@ -233,11 +298,11 @@
     "__meta__": {
         "ext": {
             "1": "res://scene/car.tscn",
-            "2": "car/2",
-            "3": "car/3",
-            "4": "car/4",
-            "5": "car/5",
-            "6": "baloo_small",
+            "2": "baloo_small",
+            "3": "car/2",
+            "4": "car/3",
+            "5": "car/4",
+            "6": "car/5",
             "7": "ui/top",
             "8": "ui/rank",
             "9": "res://scene/input.tscn",

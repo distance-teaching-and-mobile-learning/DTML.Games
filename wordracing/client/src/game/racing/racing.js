@@ -67,8 +67,6 @@ export default class Racing extends v.Node2D {
         /** @type {Car[]} */
         this.other_cars = [];
 
-        this.self_mark = null;
-
         this.wait_view = null;
         this.wait_timer = null;
 
@@ -89,14 +87,17 @@ export default class Racing extends v.Node2D {
             .set_anchor(0, 0)
 
         // car
-        this.self_mark = /** @type {v.Label} */(this.get_node('track/self_mark'));
-        this.self_mark.visible = false;
         this.other_cars = /** @type {Car[]} */(this.get_node('track/cars').children.slice());
+        for (const car of this.other_cars) {
+            car.named_children.get('label').visible = false;
+        }
 
         // ui
         this.dimmer = this.get_node('dimmer');
         this.wait_view = this.get_node('wait_view');
         this.wait_timer = /** @type {v.Label} */(this.get_node('wait_view/sec'));
+        this.wait_view.visible = true;
+        this.dimmer.visible = true;
 
         this.target_label = /** @type {v.Label} */(this.get_node('top/TextureRect/Label'));
         this.target_label.set_text('');
@@ -277,15 +278,17 @@ export default class Racing extends v.Node2D {
                             break;
                         }
                     }
-
-                    this.self_mark.rect_position.y = this.self_car.y - (170 - 142);
-                    this.self_mark.visible = true;
+                    const label = /** @type {v.Label} */(this.self_car.named_children.get('label'));
+                    label.self_modulate.set(1, 0, 0, 1);
+                    label.set_text(`(You) ->`).set_visible(true)
                 } else {
                     const cars = /** @type {Car[]} */(this.get_node('track/cars').children);
                     for (const c of cars) {
                         if (c.name === `${player.index + 1}`) {
                             c.uid = player.uid;
                             c.player_name = player.name;
+                            const label = /** @type {v.Label} */(c.named_children.get('label'));
+                            label.set_text(`${player.name} ->`).set_visible(true)
                         }
                     }
                 }
@@ -318,6 +321,11 @@ export default class Racing extends v.Node2D {
                         if (car.uid === player.uid) {
                             car.pos = player.pos;
                             car.last_accel_time = player.last_accel_time;
+
+                            // in case bot name is not displayed
+                            /** @type {v.Label} */(car.named_children.get('label'))
+                                .set_text(`${player.name} ->`)
+                                .set_visible(true)
                         }
                     }
                 }
