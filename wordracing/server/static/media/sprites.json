@@ -1,28 +1,160 @@
 {"frames": {
 
-"button":
+"car/1":
 {
-	"frame": {"x":1,"y":443,"w":220,"h":49},
+	"frame": {"x":1698,"y":344,"w":107,"h":50},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":220,"h":49},
-	"sourceSize": {"w":220,"h":49}
+	"spriteSourceSize": {"x":0,"y":0,"w":107,"h":50},
+	"sourceSize": {"w":107,"h":50}
 },
-"icon":
+"car/2":
 {
-	"frame": {"x":1,"y":1,"w":466,"h":440},
+	"frame": {"x":1702,"y":289,"w":107,"h":50},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":107,"h":50},
+	"sourceSize": {"w":107,"h":50}
+},
+"car/3":
+{
+	"frame": {"x":1593,"y":289,"w":107,"h":53},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":107,"h":53},
+	"sourceSize": {"w":107,"h":53}
+},
+"car/4":
+{
+	"frame": {"x":1124,"y":325,"w":109,"h":58},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":109,"h":58},
+	"sourceSize": {"w":109,"h":58}
+},
+"car/5":
+{
+	"frame": {"x":1593,"y":344,"w":103,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":103,"h":51},
+	"sourceSize": {"w":103,"h":51}
+},
+"deco/sewage":
+{
+	"frame": {"x":1,"y":358,"w":37,"h":37},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":37,"h":37},
+	"sourceSize": {"w":37,"h":37}
+},
+"deco/speed/1":
+{
+	"frame": {"x":1928,"y":289,"w":29,"h":46},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":29,"h":46},
+	"sourceSize": {"w":29,"h":46}
+},
+"deco/speed/2":
+{
+	"frame": {"x":1235,"y":325,"w":30,"h":46},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":30,"h":46},
+	"sourceSize": {"w":30,"h":46}
+},
+"deco/speed/3":
+{
+	"frame": {"x":1267,"y":325,"w":30,"h":46},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":30,"h":46},
+	"sourceSize": {"w":30,"h":46}
+},
+"deco/tree":
+{
+	"frame": {"x":499,"y":325,"w":225,"h":77},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":23,"y":37,"w":466,"h":440},
-	"sourceSize": {"w":512,"h":512}
+	"spriteSourceSize": {"x":0,"y":9,"w":225,"h":77},
+	"sourceSize": {"w":235,"h":94}
+},
+"road":
+{
+	"frame": {"x":499,"y":1,"w":801,"h":322},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":18,"w":801,"h":322},
+	"sourceSize": {"w":821,"h":358}
+},
+"ui/button":
+{
+	"frame": {"x":1807,"y":341,"w":119,"h":49},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":119,"h":49},
+	"sourceSize": {"w":119,"h":49}
+},
+"ui/button_go":
+{
+	"frame": {"x":1477,"y":289,"w":114,"h":57},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":114,"h":57},
+	"sourceSize": {"w":114,"h":57}
+},
+"ui/button_go_pressed":
+{
+	"frame": {"x":1477,"y":348,"w":114,"h":54},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":3,"w":114,"h":54},
+	"sourceSize": {"w":114,"h":57}
+},
+"ui/rank":
+{
+	"frame": {"x":1302,"y":289,"w":173,"h":103},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":173,"h":103},
+	"sourceSize": {"w":173,"h":103}
+},
+"ui/title":
+{
+	"frame": {"x":1302,"y":1,"w":658,"h":286},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":658,"h":286},
+	"sourceSize": {"w":658,"h":286}
+},
+"ui/top":
+{
+	"frame": {"x":726,"y":325,"w":396,"h":68},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":396,"h":68},
+	"sourceSize": {"w":396,"h":68}
+},
+"ui/wait_view":
+{
+	"frame": {"x":1,"y":1,"w":496,"h":355},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":496,"h":355},
+	"sourceSize": {"w":496,"h":355}
 }},
+"animations": {
+	"car": ["car/1","car/2","car/3","car/4","car/5"],
+	"deco/speed": ["deco/speed/1","deco/speed/2","deco/speed/3"]
+},
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
 	"version": "1.0",
 	"image": "sprites.png",
 	"format": "RGBA8888",
-	"size": {"w":468,"h":493},
+	"size": {"w":1961,"h":403},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:04068d22817e6d9e61fb8171bea22a4a:88caabf63d6ac3dca19e2d07315c66ea:1eabdf11f75e3a4fe3147baf7b5be24b$"
+	"smartupdate": "$TexturePacker:SmartUpdate:d0e85e22b1d771bf56d7646a91b0c005:cbc3200518938ee962be5896fda5b6a8:1eabdf11f75e3a4fe3147baf7b5be24b$"
 }
 }
