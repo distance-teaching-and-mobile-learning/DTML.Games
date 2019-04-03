@@ -178,7 +178,6 @@ function splitWords (answer) {
     }
   }
 
-  console.log(splitWords)
   return splitWords
 }
 

@@ -38,20 +38,31 @@ window.game = new Game()
 let queryString = new URLSearchParams(window.location.search)
 let gameName = queryString.get('name')
 let gameVersion = queryString.get('version')
+let testing = queryString.get('test')
 
-if (!gameName || !gameVersion) {
-  gameName = prompt('Which game module would you like to run?')
-  gameVersion = prompt('Which version would you like to run?')
+if (testing === 'true') {
+  waitForGameData().then((response) => {
+    game.gameModule = JSON.parse(response)
+    game.state.start('Boot')
+  }).catch((response) => {
+    console.log('Error loading module: ' + response)
+    game.state.start('Boot')
+  })
+} else {
+  if (!gameName || !gameVersion) {
+    gameName = prompt('Which game module would you like to run?')
+    gameVersion = prompt('Which version would you like to run?')
+  }
+
+  requestGameDataFromServer(gameName, gameVersion).then((response) => {
+    game.gameModule = JSON.parse(response)
+    game.state.start('Boot')
+  }).catch((response) => {
+    console.log('Error loading module: ' + response)
+    game.gameModule = gameName
+    game.state.start('Boot')
+  })
 }
-
-requestGameDataFromServer(gameName, gameVersion).then((response) => {
-  game.gameModule = JSON.parse(response)
-  game.state.start('Boot')
-}).catch((response) => {
-  console.log('Error loading module: ' + response)
-  game.gameModule = gameName
-  game.state.start('Boot')
-})
 
 if (window.cordova) {
   var app = {
@@ -139,5 +150,18 @@ function requestGameDataFromServer (name, version) {
     let url = 'https://dtml.org/api/DialogService/Dialog?name=' + name + '&version=' + version
     xmlHttp.open('Get', url)
     xmlHttp.send(null)
+  })
+}
+
+function waitForGameData () {
+  return new Promise(function (resolve, reject) {
+    let timer = setTimeout(function () {
+      reject(new Error('Could not load testing game data'))
+    }, 10000)
+
+    window.onmessage = function (message) {
+      clearTimeout(timer)
+      resolve(message.data)
+    }
   })
 }
