@@ -1,0 +1,16 @@
+{
+    "application": {
+        "name": "Racing"
+    },
+    "display": {
+        "width": 800,
+        "stretch_mode": "viewport",
+        "stretch_aspect": "keep"
+    },
+    "layer_map": {
+        "physics": {
+            "solid": 1,
+            "hero": 2
+        }
+    }
+}

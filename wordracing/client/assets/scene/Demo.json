@@ -1,0 +1,202 @@
+{
+    "type": "Node2D",
+    "name": "Demo",
+    "children": [
+        {
+            "type": "ColorRect",
+            "name": "ColorRect",
+            "margin_bottom": 600,
+            "margin_right": 800,
+            "color": {
+                "r": 0.258824,
+                "g": 0.443137,
+                "b": 0.682353,
+                "a": 1
+            },
+            "children": []
+        },
+        {
+            "type": "Label",
+            "name": "label2",
+            "margin_bottom": 446,
+            "margin_left": 169,
+            "margin_top": 393,
+            "margin_right": 299,
+            "align": 1,
+            "text": "Name:",
+            "valign": 1,
+            "font": "@ext#1",
+            "children": [],
+            "custom_fonts/font": "@ext#1"
+        },
+        {
+            "type": "Scene",
+            "name": "input",
+            "filename": "@ext#2",
+            "children": [
+                {
+                    "type": "TextureButton",
+                    "name": "TextureButton",
+                    "margin_bottom": 43.6054,
+                    "margin_left": 204,
+                    "margin_top": -5.39461,
+                    "margin_right": 323,
+                    "texture_normal": "@ext#3",
+                    "children": []
+                },
+                {
+                    "type": "Label",
+                    "name": "label3",
+                    "margin_bottom": 45,
+                    "margin_left": 203,
+                    "margin_top": -8,
+                    "margin_right": 323,
+                    "align": 1,
+                    "text": "OK",
+                    "valign": 1,
+                    "font": "@ext#1",
+                    "children": [],
+                    "custom_fonts/font": "@ext#1"
+                }
+            ],
+            "parent": ".",
+            "position": {
+                "x": 299,
+                "y": 399
+            },
+            "visible": true,
+            "editor/display_folded": true,
+            "width": 200,
+            "show_button": false
+        },
+        {
+            "type": "TextureButton",
+            "name": "start_game",
+            "margin_bottom": 540,
+            "margin_left": 350,
+            "margin_top": 460,
+            "margin_right": 450,
+            "children": [
+                {
+                    "type": "Label",
+                    "name": "label",
+                    "margin_bottom": 82,
+                    "margin_right": 96,
+                    "align": 1,
+                    "text": "Join",
+                    "valign": 1,
+                    "font": "@ext#4",
+                    "children": [],
+                    "custom_fonts/font": "@ext#4"
+                }
+            ],
+            "editor/display_folded": true
+        },
+        {
+            "type": "Sprite",
+            "name": "title",
+            "position": {
+                "x": 409,
+                "y": 240
+            },
+            "scale": {
+                "x": 1.025,
+                "y": 1.025
+            },
+            "texture": "@ext#5",
+            "children": []
+        },
+        {
+            "type": "AnimationPlayer",
+            "name": "anim",
+            "playback_speed": 0.2,
+            "anims": {
+                "idle": {
+                    "key": "sub_resource",
+                    "id": 1,
+                    "name": "idle",
+                    "loop": true,
+                    "tracks": [
+                        {
+                            "type": "value",
+                            "path": "title:position",
+                            "interp": 1,
+                            "loop_wrap": true,
+                            "keys": {
+                                "times": [
+                                    0,
+                                    0.5
+                                ],
+                                "transitions": [
+                                    1,
+                                    1
+                                ],
+                                "update": 0,
+                                "values": [
+                                    {
+                                        "x": 409,
+                                        "y": 240
+                                    },
+                                    {
+                                        "x": 409,
+                                        "y": 220
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "value",
+                            "path": "title:scale",
+                            "interp": 1,
+                            "loop_wrap": true,
+                            "keys": {
+                                "times": [
+                                    0.2,
+                                    0.4,
+                                    0.6,
+                                    0.8
+                                ],
+                                "transitions": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "update": 0,
+                                "values": [
+                                    {
+                                        "x": 1,
+                                        "y": 1
+                                    },
+                                    {
+                                        "x": 1.05,
+                                        "y": 1.05
+                                    },
+                                    {
+                                        "x": 1,
+                                        "y": 1
+                                    },
+                                    {
+                                        "x": 1.05,
+                                        "y": 1.05
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            "children": []
+        }
+    ],
+    "__meta__": {
+        "ext": {
+            "1": "baloo_small",
+            "2": "res://scene/input.tscn",
+            "3": "ui/button",
+            "4": "baloo",
+            "5": "ui/title"
+        },
+        "sub": {}
+    }
+}

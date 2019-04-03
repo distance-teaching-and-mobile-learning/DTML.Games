@@ -1,0 +1,529 @@
+{
+    "res://scene/input.tscn": {
+        "@type#": "PackedScene",
+        "data": {
+            "type": "Node2D",
+            "name": "input",
+            "visible": false,
+            "children": [
+                {
+                    "type": "TextureButton",
+                    "name": "go",
+                    "margin_bottom": 50.6054,
+                    "margin_left": 280.782,
+                    "margin_top": -6.39461,
+                    "margin_right": 394.782,
+                    "texture_normal": "@ext#2",
+                    "texture_pressed": "@ext#3",
+                    "children": []
+                }
+            ],
+            "__meta__": {
+                "ext": {
+                    "2": "ui/button_go",
+                    "3": "ui/button_go_pressed"
+                },
+                "sub": {}
+            }
+        }
+    },
+    "res://scene/car.tscn": {
+        "@type#": "PackedScene",
+        "data": {
+            "type": "Sprite",
+            "name": "car",
+            "texture": "@ext#1",
+            "children": [],
+            "__meta__": {
+                "ext": {
+                    "1": "car/1"
+                },
+                "sub": {}
+            }
+        }
+    },
+    "res://scene/menu.tscn": {
+        "@type#": "PackedScene",
+        "data": {
+            "type": "Node2D",
+            "name": "menu",
+            "children": [
+                {
+                    "type": "GridContainer",
+                    "name": "flags",
+                    "margin_bottom": 20,
+                    "margin_left": 15,
+                    "margin_top": 20,
+                    "margin_right": 15,
+                    "columns": 7,
+                    "hseparation": 12,
+                    "vseparation": 12,
+                    "children": [],
+                    "custom_constants/vseparation": 12,
+                    "custom_constants/hseparation": 12
+                }
+            ],
+            "__meta__": {
+                "ext": {},
+                "sub": {}
+            }
+        }
+    },
+    "res://scene/Demo.tscn": {
+        "@type#": "PackedScene",
+        "data": {
+            "type": "Node2D",
+            "name": "Demo",
+            "children": [
+                {
+                    "type": "ColorRect",
+                    "name": "ColorRect",
+                    "margin_bottom": 600,
+                    "margin_right": 800,
+                    "color": {
+                        "r": 0.258824,
+                        "g": 0.443137,
+                        "b": 0.682353,
+                        "a": 1
+                    },
+                    "children": []
+                },
+                {
+                    "type": "Label",
+                    "name": "label2",
+                    "margin_bottom": 446,
+                    "margin_left": 169,
+                    "margin_top": 393,
+                    "margin_right": 299,
+                    "align": 1,
+                    "text": "Name:",
+                    "valign": 1,
+                    "font": "@ext#1",
+                    "children": [],
+                    "custom_fonts/font": "@ext#1"
+                },
+                {
+                    "type": "Scene",
+                    "name": "input",
+                    "filename": "@ext#2",
+                    "children": [
+                        {
+                            "type": "TextureButton",
+                            "name": "TextureButton",
+                            "margin_bottom": 43.6054,
+                            "margin_left": 204,
+                            "margin_top": -5.39461,
+                            "margin_right": 323,
+                            "texture_normal": "@ext#3",
+                            "children": []
+                        },
+                        {
+                            "type": "Label",
+                            "name": "label3",
+                            "margin_bottom": 45,
+                            "margin_left": 203,
+                            "margin_top": -8,
+                            "margin_right": 323,
+                            "align": 1,
+                            "text": "OK",
+                            "valign": 1,
+                            "font": "@ext#1",
+                            "children": [],
+                            "custom_fonts/font": "@ext#1"
+                        }
+                    ],
+                    "parent": ".",
+                    "position": {
+                        "x": 299,
+                        "y": 399
+                    },
+                    "visible": true,
+                    "editor/display_folded": true,
+                    "width": 200,
+                    "show_button": false
+                },
+                {
+                    "type": "TextureButton",
+                    "name": "start_game",
+                    "margin_bottom": 540,
+                    "margin_left": 350,
+                    "margin_top": 460,
+                    "margin_right": 450,
+                    "children": [
+                        {
+                            "type": "Label",
+                            "name": "label",
+                            "margin_bottom": 82,
+                            "margin_right": 96,
+                            "align": 1,
+                            "text": "Join",
+                            "valign": 1,
+                            "font": "@ext#4",
+                            "children": [],
+                            "custom_fonts/font": "@ext#4"
+                        }
+                    ],
+                    "editor/display_folded": true
+                },
+                {
+                    "type": "Sprite",
+                    "name": "title",
+                    "position": {
+                        "x": 409,
+                        "y": 240
+                    },
+                    "scale": {
+                        "x": 1.025,
+                        "y": 1.025
+                    },
+                    "texture": "@ext#5",
+                    "children": []
+                },
+                {
+                    "type": "AnimationPlayer",
+                    "name": "anim",
+                    "playback_speed": 0.2,
+                    "anims": {
+                        "idle": {
+                            "key": "sub_resource",
+                            "id": 1,
+                            "name": "idle",
+                            "loop": true,
+                            "tracks": [
+                                {
+                                    "type": "value",
+                                    "path": "title:position",
+                                    "interp": 1,
+                                    "loop_wrap": true,
+                                    "keys": {
+                                        "times": [
+                                            0,
+                                            0.5
+                                        ],
+                                        "transitions": [
+                                            1,
+                                            1
+                                        ],
+                                        "update": 0,
+                                        "values": [
+                                            {
+                                                "x": 409,
+                                                "y": 240
+                                            },
+                                            {
+                                                "x": 409,
+                                                "y": 220
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "value",
+                                    "path": "title:scale",
+                                    "interp": 1,
+                                    "loop_wrap": true,
+                                    "keys": {
+                                        "times": [
+                                            0.2,
+                                            0.4,
+                                            0.6,
+                                            0.8
+                                        ],
+                                        "transitions": [
+                                            1,
+                                            1,
+                                            1,
+                                            1
+                                        ],
+                                        "update": 0,
+                                        "values": [
+                                            {
+                                                "x": 1,
+                                                "y": 1
+                                            },
+                                            {
+                                                "x": 1.05,
+                                                "y": 1.05
+                                            },
+                                            {
+                                                "x": 1,
+                                                "y": 1
+                                            },
+                                            {
+                                                "x": 1.05,
+                                                "y": 1.05
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "children": []
+                }
+            ],
+            "__meta__": {
+                "ext": {
+                    "1": "baloo_small",
+                    "2": "res://scene/input.tscn",
+                    "3": "ui/button",
+                    "4": "baloo",
+                    "5": "ui/title"
+                },
+                "sub": {}
+            }
+        }
+    },
+    "res://scene/racing.tscn": {
+        "@type#": "PackedScene",
+        "data": {
+            "type": "Node2D",
+            "name": "racing",
+            "children": [
+                {
+                    "type": "ColorRect",
+                    "name": "background",
+                    "margin_bottom": 600,
+                    "margin_right": 800,
+                    "color": {
+                        "r": 0.27451,
+                        "g": 0.286275,
+                        "b": 0.45098,
+                        "a": 1
+                    },
+                    "children": []
+                },
+                {
+                    "type": "Node2D",
+                    "name": "track",
+                    "children": [
+                        {
+                            "type": "Node2D",
+                            "name": "ground",
+                            "position": {
+                                "x": 0,
+                                "y": 116
+                            },
+                            "children": []
+                        },
+                        {
+                            "type": "Node2D",
+                            "name": "cars",
+                            "children": [
+                                {
+                                    "type": "Scene",
+                                    "name": "1",
+                                    "filename": "@ext#1",
+                                    "children": [],
+                                    "parent": "track/cars",
+                                    "position": {
+                                        "x": 300,
+                                        "y": 170
+                                    }
+                                },
+                                {
+                                    "type": "Scene",
+                                    "name": "2",
+                                    "filename": "@ext#1",
+                                    "children": [],
+                                    "parent": "track/cars",
+                                    "position": {
+                                        "x": 300,
+                                        "y": 233
+                                    },
+                                    "texture": "@ext#2"
+                                },
+                                {
+                                    "type": "Scene",
+                                    "name": "3",
+                                    "filename": "@ext#1",
+                                    "children": [],
+                                    "parent": "track/cars",
+                                    "position": {
+                                        "x": 300,
+                                        "y": 296
+                                    },
+                                    "texture": "@ext#3"
+                                },
+                                {
+                                    "type": "Scene",
+                                    "name": "4",
+                                    "filename": "@ext#1",
+                                    "children": [],
+                                    "parent": "track/cars",
+                                    "position": {
+                                        "x": 300,
+                                        "y": 359
+                                    },
+                                    "texture": "@ext#4"
+                                },
+                                {
+                                    "type": "Scene",
+                                    "name": "5",
+                                    "filename": "@ext#1",
+                                    "children": [],
+                                    "parent": "track/cars",
+                                    "position": {
+                                        "x": 300,
+                                        "y": 422
+                                    },
+                                    "texture": "@ext#5"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Label",
+                            "name": "self_mark",
+                            "margin_bottom": 195,
+                            "margin_left": 90,
+                            "margin_top": 142,
+                            "margin_right": 236,
+                            "align": 2,
+                            "text": "You ->",
+                            "valign": 1,
+                            "font": "@ext#6",
+                            "children": [],
+                            "custom_fonts/font": "@ext#6"
+                        }
+                    ],
+                    "editor/display_folded": true
+                },
+                {
+                    "type": "ColorRect",
+                    "name": "top",
+                    "margin_bottom": 84,
+                    "margin_right": 800,
+                    "color": {
+                        "r": 0.196078,
+                        "g": 0.227451,
+                        "b": 0.235294,
+                        "a": 1
+                    },
+                    "children": [
+                        {
+                            "type": "TextureRect",
+                            "name": "TextureRect",
+                            "anchor_bottom": 0.5,
+                            "anchor_left": 0.5,
+                            "anchor_top": 0.5,
+                            "anchor_right": 0.5,
+                            "margin_bottom": 34,
+                            "margin_left": -198,
+                            "margin_top": -34,
+                            "margin_right": 198,
+                            "texture": "@ext#7",
+                            "children": [
+                                {
+                                    "type": "Label",
+                                    "name": "Label",
+                                    "margin_bottom": 61,
+                                    "margin_left": 23,
+                                    "margin_right": 376,
+                                    "align": 1,
+                                    "text": "knowledge",
+                                    "valign": 1,
+                                    "font": "@ext#6",
+                                    "children": [],
+                                    "custom_fonts/font": "@ext#6"
+                                }
+                            ]
+                        }
+                    ],
+                    "editor/display_folded": true
+                },
+                {
+                    "type": "ColorRect",
+                    "name": "bottom",
+                    "margin_bottom": 600,
+                    "margin_top": 472,
+                    "margin_right": 800,
+                    "color": {
+                        "r": 0.196078,
+                        "g": 0.227451,
+                        "b": 0.235294,
+                        "a": 1
+                    },
+                    "children": [
+                        {
+                            "type": "TextureRect",
+                            "name": "rank",
+                            "anchor_bottom": 0.5,
+                            "anchor_top": 0.5,
+                            "margin_bottom": 51.5,
+                            "margin_top": -51.5,
+                            "margin_right": 173,
+                            "texture": "@ext#8",
+                            "children": []
+                        },
+                        {
+                            "type": "Scene",
+                            "name": "input",
+                            "filename": "@ext#9",
+                            "children": [],
+                            "parent": "bottom",
+                            "position": {
+                                "x": 246,
+                                "y": 46
+                            }
+                        }
+                    ],
+                    "editor/display_folded": true
+                },
+                {
+                    "type": "ColorRect",
+                    "name": "dimmer",
+                    "margin_bottom": 600,
+                    "margin_right": 800,
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 0.392157
+                    },
+                    "children": []
+                },
+                {
+                    "type": "Sprite",
+                    "name": "wait_view",
+                    "position": {
+                        "x": 382,
+                        "y": 286
+                    },
+                    "texture": "@ext#10",
+                    "children": [
+                        {
+                            "type": "Label",
+                            "name": "sec",
+                            "margin_bottom": 60,
+                            "margin_left": -133,
+                            "margin_top": 1,
+                            "margin_right": 131,
+                            "align": 1,
+                            "text": "10s",
+                            "valign": 1,
+                            "font": "@ext#11",
+                            "children": [],
+                            "custom_fonts/font": "@ext#11"
+                        }
+                    ]
+                }
+            ],
+            "__meta__": {
+                "ext": {
+                    "1": "res://scene/car.tscn",
+                    "2": "car/2",
+                    "3": "car/3",
+                    "4": "car/4",
+                    "5": "car/5",
+                    "6": "baloo_small",
+                    "7": "ui/top",
+                    "8": "ui/rank",
+                    "9": "res://scene/input.tscn",
+                    "10": "ui/wait_view",
+                    "11": "black_40"
+                },
+                "sub": {}
+            }
+        }
+    }
+}

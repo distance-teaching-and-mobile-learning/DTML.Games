@@ -1,0 +1,12 @@
+{
+    "type": "Sprite",
+    "name": "car",
+    "texture": "@ext#1",
+    "children": [],
+    "__meta__": {
+        "ext": {
+            "1": "car/1"
+        },
+        "sub": {}
+    }
+}

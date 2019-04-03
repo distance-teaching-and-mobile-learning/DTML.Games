@@ -1,0 +1,104 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://bitmapfont/baloo_small.fnt" type="BitmapFont" id=1]
+[ext_resource path="res://scene/input.tscn" type="PackedScene" id=2]
+[ext_resource path="res://image/sprites/ui/button.png" type="Texture" id=3]
+[ext_resource path="res://bitmapfont/baloo.fnt" type="BitmapFont" id=4]
+[ext_resource path="res://image/sprites/ui/title.png" type="Texture" id=5]
+
+[sub_resource type="Animation" id=1]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("title:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 409, 240 ), Vector2( 409, 220 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("title:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2, 0.4, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.05, 1.05 ), Vector2( 1, 1 ), Vector2( 1.05, 1.05 ) ]
+}
+
+[node name="Demo" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 800.0
+margin_bottom = 600.0
+color = Color( 0.258824, 0.443137, 0.682353, 1 )
+
+[node name="label2" type="Label" parent="."]
+margin_left = 169.0
+margin_top = 393.0
+margin_right = 299.0
+margin_bottom = 446.0
+custom_fonts/font = ExtResource( 1 )
+text = "Name:"
+align = 1
+valign = 1
+
+[node name="input" parent="." instance=ExtResource( 2 )]
+editor/display_folded = true
+visible = true
+position = Vector2( 299, 399 )
+width = 200
+show_button = false
+
+[node name="TextureButton" type="TextureButton" parent="input"]
+margin_left = 204.0
+margin_top = -5.39461
+margin_right = 323.0
+margin_bottom = 43.6054
+texture_normal = ExtResource( 3 )
+
+[node name="label3" type="Label" parent="input"]
+margin_left = 203.0
+margin_top = -8.0
+margin_right = 323.0
+margin_bottom = 45.0
+custom_fonts/font = ExtResource( 1 )
+text = "OK"
+align = 1
+valign = 1
+
+[node name="start_game" type="TextureButton" parent="."]
+editor/display_folded = true
+margin_left = 350.0
+margin_top = 460.0
+margin_right = 450.0
+margin_bottom = 540.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="label" type="Label" parent="start_game"]
+margin_right = 96.0
+margin_bottom = 82.0
+custom_fonts/font = ExtResource( 4 )
+text = "Join"
+align = 1
+valign = 1
+
+[node name="title" type="Sprite" parent="."]
+position = Vector2( 409, 240 )
+scale = Vector2( 1.025, 1.025 )
+texture = ExtResource( 5 )
+
+[node name="anim" type="AnimationPlayer" parent="."]
+playback_speed = 0.2
+anims/idle = SubResource( 1 )
+

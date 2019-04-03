@@ -1,0 +1,25 @@
+{
+    "type": "Node2D",
+    "name": "input",
+    "visible": false,
+    "children": [
+        {
+            "type": "TextureButton",
+            "name": "go",
+            "margin_bottom": 50.6054,
+            "margin_left": 280.782,
+            "margin_top": -6.39461,
+            "margin_right": 394.782,
+            "texture_normal": "@ext#2",
+            "texture_pressed": "@ext#3",
+            "children": []
+        }
+    ],
+    "__meta__": {
+        "ext": {
+            "2": "ui/button_go",
+            "3": "ui/button_go_pressed"
+        },
+        "sub": {}
+    }
+}

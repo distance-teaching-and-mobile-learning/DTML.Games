@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scene/input.gd" type="Script" id=1]
+[ext_resource path="res://image/sprites/ui/button_go.png" type="Texture" id=2]
+[ext_resource path="res://image/sprites/ui/button_go_pressed.png" type="Texture" id=3]
+
+[node name="input" type="Node2D"]
+visible = false
+script = ExtResource( 1 )
+
+[node name="go" type="TextureButton" parent="."]
+margin_left = 280.782
+margin_top = -6.39461
+margin_right = 394.782
+margin_bottom = 50.6054
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+
