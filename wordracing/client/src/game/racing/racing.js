@@ -1,4 +1,7 @@
 import * as v from 'engine/index';
+
+import { dtml } from 'dtml-sdk';
+
 import Input from 'game/demo/input';
 import Car from './car';
 import { get_room, get_client, get_name } from 'game/client';
@@ -26,13 +29,19 @@ class State {
     }
 }
 
-const words = [
-    'knowledge',
-    'number',
-]
-const answers = {
-    'knowledge': '知识',
-    'number': '数字',
+const fixture_words = { "complexity": 2, "words": ["love", "robot", "baby", "vehicle", "face", "paper", "elephant", "lesson"] };
+const fixture_answers = {
+    'love': '爱',
+    'robot': '机器人',
+    'baby': '宝贝',
+    'vehicle': '车',
+    'face': '脸',
+    'paper': '纸',
+    'elephant': '大象',
+    'lesson': '课程',
+}
+const check_answer = (source, guess, lan) => {
+    return fixture_answers[source] === guess;
 }
 
 const DIST_PER_RACE_UNIT = 200;
@@ -161,9 +170,20 @@ export default class Racing extends v.Node2D {
     }
 
     async fetch_next_set() {
-        this.words = words;
         this.curr_level++;
-        this.curr_index = -1;
+        this.curr_index = -1
+
+        this.complexity = fixture_words.complexity;
+        this.words = fixture_words.words;
+
+        dtml.getWords(this.curr_level, (data) => {
+            this.complexity = data.complexity;
+            this.words = data.words;
+
+            this.emit_signal('words_data_loaded');
+        }, this)
+
+        await v.yield(this, 'words_data_loaded');
     }
     /**
      * @param {boolean} should_say
@@ -171,13 +191,17 @@ export default class Racing extends v.Node2D {
     next_word(should_say) {
         this.curr_index += 1;
 
-        const word = this.words[this.curr_index];
-        this.target_label.set_text(`${word}`);
+        if (this.curr_index < this.words.length) {
+            const word = this.words[this.curr_index];
+            this.target_label.set_text(`${word}`);
 
-        this.can_control = true;
+            this.can_control = true;
 
-        if (should_say) {
-            this.speak(word);
+            if (should_say) {
+                this.speak(word);
+            }
+        } else {
+            // TODO: win!
         }
     }
 
@@ -190,29 +214,38 @@ export default class Racing extends v.Node2D {
         }
 
         const word = this.words[this.curr_index];
-        if (answers[word] && answers[word] === answer) {
-            this.can_control = false;
 
-            this.input.clear();
-
-            this.self_car.accelerate(this.current_time);
-            this.room.send({
-                action: 'accelerate',
-                time: this.current_time,
-            })
-
-            const tween = this.target_label.tweens.create()
-                .interpolate_property(this.target_label, 'rect_scale', this.target_label.rect_scale, new v.Vector2(0, 0), 0.1, 'Quadratic.Out', 0)
-                .interpolate_property(this.target_label, 'rect_scale', new v.Vector2(0, 0), this.target_label.rect_scale, 0.1, 'Back.Out', 0.1)
-                .start()
-
-            await v.yield(this.get_tree().create_timer(0.1), 'timeout');
-            this.next_word(true);
-            await v.yield(tween, 'tween_all_completed')
-
-            this.input.focus();
+        fetch(`https://dtml.org/api/GameService/CheckWord?source=${word}&guess=${answer}&lan=${this.lang_code}`, {
+            method: 'get',
+            credentials: 'same-origin',
+        }).catch((err) => {
+            console.log('err', err);
             this.can_control = true;
-        }
+        }).then((res) => res.json()).then(async (data) => {
+            if (data.isCorrect) {
+                this.can_control = false;
+
+                this.input.clear();
+
+                this.self_car.accelerate(this.current_time);
+                this.room.send({
+                    action: 'accelerate',
+                    time: this.current_time,
+                })
+
+                const tween = this.target_label.tweens.create()
+                    .interpolate_property(this.target_label, 'rect_scale', this.target_label.rect_scale, new v.Vector2(0, 0), 0.1, 'Quadratic.Out', 0)
+                    .interpolate_property(this.target_label, 'rect_scale', new v.Vector2(0, 0), this.target_label.rect_scale, 0.1, 'Back.Out', 0.1)
+                    .start()
+
+                await v.yield(this.get_tree().create_timer(0.1), 'timeout');
+                this.next_word(true);
+                await v.yield(tween, 'tween_all_completed')
+
+                this.input.focus();
+                this.can_control = true;
+            }
+        });
     }
 
     /**
