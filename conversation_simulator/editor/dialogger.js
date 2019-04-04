@@ -1580,14 +1580,21 @@ function openHelp () {
   window.open('https://docs.dtml.org/conversational-games/conversational-games-concept')
 }
 
-var removeTool = new joint.linkTools.Remove()
-var toolsView = new joint.dia.ToolsView({
-  tools: [removeTool]
-})
-
-// var defaultLinkView = new joint.dia.LinkView()
-// defaultLinkView.addTools(toolsView)
-// defaultLinkView.hideTools()
+function previewGame () {
+  applyTextFields()
+  let errors = Validator.getGraphErrors(graph)
+  if (errors.length === 0) {
+    let gameState = convertToGameState(graph)
+    let url = 'https://dtml.org/games/conversations/index.html?test=true'
+    // let url = 'http://localhost:3000/?test=true'
+    let previewWindow = window.open(url)
+    setTimeout(function () {
+      previewWindow.postMessage(JSON.stringify(gameState), '*')
+    }, 1000)
+  } else {
+    alert('Errors in project. Use the \'Validate\' option to find errors.')
+  }
+}
 
 var defaultLink = new joint.dia.Link({
   // toolMarkup: ['<g class="element-tools">',
@@ -1819,6 +1826,7 @@ $(function () {
               Validator.validateGraph(graph)
             }
           },
+          'preview': { 'name': 'Preview', 'callback': previewGame },
           'help': { 'name': 'Help', 'callback': openHelp }
         }
       }
