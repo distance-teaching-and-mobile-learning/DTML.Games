@@ -63,8 +63,9 @@ export default class extends Phaser.State {
 
     // process loaded xml/json and create internal Spriter objects - these data can be used repeatly for many instances of the same animation
     let spriter = this.spriterLoader.load(spriterFile)
+    let entity = spriter._entities['_items'][0].name
 
-    return new Spriter.SpriterGroup(game, spriter, key, key)
+    return new Spriter.SpriterGroup(game, spriter, key, entity)
   }
 
   setText (text) {
