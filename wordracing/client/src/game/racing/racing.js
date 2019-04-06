@@ -212,7 +212,7 @@ export default class Racing extends v.Node2D {
             this.input.show();
             this.input.focus();
             this.can_control = true;
-        }).then((res) => res.json()).then(async (data) => {
+        }).then((res) => res && res.json()).then(async (data) => {
             if (data.isCorrect) {
                 this.self_car.accelerate(this.current_time);
                 this.room.send({
