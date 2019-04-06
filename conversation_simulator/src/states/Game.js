@@ -807,6 +807,7 @@ export default class extends Phaser.State {
     this.selection = 0
     this.ansLength = 0
 
+    let wordList = []
     this.stateMachine.getAnswerWords().forEach(word => {
       this.ansLength += 1
 
@@ -834,12 +835,18 @@ export default class extends Phaser.State {
       item.input.priorityID = 0
       item.input.useHandCursor = true
       item.events.onInputDown.add(this.addCharToNode, this)
-      this.listView.add(parentGroup)
+      wordList.push(parentGroup)
     })
+
+    while (wordList.length > 0) {
+      let random = this.rnd.between(0, wordList.length - 1)
+      this.listView.add(wordList[random])
+      wordList.splice(random, 1)
+    }
 
     this.listView.items[this.selection].frame = 1
 
-     }
+  }
 
   destroySideMenu () {
     this.sidemenu.kill()
