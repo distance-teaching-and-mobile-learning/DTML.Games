@@ -153,7 +153,7 @@ export default class {
       if (result) {
         this.scoreSolution(solution, result, hintUsed)
       } else {
-        let score = solution.Score || solution.scoreadjustment
+        let score = this.currentState.Solutions[solution].Score || this.currentState.Solutions[solution].scoreadjustment
         if (this.isNumber(score)) {
           this.scoreSolution(solution, score, hintUsed)
         }
