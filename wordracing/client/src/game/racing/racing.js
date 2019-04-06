@@ -29,21 +29,6 @@ class State {
     }
 }
 
-const fixture_words = { "complexity": 2, "words": ["love", "robot", "baby", "vehicle", "face", "paper", "elephant", "lesson"] };
-const fixture_answers = {
-    'love': '爱',
-    'robot': '机器人',
-    'baby': '宝贝',
-    'vehicle': '车',
-    'face': '脸',
-    'paper': '纸',
-    'elephant': '大象',
-    'lesson': '课程',
-}
-const check_answer = (source, guess, lan) => {
-    return fixture_answers[source] === guess;
-}
-
 const DIST_PER_RACE_UNIT = 200;
 const ACCELERATE_TIME = 4;
 const BASE_SPEED = 130;
@@ -129,11 +114,11 @@ export default class Racing extends v.Node2D {
             window.speechSynthesis.getVoices();
         };
 
-        // load data from server
-        this.fetch_next_set();
-
         // network
         this.setup_sync(get_room());
+
+        // load data from server
+        await this.fetch_next_set();
     }
     /**
      * @param {number} delta
@@ -154,7 +139,7 @@ export default class Racing extends v.Node2D {
         this.wait_view.visible = false;
         this.dimmer.visible = false;
 
-        this.next_word(true);
+        await this.next_word(true);
         this.input.show();
 
         this.is_racing = true;
@@ -173,9 +158,6 @@ export default class Racing extends v.Node2D {
         this.curr_level++;
         this.curr_index = -1
 
-        this.complexity = fixture_words.complexity;
-        this.words = fixture_words.words;
-
         dtml.getWords(this.curr_level, (data) => {
             this.complexity = data.complexity;
             this.words = data.words;
@@ -188,7 +170,7 @@ export default class Racing extends v.Node2D {
     /**
      * @param {boolean} should_say
      */
-    next_word(should_say) {
+    async next_word(should_say) {
         this.curr_index += 1;
 
         if (this.curr_index < this.words.length) {
@@ -201,7 +183,8 @@ export default class Racing extends v.Node2D {
                 this.speak(word);
             }
         } else {
-            // TODO: win!
+            // fetch more words since the game is not over yet
+            await this.fetch_next_set();
         }
     }
 
@@ -213,6 +196,11 @@ export default class Racing extends v.Node2D {
             return;
         }
 
+        this.can_control = false;
+
+        this.input.clear();
+        this.input.hide();
+
         const word = this.words[this.curr_index];
 
         fetch(`https://dtml.org/api/GameService/CheckWord?source=${word}&guess=${answer}&lan=${this.lang_code}`, {
@@ -220,31 +208,24 @@ export default class Racing extends v.Node2D {
             credentials: 'same-origin',
         }).catch((err) => {
             console.log('err', err);
+
+            this.input.show();
+            this.input.focus();
             this.can_control = true;
         }).then((res) => res.json()).then(async (data) => {
             if (data.isCorrect) {
-                this.can_control = false;
-
-                this.input.clear();
-
                 this.self_car.accelerate(this.current_time);
                 this.room.send({
                     action: 'accelerate',
                     time: this.current_time,
                 })
 
-                const tween = this.target_label.tweens.create()
-                    .interpolate_property(this.target_label, 'rect_scale', this.target_label.rect_scale, new v.Vector2(0, 0), 0.1, 'Quadratic.Out', 0)
-                    .interpolate_property(this.target_label, 'rect_scale', new v.Vector2(0, 0), this.target_label.rect_scale, 0.1, 'Back.Out', 0.1)
-                    .start()
-
-                await v.yield(this.get_tree().create_timer(0.1), 'timeout');
-                this.next_word(true);
-                await v.yield(tween, 'tween_all_completed')
-
-                this.input.focus();
-                this.can_control = true;
+                await this.next_word(true);
             }
+
+            this.input.show();
+            this.input.focus();
+            this.can_control = true;
         });
     }
 
