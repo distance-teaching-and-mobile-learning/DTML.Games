@@ -1550,9 +1550,35 @@ function getModuleList () {
 function updateRemoteModuleList () {
   getModuleList().then(function (data) {
     remoteModules = JSON.parse(data)
+    remoteModules = groupModuleVersions(remoteModules)
   }).catch(function (error) {
     console.log(error + ' - Could not load remote game modules')
   })
+}
+
+// Groups different versions of the same module into arrays
+function groupModuleVersions (moduleList) {
+  let groupedModules = {}
+  // Group modules with the same name
+  for (let i = 0; i < moduleList.length; i++) {
+    let name = moduleList[i]['Name']
+    if (!groupedModules[name]) {
+      groupedModules[name] = []
+    }
+    groupedModules[name].push(moduleList[i])
+  }
+  // Sort groups by version number
+  for (let i = 0; i < groupedModules.length; i++) {
+    groupedModules[i].sort()
+  }
+  return groupedModules
+}
+
+function getStatusText (statusNumber) {
+  switch (statusNumber) {
+    case 1: return 'active'
+    default: return 'draft'
+  }
 }
 
 function add (constructor) {
@@ -1793,10 +1819,16 @@ $(function () {
       updateRemoteModuleList()
       let remoteModuleOptions = {}
       if (remoteModules) {
-        for (let i = 0; i < remoteModules.length; i++) {
-          remoteModuleOptions[i] = {
-            'name': remoteModules[i].Name,
-            'callback': function () { importRemoteFile(remoteModules[i].Name, remoteModules[i].Version) }
+        for (let moduleGroup in remoteModules) {
+          remoteModuleOptions[moduleGroup] = {
+            'name': remoteModules[moduleGroup][0].Name,
+            'items': {}
+          }
+          for (let i = 0; i < remoteModules[moduleGroup].length; i++) {
+            remoteModuleOptions[moduleGroup]['items'][i] = {
+              'name': 'Version ' + remoteModules[moduleGroup][i]['Version'] + ' (' + getStatusText(remoteModules[moduleGroup][i]['Status']) + ')',
+              'callback': function () { importRemoteFile(remoteModules[moduleGroup][i].Name, remoteModules[moduleGroup][i].Version) }
+            }
           }
         }
       }
