@@ -39,7 +39,7 @@ export default class extends Phaser.State {
     this.load.image('loaderBg', './assets/images/logobackground.png')
     this.load.image('loaderBar', './assets/images/loading-logo.png')
 
-    if (game.gameModule === null) {
+    if (!game.gameModule) {
       this.gameDataFailure()
     } else if (typeof game.gameModule === 'string') {
       let gameData = this.load.json('gameData', 'assets/data/' + game.gameModule + '.json')

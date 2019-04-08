@@ -44,8 +44,8 @@ if (testing === 'true') {
   waitForGameData().then((response) => {
     game.gameModule = JSON.parse(response)
     game.state.start('Boot')
-  }).catch((response) => {
-    console.log('Error loading module: ' + response)
+  }).catch((error) => {
+    console.log(error)
     game.state.start('Boot')
   })
 } else {
@@ -160,8 +160,19 @@ function waitForGameData () {
     }, 10000)
 
     window.onmessage = function (message) {
-      clearTimeout(timer)
-      resolve(message.data)
+      if (checkGameModule(message)) {
+        clearTimeout(timer)
+        resolve(message.data)
+      }
     }
   })
+}
+
+function checkGameModule (data) {
+  try {
+    let gameData = JSON.parse(data)
+    if (gameData && typeof gameData === 'object') return true
+  } catch (e) {}
+
+  return false
 }
