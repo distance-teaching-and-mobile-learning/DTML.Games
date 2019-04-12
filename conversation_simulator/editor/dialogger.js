@@ -881,7 +881,8 @@ joint.shapes.dialogue.Start = joint.shapes.devs.Model.extend({
       rightYOffset: null,
       rightX: null,
       rightY: null,
-      backgrounds: [null]
+      backgrounds: [null],
+      phraseCorrection: true
     },
     joint.shapes.dialogue.Base.prototype.defaults
   )
@@ -938,6 +939,7 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Y Offset:</span><input type="text" class="rightYOffset collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="rightX collapseDelete" style="width:38px" placeHolder="175"></span><span class="collapseDelete" style="width:33%; float:left; clear:right;">y: <input type="text" class="rightY collapseDelete" style="width:38px" placeHolder="340"></span></div>'),
       $('<hr class="collapseDelete">'),
+      $('<div class="collapseDelete"><span class="collapseDelete">Phrase Corrections</span><input class="collapseDelete, phraseCorrections" type="checkbox" style="float:right; width:20px;"></div>'),
       $('<p><span class="collapseDelete">Backgrounds</span> <button class="removeBackground collapseDelete">-</button> <button class="addBackground collapseDelete">+</button></p>'),
       $('</div>')
     ]
@@ -976,6 +978,7 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     this.$box.find('input.rightYOffset').val(this.model.get('rightYOffset'))
     this.$box.find('input.rightX').val(this.model.get('rightX'))
     this.$box.find('input.rightY').val(this.model.get('rightY'))
+    this.$box.find('input.phraseCorrections').prop('checked', this.model.get('phraseCorrections'))
 
     // Bind fields to data
     this.$box.find('input.leftCharacter').on('change', _.bind(function (evt) { this.model.set('leftCharacter', $(evt.target).val()) }, this))
@@ -990,6 +993,7 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     this.$box.find('input.rightYOffset').on('change', _.bind(function (evt) { this.model.set('rightYOffset', $(evt.target).val()) }, this))
     this.$box.find('input.rightX').on('change', _.bind(function (evt) { this.model.set('rightX', $(evt.target).val()) }, this))
     this.$box.find('input.rightY').on('change', _.bind(function (evt) { this.model.set('rightY', $(evt.target).val()) }, this))
+    this.$box.find('input.phraseCorrections').on('change', _.bind(function (evt) { this.model.set('phraseCorrections', $(evt.target).prop('checked')) }, this))
     this.$box.find('input.background').on('change', _.bind(function (evt) {
       let backgrounds = this.model.get('backgrounds').slice(0)
       backgrounds[0] = $(evt.target).val()
@@ -1370,6 +1374,7 @@ function convertToGameState (graph) {
       gameState.Setup.CallOutRightX = Number(cell.attributes.rightX) || 175
       gameState.Setup.CallOutRightY = Number(cell.attributes.rightY) || 340
       gameState.Setup.Backgrounds = cell.attributes.backgrounds
+      gameState.Setup.PhraseCorrection = cell.attributes.phraseCorrection
       break
     }
   }
@@ -1611,8 +1616,8 @@ function previewGame () {
   let errors = Validator.getGraphErrors(graph)
   if (errors.length === 0) {
     let gameState = convertToGameState(graph)
-    let url = 'https://dtml.org/games/conversations/index.html?test=true'
-    // let url = 'http://localhost:3000/?test=true'
+    // let url = 'https://dtml.org/games/conversations/index.html?test=true'
+    let url = 'http://localhost:3000/?test=true'
     let previewWindow = window.open(url)
     setTimeout(function () {
       previewWindow.postMessage(JSON.stringify(gameState), '*')

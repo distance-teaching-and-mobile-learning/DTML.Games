@@ -160,7 +160,7 @@ function waitForGameData () {
     }, 10000)
 
     window.onmessage = function (message) {
-      if (checkGameModule(message)) {
+      if (checkGameModule(message.data)) {
         clearTimeout(timer)
         resolve(message.data)
       }

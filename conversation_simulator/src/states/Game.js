@@ -49,7 +49,7 @@ export default class extends Phaser.State {
     this.music = music
     this.steps = game.add.audio('steps')
 
-    this.hintUsed = false
+    this.awardNoPoints = false
 
     this.createSprites()
     let inputW = 650
@@ -321,21 +321,20 @@ export default class extends Phaser.State {
       this.onSelection = false
       this.destroySideMenu()
 
-      var text = this.textBox.value
+      var submittedText = this.textBox.value
       this.textBox.setText('')
 
       if (this.isLeftCharacterSpeaking()) {
         this.leftCharacterStopSpeaking()
       }
-      this.rightCharacterSpeak(text)
+      this.rightCharacterSpeak(submittedText)
 
-      this.stateMachine.submitSolution(text, this.hintUsed, "conversation_"+this.phaserJSON.Setup.Name)
+      this.stateMachine.submitSolution(submittedText, this.awardNoPoints, 'conversation_' + this.phaserJSON.Setup.Name)
 
       this.time.events.add(2500, () => {
         this.timernya = 0
 
         if (this.lastState !== this.stateMachine.currentStateName) {
-
           if (this.leftdonya !== '') {
             if (this.leftdonya === 'in') {
               this.leftCharacter.scale.x = Math.abs(this.leftCharacter.scale.x)
@@ -439,11 +438,12 @@ export default class extends Phaser.State {
 
             this.nextQuestion(
               this.stateMachine.getQuestion(),
-              this.stateMachine.submitSolutionResult
+              this.stateMachine.submitSolutionResult,
+              submittedText
             )
           })
         } else {
-		  dtml.recordGameEnd("conversation_"+this.phaserJSON.Setup.Name, this.scoreText.text, "End");
+          dtml.recordGameEnd('conversation_' + this.phaserJSON.Setup.Name, this.scoreText.text, 'End')
           this.state.start('GameOver', true, false, this.scoreText.text)
         }
       })
@@ -476,32 +476,66 @@ export default class extends Phaser.State {
     this.textBox.setText('')
   }
 
-  nextQuestion (text, submitResult) {
+  nextQuestion (text, submitResult, submittedText) {
     if (text === '') {
-      dtml.recordGameEvent("conversation_"+this.phaserJSON.Setup.Name, "EmptyText", this.stateMachine.getCurrentStateName());
-      this.state.start('GameOver', true, false, this.scoreText.text)	  
+      dtml.recordGameEvent('conversation_' + this.phaserJSON.Setup.Name, 'EmptyText', this.stateMachine.getCurrentStateName())
+      this.state.start('GameOver', true, false, this.scoreText.text)
     }
 
+    // Wrong answer
     if (!submitResult) {
+      console.log('wrong answer')
       this.cekEnter = 1
+
+      // Subtract life
       if (this.patienceRemaining > 1) {
         this.patienceBars[this.patienceRemaining - 1].kill()
         this.patienceRemaining -= 1
       } else {
-
-        dtml.recordGameEvent("conversation_"+this.phaserJSON.Setup.Name, "LivesEnded", this.scoreText.text);
+        dtml.recordGameEvent('conversation_' + this.phaserJSON.Setup.Name, 'LivesEnded', this.scoreText.text);
         this.state.start('GameOver', true, false, this.scoreText.text)
         return
       }
-	  
-      var submitFailureText = "I'm sorry, I didn't understand you..."
-      this.leftCharacterSpeak(submitFailureText)
-      this.time.events.add(5000, () => {
-        this.rightCharacter.setAnimationSpeedPercent(100)
-        this.rightCharacter.playAnimationByName('_IDLE')
 
-        this.nextQuestion(this.stateMachine.getQuestion(), true)
-      })
+      // Phrase suggestion is first deteremined by the state's settings, then by the global setting
+      let suggestPhrase = this.stateMachine.currentState.SuggestPhrase
+      if (suggestPhrase === undefined) suggestPhrase = this.phaserJSON.Setup.PhraseCorrection
+      // Check for suggested phrase
+      if (window.navigator.onLine && suggestPhrase) {
+        this.showThoughtDots()
+        let solutions = this.removeScoresFromSolutions(this.stateMachine.currentState.Solutions)
+        // Get a reference to this class to get around scoping issues
+        let _this = this
+        dtml.getSuggestedPath(this.phaserJSON.Setup.Name, this.stateMachine.getCurrentStateName(), submittedText.trim(), solutions,
+          function (response) {
+            _this.clearThoughtDots()
+            // Fake a good response from the server
+            // response = {}
+            // response.data = 'Visit Set'
+            // Offer a suggestion to the player
+            if (response.data) {
+              let name = response.data
+              let currentState = _this.stateMachine.getCurrentStateName()
+              let shortestSolution = _this.stateMachine.getShortestSolution()
+              let formattedSolution = _this.stateMachine.formatSolution(shortestSolution)
+              let question = 'Did you mean: "' + formattedSolution + '"?'
+              let answerWords = ['Yes', 'No'].concat(formattedSolution.split(' '))
+              let solutions = {
+                'yes': { 'Next': name },
+                'default': { 'Next': currentState }
+              }
+              solutions[shortestSolution] = { 'Next': name }
+              solutions['yes ' + shortestSolution] = { 'Next': name }
+              let suggestionState = _this.stateMachine.createState(question, answerWords, solutions, false, false)
+              _this.stateMachine.setCurrentState(name, suggestionState)
+              _this.nextQuestion(_this.stateMachine.getQuestion(), true)
+            } else {
+              _this.repeatCurrentQuestion()
+            }
+          })
+        return
+      }
+      this.repeatCurrentQuestion()
       return
     }
 
@@ -645,6 +679,16 @@ export default class extends Phaser.State {
     })
   }
 
+  repeatCurrentQuestion () {
+    var submitFailureText = "I'm sorry, I didn't understand you..."
+    this.leftCharacterSpeak(submitFailureText)
+    this.time.events.add(5000, () => {
+      this.rightCharacter.setAnimationSpeedPercent(100)
+      this.rightCharacter.playAnimationByName('_IDLE')
+      this.nextQuestion(this.stateMachine.getQuestion(), true)
+    })
+  }
+
   leftCharacterSpeak (text) {
     // If the left character is already talking then stop them
     if (this.isLeftCharacterSpeaking()) {
@@ -665,16 +709,40 @@ export default class extends Phaser.State {
         wordWrap: true,
         wordWrapWidth: 300
       }
-    )	
-	
-	let timer = this.timeToSpeak(text);
-    this.leftCharacterLabel.anchor.setTo(0.5);
-	
+    )
+
+    let timer = this.timeToSpeak(text)
+    this.leftCharacterLabel.anchor.setTo(0.5)
+
     this.leftCharacterSpeechTimer = this.time.events.add(timer, () => {
       this.leftCharacter.playAnimationByName('_IDLE')
       this.leftCharacterLabel.kill()
       this.leftCharacterLabel = null
     })
+  }
+
+  // Show dots over the left character's head
+  showThoughtDots () {
+    let callOutX = this.leftCharacter.x - parseInt(this.phaserJSON.Setup.CallOutLeftX)
+    let callOutY = this.leftCharacter.y - parseInt(this.phaserJSON.Setup.CallOutLeftY)
+
+    this.leftCharacterLabel = this.game.add.text(
+      this.leftCharacter.x,
+      callOutY,
+      '...',
+      {
+        font: '60px Berkshire Swash',
+        fill: '#000',
+        align: 'center',
+        wordWrap: true,
+        wordWrapWidth: 300
+      }
+    )
+  }
+
+  clearThoughtDots () {
+    this.leftCharacterLabel.destroy()
+    this.leftCharacterLabel = null
   }
   
   timeToSpeak(text) {
@@ -706,8 +774,8 @@ export default class extends Phaser.State {
     }
   }
 
-  repeatQuestion (sprite) { 
-	dtml.recordGameEvent("conversation_"+this.phaserJSON.Setup.Name, "repeat", this.stateMachine.getCurrentStateName());
+  repeatQuestion (sprite) {
+    dtml.recordGameEvent('conversation_' + this.phaserJSON.Setup.Name, 'repeat', this.stateMachine.getCurrentStateName())
     this.leftCharacterSpeak(
       this.stateMachine.getQuestion()
     )
@@ -715,16 +783,11 @@ export default class extends Phaser.State {
 
   showHint () {
     // Get the shortest possible solution with a positive score
-    let shortestSolution = null
-    for (var key in this.stateMachine.currentState.Solutions) {
-        if (key !='default' && (!shortestSolution || key.split(' ').length < shortestSolution.split(' ').length)) {
-          shortestSolution = key;
-      }
-    }
+    let shortestSolution = this.stateMachine.getShortestSolution()
 
     if (shortestSolution && shortestSolution.length > 0) {	  
-	   console.log(shortestSolution);
-	   dtml.recordGameEvent("conversation_"+this.phaserJSON.Setup.Name, "hint", this.stateMachine.getCurrentStateName());
+      console.log(shortestSolution)
+      dtml.recordGameEvent('conversation_' + this.phaserJSON.Setup.Name, 'hint', this.stateMachine.getCurrentStateName());
       // Remove words that aren't in the shortest solution
       for (let i = this.listView.items.length - 1; i >= 0; i--) {
         let parentGroup = this.listView.items[i]
@@ -737,7 +800,7 @@ export default class extends Phaser.State {
       }
 
       // Flag that we used a hint so we get no score
-      this.hintUsed = true
+      this.awardNoPoints = true
     }
   }
 
@@ -770,7 +833,12 @@ export default class extends Phaser.State {
 
   createSideMenu () {
     this.onSelection = true
-    this.hintUsed = false
+
+    if (this.stateMachine.currentState.awardPoints === true || this.stateMachine.currentState.awardPoints === undefined) {
+      this.awardNoPoints = false
+    } else {
+      this.awardNoPoints = true
+    }
 
     this.sidemenu = this.game.add.sprite(
       this.game.width,
@@ -866,5 +934,14 @@ export default class extends Phaser.State {
 	let entity = spriter._entities["_items"][0].name;
 	
     return new Spriter.SpriterGroup(game, spriter, key, entity)
+  }
+
+  // Removes the score property from a table of solutions
+  removeScoresFromSolutions (solutions) {
+    let shearedSolutions = {}
+    for (let entry in solutions) {
+      shearedSolutions[entry] = solutions[entry]['Next']
+    }
+    return shearedSolutions
   }
 }

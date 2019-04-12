@@ -125,6 +125,16 @@ export default class {
     return this._submitSolutionResult
   }
 
+  getShortestSolution () {
+    let shortestSolution = null
+    for (var key in this.currentState.Solutions) {
+      if (key !== 'default' && (!shortestSolution || key.split(' ').length < shortestSolution.split(' ').length)) {
+        shortestSolution = key
+      }
+    }
+    return shortestSolution
+  }
+
   isNumber (o) {
     return (
       typeof o === 'number' ||
@@ -132,7 +142,7 @@ export default class {
     )
   }
 
-  submitSolution (solutionPhrase, hintUsed, source) {
+  submitSolution (solutionPhrase, noPoints, source) {
     let normalizedPhrase = solutionPhrase.toLowerCase().trim()
 
     // Find a phrase matching the submitted phrase if one exists
@@ -151,21 +161,21 @@ export default class {
     // Apply score
     dtml.scorePhrase(normalizedPhrase, success, result => {
       if (result) {
-        this.scoreSolution(solution, result, hintUsed)
+        this.scoreSolution(solution, result, noPoints)
       } else {
         let score = this.currentState.Solutions[solution].Score || this.currentState.Solutions[solution].scoreadjustment
         if (this.isNumber(score)) {
-          this.scoreSolution(solution, score, hintUsed)
+          this.scoreSolution(solution, score, noPoints)
         }
       }
     }, source, this.getCurrentStateName())
   }
 
-  scoreSolution (solution, score, hintUsed) {
+  scoreSolution (solution, score, noPoints) {
     if (solution !== undefined) {
       let nextState = this.currentState.Solutions[solution].Next
       this.submitSolutionResult = true
-      if (score > 0 && !hintUsed && !this.userContext.hasSolutionBeenUsed(this.getCurrentStateName(), solution)) {
+      if (score > 0 && !noPoints && !this.userContext.hasSolutionBeenUsed(this.getCurrentStateName(), solution)) {
         this.score += score
       }
       // Save state/answer so it can't be used again for points
@@ -176,8 +186,18 @@ export default class {
         this.stateData.States[nextState]
       )
     } else {
-      this.submitSolutionResult = false
-      this.score -= 10
+      // If there is a default next state then it doesn't count as a failure
+      if (this.currentState.Solutions['default'].Next !== null) {
+        this.submitSolutionResult = true
+        let nextState = this.currentState.Solutions['default'].Next
+        this.setCurrentState(
+          nextState,
+          this.stateData.States[nextState]
+        )
+      } else {
+        this.submitSolutionResult = false
+        this.score -= 10
+      }
     }
   }
 
@@ -230,5 +250,28 @@ export default class {
       }
     }
     return split
+  }
+
+  createState (question, answerWords, solutions, awardPoints, suggestPhrase) {
+    let newState = {}
+    newState.Question = question
+    newState.AnswerWords = answerWords
+    newState.Solutions = solutions
+    if (awardPoints === undefined) awardPoints = true
+    newState.AwardPoints = awardPoints
+    if (suggestPhrase === undefined) suggestPhrase = false
+    newState.SuggestPhrase = suggestPhrase
+    return newState
+  }
+
+  // Takes a solution from game data and formats into conversational english eg: i need [some] time => I need time
+  formatSolution (solution) {
+    let splitWords = solution.split(' ')
+    for (let i = 0; i < splitWords.length; i++) {
+      splitWords[i] = splitWords[i].replace('[', '')
+      splitWords[i] = splitWords[i].replace(']', '')
+      if (splitWords[i] === 'i') splitWords[i] = 'I'
+    }
+    return splitWords.join(' ')
   }
 }
