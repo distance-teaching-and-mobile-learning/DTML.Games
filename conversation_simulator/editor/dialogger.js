@@ -950,18 +950,23 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     this.$box.find('input,select').on('mousedown click', function (evt) { evt.stopPropagation() })
 
     // Populate voice list
-    for (let i = 0; i < voiceList.length; i++) {
-      let voice = voiceList[i]
-      this.$box.find('select.leftVoice').append($('<option>', {
-        value: voice.name,
-        text: voice.name,
-      }))
+    this.$box.find('select.leftVoice').append($('<option>', {
+      value: 'female',
+      text: 'female'
+    }))
+    this.$box.find('select.leftVoice').append($('<option>', {
+      value: 'male',
+      text: 'male'
+    }))
 
-      this.$box.find('select.rightVoice').append($('<option>', {
-        value: voice.name,
-        text: voice.name,
-      }))
-    }
+    this.$box.find('select.rightVoice').append($('<option>', {
+      value: 'female',
+      text: 'female'
+    }))
+    this.$box.find('select.rightVoice').append($('<option>', {
+      value: 'male',
+      text: 'male'
+    }))
 
     // Fill in values
     this.$box.find('input.gameName').val(this.model.get('gameName'))
@@ -1001,8 +1006,8 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     }, this))
 
     // Buttons
-    this.$box.find('.testLeftVoice').on('click', _.bind(function () { this.textToSpeech('This is the left character\'s voice', this.model.get('leftVoice'), this.model.get('leftPitch')) }, this))
-    this.$box.find('.testRightVoice').on('click', _.bind(function () { this.textToSpeech('This is the right character\'s voice', this.model.get('rightVoice'), this.model.get('rightPitch')) }, this))
+    this.$box.find('.testLeftVoice').on('click', _.bind(function () { this.textToSpeech('This is the left character\'s voice', this.getVoiceFromGender(this.model.get('leftVoice')), this.model.get('leftPitch')) }, this))
+    this.$box.find('.testRightVoice').on('click', _.bind(function () { this.textToSpeech('This is the right character\'s voice', this.getVoiceFromGender(this.model.get('rightVoice')), this.model.get('rightPitch')) }, this))
     this.$box.find('.addBackground').on('click', _.bind(this.addBackground, this))
     this.$box.find('.removeBackground').on('click', _.bind(this.removeBackground, this))
 
@@ -1088,6 +1093,7 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
   },
 
   textToSpeech (text, voice, pitch) {
+    console.log(voice)
     if (voice) {
       try {
         if (speechSynthesis.speaking) {
@@ -1110,6 +1116,18 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
         }
       } catch (e) {
         console.log(e)
+      }
+    }
+  },
+
+  getVoiceFromGender (gender) {
+    if (gender === 'male') {
+      for (let i = 0; i < voiceList.length; i++) {
+        if (voiceList[i].name.search('David') !== -1) return voiceList[i].name
+      }
+    } else {
+      for (let i = 0; i < voiceList.length; i++) {
+        if (voiceList[i].name.search('Zira') !== -1) return voiceList[i].name
       }
     }
   }

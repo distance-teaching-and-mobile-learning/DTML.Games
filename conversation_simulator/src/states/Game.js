@@ -28,9 +28,11 @@ export default class extends Phaser.State {
     this.cursors = game.input.keyboard.createCursorKeys()
     this.phaserJSON = game.gameModule
     
-	dtml.initVoices();
-	this.leftCharacterVoice = this.phaserJSON.Setup.LeftVoice;
-    this.rightCharacterVoice = this.phaserJSON.Setup.RightVoice;
+    dtml.initVoices()
+    this.leftCharacterVoice = this.getVoiceFromGender(this.phaserJSON.Setup.LeftVoice)
+    this.rightCharacterVoice = this.getVoiceFromGender(this.phaserJSON.Setup.RightVoice)
+    console.log(this.leftCharacterVoice)
+    console.log(this.rightCharacterVoice)
 
     this.language = this.game.state.states['Game']._language
     this.langCode = this.game.state.states['Game']._langCode
@@ -697,7 +699,7 @@ export default class extends Phaser.State {
 
     this.leftCharacter.setAnimationSpeedPercent(100)
     this.leftCharacter.playAnimationByName('_SAY')
-    dtml.textToSpeech(text, this.phaserJSON.Setup.LeftVoice, this.phaserJSON.Setup.LeftPitch)
+    dtml.textToSpeech(text, this.leftCharacterVoice, this.phaserJSON.Setup.LeftPitch)
     this.leftCharacterLabel = this.game.add.text(
       this.leftCharacter.x - parseInt(this.phaserJSON.Setup.CallOutLeftX),
       this.leftCharacter.y - parseInt(this.phaserJSON.Setup.CallOutLeftY),
@@ -943,5 +945,17 @@ export default class extends Phaser.State {
       shearedSolutions[entry] = solutions[entry]['Next']
     }
     return shearedSolutions
+  }
+
+  getVoiceFromGender (gender) {
+    if (gender === 'male') {
+      for (let i = 0; i < dtml.listOfVoices.length; i++) {
+        if (dtml.listOfVoices[i].name.search('David') !== -1) return dtml.listOfVoices[i].name
+      }
+    } else {
+      for (let i = 0; i < dtml.listOfVoices.length; i++) {
+        if (dtml.listOfVoices[i].name.search('Zira') !== -1) return dtml.listOfVoices[i].name
+      }
+    }
   }
 }
