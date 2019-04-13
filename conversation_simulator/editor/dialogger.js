@@ -3,6 +3,7 @@ import './lib/jquery.contextMenu.css'
 import './lib/jquery.contextMenu.js'
 import './lib/jquery.ui.position.js'
 import Validator from './validator.js'
+import CharacterList from './characterList.json'
 
 function getURLParameter (name) {
   return (
@@ -869,13 +870,13 @@ joint.shapes.dialogue.Start = joint.shapes.devs.Model.extend({
       expanded: false,
       gameName: '',
       gameTitle: '',
-      leftCharacter: null,
+      leftCharacter: CharacterList[0],
       leftVoice: null,
       leftPitch: 0,
       leftYOffset: null,
       leftX: null,
       leftY: null,
-      rightCharacter: null,
+      rightCharacter: CharacterList[0],
       rightVoice: null,
       rightPitch: 0,
       rightYOffset: null,
@@ -926,14 +927,14 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
       $('<div style="display:block">'),
       $('<hr class="collapseDelete">'),
       $('<p><span class="collapseDelete" style="pa">Left Character</span></p>'),
-      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Character:</span><input type="text" class="leftCharacter collapseDelete" style="width:50%; float:right; clear:right;" /></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Character:</span><select class="leftCharacter collapseDelete" style="width: 50%; float:right; clear:right;"></select></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><button class="testLeftVoice" style="background:none;float:left">' + viewTemplates.speaker + '</button><span class="collapseDelete" style="width:40%; float:left;">Voice:</span><select class="leftVoice collapseDelete" style="width: 50%; float:right; clear:right;"></select></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Pitch:</span><input type="text" class="leftPitch collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Y Offset:</span><input type="text" class="leftYOffset collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="leftX collapseDelete" style="width:38px" placeHolder="205"></span><span class="collapseDelete" style="width:33%; float:left; clear:right;">y: <input type="text" class="leftY collapseDelete" style="width:38px" placeHolder="350"></span></div>'),
       $('<hr class="collapseDelete">'),
       $('<p><span class="collapseDelete">Right Character</span></p>'),
-      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Character:</span><input type="text" class="rightCharacter collapseDelete" style="width:50%; float:right; clear:right;" /></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Character:</span><select class="rightCharacter collapseDelete" style="width: 50%; float:right; clear:right;"></select></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><button class="testRightVoice" style="background:none;float:left">' + viewTemplates.speaker + '</button><span class="collapseDelete" style="width:40%; float:left;">Voice:</span><select class="rightVoice collapseDelete" style="width: 50%; float:left; clear:right;"></select></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Pitch:</span><input type="text" class="rightPitch collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Y Offset:</span><input type="text" class="rightYOffset collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
@@ -949,7 +950,19 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     })
     this.$box.find('input,select').on('mousedown click', function (evt) { evt.stopPropagation() })
 
-    // Populate voice list
+    // Populate character lists
+    for (let i = 0; i < CharacterList.length; i++) {
+      this.$box.find('select.leftCharacter').append($('<option>', {
+        value: CharacterList[i],
+        text: CharacterList[i]
+      }))
+      this.$box.find('select.rightCharacter').append($('<option>', {
+        value: CharacterList[i],
+        text: CharacterList[i]
+      }))
+    }
+
+    // Populate voice lists
     this.$box.find('select.leftVoice').append($('<option>', {
       value: 'female',
       text: 'female'
@@ -958,7 +971,6 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
       value: 'male',
       text: 'male'
     }))
-
     this.$box.find('select.rightVoice').append($('<option>', {
       value: 'female',
       text: 'female'
@@ -986,13 +998,13 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     this.$box.find('input.phraseCorrections').prop('checked', this.model.get('phraseCorrections'))
 
     // Bind fields to data
-    this.$box.find('input.leftCharacter').on('change', _.bind(function (evt) { this.model.set('leftCharacter', $(evt.target).val()) }, this))
+    this.$box.find('select.leftCharacter').on('change', _.bind(function (evt) { this.model.set('leftCharacter', $(evt.target).val()) }, this))
     this.$box.find('select.leftVoice').on('change', _.bind(function (evt) { this.model.set('leftVoice', $(evt.target).val()) }, this))
     this.$box.find('input.leftPitch').on('change', _.bind(function (evt) { this.model.set('leftPitch', $(evt.target).val()) }, this))
     this.$box.find('input.leftYOffset').on('change', _.bind(function (evt) { this.model.set('leftYOffset', $(evt.target).val()) }, this))
     this.$box.find('input.leftX').on('change', _.bind(function (evt) { this.model.set('leftX', $(evt.target).val()) }, this))
     this.$box.find('input.leftY').on('change', _.bind(function (evt) { this.model.set('leftY', $(evt.target).val()) }, this))
-    this.$box.find('input.rightCharacter').on('change', _.bind(function (evt) { this.model.set('rightCharacter', $(evt.target).val()) }, this))
+    this.$box.find('select.rightCharacter').on('change', _.bind(function (evt) { this.model.set('rightCharacter', $(evt.target).val()) }, this))
     this.$box.find('select.rightVoice').on('change', _.bind(function (evt) { this.model.set('rightVoice', $(evt.target).val()) }, this))
     this.$box.find('input.rightPitch').on('change', _.bind(function (evt) { this.model.set('rightPitch', $(evt.target).val()) }, this))
     this.$box.find('input.rightYOffset').on('change', _.bind(function (evt) { this.model.set('rightYOffset', $(evt.target).val()) }, this))
