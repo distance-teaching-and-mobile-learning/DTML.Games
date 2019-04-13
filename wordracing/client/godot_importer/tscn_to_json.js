@@ -35,6 +35,16 @@ const built_in_functions = {
         const params = str.split('(')[1].split(')')[0];
         return params.split(',').map(value => value.trim()).map(parseFloat)
     },
+    Rect2: (/** @type {string} */str) => {
+        const params_str = str.split('(')[1].split(')')[0];
+        const params = params_str.split(',').map(value => value.trim()).map(parseFloat)
+        return {
+            x: params[0],
+            y: params[1],
+            width: params[2],
+            height: params[3],
+        };
+    },
 };
 
 /**
@@ -1136,10 +1146,20 @@ module.exports.convert_scenes = (/** @type {string} */scene_root_url_p) => {
 
                 // Add instance data to the Scene node
                 for (let k in res) {
+                    if (k === 'prop') {
+                        for (let prop_k in res[k]) {
+                            if (res[k][prop_k] !== undefined) {
+                                node[prop_k] = res[k][prop_k];
+                            }
+                        }
+                    }
                     if (res[k] !== undefined) {
                         node[k] = res[k];
                     }
                 }
+
+                delete node.prop;
+                delete node.index;
             }
 
             // Check whether we have script exported properties

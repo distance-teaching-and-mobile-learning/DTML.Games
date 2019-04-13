@@ -207,7 +207,7 @@ export default class WebGLRenderer extends SystemRenderer {
         this.state.reset_to_default();
 
         this.root_render_target = new RenderTarget(gl, this.width, this.height, null, this.resolution, true);
-        this.root_render_target.clearColor = this._background_color_rgba;
+        this.root_render_target.clear_color = this._background_color_rgba;
 
         this.bind_render_target(this.root_render_target);
 
@@ -426,14 +426,23 @@ export default class WebGLRenderer extends SystemRenderer {
      * Changes the current render target to the one given in parameter
      *
      * @param {RenderTarget} render_target - the new render target
+     * @param {boolean} [ignore_canvas_xform] - if true canvas xform are not appended
      */
-    bind_render_target(render_target) {
+    bind_render_target(render_target, ignore_canvas_xform = false) {
         if (render_target !== this._active_render_target) {
             this._active_render_target = render_target;
-            render_target.activate();
-        }
 
-        this.stencil_manager.set_mask_stack(render_target.stencil_mask_stack);
+            if (!ignore_canvas_xform) {
+                render_target.transform = this.current_projection_matrix;
+            }
+            render_target.activate();
+
+            if (this._active_shader) {
+                this._active_shader.uniforms.projection_matrix = render_target.projection_matrix.to_array(true);
+            }
+
+            this.stencil_manager.set_mask_stack(render_target.stencil_mask_stack);
+        }
 
         return this;
     }
