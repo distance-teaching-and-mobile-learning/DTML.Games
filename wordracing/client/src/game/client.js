@@ -25,3 +25,15 @@ export function set_name(name) {
 export function get_name() {
     return the_name;
 }
+
+/** @type {string} */
+let the_lang = null;
+/**
+ * @param {string} lang
+ */
+export function set_lang(lang) {
+    the_lang = lang;
+}
+export function get_lang() {
+    return the_lang;
+}

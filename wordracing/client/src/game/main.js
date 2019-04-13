@@ -16,8 +16,9 @@ import 'engine/scene/physics/enable';
 import Preloader from 'game/preloader/preloader';
 
 import 'game/menu/menu';
+import 'game/demo/demo';
 import 'game/racing/racing';
-import Main from 'game/demo/demo';
+import Main from 'game/menu/menu';
 
 // Settings exported from Godot
 import Settings from 'project.json';

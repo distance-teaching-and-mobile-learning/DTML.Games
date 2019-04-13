@@ -4,7 +4,7 @@ import { dtml } from 'dtml-sdk';
 
 import Input from 'game/demo/input';
 import Car from './car';
-import { get_room, get_client, get_name } from 'game/client';
+import { get_room, get_client, get_name, get_lang } from 'game/client';
 
 class Player {
     /**
@@ -39,7 +39,7 @@ export default class Racing extends v.Node2D {
         super();
 
         // config
-        this.lang_code = 'zh';
+        this.lang_code = '';
 
         // state
         this.curr_level = 0;
@@ -116,6 +116,8 @@ export default class Racing extends v.Node2D {
 
         // network
         this.setup_sync(get_room());
+
+        this.lang_code = get_lang();
 
         // load data from server
         await this.fetch_next_set();
