@@ -27,16 +27,20 @@ export default class extends Phaser.State {
   create () {
     this.cursors = game.input.keyboard.createCursorKeys()
     this.phaserJSON = game.gameModule
-    
+
     dtml.initVoices()
-    this.leftCharacterVoice = this.getVoiceFromGender(this.phaserJSON.Setup.LeftVoice)
-    this.rightCharacterVoice = this.getVoiceFromGender(this.phaserJSON.Setup.RightVoice)
+    this.leftCharacterVoice = this.getVoiceFromGender(
+      this.phaserJSON.Setup.LeftVoice
+    )
+    this.rightCharacterVoice = this.getVoiceFromGender(
+      this.phaserJSON.Setup.RightVoice
+    )
     console.log(this.leftCharacterVoice)
     console.log(this.rightCharacterVoice)
 
     this.language = this.game.state.states['Game']._language
     this.langCode = this.game.state.states['Game']._langCode
-	
+
     let startingBackground = this.stateMachine.getOnEnterBg() || 1
     this.bg = new Background({ game: this.game }, startingBackground)
 
@@ -221,7 +225,8 @@ export default class extends Phaser.State {
     this.spritesGroup = this.add.group()
     this.leftCharacter = this.loadSpriter('leftCharacter')
     this.leftCharacter.x = -200 * game.scaleRatio
-    this.leftCharacter.y = this.world.height - 470 + parseInt(this.phaserJSON.Setup.LeftAddY)
+    this.leftCharacter.y =
+      this.world.height - 470 + parseInt(this.phaserJSON.Setup.LeftAddY)
     this.spritesGroup.add(this.leftCharacter)
 
     this.rightCharacter = this.loadSpriter('rightCharacter')
@@ -231,7 +236,8 @@ export default class extends Phaser.State {
     })
     this.rightCharacter.x = game.width + 180 * game.scaleRatio
     this.rightCharacter.startx = this.world.width * 0.75 * game.scaleRatio
-    this.rightCharacter.y = this.world.height - 460 + parseInt(this.phaserJSON.Setup.RightAddY)
+    this.rightCharacter.y =
+      this.world.height - 460 + parseInt(this.phaserJSON.Setup.RightAddY)
     this.rightCharacter.setAnimationSpeedPercent(100)
     this.rightCharacter.playAnimationByName('_IDLE')
     this.spritesGroup.add(this.rightCharacter)
@@ -256,12 +262,12 @@ export default class extends Phaser.State {
         this.patienceBarsGroup = this.add.group()
         this.patienceBars = new Array(numberOfPatienceBars)
 
-		 //Populate bar with hearts which indicate number of lives	
-		 for (let j = 1; j < numberOfPatienceBars+1; j++) {			 
-		   var heart = game.make.sprite(90*(j-1), 0, 'patienceBar'+j)
-		   this.patienceBarsGroup.add(heart)
-		   this.patienceBars[numberOfPatienceBars-j] = heart
-		 }
+        // Populate bar with hearts which indicate number of lives
+        for (let j = 1; j < numberOfPatienceBars + 1; j++) {
+          var heart = game.make.sprite(90 * (j - 1), 0, 'patienceBar' + j)
+          this.patienceBarsGroup.add(heart)
+          this.patienceBars[numberOfPatienceBars - j] = heart
+        }
 
         this.patienceBarsGroup.x = this.world.width * 0.1
         this.patienceBarsGroup.y = this.game.world.centerY * 0.1 - 15
@@ -306,12 +312,12 @@ export default class extends Phaser.State {
   }
 
   submitSolution () {
-    this.lastState = this.stateMachine.currentStateName
-    this.leftnya = this.stateMachine.getOnExitLeft() || ''
-    this.rightnya = this.stateMachine.getOnExitRight() || ''
-    this.bgnya = this.stateMachine.getOnExitBg() || ''
-    this.leftdonya = this.stateMachine.getOnExitLeftDo() || ''
-    this.rightdonya = this.stateMachine.getOnExitRightDo() || ''
+    let lastState = this.stateMachine.currentStateName
+    let leftAnimation = this.stateMachine.getOnExitLeft() || ''
+    let rightAnimation = this.stateMachine.getOnExitRight() || ''
+    let background = this.stateMachine.getOnExitBg() || ''
+    let leftDirection = this.stateMachine.getOnExitLeftDo() || ''
+    let rightDirection = this.stateMachine.getOnExitRightDo() || ''
 
     if (this.textBox.value.length > 0) {
       this.deleteButton.visible = false
@@ -331,14 +337,18 @@ export default class extends Phaser.State {
       }
       this.rightCharacterSpeak(submittedText)
 
-      this.stateMachine.submitSolution(submittedText, this.awardNoPoints, 'conversation_' + this.phaserJSON.Setup.Name)
+      this.stateMachine.submitSolution(
+        submittedText,
+        this.awardNoPoints,
+        'conversation_' + this.phaserJSON.Setup.Name
+      )
 
       this.time.events.add(2500, () => {
         this.timernya = 0
 
-        if (this.lastState !== this.stateMachine.currentStateName) {
-          if (this.leftdonya !== '') {
-            if (this.leftdonya === 'in') {
+        if (lastState !== this.stateMachine.currentStateName) {
+          if (leftDirection !== '') {
+            if (leftDirection === 'in') {
               this.leftCharacter.scale.x = Math.abs(this.leftCharacter.scale.x)
               this.leftCharacter.x = -300 * game.scaleRatio
               game.add
@@ -356,7 +366,7 @@ export default class extends Phaser.State {
                 })
             }
 
-            if (this.leftdonya === 'out') {
+            if (leftDirection === 'out') {
               this.leftCharacter.scale.x = -Math.abs(this.leftCharacter.scale.x)
               this.leftCharacter.x = this.world.width * 0.4 * game.scaleRatio
               game.add
@@ -375,9 +385,11 @@ export default class extends Phaser.State {
             }
           }
 
-          if (this.rightdonya !== '') {
-            if (this.rightdonya === 'in') {
-              this.rightCharacter.scale.x = -Math.abs(this.rightCharacter.scale.x)
+          if (rightDirection !== '') {
+            if (rightDirection === 'in') {
+              this.rightCharacter.scale.x = -Math.abs(
+                this.rightCharacter.scale.x
+              )
               this.rightCharacter.x = game.width + 180 * game.scaleRatio
               game.add
                 .tween(this.rightCharacter)
@@ -395,8 +407,10 @@ export default class extends Phaser.State {
                 })
             }
 
-            if (this.rightdonya === 'out') {
-              this.rightCharacter.scale.x = Math.abs(this.rightCharacter.scale.x)
+            if (rightDirection === 'out') {
+              this.rightCharacter.scale.x = Math.abs(
+                this.rightCharacter.scale.x
+              )
               this.rightCharacter.x = this.world.width * 0.7 * game.scaleRatio
               game.add
                 .tween(this.rightCharacter)
@@ -415,18 +429,18 @@ export default class extends Phaser.State {
             }
           }
 
-          if (this.leftnya !== '') {
-            this.leftCharacter.playAnimationByName(this.leftnya)
+          if (leftAnimation !== '') {
+            this.leftCharacter.playAnimationByName(leftAnimation)
             this.timernya = 2000
           }
 
-          if (this.rightnya !== '') {
-            this.rightCharacter.playAnimationByName(this.rightnya)
+          if (rightAnimation !== '') {
+            this.rightCharacter.playAnimationByName(rightAnimation)
             this.timernya = 2000
           }
 
-          if (this.bgnya !== '') {
-            this.bg.gameBackground.loadTexture('bg' + this.bgnya)
+          if (background !== '') {
+            this.bg.gameBackground.loadTexture('bg' + background)
           }
         }
 
@@ -445,7 +459,11 @@ export default class extends Phaser.State {
             )
           })
         } else {
-          dtml.recordGameEnd('conversation_' + this.phaserJSON.Setup.Name, this.scoreText.text, 'End')
+          dtml.recordGameEnd(
+            'conversation_' + this.phaserJSON.Setup.Name,
+            this.scoreText.text,
+            'End'
+          )
           this.state.start('GameOver', true, false, this.scoreText.text)
         }
       })
@@ -455,7 +473,11 @@ export default class extends Phaser.State {
   rightCharacterSpeak (text) {
     this.rightCharacter.setAnimationSpeedPercent(100)
     this.rightCharacter.playAnimationByName('_SAY')
-    dtml.textToSpeech(text, this.rightCharacterVoice, this.phaserJSON.Setup.RightPitch)
+    dtml.textToSpeech(
+      text,
+      this.rightCharacterVoice,
+      this.phaserJSON.Setup.RightPitch
+    )
     let label = this.game.add.text(
       this.rightCharacter.x + parseInt(this.phaserJSON.Setup.CallOutRightX),
       this.rightCharacter.y - parseInt(this.phaserJSON.Setup.CallOutRightY),
@@ -480,13 +502,16 @@ export default class extends Phaser.State {
 
   nextQuestion (text, submitResult, submittedText) {
     if (text === '') {
-      dtml.recordGameEvent('conversation_' + this.phaserJSON.Setup.Name, 'EmptyText', this.stateMachine.getCurrentStateName())
+      dtml.recordGameEvent(
+        'conversation_' + this.phaserJSON.Setup.Name,
+        'EmptyText',
+        this.stateMachine.getCurrentStateName()
+      )
       this.state.start('GameOver', true, false, this.scoreText.text)
     }
 
     // Wrong answer
     if (!submitResult) {
-      console.log('wrong answer')
       this.cekEnter = 1
 
       // Subtract life
@@ -494,21 +519,31 @@ export default class extends Phaser.State {
         this.patienceBars[this.patienceRemaining - 1].kill()
         this.patienceRemaining -= 1
       } else {
-        dtml.recordGameEvent('conversation_' + this.phaserJSON.Setup.Name, 'LivesEnded', this.scoreText.text);
+        dtml.recordGameEvent(
+          'conversation_' + this.phaserJSON.Setup.Name,
+          'LivesEnded',
+          this.scoreText.text
+        )
         this.state.start('GameOver', true, false, this.scoreText.text)
         return
       }
 
       // Phrase suggestion is first deteremined by the state's settings, then by the global setting
       let suggestPhrase = this.stateMachine.currentState.SuggestPhrase
-      if (suggestPhrase === undefined) suggestPhrase = this.phaserJSON.Setup.PhraseCorrection
+      if (suggestPhrase === undefined) { suggestPhrase = this.phaserJSON.Setup.PhraseCorrection }
       // Check for suggested phrase
       if (window.navigator.onLine && suggestPhrase) {
         this.showThoughtDots()
-        let solutions = this.removeScoresFromSolutions(this.stateMachine.currentState.Solutions)
+        let solutions = this.removeScoresFromSolutions(
+          this.stateMachine.currentState.Solutions
+        )
         // Get a reference to this class to get around scoping issues
         let _this = this
-        dtml.getSuggestedPath(this.phaserJSON.Setup.Name, this.stateMachine.getCurrentStateName(), submittedText.trim(), solutions,
+        dtml.getSuggestedPath(
+          this.phaserJSON.Setup.Name,
+          this.stateMachine.getCurrentStateName(),
+          submittedText.trim(),
+          solutions,
           function (response) {
             _this.clearThoughtDots()
             // Fake a good response from the server
@@ -519,22 +554,33 @@ export default class extends Phaser.State {
               let name = response.data
               let currentState = _this.stateMachine.getCurrentStateName()
               let shortestSolution = _this.stateMachine.getShortestSolution()
-              let formattedSolution = _this.stateMachine.formatSolution(shortestSolution)
+              let formattedSolution = _this.stateMachine.formatSolution(
+                shortestSolution
+              )
               let question = 'Did you mean: "' + formattedSolution + '"?'
-              let answerWords = ['Yes', 'No'].concat(formattedSolution.split(' '))
+              let answerWords = ['Yes', 'No'].concat(
+                formattedSolution.split(' ')
+              )
               let solutions = {
-                'yes': { 'Next': name },
-                'default': { 'Next': currentState }
+                yes: { Next: name },
+                default: { Next: currentState }
               }
-              solutions[shortestSolution] = { 'Next': name }
-              solutions['yes ' + shortestSolution] = { 'Next': name }
-              let suggestionState = _this.stateMachine.createState(question, answerWords, solutions, false, false)
+              solutions[shortestSolution] = { Next: name }
+              solutions['yes ' + shortestSolution] = { Next: name }
+              let suggestionState = _this.stateMachine.createState(
+                question,
+                answerWords,
+                solutions,
+                false,
+                false
+              )
               _this.stateMachine.setCurrentState(name, suggestionState)
               _this.nextQuestion(_this.stateMachine.getQuestion(), true)
             } else {
               _this.repeatCurrentQuestion()
             }
-          })
+          }
+        )
         return
       }
       this.repeatCurrentQuestion()
@@ -543,14 +589,14 @@ export default class extends Phaser.State {
 
     this.timernya = 0
     if (this.cekEnter === 0) {
-      this.leftnya = this.stateMachine.getOnEnterLeft() || ''
-      this.rightnya = this.stateMachine.getOnEnterRight() || ''
-      this.bgnya = this.stateMachine.getOnEnterBg() || ''
-      this.leftdonya = this.stateMachine.getOnEnterLeftDo() || ''
-      this.rightdonya = this.stateMachine.getOnEnterRightDo() || ''
+      let leftAnimation = this.stateMachine.getOnEnterLeft() || ''
+      let rightAnimation = this.stateMachine.getOnEnterRight() || ''
+      let background = this.stateMachine.getOnEnterBg() || ''
+      let leftDirection = this.stateMachine.getOnEnterLeftDo() || ''
+      let rightDirection = this.stateMachine.getOnEnterRightDo() || ''
 
-      if (this.leftdonya !== '') {
-        if (this.leftdonya === 'in') {
+      if (leftDirection !== '') {
+        if (leftDirection === 'in') {
           this.leftCharacter.scale.x = Math.abs(this.leftCharacter.scale.x)
           this.leftCharacter.x = -300 * game.scaleRatio
           game.add
@@ -568,7 +614,7 @@ export default class extends Phaser.State {
             })
         }
 
-        if (this.leftdonya === 'out') {
+        if (leftDirection === 'out') {
           this.leftCharacter.scale.x = -Math.abs(this.leftCharacter.scale.x)
           this.leftCharacter.x = this.world.width * 0.4 * game.scaleRatio
           game.add
@@ -587,8 +633,8 @@ export default class extends Phaser.State {
         }
       }
 
-      if (this.rightdonya !== '') {
-        if (this.rightdonya === 'in') {
+      if (rightDirection !== '') {
+        if (rightDirection === 'in') {
           this.rightCharacter.scale.x = -Math.abs(this.rightCharacter.scale.x)
           this.rightCharacter.x = game.width + 180 * game.scaleRatio
           game.add
@@ -606,7 +652,7 @@ export default class extends Phaser.State {
             })
         }
 
-        if (this.rightdonya === 'out') {
+        if (rightDirection === 'out') {
           this.rightCharacter.scale.x = Math.abs(this.rightCharacter.scale.x)
           this.rightCharacter.x = this.world.width * 0.7 * game.scaleRatio
           game.add
@@ -626,13 +672,13 @@ export default class extends Phaser.State {
         }
       }
 
-      if (this.leftnya !== '') {
-        this.leftCharacter.playAnimationByName(this.leftnya)
+      if (leftAnimation !== '') {
+        this.leftCharacter.playAnimationByName(leftAnimation)
         this.timernya = 2000
       }
 
-      if (this.rightnya !== '') {
-        if (this.rightnya === 'BringFood') {
+      if (rightAnimation !== '') {
+        if (rightAnimation === 'BringFood') {
           this.rightCharacter.scale.x *= -1
           this.rightCharacter.playAnimationByName('_WALK')
           game.add
@@ -652,16 +698,16 @@ export default class extends Phaser.State {
 
           this.timernya = 2000
         } else {
-          this.rightCharacter.playAnimationByName(this.rightnya)
+          this.rightCharacter.playAnimationByName(rightAnimation)
           this.timernya = 2000
         }
       }
 
-      if (this.bgnya !== '') {
-        this.bg.gameBackground.loadTexture('bg' + this.bgnya)
+      if (background !== '') {
+        this.bg.gameBackground.loadTexture('bg' + background)
       }
     }
-	
+
     this.time.events.add(this.timernya, () => {
       this.leftCharacterSpeak(text)
 
@@ -699,7 +745,11 @@ export default class extends Phaser.State {
 
     this.leftCharacter.setAnimationSpeedPercent(100)
     this.leftCharacter.playAnimationByName('_SAY')
-    dtml.textToSpeech(text, this.leftCharacterVoice, this.phaserJSON.Setup.LeftPitch)
+    dtml.textToSpeech(
+      text,
+      this.leftCharacterVoice,
+      this.phaserJSON.Setup.LeftPitch
+    )
     this.leftCharacterLabel = this.game.add.text(
       this.leftCharacter.x - parseInt(this.phaserJSON.Setup.CallOutLeftX),
       this.leftCharacter.y - parseInt(this.phaserJSON.Setup.CallOutLeftY),
@@ -725,8 +775,10 @@ export default class extends Phaser.State {
 
   // Show dots over the left character's head
   showThoughtDots () {
-    let callOutX = this.leftCharacter.x - parseInt(this.phaserJSON.Setup.CallOutLeftX)
-    let callOutY = this.leftCharacter.y - parseInt(this.phaserJSON.Setup.CallOutLeftY)
+    let callOutX =
+      this.leftCharacter.x - parseInt(this.phaserJSON.Setup.CallOutLeftX)
+    let callOutY =
+      this.leftCharacter.y - parseInt(this.phaserJSON.Setup.CallOutLeftY)
 
     this.leftCharacterLabel = this.game.add.text(
       this.leftCharacter.x,
@@ -746,22 +798,22 @@ export default class extends Phaser.State {
     this.leftCharacterLabel.destroy()
     this.leftCharacterLabel = null
   }
-  
-  timeToSpeak(text) {
-	/*
-	An auctioneer speaks at 250 words per minute. 
-	Henry Kissinger, in public interviews, speaks at a rate of 90 words per minute. 
+
+  timeToSpeak (text) {
+    /*
+	An auctioneer speaks at 250 words per minute.
+	Henry Kissinger, in public interviews, speaks at a rate of 90 words per minute.
 	An ideal rate for a face-to-face pitch or conversation is 190 words per minute.
 	Assuming 2 words per second with minimun of 4 seconds.
 	*/
-	
-	let speedOfSpeach = 2; // 2 words per second
-	let minLenght = 4; // 4 seconds
-	
-	let words = text.split(' ').length;
-	let timetospeak = words / speedOfSpeach;
-	timetospeak = timetospeak > minLenght ? timetospeak : minLenght;
-	return timetospeak * 1000;
+
+    let speedOfSpeach = 2 // 2 words per second
+    let minLenght = 4 // 4 seconds
+
+    let words = text.split(' ').length
+    let timetospeak = words / speedOfSpeach
+    timetospeak = timetospeak > minLenght ? timetospeak : minLenght
+    return timetospeak * 1000
   }
 
   leftCharacterStopSpeaking () {
@@ -777,24 +829,35 @@ export default class extends Phaser.State {
   }
 
   repeatQuestion (sprite) {
-    dtml.recordGameEvent('conversation_' + this.phaserJSON.Setup.Name, 'repeat', this.stateMachine.getCurrentStateName())
-    this.leftCharacterSpeak(
-      this.stateMachine.getQuestion()
+    dtml.recordGameEvent(
+      'conversation_' + this.phaserJSON.Setup.Name,
+      'repeat',
+      this.stateMachine.getCurrentStateName()
     )
+    this.leftCharacterSpeak(this.stateMachine.getQuestion())
   }
 
   showHint () {
     // Get the shortest possible solution with a positive score
     let shortestSolution = this.stateMachine.getShortestSolution()
 
-    if (shortestSolution && shortestSolution.length > 0) {	  
+    if (shortestSolution && shortestSolution.length > 0) {
       console.log(shortestSolution)
-      dtml.recordGameEvent('conversation_' + this.phaserJSON.Setup.Name, 'hint', this.stateMachine.getCurrentStateName());
+      dtml.recordGameEvent(
+        'conversation_' + this.phaserJSON.Setup.Name,
+        'hint',
+        this.stateMachine.getCurrentStateName()
+      )
       // Remove words that aren't in the shortest solution
       for (let i = this.listView.items.length - 1; i >= 0; i--) {
         let parentGroup = this.listView.items[i]
         for (let j = 0; j < parentGroup.length; j++) {
-          if (parentGroup.getChildAt(j).text && !shortestSolution.split(' ').includes(parentGroup.getChildAt(j).text.toLowerCase())) {
+          if (
+            parentGroup.getChildAt(j).text &&
+            !shortestSolution
+              .split(' ')
+              .includes(parentGroup.getChildAt(j).text.toLowerCase())
+          ) {
             this.listView.remove(parentGroup)
             parentGroup.destroy(true)
           }
@@ -836,7 +899,10 @@ export default class extends Phaser.State {
   createSideMenu () {
     this.onSelection = true
 
-    if (this.stateMachine.currentState.awardPoints === true || this.stateMachine.currentState.awardPoints === undefined) {
+    if (
+      this.stateMachine.currentState.awardPoints === true ||
+      this.stateMachine.currentState.awardPoints === undefined
+    ) {
       this.awardNoPoints = false
     } else {
       this.awardNoPoints = true
@@ -915,7 +981,6 @@ export default class extends Phaser.State {
     }
 
     this.listView.items[this.selection].frame = 1
-
   }
 
   destroySideMenu () {
@@ -924,7 +989,7 @@ export default class extends Phaser.State {
   }
 
   loadSpriter (key) {
-	  console.log(key);
+    console.log(key)
     if (!this.spriterLoader) this.spriterLoader = new Spriter.Loader()
 
     let spriterFile = new Spriter.SpriterXml(
@@ -933,8 +998,8 @@ export default class extends Phaser.State {
 
     // process loaded xml/json and create internal Spriter objects - these data can be used repeatly for many instances of the same animation
     let spriter = this.spriterLoader.load(spriterFile)
-	let entity = spriter._entities["_items"][0].name;
-	
+    let entity = spriter._entities['_items'][0].name
+
     return new Spriter.SpriterGroup(game, spriter, key, entity)
   }
 
@@ -950,11 +1015,11 @@ export default class extends Phaser.State {
   getVoiceFromGender (gender) {
     if (gender === 'male') {
       for (let i = 0; i < dtml.listOfVoices.length; i++) {
-        if (dtml.listOfVoices[i].name.search('David') !== -1) return dtml.listOfVoices[i].name
+        if (dtml.listOfVoices[i].name.search('David') !== -1) { return dtml.listOfVoices[i].name }
       }
     } else {
       for (let i = 0; i < dtml.listOfVoices.length; i++) {
-        if (dtml.listOfVoices[i].name.search('Zira') !== -1) return dtml.listOfVoices[i].name
+        if (dtml.listOfVoices[i].name.search('Zira') !== -1) { return dtml.listOfVoices[i].name }
       }
     }
   }
