@@ -1611,7 +1611,7 @@ function groupModuleVersions (moduleList) {
 
 function getStatusText (statusNumber) {
   switch (statusNumber) {
-    case 1: return 'active'
+    case 3: return 'active'
     default: return 'draft'
   }
 }
