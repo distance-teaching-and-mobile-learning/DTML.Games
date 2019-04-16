@@ -206,6 +206,12 @@ Node styles
 
 }
 
+.node input[type="checkbox"]
+{
+	/* Enable interacting with inputs only. */
+	pointer-events: auto;	
+}
+
 
 .node textarea 
 {

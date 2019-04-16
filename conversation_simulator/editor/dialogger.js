@@ -3,6 +3,7 @@ import './lib/jquery.contextMenu.css'
 import './lib/jquery.contextMenu.js'
 import './lib/jquery.ui.position.js'
 import Validator from './validator.js'
+import CharacterList from './characterList.json'
 
 function getURLParameter (name) {
   return (
@@ -869,19 +870,20 @@ joint.shapes.dialogue.Start = joint.shapes.devs.Model.extend({
       expanded: false,
       gameName: '',
       gameTitle: '',
-      leftCharacter: null,
+      leftCharacter: CharacterList[0],
       leftVoice: null,
       leftPitch: 0,
       leftYOffset: null,
       leftX: null,
       leftY: null,
-      rightCharacter: null,
+      rightCharacter: CharacterList[0],
       rightVoice: null,
       rightPitch: 0,
       rightYOffset: null,
       rightX: null,
       rightY: null,
-      backgrounds: [null]
+      backgrounds: [null],
+      phraseCorrection: true
     },
     joint.shapes.dialogue.Base.prototype.defaults
   )
@@ -925,19 +927,20 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
       $('<div style="display:block">'),
       $('<hr class="collapseDelete">'),
       $('<p><span class="collapseDelete" style="pa">Left Character</span></p>'),
-      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Character:</span><input type="text" class="leftCharacter collapseDelete" style="width:50%; float:right; clear:right;" /></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Character:</span><select class="leftCharacter collapseDelete" style="width: 50%; float:right; clear:right;"></select></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><button class="testLeftVoice" style="background:none;float:left">' + viewTemplates.speaker + '</button><span class="collapseDelete" style="width:40%; float:left;">Voice:</span><select class="leftVoice collapseDelete" style="width: 50%; float:right; clear:right;"></select></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Pitch:</span><input type="text" class="leftPitch collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Y Offset:</span><input type="text" class="leftYOffset collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="leftX collapseDelete" style="width:38px" placeHolder="205"></span><span class="collapseDelete" style="width:33%; float:left; clear:right;">y: <input type="text" class="leftY collapseDelete" style="width:38px" placeHolder="350"></span></div>'),
       $('<hr class="collapseDelete">'),
       $('<p><span class="collapseDelete">Right Character</span></p>'),
-      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Character:</span><input type="text" class="rightCharacter collapseDelete" style="width:50%; float:right; clear:right;" /></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Character:</span><select class="rightCharacter collapseDelete" style="width: 50%; float:right; clear:right;"></select></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><button class="testRightVoice" style="background:none;float:left">' + viewTemplates.speaker + '</button><span class="collapseDelete" style="width:40%; float:left;">Voice:</span><select class="rightVoice collapseDelete" style="width: 50%; float:left; clear:right;"></select></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Pitch:</span><input type="text" class="rightPitch collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Y Offset:</span><input type="text" class="rightYOffset collapseDelete" style="width:50%; float:right; clear:right;" placeHolder="0" /></div>'),
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="rightX collapseDelete" style="width:38px" placeHolder="175"></span><span class="collapseDelete" style="width:33%; float:left; clear:right;">y: <input type="text" class="rightY collapseDelete" style="width:38px" placeHolder="340"></span></div>'),
       $('<hr class="collapseDelete">'),
+      $('<div class="collapseDelete"><span class="collapseDelete">Phrase Corrections</span><input class="collapseDelete, phraseCorrections" type="checkbox" style="float:right; width:20px;"></div>'),
       $('<p><span class="collapseDelete">Backgrounds</span> <button class="removeBackground collapseDelete">-</button> <button class="addBackground collapseDelete">+</button></p>'),
       $('</div>')
     ]
@@ -947,19 +950,35 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     })
     this.$box.find('input,select').on('mousedown click', function (evt) { evt.stopPropagation() })
 
-    // Populate voice list
-    for (let i = 0; i < voiceList.length; i++) {
-      let voice = voiceList[i]
-      this.$box.find('select.leftVoice').append($('<option>', {
-        value: voice.name,
-        text: voice.name,
+    // Populate character lists
+    for (let i = 0; i < CharacterList.length; i++) {
+      this.$box.find('select.leftCharacter').append($('<option>', {
+        value: CharacterList[i],
+        text: CharacterList[i]
       }))
-
-      this.$box.find('select.rightVoice').append($('<option>', {
-        value: voice.name,
-        text: voice.name,
+      this.$box.find('select.rightCharacter').append($('<option>', {
+        value: CharacterList[i],
+        text: CharacterList[i]
       }))
     }
+
+    // Populate voice lists
+    this.$box.find('select.leftVoice').append($('<option>', {
+      value: 'female',
+      text: 'female'
+    }))
+    this.$box.find('select.leftVoice').append($('<option>', {
+      value: 'male',
+      text: 'male'
+    }))
+    this.$box.find('select.rightVoice').append($('<option>', {
+      value: 'female',
+      text: 'female'
+    }))
+    this.$box.find('select.rightVoice').append($('<option>', {
+      value: 'male',
+      text: 'male'
+    }))
 
     // Fill in values
     this.$box.find('input.gameName').val(this.model.get('gameName'))
@@ -976,20 +995,22 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     this.$box.find('input.rightYOffset').val(this.model.get('rightYOffset'))
     this.$box.find('input.rightX').val(this.model.get('rightX'))
     this.$box.find('input.rightY').val(this.model.get('rightY'))
+    this.$box.find('input.phraseCorrections').prop('checked', this.model.get('phraseCorrections'))
 
     // Bind fields to data
-    this.$box.find('input.leftCharacter').on('change', _.bind(function (evt) { this.model.set('leftCharacter', $(evt.target).val()) }, this))
+    this.$box.find('select.leftCharacter').on('change', _.bind(function (evt) { this.model.set('leftCharacter', $(evt.target).val()) }, this))
     this.$box.find('select.leftVoice').on('change', _.bind(function (evt) { this.model.set('leftVoice', $(evt.target).val()) }, this))
     this.$box.find('input.leftPitch').on('change', _.bind(function (evt) { this.model.set('leftPitch', $(evt.target).val()) }, this))
     this.$box.find('input.leftYOffset').on('change', _.bind(function (evt) { this.model.set('leftYOffset', $(evt.target).val()) }, this))
     this.$box.find('input.leftX').on('change', _.bind(function (evt) { this.model.set('leftX', $(evt.target).val()) }, this))
     this.$box.find('input.leftY').on('change', _.bind(function (evt) { this.model.set('leftY', $(evt.target).val()) }, this))
-    this.$box.find('input.rightCharacter').on('change', _.bind(function (evt) { this.model.set('rightCharacter', $(evt.target).val()) }, this))
+    this.$box.find('select.rightCharacter').on('change', _.bind(function (evt) { this.model.set('rightCharacter', $(evt.target).val()) }, this))
     this.$box.find('select.rightVoice').on('change', _.bind(function (evt) { this.model.set('rightVoice', $(evt.target).val()) }, this))
     this.$box.find('input.rightPitch').on('change', _.bind(function (evt) { this.model.set('rightPitch', $(evt.target).val()) }, this))
     this.$box.find('input.rightYOffset').on('change', _.bind(function (evt) { this.model.set('rightYOffset', $(evt.target).val()) }, this))
     this.$box.find('input.rightX').on('change', _.bind(function (evt) { this.model.set('rightX', $(evt.target).val()) }, this))
     this.$box.find('input.rightY').on('change', _.bind(function (evt) { this.model.set('rightY', $(evt.target).val()) }, this))
+    this.$box.find('input.phraseCorrections').on('change', _.bind(function (evt) { this.model.set('phraseCorrections', $(evt.target).prop('checked')) }, this))
     this.$box.find('input.background').on('change', _.bind(function (evt) {
       let backgrounds = this.model.get('backgrounds').slice(0)
       backgrounds[0] = $(evt.target).val()
@@ -997,8 +1018,8 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     }, this))
 
     // Buttons
-    this.$box.find('.testLeftVoice').on('click', _.bind(function () { this.textToSpeech('This is the left character\'s voice', this.model.get('leftVoice'), this.model.get('leftPitch')) }, this))
-    this.$box.find('.testRightVoice').on('click', _.bind(function () { this.textToSpeech('This is the right character\'s voice', this.model.get('rightVoice'), this.model.get('rightPitch')) }, this))
+    this.$box.find('.testLeftVoice').on('click', _.bind(function () { this.textToSpeech('This is the left character\'s voice', this.getVoiceFromGender(this.model.get('leftVoice')), this.model.get('leftPitch')) }, this))
+    this.$box.find('.testRightVoice').on('click', _.bind(function () { this.textToSpeech('This is the right character\'s voice', this.getVoiceFromGender(this.model.get('rightVoice')), this.model.get('rightPitch')) }, this))
     this.$box.find('.addBackground').on('click', _.bind(this.addBackground, this))
     this.$box.find('.removeBackground').on('click', _.bind(this.removeBackground, this))
 
@@ -1084,6 +1105,7 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
   },
 
   textToSpeech (text, voice, pitch) {
+    console.log(voice)
     if (voice) {
       try {
         if (speechSynthesis.speaking) {
@@ -1106,6 +1128,18 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
         }
       } catch (e) {
         console.log(e)
+      }
+    }
+  },
+
+  getVoiceFromGender (gender) {
+    if (gender === 'male') {
+      for (let i = 0; i < voiceList.length; i++) {
+        if (voiceList[i].name.search('David') !== -1) return voiceList[i].name
+      }
+    } else {
+      for (let i = 0; i < voiceList.length; i++) {
+        if (voiceList[i].name.search('Zira') !== -1) return voiceList[i].name
       }
     }
   }
@@ -1370,6 +1404,7 @@ function convertToGameState (graph) {
       gameState.Setup.CallOutRightX = Number(cell.attributes.rightX) || 175
       gameState.Setup.CallOutRightY = Number(cell.attributes.rightY) || 340
       gameState.Setup.Backgrounds = cell.attributes.backgrounds
+      gameState.Setup.PhraseCorrection = cell.attributes.phraseCorrection
       break
     }
   }
@@ -1550,9 +1585,35 @@ function getModuleList () {
 function updateRemoteModuleList () {
   getModuleList().then(function (data) {
     remoteModules = JSON.parse(data)
+    remoteModules = groupModuleVersions(remoteModules)
   }).catch(function (error) {
     console.log(error + ' - Could not load remote game modules')
   })
+}
+
+// Groups different versions of the same module into arrays
+function groupModuleVersions (moduleList) {
+  let groupedModules = {}
+  // Group modules with the same name
+  for (let i = 0; i < moduleList.length; i++) {
+    let name = moduleList[i]['Name']
+    if (!groupedModules[name]) {
+      groupedModules[name] = []
+    }
+    groupedModules[name].push(moduleList[i])
+  }
+  // Sort groups by version number
+  for (let i = 0; i < groupedModules.length; i++) {
+    groupedModules[i].sort()
+  }
+  return groupedModules
+}
+
+function getStatusText (statusNumber) {
+  switch (statusNumber) {
+    case 1: return 'active'
+    default: return 'draft'
+  }
 }
 
 function add (constructor) {
@@ -1586,7 +1647,6 @@ function previewGame () {
   if (errors.length === 0) {
     let gameState = convertToGameState(graph)
     let url = 'https://dtml.org/games/conversations/index.html?test=true'
-    // let url = 'http://localhost:3000/?test=true'
     let previewWindow = window.open(url)
     setTimeout(function () {
       previewWindow.postMessage(JSON.stringify(gameState), '*')
@@ -1793,10 +1853,16 @@ $(function () {
       updateRemoteModuleList()
       let remoteModuleOptions = {}
       if (remoteModules) {
-        for (let i = 0; i < remoteModules.length; i++) {
-          remoteModuleOptions[i] = {
-            'name': remoteModules[i].Name,
-            'callback': function () { importRemoteFile(remoteModules[i].Name, remoteModules[i].Version) }
+        for (let moduleGroup in remoteModules) {
+          remoteModuleOptions[moduleGroup] = {
+            'name': remoteModules[moduleGroup][0].Name,
+            'items': {}
+          }
+          for (let i = 0; i < remoteModules[moduleGroup].length; i++) {
+            remoteModuleOptions[moduleGroup]['items'][i] = {
+              'name': 'Version ' + remoteModules[moduleGroup][i]['Version'] + ' (' + getStatusText(remoteModules[moduleGroup][i]['Status']) + ')',
+              'callback': function () { importRemoteFile(remoteModules[moduleGroup][i].Name, remoteModules[moduleGroup][i].Version) }
+            }
           }
         }
       }

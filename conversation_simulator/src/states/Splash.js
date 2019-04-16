@@ -30,7 +30,6 @@ export default class extends Phaser.State {
   }
 
   preload () {
- 	
     var phaserJSON = game.gameModule
     this.loaderBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'loaderBar')
     centerGameObjects([this.loaderBar])
@@ -53,11 +52,11 @@ export default class extends Phaser.State {
       })
     }
 
-	console.log("left character:"+phaserJSON.Setup.LeftCharacter.trim())
+    console.log('left character:' + phaserJSON.Setup.LeftCharacter.trim())
     this.load.atlas('leftCharacter', 'assets/images/res/' + phaserJSON.Setup.LeftCharacter.trim() + '/anim.png', 'assets/images/res/' + phaserJSON.Setup.LeftCharacter.trim() + '/anim.json')
-    this.load.xml('leftCharacterAnimations', 'assets/images/res/' + phaserJSON.Setup.LeftCharacter.trim()  + '/anim.scml')
+    this.load.xml('leftCharacterAnimations', 'assets/images/res/' + phaserJSON.Setup.LeftCharacter.trim() + '/anim.scml')
 
-	console.log("right character:"+phaserJSON.Setup.RightCharacter.trim())
+    console.log('right character:' + phaserJSON.Setup.RightCharacter.trim())
     this.load.atlas('rightCharacter', 'assets/images/res/' + phaserJSON.Setup.RightCharacter.trim() + '/anim.png', 'assets/images/res/' + phaserJSON.Setup.RightCharacter.trim() + '/anim.json')
     this.load.xml('rightCharacterAnimations', 'assets/images/res/' + phaserJSON.Setup.RightCharacter.trim() + '/anim.scml')
 
@@ -68,7 +67,6 @@ export default class extends Phaser.State {
     this.load.spritesheet('patienceBar2', 'assets/images/res/lopelope.png', 95, 84)
     this.load.spritesheet('patienceBar1', 'assets/images/res/lopelope.png', 95, 84)
 
-	
     this.load.image('iconAttack', 'assets/images/res/icon-attack.png')
     this.load.image('iconHome', 'assets/images/icon-home.png')
     this.load.image('iconPlay', 'assets/images/res/button-start.png')
@@ -87,6 +85,7 @@ export default class extends Phaser.State {
     this.load.image('bg_depan', 'assets/images/res/bar-mini-depan.png')
     this.load.image('footer', 'assets/images/res/l7_ground.png')
     this.load.image('gameover', 'assets/images/res/endgame.png')
+    this.load.image('speechBubble', 'assets/images/res/callout.png')
 
     // audio
     this.load.audio('click', 'assets/audio/Click.wav')
@@ -95,23 +94,23 @@ export default class extends Phaser.State {
     this.load.spritesheet('sidebg', 'assets/images/res/sidebg.png', 115, 117)
   }
 
-  loadStart() {
-	    console.log('loadStart');
-        this.loadingText = this.add.text(this.game.world.centerX-140, this.game.world.centerY - 140, 'Loading...', {
-            font: '20px Berkshire Swash',
-            fill: '#ffffff'
-        });
-    }
+  loadStart () {
+    console.log('loadStart')
+    this.loadingText = this.add.text(this.game.world.centerX - 140, this.game.world.centerY - 140, 'Loading...', {
+      font: '20px Berkshire Swash',
+      fill: '#ffffff'
+    })
+  }
 
-    fileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {
-		  console.log('Loading: ' + progress + '% - ' + totalLoaded + ' out of ' + totalFiles);
-        this.loadingText.setText('Loading: ' + progress + '% - ' + totalLoaded + ' out of ' + totalFiles);
-    }
+  fileComplete (progress, cacheKey, success, totalLoaded, totalFiles) {
+    console.log('Loading: ' + progress + '% - ' + totalLoaded + ' out of ' + totalFiles)
+    this.loadingText.setText('Loading: ' + progress + '% - ' + totalLoaded + ' out of ' + totalFiles)
+  }
 
   loadComplete () {
     this.time.advancedTiming = true
     let videoDuration = 5
-	console.log('loadComplete');
+    console.log('loadComplete')
     this.time.events.add(Phaser.Timer.SECOND * videoDuration, () => {
       document.querySelector('#intro').style.display = 'none'
       document.querySelector('#content').style.display = 'block'
