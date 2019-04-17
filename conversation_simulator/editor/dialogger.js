@@ -1610,6 +1610,7 @@ function groupModuleVersions (moduleList) {
 }
 
 function getStatusText (statusNumber) {
+	console.log(statusNumber);
   switch (statusNumber) {
     case 3: return 'active'
     default: return 'draft'
@@ -1866,6 +1867,13 @@ $(function () {
           }
         }
       }
+	    else
+		  {
+			remoteModuleOptions["Loading..."] = {
+            'name': "Loading...",
+			}
+		  }
+		  
       return {
         items: {
           'question': { 'name': 'Question', 'callback': add(joint.shapes.dialogue.Question) },
