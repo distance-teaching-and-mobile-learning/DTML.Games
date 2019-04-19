@@ -870,13 +870,13 @@ joint.shapes.dialogue.Start = joint.shapes.devs.Model.extend({
       expanded: false,
       gameName: '',
       gameTitle: '',
-      leftCharacter: CharacterList[0],
+      leftCharacter: null,
       leftVoice: null,
       leftPitch: 0,
       leftYOffset: null,
       leftX: null,
       leftY: null,
-      rightCharacter: CharacterList[0],
+      rightCharacter: null,
       rightVoice: null,
       rightPitch: 0,
       rightYOffset: null,
@@ -983,13 +983,13 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     // Fill in values
     this.$box.find('input.gameName').val(this.model.get('gameName'))
     this.$box.find('input.gameTitle').val(this.model.get('gameTitle'))
-    this.$box.find('input.leftCharacter').val(this.model.get('leftCharacter'))
+    this.$box.find('select.leftCharacter').val(this.model.get('leftCharacter'))
     this.$box.find('select.leftVoice').val(this.model.get('leftVoice'))
     this.$box.find('input.leftPitch').val(this.model.get('leftPitch'))
     this.$box.find('input.leftYOffset').val(this.model.get('leftYOffset'))
     this.$box.find('input.leftX').val(this.model.get('leftX'))
     this.$box.find('input.leftY').val(this.model.get('leftY'))
-    this.$box.find('input.rightCharacter').val(this.model.get('rightCharacter'))
+    this.$box.find('select.rightCharacter').val(this.model.get('rightCharacter'))
     this.$box.find('select.rightVoice').val(this.model.get('rightVoice'))
     this.$box.find('input.rightPitch').val(this.model.get('rightPitch'))
     this.$box.find('input.rightYOffset').val(this.model.get('rightYOffset'))
