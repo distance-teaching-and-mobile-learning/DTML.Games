@@ -523,6 +523,16 @@ export default class extends Phaser.State {
     })
   }
 
+  repeatCurrentQuestion () {
+    var submitFailureText = "I'm sorry, I didn't understand you..."
+    this.leftCharacterSpeak(submitFailureText)
+    this.time.events.add(5000, () => {
+      this.rightCharacter.setAnimationSpeedPercent(100)
+      this.rightCharacter.playAnimationByName('_IDLE')
+      this.nextQuestion(this.stateMachine.getQuestion(), true)
+    })
+  }
+
   leftCharacterSpeak (text) {
     // If the left character is already talking then stop them
     if (this.isLeftCharacterSpeaking()) {
