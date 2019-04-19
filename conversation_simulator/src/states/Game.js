@@ -378,6 +378,7 @@ export default class extends Phaser.State {
             if (suggestPhrase === undefined) { suggestPhrase = this.phaserJSON.Setup.PhraseCorrection }
             // Check for suggested phrase
             if (window.navigator.onLine && suggestPhrase) {
+              this.showThoughtDots()
               this.getSuggestedPath().then(function (response) {
                 if (response !== '') {
                   _this.stateMachine.setCurrentState('Suggestion', response)
@@ -523,16 +524,6 @@ export default class extends Phaser.State {
     })
   }
 
-  repeatCurrentQuestion () {
-    var submitFailureText = "I'm sorry, I didn't understand you..."
-    this.leftCharacterSpeak(submitFailureText)
-    this.time.events.add(5000, () => {
-      this.rightCharacter.setAnimationSpeedPercent(100)
-      this.rightCharacter.playAnimationByName('_IDLE')
-      this.nextQuestion(this.stateMachine.getQuestion(), true)
-    })
-  }
-
   leftCharacterSpeak (text) {
     // If the left character is already talking then stop them
     if (this.isLeftCharacterSpeaking()) {
@@ -571,23 +562,20 @@ export default class extends Phaser.State {
 
   // Show dots over the left character's head
   showThoughtDots () {
+    console.log('Thought dots')
     let callOutX =
       this.leftCharacter.x - parseInt(this.phaserJSON.Setup.CallOutLeftX)
     let callOutY =
       this.leftCharacter.y - parseInt(this.phaserJSON.Setup.CallOutLeftY)
 
-    this.leftCharacterLabel = this.game.add.text(
+    this.leftCharacterLabel = this.game.add.sprite(
       this.leftCharacter.x,
       callOutY,
-      '...',
-      {
-        font: '60px Berkshire Swash',
-        fill: '#000',
-        align: 'center',
-        wordWrap: true,
-        wordWrapWidth: 300
-      }
+      'loadingAnimation'
     )
+    this.leftCharacterLabel.animations.add('spin', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], 60, true)
+    this.leftCharacterLabel.animations.play('spin')
+    this.leftCharacterLabel.anchor.setTo(0.5, 0.5)
   }
 
   clearThoughtDots () {

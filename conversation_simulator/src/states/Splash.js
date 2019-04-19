@@ -92,6 +92,7 @@ export default class extends Phaser.State {
 
     // side menu
     this.load.spritesheet('sidebg', 'assets/images/res/sidebg.png', 115, 117)
+    this.load.spritesheet('loadingAnimation', 'assets/images/loading_animation.png', 100, 100)
   }
 
   loadStart () {
