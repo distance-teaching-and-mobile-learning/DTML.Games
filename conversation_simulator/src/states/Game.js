@@ -379,8 +379,12 @@ export default class extends Phaser.State {
             // Check for suggested phrase
             if (window.navigator.onLine && suggestPhrase) {
               this.getSuggestedPath().then(function (response) {
-                _this.stateMachine.setCurrentState('Suggestion', response)
-                _this.nextQuestion()
+                if (response !== '') {
+                  _this.stateMachine.setCurrentState('Suggestion', response)
+                  _this.nextQuestion()
+                } else {
+                  this.repeatCurrentQuestion()
+                }
               }).catch(function (error) {
                 console.log(error)
                 _this.repeatCurrentQuestion()
@@ -439,7 +443,7 @@ export default class extends Phaser.State {
               )
               resolve(suggestionState)
             } else {
-              resolve()
+              resolve('')
             }
           } else {
             reject(new Error('No suggested state - Got bad response from server'))
