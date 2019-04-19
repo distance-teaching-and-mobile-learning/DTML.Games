@@ -1646,7 +1646,8 @@ function previewGame () {
   let errors = Validator.getGraphErrors(graph)
   if (errors.length === 0) {
     let gameState = convertToGameState(graph)
-    let url = 'https://dtml.org/games/conversations/index.html?test=true'
+    // let url = 'https://dtml.org/games/conversations/index.html?test=true'
+    let url = 'http://localhost:3000/?test=true'
     let previewWindow = window.open(url)
     setTimeout(function () {
       previewWindow.postMessage(JSON.stringify(gameState), '*')
