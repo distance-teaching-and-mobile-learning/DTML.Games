@@ -341,7 +341,7 @@ export default class extends Phaser.State {
           let matchingSolution = this.stateMachine.matchSolution(normalizedSolution)
           if (matchingSolution) {
             // Correct answer
-            if (matchingSolution !== 'default' && !this.stateMachine.checkSolutionUsed(this.stateMachine.getCurrentStateName(), matchingSolution)) {
+            if (matchingSolution !== 'default' && !this.stateMachine.getUserContext().hasSolutionBeenUsed(this.stateMachine.getCurrentStateName(), matchingSolution)) {
               if (!this.awardNoPoints) {
                 this.stateMachine.scoreSolution(normalizedSolution, true, 'conversation_' + this.phaserJSON.Setup.Name).then(function (result) {
                   _this.stateMachine.applyScore(result)
@@ -411,47 +411,49 @@ export default class extends Phaser.State {
         _this.stateMachine.getCurrentStateName(),
         submittedAnswer,
         solutions,
-        function (response) {
-          // Fake a good response from the server
-          // response = {}
-          // response.status = 200
-          // response.data = 'Visit Set'
-          // Offer a suggestion to the player
-          if (response.status === 200) {
-            if (response.data) {
-              let name = response.data
-              let currentState = _this.stateMachine.getCurrentStateName()
-              let shortestSolution = _this.stateMachine.getShortestSolution()
-              let formattedSolution = _this.stateMachine.formatSolution(
-                shortestSolution
-              )
-              let question = 'Did you mean: "' + formattedSolution + '"?'
-              let answerWords = ['Yes', 'No'].concat(
-                formattedSolution.split(' ')
-              )
-              let solutions = {
-                yes: { Next: name },
-                default: { Next: currentState }
-              }
-              solutions[shortestSolution] = { Next: name }
-              solutions['yes ' + shortestSolution] = { Next: name }
-              let suggestionState = _this.stateMachine.createState(
-                question,
-                answerWords,
-                solutions,
-                false,
-                false
-              )
-              resolve(suggestionState)
-            } else {
-              resolve('')
-            }
-          } else {
-            reject(new Error('No suggested state - Got bad response from server'))
-          }
-        }
+        function (response) { _this.interpretSuggestedState(response, resolve, reject) }
       )
     })
+  }
+
+  interpretSuggestedState (response, resolve, reject) {
+    // Fake a good response from the server
+    response = {}
+    response.status = 200
+    response.data = 'Visit Set'
+    // Offer a suggestion to the player
+    if (response.status === 200) {
+      if (response.data) {
+        let name = response.data
+        let currentState = this.stateMachine.getCurrentStateName()
+        let shortestSolution = this.stateMachine.getShortestSolution()
+        let formattedSolution = this.stateMachine.formatSolution(
+          shortestSolution
+        )
+        let question = 'Did you mean: "' + formattedSolution + '"?'
+        let answerWords = ['Yes', 'No'].concat(
+          formattedSolution.split(' ')
+        )
+        let solutions = {
+          yes: { Next: name },
+          default: { Next: currentState }
+        }
+        solutions[shortestSolution] = { Next: name }
+        solutions['yes ' + shortestSolution] = { Next: name }
+        let suggestionState = this.stateMachine.createState(
+          question,
+          answerWords,
+          solutions,
+          false,
+          false
+        )
+        resolve(suggestionState)
+      } else {
+        resolve('')
+      }
+    } else {
+      reject(new Error('No suggested state - Got bad response from server'))
+    }
   }
 
   rightCharacterSpeak (text) {
@@ -562,7 +564,6 @@ export default class extends Phaser.State {
 
   // Show dots over the left character's head
   showThoughtDots () {
-    console.log('Thought dots')
     let callOutX =
       this.leftCharacter.x - parseInt(this.phaserJSON.Setup.CallOutLeftX)
     let callOutY =
@@ -819,78 +820,21 @@ export default class extends Phaser.State {
 
     if (leftDirection !== '') {
       if (leftDirection === 'in') {
-        this.leftCharacter.scale.x = Math.abs(this.leftCharacter.scale.x)
-        this.leftCharacter.x = -300 * game.scaleRatio
-        game.add
-          .tween(this.leftCharacter)
-          .to(
-            { x: this.world.width * 0.4 * game.scaleRatio },
-            1500,
-            Phaser.Easing.Linear.None,
-            true,
-            0
-          )
-          .onComplete.add(() => {
-            this.leftCharacter.setAnimationSpeedPercent(100)
-            this.leftCharacter.playAnimationByName('_IDLE')
-          })
+        this.walkTo(this.leftCharacter, 'right', -300 * game.scaleRatio, this.world.width * 0.4 * game.scaleRatio, 1500)
       }
 
       if (leftDirection === 'out') {
-        this.leftCharacter.scale.x = -Math.abs(this.leftCharacter.scale.x)
-        this.leftCharacter.x = this.world.width * 0.4 * game.scaleRatio
-        game.add
-          .tween(this.leftCharacter)
-          .to(
-            { x: -300 * game.scaleRatio },
-            1500,
-            Phaser.Easing.Linear.None,
-            true,
-            0
-          )
-          .onComplete.add(() => {
-            this.leftCharacter.setAnimationSpeedPercent(100)
-            this.leftCharacter.playAnimationByName('_IDLE')
-          })
+        this.walkTo(this.leftCharacter, 'left', this.world.width * 0.4 * game.scaleRatio, -300 * game.scaleRatio, 1500)
       }
     }
 
     if (rightDirection !== '') {
       if (rightDirection === 'in') {
-        this.rightCharacter.scale.x = -Math.abs(this.rightCharacter.scale.x)
-        this.rightCharacter.x = game.width + 180 * game.scaleRatio
-        game.add
-          .tween(this.rightCharacter)
-          .to(
-            { x: this.world.width * 0.7 * game.scaleRatio },
-            1500,
-            Phaser.Easing.Linear.None,
-            true,
-            0
-          )
-          .onComplete.add(() => {
-            this.rightCharacter.setAnimationSpeedPercent(100)
-            this.rightCharacter.playAnimationByName('_IDLE')
-          })
+        this.walkTo(this.rightCharacter, 'left', rightDirection, game.width + 180 * game.scaleRatio, this.world.width * 0.7 * game.scaleRatio, 1500)
       }
 
       if (rightDirection === 'out') {
-        this.rightCharacter.scale.x = Math.abs(this.rightCharacter.scale.x)
-        this.rightCharacter.x = this.world.width * 0.7 * game.scaleRatio
-        game.add
-          .tween(this.rightCharacter)
-          .to(
-            { x: game.width + 180 * game.scaleRatio },
-            1500,
-            Phaser.Easing.Linear.None,
-            true,
-            0
-          )
-          .onComplete.add(() => {
-            // this.rightCharacter.scale.x *= -1;
-            this.rightCharacter.setAnimationSpeedPercent(100)
-            this.rightCharacter.playAnimationByName('_IDLE')
-          })
+        this.walkTo(this.rightCharacter, 'right', rightDirection, this.world.width * 0.7 * game.scaleRatio, game.width + 180 * game.scaleRatio, 1500)
       }
     }
 
@@ -900,6 +844,7 @@ export default class extends Phaser.State {
     }
 
     if (rightAnimation !== '') {
+      console.log(rightAnimation)
       if (rightAnimation === 'BringFood') {
         this.rightCharacter.scale.x *= -1
         this.rightCharacter.playAnimationByName('_WALK')
@@ -943,83 +888,21 @@ export default class extends Phaser.State {
     if (lastState !== this.stateMachine.currentStateName) {
       if (leftDirection !== '') {
         if (leftDirection === 'in') {
-          this.leftCharacter.scale.x = Math.abs(this.leftCharacter.scale.x)
-          this.leftCharacter.x = -300 * game.scaleRatio
-          game.add
-            .tween(this.leftCharacter)
-            .to(
-              { x: this.world.width * 0.4 * game.scaleRatio },
-              1500,
-              Phaser.Easing.Linear.None,
-              true,
-              0
-            )
-            .onComplete.add(() => {
-              this.leftCharacter.setAnimationSpeedPercent(100)
-              this.leftCharacter.playAnimationByName('_IDLE')
-            })
+          this.walkTo(this.leftCharacter, 'right', leftDirection, -300 * game.scaleRatio, this.world.width * 0.4 * game.scaleRatio, 1500)
         }
 
         if (leftDirection === 'out') {
-          this.leftCharacter.scale.x = -Math.abs(this.leftCharacter.scale.x)
-          this.leftCharacter.x = this.world.width * 0.4 * game.scaleRatio
-          game.add
-            .tween(this.leftCharacter)
-            .to(
-              { x: -300 * game.scaleRatio },
-              1500,
-              Phaser.Easing.Linear.None,
-              true,
-              0
-            )
-            .onComplete.add(() => {
-              this.leftCharacter.setAnimationSpeedPercent(100)
-              this.leftCharacter.playAnimationByName('_IDLE')
-            })
+          this.walkTo(this.leftCharacter, 'left', this.world.width * 0.4 * game.scaleRatio, -300 * game.scaleRatio, 1500)
         }
       }
 
       if (rightDirection !== '') {
         if (rightDirection === 'in') {
-          this.rightCharacter.scale.x = -Math.abs(
-            this.rightCharacter.scale.x
-          )
-          this.rightCharacter.x = game.width + 180 * game.scaleRatio
-          game.add
-            .tween(this.rightCharacter)
-            .to(
-              { x: this.world.width * 0.7 * game.scaleRatio },
-              1500,
-              Phaser.Easing.Linear.None,
-              true,
-              0
-            )
-            .onComplete.add(() => {
-              // this.rightCharacter.scale.x *= -1;
-              this.rightCharacter.setAnimationSpeedPercent(100)
-              this.rightCharacter.playAnimationByName('_IDLE')
-            })
+          this.walkTo(this.rightCharacter, 'left', game.width + 180 * game.scaleRatio, this.world.width * 0.7 * game.scaleRatio, 1500)
         }
 
         if (rightDirection === 'out') {
-          this.rightCharacter.scale.x = Math.abs(
-            this.rightCharacter.scale.x
-          )
-          this.rightCharacter.x = this.world.width * 0.7 * game.scaleRatio
-          game.add
-            .tween(this.rightCharacter)
-            .to(
-              { x: game.width + 180 * game.scaleRatio },
-              1500,
-              Phaser.Easing.Linear.None,
-              true,
-              0
-            )
-            .onComplete.add(() => {
-              // this.rightCharacter.scale.x *= -1;
-              this.rightCharacter.setAnimationSpeedPercent(100)
-              this.rightCharacter.playAnimationByName('_IDLE')
-            })
+          this.walkTo(this.rightCharacter, 'right', this.world.width * 0.7 * game.scaleRatio, game.width + 180 * game.scaleRatio, 1500)
         }
       }
 
@@ -1041,5 +924,27 @@ export default class extends Phaser.State {
     this.rightCharacter.setAnimationSpeedPercent(100)
     this.rightCharacter.playAnimationByName('_IDLE')
     return animationTimer
+  }
+
+  walkTo (character, direction, startX, endX, time) {
+    if (direction === 'right') {
+      character.scale.x = Math.abs(character.scale.x)
+    } else {
+      character.scale.x = -Math.abs(character.scale.x)
+    }
+    character.x = startX
+    game.add
+      .tween(character)
+      .to(
+        { x: endX },
+        time,
+        Phaser.Easing.Linear.None,
+        true,
+        0
+      )
+      .onComplete.add(() => {
+        character.setAnimationSpeedPercent(100)
+        character.playAnimationByName('_IDLE')
+      })
   }
 }

@@ -675,19 +675,19 @@ joint.shapes.dialogue.QuestionView = joint.shapes.dialogue.BaseView.extend({
       }, this)
     )
     // Enter Left Animation
-    elements[3].on('change', _.bind(function (evt) {
+    elements[4].on('change', _.bind(function (evt) {
       this.model.set('enterLeftAnimation', $(evt.target).val())
     }, this))
     // Enter Left Direction
-    elements[4].on('change', _.bind(function (evt) {
+    elements[5].on('change', _.bind(function (evt) {
       this.model.set('enterLeftDirection', $(evt.target).val())
     }, this))
     // Enter Right Animation
-    elements[6].on('change', _.bind(function (evt) {
+    elements[7].on('change', _.bind(function (evt) {
       this.model.set('enterRightAnimation', $(evt.target).val())
     }, this))
     // Enter Right Direction
-    elements[7].on('change', _.bind(function (evt) {
+    elements[8].on('change', _.bind(function (evt) {
       this.model.set('enterRightDirection', $(evt.target).val())
     }, this))
     // Exit Left Animation
@@ -1611,7 +1611,7 @@ function groupModuleVersions (moduleList) {
 
 function getStatusText (statusNumber) {
   switch (statusNumber) {
-    case 1: return 'active'
+    case 3: return 'active'
     default: return 'draft'
   }
 }

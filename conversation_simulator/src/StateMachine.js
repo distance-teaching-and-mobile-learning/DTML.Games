@@ -1,4 +1,6 @@
 import UserContext from './userContext'
+import PhraseCompare from './phraseCompare'
+const defaultPath = 'default'
 
 export default class {
   constructor (stateData) {
@@ -10,6 +12,7 @@ export default class {
     )
     this.submitSolutionResult = true
     this.userContext = new UserContext()
+    this.default = 'default'
   }
 
   setCurrentState (stateName, stateData) {
@@ -128,7 +131,7 @@ export default class {
   getShortestSolution () {
     let shortestSolution = null
     for (var key in this.currentState.Solutions) {
-      if (key !== 'default' && (!shortestSolution || key.split(' ').length < shortestSolution.split(' ').length)) {
+      if (key !== defaultPath && (!shortestSolution || key.split(' ').length < shortestSolution.split(' ').length)) {
         shortestSolution = key
       }
     }
@@ -153,15 +156,15 @@ export default class {
       if (this.currentState.Solutions.hasOwnProperty(possibleSolution)) {
         let submittedWords = this.splitString(solutionPhrase)
         let solutionWords = this.splitString(possibleSolution)
-        if (possibleSolution !== 'default' && this.compareSolution(submittedWords, solutionWords)) {
+        if (possibleSolution !== defaultPath && PhraseCompare.compareSolution(submittedWords, solutionWords)) {
           solution = possibleSolution
           break
         }
       }
     }
-    if (solution === null) {
+    if (solution === undefined) {
       // Return default if it exists
-      if (this.currentState.Solutions['default']) return 'default'
+      if (this.currentState.Solutions[defaultPath] && this.currentState.Solutions[defaultPath].Next) return defaultPath
     }
     return solution
   }
@@ -195,8 +198,8 @@ export default class {
     this.userContext.markSolution(stateName, solution)
   }
 
-  checkSolutionUsed (stateName, solution) {
-    return this.userContext.hasSolutionBeenUsed(stateName, solution)
+  getUserContext () {
+    return this.userContext
   }
 
   // Goes to the state indicated by the solution
@@ -206,45 +209,6 @@ export default class {
       nextState,
       this.stateData.States[nextState]
     )
-  }
-
-  // Recursively compare a submitted phrase vs a solution phrase
-  compareSolution (submittedWords, solutionWords) {
-    for (let i = 0; i < solutionWords.length; i++) {
-      let phraseLength = 1
-      let solutionWord = solutionWords[i]
-      let optional = (solutionWord[0] === '[' && solutionWord[solutionWord.length - 1] === ']')
-      if (optional) {
-        phraseLength = solutionWord.split(' ').length
-        solutionWord = solutionWord.replace('[', '')
-        solutionWord = solutionWord.replace(']', '')
-      }
-      let checkWord = this.getConcatWords(submittedWords, phraseLength)
-      if (checkWord === solutionWord) {
-        // Matched
-        if (submittedWords.length === phraseLength) {
-          // We've matched the whole phrase
-          return true
-        } else {
-          // There are still more words to match
-          return this.compareSolution(submittedWords.slice(phraseLength), solutionWords.slice(i + 1))
-        }
-      } else if (!optional) {
-        // Not a match and word isn't optional
-        return false
-      }
-    }
-    // Ran out of solution words to try and match
-    return false
-  }
-
-  // Concatonates an amount of words from an array
-  getConcatWords (words, count) {
-    let concatPhrase = words[0]
-    for (let i = 1; i < count; i++) {
-      concatPhrase = concatPhrase.concat(' ', words[i])
-    }
-    return concatPhrase
   }
 
   splitString (input) {
