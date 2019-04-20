@@ -27,16 +27,20 @@ export default class extends Phaser.State {
   create () {
     this.cursors = game.input.keyboard.createCursorKeys()
     this.phaserJSON = game.gameModule
-    
+
     dtml.initVoices()
-    this.leftCharacterVoice = this.getVoiceFromGender(this.phaserJSON.Setup.LeftVoice)
-    this.rightCharacterVoice = this.getVoiceFromGender(this.phaserJSON.Setup.RightVoice)
+    this.leftCharacterVoice = this.getVoiceFromGender(
+      this.phaserJSON.Setup.LeftVoice
+    )
+    this.rightCharacterVoice = this.getVoiceFromGender(
+      this.phaserJSON.Setup.RightVoice
+    )
     console.log(this.leftCharacterVoice)
     console.log(this.rightCharacterVoice)
 
     this.language = this.game.state.states['Game']._language
     this.langCode = this.game.state.states['Game']._langCode
-	
+
     let startingBackground = this.stateMachine.getOnEnterBg() || 1
     this.bg = new Background({ game: this.game }, startingBackground)
 
@@ -45,7 +49,7 @@ export default class extends Phaser.State {
       music.fadeIn(4000)
       this.time.events.add(25000, () => {
         music.fadeOut(4000)
-      })
+      }, this)
     }, this)
 
     this.music = music
@@ -221,7 +225,8 @@ export default class extends Phaser.State {
     this.spritesGroup = this.add.group()
     this.leftCharacter = this.loadSpriter('leftCharacter')
     this.leftCharacter.x = -200 * game.scaleRatio
-    this.leftCharacter.y = this.world.height - 470 + parseInt(this.phaserJSON.Setup.LeftAddY)
+    this.leftCharacter.y =
+      this.world.height - 470 + parseInt(this.phaserJSON.Setup.LeftAddY)
     this.spritesGroup.add(this.leftCharacter)
 
     this.rightCharacter = this.loadSpriter('rightCharacter')
@@ -231,7 +236,8 @@ export default class extends Phaser.State {
     })
     this.rightCharacter.x = game.width + 180 * game.scaleRatio
     this.rightCharacter.startx = this.world.width * 0.75 * game.scaleRatio
-    this.rightCharacter.y = this.world.height - 460 + parseInt(this.phaserJSON.Setup.RightAddY)
+    this.rightCharacter.y =
+      this.world.height - 460 + parseInt(this.phaserJSON.Setup.RightAddY)
     this.rightCharacter.setAnimationSpeedPercent(100)
     this.rightCharacter.playAnimationByName('_IDLE')
     this.spritesGroup.add(this.rightCharacter)
@@ -256,12 +262,12 @@ export default class extends Phaser.State {
         this.patienceBarsGroup = this.add.group()
         this.patienceBars = new Array(numberOfPatienceBars)
 
-		 //Populate bar with hearts which indicate number of lives	
-		 for (let j = 1; j < numberOfPatienceBars+1; j++) {			 
-		   var heart = game.make.sprite(90*(j-1), 0, 'patienceBar'+j)
-		   this.patienceBarsGroup.add(heart)
-		   this.patienceBars[numberOfPatienceBars-j] = heart
-		 }
+        // Populate bar with hearts which indicate number of lives
+        for (let j = 1; j < numberOfPatienceBars + 1; j++) {
+          var heart = game.make.sprite(90 * (j - 1), 0, 'patienceBar' + j)
+          this.patienceBarsGroup.add(heart)
+          this.patienceBars[numberOfPatienceBars - j] = heart
+        }
 
         this.patienceBarsGroup.x = this.world.width * 0.1
         this.patienceBarsGroup.y = this.game.world.centerY * 0.1 - 15
@@ -302,17 +308,10 @@ export default class extends Phaser.State {
   }
 
   ConversationStart () {
-    this.nextQuestion(this.stateMachine.getQuestion(), true)
+    this.nextQuestion()
   }
 
   submitSolution () {
-    this.lastState = this.stateMachine.currentStateName
-    this.leftnya = this.stateMachine.getOnExitLeft() || ''
-    this.rightnya = this.stateMachine.getOnExitRight() || ''
-    this.bgnya = this.stateMachine.getOnExitBg() || ''
-    this.leftdonya = this.stateMachine.getOnExitLeftDo() || ''
-    this.rightdonya = this.stateMachine.getOnExitRightDo() || ''
-
     if (this.textBox.value.length > 0) {
       this.deleteButton.visible = false
       this.enterButton.visible = false
@@ -331,131 +330,140 @@ export default class extends Phaser.State {
       }
       this.rightCharacterSpeak(submittedText)
 
-      this.stateMachine.submitSolution(submittedText, this.awardNoPoints, 'conversation_' + this.phaserJSON.Setup.Name)
-
       this.time.events.add(2500, () => {
-        this.timernya = 0
+        let animationTimer = this.playExitAnimations()
 
-        if (this.lastState !== this.stateMachine.currentStateName) {
-          if (this.leftdonya !== '') {
-            if (this.leftdonya === 'in') {
-              this.leftCharacter.scale.x = Math.abs(this.leftCharacter.scale.x)
-              this.leftCharacter.x = -300 * game.scaleRatio
-              game.add
-                .tween(this.leftCharacter)
-                .to(
-                  { x: this.world.width * 0.4 * game.scaleRatio },
-                  1500,
-                  Phaser.Easing.Linear.None,
-                  true,
-                  0
-                )
-                .onComplete.add(() => {
-                  this.leftCharacter.setAnimationSpeedPercent(100)
-                  this.leftCharacter.playAnimationByName('_IDLE')
+        // Resolve the player's answer
+        this.time.events.add(animationTimer, () => {
+          // Get a reference to this scene to get around scoping issues
+          let _this = this
+          let normalizedSolution = this.stateMachine.normalizeSolution(submittedText)
+          let matchingSolution = this.stateMachine.matchSolution(normalizedSolution)
+          if (matchingSolution) {
+            // Correct answer
+            if (matchingSolution !== 'default' && !this.stateMachine.getUserContext().hasSolutionBeenUsed(this.stateMachine.getCurrentStateName(), matchingSolution)) {
+              if (!this.awardNoPoints) {
+                this.stateMachine.scoreSolution(normalizedSolution, true, 'conversation_' + this.phaserJSON.Setup.Name).then(function (result) {
+                  _this.stateMachine.applyScore(result)
+                }).catch(function (error) {
+                  console.log(error)
                 })
+              }
+              // Mark the solution so it can't be used again for points
+              this.stateMachine.markSolution(this.stateMachine.getCurrentStateName(), matchingSolution)
+            }
+            this.stateMachine.goToNextState(matchingSolution)
+            this.nextQuestion()
+          } else {
+            // Wrong answer
+            // Lose points
+            this.stateMachine.applyScore(-10)
+
+            // Subtract life
+            if (this.patienceRemaining > 1) {
+              this.patienceBars[this.patienceRemaining - 1].kill()
+              this.patienceRemaining -= 1
+            } else {
+              dtml.recordGameEvent(
+                'conversation_' + this.phaserJSON.Setup.Name,
+                'LivesEnded',
+                this.scoreText.text
+              )
+              this.state.start('GameOver', true, false, this.scoreText.text)
+              return
             }
 
-            if (this.leftdonya === 'out') {
-              this.leftCharacter.scale.x = -Math.abs(this.leftCharacter.scale.x)
-              this.leftCharacter.x = this.world.width * 0.4 * game.scaleRatio
-              game.add
-                .tween(this.leftCharacter)
-                .to(
-                  { x: -300 * game.scaleRatio },
-                  1500,
-                  Phaser.Easing.Linear.None,
-                  true,
-                  0
-                )
-                .onComplete.add(() => {
-                  this.leftCharacter.setAnimationSpeedPercent(100)
-                  this.leftCharacter.playAnimationByName('_IDLE')
-                })
+            // Phrase suggestion is first deteremined by the state's settings, then by the global setting
+            let suggestPhrase = this.stateMachine.currentState.SuggestPhrase
+            if (suggestPhrase === undefined) { suggestPhrase = this.phaserJSON.Setup.PhraseCorrection }
+            // Check for suggested phrase
+            if (window.navigator.onLine && suggestPhrase) {
+              this.showThoughtDots()
+              this.getSuggestedPath().then(function (response) {
+                if (response !== '') {
+                  _this.stateMachine.setCurrentState('Suggestion', response)
+                  _this.nextQuestion()
+                } else {
+                  this.repeatCurrentQuestion()
+                }
+              }).catch(function (error) {
+                console.log(error)
+                _this.repeatCurrentQuestion()
+              })
+            } else {
+              // Suggestion phrases turned off
+              this.repeatCurrentQuestion()
             }
           }
+        }, this)
+      }, this)
+    }
+  }
 
-          if (this.rightdonya !== '') {
-            if (this.rightdonya === 'in') {
-              this.rightCharacter.scale.x = -Math.abs(this.rightCharacter.scale.x)
-              this.rightCharacter.x = game.width + 180 * game.scaleRatio
-              game.add
-                .tween(this.rightCharacter)
-                .to(
-                  { x: this.world.width * 0.7 * game.scaleRatio },
-                  1500,
-                  Phaser.Easing.Linear.None,
-                  true,
-                  0
-                )
-                .onComplete.add(() => {
-                  // this.rightCharacter.scale.x *= -1;
-                  this.rightCharacter.setAnimationSpeedPercent(100)
-                  this.rightCharacter.playAnimationByName('_IDLE')
-                })
-            }
+  getSuggestedPath (submittedAnswer) {
+    let _this = this
+    return new Promise(function (resolve, reject) {
+      let solutions = _this.removeScoresFromSolutions(
+        _this.stateMachine.currentState.Solutions
+      )
+      dtml.getSuggestedPath(
+        _this.phaserJSON.Setup.Name,
+        _this.stateMachine.getCurrentStateName(),
+        submittedAnswer,
+        solutions,
+        function (response) { _this.interpretSuggestedState(response, resolve, reject) }
+      )
+    })
+  }
 
-            if (this.rightdonya === 'out') {
-              this.rightCharacter.scale.x = Math.abs(this.rightCharacter.scale.x)
-              this.rightCharacter.x = this.world.width * 0.7 * game.scaleRatio
-              game.add
-                .tween(this.rightCharacter)
-                .to(
-                  { x: game.width + 180 * game.scaleRatio },
-                  1500,
-                  Phaser.Easing.Linear.None,
-                  true,
-                  0
-                )
-                .onComplete.add(() => {
-                  // this.rightCharacter.scale.x *= -1;
-                  this.rightCharacter.setAnimationSpeedPercent(100)
-                  this.rightCharacter.playAnimationByName('_IDLE')
-                })
-            }
-          }
-
-          if (this.leftnya !== '') {
-            this.leftCharacter.playAnimationByName(this.leftnya)
-            this.timernya = 2000
-          }
-
-          if (this.rightnya !== '') {
-            this.rightCharacter.playAnimationByName(this.rightnya)
-            this.timernya = 2000
-          }
-
-          if (this.bgnya !== '') {
-            this.bg.gameBackground.loadTexture('bg' + this.bgnya)
-          }
+  interpretSuggestedState (response, resolve, reject) {
+    // Fake a good response from the server
+    response = {}
+    response.status = 200
+    response.data = 'Visit Set'
+    // Offer a suggestion to the player
+    if (response.status === 200) {
+      if (response.data) {
+        let name = response.data
+        let currentState = this.stateMachine.getCurrentStateName()
+        let shortestSolution = this.stateMachine.getShortestSolution()
+        let formattedSolution = this.stateMachine.formatSolution(
+          shortestSolution
+        )
+        let question = 'Did you mean: "' + formattedSolution + '"?'
+        let answerWords = ['Yes', 'No'].concat(
+          formattedSolution.split(' ')
+        )
+        let solutions = {
+          yes: { Next: name },
+          default: { Next: currentState }
         }
-
-        this.rightCharacter.setAnimationSpeedPercent(100)
-        this.rightCharacter.playAnimationByName('_IDLE')
-
-        // Once the player has said something, the left character should respond
-        if (this.stateMachine.currentStateName !== 'End') {
-          this.time.events.add(this.timernya, () => {
-            this.cekEnter = 0
-
-            this.nextQuestion(
-              this.stateMachine.getQuestion(),
-              this.stateMachine.submitSolutionResult,
-              submittedText
-            )
-          })
-        } else {
-          dtml.recordGameEnd('conversation_' + this.phaserJSON.Setup.Name, this.scoreText.text, 'End')
-          this.state.start('GameOver', true, false, this.scoreText.text)
-        }
-      })
+        solutions[shortestSolution] = { Next: name }
+        solutions['yes ' + shortestSolution] = { Next: name }
+        let suggestionState = this.stateMachine.createState(
+          question,
+          answerWords,
+          solutions,
+          false,
+          false
+        )
+        resolve(suggestionState)
+      } else {
+        resolve('')
+      }
+    } else {
+      reject(new Error('No suggested state - Got bad response from server'))
     }
   }
 
   rightCharacterSpeak (text) {
     this.rightCharacter.setAnimationSpeedPercent(100)
     this.rightCharacter.playAnimationByName('_SAY')
-    dtml.textToSpeech(text, this.rightCharacterVoice, this.phaserJSON.Setup.RightPitch)
+    dtml.textToSpeech(
+      text,
+      this.rightCharacterVoice,
+      this.phaserJSON.Setup.RightPitch
+    )
     let label = this.game.add.text(
       this.rightCharacter.x + parseInt(this.phaserJSON.Setup.CallOutRightX),
       this.rightCharacter.y - parseInt(this.phaserJSON.Setup.CallOutRightY),
@@ -471,214 +479,41 @@ export default class extends Phaser.State {
     label.anchor.setTo(0.5)
     this.time.events.add(2500, function () {
       label.kill()
-    })
+    }, this)
   }
 
   deleteBox () {
     this.textBox.setText('')
   }
 
-  nextQuestion (text, submitResult, submittedText) {
-    if (text === '') {
-      dtml.recordGameEvent('conversation_' + this.phaserJSON.Setup.Name, 'EmptyText', this.stateMachine.getCurrentStateName())
+  nextQuestion () {
+    // End the game
+    if (this.stateMachine.currentStateName === 'End') {
+      dtml.recordGameEnd(
+        'conversation_' + this.phaserJSON.Setup.Name,
+        this.scoreText.text,
+        'End'
+      )
       this.state.start('GameOver', true, false, this.scoreText.text)
     }
 
-    // Wrong answer
-    if (!submitResult) {
-      console.log('wrong answer')
-      this.cekEnter = 1
+    let animationTimer = this.playEntranceAnimations()
 
-      // Subtract life
-      if (this.patienceRemaining > 1) {
-        this.patienceBars[this.patienceRemaining - 1].kill()
-        this.patienceRemaining -= 1
-      } else {
-        dtml.recordGameEvent('conversation_' + this.phaserJSON.Setup.Name, 'LivesEnded', this.scoreText.text);
-        this.state.start('GameOver', true, false, this.scoreText.text)
-        return
-      }
+    this.time.events.add(animationTimer, () => {
+      this.leftCharacterSpeak(this.stateMachine.getQuestion())
 
-      // Phrase suggestion is first deteremined by the state's settings, then by the global setting
-      let suggestPhrase = this.stateMachine.currentState.SuggestPhrase
-      if (suggestPhrase === undefined) suggestPhrase = this.phaserJSON.Setup.PhraseCorrection
-      // Check for suggested phrase
-      if (window.navigator.onLine && suggestPhrase) {
-        this.showThoughtDots()
-        let solutions = this.removeScoresFromSolutions(this.stateMachine.currentState.Solutions)
-        // Get a reference to this class to get around scoping issues
-        let _this = this
-        dtml.getSuggestedPath(this.phaserJSON.Setup.Name, this.stateMachine.getCurrentStateName(), submittedText.trim(), solutions,
-          function (response) {
-            _this.clearThoughtDots()
-            // Fake a good response from the server
-            // response = {}
-            // response.data = 'Visit Set'
-            // Offer a suggestion to the player
-            if (response.data) {
-              let name = response.data
-              let currentState = _this.stateMachine.getCurrentStateName()
-              let shortestSolution = _this.stateMachine.getShortestSolution()
-              let formattedSolution = _this.stateMachine.formatSolution(shortestSolution)
-              let question = 'Did you mean: "' + formattedSolution + '"?'
-              let answerWords = ['Yes', 'No'].concat(formattedSolution.split(' '))
-              let solutions = {
-                'yes': { 'Next': name },
-                'default': { 'Next': currentState }
-              }
-              solutions[shortestSolution] = { 'Next': name }
-              solutions['yes ' + shortestSolution] = { 'Next': name }
-              let suggestionState = _this.stateMachine.createState(question, answerWords, solutions, false, false)
-              _this.stateMachine.setCurrentState(name, suggestionState)
-              _this.nextQuestion(_this.stateMachine.getQuestion(), true)
-            } else {
-              _this.repeatCurrentQuestion()
-            }
-          })
-        return
-      }
-      this.repeatCurrentQuestion()
-      return
-    }
-
-    this.timernya = 0
-    if (this.cekEnter === 0) {
-      this.leftnya = this.stateMachine.getOnEnterLeft() || ''
-      this.rightnya = this.stateMachine.getOnEnterRight() || ''
-      this.bgnya = this.stateMachine.getOnEnterBg() || ''
-      this.leftdonya = this.stateMachine.getOnEnterLeftDo() || ''
-      this.rightdonya = this.stateMachine.getOnEnterRightDo() || ''
-
-      if (this.leftdonya !== '') {
-        if (this.leftdonya === 'in') {
-          this.leftCharacter.scale.x = Math.abs(this.leftCharacter.scale.x)
-          this.leftCharacter.x = -300 * game.scaleRatio
-          game.add
-            .tween(this.leftCharacter)
-            .to(
-              { x: this.world.width * 0.4 * game.scaleRatio },
-              1500,
-              Phaser.Easing.Linear.None,
-              true,
-              0
-            )
-            .onComplete.add(() => {
-              this.leftCharacter.setAnimationSpeedPercent(100)
-              this.leftCharacter.playAnimationByName('_IDLE')
-            })
-        }
-
-        if (this.leftdonya === 'out') {
-          this.leftCharacter.scale.x = -Math.abs(this.leftCharacter.scale.x)
-          this.leftCharacter.x = this.world.width * 0.4 * game.scaleRatio
-          game.add
-            .tween(this.leftCharacter)
-            .to(
-              { x: -300 * game.scaleRatio },
-              1500,
-              Phaser.Easing.Linear.None,
-              true,
-              0
-            )
-            .onComplete.add(() => {
-              this.leftCharacter.setAnimationSpeedPercent(100)
-              this.leftCharacter.playAnimationByName('_IDLE')
-            })
-        }
-      }
-
-      if (this.rightdonya !== '') {
-        if (this.rightdonya === 'in') {
-          this.rightCharacter.scale.x = -Math.abs(this.rightCharacter.scale.x)
-          this.rightCharacter.x = game.width + 180 * game.scaleRatio
-          game.add
-            .tween(this.rightCharacter)
-            .to(
-              { x: this.world.width * 0.7 * game.scaleRatio },
-              1500,
-              Phaser.Easing.Linear.None,
-              true,
-              0
-            )
-            .onComplete.add(() => {
-              this.rightCharacter.setAnimationSpeedPercent(100)
-              this.rightCharacter.playAnimationByName('_IDLE')
-            })
-        }
-
-        if (this.rightdonya === 'out') {
-          this.rightCharacter.scale.x = Math.abs(this.rightCharacter.scale.x)
-          this.rightCharacter.x = this.world.width * 0.7 * game.scaleRatio
-          game.add
-            .tween(this.rightCharacter)
-            .to(
-              { x: game.width + 180 * game.scaleRatio },
-              1500,
-              Phaser.Easing.Linear.None,
-              true,
-              0
-            )
-            .onComplete.add(() => {
-              // this.rightCharacter.scale.x *= -1;
-              this.rightCharacter.setAnimationSpeedPercent(100)
-              this.rightCharacter.playAnimationByName('_IDLE')
-            })
-        }
-      }
-
-      if (this.leftnya !== '') {
-        this.leftCharacter.playAnimationByName(this.leftnya)
-        this.timernya = 2000
-      }
-
-      if (this.rightnya !== '') {
-        if (this.rightnya === 'BringFood') {
-          this.rightCharacter.scale.x *= -1
-          this.rightCharacter.playAnimationByName('_WALK')
-          game.add
-            .tween(this.rightCharacter)
-            .to(
-              { x: this.world.width * 0.7 * game.scaleRatio },
-              1500,
-              Phaser.Easing.Linear.None,
-              true,
-              0
-            )
-            .onComplete.add(() => {
-              // this.rightCharacter.scale.x *= -1;
-              this.rightCharacter.setAnimationSpeedPercent(100)
-              this.rightCharacter.playAnimationByName('_IDLE')
-            })
-
-          this.timernya = 2000
-        } else {
-          this.rightCharacter.playAnimationByName(this.rightnya)
-          this.timernya = 2000
-        }
-      }
-
-      if (this.bgnya !== '') {
-        this.bg.gameBackground.loadTexture('bg' + this.bgnya)
-      }
-    }
-	
-    this.time.events.add(this.timernya, () => {
-      this.leftCharacterSpeak(text)
-
-      if (submitResult) {
-        // Hack to move left character back to the right place
-        this.time.events.add(this.timeToSpeak(text), () => {
-          this.leftCharacter.setAnimationSpeedPercent(100)
-          this.leftCharacter.playAnimationByName('_IDLE')
-          this.createSideMenu()
-          this.deleteButton.visible = true
-          this.enterButton.visible = true
-          this.textBox.visible = true
-          this.repeatButton.visible = true
-          this.hintButton.visible = true
-        })
-      }
-    })
+      // Hack to move left character back to the right place
+      this.time.events.add(this.timeToSpeak(this.stateMachine.getQuestion()), () => {
+        this.leftCharacter.setAnimationSpeedPercent(100)
+        this.leftCharacter.playAnimationByName('_IDLE')
+        this.createSideMenu()
+        this.deleteButton.visible = true
+        this.enterButton.visible = true
+        this.textBox.visible = true
+        this.repeatButton.visible = true
+        this.hintButton.visible = true
+      }, this)
+    }, this)
   }
 
   repeatCurrentQuestion () {
@@ -687,7 +522,7 @@ export default class extends Phaser.State {
     this.time.events.add(5000, () => {
       this.rightCharacter.setAnimationSpeedPercent(100)
       this.rightCharacter.playAnimationByName('_IDLE')
-      this.nextQuestion(this.stateMachine.getQuestion(), true)
+      this.nextQuestion()
     })
   }
 
@@ -699,7 +534,11 @@ export default class extends Phaser.State {
 
     this.leftCharacter.setAnimationSpeedPercent(100)
     this.leftCharacter.playAnimationByName('_SAY')
-    dtml.textToSpeech(text, this.leftCharacterVoice, this.phaserJSON.Setup.LeftPitch)
+    dtml.textToSpeech(
+      text,
+      this.leftCharacterVoice,
+      this.phaserJSON.Setup.LeftPitch
+    )
     this.leftCharacterLabel = this.game.add.text(
       this.leftCharacter.x - parseInt(this.phaserJSON.Setup.CallOutLeftX),
       this.leftCharacter.y - parseInt(this.phaserJSON.Setup.CallOutLeftY),
@@ -720,48 +559,46 @@ export default class extends Phaser.State {
       this.leftCharacter.playAnimationByName('_IDLE')
       this.leftCharacterLabel.kill()
       this.leftCharacterLabel = null
-    })
+    }, this)
   }
 
   // Show dots over the left character's head
   showThoughtDots () {
-    let callOutX = this.leftCharacter.x - parseInt(this.phaserJSON.Setup.CallOutLeftX)
-    let callOutY = this.leftCharacter.y - parseInt(this.phaserJSON.Setup.CallOutLeftY)
+    let callOutX =
+      this.leftCharacter.x - parseInt(this.phaserJSON.Setup.CallOutLeftX)
+    let callOutY =
+      this.leftCharacter.y - parseInt(this.phaserJSON.Setup.CallOutLeftY)
 
-    this.leftCharacterLabel = this.game.add.text(
+    this.leftCharacterLabel = this.game.add.sprite(
       this.leftCharacter.x,
       callOutY,
-      '...',
-      {
-        font: '60px Berkshire Swash',
-        fill: '#000',
-        align: 'center',
-        wordWrap: true,
-        wordWrapWidth: 300
-      }
+      'loadingAnimation'
     )
+    this.leftCharacterLabel.animations.add('spin', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], 60, true)
+    this.leftCharacterLabel.animations.play('spin')
+    this.leftCharacterLabel.anchor.setTo(0.5, 0.5)
   }
 
   clearThoughtDots () {
     this.leftCharacterLabel.destroy()
     this.leftCharacterLabel = null
   }
-  
-  timeToSpeak(text) {
-	/*
-	An auctioneer speaks at 250 words per minute. 
-	Henry Kissinger, in public interviews, speaks at a rate of 90 words per minute. 
-	An ideal rate for a face-to-face pitch or conversation is 190 words per minute.
-	Assuming 2 words per second with minimun of 4 seconds.
-	*/
-	
-	let speedOfSpeach = 2; // 2 words per second
-	let minLenght = 4; // 4 seconds
-	
-	let words = text.split(' ').length;
-	let timetospeak = words / speedOfSpeach;
-	timetospeak = timetospeak > minLenght ? timetospeak : minLenght;
-	return timetospeak * 1000;
+
+  timeToSpeak (text) {
+    /*
+      An auctioneer speaks at 250 words per minute.
+      Henry Kissinger, in public interviews, speaks at a rate of 90 words per minute.
+      An ideal rate for a face-to-face pitch or conversation is 190 words per minute.
+      Assuming 2 words per second with minimun of 4 seconds.
+    */
+
+    let speedOfSpeach = 2 // 2 words per second
+    let minLenght = 4 // 4 seconds
+
+    let words = text.split(' ').length
+    let timetospeak = words / speedOfSpeach
+    timetospeak = timetospeak > minLenght ? timetospeak : minLenght
+    return timetospeak * 1000
   }
 
   leftCharacterStopSpeaking () {
@@ -777,24 +614,35 @@ export default class extends Phaser.State {
   }
 
   repeatQuestion (sprite) {
-    dtml.recordGameEvent('conversation_' + this.phaserJSON.Setup.Name, 'repeat', this.stateMachine.getCurrentStateName())
-    this.leftCharacterSpeak(
-      this.stateMachine.getQuestion()
+    dtml.recordGameEvent(
+      'conversation_' + this.phaserJSON.Setup.Name,
+      'repeat',
+      this.stateMachine.getCurrentStateName()
     )
+    this.leftCharacterSpeak(this.stateMachine.getQuestion())
   }
 
   showHint () {
     // Get the shortest possible solution with a positive score
     let shortestSolution = this.stateMachine.getShortestSolution()
 
-    if (shortestSolution && shortestSolution.length > 0) {	  
+    if (shortestSolution && shortestSolution.length > 0) {
       console.log(shortestSolution)
-      dtml.recordGameEvent('conversation_' + this.phaserJSON.Setup.Name, 'hint', this.stateMachine.getCurrentStateName());
+      dtml.recordGameEvent(
+        'conversation_' + this.phaserJSON.Setup.Name,
+        'hint',
+        this.stateMachine.getCurrentStateName()
+      )
       // Remove words that aren't in the shortest solution
       for (let i = this.listView.items.length - 1; i >= 0; i--) {
         let parentGroup = this.listView.items[i]
         for (let j = 0; j < parentGroup.length; j++) {
-          if (parentGroup.getChildAt(j).text && !shortestSolution.split(' ').includes(parentGroup.getChildAt(j).text.toLowerCase())) {
+          if (
+            parentGroup.getChildAt(j).text &&
+            !shortestSolution
+              .split(' ')
+              .includes(parentGroup.getChildAt(j).text.toLowerCase())
+          ) {
             this.listView.remove(parentGroup)
             parentGroup.destroy(true)
           }
@@ -836,7 +684,10 @@ export default class extends Phaser.State {
   createSideMenu () {
     this.onSelection = true
 
-    if (this.stateMachine.currentState.awardPoints === true || this.stateMachine.currentState.awardPoints === undefined) {
+    if (
+      this.stateMachine.currentState.awardPoints === true ||
+      this.stateMachine.currentState.awardPoints === undefined
+    ) {
       this.awardNoPoints = false
     } else {
       this.awardNoPoints = true
@@ -915,7 +766,6 @@ export default class extends Phaser.State {
     }
 
     this.listView.items[this.selection].frame = 1
-
   }
 
   destroySideMenu () {
@@ -924,7 +774,7 @@ export default class extends Phaser.State {
   }
 
   loadSpriter (key) {
-	  console.log(key);
+    console.log(key)
     if (!this.spriterLoader) this.spriterLoader = new Spriter.Loader()
 
     let spriterFile = new Spriter.SpriterXml(
@@ -933,8 +783,8 @@ export default class extends Phaser.State {
 
     // process loaded xml/json and create internal Spriter objects - these data can be used repeatly for many instances of the same animation
     let spriter = this.spriterLoader.load(spriterFile)
-	let entity = spriter._entities["_items"][0].name;
-	
+    let entity = spriter._entities['_items'][0].name
+
     return new Spriter.SpriterGroup(game, spriter, key, entity)
   }
 
@@ -950,12 +800,151 @@ export default class extends Phaser.State {
   getVoiceFromGender (gender) {
     if (gender === 'male') {
       for (let i = 0; i < dtml.listOfVoices.length; i++) {
-        if (dtml.listOfVoices[i].name.search('David') !== -1) return dtml.listOfVoices[i].name
+        if (dtml.listOfVoices[i].name.search('David') !== -1) { return dtml.listOfVoices[i].name }
       }
     } else {
       for (let i = 0; i < dtml.listOfVoices.length; i++) {
-        if (dtml.listOfVoices[i].name.search('Zira') !== -1) return dtml.listOfVoices[i].name
+        if (dtml.listOfVoices[i].name.search('Zira') !== -1) { return dtml.listOfVoices[i].name }
       }
     }
+  }
+
+  playEntranceAnimations () {
+    let animationTimer = 0
+
+    let leftAnimation = this.stateMachine.getOnEnterLeft() || ''
+    let rightAnimation = this.stateMachine.getOnEnterRight() || ''
+    let background = this.stateMachine.getOnEnterBg() || ''
+    let leftDirection = this.stateMachine.getOnEnterLeftDo() || ''
+    let rightDirection = this.stateMachine.getOnEnterRightDo() || ''
+
+    if (leftDirection !== '') {
+      if (leftDirection === 'in') {
+        this.walkTo(this.leftCharacter, 'right', -300 * game.scaleRatio, this.world.width * 0.4 * game.scaleRatio, 1500)
+      }
+
+      if (leftDirection === 'out') {
+        this.walkTo(this.leftCharacter, 'left', this.world.width * 0.4 * game.scaleRatio, -300 * game.scaleRatio, 1500)
+      }
+    }
+
+    if (rightDirection !== '') {
+      if (rightDirection === 'in') {
+        this.walkTo(this.rightCharacter, 'left', rightDirection, game.width + 180 * game.scaleRatio, this.world.width * 0.7 * game.scaleRatio, 1500)
+      }
+
+      if (rightDirection === 'out') {
+        this.walkTo(this.rightCharacter, 'right', rightDirection, this.world.width * 0.7 * game.scaleRatio, game.width + 180 * game.scaleRatio, 1500)
+      }
+    }
+
+    if (leftAnimation !== '') {
+      this.leftCharacter.playAnimationByName(leftAnimation)
+      animationTimer = 2000
+    }
+
+    if (rightAnimation !== '') {
+      console.log(rightAnimation)
+      if (rightAnimation === 'BringFood') {
+        this.rightCharacter.scale.x *= -1
+        this.rightCharacter.playAnimationByName('_WALK')
+        game.add
+          .tween(this.rightCharacter)
+          .to(
+            { x: this.world.width * 0.7 * game.scaleRatio },
+            1500,
+            Phaser.Easing.Linear.None,
+            true,
+            0
+          )
+          .onComplete.add(() => {
+            // this.rightCharacter.scale.x *= -1;
+            this.rightCharacter.setAnimationSpeedPercent(100)
+            this.rightCharacter.playAnimationByName('_IDLE')
+          })
+
+        animationTimer = 2000
+      } else {
+        this.rightCharacter.playAnimationByName(rightAnimation)
+        animationTimer = 2000
+      }
+    }
+
+    if (background !== '') {
+      this.bg.gameBackground.loadTexture('bg' + background)
+    }
+    return animationTimer
+  }
+
+  playExitAnimations () {
+    let lastState = this.stateMachine.currentStateName
+    let leftAnimation = this.stateMachine.getOnExitLeft() || ''
+    let rightAnimation = this.stateMachine.getOnExitRight() || ''
+    let background = this.stateMachine.getOnExitBg() || ''
+    let leftDirection = this.stateMachine.getOnExitLeftDo() || ''
+    let rightDirection = this.stateMachine.getOnExitRightDo() || ''
+    let animationTimer = 0
+
+    if (lastState !== this.stateMachine.currentStateName) {
+      if (leftDirection !== '') {
+        if (leftDirection === 'in') {
+          this.walkTo(this.leftCharacter, 'right', leftDirection, -300 * game.scaleRatio, this.world.width * 0.4 * game.scaleRatio, 1500)
+        }
+
+        if (leftDirection === 'out') {
+          this.walkTo(this.leftCharacter, 'left', this.world.width * 0.4 * game.scaleRatio, -300 * game.scaleRatio, 1500)
+        }
+      }
+
+      if (rightDirection !== '') {
+        if (rightDirection === 'in') {
+          this.walkTo(this.rightCharacter, 'left', game.width + 180 * game.scaleRatio, this.world.width * 0.7 * game.scaleRatio, 1500)
+        }
+
+        if (rightDirection === 'out') {
+          this.walkTo(this.rightCharacter, 'right', this.world.width * 0.7 * game.scaleRatio, game.width + 180 * game.scaleRatio, 1500)
+        }
+      }
+
+      if (leftAnimation !== '') {
+        this.leftCharacter.playAnimationByName(leftAnimation)
+        animationTimer = 2000
+      }
+
+      if (rightAnimation !== '') {
+        this.rightCharacter.playAnimationByName(rightAnimation)
+        animationTimer = 2000
+      }
+
+      if (background !== '') {
+        this.bg.gameBackground.loadTexture('bg' + background)
+      }
+    }
+
+    this.rightCharacter.setAnimationSpeedPercent(100)
+    this.rightCharacter.playAnimationByName('_IDLE')
+    return animationTimer
+  }
+
+  walkTo (character, direction, startX, endX, time) {
+    if (direction === 'right') {
+      character.scale.x = Math.abs(character.scale.x)
+    } else {
+      character.scale.x = -Math.abs(character.scale.x)
+    }
+    character.x = startX
+    game.add
+      .tween(character)
+      .to(
+        { x: endX },
+        time,
+        Phaser.Easing.Linear.None,
+        true,
+        0
+      )
+      .onComplete.add(() => {
+        character.setAnimationSpeedPercent(100)
+        character.playAnimationByName('_IDLE')
+      })
   }
 }

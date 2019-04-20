@@ -675,19 +675,19 @@ joint.shapes.dialogue.QuestionView = joint.shapes.dialogue.BaseView.extend({
       }, this)
     )
     // Enter Left Animation
-    elements[3].on('change', _.bind(function (evt) {
+    elements[4].on('change', _.bind(function (evt) {
       this.model.set('enterLeftAnimation', $(evt.target).val())
     }, this))
     // Enter Left Direction
-    elements[4].on('change', _.bind(function (evt) {
+    elements[5].on('change', _.bind(function (evt) {
       this.model.set('enterLeftDirection', $(evt.target).val())
     }, this))
     // Enter Right Animation
-    elements[6].on('change', _.bind(function (evt) {
+    elements[7].on('change', _.bind(function (evt) {
       this.model.set('enterRightAnimation', $(evt.target).val())
     }, this))
     // Enter Right Direction
-    elements[7].on('change', _.bind(function (evt) {
+    elements[8].on('change', _.bind(function (evt) {
       this.model.set('enterRightDirection', $(evt.target).val())
     }, this))
     // Exit Left Animation
@@ -870,13 +870,13 @@ joint.shapes.dialogue.Start = joint.shapes.devs.Model.extend({
       expanded: false,
       gameName: '',
       gameTitle: '',
-      leftCharacter: CharacterList[0],
+      leftCharacter: null,
       leftVoice: null,
       leftPitch: 0,
       leftYOffset: null,
       leftX: null,
       leftY: null,
-      rightCharacter: CharacterList[0],
+      rightCharacter: null,
       rightVoice: null,
       rightPitch: 0,
       rightYOffset: null,
@@ -983,13 +983,13 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     // Fill in values
     this.$box.find('input.gameName').val(this.model.get('gameName'))
     this.$box.find('input.gameTitle').val(this.model.get('gameTitle'))
-    this.$box.find('input.leftCharacter').val(this.model.get('leftCharacter'))
+    this.$box.find('select.leftCharacter').val(this.model.get('leftCharacter'))
     this.$box.find('select.leftVoice').val(this.model.get('leftVoice'))
     this.$box.find('input.leftPitch').val(this.model.get('leftPitch'))
     this.$box.find('input.leftYOffset').val(this.model.get('leftYOffset'))
     this.$box.find('input.leftX').val(this.model.get('leftX'))
     this.$box.find('input.leftY').val(this.model.get('leftY'))
-    this.$box.find('input.rightCharacter').val(this.model.get('rightCharacter'))
+    this.$box.find('select.rightCharacter').val(this.model.get('rightCharacter'))
     this.$box.find('select.rightVoice').val(this.model.get('rightVoice'))
     this.$box.find('input.rightPitch').val(this.model.get('rightPitch'))
     this.$box.find('input.rightYOffset').val(this.model.get('rightYOffset'))
@@ -1610,7 +1610,6 @@ function groupModuleVersions (moduleList) {
 }
 
 function getStatusText (statusNumber) {
-	console.log(statusNumber);
   switch (statusNumber) {
     case 3: return 'active'
     default: return 'draft'
@@ -1647,6 +1646,7 @@ function previewGame () {
   let errors = Validator.getGraphErrors(graph)
   if (errors.length === 0) {
     let gameState = convertToGameState(graph)
+    // let url = 'http://localhost:3000/?test=true'
     let url = 'https://dtml.org/games/conversations/index.html?test=true'
     let previewWindow = window.open(url)
     setTimeout(function () {

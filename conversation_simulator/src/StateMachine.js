@@ -1,4 +1,6 @@
 import UserContext from './userContext'
+import PhraseCompare from './phraseCompare'
+const defaultPath = 'default'
 
 export default class {
   constructor (stateData) {
@@ -10,6 +12,7 @@ export default class {
     )
     this.submitSolutionResult = true
     this.userContext = new UserContext()
+    this.default = 'default'
   }
 
   setCurrentState (stateName, stateData) {
@@ -128,7 +131,7 @@ export default class {
   getShortestSolution () {
     let shortestSolution = null
     for (var key in this.currentState.Solutions) {
-      if (key !== 'default' && (!shortestSolution || key.split(' ').length < shortestSolution.split(' ').length)) {
+      if (key !== defaultPath && (!shortestSolution || key.split(' ').length < shortestSolution.split(' ').length)) {
         shortestSolution = key
       }
     }
@@ -142,102 +145,70 @@ export default class {
     )
   }
 
-  submitSolution (solutionPhrase, noPoints, source) {
-    let normalizedPhrase = solutionPhrase.toLowerCase().trim()
+  normalizeSolution (solution) {
+    return solution.toLowerCase().trim()
+  }
 
-    // Find a phrase matching the submitted phrase if one exists
+  // Finds the matching solution in a state's possible solutions
+  matchSolution (solutionPhrase) {
     let solution
     for (let possibleSolution in this.currentState.Solutions) {
       if (this.currentState.Solutions.hasOwnProperty(possibleSolution)) {
-        let submittedWords = this.splitString(normalizedPhrase)
+        let submittedWords = this.splitString(solutionPhrase)
         let solutionWords = this.splitString(possibleSolution)
-        if (possibleSolution !== 'default' && this.checkSolution(submittedWords, solutionWords)) {
+        if (possibleSolution !== defaultPath && PhraseCompare.compareSolution(submittedWords, solutionWords)) {
           solution = possibleSolution
           break
         }
       }
     }
-    let success = solution !== undefined ? 'True' : 'False'
-    // Apply score
-    dtml.scorePhrase(normalizedPhrase, success, result => {
-      if (result) {
-        this.scoreSolution(solution, result, noPoints)
-      } else {
-        let score = this.currentState.Solutions[solution].Score || this.currentState.Solutions[solution].scoreadjustment
-        if (this.isNumber(score)) {
-          this.scoreSolution(solution, score, noPoints)
-        }
-      }
-    }, source, this.getCurrentStateName())
-  }
-
-  scoreSolution (solution, score, noPoints) {
-    if (solution !== undefined) {
-      let nextState = this.currentState.Solutions[solution].Next
-      this.submitSolutionResult = true
-      if (score > 0 && !noPoints && !this.userContext.hasSolutionBeenUsed(this.getCurrentStateName(), solution)) {
-        this.score += score
-      }
-      // Save state/answer so it can't be used again for points
-      this.userContext.markSolution(this.getCurrentStateName(), solution)
-      // Go to next state
-      this.setCurrentState(
-        nextState,
-        this.stateData.States[nextState]
-      )
-    } else {
-      // If there is a default next state then it doesn't count as a failure
-      if (this.currentState.Solutions['default'].Next !== null) {
-        this.submitSolutionResult = true
-        let nextState = this.currentState.Solutions['default'].Next
-        this.setCurrentState(
-          nextState,
-          this.stateData.States[nextState]
-        )
-      } else {
-        this.submitSolutionResult = false
-        this.score -= 10
-      }
+    if (solution === undefined) {
+      // Return default if it exists
+      if (this.currentState.Solutions[defaultPath] && this.currentState.Solutions[defaultPath].Next) return defaultPath
     }
+    return solution
   }
 
-  // Recursively compare a submitted phrase vs a solution phrase
-  checkSolution (submittedWords, solutionWords) {
-    for (let i = 0; i < solutionWords.length; i++) {
-      let phraseLength = 1
-      let solutionWord = solutionWords[i]
-      let optional = (solutionWord[0] === '[' && solutionWord[solutionWord.length - 1] === ']')
-      if (optional) {
-        phraseLength = solutionWord.split(' ').length
-        solutionWord = solutionWord.replace('[', '')
-        solutionWord = solutionWord.replace(']', '')
-      }
-      let checkWord = this.getConcatWords(submittedWords, phraseLength)
-      if (checkWord === solutionWord) {
-        // Matched
-        if (submittedWords.length === phraseLength) {
-          // We've matched the whole phrase
-          return true
+  // Returns the score of a solution
+  scoreSolution (solution, isCorrect, source) {
+    let _this = this
+    return new Promise(function (resolve, reject) {
+      dtml.scorePhrase(solution, isCorrect, result => {
+        if (result) {
+          resolve(result)
         } else {
-          // There are still more words to match
-          return this.checkSolution(submittedWords.slice(phraseLength), solutionWords.slice(i + 1))
+          let score = _this.currentState.Solutions[solution].Score || _this.currentState.Solutions[solution].scoreadjustment
+          if (_this.isNumber(score)) {
+            resolve(score)
+          } else {
+            reject(new Error('Could not find a score'))
+          }
         }
-      } else if (!optional) {
-        // Not a match and word isn't optional
-        return false
-      }
-    }
-    // Ran out of solution words to try and match
-    return false
+      }, source, _this.getCurrentStateName())
+    })
   }
 
-  // Concatonates an amount of words from an array
-  getConcatWords (words, count) {
-    let concatPhrase = words[0]
-    for (let i = 1; i < count; i++) {
-      concatPhrase = concatPhrase.concat(' ', words[i])
-    }
-    return concatPhrase
+  // Adds the score to the player's total score
+  applyScore (score) {
+    this.score += score
+  }
+
+  markSolution (stateName, solution) {
+    // Save state/answer so it can't be used again for points
+    this.userContext.markSolution(stateName, solution)
+  }
+
+  getUserContext () {
+    return this.userContext
+  }
+
+  // Goes to the state indicated by the solution
+  goToNextState (solution) {
+    let nextState = this.currentState.Solutions[solution].Next
+    this.setCurrentState(
+      nextState,
+      this.stateData.States[nextState]
+    )
   }
 
   splitString (input) {
