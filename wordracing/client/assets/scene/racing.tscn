@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scene/car.tscn" type="PackedScene" id=1]
 [ext_resource path="res://bitmapfont/baloo_small.fnt" type="BitmapFont" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://bitmapfont/black_40.fnt" type="BitmapFont" id=9]
 [ext_resource path="res://scene/input.tscn" type="PackedScene" id=10]
 [ext_resource path="res://image/sprites/ui/wait_view.png" type="Texture" id=11]
+[ext_resource path="res://image/sprites/ui/gameover_view.png" type="Texture" id=12]
 
 [node name="racing" type="Node2D"]
 __meta__ = {
@@ -163,7 +164,7 @@ valign = 1
 position = Vector2( 246, 46 )
 width = 280
 height = 40
-show_button = 1
+show_button = true
 
 [node name="dimmer" type="ColorRect" parent="."]
 visible = false
@@ -184,6 +185,23 @@ margin_right = 131.0
 margin_bottom = 60.0
 custom_fonts/font = ExtResource( 9 )
 text = "10s"
+align = 1
+valign = 1
+
+[node name="gameover_view" type="Sprite" parent="."]
+editor/display_folded = true
+visible = false
+position = Vector2( 382, 286 )
+texture = ExtResource( 12 )
+
+[node name="rank" type="Label" parent="gameover_view"]
+self_modulate = Color( 1, 0.286275, 0.286275, 1 )
+margin_left = -133.0
+margin_top = 1.0
+margin_right = 131.0
+margin_bottom = 60.0
+custom_fonts/font = ExtResource( 9 )
+text = "1"
 align = 1
 valign = 1
 

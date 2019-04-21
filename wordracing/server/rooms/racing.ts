@@ -66,6 +66,7 @@ export class Racing extends Room<State> {
                     state.is_timeover = true;
 
                     this.broadcast('time_over');
+                    console.log('time_over');
                 }
             }
         }

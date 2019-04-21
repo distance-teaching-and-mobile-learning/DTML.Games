@@ -94,6 +94,10 @@ export default class Racing extends v.Node2D {
         this.dimmer = this.get_node('dimmer');
         this.wait_view = this.get_node('wait_view');
         this.wait_timer = /** @type {v.Label} */(this.get_node('wait_view/sec'));
+        this.gameover_view = this.get_node('gameover_view');
+        this.gameover_rank = /** @type {v.Label} */(this.get_node('gameover_view/rank'));
+        this.gameover_view.visible = false;
+
         this.wait_view.visible = true;
         this.dimmer.visible = true;
 
@@ -151,9 +155,12 @@ export default class Racing extends v.Node2D {
         this.is_racing = false;
         this.time_label.set_text('Time Over');
 
-        this.dimmer.visible = true;
+        this.input.hide();
 
-        // TODO: show rank view
+        // show rank view
+        this.gameover_rank.set_text(this.rank_label.text);
+        this.dimmer.visible = true;
+        this.gameover_view.visible = true;
     }
 
     async fetch_next_set() {
@@ -351,7 +358,7 @@ export default class Racing extends v.Node2D {
                 case 'game_start': {
                     this.start_racing();
                 } break;
-                case 'timeover': {
+                case 'time_over': {
                     this.time_over();
                 } break;
             }

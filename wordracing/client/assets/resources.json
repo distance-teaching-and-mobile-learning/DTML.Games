@@ -562,7 +562,7 @@
                             },
                             "width": 280,
                             "height": 40,
-                            "show_button": 1
+                            "show_button": true
                         }
                     ]
                 },
@@ -606,6 +606,39 @@
                         }
                     ],
                     "editor/display_folded": true
+                },
+                {
+                    "type": "Sprite",
+                    "name": "gameover_view",
+                    "position": {
+                        "x": 382,
+                        "y": 286
+                    },
+                    "visible": false,
+                    "texture": "@ext#12",
+                    "children": [
+                        {
+                            "type": "Label",
+                            "name": "rank",
+                            "self_modulate": {
+                                "r": 1,
+                                "g": 0.286275,
+                                "b": 0.286275,
+                                "a": 1
+                            },
+                            "margin_bottom": 60,
+                            "margin_left": -133,
+                            "margin_top": 1,
+                            "margin_right": 131,
+                            "align": 1,
+                            "text": "1",
+                            "valign": 1,
+                            "font": "@ext#9",
+                            "children": [],
+                            "custom_fonts/font": "@ext#9"
+                        }
+                    ],
+                    "editor/display_folded": true
                 }
             ],
             "__meta__": {
@@ -620,7 +653,8 @@
                     "8": "ui/rank",
                     "9": "black_40",
                     "10": "res://scene/input.tscn",
-                    "11": "ui/wait_view"
+                    "11": "ui/wait_view",
+                    "12": "ui/gameover_view"
                 },
                 "sub": {}
             }

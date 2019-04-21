@@ -351,6 +351,20 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">sprites/ui/gameover_view.png</key>
+            <key type="filename">sprites/ui/wait_view.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>124,89,248,177</rect>
+                <key>scale9Paddings</key>
+                <rect>124,89,248,177</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">sprites/ui/rank.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -387,19 +401,6 @@
                 <rect>99,17,198,34</rect>
                 <key>scale9Paddings</key>
                 <rect>99,17,198,34</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">sprites/ui/wait_view.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0,0</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>124,89,248,177</rect>
-                <key>scale9Paddings</key>
-                <rect>124,89,248,177</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
