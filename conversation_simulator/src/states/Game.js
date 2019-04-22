@@ -417,10 +417,6 @@ export default class extends Phaser.State {
   }
 
   interpretSuggestedState (response, resolve, reject) {
-    // Fake a good response from the server
-    // response = {}
-    // response.status = 200
-    // response.data = 'Visit Set'
     // Offer a suggestion to the player
     if (response.status === 200) {
       if (response.data) {
