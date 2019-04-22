@@ -4,18 +4,25 @@ const MAX_PLAYERS_PER_ROOM = 5;
 const ROOM_WAIT_TIME = 10;
 const GAME_LENGTH = 1 * 60;
 
+const BOT_DIFFICULTY = 2; // range: [1, 3.5]
+
 class Player {
     uid: string;
     name: string;
     index: number;
     pos: number;
     last_accel_time: number;
+    @nosync is_bot: boolean = false;
+    @nosync action_timer: number = 0;
     constructor(uid: string, name: string, index: number) {
         this.uid = uid;
         this.name = name;
         this.index = index;
         this.pos = 0;
         this.last_accel_time = 0;
+    }
+    think() {
+        this.action_timer = (Math.random() * 3 + 6) * (4 - BOT_DIFFICULTY);
     }
 }
 
@@ -48,6 +55,8 @@ export class Racing extends Room<State> {
                         // TODO: real uuid
                         const id = (Math.random() * 10000000).toString().substr(0, 7);
                         const player = new Player(id, '[Bot]', i);
+                        player.is_bot = true;
+                        player.think();
                         state.players[id] = player;
 
                         console.log(`Bot [${id}] joined!`);
@@ -58,6 +67,19 @@ export class Racing extends Room<State> {
             }
         } else {
             state.current_time += delta;
+
+            for (const player of Object.values(this.state.players)) {
+                if (player.is_bot) {
+                    player.action_timer -= delta;
+                    if (player.action_timer < 0) {
+                        player.think();
+
+                        // accelerate
+                        player.pos += 1;
+                        player.last_accel_time = state.current_time;
+                    }
+                }
+            }
 
             if (!state.is_timeover) {
                 state.rest_time -= delta;
