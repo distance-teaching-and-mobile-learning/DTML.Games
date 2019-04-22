@@ -870,14 +870,14 @@ joint.shapes.dialogue.Start = joint.shapes.devs.Model.extend({
       expanded: false,
       gameName: '',
       gameTitle: '',
-      leftCharacter: null,
-      leftVoice: null,
+      leftCharacter: CharacterList[0],
+      leftVoice: 'male',
       leftPitch: 0,
       leftYOffset: null,
       leftX: null,
       leftY: null,
-      rightCharacter: null,
-      rightVoice: null,
+      rightCharacter: CharacterList[0],
+      rightVoice: 'female',
       rightPitch: 0,
       rightYOffset: null,
       rightX: null,
@@ -995,7 +995,7 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     this.$box.find('input.rightYOffset').val(this.model.get('rightYOffset'))
     this.$box.find('input.rightX').val(this.model.get('rightX'))
     this.$box.find('input.rightY').val(this.model.get('rightY'))
-    this.$box.find('input.phraseCorrections').prop('checked', this.model.get('phraseCorrections'))
+    this.$box.find('input.phraseCorrections').prop('checked', this.model.get('phraseCorrection'))
 
     // Bind fields to data
     this.$box.find('select.leftCharacter').on('change', _.bind(function (evt) { this.model.set('leftCharacter', $(evt.target).val()) }, this))
@@ -1010,7 +1010,7 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     this.$box.find('input.rightYOffset').on('change', _.bind(function (evt) { this.model.set('rightYOffset', $(evt.target).val()) }, this))
     this.$box.find('input.rightX').on('change', _.bind(function (evt) { this.model.set('rightX', $(evt.target).val()) }, this))
     this.$box.find('input.rightY').on('change', _.bind(function (evt) { this.model.set('rightY', $(evt.target).val()) }, this))
-    this.$box.find('input.phraseCorrections').on('change', _.bind(function (evt) { this.model.set('phraseCorrections', $(evt.target).prop('checked')) }, this))
+    this.$box.find('input.phraseCorrections').on('change', _.bind(function (evt) { this.model.set('phraseCorrection', $(evt.target).prop('checked')) }, this))
     this.$box.find('input.background').on('change', _.bind(function (evt) {
       let backgrounds = this.model.get('backgrounds').slice(0)
       backgrounds[0] = $(evt.target).val()
@@ -1646,8 +1646,8 @@ function previewGame () {
   let errors = Validator.getGraphErrors(graph)
   if (errors.length === 0) {
     let gameState = convertToGameState(graph)
-    // let url = 'http://localhost:3000/?test=true'
-    let url = 'https://dtml.org/games/conversations/index.html?test=true'
+    let url = 'http://localhost:3000/?test=true'
+    // let url = 'https://dtml.org/games/conversations/index.html?test=true'
     let previewWindow = window.open(url)
     setTimeout(function () {
       previewWindow.postMessage(JSON.stringify(gameState), '*')

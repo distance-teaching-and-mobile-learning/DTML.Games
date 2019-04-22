@@ -150,9 +150,9 @@ var dtml = {
     // Init voice
     //*****************************************************************
     initVoices: function() {   
-        if (typeof speechSynthesis !== 'undefined' && window.speechSynthesis.onvoiceschanged !== undefined) {
+        this.listOfVoices = window.speechSynthesis.getVoices()
+        if (typeof window.speechSynthesis && window.speechSynthesis.onvoiceschanged) {
             var that = this;
-	    this.listOfVoices = window.speechSynthesis.getVoices()
             window.speechSynthesis.onvoiceschanged = function() {
                 that.listOfVoices = window.speechSynthesis.getVoices();
             }
@@ -169,7 +169,7 @@ var dtml = {
                 if (speechSynthesis.speaking) {
                     speechSynthesis.cancel()
                     setTimeout(() => {
-                        this.textToSpeach(text, voice, pitch)
+                        this.textToSpeech(text, voice, pitch)
                     }, 500)
                 } else {
                     let voicename = this.listOfVoices.filter(a => a.name.toLowerCase().includes(voice.toLowerCase()));
