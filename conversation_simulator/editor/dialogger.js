@@ -1313,14 +1313,12 @@ function exportFile () {
 }
 
 function publish () {
-  let publisherKey = prompt('Enter your publisher key')
-  let version = prompt('Enter the version number')
   applyTextFields()
   let errors = Validator.getGraphErrors(graph)
   if (errors.length === 0) {
     var gameState = convertToGameState(graph)
     let name = getModuleName()
-    dtml.dtml.publishDialog(name, version, publisherKey, gameState, function (result) {
+    dtml.dtml.publishDialog(name, gameState, function (result) {
       if (result.ok) {
         alert('The dialog has been published')
       } else {
