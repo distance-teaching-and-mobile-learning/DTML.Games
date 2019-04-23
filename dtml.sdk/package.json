@@ -1,6 +1,6 @@
 {
   "name": "dtml.sdk",
-  "version": "2.1.2",
+  "version": "2.1.15",
   "description": "DTML SDK",
   "main": "dtml-sdk.js",
   "scripts": {
