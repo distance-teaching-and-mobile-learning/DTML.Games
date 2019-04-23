@@ -29,8 +29,8 @@ export default class extends Phaser.State {
     }
     
     stop() {
-        try {
-                dtml.recordGameStart("helloween");
+        try {        
+         dtml.recordGameStart("halloween");
         } catch (err) { }
         this.startGame()
     }
