@@ -35,14 +35,12 @@ export default class extends Phaser.State {
     this.rightCharacterVoice = this.getVoiceFromGender(
       this.phaserJSON.Setup.RightVoice
     )
-    console.log(this.leftCharacterVoice)
-    console.log(this.rightCharacterVoice)
 
     this.language = this.game.state.states['Game']._language
     this.langCode = this.game.state.states['Game']._langCode
 
-    let startingBackground = this.stateMachine.getOnEnterBg() || 1
-    this.bg = new Background({ game: this.game }, startingBackground)
+    let startingBackground = this.stateMachine.getOnEnterBg() || this.phaserJSON.Setup.StartingBackground
+    this.bg = new Background({ game: this.game }, 'bg_' + startingBackground)
 
     let music = game.add.audio('gameMusic')
     music.onDecoded.add(() => {
@@ -417,10 +415,6 @@ export default class extends Phaser.State {
   }
 
   interpretSuggestedState (response, resolve, reject) {
-    // Fake a good response from the server
-    response = {}
-    response.status = 200
-    response.data = 'Visit Set'
     // Offer a suggestion to the player
     if (response.status === 200) {
       if (response.data) {
@@ -627,7 +621,6 @@ export default class extends Phaser.State {
     let shortestSolution = this.stateMachine.getShortestSolution()
 
     if (shortestSolution && shortestSolution.length > 0) {
-      console.log(shortestSolution)
       dtml.recordGameEvent(
         'conversation_' + this.phaserJSON.Setup.Name,
         'hint',
@@ -774,7 +767,6 @@ export default class extends Phaser.State {
   }
 
   loadSpriter (key) {
-    console.log(key)
     if (!this.spriterLoader) this.spriterLoader = new Spriter.Loader()
 
     let spriterFile = new Spriter.SpriterXml(
@@ -844,7 +836,6 @@ export default class extends Phaser.State {
     }
 
     if (rightAnimation !== '') {
-      console.log(rightAnimation)
       if (rightAnimation === 'BringFood') {
         this.rightCharacter.scale.x *= -1
         this.rightCharacter.playAnimationByName('_WALK')
@@ -871,7 +862,7 @@ export default class extends Phaser.State {
     }
 
     if (background !== '') {
-      this.bg.gameBackground.loadTexture('bg' + background)
+      this.bg.gameBackground.loadTexture('bg_' + background)
     }
     return animationTimer
   }
@@ -917,7 +908,7 @@ export default class extends Phaser.State {
       }
 
       if (background !== '') {
-        this.bg.gameBackground.loadTexture('bg' + background)
+        this.bg.gameBackground.loadTexture('bg_' + background)
       }
     }
 
