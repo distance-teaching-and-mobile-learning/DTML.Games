@@ -14,7 +14,6 @@ under the License.
 */
 
 export default class extends Phaser.State {
-
   create () {
     this.phaserJSON = game.gameModule
     this.createBackground()
@@ -27,7 +26,7 @@ export default class extends Phaser.State {
     enterSpriteButton.events.onInputDown.add(this.startGame, this)
     enterSpriteButton.alpha = 0
     enterSpriteButton.input.useHandCursor = true
-    game.add.tween(enterSpriteButton).to({x: game.world.centerX, alpha: 1}, 500, Phaser.Easing.Cubic.In, true, 2000)
+    game.add.tween(enterSpriteButton).to({ x: game.world.centerX, alpha: 1 }, 500, Phaser.Easing.Cubic.In, true, 2000)
 
     var style = { font: 'bold 42px Arial', fill: '#fff', boundsAlignH: 'center', boundsAlignV: 'middle' }
 
@@ -40,12 +39,11 @@ export default class extends Phaser.State {
     text.setTextBounds(0, 0, game.world.width, game.world.height)
     text.alpha = 0
     game.add.tween(text).to({ alpha: 1 }, 500, Phaser.Easing.Cubic.In, true, 2500)
-	console.log(this.phaserJSON.Setup.gameid);
-	dtml.recordGameStart("conversation_"+this.phaserJSON.Setup.Name)
+    dtml.recordGameStart('conversation_' + this.phaserJSON.Setup.Name)
   }
 
   createBackground () {
-    this.background = this.add.sprite(game.world.centerX, game.world.height, 'bg1')
+    this.background = this.add.sprite(game.world.centerX, game.world.height, 'bg_' + this.phaserJSON.Setup.StartingBackground)
     this.background.anchor.set(0.5, 1)
     this.gameTitle = this.add.sprite(game.world.centerX, game.world.height, 'bg_title')
     this.gameTitle.anchor.set(0.5, 1)

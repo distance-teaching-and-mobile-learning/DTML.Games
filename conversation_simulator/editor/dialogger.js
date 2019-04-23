@@ -4,6 +4,7 @@ import './lib/jquery.contextMenu.js'
 import './lib/jquery.ui.position.js'
 import Validator from './validator.js'
 import CharacterList from './characterList.json'
+import BackgroundList from './backgroundList.json'
 
 function getURLParameter (name) {
   return (
@@ -624,28 +625,28 @@ joint.shapes.dialogue.QuestionView = joint.shapes.dialogue.BaseView.extend({
   expandNode: function () {
     this.model.set('size', {
       width: 260,
-      height: 455
+      height: 475
     })
     this.$box.find('.toggle').unbind('click')
     this.$box.find('.toggle').on('click', _.bind(this.collapseNode, this))
     this.$box.find('.toggle').html('-')
     var elements = [
-      $('<p><input type="text" class="backgroundSelector" placeHolder="Background" /></p>'),
+      $('<div class="collapseDelete" style="display:block; overflow:hidden;"><span class="background" style="width:50%; float:left;">Background:</span><select class="backgroundSelector" style="width:50%; float:right;"></select></div>'),
       $('<hr class="collapseDelete" /></p>'),
       $('<p><span class="collapseDelete" style="font-weight:bold">On State Enter</span><br class="collapseDelete" /></p>'),
       $('<div class="collapseDelete" style="float:left;padding-top:6px">Left Character: </div>'),
       $('<input type="text" class="enterLeftAnimation" style="width:74px; float:right;" placeHolder="Animation" />'),
-      $('<input type="text" class="enterLeftDirection" style="width:54px; float:right; margin-right:5px" placeHolder="in or out" /><br class="collapseDelete" />'),
+      $('<select class="enterLeftDirection" style="width:54px; float:right; margin-right:5px"/></select><br class="collapseDelete" />'),
       $('<div class="collapseDelete" style="float:left;padding-top:6px">Right Character: </div>'),
       $('<input type="text" class="enterRightAnimation" style="width:74px; float:right;" placeHolder="Animation" />'),
-      $('<input type="text" class="enterRightDirection" style="width:54px; float:right; margin-right:5px" placeHolder="in or out" /><br class="collapseDelete" /><br class="collapseDelete" />'),
+      $('<select class="enterRightDirection" style="width:54px; float:right; margin-right:5px" /></select><br class="collapseDelete" /><br class="collapseDelete" />'),
       $('<p><span class="collapseDelete" style="font-weight:bold">On State Exit</span><br class="collapseDelete" /></p>'),
       $('<div class="collapseDelete" style="float:left;padding-top:8px">Left Character: </div>'),
       $('<input type="text" class="exitLeftAnimation" style="width:74px;float:right" placeHolder="Animation" />'),
-      $('<input type="text" class="exitLeftDirection" style="width:54px; float:right; margin-right:5px" placeHolder="in or out" /><br class="collapseDelete" />'),
+      $('<select class="exitLeftDirection" style="width:54px; float:right; margin-right:5px" placeHolder="in or out" /></select><br class="collapseDelete" />'),
       $('<div class="collapseDelete" style="float:left;padding-top:8px">Right Character: </div>'),
       $('<input type="text" class="exitRightAnimation" style="width:74px;float:right" placeHolder="Animation" />'),
-      $('<input type="text" class="exitRightDirection" style="width:54px; margin-right:5px;float:right" placeHolder="in or out" /><br class="collapseDelete" />')
+      $('<select class="exitRightDirection" style="width:54px; margin-right:5px;float:right" placeHolder="in or out" /></select><br class="collapseDelete" />')
     ]
     let _this = this
     $(elements).each(function (index, element) {
@@ -655,12 +656,37 @@ joint.shapes.dialogue.QuestionView = joint.shapes.dialogue.BaseView.extend({
       }
     })
 
+    // Populate drop-down options
+    this.$box.find('select.enterLeftDirection').append($('<option>', { value: 'none', text: 'None' }))
+    this.$box.find('select.enterLeftDirection').append($('<option>', { value: 'in', text: 'in' }))
+    this.$box.find('select.enterLeftDirection').append($('<option>', { value: 'out', text: 'out' }))
+    this.$box.find('select.enterRightDirection').append($('<option>', { value: 'none', text: 'None' }))
+    this.$box.find('select.enterRightDirection').append($('<option>', { value: 'in', text: 'in' }))
+    this.$box.find('select.enterRightDirection').append($('<option>', { value: 'out', text: 'out' }))
+    this.$box.find('select.exitLeftDirection').append($('<option>', { value: 'none', text: 'None' }))
+    this.$box.find('select.exitLeftDirection').append($('<option>', { value: 'in', text: 'in' }))
+    this.$box.find('select.exitLeftDirection').append($('<option>', { value: 'out', text: 'out' }))
+    this.$box.find('select.exitRightDirection').append($('<option>', { value: 'none', text: 'None' }))
+    this.$box.find('select.exitRightDirection').append($('<option>', { value: 'in', text: 'in' }))
+    this.$box.find('select.exitRightDirection').append($('<option>', { value: 'out', text: 'out' }))
+
+    this.$box.find('select.backgroundSelector').append($('<option>', {
+      value: null,
+      text: '-'
+    }))
+    for (let i = 0; i < BackgroundList.length; i++) {
+      this.$box.find('select.backgroundSelector').append($('<option>', {
+        value: BackgroundList[i][0],
+        text: BackgroundList[i][1]
+      }))
+    }
+
     // Fill in values
-    if (this.model.get('background')) { elements[0].val(this.model.get('background')) }
-    if (this.model.get('enterLeftAnimation')) { elements[3].val(this.model.get('enterLeftAnimation')) }
-    if (this.model.get('enterLeftDirection')) { elements[4].val(this.model.get('enterLeftDirection')) }
-    if (this.model.get('enterRightAnimation')) { elements[6].val(this.model.get('enterRightAnimation')) }
-    if (this.model.get('enterRightDirection')) { elements[7].val(this.model.get('enterRightDirection')) }
+    if (this.model.get('backgroundSelector')) { elements[0].val(this.model.get('background')) }
+    if (this.model.get('enterLeftAnimation')) { elements[4].val(this.model.get('enterLeftAnimation')) }
+    if (this.model.get('enterLeftDirection')) { elements[5].val(this.model.get('enterLeftDirection')) }
+    if (this.model.get('enterRightAnimation')) { elements[7].val(this.model.get('enterRightAnimation')) }
+    if (this.model.get('enterRightDirection')) { elements[8].val(this.model.get('enterRightDirection')) }
     if (this.model.get('exitLeftAnimation')) { elements[11].val(this.model.get('exitLeftAnimation')) }
     if (this.model.get('exitLeftDirection')) { elements[12].val(this.model.get('exitLeftDirection')) }
     if (this.model.get('exitRightAnimation')) { elements[14].val(this.model.get('exitRightAnimation')) }
@@ -717,6 +743,7 @@ joint.shapes.dialogue.QuestionView = joint.shapes.dialogue.BaseView.extend({
     this.$box.find('.toggle').on('click', _.bind(this.expandNode, this))
     this.$box.find('.toggle').html('+')
     this.$box.find('.collapseDelete').remove()
+    this.$box.find('.background').remove()
     this.$box.find('.backgroundSelector').remove()
     this.$box.find('.enterLeftAnimation').remove()
     this.$box.find('.enterLeftDirection').remove()
@@ -882,7 +909,7 @@ joint.shapes.dialogue.Start = joint.shapes.devs.Model.extend({
       rightYOffset: null,
       rightX: null,
       rightY: null,
-      backgrounds: [null],
+      background: BackgroundList[0][0],
       phraseCorrection: true
     },
     joint.shapes.dialogue.Base.prototype.defaults
@@ -941,7 +968,7 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="rightX collapseDelete" style="width:38px" placeHolder="175"></span><span class="collapseDelete" style="width:33%; float:left; clear:right;">y: <input type="text" class="rightY collapseDelete" style="width:38px" placeHolder="340"></span></div>'),
       $('<hr class="collapseDelete">'),
       $('<div class="collapseDelete"><span class="collapseDelete">Phrase Corrections</span><input class="collapseDelete, phraseCorrections" type="checkbox" style="float:right; width:20px;"></div>'),
-      $('<p><span class="collapseDelete">Backgrounds</span> <button class="removeBackground collapseDelete">-</button> <button class="addBackground collapseDelete">+</button></p>'),
+      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Background:</span><select class="background collapseDelete" style="width: 50%; float:right; clear:right;"></select></div>'),
       $('</div>')
     ]
     let _this = this
@@ -959,6 +986,14 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
       this.$box.find('select.rightCharacter').append($('<option>', {
         value: CharacterList[i],
         text: CharacterList[i]
+      }))
+    }
+
+    // Populate backgrounds
+    for (let i = 0; i < BackgroundList.length; i++) {
+      this.$box.find('select.background').append($('<option>', {
+        value: BackgroundList[i][0],
+        text: BackgroundList[i][1]
       }))
     }
 
@@ -1011,19 +1046,15 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     this.$box.find('input.rightX').on('change', _.bind(function (evt) { this.model.set('rightX', $(evt.target).val()) }, this))
     this.$box.find('input.rightY').on('change', _.bind(function (evt) { this.model.set('rightY', $(evt.target).val()) }, this))
     this.$box.find('input.phraseCorrections').on('change', _.bind(function (evt) { this.model.set('phraseCorrection', $(evt.target).prop('checked')) }, this))
-    this.$box.find('input.background').on('change', _.bind(function (evt) {
-      let backgrounds = this.model.get('backgrounds').slice(0)
-      backgrounds[0] = $(evt.target).val()
-      this.model.set('backgrounds', backgrounds)
-    }, this))
+    this.$box.find('select.background').on('change', _.bind(function (evt) { this.model.set('background', $(evt.target).val()) }, this))
 
     // Buttons
     this.$box.find('.testLeftVoice').on('click', _.bind(function () { this.textToSpeech('This is the left character\'s voice', this.getVoiceFromGender(this.model.get('leftVoice')), this.model.get('leftPitch')) }, this))
     this.$box.find('.testRightVoice').on('click', _.bind(function () { this.textToSpeech('This is the right character\'s voice', this.getVoiceFromGender(this.model.get('rightVoice')), this.model.get('rightPitch')) }, this))
-    this.$box.find('.addBackground').on('click', _.bind(this.addBackground, this))
-    this.$box.find('.removeBackground').on('click', _.bind(this.removeBackground, this))
 
     this.model.set('expanded', true)
+
+    this.model.set('size', { width: 180, height: 620 })
   },
 
   collapseNode: function () {
@@ -1038,74 +1069,7 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
     this.model.set('size', { width: 180, height: 170 })
   },
 
-  addBackground: function () {
-    var backgrounds = this.model.get('backgrounds').slice(0)
-    backgrounds.push(null)
-    this.model.set('backgrounds', backgrounds)
-  },
-
-  removeBackground: function () {
-    if (this.model.get('backgrounds').length > 1) {
-      var backgrounds = this.model.get('backgrounds').slice(0)
-      backgrounds.pop()
-      this.model.set('backgrounds', backgrounds)
-    }
-  },
-
-  addBackgroundField (index) {
-    var backgroundInput = $('<input type="text" class="background collapseDelete" />')
-    let placeHolder = index === 0 ? 'Starting Background' : 'Background ' + (index + 1)
-    backgroundInput.attr('placeHolder', placeHolder)
-    backgroundInput.attr('index', index)
-    backgroundInput.on('change', _.bind(function (evt) {
-      let backgrounds = this.model.get('backgrounds').slice(0)
-      backgrounds[$(evt.target).attr('index')] = $(evt.target).val()
-      this.model.set('backgrounds', backgrounds)
-    }, this))
-    this.$box.append(backgroundInput)
-    if (backgroundInput.is('input')) {
-      backgroundInput.on('click', function () { backgroundInput.focus() })
-    }
-    this.updateSize()
-  },
-
-  updateBox: function () {
-    joint.shapes.dialogue.BaseView.prototype.updateBox.apply(this, arguments)
-    var backgrounds = this.model.get('backgrounds')
-    var backgroundFields = this.$box.find('input.background')
-
-    // Add value fields if necessary
-    if (this.model.get('expanded') === true) {
-      for (let i = backgroundFields.length; i < backgrounds.length; i++) {
-        this.addBackgroundField(i)
-      }
-    }
-
-    // Remove value fields if necessary
-    for (let i = backgrounds.length; i < backgroundFields.length; i++) {
-      $(backgroundFields[i]).remove()
-      this.updateSize()
-    }
-
-    // Update value fields
-    for (let i = 0; i < backgroundFields.length; i++) {
-      let field = $(backgroundFields[i])
-      if (!field.is(':focus')) field.val(backgrounds[i])
-    }
-  },
-
-  updateSize: function () {
-    var textField = $(this.$box.find('input.background')[0])
-    var height = textField.outerHeight(true)
-    this.model.set('size', {
-      width: 180,
-      height:
-        650 + Math.max(0, (this.model.get('backgrounds').length - 1) * height)
-    })
-  },
-
   textToSpeech (text, voice, pitch) {
-    console.log(voice)
     if (voice) {
       try {
         if (speechSynthesis.speaking) {
@@ -1403,9 +1367,9 @@ function convertToGameState (graph) {
       gameState.Setup.RightAddY = Number(cell.attributes.rightYOffset) || 0
       gameState.Setup.CallOutRightX = Number(cell.attributes.rightX) || 175
       gameState.Setup.CallOutRightY = Number(cell.attributes.rightY) || 340
-      gameState.Setup.Backgrounds = cell.attributes.backgrounds
+      gameState.Setup.Backgrounds = [cell.attributes.background]
+      gameState.Setup.StartingBackground = cell.attributes.background
       gameState.Setup.PhraseCorrection = cell.attributes.phraseCorrection
-      break
     }
   }
 
@@ -1433,8 +1397,10 @@ function convertToGameState (graph) {
         OnStateEnter: {},
         OnStateExit: {}
       }
-      if (cell.attributes.background) {
+      if (cell.attributes.background && cell.attributes.background !== '-') {
         newState.OnStateEnter.Background = cell.attributes.background
+        // Add it to the list of backgrounds to load
+        gameState.Setup.Backgrounds.push(cell.attributes.background)
       }
       if (cell.attributes.enterLeftAnimation) {
         newState.OnStateEnter.Left = cell.attributes.enterLeftAnimation

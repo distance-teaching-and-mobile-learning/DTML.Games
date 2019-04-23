@@ -52,11 +52,9 @@ export default class extends Phaser.State {
       })
     }
 
-    console.log('left character:' + phaserJSON.Setup.LeftCharacter.trim())
     this.load.atlas('leftCharacter', 'assets/images/res/' + phaserJSON.Setup.LeftCharacter.trim() + '/anim.png', 'assets/images/res/' + phaserJSON.Setup.LeftCharacter.trim() + '/anim.json')
     this.load.xml('leftCharacterAnimations', 'assets/images/res/' + phaserJSON.Setup.LeftCharacter.trim() + '/anim.scml')
 
-    console.log('right character:' + phaserJSON.Setup.RightCharacter.trim())
     this.load.atlas('rightCharacter', 'assets/images/res/' + phaserJSON.Setup.RightCharacter.trim() + '/anim.png', 'assets/images/res/' + phaserJSON.Setup.RightCharacter.trim() + '/anim.json')
     this.load.xml('rightCharacterAnimations', 'assets/images/res/' + phaserJSON.Setup.RightCharacter.trim() + '/anim.scml')
 
@@ -78,7 +76,7 @@ export default class extends Phaser.State {
     // Backgrounds
     for (let i = 0; i < phaserJSON.Setup.Backgrounds.length; i++) {
       let background = phaserJSON.Setup.Backgrounds[i]
-      this.load.image('bg' + (i + 1), 'assets/images/res/backgrounds/' + background + '.png')
+      this.load.image('bg_' + background, 'assets/images/res/backgrounds/' + background)
     }
     this.load.image('bg1', 'assets/images/res/' + phaserJSON.Setup.StartingBackground)
     this.load.image('bg_title', 'assets/images/res/title.png')
@@ -96,7 +94,6 @@ export default class extends Phaser.State {
   }
 
   loadStart () {
-    console.log('loadStart')
     this.loadingText = this.add.text(this.game.world.centerX - 140, this.game.world.centerY - 140, 'Loading...', {
       font: '20px Berkshire Swash',
       fill: '#ffffff'
@@ -111,7 +108,6 @@ export default class extends Phaser.State {
   loadComplete () {
     this.time.advancedTiming = true
     let videoDuration = 5
-    console.log('loadComplete')
     this.time.events.add(Phaser.Timer.SECOND * videoDuration, () => {
       document.querySelector('#intro').style.display = 'none'
       document.querySelector('#content').style.display = 'block'
