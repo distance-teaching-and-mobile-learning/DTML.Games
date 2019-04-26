@@ -100,14 +100,6 @@ export default class {
     }
   }
 
-  getOnExitBg () {
-    if (this.currentState.OnStateExit != null) {
-      return this.currentState.OnStateExit.Background
-    } else {
-      return null
-    }
-  }
-
   getOnEnterBg () {
     if (this.currentState.OnStateEnter != null) {
       return this.currentState.OnStateEnter.Background

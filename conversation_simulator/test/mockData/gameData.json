@@ -1,0 +1,689 @@
+{
+  "Setup": {
+    "Name": "Test Module",
+    "Title": "For Testing Use",
+    "LeftCharacter": "Boy",
+    "LeftVoice": "male",
+    "LeftPitch": 1,
+    "LeftAddY": 100,
+    "CallOutLeftX": 300,
+    "CallOutLeftY": 400,
+    "RightCharacter": "cashier",
+    "RightVoice": "female",
+    "RightPitch": -1,
+    "RightAddY": -100,
+    "CallOutRightX": -300,
+    "CallOutRightY": -400,
+    "Backgrounds": ["bg_park.png", "bg_store.png"],
+    "StartingBackground": "bg_park.png",
+    "PhraseCorrection": true
+  },
+  "StartAt": "Question 1",
+  "States": {
+    "Question 1": {
+      "Type": "Conversation",
+      "Question": "This is the prompt for question 1.",
+      "AnswerWords": [
+        "list",
+        "of",
+        "answer",
+        "words",
+        "for",
+        "question",
+        "1",
+        "right",
+        "wrong"
+      ],
+      "Solutions": {
+        "wrong answer words": { "Score": 0, "Next": "Wrong Answer" },
+        "default": { "Score": -50, "Next": null },
+        "right answer": { "Score": 100, "Next": "Right Answer" }
+      },
+      "OnStateEnter": {
+        "Background": "bg_store.png",
+        "Left": "_WALK",
+        "LeftDo": "in",
+        "Right": "_WALK",
+        "RightDo": "in"
+      },
+      "OnStateExit": {
+        "Left": "_RUN",
+        "LeftDo": "out",
+        "Right": "_RUN",
+        "RightDo": "out"
+      }
+    },
+    "Right Answer": {
+      "Type": "Conversation",
+      "Question": "This is the prompt if you got the right answer.",
+      "AnswerWords": ["I", "got", "the", "right", "answer"],
+      "Solutions": {
+        "answer": { "Score": 0, "Next": "End" },
+        "default": { "Score": -50, "Next": null }
+      },
+      "OnStateEnter": {},
+      "OnStateExit": {}
+    },
+    "Wrong Answer": {
+      "Type": "Conversation",
+      "Question": "This is the prompt if you got the wrong answer.",
+      "AnswerWords": ["You", "got", "the", "wrong", "answer"],
+      "Solutions": {
+        "answer": { "Score": 0, "Next": "" },
+        "default": { "Score": -50, "Next": null }
+      },
+      "OnStateEnter": {},
+      "OnStateExit": {}
+    },
+    "End": { "Type": "End", "Question": "", "AnswerWords": [], "Solutions": {} }
+  },
+  "graphData": {
+    "cells": [
+      {
+        "type": "dialogue.Start",
+        "outPorts": ["output"],
+        "actor": "",
+        "textarea": "Start writing",
+        "size": { "width": 180, "height": 620 },
+        "expanded": true,
+        "gameName": "Test Module",
+        "gameTitle": "For Testing Use",
+        "leftCharacter": "Boy",
+        "leftVoice": "male",
+        "leftPitch": "1",
+        "leftYOffset": "100",
+        "leftX": "300",
+        "leftY": "400",
+        "rightCharacter": "cashier",
+        "rightVoice": "female",
+        "rightPitch": "-1",
+        "rightYOffset": "-100",
+        "rightX": "-300",
+        "rightY": "-400",
+        "background": "bg_park.png",
+        "phraseCorrection": true,
+        "name": "",
+        "inPorts": [],
+        "ports": {
+          "groups": {
+            "in": {
+              "position": { "name": "left" },
+              "attrs": {
+                ".port-label": { "fill": "#000" },
+                ".port-body": {
+                  "fill": "#fff",
+                  "stroke": "#000",
+                  "r": 10,
+                  "magnet": true
+                }
+              },
+              "label": { "position": { "name": "left", "args": { "y": 10 } } }
+            },
+            "out": {
+              "position": { "name": "right" },
+              "attrs": {
+                ".port-label": { "fill": "#000" },
+                ".port-body": {
+                  "fill": "#fff",
+                  "stroke": "#000",
+                  "r": 10,
+                  "magnet": true
+                }
+              },
+              "label": { "position": { "name": "right", "args": { "y": 10 } } }
+            }
+          },
+          "items": [
+            {
+              "id": "output",
+              "group": "out",
+              "attrs": { ".port-label": { "text": "output" } }
+            }
+          ]
+        },
+        "position": { "x": 96, "y": 112 },
+        "angle": 0,
+        "id": "e107135d-a443-4bb5-9e29-64952c2f6a41",
+        "z": 1,
+        "attrs": {}
+      },
+      {
+        "size": { "width": 260, "height": 475 },
+        "type": "dialogue.Question",
+        "inPorts": ["input"],
+        "outPorts": ["output"],
+        "ports": {
+          "groups": {
+            "in": {
+              "position": { "name": "left" },
+              "attrs": {
+                ".port-label": { "fill": "#000" },
+                ".port-body": {
+                  "fill": "#fff",
+                  "stroke": "#000",
+                  "r": 10,
+                  "magnet": true
+                }
+              },
+              "label": { "position": { "name": "left", "args": { "y": 10 } } }
+            },
+            "out": {
+              "attrs": {
+                ".port-body": {
+                  "unlimitedConnections": true,
+                  "fill": "#fff",
+                  "stroke": "#000",
+                  "r": 10,
+                  "magnet": true
+                },
+                ".port-label": { "fill": "#000" }
+              },
+              "position": { "name": "right" },
+              "label": { "position": { "name": "right", "args": { "y": 10 } } }
+            }
+          },
+          "items": [
+            {
+              "id": "input",
+              "group": "in",
+              "attrs": { ".port-label": { "text": "input" } }
+            },
+            {
+              "id": "output",
+              "group": "out",
+              "attrs": { ".port-label": { "text": "output" } }
+            }
+          ]
+        },
+        "name": "Question 1",
+        "prompt": "This is the prompt for question 1.",
+        "answerWords": "list, of, answer, words, for, question, 1, right, wrong",
+        "background": "bg_store.png",
+        "enterLeftAnimation": "_WALK",
+        "enterLeftDirection": "in",
+        "enterRightAnimation": "_WALK",
+        "enterRightDirection": "in",
+        "exitLeftAnimation": "_RUN",
+        "exitLeftDirection": "out",
+        "exitRightAnimation": "_RUN",
+        "exitRightDirection": "out",
+        "position": { "x": 416, "y": 256 },
+        "angle": 0,
+        "id": "f3c0d3b2-82f7-4d47-b6a5-8a62177ce5ff",
+        "z": 2,
+        "attrs": {}
+      },
+      {
+        "type": "link",
+        "source": {
+          "id": "e107135d-a443-4bb5-9e29-64952c2f6a41",
+          "port": "output"
+        },
+        "target": {
+          "id": "f3c0d3b2-82f7-4d47-b6a5-8a62177ce5ff",
+          "port": "input"
+        },
+        "id": "10b9b8ef-79ff-4f28-aa5a-4a3a132b605b",
+        "connector": { "name": "smooth" },
+        "z": 3,
+        "attrs": {}
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 60 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": ["right answer"],
+        "scores": ["100"],
+        "name": "",
+        "ports": {
+          "groups": {
+            "in": {
+              "position": { "name": "left" },
+              "attrs": {
+                ".port-label": { "fill": "#000" },
+                ".port-body": {
+                  "fill": "#fff",
+                  "stroke": "#000",
+                  "r": 10,
+                  "magnet": true
+                }
+              },
+              "label": { "position": { "name": "left", "args": { "y": 10 } } }
+            },
+            "out": {
+              "position": { "name": "right" },
+              "attrs": {
+                ".port-label": { "fill": "#000" },
+                ".port-body": {
+                  "fill": "#fff",
+                  "stroke": "#000",
+                  "r": 10,
+                  "magnet": true
+                }
+              },
+              "label": { "position": { "name": "right", "args": { "y": 10 } } }
+            }
+          },
+          "items": [
+            {
+              "id": "input",
+              "group": "in",
+              "attrs": { ".port-label": { "text": "input" } }
+            },
+            {
+              "id": "output0",
+              "group": "out",
+              "attrs": { ".port-label": { "text": "output0" } }
+            }
+          ]
+        },
+        "position": { "x": 832, "y": 240 },
+        "angle": 0,
+        "id": "a45ffb19-51fd-4077-8bad-41d264566f68",
+        "z": 4,
+        "attrs": {}
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 60 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": ["wrong answer words"],
+        "scores": [],
+        "name": "",
+        "ports": {
+          "groups": {
+            "in": {
+              "position": { "name": "left" },
+              "attrs": {
+                ".port-label": { "fill": "#000" },
+                ".port-body": {
+                  "fill": "#fff",
+                  "stroke": "#000",
+                  "r": 10,
+                  "magnet": true
+                }
+              },
+              "label": { "position": { "name": "left", "args": { "y": 10 } } }
+            },
+            "out": {
+              "position": { "name": "right" },
+              "attrs": {
+                ".port-label": { "fill": "#000" },
+                ".port-body": {
+                  "fill": "#fff",
+                  "stroke": "#000",
+                  "r": 10,
+                  "magnet": true
+                }
+              },
+              "label": { "position": { "name": "right", "args": { "y": 10 } } }
+            }
+          },
+          "items": [
+            {
+              "id": "input",
+              "group": "in",
+              "attrs": { ".port-label": { "text": "input" } }
+            },
+            {
+              "id": "output0",
+              "group": "out",
+              "attrs": { ".port-label": { "text": "output0" } }
+            }
+          ]
+        },
+        "position": { "x": 816, "y": 544 },
+        "angle": 0,
+        "id": "4eccd8d0-a064-4d4a-8ace-91014f06409a",
+        "z": 5,
+        "attrs": {}
+      },
+      {
+        "type": "link",
+        "source": {
+          "id": "f3c0d3b2-82f7-4d47-b6a5-8a62177ce5ff",
+          "port": "output"
+        },
+        "target": {
+          "id": "4eccd8d0-a064-4d4a-8ace-91014f06409a",
+          "port": "input"
+        },
+        "id": "86eddf42-f1e6-4801-86d3-a88868e8bfa6",
+        "connector": { "name": "smooth" },
+        "z": 6,
+        "attrs": {}
+      },
+      {
+        "type": "link",
+        "source": {
+          "id": "f3c0d3b2-82f7-4d47-b6a5-8a62177ce5ff",
+          "port": "output"
+        },
+        "target": {
+          "id": "a45ffb19-51fd-4077-8bad-41d264566f68",
+          "port": "input"
+        },
+        "id": "ce52c620-af56-421a-9c67-2882750faecc",
+        "connector": { "name": "smooth" },
+        "z": 7,
+        "attrs": {}
+      },
+      {
+        "size": { "width": 260, "height": 240 },
+        "type": "dialogue.Question",
+        "inPorts": ["input"],
+        "outPorts": ["output"],
+        "ports": {
+          "groups": {
+            "in": {
+              "position": { "name": "left" },
+              "attrs": {
+                ".port-label": { "fill": "#000" },
+                ".port-body": {
+                  "fill": "#fff",
+                  "stroke": "#000",
+                  "r": 10,
+                  "magnet": true
+                }
+              },
+              "label": { "position": { "name": "left", "args": { "y": 10 } } }
+            },
+            "out": {
+              "attrs": {
+                ".port-body": {
+                  "unlimitedConnections": true,
+                  "fill": "#fff",
+                  "stroke": "#000",
+                  "r": 10,
+                  "magnet": true
+                },
+                ".port-label": { "fill": "#000" }
+              },
+              "position": { "name": "right" },
+              "label": { "position": { "name": "right", "args": { "y": 10 } } }
+            }
+          },
+          "items": [
+            {
+              "id": "input",
+              "group": "in",
+              "attrs": { ".port-label": { "text": "input" } }
+            },
+            {
+              "id": "output",
+              "group": "out",
+              "attrs": { ".port-label": { "text": "output" } }
+            }
+          ]
+        },
+        "name": "Right Answer",
+        "prompt": "This is the prompt if you got the right answer.",
+        "answerWords": "I, got, the, right, answer",
+        "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 1168, "y": 160 },
+        "angle": 0,
+        "id": "e94f1e01-3a62-4ed6-a24b-099b4fe58e71",
+        "z": 8,
+        "attrs": {}
+      },
+      {
+        "type": "link",
+        "source": {
+          "id": "a45ffb19-51fd-4077-8bad-41d264566f68",
+          "port": "output0"
+        },
+        "target": {
+          "id": "e94f1e01-3a62-4ed6-a24b-099b4fe58e71",
+          "port": "input"
+        },
+        "id": "4aa9c964-dc08-4acb-b7d7-2c57d06c486b",
+        "connector": { "name": "smooth" },
+        "z": 9,
+        "attrs": {}
+      },
+      {
+        "size": { "width": 260, "height": 240 },
+        "type": "dialogue.Question",
+        "inPorts": ["input"],
+        "outPorts": ["output"],
+        "ports": {
+          "groups": {
+            "in": {
+              "position": { "name": "left" },
+              "attrs": {
+                ".port-label": { "fill": "#000" },
+                ".port-body": {
+                  "fill": "#fff",
+                  "stroke": "#000",
+                  "r": 10,
+                  "magnet": true
+                }
+              },
+              "label": { "position": { "name": "left", "args": { "y": 10 } } }
+            },
+            "out": {
+              "attrs": {
+                ".port-body": {
+                  "unlimitedConnections": true,
+                  "fill": "#fff",
+                  "stroke": "#000",
+                  "r": 10,
+                  "magnet": true
+                },
+                ".port-label": { "fill": "#000" }
+              },
+              "position": { "name": "right" },
+              "label": { "position": { "name": "right", "args": { "y": 10 } } }
+            }
+          },
+          "items": [
+            {
+              "id": "input",
+              "group": "in",
+              "attrs": { ".port-label": { "text": "input" } }
+            },
+            {
+              "id": "output",
+              "group": "out",
+              "attrs": { ".port-label": { "text": "output" } }
+            }
+          ]
+        },
+        "name": "Wrong Answer",
+        "prompt": "This is the prompt if you got the wrong answer.",
+        "answerWords": "You, got, the, wrong, answer",
+        "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 1184, "y": 576 },
+        "angle": 0,
+        "id": "a978fa81-ec3f-4740-b8d2-4c352f5896a3",
+        "z": 10,
+        "attrs": {}
+      },
+      {
+        "type": "link",
+        "source": {
+          "id": "4eccd8d0-a064-4d4a-8ace-91014f06409a",
+          "port": "output0"
+        },
+        "target": {
+          "id": "a978fa81-ec3f-4740-b8d2-4c352f5896a3",
+          "port": "input"
+        },
+        "id": "6262d64d-8ef7-4346-b27a-8e62e427bc3b",
+        "connector": { "name": "smooth" },
+        "z": 11,
+        "attrs": {}
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 60 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": ["answer"],
+        "scores": [],
+        "name": "",
+        "ports": {
+          "groups": {
+            "in": {
+              "position": { "name": "left" },
+              "attrs": {
+                ".port-label": { "fill": "#000" },
+                ".port-body": {
+                  "fill": "#fff",
+                  "stroke": "#000",
+                  "r": 10,
+                  "magnet": true
+                }
+              },
+              "label": { "position": { "name": "left", "args": { "y": 10 } } }
+            },
+            "out": {
+              "position": { "name": "right" },
+              "attrs": {
+                ".port-label": { "fill": "#000" },
+                ".port-body": {
+                  "fill": "#fff",
+                  "stroke": "#000",
+                  "r": 10,
+                  "magnet": true
+                }
+              },
+              "label": { "position": { "name": "right", "args": { "y": 10 } } }
+            }
+          },
+          "items": [
+            {
+              "id": "input",
+              "group": "in",
+              "attrs": { ".port-label": { "text": "input" } }
+            },
+            {
+              "id": "output0",
+              "group": "out",
+              "attrs": { ".port-label": { "text": "output0" } }
+            }
+          ]
+        },
+        "position": { "x": 1584, "y": 448 },
+        "angle": 0,
+        "id": "50c89f98-d336-4561-9322-5de9fa9baa56",
+        "z": 12,
+        "attrs": {}
+      },
+      {
+        "type": "link",
+        "source": {
+          "id": "a978fa81-ec3f-4740-b8d2-4c352f5896a3",
+          "port": "output"
+        },
+        "target": {
+          "id": "50c89f98-d336-4561-9322-5de9fa9baa56",
+          "port": "input"
+        },
+        "id": "a6ff6ec6-6af7-4a92-a715-f6ec212afb4a",
+        "connector": { "name": "smooth" },
+        "z": 13,
+        "attrs": {}
+      },
+      {
+        "type": "link",
+        "source": {
+          "id": "e94f1e01-3a62-4ed6-a24b-099b4fe58e71",
+          "port": "output"
+        },
+        "target": {
+          "id": "50c89f98-d336-4561-9322-5de9fa9baa56",
+          "port": "input"
+        },
+        "id": "239f605f-4491-4237-a5dd-a307879f8c91",
+        "connector": { "name": "smooth" },
+        "z": 14,
+        "attrs": {}
+      },
+      {
+        "type": "dialogue.End",
+        "inPorts": ["input"],
+        "actor": "",
+        "textarea": "Start writing",
+        "size": { "width": 150, "height": 50 },
+        "name": "",
+        "outPorts": [],
+        "ports": {
+          "groups": {
+            "in": {
+              "position": { "name": "left" },
+              "attrs": {
+                ".port-label": { "fill": "#000" },
+                ".port-body": {
+                  "fill": "#fff",
+                  "stroke": "#000",
+                  "r": 10,
+                  "magnet": true
+                }
+              },
+              "label": { "position": { "name": "left", "args": { "y": 10 } } }
+            },
+            "out": {
+              "position": { "name": "right" },
+              "attrs": {
+                ".port-label": { "fill": "#000" },
+                ".port-body": {
+                  "fill": "#fff",
+                  "stroke": "#000",
+                  "r": 10,
+                  "magnet": true
+                }
+              },
+              "label": { "position": { "name": "right", "args": { "y": 10 } } }
+            }
+          },
+          "items": [
+            {
+              "id": "input",
+              "group": "in",
+              "attrs": { ".port-label": { "text": "input" } }
+            }
+          ]
+        },
+        "position": { "x": 1936, "y": 448 },
+        "angle": 0,
+        "id": "703f5972-e23b-43ee-9891-be34c1a8d170",
+        "z": 15,
+        "attrs": {}
+      },
+      {
+        "type": "link",
+        "source": {
+          "id": "50c89f98-d336-4561-9322-5de9fa9baa56",
+          "port": "output0"
+        },
+        "target": {
+          "id": "703f5972-e23b-43ee-9891-be34c1a8d170",
+          "port": "input"
+        },
+        "id": "2fa9e13f-5afd-4d1c-a95f-53a1ca02e3e9",
+        "connector": { "name": "smooth" },
+        "z": 16,
+        "attrs": {}
+      }
+    ]
+  }
+}
