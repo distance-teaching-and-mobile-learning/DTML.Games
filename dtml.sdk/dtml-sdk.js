@@ -136,12 +136,11 @@ var dtml = {
             headers: {
                 'content-type': 'application/x-www-form-urlencoded;charset=UTF-8'
             }
-        })
-		.catch (err => {
-            callback(err);
         }).then(data => {
-                callback(data);
-            });
+            callback(data);
+        }).catch (err => {
+            callback(err);
+        })
     },
 
     //*****************************************************************

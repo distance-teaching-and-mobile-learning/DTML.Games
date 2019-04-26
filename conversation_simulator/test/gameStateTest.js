@@ -1,11 +1,11 @@
-var assert = require('assert')
-var sinon = require('sinon')
-var puppeteer = require('puppeteer')
-var path = require('path')
-var GameState = null
+// var assert = require('assert')
+// var sinon = require('sinon')
+// var puppeteer = require('puppeteer')
+// var path = require('path')
+// var GameState = null
 
-describe('Game State', function () {
-  var Game
+// describe('Game State', function () {
+//   var Game
   
 //   before (async function () {
 //     global.browser = await puppeteer.launch()
@@ -21,17 +21,17 @@ describe('Game State', function () {
 //     global.game = new Phaser.Game()
 //   })
   
-  beforeEach(function() {
-    // Game = new GameState.default()
-  })
+//   beforeEach(function() {
+//     Game = new GameState.default()
+//   })
 
-  afterEach(function() {
-    sinon.restore()
-  })
+//   afterEach(function() {
+//     sinon.restore()
+//   })
 
-  after (function () {
-    global.browser.close()
-  })
+//   after (function () {
+//     global.browser.close()
+//   })
   
 //   describe('loadSpriter', function () {
 //     it('should load a new Spriter object given the key \'leftCharacter\'', async function (done) {
