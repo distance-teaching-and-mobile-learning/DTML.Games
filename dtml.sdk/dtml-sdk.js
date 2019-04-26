@@ -124,11 +124,9 @@ var dtml = {
     //*****************************************************************
     // Publish conversational Dialog
     //*****************************************************************
-    publishDialog: function(gameId, gameVersion, publisherKey, json, callback) {
+    publishDialog: function(gameId, json, callback) {
 		var formBody = new URLSearchParams();
 		formBody.append('Name', gameId);
-		formBody.append('Version', gameVersion);
-		formBody.append('APIKey', publisherKey);
 		formBody.append('DialogJSON', JSON.stringify(json));
 
    	    fetch(this.urls.dialogService+"Dialog", {
