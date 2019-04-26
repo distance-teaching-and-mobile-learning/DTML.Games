@@ -86,7 +86,6 @@ function checkSolutions (graph) {
         } else {
           for (let j = 0; j < answers.length; j++) {
             let answer = answers[j]
-            // OH I SEE, THE FIRST ENTRY IS ALWAYS NULL SO IT'S NEVER LENGTH 0
             let solutionWords = splitWords(answer)
             for (let k = 0; k < solutionWords.length; k++) {
               if (!wordInArray(solutionWords[k], stateWords)) {
@@ -166,7 +165,7 @@ function checkEnding (graph) {
 ------------------------------------------------------ */
 
 function splitWords (answer) {
-  let splitWords = answer.split(' ')
+  let splitWords = answer.split(/(,| |, )/)
 
   for (let i = splitWords.length - 1; i >= 0; i--) {
     splitWords[i] = splitWords[i].trim()

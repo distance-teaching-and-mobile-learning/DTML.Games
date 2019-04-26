@@ -23,6 +23,8 @@ function onError (e) {
 var fs = null
 var loadOnStart = getURLParameter('load')
 var importOnStart = getURLParameter('import')
+var loadGameName = getURLParameter('name')
+var loadGameVersion = getURLParameter('version')
 
 addEventListener('app-ready', function (e) {
   fs = require('fs')
@@ -32,6 +34,10 @@ addEventListener('app-ready', function (e) {
 })
 
 var graph = new joint.dia.Graph()
+
+if (loadGameName && loadGameVersion) {
+  importRemoteFile(loadGameName, loadGameVersion)
+}
 
 var viewTemplates = {
   'options': '<button class="toggle" style="float:left;margin-right:5px;">+</button> <span>Options</span>',
@@ -968,7 +974,7 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="rightX collapseDelete" style="width:38px" placeHolder="175"></span><span class="collapseDelete" style="width:33%; float:left; clear:right;">y: <input type="text" class="rightY collapseDelete" style="width:38px" placeHolder="340"></span></div>'),
       $('<hr class="collapseDelete">'),
       $('<div class="collapseDelete"><span class="collapseDelete">Phrase Corrections</span><input class="collapseDelete, phraseCorrections" type="checkbox" style="float:right; width:20px;"></div>'),
-      $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:50%; float:left;">Background:</span><select class="background collapseDelete" style="width: 50%; float:right; clear:right;"></select></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden, width:100%"><span class="collapseDelete" style="width:50%; float:left;">Background:</span><select class="background collapseDelete" style="width: 50%; float:right; clear:right;"></select></div>'),
       $('</div>')
     ]
     let _this = this
@@ -1319,10 +1325,14 @@ function publish () {
     var gameState = convertToGameState(graph)
     let name = getModuleName()
     dtml.dtml.publishDialog(name, gameState, function (result) {
-      if (result.ok) {
-        alert('The dialog has been published')
+      if (result) {
+        if (result.ok) {
+          alert('The dialog has been published')
+        } else {
+          alert('There was an error. Please try again')
+        }
       } else {
-        alert('There was an error. Please try again')
+        alert('Error publishing module')
       }
     })
   } else {
@@ -1818,26 +1828,30 @@ $(function () {
       updateRemoteModuleList()
       let remoteModuleOptions = {}
       if (remoteModules) {
-        for (let moduleGroup in remoteModules) {
-          remoteModuleOptions[moduleGroup] = {
-            'name': remoteModules[moduleGroup][0].Name,
-            'items': {}
-          }
-          for (let i = 0; i < remoteModules[moduleGroup].length; i++) {
-            remoteModuleOptions[moduleGroup]['items'][i] = {
-              'name': 'Version ' + remoteModules[moduleGroup][i]['Version'] + ' (' + getStatusText(remoteModules[moduleGroup][i]['Status']) + ')',
-              'callback': function () { importRemoteFile(remoteModules[moduleGroup][i].Name, remoteModules[moduleGroup][i].Version) }
+        if (remoteModules.length > 0) {
+          for (let moduleGroup in remoteModules) {
+            remoteModuleOptions[moduleGroup] = {
+              'name': remoteModules[moduleGroup][0].Name,
+              'items': {}
+            }
+            for (let i = 0; i < remoteModules[moduleGroup].length; i++) {
+              remoteModuleOptions[moduleGroup]['items'][i] = {
+                'name': 'Version ' + remoteModules[moduleGroup][i]['Version'] + ' (' + getStatusText(remoteModules[moduleGroup][i]['Status']) + ')',
+                'callback': function () { importRemoteFile(remoteModules[moduleGroup][i].Name, remoteModules[moduleGroup][i].Version) }
+              }
             }
           }
+        } else {
+          remoteModuleOptions[0] = {
+            'name': 'No modules found'
+          }
+        }
+      } else {
+        remoteModuleOptions['Loading...'] = {
+          'name': 'Loading...'
         }
       }
-	    else
-		  {
-			remoteModuleOptions["Loading..."] = {
-            'name': "Loading...",
-			}
-		  }
-		  
+
       return {
         items: {
           'question': { 'name': 'Question', 'callback': add(joint.shapes.dialogue.Question) },
