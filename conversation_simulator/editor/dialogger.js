@@ -974,7 +974,7 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="rightX collapseDelete" style="width:38px" placeHolder="175"></span><span class="collapseDelete" style="width:33%; float:left; clear:right;">y: <input type="text" class="rightY collapseDelete" style="width:38px" placeHolder="340"></span></div>'),
       $('<hr class="collapseDelete">'),
       $('<div class="collapseDelete"><span class="collapseDelete">Phrase Corrections</span><input class="collapseDelete, phraseCorrections" type="checkbox" style="float:right; width:20px;"></div>'),
-      $('<div class="collapseDelete" style="overflow:hidden, width:100%"><span class="collapseDelete" style="width:50%; float:left;">Background:</span><select class="background collapseDelete" style="width: 50%; float:right; clear:right;"></select></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden, width:100%"><span class="collapseDelete" style="width:50%; float:left;">Background:</span>\n<select class="background collapseDelete" style="width:100%;"></select></div>'),
       $('</div>')
     ]
     let _this = this
@@ -1060,7 +1060,7 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
 
     this.model.set('expanded', true)
 
-    this.model.set('size', { width: 180, height: 620 })
+    this.model.set('size', { width: 180, height: 650 })
   },
 
   collapseNode: function () {
@@ -1828,7 +1828,9 @@ $(function () {
       updateRemoteModuleList()
       let remoteModuleOptions = {}
       if (remoteModules) {
-        if (remoteModules.length > 0) {
+        let numberOfModules = 0
+        for (let remoteModule in remoteModules) { if (remoteModules.hasOwnProperty(remoteModule)) { numberOfModules++ } }
+        if (numberOfModules > 0) {
           for (let moduleGroup in remoteModules) {
             remoteModuleOptions[moduleGroup] = {
               'name': remoteModules[moduleGroup][0].Name,
