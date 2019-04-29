@@ -1546,7 +1546,6 @@ function getModuleList () {
   return new Promise(function (resolve, reject) {
     let xmlHttp = new XMLHttpRequest()
     xmlHttp.onreadystatechange = function () {
-      console.log(xmlHttp.responseText)
       if (xmlHttp.readyState === 4) resolve(xmlHttp.responseText)
     }
     xmlHttp.addEventListener('error', function (evt) {
@@ -1829,7 +1828,9 @@ $(function () {
       updateRemoteModuleList()
       let remoteModuleOptions = {}
       if (remoteModules) {
-        if (remoteModules.length > 0) {
+        let numberOfModules = 0
+        for (let remoteModule in remoteModules) { if (remoteModules.hasOwnProperty(remoteModule)) { numberOfModules++ } }
+        if (numberOfModules > 0) {
           for (let moduleGroup in remoteModules) {
             remoteModuleOptions[moduleGroup] = {
               'name': remoteModules[moduleGroup][0].Name,
