@@ -822,11 +822,11 @@ export default class extends Phaser.State {
 
     if (rightDirection !== '') {
       if (rightDirection === 'in') {
-        this.walkTo(this.rightCharacter, 'left', rightDirection, game.width + 180 * game.scaleRatio, this.world.width * 0.7 * game.scaleRatio, 1500)
+        this.walkTo(this.rightCharacter, 'left', game.width + 180 * game.scaleRatio, this.world.width * 0.7 * game.scaleRatio, 1500)
       }
 
       if (rightDirection === 'out') {
-        this.walkTo(this.rightCharacter, 'right', rightDirection, this.world.width * 0.7 * game.scaleRatio, game.width + 180 * game.scaleRatio, 1500)
+        this.walkTo(this.rightCharacter, 'right', this.world.width * 0.7 * game.scaleRatio, game.width + 180 * game.scaleRatio, 1500)
       }
     }
 
@@ -871,7 +871,6 @@ export default class extends Phaser.State {
     let lastState = this.stateMachine.currentStateName
     let leftAnimation = this.stateMachine.getOnExitLeft() || ''
     let rightAnimation = this.stateMachine.getOnExitRight() || ''
-    let background = this.stateMachine.getOnExitBg() || ''
     let leftDirection = this.stateMachine.getOnExitLeftDo() || ''
     let rightDirection = this.stateMachine.getOnExitRightDo() || ''
     let animationTimer = 0
@@ -905,10 +904,6 @@ export default class extends Phaser.State {
       if (rightAnimation !== '') {
         this.rightCharacter.playAnimationByName(rightAnimation)
         animationTimer = 2000
-      }
-
-      if (background !== '') {
-        this.bg.gameBackground.loadTexture('bg_' + background)
       }
     }
 

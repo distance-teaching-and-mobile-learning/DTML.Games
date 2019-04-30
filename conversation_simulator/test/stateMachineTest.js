@@ -103,13 +103,13 @@ describe('StateMachine', function () {
   describe('isNumber()', function () {
     it('should return true when given a number', function () {
       assert.equal(stateMachine.isNumber(5), true)
-    }),
+    })
 
     it('should return false when given any non-number primitive', function () {
       assert.equal(stateMachine.isNumber(true), false)
       assert.equal(stateMachine.isNumber(undefined), false)
       assert.equal(stateMachine.isNumber('string'), false)
-    }),
+    })
 
     it('should return false if given a null object', function () {
       assert.equal(stateMachine.isNumber(null), false)
@@ -127,6 +127,13 @@ describe('StateMachine', function () {
       assert.equal(stateMachine.matchSolution('wrong answer words'), 'wrong [of list] answer words [question]')
       assert.equal(stateMachine.matchSolution('wrong of list answer words'), 'wrong [of list] answer words [question]')
       assert.equal(stateMachine.matchSolution(' wrong answer words question'), 'wrong [of list] answer words [question]')
+    })
+
+    it('shouldn\'t match solutions missing key words', function () {
+      assert.equal(stateMachine.matchSolution('wrong'), undefined)
+      assert.equal(stateMachine.matchSolution('wrong answer'), undefined)
+      assert.equal(stateMachine.matchSolution('wrong words'), undefined)
+      assert.equal(stateMachine.matchSolution('wrong of answer words'), undefined)
     })
   })
 })
