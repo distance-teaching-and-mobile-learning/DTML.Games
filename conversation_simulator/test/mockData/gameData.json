@@ -35,7 +35,10 @@
         "wrong"
       ],
       "Solutions": {
-        "wrong answer words": { "Score": 0, "Next": "Wrong Answer" },
+        "wrong [of list] answer words [question]": {
+          "Score": 0,
+          "Next": "Wrong Answer"
+        },
         "default": { "Score": -50, "Next": null },
         "right answer": { "Score": 100, "Next": "Right Answer" }
       },
@@ -84,8 +87,8 @@
         "outPorts": ["output"],
         "actor": "",
         "textarea": "Start writing",
-        "size": { "width": 180, "height": 620 },
-        "expanded": true,
+        "size": { "width": 180, "height": 170 },
+        "expanded": false,
         "gameName": "Test Module",
         "gameTitle": "For Testing Use",
         "leftCharacter": "Boy",
@@ -148,7 +151,7 @@
         "attrs": {}
       },
       {
-        "size": { "width": 260, "height": 475 },
+        "size": { "width": 260, "height": 240 },
         "type": "dialogue.Question",
         "inPorts": ["input"],
         "outPorts": ["output"],
@@ -289,7 +292,7 @@
         "size": { "width": 200, "height": 60 },
         "inPorts": ["input"],
         "outPorts": ["output0"],
-        "answers": ["wrong answer words"],
+        "answers": ["wrong [of list] answer words [question]"],
         "scores": [],
         "name": "",
         "ports": {
