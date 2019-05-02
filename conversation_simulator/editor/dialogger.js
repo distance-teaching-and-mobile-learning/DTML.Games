@@ -974,7 +974,7 @@ joint.shapes.dialogue.StartView = joint.shapes.dialogue.BaseView.extend({
       $('<div class="collapseDelete" style="overflow:hidden"><span class="collapseDelete" style="width:66%; float:left; clear:right;">Callout x: <input type="text" class="rightX collapseDelete" style="width:38px" placeHolder="175"></span><span class="collapseDelete" style="width:33%; float:left; clear:right;">y: <input type="text" class="rightY collapseDelete" style="width:38px" placeHolder="340"></span></div>'),
       $('<hr class="collapseDelete">'),
       $('<div class="collapseDelete"><span class="collapseDelete">Phrase Corrections</span><input class="collapseDelete, phraseCorrections" type="checkbox" style="float:right; width:20px;"></div>'),
-      $('<div class="collapseDelete" style="overflow:hidden, width:100%"><span class="collapseDelete" style="width:50%; float:left;">Background:</span>\n<select class="background collapseDelete" style="width:100%;"></select></div>'),
+      $('<div class="collapseDelete" style="overflow:hidden, width:100%;padding-top:6px;"><span class="collapseDelete" style="width:50%;padding-bottom:3px; float:left;">Background:</span>\n<select class="background collapseDelete" style="width:100%;"></select></div>'),
       $('</div>')
     ]
     let _this = this
@@ -1543,22 +1543,27 @@ function getRemoteModule (name, version) {
 }
 
 function getModuleList () {
+
   return new Promise(function (resolve, reject) {
     let xmlHttp = new XMLHttpRequest()
     xmlHttp.onreadystatechange = function () {
       if (xmlHttp.readyState === 4) resolve(xmlHttp.responseText)
     }
     xmlHttp.addEventListener('error', function (evt) {
+      console.log("getModuleList rejected");
+      console.log(evt);
       reject(evt)
     })
     xmlHttp.open('Get', 'https://dtml.org/api/DialogService/List')
-    xmlHttp.send(null)
+    xmlHttp.send(null);
   })
 }
 
 function updateRemoteModuleList () {
   getModuleList().then(function (data) {
-    remoteModules = JSON.parse(data)
+    console.log("updateRemoteModuleList:");
+    console.log(data);
+    let remoteModules = JSON.parse(data)
     remoteModules = groupModuleVersions(remoteModules)
   }).catch(function (error) {
     console.log(error + ' - Could not load remote game modules')
@@ -1576,10 +1581,7 @@ function groupModuleVersions (moduleList) {
     }
     groupedModules[name].push(moduleList[i])
   }
-  // Sort groups by version number
-  for (let i = 0; i < groupedModules.length; i++) {
-    groupedModules[i].sort()
-  }
+
   return groupedModules
 }
 
