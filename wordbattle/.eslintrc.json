@@ -12,7 +12,8 @@
     "import/no-unresolved": [2]
   },
   "globals": {
-    "phaser": true
+    "Phaser": true,
+    "game": true
   },
   "settings": {
     

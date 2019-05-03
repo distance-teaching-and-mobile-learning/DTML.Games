@@ -69,7 +69,7 @@ export default class extends Phaser.State {
         this.load.image('bg5', 'assets/images/layers/l5_trees03.png')
         this.load.image('bg6', 'assets/images/layers/l6_bush02.png')
         this.load.image('bg7', 'assets/images/layers/l7_ground.png')
-         this.load.image('cloud', 'assets/images/cloud.png');
+        this.load.image('cloud', 'assets/images/cloud.png');
         this.load.image('scroll', 'assets/images/scroll.png');
 
         // audio
@@ -99,7 +99,7 @@ export default class extends Phaser.State {
     loadComplete() {
         game.world.remove(this.loadingText);
 	document.querySelector('#logo').style.display = 'none'
-        this.state.start('Menu')
+        this.state.start('LanguageSelect')
     }
 
     create() {
