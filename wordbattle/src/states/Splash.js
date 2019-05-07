@@ -51,7 +51,7 @@ export default class extends Phaser.State {
         }
 
         this.load.image('mushroom', 'assets/images/mushroom2.png')
-         this.load.atlas('wizard', 'assets/images/wizard/atlas.png', 'assets/images/wizard/atlas.json')
+        this.load.atlas('wizard', 'assets/images/wizard/atlas.png', 'assets/images/wizard/atlas.json')
         this.load.xml('wizardAnimations', 'assets/images/wizard/animations.scml')
 
         this.load.atlas('gnome', 'assets/images/gnome2/atlas.png', 'assets/images/gnome2/atlas.json')
@@ -71,6 +71,11 @@ export default class extends Phaser.State {
         this.load.image('bg7', 'assets/images/layers/l7_ground.png')
         this.load.image('cloud', 'assets/images/cloud.png');
         this.load.image('scroll', 'assets/images/scroll.png');
+
+        // Buttons
+        this.load.image('challengeButton', 'assets/images/challengeButton.png')
+        this.load.image('freePlayButton', 'assets/images/freePlayButton.png')
+        this.load.image('button', 'assets/images/button.png')
 
         // audio
         this.load.audio('gameMusic', 'assets/audio/music/music_david_gwyn_jones_teddy_comes_too_instrumental.mp3')

@@ -2,7 +2,7 @@ import FreeText from '../sprites/FreeText'
 
 export default class Menu extends Phaser.State {
   create () {
-    let bg1 = game.add.sprite(game.world.centerX, game.world.centerY, 'bg1').anchor.set(0.5)
+    this.add.sprite(game.world.centerX, game.world.centerY, 'bg1').anchor.set(0.5)
 
     let languageText = new FreeText({
       game: game,
@@ -13,10 +13,21 @@ export default class Menu extends Phaser.State {
     })
     languageText.display()
 
-    let graphics = game.add.graphics()
-    graphics.beginFill(0x000000)
-    graphics.drawRect(100, 400, 300, 300)
-    graphics.drawRect(game.world.width - 400, 400, 300, 300)
-    graphics.endFill()
+    let challengeButton = this.add.image(game.world.centerX - 600, game.world.centerY - 200, 'challengeButton')
+    challengeButton.inputEnabled = true
+    challengeButton.input.useHandCursor = true
+    challengeButton.events.onInputDown.add(() => {
+      languageText.text.destroy()
+      languageText.destroy()
+      this.state.start('ChallengeMenu', true)
+    })
+    let freePlayButton = this.add.image(game.world.centerX + 100, game.world.centerY - 200, 'freePlayButton')
+    freePlayButton.inputEnabled = true
+    freePlayButton.input.useHandCursor = true
+    freePlayButton.events.onInputDown.add(() => {
+      languageText.text.destroy()
+      languageText.destroy()
+      this.state.start('Game', true)
+    })
   }
 }

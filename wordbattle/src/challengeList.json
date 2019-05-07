@@ -1,0 +1,42 @@
+{
+  "Food": [
+    "Fruit",
+    "Restaurant",
+    "Vegetables"
+  ],
+  "Math": [
+    "Shapes"
+  ],
+  "Colors": [
+    "Colors"
+  ],
+  "House": [
+    "Furniture"
+  ],
+  "Calendar": [
+    "Months"
+  ],
+  "Family": [
+    "Family Members",
+    "Relatives"
+  ],
+  "Animals": [
+    "Animals",
+    "Farm"
+  ],
+  "Body": [
+    "Human Body"
+  ],
+  "Sports": [
+    "Sports"
+  ],
+  "Music": [
+    "Music"
+  ],
+  "Seasons": [
+    "Winter"
+  ],
+  "Geography": [
+    "Earth Features"
+  ]
+}
