@@ -21,7 +21,13 @@ import languages from '../sprites/Flags'
 import "isomorphic-fetch"
 
 export default class extends Phaser.State {
-    init() {
+    init(mode, category, subcategory) {
+        this.mode = mode || 'freePlay'
+        if (this.mode) {
+            this.category = category
+            this.subcategory = subcategory
+        }
+
         this.wizDead = false;
         this.restartEntered = false;
         this.questionField = null;
@@ -280,7 +286,13 @@ export default class extends Phaser.State {
     }
 
     fetchNextSet() {
-        fetch('https://dtml.org/api/GameService/Words?step=' + this.currLevel+"&ensurelanguage=true&lang="+this.langCode, {
+        let url
+        if (this.mode === 'freePlay') {
+            url = 'https://dtml.org/api/GameService/Words?step=' + this.currLevel + '&ensurelanguage=true&lang=' + this.langCode
+        } else if (this.mode === 'challenge') {
+            url = 'https://dtml.org/api/LessonService/WordsForCategories/?category=' + this.category + '&subcategory=' + this.subcategory
+        }
+        fetch(url, {
 	    credentials: 'same-origin', 
             headers: {
                 'Accept': 'application/json',

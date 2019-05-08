@@ -76,6 +76,7 @@ export default class extends Phaser.State {
         this.load.image('challengeButton', 'assets/images/challengeButton.png')
         this.load.image('freePlayButton', 'assets/images/freePlayButton.png')
         this.load.image('button', 'assets/images/button.png')
+        this.load.image('shortButton', 'assets/images/shortButton.png')
 
         // audio
         this.load.audio('gameMusic', 'assets/audio/music/music_david_gwyn_jones_teddy_comes_too_instrumental.mp3')

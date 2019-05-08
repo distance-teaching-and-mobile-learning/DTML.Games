@@ -1,42 +1,78 @@
-{
-  "Food": [
-    "Fruit",
-    "Restaurant",
-    "Vegetables"
-  ],
-  "Math": [
-    "Shapes"
-  ],
-  "Colors": [
-    "Colors"
-  ],
-  "House": [
-    "Furniture"
-  ],
-  "Calendar": [
-    "Months"
-  ],
-  "Family": [
-    "Family Members",
-    "Relatives"
-  ],
-  "Animals": [
-    "Animals",
-    "Farm"
-  ],
-  "Body": [
-    "Human Body"
-  ],
-  "Sports": [
-    "Sports"
-  ],
-  "Music": [
-    "Music"
-  ],
-  "Seasons": [
-    "Winter"
-  ],
-  "Geography": [
-    "Earth Features"
-  ]
-}
+[
+  {
+    "name": "Food",
+    "subCategories": [
+      {"name": "Fruit"},
+      {"name": "Restaurant"},
+      {"name": "Vegetables"}
+    ]
+  },
+  {
+    "name": "Math",
+    "subCategories": [
+      {"name": "Shapes"}
+    ]
+  },
+  {
+    "name": "Colors",
+    "subCategories": [
+      {"name": "Colors"}
+    ]
+  },
+  {
+    "name": "House",
+    "subCategories": [
+      {"name": "Furniture"}
+    ]
+  },
+  {
+    "name": "Calendar",
+    "subCategories": [
+      {"name": "Months"}
+    ]
+  },
+  {
+    "name": "Family",
+    "subCategories": [
+      {"name": "Family Members"},
+      {"name": "Relatives"}
+    ]
+  },
+  {
+    "name": "Animals",
+    "subCategories": [
+      {"name": "Animals"},
+      {"name": "Farm"}
+    ]
+  },
+  {
+    "name": "Body",
+    "subCategories": [
+      {"name": "Human Body"}
+    ]
+  },
+  {
+    "name": "Sports",
+    "subCategories": [
+      {"name": "Sports"}
+    ]
+  },
+  {
+    "name": "Music",
+    "subCategories": [
+      {"name": "Music"}
+    ]
+  },
+  {
+    "name": "Seasons",
+    "subCategories": [
+      {"name": "Winter"}
+    ]
+  },
+  {
+    "name": "Geography",
+    "subCategories": [
+      {"name": "Earth Features"}
+    ]
+  }
+]
