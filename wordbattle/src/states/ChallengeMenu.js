@@ -12,6 +12,8 @@ export default class Menu extends Phaser.State {
     this.add.text(game.world.centerX, 100, 'Select your Challenge', { font: '45px Berkshire Swash' }).anchor.set(0.5)
 
     this.buttons = []
+    this.previousCategories = []
+    this.categoryNames = []
     this.makeButtons(ChallengeList)
 
     this.backButton = this.add.sprite(game.world.centerX, game.world.height - 150, 'shortButton')
@@ -25,12 +27,17 @@ export default class Menu extends Phaser.State {
     this.backText = this.add.text(game.world.centerX, game.world.height - 150, 'Go Back')
     this.backText.anchor.set(0.5)
 
-    this.previousCategories = []
   }
 
   makeButtons (buttons) {
+    // Load progress data
+    let challengeData = window.localStorage.getItem('challengeData')
+    if (challengeData) challengeData = JSON.parse(challengeData)
+    else challengeData = {}
+
     // Clear old buttons
     for (let i = this.buttons.length - 1; i >= 0; i--) {
+      if (this.buttons[i].checkmark) this.buttons[i].checkmark.destroy()
       this.buttons[i].text.destroy()
       this.buttons[i].destroy()
     }
@@ -57,20 +64,31 @@ export default class Menu extends Phaser.State {
           newButton.input.useHandCursor = true
           newButton.events.onInputDown.add(() => {
             if (option.subCategories) {
-              this.category = option.name
+              this.categoryNames.push(option.name)
               this.makeButtons(option.subCategories)
               this.previousCategories.push(buttons)
             } else {
-              this.state.start('Game', true, false, 'challenge', this.category, option.name)
+              this.state.start('Game', true, false, 'challenge', this.categoryNames[this.categoryNames.length - 1], option.name)
             }
           })
+          // Checkmark
+          if (this.categoryNames.length > 0 && challengeData[this.categoryNames[this.categoryNames.length - 1]] && challengeData[this.categoryNames[this.categoryNames.length - 1]][option.name] === true) {
+            newButton.checkmark = this.add.sprite(x * (buttonWidth + buttonSpacing) + buttonStartX + buttonWidth, y * (buttonHeight + buttonSpacing) + buttonStartY, 'checkmark')
+            newButton.checkmark.anchor.set(0.5)
+          }
         }
       }
+    }
+
+    // Bring button checkmarks to top of draw order
+    for (let i = 0; i < this.buttons.length; i++) {
+      if (this.buttons[i].checkmark) this.buttons[i].checkmark.bringToTop()
     }
   }
 
   goBack () {
     if (this.previousCategories.length > 0) {
+      this.categoryNames.pop()
       this.makeButtons(this.previousCategories[this.previousCategories.length - 1])
       this.previousCategories.pop()
     } else {

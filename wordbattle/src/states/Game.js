@@ -331,10 +331,19 @@ export default class extends Phaser.State {
     }
 
     loadNextAnswer() {
-        if (this.currIndex >= this.words.length - 1)
-            this.fetchNextSet();
-        else
+        if (this.currIndex >= this.words.length) {
+            if (this.mode === 'freePlay') {
+                this.fetchNextSet();
+            } else if (this.mode === 'challenge') {
+                this.completeChallenge();
+                this.correctText.destroy();
+                this.addScoreText.text.destroy();
+                this.addScoreText.destroy();
+                this.state.start('ChallengeMenu');
+            }
+        } else {
             this.nextWord(true);
+        }
     }
 
     submitAnswer() {
@@ -540,6 +549,27 @@ export default class extends Phaser.State {
         this.addScoreText.destroy();
         this.music.destroy();
         this.state.start('Menu');
+    }
+
+    completeChallenge () {
+        // TODO some kind of victory notification
+        this.markChallengeComplete(this.category, this.subcategory)
+    }
+
+    markChallengeComplete (category, subcategory) {
+        let challengeData = window.localStorage.getItem('challengeData')
+        if (challengeData) {
+            challengeData = JSON.parse(challengeData)
+        } else {
+            // Create challenge data if it doesn't exist
+            challengeData = {}
+        }
+        if (!challengeData[category]) {
+            // Create data for the category if it doesn't exist
+            challengeData[category] = {}
+        }
+        challengeData[category][subcategory] = true
+        window.localStorage.setItem('challengeData', JSON.stringify(challengeData))
     }
 
     update() {
