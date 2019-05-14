@@ -20,7 +20,7 @@ import PhaserJuicy from '../libs/juicy'
 import {flags, languages} from '../sprites/Flags'
 import config from '../config';
 import WebFont from 'webfontloader'
-
+import ChallengeList from '../challengeList.json'
 
 export default class extends Phaser.State {
     init() {
@@ -80,6 +80,16 @@ export default class extends Phaser.State {
 
         // Icons
         this.load.image('checkmark', 'assets/images/checkmark.png')
+        for (let i = 0; i < ChallengeList.length; i++) {
+            let category = ChallengeList[i].name
+            this.load.image('icon_' + category.toLowerCase(), 'assets/images/categoryIcons/' + category.toLowerCase() + '.png')
+            if (ChallengeList[i].subCategories) {
+                for (let j = 0; j < ChallengeList[i].subCategories.length; j++) {
+                    let subCategory = ChallengeList[i].subCategories[j].name
+                    this.load.image('icon_' + subCategory.toLowerCase(), 'assets/images/categoryIcons/' + subCategory.toLowerCase() + '.png')
+                }
+            }
+        }
 
         // audio
         this.load.audio('gameMusic', 'assets/audio/music/music_david_gwyn_jones_teddy_comes_too_instrumental.mp3')

@@ -38,6 +38,7 @@ export default class Menu extends Phaser.State {
     // Clear old buttons
     for (let i = this.buttons.length - 1; i >= 0; i--) {
       if (this.buttons[i].checkmark) this.buttons[i].checkmark.destroy()
+      if (this.buttons[i].icon) this.buttons[i].icon.destroy()
       this.buttons[i].text.destroy()
       this.buttons[i].destroy()
     }
@@ -58,7 +59,7 @@ export default class Menu extends Phaser.State {
         if (option) {
           let newButton = this.add.image(x * (buttonWidth + buttonSpacing) + buttonStartX, y * (buttonHeight + buttonSpacing) + buttonStartY, 'button')
           this.buttons.push(newButton)
-          newButton.text = this.add.text(x * (buttonWidth + buttonSpacing) + buttonStartX + buttonWidth / 2, y * (buttonHeight + buttonSpacing) + buttonStartY + buttonHeight / 2, option.name)
+          newButton.text = this.add.text(x * (buttonWidth + buttonSpacing) + buttonStartX + buttonWidth / 2, y * (buttonHeight + buttonSpacing) + buttonStartY + buttonHeight - 25, option.name)
           newButton.text.anchor.set(0.5)
           newButton.inputEnabled = true
           newButton.input.useHandCursor = true
@@ -71,6 +72,12 @@ export default class Menu extends Phaser.State {
               this.state.start('Game', true, false, 'challenge', this.categoryNames[this.categoryNames.length - 1], option.name)
             }
           })
+          // Button Icon
+          if (this.cache.checkImageKey('icon_' + option.name.toLowerCase())) {
+            newButton.icon = this.add.image(x * (buttonWidth + buttonSpacing) + buttonStartX + buttonWidth / 2, y * (buttonHeight + buttonSpacing) + buttonStartY + buttonHeight / 2, 'icon_' + option.name.toLowerCase())
+            newButton.icon.anchor.set(0.5)
+          }
+
           // Checkmark
           if (this.categoryNames.length > 0 && challengeData[this.categoryNames[this.categoryNames.length - 1]] && challengeData[this.categoryNames[this.categoryNames.length - 1]][option.name] === true) {
             newButton.checkmark = this.add.sprite(x * (buttonWidth + buttonSpacing) + buttonStartX + buttonWidth, y * (buttonHeight + buttonSpacing) + buttonStartY, 'checkmark')
