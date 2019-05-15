@@ -115,6 +115,14 @@ export default class extends Phaser.State {
             });
             this.scoreText.scale.setTo(game.scaleRatio);
             this.scoreText.anchor.setTo(0.5);
+
+            if (this.mode === 'challenge') {
+                this.progressText = game.add.text(this.world.width * 0.85, this.game.world.centerY * 0.2 + 25, '0/' + this.words.length, {
+                font: "32px Berkshire Swash",
+                fill: '#FFF',
+                align: 'center'
+            });
+            }
         });
 
         let graphics = game.add.graphics(0, 0);
@@ -367,8 +375,12 @@ export default class extends Phaser.State {
             .then(res => res.json())
             .then(data => {
                 this.errorText.hide();
+                data.isCorrect = true
                 if (data.isCorrect)
                     this.castSpell(data.complexity);
+                    if (this.mode === 'challenge') {
+                        this.progressText.text = this.currIndex + '/' + this.words.length
+                    }
                 else {
                     this.correctText.changeText(data.correct);
                     this.gnomeAttack();
