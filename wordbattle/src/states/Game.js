@@ -331,11 +331,11 @@ export default class extends Phaser.State {
         this.currentWord = word;
         this.currIndex++;
         this.canFire = true;
+        this.textBox.startFocus()
 
-	if (say)
-	{
-	this.textToSpeach(word, "Microsoft David", 100);
-	}
+	    if (say) {
+	        this.textToSpeach(word, "Microsoft David", 100);
+	    }
     }
 
     loadNextAnswer() {
@@ -343,6 +343,7 @@ export default class extends Phaser.State {
             if (this.mode === 'freePlay') {
                 this.fetchNextSet();
             } else if (this.mode === 'challenge') {
+                // Beat the challenge
                 this.completeChallenge();
                 this.correctText.destroy();
                 this.addScoreText.text.destroy();
@@ -358,6 +359,7 @@ export default class extends Phaser.State {
         if (this.canFire && this.textBox.value != '' && this.textBox.value != null) {
             let answer = this.textBox.value;
             this.textBox.resetText();
+            this.textBox.endFocus();
             this.canFire = false;
             this.sendAnswer(answer, 0);
         }
@@ -590,8 +592,8 @@ export default class extends Phaser.State {
                     this.submitAnswer();
         }
 
-        if (!this.textBox.focus && !this.wizDead)
-            this.textBox.startFocus();
+        // if (!this.textBox.focus && !this.wizDead)
+            // this.textBox.startFocus();
         this.textBox.update();
 
         if (!this.wizDead)
