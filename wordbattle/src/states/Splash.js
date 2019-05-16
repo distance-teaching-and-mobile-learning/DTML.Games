@@ -80,6 +80,7 @@ export default class extends Phaser.State {
 
         // Icons
         this.load.image('checkmark', 'assets/images/checkmark.png')
+        this.load.image('icon_default', 'assets/images/categoryIcons/default.png')
         for (let i = 0; i < ChallengeList.length; i++) {
             let category = ChallengeList[i].name
             this.load.image('icon_' + category.toLowerCase(), 'assets/images/categoryIcons/' + category.toLowerCase() + '.png')

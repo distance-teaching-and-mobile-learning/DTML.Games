@@ -76,6 +76,9 @@ export default class Menu extends Phaser.State {
           if (this.cache.checkImageKey('icon_' + option.name.toLowerCase())) {
             newButton.icon = this.add.image(x * (buttonWidth + buttonSpacing) + buttonStartX + buttonWidth / 2, y * (buttonHeight + buttonSpacing) + buttonStartY + buttonHeight / 2, 'icon_' + option.name.toLowerCase())
             newButton.icon.anchor.set(0.5)
+          } else {
+            newButton.icon = this.add.image(x * (buttonWidth + buttonSpacing) + buttonStartX + buttonWidth / 2, y * (buttonHeight + buttonSpacing) + buttonStartY + buttonHeight / 2, 'icon_default')
+            newButton.icon.anchor.set(0.5)
           }
 
           // Checkmark
