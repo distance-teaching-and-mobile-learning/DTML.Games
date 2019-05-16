@@ -21,7 +21,13 @@ import languages from '../sprites/Flags'
 import "isomorphic-fetch"
 
 export default class extends Phaser.State {
-    init() {
+    init(mode, category, subcategory) {
+        this.mode = mode || 'freePlay'
+        if (this.mode) {
+            this.category = category
+            this.subcategory = subcategory
+        }
+
         this.wizDead = false;
         this.restartEntered = false;
         this.questionField = null;
@@ -109,6 +115,14 @@ export default class extends Phaser.State {
             });
             this.scoreText.scale.setTo(game.scaleRatio);
             this.scoreText.anchor.setTo(0.5);
+
+            if (this.mode === 'challenge') {
+                this.progressText = game.add.text(this.world.width * 0.85, this.game.world.centerY * 0.2 + 25, '0/' + this.words.length, {
+                font: "32px Berkshire Swash",
+                fill: '#FFF',
+                align: 'center'
+            });
+            }
         });
 
         let graphics = game.add.graphics(0, 0);
@@ -280,7 +294,13 @@ export default class extends Phaser.State {
     }
 
     fetchNextSet() {
-        fetch('https://dtml.org/api/GameService/Words?step=' + this.currLevel+"&ensurelanguage=true&lang="+this.langCode, {
+        let url
+        if (this.mode === 'freePlay') {
+            url = 'https://dtml.org/api/GameService/Words?step=' + this.currLevel + '&ensurelanguage=true&lang=' + this.langCode
+        } else if (this.mode === 'challenge') {
+            url = 'https://dtml.org/api/LessonService/WordsForCategories/?category=' + this.category + '&subcategory=' + this.subcategory
+        }
+        fetch(url, {
 	    credentials: 'same-origin', 
             headers: {
                 'Accept': 'application/json',
@@ -311,24 +331,35 @@ export default class extends Phaser.State {
         this.currentWord = word;
         this.currIndex++;
         this.canFire = true;
+        this.textBox.startFocus()
 
-	if (say)
-	{
-	this.textToSpeach(word, "Microsoft David", 100);
-	}
+	    if (say) {
+	        this.textToSpeach(word, "Microsoft David", 100);
+	    }
     }
 
     loadNextAnswer() {
-        if (this.currIndex >= this.words.length - 1)
-            this.fetchNextSet();
-        else
+        if (this.currIndex >= this.words.length) {
+            if (this.mode === 'freePlay') {
+                this.fetchNextSet();
+            } else if (this.mode === 'challenge') {
+                // Beat the challenge
+                this.completeChallenge();
+                this.correctText.destroy();
+                this.addScoreText.text.destroy();
+                this.addScoreText.destroy();
+                this.state.start('ChallengeMenu');
+            }
+        } else {
             this.nextWord(true);
+        }
     }
 
     submitAnswer() {
         if (this.canFire && this.textBox.value != '' && this.textBox.value != null) {
             let answer = this.textBox.value;
             this.textBox.resetText();
+            this.textBox.endFocus();
             this.canFire = false;
             this.sendAnswer(answer, 0);
         }
@@ -346,9 +377,12 @@ export default class extends Phaser.State {
             .then(res => res.json())
             .then(data => {
                 this.errorText.hide();
-                if (data.isCorrect)
+                if (data.isCorrect) {
                     this.castSpell(data.complexity);
-                else {
+                    if (this.mode === 'challenge') {
+                        this.progressText.text = this.currIndex + '/' + this.words.length
+                    }
+                } else {
                     this.correctText.changeText(data.correct);
                     this.gnomeAttack();
                 }
@@ -530,6 +564,27 @@ export default class extends Phaser.State {
         this.state.start('Menu');
     }
 
+    completeChallenge () {
+        // TODO some kind of victory notification
+        this.markChallengeComplete(this.category, this.subcategory)
+    }
+
+    markChallengeComplete (category, subcategory) {
+        let challengeData = window.localStorage.getItem('challengeData')
+        if (challengeData) {
+            challengeData = JSON.parse(challengeData)
+        } else {
+            // Create challenge data if it doesn't exist
+            challengeData = {}
+        }
+        if (!challengeData[category]) {
+            // Create data for the category if it doesn't exist
+            challengeData[category] = {}
+        }
+        challengeData[category][subcategory] = true
+        window.localStorage.setItem('challengeData', JSON.stringify(challengeData))
+    }
+
     update() {
         if (this.textBox.value != '') {
             if (!this.textBox.focus)
@@ -537,8 +592,8 @@ export default class extends Phaser.State {
                     this.submitAnswer();
         }
 
-        if (!this.textBox.focus && !this.wizDead)
-            this.textBox.startFocus();
+        // if (!this.textBox.focus && !this.wizDead)
+            // this.textBox.startFocus();
         this.textBox.update();
 
         if (!this.wizDead)

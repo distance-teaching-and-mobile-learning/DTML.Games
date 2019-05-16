@@ -20,7 +20,7 @@ import PhaserJuicy from '../libs/juicy'
 import {flags, languages} from '../sprites/Flags'
 import config from '../config';
 import WebFont from 'webfontloader'
-
+import ChallengeList from '../challengeList.json'
 
 export default class extends Phaser.State {
     init() {
@@ -51,7 +51,7 @@ export default class extends Phaser.State {
         }
 
         this.load.image('mushroom', 'assets/images/mushroom2.png')
-         this.load.atlas('wizard', 'assets/images/wizard/atlas.png', 'assets/images/wizard/atlas.json')
+        this.load.atlas('wizard', 'assets/images/wizard/atlas.png', 'assets/images/wizard/atlas.json')
         this.load.xml('wizardAnimations', 'assets/images/wizard/animations.scml')
 
         this.load.atlas('gnome', 'assets/images/gnome2/atlas.png', 'assets/images/gnome2/atlas.json')
@@ -69,8 +69,28 @@ export default class extends Phaser.State {
         this.load.image('bg5', 'assets/images/layers/l5_trees03.png')
         this.load.image('bg6', 'assets/images/layers/l6_bush02.png')
         this.load.image('bg7', 'assets/images/layers/l7_ground.png')
-         this.load.image('cloud', 'assets/images/cloud.png');
+        this.load.image('cloud', 'assets/images/cloud.png');
         this.load.image('scroll', 'assets/images/scroll.png');
+
+        // Buttons
+        this.load.image('challengeButton', 'assets/images/challengeButton.png')
+        this.load.image('freePlayButton', 'assets/images/freePlayButton.png')
+        this.load.image('button', 'assets/images/button.png')
+        this.load.image('shortButton', 'assets/images/shortButton.png')
+
+        // Icons
+        this.load.image('checkmark', 'assets/images/checkmark.png')
+        this.load.image('icon_default', 'assets/images/categoryIcons/default.png')
+        for (let i = 0; i < ChallengeList.length; i++) {
+            let category = ChallengeList[i].name
+            this.load.image('icon_' + category.toLowerCase(), 'assets/images/categoryIcons/' + category.toLowerCase() + '.png')
+            if (ChallengeList[i].subCategories) {
+                for (let j = 0; j < ChallengeList[i].subCategories.length; j++) {
+                    let subCategory = ChallengeList[i].subCategories[j].name
+                    this.load.image('icon_' + subCategory.toLowerCase(), 'assets/images/categoryIcons/' + subCategory.toLowerCase() + '.png')
+                }
+            }
+        }
 
         // audio
         this.load.audio('gameMusic', 'assets/audio/music/music_david_gwyn_jones_teddy_comes_too_instrumental.mp3')
@@ -99,7 +119,7 @@ export default class extends Phaser.State {
     loadComplete() {
         game.world.remove(this.loadingText);
 	document.querySelector('#logo').style.display = 'none'
-        this.state.start('Menu')
+        this.state.start('LanguageSelect')
     }
 
     create() {
