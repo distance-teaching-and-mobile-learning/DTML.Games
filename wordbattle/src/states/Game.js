@@ -377,12 +377,12 @@ export default class extends Phaser.State {
             .then(res => res.json())
             .then(data => {
                 this.errorText.hide();
-                if (data.isCorrect)
+                if (data.isCorrect) {
                     this.castSpell(data.complexity);
                     if (this.mode === 'challenge') {
                         this.progressText.text = this.currIndex + '/' + this.words.length
                     }
-                else {
+                } else {
                     this.correctText.changeText(data.correct);
                     this.gnomeAttack();
                 }
