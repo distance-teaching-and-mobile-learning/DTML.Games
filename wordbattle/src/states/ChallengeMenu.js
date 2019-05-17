@@ -124,4 +124,18 @@ export default class Menu extends Phaser.State {
       }
     }
   }
+
+  allChallengedCompleted () {
+    // Load progress data
+    let challengeData = window.localStorage.getItem('challengeData')
+    if (challengeData) challengeData = JSON.parse(challengeData)
+    else return false
+
+    for (let i = 0; i < ChallengeList.length; i++) {
+      if (!this.isCategoryCompleted(ChallengeList[i], challengeData)) {
+        return false
+      }
+    }
+    return true
+  }
 }
