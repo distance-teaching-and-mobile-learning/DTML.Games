@@ -19,7 +19,7 @@ export default class Menu extends Phaser.State {
     this.backButton = this.add.sprite(game.world.centerX, game.world.height - 150, 'shortButton')
     this.backButton.anchor.set(0.5)
     this.backButton.inputEnabled = true
-    this.backButton.useHandCursor = true
+    this.backButton.input.useHandCursor = true
     this.backButton.events.onInputDown.add(() => {
       this.goBack()
     })
