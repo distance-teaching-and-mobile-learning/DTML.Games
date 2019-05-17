@@ -62,6 +62,12 @@ export default class Menu extends Phaser.State {
           newButton.text.anchor.set(0.5)
           newButton.inputEnabled = true
           newButton.input.useHandCursor = true
+          newButton.events.onInputOver.add(() => {
+            newButton.loadTexture('button_selected')
+          })
+          newButton.events.onInputOut.add(() => {
+            newButton.loadTexture('button')
+          })
           newButton.events.onInputDown.add(() => {
             if (option.subCategories) {
               this.categoryNames.push(option.name)
