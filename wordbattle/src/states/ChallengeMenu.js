@@ -74,6 +74,8 @@ export default class Menu extends Phaser.State {
               this.makeButtons(option.subCategories)
               this.previousCategories.push(buttons)
             } else {
+              console.log(dtml)
+              dtml.recordGameEvent('wordsbattle', 'ChallengeSelected', option.name)
               this.state.start('Game', true, false, 'challenge', this.categoryNames[this.categoryNames.length - 1], option.name)
             }
           })

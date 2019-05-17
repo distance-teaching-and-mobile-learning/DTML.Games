@@ -13,7 +13,8 @@
   },
   "globals": {
     "Phaser": true,
-    "game": true
+    "game": true,
+    "dtml": true
   },
   "settings": {
     
