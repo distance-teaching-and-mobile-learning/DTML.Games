@@ -26,7 +26,6 @@ export default class Menu extends Phaser.State {
 
     this.backText = this.add.text(game.world.centerX, game.world.height - 150, 'Go Back')
     this.backText.anchor.set(0.5)
-
   }
 
   makeButtons (buttons) {
@@ -82,8 +81,8 @@ export default class Menu extends Phaser.State {
           }
 
           // Checkmark
-          if (this.categoryNames.length > 0 && challengeData[this.categoryNames[this.categoryNames.length - 1]] && challengeData[this.categoryNames[this.categoryNames.length - 1]][option.name] === true) {
-            newButton.checkmark = this.add.sprite(x * (buttonWidth + buttonSpacing) + buttonStartX + buttonWidth, y * (buttonHeight + buttonSpacing) + buttonStartY, 'checkmark')
+          if (this.isCategoryCompleted(option, challengeData)) {
+            newButton.checkmark = this.add.sprite(x * (buttonWidth + buttonSpacing) + buttonStartX + buttonWidth - 25, y * (buttonHeight + buttonSpacing) + buttonStartY + 25, 'checkmark')
             newButton.checkmark.anchor.set(0.5)
           }
         }
@@ -103,6 +102,26 @@ export default class Menu extends Phaser.State {
       this.previousCategories.pop()
     } else {
       this.state.start('Menu')
+    }
+  }
+
+  isCategoryCompleted (category, challengeData) {
+    if (category.subCategories) {
+      if (challengeData[category.name]) {
+        for (let i = 0; i < category.subCategories.length; i++) {
+          let subCategory = category.subCategories[i]
+          if (!this.isCategoryCompleted(subCategory, challengeData)) {
+            return false
+          }
+        }
+        return true
+      }
+    } else {
+      for (let topLevelCategory in challengeData) {
+        if (challengeData[topLevelCategory][category.name] === true) {
+          return true
+        }
+      }
     }
   }
 }
