@@ -19,14 +19,13 @@ export default class Menu extends Phaser.State {
     this.backButton = this.add.sprite(game.world.centerX, game.world.height - 150, 'shortButton')
     this.backButton.anchor.set(0.5)
     this.backButton.inputEnabled = true
-    this.backButton.useHandCursor = true
+    this.backButton.input.useHandCursor = true
     this.backButton.events.onInputDown.add(() => {
       this.goBack()
     })
 
     this.backText = this.add.text(game.world.centerX, game.world.height - 150, 'Go Back')
     this.backText.anchor.set(0.5)
-
   }
 
   makeButtons (buttons) {
@@ -63,12 +62,19 @@ export default class Menu extends Phaser.State {
           newButton.text.anchor.set(0.5)
           newButton.inputEnabled = true
           newButton.input.useHandCursor = true
+          newButton.events.onInputOver.add(() => {
+            newButton.loadTexture('button_selected')
+          })
+          newButton.events.onInputOut.add(() => {
+            newButton.loadTexture('button')
+          })
           newButton.events.onInputDown.add(() => {
             if (option.subCategories) {
               this.categoryNames.push(option.name)
               this.makeButtons(option.subCategories)
               this.previousCategories.push(buttons)
             } else {
+              dtml.recordGameEvent('wordsbattle', 'ChallengeSelected', option.name)
               this.state.start('Game', true, false, 'challenge', this.categoryNames[this.categoryNames.length - 1], option.name)
             }
           })
@@ -82,8 +88,8 @@ export default class Menu extends Phaser.State {
           }
 
           // Checkmark
-          if (this.categoryNames.length > 0 && challengeData[this.categoryNames[this.categoryNames.length - 1]] && challengeData[this.categoryNames[this.categoryNames.length - 1]][option.name] === true) {
-            newButton.checkmark = this.add.sprite(x * (buttonWidth + buttonSpacing) + buttonStartX + buttonWidth, y * (buttonHeight + buttonSpacing) + buttonStartY, 'checkmark')
+          if (this.isCategoryCompleted(option, challengeData)) {
+            newButton.checkmark = this.add.sprite(x * (buttonWidth + buttonSpacing) + buttonStartX + buttonWidth - 25, y * (buttonHeight + buttonSpacing) + buttonStartY + 25, 'checkmark')
             newButton.checkmark.anchor.set(0.5)
           }
         }
@@ -104,5 +110,39 @@ export default class Menu extends Phaser.State {
     } else {
       this.state.start('Menu')
     }
+  }
+
+  isCategoryCompleted (category, challengeData) {
+    if (category.subCategories) {
+      if (challengeData[category.name]) {
+        for (let i = 0; i < category.subCategories.length; i++) {
+          let subCategory = category.subCategories[i]
+          if (!this.isCategoryCompleted(subCategory, challengeData)) {
+            return false
+          }
+        }
+        return true
+      }
+    } else {
+      for (let topLevelCategory in challengeData) {
+        if (challengeData[topLevelCategory][category.name] === true) {
+          return true
+        }
+      }
+    }
+  }
+
+  allChallengedCompleted () {
+    // Load progress data
+    let challengeData = window.localStorage.getItem('challengeData')
+    if (challengeData) challengeData = JSON.parse(challengeData)
+    else return false
+
+    for (let i = 0; i < ChallengeList.length; i++) {
+      if (!this.isCategoryCompleted(ChallengeList[i], challengeData)) {
+        return false
+      }
+    }
+    return true
   }
 }
