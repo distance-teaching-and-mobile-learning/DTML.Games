@@ -65,17 +65,17 @@ module.exports = {
       { test: /dtml-sdk\.js/, use: ['expose-loader?dtml'] }
     ]
   },
-  optimization: {
-        splitChunks: {
-            cacheGroups: {
-                commons: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: 'vendor',
-                    chunks: 'all'
-                }
-            }
-        }
-    },
+  // optimization: {
+  //       splitChunks: {
+  //           cacheGroups: {
+  //               commons: {
+  //                   test: /[\\/]node_modules[\\/]/,
+  //                   name: 'vendor',
+  //                   chunks: 'all'
+  //               }
+  //           }
+  //       }
+  //   },
 
   node: {
     fs: 'empty',

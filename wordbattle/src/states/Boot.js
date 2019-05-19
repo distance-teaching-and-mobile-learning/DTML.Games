@@ -17,8 +17,6 @@ import Phaser from 'phaser'
 import WebFont from 'webfontloader'
 import config from '../config';
 
-dtml = dtml.dtml
-
 export default class extends Phaser.State {
     init() {
         if (!this.game.device.desktop) {
