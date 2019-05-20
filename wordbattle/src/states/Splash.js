@@ -74,7 +74,9 @@ export default class extends Phaser.State {
 
         // Buttons
         this.load.image('challengeButton', 'assets/images/challengeButton.png')
+        this.load.image('challengeButton_selected', 'assets/images/challengeButton_selected.png')
         this.load.image('freePlayButton', 'assets/images/freePlayButton.png')
+        this.load.image('freePlayButton_selected', 'assets/images/freePlayButton_selected.png')
         this.load.image('button', 'assets/images/button.png')
         this.load.image('button_selected', 'assets/images/button_selected.png')
         this.load.image('shortButton', 'assets/images/shortButton.png')
