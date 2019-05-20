@@ -348,7 +348,6 @@ export default class extends Phaser.State {
                 this.correctText.destroy();
                 this.addScoreText.text.destroy();
                 this.addScoreText.destroy();
-                this.state.start('ChallengeMenu');
             }
         } else {
             this.nextWord(true);
@@ -377,6 +376,7 @@ export default class extends Phaser.State {
             .then(res => res.json())
             .then(data => {
                 this.errorText.hide();
+                data.isCorrect = true
                 if (data.isCorrect) {
                     this.castSpell(data.complexity);
                     if (this.mode === 'challenge') {
@@ -565,7 +565,20 @@ export default class extends Phaser.State {
     }
 
     completeChallenge () {
-        // TODO some kind of victory notification
+        // Victory notification
+        let scroll = this.add.sprite(game.world.centerX, game.world.centerY, 'scroll')
+        scroll.anchor.set(0.5, 0.5)
+        scroll.scale.set(0.75, 0.75)
+        this.add.text(game.world.centerX, game.world.centerY, 'Challenge Complete!', {font: "30px Berkshire Swash", fill: "#ff0044", align: "center"}).anchor.set(0.5, 0.5)
+        let backbutton = this.add.sprite(game.world.centerX, game.world.centerY + 100, 'backToChallenges')
+        backbutton.anchor.set(0.5, 0.5)
+        backbutton.inputEnabled = true
+        backbutton.input.useHandCursor = true
+        backbutton.events.onInputDown.add(() => {
+            this.state.start('ChallengeMenu');
+        })
+
+        // Record challenge beaten
         this.markChallengeComplete(this.category, this.subcategory)
         dtml.recordGameEvent('wordsbattle', 'ChallengeCompleted', this.subCategory)
     }
