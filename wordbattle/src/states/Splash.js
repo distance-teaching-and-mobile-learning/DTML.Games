@@ -78,6 +78,7 @@ export default class extends Phaser.State {
         this.load.image('button', 'assets/images/button.png')
         this.load.image('button_selected', 'assets/images/button_selected.png')
         this.load.image('shortButton', 'assets/images/shortButton.png')
+        this.load.image('arrow', 'assets/images/arrow.png')
 
         // Icons
         this.load.image('checkmark', 'assets/images/checkmark.png')
