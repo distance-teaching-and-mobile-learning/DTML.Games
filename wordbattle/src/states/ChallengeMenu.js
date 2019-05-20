@@ -4,10 +4,9 @@ export default class Menu extends Phaser.State {
   create () {
     this.add.sprite(game.world.centerX, game.world.centerY, 'bg1').anchor.set(0.5)
 
-    let graphics = this.add.graphics()
-    graphics.beginFill(0xC5D763)
-    graphics.drawRect(0, 200, game.world.width, game.world.height - 200)
-    graphics.endFill()
+    this.topBar = this.add.graphics()
+    this.drawTopBar()
+    this.scale.onSizeChange.add(this.drawTopBar)
 
     this.add.text(game.world.centerX, 100, 'Select your Challenge', { font: '45px Berkshire Swash' }).anchor.set(0.5)
 
@@ -174,5 +173,11 @@ export default class Menu extends Phaser.State {
       }
     }
     return true
+  }
+
+  drawTopBar () {
+    this.topBar.beginFill(0xC5D763)
+    this.topBar.drawRect(0, 200, game.world.width, game.world.height - 200)
+    this.topBar.endFill()
   }
 }
