@@ -376,7 +376,6 @@ export default class extends Phaser.State {
             .then(res => res.json())
             .then(data => {
                 this.errorText.hide();
-                data.isCorrect = true
                 if (data.isCorrect) {
                     this.castSpell(data.complexity);
                     if (this.mode === 'challenge') {
