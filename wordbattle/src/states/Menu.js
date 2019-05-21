@@ -44,7 +44,7 @@ export default class Menu extends Phaser.State {
     })
 
     // Check if all challenges completed
-    if (this.state.states['ChallengeMenu'].allChallengedCompleted()) {
+    if (this.state.states['ChallengeMenu'].allChallengesCompleted()) {
       let checkmark = this.add.sprite(challengeButton.x + challengeButton.width, challengeButton.y, 'checkmark')
       checkmark.anchor.set(0.5)
     }

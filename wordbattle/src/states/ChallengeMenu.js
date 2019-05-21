@@ -161,7 +161,7 @@ export default class Menu extends Phaser.State {
     }
   }
 
-  allChallengedCompleted () {
+  allChallengesCompleted () {
     // Load progress data
     let challengeData = window.localStorage.getItem('challengeData')
     if (challengeData) challengeData = JSON.parse(challengeData)
