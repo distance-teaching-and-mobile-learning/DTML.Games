@@ -117,7 +117,10 @@ export default class extends Phaser.State {
             this.scoreText.anchor.setTo(0.5);
 
             if (this.mode === 'challenge') {
-                this.progressText = game.add.text(this.world.width * 0.85, this.game.world.centerY * 0.2 + 25, '0/' + this.words.length, {
+                let numberOfWords
+                if (this.words) numberOfWords = this.words.length
+                else numberOfWords = '?'
+                this.progressText = game.add.text(this.world.width * 0.85, this.game.world.centerY * 0.2 + 25, '0/' + numberOfWords, {
                 font: "32px Berkshire Swash",
                 fill: '#FFF',
                 align: 'center'
