@@ -4,10 +4,9 @@ export default class Menu extends Phaser.State {
   create () {
     this.add.sprite(game.world.centerX, game.world.centerY, 'bg1').anchor.set(0.5)
 
-    let graphics = this.add.graphics()
-    graphics.beginFill(0xC5D763)
-    graphics.drawRect(0, 200, game.world.width, game.world.height - 200)
-    graphics.endFill()
+    this.topBar = this.add.graphics()
+    this.drawTopBar()
+    this.scale.onSizeChange.add(this.drawTopBar)
 
     this.add.text(game.world.centerX, 100, 'Select your Challenge', { font: '45px Berkshire Swash' }).anchor.set(0.5)
 
@@ -28,7 +27,9 @@ export default class Menu extends Phaser.State {
     this.backText.anchor.set(0.5)
   }
 
-  makeButtons (buttons) {
+  makeButtons (buttons, startingIndex) {
+    startingIndex = startingIndex || 0
+
     // Load progress data
     let challengeData = window.localStorage.getItem('challengeData')
     if (challengeData) challengeData = JSON.parse(challengeData)
@@ -41,6 +42,12 @@ export default class Menu extends Phaser.State {
       this.buttons[i].text.destroy()
       this.buttons[i].destroy()
     }
+    if (this.backArrow) {
+      this.backArrow.destroy()
+    }
+    if (this.forwardArrow) {
+      this.forwardArrow.destroy()
+    }
 
     let buttonWidth = 250
     let buttonHeight = 220
@@ -52,9 +59,31 @@ export default class Menu extends Phaser.State {
     let buttonStartX = (game.world.width - buttonAreaWidth) / 2 + (buttonAreaWidth - (buttonWidth * buttonsPerRow) - (buttonSpacing * (buttonsPerRow - 1))) / 2
     let buttonStartY = 200 + buttonSpacing
 
+    // Back arrow
+    if (startingIndex > 0) {
+      this.backArrow = this.add.image(game.world.centerX - 250, game.world.height - 150, 'arrow')
+      this.backArrow.anchor.set(0.5, 0.5)
+      this.backArrow.scale.set(-1, 1)
+      this.backArrow.inputEnabled = true
+      this.backArrow.input.useHandCursor = true
+      this.backArrow.events.onInputDown.add(() => {
+        this.makeButtons(buttons, startingIndex - buttonsPerRow * rowsPerPage)
+      })
+    }
+    // Forward arrow
+    if (buttons.length - startingIndex > buttonsPerRow * rowsPerPage) {
+      this.forwardArrow = this.add.image(game.world.centerX + 250, game.world.height - 150, 'arrow')
+      this.forwardArrow.anchor.set(0.5, 0.5)
+      this.forwardArrow.inputEnabled = true
+      this.forwardArrow.input.useHandCursor = true
+      this.forwardArrow.events.onInputDown.add(() => {
+        this.makeButtons(buttons, buttonsPerRow * rowsPerPage)
+      })
+    }
+
     for (let y = 0; y < rowsPerPage; y++) {
       for (let x = 0; x < buttonsPerRow; x++) {
-        let option = buttons[(y * buttonsPerRow) + x]
+        let option = buttons[(y * buttonsPerRow) + x + startingIndex]
         if (option) {
           let newButton = this.add.image(x * (buttonWidth + buttonSpacing) + buttonStartX, y * (buttonHeight + buttonSpacing) + buttonStartY, 'button')
           this.buttons.push(newButton)
@@ -132,7 +161,7 @@ export default class Menu extends Phaser.State {
     }
   }
 
-  allChallengedCompleted () {
+  allChallengesCompleted () {
     // Load progress data
     let challengeData = window.localStorage.getItem('challengeData')
     if (challengeData) challengeData = JSON.parse(challengeData)
@@ -144,5 +173,11 @@ export default class Menu extends Phaser.State {
       }
     }
     return true
+  }
+
+  drawTopBar () {
+    this.topBar.beginFill(0xC5D763)
+    this.topBar.drawRect(0, 200, game.world.width, game.world.height - 200)
+    this.topBar.endFill()
   }
 }
