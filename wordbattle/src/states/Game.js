@@ -579,7 +579,8 @@ export default class extends Phaser.State {
 
         // Record challenge beaten
         this.markChallengeComplete(this.category, this.subcategory)
-        dtml.recordGameEvent('wordsbattle', 'ChallengeCompleted', this.subCategory)
+        console.log(this.subcategory)
+        dtml.recordGameEvent('wordsbattle', 'ChallengeCompleted', this.subcategory)
     }
 
     markChallengeComplete (category, subcategory) {
