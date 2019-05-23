@@ -4,27 +4,37 @@ export default class Menu extends Phaser.State {
   create () {
     this.add.sprite(game.world.centerX, game.world.centerY, 'bg1').anchor.set(0.5)
 
-    this.topBar = this.add.graphics()
-    this.drawTopBar()
-    this.scale.onSizeChange.add(this.drawTopBar)
+    this.background = this.add.graphics()
+    this.drawBackground()
+    this.scale.onSizeChange.add(this.drawBackground)
 
-    this.add.text(game.world.centerX, 100, 'Select your Challenge', { font: '45px Berkshire Swash' }).anchor.set(0.5)
+    let topText = this.add.text(game.world.centerX, 100 * game.scaleRatio, 'Select your Challenge', { font: '45px Berkshire Swash' })
+    topText.anchor.set(0.5)
+    topText.scale.setTo(game.scaleRatio)
 
     this.buttons = []
     this.previousCategories = []
     this.categoryNames = []
     this.makeButtons(ChallengeList)
 
-    this.backButton = this.add.sprite(game.world.centerX, game.world.height - 150, 'shortButton')
+    this.backButton = this.add.sprite(game.world.centerX, game.world.height - 80 * game.scaleRatio, 'shortButton')
     this.backButton.anchor.set(0.5)
+    this.backButton.scale.set(0.5, 0.5)
     this.backButton.inputEnabled = true
     this.backButton.input.useHandCursor = true
     this.backButton.events.onInputDown.add(() => {
       this.goBack()
     })
+    this.backButton.events.onInputOver.add(() => {
+      this.backButton.loadTexture('shortButton_selected')
+    })
+    this.backButton.events.onInputOut.add(() => {
+      this.backButton.loadTexture('shortButton')
+    })
 
-    this.backText = this.add.text(game.world.centerX, game.world.height - 150, 'Go Back')
+    this.backText = this.add.text(game.world.centerX, game.world.height - 80 * game.scaleRatio, 'Go Back')
     this.backText.anchor.set(0.5)
+    this.backText.scale.setTo(game.scaleRatio)
   }
 
   makeButtons (buttons, startingIndex) {
@@ -49,15 +59,50 @@ export default class Menu extends Phaser.State {
       this.forwardArrow.destroy()
     }
 
-    let buttonWidth = 250
-    let buttonHeight = 220
-    let buttonSpacing = 25
+    let buttonWidth = 250 * game.scaleRatio
+    let buttonHeight = 220 * game.scaleRatio
+    let buttonSpacing = 25 * game.scaleRatio
     let buttonAreaWidth = game.world.width - (buttonSpacing * 2)
     let buttonAreaHeight = game.world.height - 300 - (buttonSpacing * 2)
-    let buttonsPerRow = Math.floor(buttonAreaWidth / (buttonWidth + buttonSpacing))
-    let rowsPerPage = Math.floor(buttonAreaHeight / (buttonHeight + buttonSpacing))
+    let buttonsPerRow = 4
+    let rowsPerPage = 2
     let buttonStartX = (game.world.width - buttonAreaWidth) / 2 + (buttonAreaWidth - (buttonWidth * buttonsPerRow) - (buttonSpacing * (buttonsPerRow - 1))) / 2
-    let buttonStartY = 200 + buttonSpacing
+    let buttonStartY = 200 * game.scaleRatio + buttonSpacing
+
+    // Back arrow
+    if (startingIndex > 0) {
+      this.backArrow = this.add.image(game.world.centerX - 250 * game.scaleRatio, game.world.height - 80 * game.scaleRatio, 'arrow')
+      this.backArrow.anchor.set(0.5, 0.5)
+      this.backArrow.scale.set(-1 * game.scaleRatio, game.scaleRatio)
+      this.backArrow.inputEnabled = true
+      this.backArrow.input.useHandCursor = true
+      this.backArrow.events.onInputDown.add(() => {
+        this.makeButtons(buttons, startingIndex - buttonsPerRow * rowsPerPage)
+      })
+      this.backArrow.events.onInputOver.add(() => {
+        this.backArrow.loadTexture('arrow_selected')
+      })
+      this.backArrow.events.onInputOut.add(() => {
+        this.backArrow.loadTexture('arrow')
+      })
+    }
+    // Forward arrow
+    if (buttons.length - startingIndex > buttonsPerRow * rowsPerPage) {
+      this.forwardArrow = this.add.image(game.world.centerX + 250 * game.scaleRatio, game.world.height - 80 * game.scaleRatio, 'arrow')
+      this.forwardArrow.anchor.set(0.5, 0.5)
+      this.forwardArrow.scale.set(game.scaleRatio)
+      this.forwardArrow.inputEnabled = true
+      this.forwardArrow.input.useHandCursor = true
+      this.forwardArrow.events.onInputDown.add(() => {
+        this.makeButtons(buttons, buttonsPerRow * rowsPerPage)
+      })
+      this.forwardArrow.events.onInputOver.add(() => {
+        this.forwardArrow.loadTexture('arrow_selected')
+      })
+      this.forwardArrow.events.onInputOut.add(() => {
+        this.forwardArrow.loadTexture('arrow')
+      })
+    }
 
     // Back arrow
     if (startingIndex > 0) {
@@ -86,9 +131,11 @@ export default class Menu extends Phaser.State {
         let option = buttons[(y * buttonsPerRow) + x + startingIndex]
         if (option) {
           let newButton = this.add.image(x * (buttonWidth + buttonSpacing) + buttonStartX, y * (buttonHeight + buttonSpacing) + buttonStartY, 'button')
+          newButton.scale.set(game.scaleRatio)
           this.buttons.push(newButton)
-          newButton.text = this.add.text(x * (buttonWidth + buttonSpacing) + buttonStartX + buttonWidth / 2, y * (buttonHeight + buttonSpacing) + buttonStartY + buttonHeight - 25, option.name)
+          newButton.text = this.add.text(x * (buttonWidth + buttonSpacing) + buttonStartX + buttonWidth / 2, y * (buttonHeight + buttonSpacing) + buttonStartY + buttonHeight - 25 * game.scaleRatio, option.name)
           newButton.text.anchor.set(0.5)
+          newButton.text.scale.setTo(game.scaleRatio)
           newButton.inputEnabled = true
           newButton.input.useHandCursor = true
           newButton.events.onInputOver.add(() => {
@@ -111,15 +158,18 @@ export default class Menu extends Phaser.State {
           if (this.cache.checkImageKey('icon_' + option.name.toLowerCase())) {
             newButton.icon = this.add.image(x * (buttonWidth + buttonSpacing) + buttonStartX + buttonWidth / 2, y * (buttonHeight + buttonSpacing) + buttonStartY + buttonHeight / 2, 'icon_' + option.name.toLowerCase())
             newButton.icon.anchor.set(0.5)
+            newButton.icon.scale.set(game.scaleRatio)
           } else {
             newButton.icon = this.add.image(x * (buttonWidth + buttonSpacing) + buttonStartX + buttonWidth / 2, y * (buttonHeight + buttonSpacing) + buttonStartY + buttonHeight / 2, 'icon_default')
             newButton.icon.anchor.set(0.5)
+            newButton.icon.scale.set(game.scaleRatio)
           }
 
           // Checkmark
           if (this.isCategoryCompleted(option, challengeData)) {
             newButton.checkmark = this.add.sprite(x * (buttonWidth + buttonSpacing) + buttonStartX + buttonWidth - 25, y * (buttonHeight + buttonSpacing) + buttonStartY + 25, 'checkmark')
             newButton.checkmark.anchor.set(0.5)
+            newButton.checkmark.scale.set(game.scaleRatio)
           }
         }
       }
@@ -175,9 +225,10 @@ export default class Menu extends Phaser.State {
     return true
   }
 
-  drawTopBar () {
-    this.topBar.beginFill(0xC5D763)
-    this.topBar.drawRect(0, 200, game.world.width, game.world.height - 200)
-    this.topBar.endFill()
+  drawBackground () {
+    this.background.clear()
+    this.background.beginFill(0xC5D763)
+    this.background.drawRect(0, 200 * game.scaleRatio, game.world.width, game.world.height - 200 * game.scaleRatio)
+    this.background.endFill()
   }
 }
