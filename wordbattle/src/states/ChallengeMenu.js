@@ -71,36 +71,38 @@ export default class Menu extends Phaser.State {
 
     // Back arrow
     if (startingIndex > 0) {
-      this.backArrow = this.add.image(game.world.centerX - (buttonAreaWidth / 2) - (75 * game.scaleRatio), game.world.centerY, 'arrow')
+      this.backArrow = this.add.image(game.world.centerX - (buttonAreaWidth / 2) - (100 * game.scaleRatio), game.world.centerY, 'arrow')
       this.backArrow.anchor.set(0.5, 0.5)
       this.backArrow.scale.set(-1 * game.scaleRatio, game.scaleRatio)
+      this.backArrow.alpha = 0.5
       this.backArrow.inputEnabled = true
       this.backArrow.input.useHandCursor = true
       this.backArrow.events.onInputDown.add(() => {
         this.makeButtons(buttons, startingIndex - buttonsPerRow * rowsPerPage)
       })
       this.backArrow.events.onInputOver.add(() => {
-        this.backArrow.loadTexture('arrow_selected')
+        this.backArrow.alpha = 1
       })
       this.backArrow.events.onInputOut.add(() => {
-        this.backArrow.loadTexture('arrow')
+        this.backArrow.alpha = 0.5
       })
     }
     // Forward arrow
     if (buttons.length - startingIndex > buttonsPerRow * rowsPerPage) {
-      this.forwardArrow = this.add.image(game.world.centerX + (buttonAreaWidth / 2) + (75 * game.scaleRatio), game.world.centerY, 'arrow')
+      this.forwardArrow = this.add.image(game.world.centerX + (buttonAreaWidth / 2) + (100 * game.scaleRatio), game.world.centerY, 'arrow')
       this.forwardArrow.anchor.set(0.5, 0.5)
       this.forwardArrow.scale.set(game.scaleRatio)
+      this.forwardArrow.alpha = 0.5
       this.forwardArrow.inputEnabled = true
       this.forwardArrow.input.useHandCursor = true
       this.forwardArrow.events.onInputDown.add(() => {
         this.makeButtons(buttons, buttonsPerRow * rowsPerPage)
       })
       this.forwardArrow.events.onInputOver.add(() => {
-        this.forwardArrow.loadTexture('arrow_selected')
+        this.forwardArrow.alpha = 1
       })
       this.forwardArrow.events.onInputOut.add(() => {
-        this.forwardArrow.loadTexture('arrow')
+        this.forwardArrow.alpha = 0.5
       })
     }
 

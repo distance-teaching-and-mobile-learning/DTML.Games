@@ -82,7 +82,6 @@ export default class extends Phaser.State {
         this.load.image('shortButton', 'assets/images/shortButton.png')
         this.load.image('shortButton_selected', 'assets/images/shortButton_selected.png')
         this.load.image('arrow', 'assets/images/arrow.png')
-        this.load.image('arrow_selected', 'assets/images/arrow_selected.png')
         this.load.image('backToChallenges', 'assets/images/backToChallenges.png')
 
         // Icons
