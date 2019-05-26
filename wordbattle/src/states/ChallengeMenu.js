@@ -6,7 +6,7 @@ export default class Menu extends Phaser.State {
 
     this.background = this.add.graphics()
     this.drawBackground()
-    this.scale.onSizeChange.add(this.drawBackground)
+    // this.scale.onSizeChange.add(this.drawBackground)
 
     let topText = this.add.text(game.world.centerX, 100 * game.scaleRatio, 'Select your Challenge', { font: '45px Berkshire Swash' })
     topText.anchor.set(0.5)
