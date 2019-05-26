@@ -11,8 +11,6 @@ import GameState from './states/Game'
 
 import config from './config'
 
-dtml = dtml.dtml
-
 class Game extends Phaser.Game {
   constructor () {
     const docElement = document.documentElement
