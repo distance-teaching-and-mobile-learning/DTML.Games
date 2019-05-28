@@ -380,8 +380,7 @@ export default class extends Phaser.State {
             .then(res => res.json())
             .then(data => {
                 this.errorText.hide();
-                data.isCorrect = true
-                if (answer === 'a') {
+                if (data.isCorrect) {
                     this.castSpell(data.complexity);
                 } else {
                     this.correctText.changeText(data.correct);
