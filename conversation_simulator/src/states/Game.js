@@ -634,8 +634,9 @@ export default class extends Phaser.State {
           if (
             parentGroup.getChildAt(j).text &&
             !shortestSolution
+              .toLowerCase()
               .split(' ')
-              .includes(parentGroup.getChildAt(j).text.toLowerCase())
+              .includes(parentGroup.getChildAt(j).text.toLowerCase().trim())
           ) {
             this.listView.remove(parentGroup)
             parentGroup.destroy(true)
@@ -730,7 +731,7 @@ export default class extends Phaser.State {
       var parentGroup = this.game.add.group()
 
       var item = this.game.add.sprite(0, 0, 'sidebg')
-      item.text = word
+      item.text = word.trim()
 
       var character = this.game.add.text(0, 0, word)
       var scaledWidth = Math.max(character.width + 50, item.width)
