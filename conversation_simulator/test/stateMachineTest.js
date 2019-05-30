@@ -135,5 +135,25 @@ describe('StateMachine', function () {
       assert.equal(stateMachine.matchSolution('wrong words'), undefined)
       assert.equal(stateMachine.matchSolution('wrong of answer words'), undefined)
     })
+
+    it('shouldn\'t match solutions with incorrect trailing words', function () {
+      assert.equal(stateMachine.matchSolution('wrong of list answer words question extra'), undefined)
+      assert.equal(stateMachine.matchSolution('wrong answer words extra'), undefined)
+    })
+  })
+
+  describe('formatSolution', function () {
+    it ('should capitalize "i"', function () {
+      assert.equal(stateMachine.formatSolution('i'), 'I')
+      assert.equal(stateMachine.formatSolution('i love pizza'), 'I love pizza')
+      assert.equal(stateMachine.formatSolution('forget i said anything'), 'forget I said anything')
+    })
+
+    it ('should remove optional words and phrases', function () {
+      assert.equal(stateMachine.formatSolution('hello [sir]'), 'hello')
+      assert.equal(stateMachine.formatSolution('hello [how are you]'), 'hello')
+      assert.equal(stateMachine.formatSolution('[sometimes] you snore'), 'you snore')
+      assert.equal(stateMachine.formatSolution('they need [a lot of] help'), 'they need help')
+    })
   })
 })

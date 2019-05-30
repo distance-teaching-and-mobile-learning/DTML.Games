@@ -230,10 +230,18 @@ export default class {
   // Takes a solution from game data and formats into conversational english eg: i need [some] time => I need time
   formatSolution (solution) {
     let splitWords = solution.split(' ')
-    for (let i = 0; i < splitWords.length; i++) {
-      splitWords[i] = splitWords[i].replace('[', '')
-      splitWords[i] = splitWords[i].replace(']', '')
+    for (let i = splitWords.length - 1; i >= 0; i--) {
+      // Capitalize 'i'
       if (splitWords[i] === 'i') splitWords[i] = 'I'
+      // Remove optional words and phrases
+      if (splitWords[i].includes('[')) {
+        for (let j = i; j < splitWords.length; j++) {
+          if (splitWords[j].includes(']')) {
+            splitWords.splice(i, j - i + 1)
+            break
+          }
+        }
+      }
     }
     return splitWords.join(' ')
   }

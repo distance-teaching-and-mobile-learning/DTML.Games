@@ -619,6 +619,7 @@ export default class extends Phaser.State {
   showHint () {
     // Get the shortest possible solution with a positive score
     let shortestSolution = this.stateMachine.getShortestSolution()
+    shortestSolution = this.stateMachine.formatSolution(shortestSolution)
 
     if (shortestSolution && shortestSolution.length > 0) {
       dtml.recordGameEvent(
