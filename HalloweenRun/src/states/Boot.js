@@ -7,7 +7,7 @@ export default class extends Phaser.State {
         this.stage.backgroundColor = '#EDEEC9'
         this.fontsReady = false
         this.fontsLoaded = this.fontsLoaded.bind(this)
-        this.game.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
+        this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         this.scale.windowConstraints.bottom = 'visual';
         this.game.scale.setResizeCallback(()=> {
             this.scale.setMaximum();

@@ -94,7 +94,6 @@ export default class extends Phaser.State {
         this.player.animations.add('right', [5, 6, 7, 8], 10, true);
         
         this.game.camera.follow(this.player);
-        this.game.camera.setSize(500, 350)
 
         this.cursors =  this.game.input.keyboard.createCursorKeys();
         this.jumpButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -122,6 +121,8 @@ export default class extends Phaser.State {
             cloudEnabled: true
         });
         this.currentWordText.text.fill = "#ff0000";
+
+        this.currentWord = ''
     }
 
     update() {
