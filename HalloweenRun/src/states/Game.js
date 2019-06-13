@@ -5,6 +5,7 @@ import { dtml } from '../dtml-sdk'
 import PhaserInput from '../libs/phaser-input'
 import utils from '../utils'
 import Player from '../sprites/Player'
+import Pumpkin from '../sprites/Pumpkin'
 
 export default class extends Phaser.State {
   init () {}
@@ -87,12 +88,11 @@ export default class extends Phaser.State {
 
     this.player = new Player(game, this, 32, 32, 'dude')
     game.add.existing(this.player)
-    this.pumpkin = {}
-    this.letters = {}
+    this.pumpkins = []
+    this.letters = []
     this.bat = {}
     this.maxPumpkins = 10
-    this.pumpkinCount = 0
-    this.addPumpkins(this.maxPumpkins)
+    this.getNewWord()
 
     this.game.camera.follow(this.player)
 
@@ -101,7 +101,6 @@ export default class extends Phaser.State {
     this.jumpButton1 = this.game.input.keyboard.addKey(Phaser.Keyboard.E)
     this.leftButton = this.game.input.keyboard.addKey(Phaser.Keyboard.S)
     this.rightButton = this.game.input.keyboard.addKey(Phaser.Keyboard.F)
-    dtml.getWords(1, this.renderwords, this)
     this.scoreText = this.game.add.text(780, 30, 'Score: 0', {
       fontSize: '30px',
       fill: '#fff'
@@ -126,7 +125,7 @@ export default class extends Phaser.State {
     })
     this.currentWordText.text.fill = '#ff0000'
 
-    this.currentWord = ''
+    // this.currentWord = ''
   }
 
   update () {
@@ -140,42 +139,38 @@ export default class extends Phaser.State {
         this
       )
     }
-    for (var i = 0; i < this.maxPumpkins; i++) {
-      this.game.physics.arcade.collide(this.pumpkin[i], this.layer)
+    for (let i = this.pumpkins.length - 1; i >= 0; i--) {
+      this.game.physics.arcade.collide(this.pumpkins[i], this.layer)
       this.game.physics.arcade.collide(
         this.player,
-        this.pumpkin[i],
+        this.pumpkins[i],
         this.hitPumpkin,
         null,
         this
       )
-      for (var j = 0; j < this.maxPumpkins; j++) {
-        if (j != i) {
-          this.game.physics.arcade.collide(this.pumpkin[j], this.pumpkin[i])
+      for (let j = this.pumpkins.length; j >= 0; j--) {
+        if (j !== i) {
+          this.game.physics.arcade.collide(this.pumpkins[j], this.pumpkins[i])
         }
       }
     }
 
-    for (var j = 0; j < this.batCount; j++) {
-      if (this.bat[j].body.blocked.left || this.bat[j].body.blocked.right) {
-        this.bat[j].scale.x *= -1
+    for (let i = 0; i < this.batCount; i++) {
+      if (this.bat[i].body.blocked.left || this.bat[i].body.blocked.right) {
+        this.bat[i].scale.x *= -1
       }
     }
   }
 
   hitPumpkin (player, pumpkin) {
-    var wordLength = this.currentWord.length
-
-    if (this.pumpkinHitCount < wordLength - 1) {
-      this.textBox[this.pumpkinHitCount].setText(
-        this.currentWord[this.pumpkinHitCount]
-      )
-      this.textBox[this.pumpkinHitCount].inputEnabled = false
+    // Correct Pumpkin
+    if (pumpkin.letter === this.currentWord[this.currentWord.length - 1]) {
+      this.getNewWord()
       pumpkin.kill()
-      this.pumpkinHitCount++
-    } else {
-      // this.reloadPumpkins();
-      // this.getNewWord();
+      this.pumpkins.splice(this.pumpkins.indexOf(pumpkin), 1)
+    } else { // Incorrect Pumpkin
+      pumpkin.kill()
+      this.pumpkins.splice(this.pumpkins.indexOf(pumpkin), 1)
     }
   }
 
@@ -185,73 +180,50 @@ export default class extends Phaser.State {
 
   enterletter (a) {}
 
-  submitAnswer (a) {
-    var fail = false
-
-    for (var i = 0; i < this.currentWord.length; i++) {
-      if (this.textBox[i].value != this.currentWord[i]) {
-        fail = true
-        break
-      }
-    }
-
-    this.clearTextBoxs()
-    if (!fail) {
-      dtml.recordGameEvent(
-        'haloween',
-        'ReinforcementML',
-        this.currentWord,
-        'correct_word_guess	'
-      )
-      this.score += 10 * (this.currentWord.length - this.pumpkinHitCount)
-      this.scoreText.text = 'Score: ' + this.score.toString()
-      this.addScoreText.changeText(
-        '+' + 10 * (this.currentWord.length - this.pumpkinHitCount)
-      )
-      this.addScoreText.showTick()
-    } else {
-      dtml.recordGameEvent(
-        'haloween',
-        'ReinforcementML',
-        this.currentWord,
-        'wrong_word_guess'
-      )
-      this.addBats()
-      this.currentWordText.changeText(this.currentWord)
-      this.currentWordText.showTick()
-    }
-
-    this.reloadPumpkins()
-    this.getNewWord()
-  }
-
   clearTextBoxs () {
     for (var i = 0; i < this.currentWord.length; i++) {
       this.textBox[i].resetText()
-      this.textBox[i].hide
+      this.textBox[i].hide()
     }
   }
 
-  addPumpkins (numberOfPumpkins) {
-    for (var i = 0; i < numberOfPumpkins; i++) {
-      this.pumpkin[this.pumpkinCount] = this.game.add.sprite(32, 32, 'pumpkin')
-      var x
-      if (this.pumpkinCount <= 9) {
-        x = 160 + 88 * (this.pumpkinCount % 10)
-      } else {
-        x = game.rnd.integerInRange(0, 760)
-      }
+  makePumpkins (numberOfPumpkins, challengeWord) {
+    challengeWord = challengeWord || this.currentWord
+    let letters = [challengeWord[challengeWord.length - 1]]
+    let letterSet = 'abcdefghijklmnopqrstuvwxyz'
 
-      this.pumpkin[this.pumpkinCount].x = x
+    // Choose letters
+    for (let i = 0; i < numberOfPumpkins - 1; i++) {
+      let newLetter
+      do {
+        newLetter = letterSet.charAt(Math.floor(Math.random() * letterSet.length))
+      } while (letters.indexOf(newLetter) !== -1)
+      letters.push(newLetter)
+    }
+
+    // Make pumpkins
+    this.pumpkins = []
+    for (var i = 0; i < numberOfPumpkins; i++) {
+      let newPumpkin = new Pumpkin(32, 32, letters[i])
+      var x = game.rnd.integerInRange(0, 760)
+
+      newPumpkin.x = x
       this.game.physics.enable(
-        this.pumpkin[this.pumpkinCount],
+        newPumpkin,
         Phaser.Physics.ARCADE
       )
-      this.pumpkin[this.pumpkinCount].body.collideWorldBounds = true
-      this.pumpkin[this.pumpkinCount].body.bounce.y = 0.1
-      this.pumpkin[this.pumpkinCount].body.bounce.x = 0.1
-      this.pumpkinCount++
+      newPumpkin.body.collideWorldBounds = true
+      newPumpkin.body.bounce.y = 0.1
+      newPumpkin.body.bounce.x = 0.1
+      this.pumpkins.push(newPumpkin)
     }
+  }
+
+  clearPumpkins () {
+    for (let i = 0; i < this.pumpkins.length; i++) {
+      this.pumpkins[i].kill()
+    }
+    this.pumpkins = []
   }
 
   addBats () {
@@ -271,110 +243,71 @@ export default class extends Phaser.State {
     this.bat[this.batCount].body.collideWorldBounds = true
     this.bat[this.batCount].anchor.setTo(0.5, 0.5)
     this.bat[this.batCount].body.bounce.setTo(1, 1)
-    this.reloadPumpkins()
     this.batCount++
   }
 
-  reloadPumpkins () {
-    // refill all the hit pumpkins
-    this.addPumpkins(this.pumpkinHitCount)
-    this.maxPumpkins += this.pumpkinHitCount
-    this.pumpkinHitCount = 0
-  }
-
   getNewWord () {
-    dtml.getWords(1, this.renderwords, this)
+    dtml.getWords(1, () => {
+      let word = 'apple'
+      this.currentWord = word
+      this.clearPumpkins()
+      this.makePumpkins(5)
+      this.renderWords(word)
+    })
   }
 
-  removeObsoleteUI (that) {
-    if (that.sumbmitbutton) {
-      that.sumbmitbutton.kill()
+  removeObsoleteUI () {
+    if (this.letterBoxes) {
+      for (let i = 0; i < this.letterBoxes.length; i++) {
+        this.letterBoxes[i].kill()
+      }
     }
-    if (that.sumbmitbuttonText) {
-      that.sumbmitbuttonText.kill()
-    }
-    // If we can figure out how to update their position,
-    // we don't need to kill them, just hide\reposition some components
-    if (that.currentWord) {
-      for (var i = 0; i < that.currentWord.length; i++) {
-        that.letters[i].kill()
-        that.textBox[i].kill()
+    if (this.letters) {
+      for (let i = 0; i < this.letters.length; i++) {
+        this.letters[i].kill()
       }
     }
   }
 
   // data is the input word that will display
   // letter is the buttons
-  renderwords (data, that) {
-    that.wordsForLearning = data
-    // If word length is greater than 6 then generate another word
-    var j = 0
-    that.removeObsoleteUI(that)
-    that.textBox = {}
-    that.letters = {}
+  renderWords (newWord) {
+    this.removeObsoleteUI(this)
+    this.letterBoxes = []
+    this.letters = []
 
-    while (data.words[j].length > 6 || data.words[j].length < 3) {
-      j++
-    }
-
-    that.currentWord = data.words[j]
-
-    for (var i = 0; i < that.currentWord.length; i++) {
-      that.letters[i] = that.game.add.button(
-        80 + 80 * i,
-        10,
+    for (var i = 0; i < newWord.length; i++) {
+      let buttonX = game.world.centerX + (i - ((newWord.length - 1) / 2)) * 80
+      this.letterBoxes[i] = this.game.add.button(
+        buttonX,
+        60,
         'letter',
-        that.enterletter,
-        that,
-        1,
-        0,
-        0,
-        0
+        this.enterletter,
+        this
       )
-      that.textBox[i] = that.add.inputField(80 + 80 * i + 10, 20, {
-        font: '40px Arial',
-        fontWeight: 'bold',
-        width: 40,
-        padding: 8,
-        fill: '#fff',
-        backgroundColor: 'transparent',
-        borderWidth: 1,
-        borderColor: '#000',
-        borderRadius: 6,
-        placeHolder: '',
-        focusOutOnEnter: false,
-        textAlign: 'center',
-        max: 1
-      })
-      that.textBox[i].focusIn.add(that.autoFocusIn, that, 0, i)
-      that.textBox[i].focusOut.add(that.autoFocusOut, that, 0, i)
-      that.letters[i].fixedToCamera = true
-      that.textBox[i].fixedToCamera = true
-    }
-    that.sumbmitbutton = that.game.add.button(
-      80 * (data.words[j].length + 1),
-      10,
-      'button',
-      that.submitAnswer,
-      that,
-      1,
-      0,
-      0,
-      0
-    )
-    that.sumbmitbuttonText = that.game.add.text(
-      that.sumbmitbutton.x + 30,
-      that.sumbmitbutton.y + 20,
-      'Submit',
-      {
-        font: '30px sans-serif',
-        fill: '#ffffff',
-        stroke: '#000000',
-        strokeThickness: '6'
+      this.letterBoxes[i].fixedToCamera = true
+      this.letterBoxes[i].anchor.set(0.5, 0.5)
+
+      if (i < newWord.length - 1) {
+        this.letters[i] = this.add.text(buttonX, 60, this.currentWord[i], {
+          font: '40px Arial',
+          fontWeight: 'bold',
+          width: 40,
+          padding: 8,
+          fill: '#fff',
+          backgroundColor: 'transparent',
+          borderWidth: 1,
+          borderColor: '#000',
+          borderRadius: 6,
+          placeHolder: '',
+          focusOutOnEnter: false,
+          textAlign: 'center',
+          max: 1
+        })
+        this.letters[i].fixedToCamera = true
+        this.letters[i].anchor.set(0.5, 0.5)
       }
-    )
-    that.sumbmitbutton.fixedToCamera = true
-    that.sumbmitbuttonText.fixedToCamera = true
+    }
   }
 
   render () {}

@@ -1,6 +1,6 @@
 export default class Player extends Phaser.Sprite {
-  constructor (game, scene, x, y, asset) {
-    super(game, x, y, asset)
+  constructor (game, scene, x, y, key) {
+    super(game, x, y, key)
     this.gameScene = scene
     this.anchor.setTo(0.5)
 
@@ -19,7 +19,7 @@ export default class Player extends Phaser.Sprite {
     this.onGround = false
 
     this.initialJumpPower = 300
-    this.jumpSustainPower = 45
+    this.jumpSustainPower = 55
     this.maxFallSpeed = 1800
     this.jumpTimerMax = 6
   }
@@ -56,7 +56,6 @@ export default class Player extends Phaser.Sprite {
 
     if (this.gameScene.jumpButton.isDown || this.gameScene.jumpButton1.isDown) {
       if (this.onGround) {
-        console.log('jump')
         this.body.velocity.y = -this.initialJumpPower
         this.onGround = false
         this.jumpTimer = this.jumpTimerMax
@@ -76,9 +75,14 @@ export default class Player extends Phaser.Sprite {
 
   // Runs when the player collides with level geometry
   collideWithWorld (self, tile) {
-    if (tile.worldY > self.body.y) {
-      console.log(self.body.y, tile.worldY)
+    if (self.isTileBelow(tile)) {
       self.onGround = true
+    }
+  }
+
+  isTileBelow (tile) {
+    if (this.body.bottom <= tile.top) {
+      return true
     }
   }
 }
