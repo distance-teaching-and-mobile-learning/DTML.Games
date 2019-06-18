@@ -45,11 +45,17 @@ export default class extends Phaser.State {
   }
 
   create () {
+    let _this = this
+
     this.inputIndex
     this.batCount = 0
-    this.pumpkinHitCount = 0
     this.score = 0
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
+
+    this.wordsCompleted = 0
+    this.wordsToNextLevel = 5
+    this.answerStreak = 0
+    this.level = 1
 
     this.game.stage.backgroundColor = '#000000'
     this.bg = this.game.add.tileSprite(
@@ -92,7 +98,11 @@ export default class extends Phaser.State {
     this.letters = []
     this.bat = {}
     this.maxPumpkins = 10
-    this.getNewWord()
+    this.getChallengeWords(this.level, this.wordsToNextLevel).then(function (result) {
+      _this.challengeWords = result
+      console.log(_this.challengeWords)
+      _this.getNewWord()
+    })
 
     this.game.camera.follow(this.player)
 
@@ -165,9 +175,10 @@ export default class extends Phaser.State {
   hitPumpkin (player, pumpkin) {
     // Correct Pumpkin
     if (pumpkin.letter === this.currentWord[this.currentWord.length - 1]) {
-      this.getNewWord()
+      this.wordsCompleted++
       pumpkin.kill()
       this.pumpkins.splice(this.pumpkins.indexOf(pumpkin), 1)
+      this.getNewWord()
     } else { // Incorrect Pumpkin
       pumpkin.kill()
       this.pumpkins.splice(this.pumpkins.indexOf(pumpkin), 1)
@@ -247,12 +258,18 @@ export default class extends Phaser.State {
   }
 
   getNewWord () {
-    dtml.getWords(1, () => {
-      let word = 'apple'
-      this.currentWord = word
-      this.clearPumpkins()
-      this.makePumpkins(5)
-      this.renderWords(word)
+    this.currentWord = this.challengeWords[this.wordsCompleted]
+    this.clearPumpkins()
+    this.makePumpkins(5)
+    this.renderWords(this.currentWord)
+  }
+
+  getChallengeWords (complexity, numberOfWords) {
+    return new Promise(function (resolve, reject) {
+      dtml.getWords(complexity, (data, sender) => {
+        let words = data.words.slice(0, numberOfWords)
+        resolve(words)
+      })
     })
   }
 
