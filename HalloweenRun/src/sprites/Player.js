@@ -19,9 +19,9 @@ export default class Player extends Phaser.Sprite {
     this.onGround = false
 
     this.initialJumpPower = 300
-    this.jumpSustainPower = 55
+    this.jumpSustainPower = 30
     this.maxFallSpeed = 1800
-    this.jumpTimerMax = 6
+    this.jumpTimerMax = 10
   }
 
   update () {
