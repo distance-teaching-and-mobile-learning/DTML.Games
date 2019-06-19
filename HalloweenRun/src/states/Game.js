@@ -14,7 +14,7 @@ export default class extends Phaser.State {
     this.add.plugin(PhaserInput.Plugin)
     this.game.load.tilemap(
       'level1',
-      'assets/images/level1.json',
+      'assets/levels/level1.json',
       null,
       Phaser.Tilemap.TILED_JSON
     )
@@ -88,6 +88,8 @@ export default class extends Phaser.State {
     this.map.setCollisionByExclusion([13, 14, 15, 16, 46, 47, 48, 49, 50, 51])
     this.layer = this.map.createLayer('Tile Layer 1')
 
+    this.pumpkinSpawnLocations = this.getSpawnLocations(this.map.objects['SpawnLocations'])
+
     this.layer.resizeWorld()
 
     this.game.physics.arcade.gravity.y = 1200
@@ -133,8 +135,6 @@ export default class extends Phaser.State {
       cloudEnabled: true
     })
     this.currentWordText.text.fill = '#ff0000'
-
-    // this.currentWord = ''
   }
 
   update () {
@@ -213,19 +213,31 @@ export default class extends Phaser.State {
 
     // Make pumpkins
     this.pumpkins = []
+    let spawnLocations = this.pumpkinSpawnLocations.slice()
     for (var i = 0; i < numberOfPumpkins; i++) {
-      let newPumpkin = new Pumpkin(32, 32, letters[i])
-      var x = game.rnd.integerInRange(0, 760)
+      let random = game.rnd.integerInRange(0, spawnLocations.length - 1)
+      let spawnLocation = spawnLocations[random]
+      spawnLocations.splice(random, 1)
 
-      newPumpkin.x = x
-      this.game.physics.enable(
-        newPumpkin,
-        Phaser.Physics.ARCADE
-      )
-      newPumpkin.body.collideWorldBounds = true
-      newPumpkin.body.bounce.y = 0.1
-      newPumpkin.body.bounce.x = 0.1
-      this.pumpkins.push(newPumpkin)
+      let newPumpkin = new Pumpkin(spawnLocation.x, spawnLocation.y, letters[i])
+      newPumpkin.anchor.set(0.5, 0.5)
+
+
+      newPumpkin.alpha = 0
+      newPumpkin.letterSprite.alpha = 0
+      game.add.tween(newPumpkin).to({ alpha: 1 }, 500, 'Linear', true)
+      game.add.tween(newPumpkin.letterSprite).to({ alpha: 1 }, 500, 'Linear', true)
+
+      game.time.events.add(500, function () {
+        this.game.physics.enable(
+          newPumpkin,
+          Phaser.Physics.ARCADE
+        )
+        newPumpkin.body.collideWorldBounds = true
+        newPumpkin.body.bounce.y = 0.1
+        newPumpkin.body.bounce.x = 0.1
+        this.pumpkins.push(newPumpkin)
+      }, this)
     }
   }
 
@@ -328,6 +340,14 @@ export default class extends Phaser.State {
         this.letters[i].anchor.set(0.5, 0.5)
       }
     }
+  }
+
+  getSpawnLocations (objectLayer) {
+    let locations = []
+    for (let i = 0; i < objectLayer.length; i++) {
+      locations.push({x: objectLayer[i].x, y: objectLayer[i].y})
+    }
+    return locations
   }
 
   render () {}

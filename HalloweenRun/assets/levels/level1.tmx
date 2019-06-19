@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="16" tileheight="16" infinite="0" nextobjectid="1">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="16" tileheight="16" infinite="0" nextobjectid="20">
  <tileset firstgid="1" name="tiles-1" tilewidth="16" tileheight="16" tilecount="68" columns="17">
-  <image source="tiles-1.png" width="272" height="64"/>
+  <image source="../images/tiles-1.png" width="272" height="64"/>
  </tileset>
  <layer name="Tile Layer 1" width="60" height="40">
   <data encoding="csv">
@@ -47,4 +47,51 @@
 19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,4,5,6,2,64,65,5,6,2,3,4,5,6,2,3,4,2,3,4,5,30,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19
 </data>
  </layer>
+ <objectgroup name="SpawnLocations">
+  <object id="3" x="64" y="464">
+   <point/>
+  </object>
+  <object id="4" x="256" y="336">
+   <point/>
+  </object>
+  <object id="5" x="352" y="320">
+   <point/>
+  </object>
+  <object id="6" x="496" y="336">
+   <point/>
+  </object>
+  <object id="7" x="640" y="336">
+   <point/>
+  </object>
+  <object id="8" x="848" y="192">
+   <point/>
+  </object>
+  <object id="9" x="896" y="192">
+   <point/>
+  </object>
+  <object id="10" x="816" y="480">
+   <point/>
+  </object>
+  <object id="11" x="896" y="480">
+   <point/>
+  </object>
+  <object id="12" x="752" y="544">
+   <point/>
+  </object>
+  <object id="13" x="640" y="592">
+   <point/>
+  </object>
+  <object id="14" x="512" y="592">
+   <point/>
+  </object>
+  <object id="15" x="416" y="592">
+   <point/>
+  </object>
+  <object id="16" x="304" y="576">
+   <point/>
+  </object>
+  <object id="17" x="208" y="528">
+   <point/>
+  </object>
+ </objectgroup>
 </map>
