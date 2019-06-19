@@ -21,7 +21,11 @@ export default class Player extends Phaser.Sprite {
     this.initialJumpPower = 300
     this.jumpSustainPower = 30
     this.maxFallSpeed = 1800
-    this.jumpTimerMax = 10
+    this.jumpTimerMax = 8
+    this.airJumpPower = 400
+    this.maxJumps = 2
+    this.numberOfJumps = this.maxJumps
+    this.jumping = false
   }
 
   update () {
@@ -55,15 +59,24 @@ export default class Player extends Phaser.Sprite {
     }
 
     if (this.gameScene.jumpButton.isDown || this.gameScene.jumpButton1.isDown) {
-      if (this.onGround) {
-        this.body.velocity.y = -this.initialJumpPower
+      if (this.jumping) {
+        if (this.jumpTimer > 0 && this.numberOfJumps === this.maxJumps - 1) {
+          this.body.velocity.y -= this.jumpSustainPower
+          this.jumpTimer--
+        }
+      } else if (this.numberOfJumps > 0) {
+        this.jumping = true
         this.onGround = false
         this.jumpTimer = this.jumpTimerMax
-      } else if (this.jumpTimer > 0) {
-        this.body.velocity.y -= this.jumpSustainPower
-        this.jumpTimer--
+        if (this.numberOfJumps === this.maxJumps) {
+          this.body.velocity.y = -this.initialJumpPower
+        } else {
+          this.body.velocity.y = -this.airJumpPower
+        }
+        this.numberOfJumps--
       }
     } else {
+      this.jumping = false
       this.jumpTimer = 0
     }
 
@@ -77,6 +90,7 @@ export default class Player extends Phaser.Sprite {
   collideWithWorld (self, tile) {
     if (self.isTileBelow(tile)) {
       self.onGround = true
+      self.numberOfJumps = self.maxJumps
     }
   }
 

@@ -29,7 +29,7 @@ var dtml = {
     //*****************************************************************
     getWords: function(level, callback, sender, debug) {
         fetch(this.urls.gameService + "Words/?step=" + level, {
-            method: 'get',
+            method: 'get'
         }).catch (err => {
             console.log('err', err);
             callback(null, sender);

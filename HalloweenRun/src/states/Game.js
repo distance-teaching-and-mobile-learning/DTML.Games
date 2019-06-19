@@ -100,7 +100,6 @@ export default class extends Phaser.State {
     this.maxPumpkins = 10
     this.getChallengeWords(this.level, this.wordsToNextLevel).then(function (result) {
       _this.challengeWords = result
-      console.log(_this.challengeWords)
       _this.getNewWord()
     })
 
@@ -267,8 +266,12 @@ export default class extends Phaser.State {
   getChallengeWords (complexity, numberOfWords) {
     return new Promise(function (resolve, reject) {
       dtml.getWords(complexity, (data, sender) => {
-        let words = data.words.slice(0, numberOfWords)
-        resolve(words)
+        if (data) {
+          let words = data.words.slice(0, numberOfWords)
+          resolve(words)
+        } else {
+          reject(new Error('Could not fetch words from server'))
+        }
       })
     })
   }
