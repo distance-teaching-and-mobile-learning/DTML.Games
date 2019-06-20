@@ -12,12 +12,18 @@ export default class extends Phaser.State {
 
   preload () {
     this.add.plugin(PhaserInput.Plugin)
-    this.game.load.tilemap(
-      'level1',
-      'assets/levels/level1.json',
-      null,
-      Phaser.Tilemap.TILED_JSON
-    )
+
+    // Load levels
+    this.levels = [ 'level1', 'level2' ]
+    for (let i = 0; i < this.levels.length; i++) {
+      this.game.load.tilemap(
+        this.levels[i],
+        'assets/levels/' + this.levels[i] + '.json',
+        null,
+        Phaser.Tilemap.TILED_JSON
+      )
+    }
+
     this.game.load.image('tiles-1', 'assets/images/tiles-1.png')
     this.game.load.spritesheet('dude', 'assets/images/dude.png', 32, 48)
     this.game.load.spritesheet('pumpkin', 'assets/images/pumpkin.png', 32, 48)
@@ -81,16 +87,7 @@ export default class extends Phaser.State {
     this.woosh = game.add.audio('woosh')
     this.steps = game.add.audio('steps')
 
-    this.map = this.game.add.tilemap('level1')
-
-    this.map.addTilesetImage('tiles-1')
-
-    this.map.setCollisionByExclusion([13, 14, 15, 16, 46, 47, 48, 49, 50, 51])
-    this.layer = this.map.createLayer('Tile Layer 1')
-
-    this.pumpkinSpawnLocations = this.getSpawnLocations(this.map.objects['SpawnLocations'])
-
-    this.layer.resizeWorld()
+    this.loadLevel(this.level - 1)
 
     this.game.physics.arcade.gravity.y = 1200
 
@@ -174,10 +171,23 @@ export default class extends Phaser.State {
   hitPumpkin (player, pumpkin) {
     // Correct Pumpkin
     if (pumpkin.letter === this.currentWord[this.currentWord.length - 1]) {
-      this.wordsCompleted++
       pumpkin.kill()
       this.pumpkins.splice(this.pumpkins.indexOf(pumpkin), 1)
-      this.getNewWord()
+
+      this.wordsCompleted++
+      if (this.wordsCompleted >= this.wordsToNextLevel) {
+        this.level++
+        this.getChallengeWords(this.level, this.wordsToNextLevel).then((result) => {
+          let levelIndex = (this.level - 1) % this.levels.length
+          console.log(levelIndex)
+          this.loadLevel(levelIndex)
+          this.wordsCompleted = 0
+          this.challengeWords = result
+          this.getNewWord()
+        })
+      } else {
+        this.getNewWord()
+      }
     } else { // Incorrect Pumpkin
       pumpkin.kill()
       this.pumpkins.splice(this.pumpkins.indexOf(pumpkin), 1)
@@ -222,7 +232,6 @@ export default class extends Phaser.State {
       let newPumpkin = new Pumpkin(spawnLocation.x, spawnLocation.y, letters[i])
       newPumpkin.anchor.set(0.5, 0.5)
 
-
       newPumpkin.alpha = 0
       newPumpkin.letterSprite.alpha = 0
       game.add.tween(newPumpkin).to({ alpha: 1 }, 500, 'Linear', true)
@@ -233,9 +242,7 @@ export default class extends Phaser.State {
           newPumpkin,
           Phaser.Physics.ARCADE
         )
-        newPumpkin.body.collideWorldBounds = true
-        newPumpkin.body.bounce.y = 0.1
-        newPumpkin.body.bounce.x = 0.1
+        newPumpkin.body.allowGravity = false
         this.pumpkins.push(newPumpkin)
       }, this)
     }
@@ -348,6 +355,24 @@ export default class extends Phaser.State {
       locations.push({x: objectLayer[i].x, y: objectLayer[i].y})
     }
     return locations
+  }
+
+  loadLevel (index) {
+    if (this.layer && this.map) {
+      this.layer.destroy()
+      this.map.destroy()
+    }
+
+    this.map = this.game.add.tilemap(this.levels[index])
+
+    this.map.addTilesetImage('tiles-1')
+
+    this.map.setCollisionByExclusion([13, 14, 15, 16, 46, 47, 48, 49, 50, 51])
+    this.layer = this.map.createLayer('Tile Layer 1')
+
+    this.pumpkinSpawnLocations = this.getSpawnLocations(this.map.objects['SpawnLocations'])
+
+    this.layer.resizeWorld()
   }
 
   render () {}
