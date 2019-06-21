@@ -59,7 +59,7 @@ export default class extends Phaser.State {
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
 
     this.wordsCompleted = 0
-    this.wordsToNextLevel = 5
+    this.wordsToNextLevel = 1
     this.answerStreak = 0
     this.level = 1
 
@@ -135,32 +135,27 @@ export default class extends Phaser.State {
   }
 
   update () {
-    this.game.physics.arcade.collide(this.player, this.layer, this.player.collideWithWorld)
-    for (var j = 0; j < this.batCount; j++) {
-      this.game.physics.arcade.collide(
-        this.bat[j],
-        this.player,
-        this.hitBat,
-        null,
-        this
-      )
-    }
-    for (let i = this.pumpkins.length - 1; i >= 0; i--) {
-      this.game.physics.arcade.collide(this.pumpkins[i], this.layer)
-      this.game.physics.arcade.collide(
-        this.player,
-        this.pumpkins[i],
-        this.hitPumpkin,
-        null,
-        this
-      )
-      for (let j = this.pumpkins.length; j >= 0; j--) {
-        if (j !== i) {
-          this.game.physics.arcade.collide(this.pumpkins[j], this.pumpkins[i])
-        }
+    if (this.player.canCollide) {
+      this.game.physics.arcade.collide(this.player, this.layer, this.player.collideWithWorld)
+      for (let i = this.pumpkins.length - 1; i >= 0; i--) {
+        this.game.physics.arcade.collide(
+          this.player,
+          this.pumpkins[i],
+          this.hitPumpkin,
+          null,
+          this
+        )
+      }
+      for (var j = 0; j < this.batCount; j++) {
+        this.game.physics.arcade.collide(
+          this.bat[j],
+          this.player,
+          this.hitBat,
+          null,
+          this
+        )
       }
     }
-
     for (let i = 0; i < this.batCount; i++) {
       if (this.bat[i].body.blocked.left || this.bat[i].body.blocked.right) {
         this.bat[i].scale.x *= -1
@@ -179,7 +174,6 @@ export default class extends Phaser.State {
         this.level++
         this.getChallengeWords(this.level, this.wordsToNextLevel).then((result) => {
           let levelIndex = (this.level - 1) % this.levels.length
-          console.log(levelIndex)
           this.loadLevel(levelIndex)
           this.wordsCompleted = 0
           this.challengeWords = result
@@ -373,6 +367,34 @@ export default class extends Phaser.State {
     this.pumpkinSpawnLocations = this.getSpawnLocations(this.map.objects['SpawnLocations'])
 
     this.layer.resizeWorld()
+
+    // Move player to a random spawn location
+    if (this.player) {
+      let _this = this
+      let random = game.rnd.integerInRange(0, this.pumpkinSpawnLocations.length - 1)
+      let spawn = this.pumpkinSpawnLocations[random]
+      let star = this.add.sprite(this.player.x, this.player.y, 'starBig')
+      star.anchor.set(0.5, 0.5)
+      this.player.alpha = 0
+      this.player.canMove = false
+      this.player.canCollide = false
+      this.player.body.allowGravity = false
+      this.player.body.x = spawn.x
+      this.player.body.y = spawn.y - 20
+      this.player.x = spawn.x
+      this.player.y = spawn.y - 20
+      this.player.body.velocity.x = 0
+      this.player.body.velocity.y = 0
+      this.add.tween(star).to({ x: this.player.body.x, y: this.player.body.y }, 500, Phaser.Easing.Quadratic.InOut, true).onComplete.add(() => {
+        _this.player.canMove = true
+        _this.player.canCollide = true
+        _this.player.body.velocity.x = 0
+        _this.player.body.velocity.y = 0
+        _this.player.body.allowGravity = true
+        _this.player.alpha = 1
+        star.destroy()
+      })
+    }
   }
 
   render () {}

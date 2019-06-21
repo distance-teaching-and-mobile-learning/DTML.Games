@@ -26,58 +26,62 @@ export default class Player extends Phaser.Sprite {
     this.maxJumps = 2
     this.numberOfJumps = this.maxJumps
     this.jumping = false
+    this.canMove = true
+    this.canCollide = true
   }
 
   update () {
     this.body.velocity.x = 0
-    if (this.gameScene.leftButton.isDown || this.gameScene.cursors.left.isDown) {
-      this.body.velocity.x = -150
+    if (this.canMove) {
+      if (this.gameScene.leftButton.isDown || this.gameScene.cursors.left.isDown) {
+        this.body.velocity.x = -150
 
-      if (this.facing !== 'left') {
-        this.animations.play('left')
-        this.facing = 'left'
-      }
-    } else if (this.gameScene.rightButton.isDown || this.gameScene.cursors.right.isDown) {
-      this.body.velocity.x = 150
-
-      if (this.facing !== 'right') {
-        this.animations.play('right')
-        this.facing = 'right'
-      }
-    } else {
-      if (this.facing !== 'idle') {
-        this.animations.stop()
-
-        if (this.facing === 'left') {
-          this.frame = 0
-        } else {
-          this.frame = 5
+        if (this.facing !== 'left') {
+          this.animations.play('left')
+          this.facing = 'left'
         }
+      } else if (this.gameScene.rightButton.isDown || this.gameScene.cursors.right.isDown) {
+        this.body.velocity.x = 150
 
-        this.facing = 'idle'
-      }
-    }
+        if (this.facing !== 'right') {
+          this.animations.play('right')
+          this.facing = 'right'
+        }
+      } else {
+        if (this.facing !== 'idle') {
+          this.animations.stop()
 
-    if (this.gameScene.jumpButton.isDown || this.gameScene.jumpButton1.isDown) {
-      if (this.jumping) {
-        if (this.jumpTimer > 0 && this.numberOfJumps === this.maxJumps - 1) {
-          this.body.velocity.y -= this.jumpSustainPower
-          this.jumpTimer--
+          if (this.facing === 'left') {
+            this.frame = 0
+          } else {
+            this.frame = 5
+          }
+
+          this.facing = 'idle'
         }
-      } else if (this.numberOfJumps > 0) {
-        this.jumping = true
-        this.onGround = false
-        this.jumpTimer = this.jumpTimerMax
-        if (this.numberOfJumps === this.maxJumps) {
-          this.body.velocity.y = -this.initialJumpPower
-        } else {
-          this.body.velocity.y = -this.airJumpPower
-        }
-        this.numberOfJumps--
       }
-    } else {
-      this.jumping = false
-      this.jumpTimer = 0
+
+      if (this.gameScene.jumpButton.isDown || this.gameScene.jumpButton1.isDown) {
+        if (this.jumping) {
+          if (this.jumpTimer > 0 && this.numberOfJumps === this.maxJumps - 1) {
+            this.body.velocity.y -= this.jumpSustainPower
+            this.jumpTimer--
+          }
+        } else if (this.numberOfJumps > 0) {
+          this.jumping = true
+          this.onGround = false
+          this.jumpTimer = this.jumpTimerMax
+          if (this.numberOfJumps === this.maxJumps) {
+            this.body.velocity.y = -this.initialJumpPower
+          } else {
+            this.body.velocity.y = -this.airJumpPower
+          }
+          this.numberOfJumps--
+        }
+      } else {
+        this.jumping = false
+        this.jumpTimer = 0
+      }
     }
 
     // Max fall speed
