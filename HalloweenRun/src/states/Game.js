@@ -59,7 +59,7 @@ export default class extends Phaser.State {
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
 
     this.wordsCompleted = 0
-    this.wordsToNextLevel = 1
+    this.wordsToNextLevel = 5
     this.answerStreak = 0
     this.level = 1
 
@@ -375,6 +375,10 @@ export default class extends Phaser.State {
       let spawn = this.pumpkinSpawnLocations[random]
       let star = this.add.sprite(this.player.x, this.player.y, 'starBig')
       star.anchor.set(0.5, 0.5)
+      let starEmitter = this.add.emitter(star.x, star.y)
+      starEmitter.makeParticles('starSmall')
+      starEmitter.start(false, 2000, 20)
+
       this.player.alpha = 0
       this.player.canMove = false
       this.player.canCollide = false
@@ -393,6 +397,12 @@ export default class extends Phaser.State {
         _this.player.body.allowGravity = true
         _this.player.alpha = 1
         star.destroy()
+      })
+      this.add.tween(starEmitter).to({ x: this.player.body.x, y: this.player.body.y }, 500, Phaser.Easing.Quadratic.InOut, true).onComplete.add(() => {
+        starEmitter.on = false
+        _this.time.events.add(2000, () => {
+          starEmitter.destroy()
+        })
       })
     }
   }
