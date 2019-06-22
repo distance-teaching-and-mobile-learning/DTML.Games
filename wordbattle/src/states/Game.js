@@ -117,7 +117,10 @@ export default class extends Phaser.State {
             this.scoreText.anchor.setTo(0.5);
 
             if (this.mode === 'challenge') {
-                this.progressText = game.add.text(this.world.width * 0.85, this.game.world.centerY * 0.2 + 25, '0/' + this.words.length, {
+                let numberOfWords
+                if (this.words) numberOfWords = this.words.length
+                else numberOfWords = '?'
+                this.progressText = game.add.text(this.world.width * 0.85, this.game.world.centerY * 0.2 + 25, '0/' + numberOfWords, {
                 font: "32px Berkshire Swash",
                 fill: '#FFF',
                 align: 'center'
@@ -345,6 +348,7 @@ export default class extends Phaser.State {
             } else if (this.mode === 'challenge') {
                 // Beat the challenge
                 this.completeChallenge();
+                this.correctText.text.destroy();
                 this.correctText.destroy();
                 this.addScoreText.text.destroy();
                 this.addScoreText.destroy();
@@ -379,12 +383,12 @@ export default class extends Phaser.State {
                 data.isCorrect = true
                 if (data.isCorrect) {
                     this.castSpell(data.complexity);
-                    if (this.mode === 'challenge') {
-                        this.progressText.text = this.currIndex + '/' + this.words.length
-                    }
                 } else {
                     this.correctText.changeText(data.correct);
                     this.gnomeAttack();
+                }
+                if (this.mode === 'challenge') {
+                    this.progressText.text = this.currIndex + '/' + this.words.length
                 }
             })
             .catch(err => {
@@ -568,10 +572,14 @@ export default class extends Phaser.State {
         // Victory notification
         let scroll = this.add.sprite(game.world.centerX, game.world.centerY, 'scroll')
         scroll.anchor.set(0.5, 0.5)
-        scroll.scale.set(0.75, 0.75)
-        this.add.text(game.world.centerX, game.world.centerY, 'Challenge Complete!', {font: "30px Berkshire Swash", fill: "#ff0044", align: "center"}).anchor.set(0.5, 0.5)
-        let backbutton = this.add.sprite(game.world.centerX, game.world.centerY + 100, 'backToChallenges')
+        scroll.scale.set(0.75 * game.scaleRatio, 0.75 * game.scaleRatio)
+        let challengeComplete = this.add.sprite(game.world.centerX, game.world.centerY - 100 * game.scaleRatio, 'challengeComplete')
+        challengeComplete.anchor.set(0.5, 0.5)
+        challengeComplete.scale.set(game.scaleRatio, game.scaleRatio)
+        this.add.text(game.world.centerX, game.world.centerY + 50 * game.scaleRatio, 'Challenge Complete!', {font: "30px Berkshire Swash", fill: "#ff0044", align: "center"}).anchor.set(0.5, 0.5)
+        let backbutton = this.add.sprite(game.world.centerX, game.world.centerY + 125 * game.scaleRatio, 'backToChallenges')
         backbutton.anchor.set(0.5, 0.5)
+        backbutton.scale.set(game.scaleRatio, game.scaleRatio)
         backbutton.inputEnabled = true
         backbutton.input.useHandCursor = true
         backbutton.events.onInputDown.add(() => {
@@ -580,7 +588,8 @@ export default class extends Phaser.State {
 
         // Record challenge beaten
         this.markChallengeComplete(this.category, this.subcategory)
-        dtml.recordGameEvent('wordsbattle', 'ChallengeCompleted', this.subCategory)
+        console.log(this.subcategory)
+        dtml.recordGameEvent('wordsbattle', 'ChallengeCompleted', this.subcategory)
     }
 
     markChallengeComplete (category, subcategory) {

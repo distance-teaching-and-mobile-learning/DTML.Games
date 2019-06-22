@@ -15,18 +15,29 @@ PhraseCompare.compareSolution = function (submittedWords, solutionWords) {
     let checkWord = PhraseCompare.getConcatWords(submittedWords, phraseLength)
     if (checkWord === solutionWord) {
       // Matched
-      if (solutionWords.length === phraseLength) {
-        // We've matched the whole phrase
-        return true
+      if (solutionWords.length <= phraseLength) {
+        if (submittedWords.length <= phraseLength) {
+          // We've matched the whole phrase
+          return true
+        } else {
+          // Left over submitted words
+          return false
+        }
       } else {
         // There are still more words to match
         return PhraseCompare.compareSolution(submittedWords.slice(phraseLength), solutionWords.slice(i + 1))
       }
     } else if (optional) {
-      if (solutionWords.length === phraseLength) {
-        // We've matched the whole phrase
-        return true
+      if (solutionWords.length <= phraseLength) {
+        if (submittedWords.length === 0) {
+          // We've matched the whole phrase
+          return true
+        } else {
+          // Left over submitted words
+          return false
+        }
       } else {
+        // There are still more words to match
         return PhraseCompare.compareSolution(submittedWords, solutionWords.slice(i + 1))
       }
     } else {

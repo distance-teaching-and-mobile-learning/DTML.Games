@@ -13,7 +13,9 @@ export default class Menu extends Phaser.State {
     })
     languageText.display()
 
-    let challengeButton = this.add.image(game.world.centerX - 600, game.world.centerY - 200, 'challengeButton')
+    let challengeButton = this.add.image(game.world.centerX - 300 * game.scaleRatio, game.world.centerY, 'challengeButton')
+    challengeButton.anchor.set(0.5, 0.5)
+    challengeButton.scale.set(game.scaleRatio, game.scaleRatio)
     challengeButton.inputEnabled = true
     challengeButton.input.useHandCursor = true
     challengeButton.events.onInputDown.add(() => {
@@ -28,7 +30,9 @@ export default class Menu extends Phaser.State {
       challengeButton.loadTexture('challengeButton')
     })
 
-    let freePlayButton = this.add.image(game.world.centerX + 100, game.world.centerY - 200, 'freePlayButton')
+    let freePlayButton = this.add.image(game.world.centerX + 300 * game.scaleRatio, game.world.centerY, 'freePlayButton')
+    freePlayButton.anchor.set(0.5, 0.5)
+    freePlayButton.scale.set(game.scaleRatio, game.scaleRatio)
     freePlayButton.inputEnabled = true
     freePlayButton.input.useHandCursor = true
     freePlayButton.events.onInputDown.add(() => {
@@ -44,7 +48,7 @@ export default class Menu extends Phaser.State {
     })
 
     // Check if all challenges completed
-    if (this.state.states['ChallengeMenu'].allChallengedCompleted()) {
+    if (this.state.states['ChallengeMenu'].allChallengesCompleted()) {
       let checkmark = this.add.sprite(challengeButton.x + challengeButton.width, challengeButton.y, 'checkmark')
       checkmark.anchor.set(0.5)
     }

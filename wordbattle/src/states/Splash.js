@@ -61,6 +61,8 @@ export default class extends Phaser.State {
         this.load.image('iconAttack', 'assets/images/icon-attack.png');
         this.load.image('iconHome', 'assets/images/icon-home.png');
 
+        this.load.image('challengeComplete', 'assets/images/challengeComplete.png')
+
         // bg
         this.load.image('bg1', 'assets/images/layers/l1_background.png')
         this.load.image('bg2', 'assets/images/layers/l2_trees01.png')
@@ -80,6 +82,7 @@ export default class extends Phaser.State {
         this.load.image('button', 'assets/images/button.png')
         this.load.image('button_selected', 'assets/images/button_selected.png')
         this.load.image('shortButton', 'assets/images/shortButton.png')
+        this.load.image('shortButton_selected', 'assets/images/shortButton_selected.png')
         this.load.image('arrow', 'assets/images/arrow.png')
         this.load.image('backToChallenges', 'assets/images/backToChallenges.png')
 

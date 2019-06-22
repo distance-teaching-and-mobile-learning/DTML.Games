@@ -17,6 +17,8 @@ import Phaser from 'phaser'
 import WebFont from 'webfontloader'
 import config from '../config';
 
+dtml = dtml.dtml
+
 export default class extends Phaser.State {
     init() {
         if (!this.game.device.desktop) {
@@ -50,7 +52,7 @@ export default class extends Phaser.State {
         let width = game.width;//window.screen.availWidth * window.devicePixelRatio
         let height = game.height;//window.screen.availHeight * window.devicePixelRatio
         game.aspectRatio = width / height;
-        game.scaleRatio = game.width / canvas_width_max;
+        game.scaleRatio = Math.min(game.width / canvas_width_max, game.height / canvas_height_max);
 
         console.log('game dimension: ', game.width, 'x', game.height, 'height * scaleRatio', game.height * game.scaleRatio)
         if (game.aspectRatio < 1) {
