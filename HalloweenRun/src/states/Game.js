@@ -88,15 +88,16 @@ export default class extends Phaser.State {
     this.woosh = game.add.audio('woosh')
     this.steps = game.add.audio('steps')
 
+    this.pumpkins = []
+    this.letters = []
+    this.bats = []
+
     this.loadLevel(this.level - 1)
 
     this.game.physics.arcade.gravity.y = 1200
 
     this.player = new Player(game, this, 32, 32, 'dude')
     game.add.existing(this.player)
-    this.pumpkins = []
-    this.letters = []
-    this.bat = {}
     this.maxPumpkins = 10
     this.getChallengeWords(this.level, this.wordsToNextLevel).then(function (result) {
       _this.challengeWords = result
@@ -157,7 +158,7 @@ export default class extends Phaser.State {
       }
       for (var j = 0; j < this.batCount; j++) {
         this.game.physics.arcade.collide(
-          this.bat[j],
+          this.bats[j],
           this.player,
           this.hitBat,
           null,
@@ -166,8 +167,8 @@ export default class extends Phaser.State {
       }
     }
     for (let i = 0; i < this.batCount; i++) {
-      if (this.bat[i].body.blocked.left || this.bat[i].body.blocked.right) {
-        this.bat[i].scale.x *= -1
+      if (this.bats[i].body.blocked.left || this.bats[i].body.blocked.right) {
+        this.bats[i].scale.x *= -1
       }
     }
   }
@@ -283,23 +284,23 @@ export default class extends Phaser.State {
   }
 
   addBats () {
-    this.bat[this.batCount] = this.game.add.sprite(800, 160, 'bat')
-    this.bat[this.batCount].animations.add(
+    this.bats[this.batCount] = this.game.add.sprite(800, 160, 'bat')
+    this.bats[this.batCount].animations.add(
       'bat',
       [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
       10,
       true
     )
-    this.bat[this.batCount].animations.play('bat')
-    this.bat[this.batCount].scale.setTo(0.5, 0.5)
-    this.game.physics.enable(this.bat[this.batCount], Phaser.Physics.ARCADE)
-    this.bat[this.batCount].body.setSize(30, 30, 60, 60)
-    this.bat[this.batCount].body.allowGravity = false
-    this.bat[this.batCount].body.velocity.x = -Math.floor(Math.random() * 400)
-    this.bat[this.batCount].body.velocity.y = Math.floor(Math.random() * 100)
-    this.bat[this.batCount].body.collideWorldBounds = true
-    this.bat[this.batCount].anchor.setTo(0.5, 0.5)
-    this.bat[this.batCount].body.bounce.setTo(1, 1)
+    this.bats[this.batCount].animations.play('bat')
+    this.bats[this.batCount].scale.setTo(0.5, 0.5)
+    this.game.physics.enable(this.bats[this.batCount], Phaser.Physics.ARCADE)
+    this.bats[this.batCount].body.setSize(30, 30, 60, 60)
+    this.bats[this.batCount].body.allowGravity = false
+    this.bats[this.batCount].body.velocity.x = -Math.floor(Math.random() * 400)
+    this.bats[this.batCount].body.velocity.y = Math.floor(Math.random() * 100)
+    this.bats[this.batCount].body.collideWorldBounds = true
+    this.bats[this.batCount].anchor.setTo(0.5, 0.5)
+    this.bats[this.batCount].body.bounce.setTo(1, 1)
     this.batCount++
   }
 
@@ -401,6 +402,17 @@ export default class extends Phaser.State {
     this.pumpkinSpawnLocations = this.getSpawnLocations(this.map.objects['SpawnLocations'])
 
     this.layer.resizeWorld()
+
+    if (this.scoreText) {
+      this.scoreText.bringToTop()
+    }
+
+    // Destroy any bats
+    for (let i = 0; i < this.bats.length; i++) {
+      this.bats[i].destroy()
+    }
+    this.bats = []
+    this.batCount = 0
 
     // Move player to a random spawn location
     if (this.player) {
