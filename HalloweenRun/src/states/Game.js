@@ -31,8 +31,10 @@ export default class extends Phaser.State {
     this.game.load.image('starSmall', 'assets/images/star.png')
     this.game.load.image('starBig', 'assets/images/star2.png')
     this.game.load.image('background', 'assets/images/background2.png')
+    this.game.load.image('heart', 'assets/images/heart.png')
     this.game.load.spritesheet('bat', 'assets/images/bat.png', 150, 150)
     this.load.spritesheet('letter', 'assets/images/letters.png', 75, 85)
+    this.game.load.image('redBorder', 'assets/images/redBorder.png')
 
     // audio
     this.load.audio(
@@ -53,7 +55,6 @@ export default class extends Phaser.State {
   create () {
     let _this = this
 
-    this.inputIndex
     this.batCount = 0
     this.score = 0
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
@@ -102,6 +103,11 @@ export default class extends Phaser.State {
       _this.getNewWord()
     })
 
+    this.hearts = []
+    for (let i = 0; i < this.player.hp; i++) {
+      this.hearts.push(this.add.image(25 + i * 55, 25, 'heart'))
+    }
+
     this.game.camera.follow(this.player)
 
     this.cursors = this.game.input.keyboard.createCursorKeys()
@@ -132,10 +138,13 @@ export default class extends Phaser.State {
       cloudEnabled: true
     })
     this.currentWordText.text.fill = '#ff0000'
+
+    this.redBorder = this.add.image(0, 0, 'redBorder')
+    this.redBorder.alpha = 0
   }
 
   update () {
-    if (this.player.canCollide) {
+    if (this.player && this.player.canCollide) {
       this.game.physics.arcade.collide(this.player, this.layer, this.player.collideWithWorld)
       for (let i = this.pumpkins.length - 1; i >= 0; i--) {
         this.game.physics.arcade.collide(
@@ -185,11 +194,35 @@ export default class extends Phaser.State {
     } else { // Incorrect Pumpkin
       pumpkin.kill()
       this.pumpkins.splice(this.pumpkins.indexOf(pumpkin), 1)
+      // Spawn bat
+      this.addBats()
     }
   }
 
   hitBat () {
-    this.killPlayer(this.player)
+    if (!this.player.invulnerable) {
+      this.player.hp -= 1
+      if (this.player.hp < 1) {
+        this.player.destroy()
+        this.player = null
+        this.time.events.add(1000, () => {
+          this.endGame()
+        })
+      } else {
+        this.player.invulnerable = true
+        this.player.alpha = 0.25
+        this.time.events.add(1000, () => {
+          this.player.invulnerable = false
+          this.player.alpha = 1
+        })
+      }
+      this.redBorder.alpha = 1
+      this.add.tween(this.redBorder).to({alpha: 0}, 250, 'Linear', true)
+      if (this.hearts.length > 0) {
+        this.hearts[this.hearts.length - 1].destroy()
+        this.hearts = this.hearts.slice(0, -1)
+      }
+    }
   }
 
   enterletter (a) {}
@@ -260,6 +293,7 @@ export default class extends Phaser.State {
     this.bat[this.batCount].animations.play('bat')
     this.bat[this.batCount].scale.setTo(0.5, 0.5)
     this.game.physics.enable(this.bat[this.batCount], Phaser.Physics.ARCADE)
+    this.bat[this.batCount].body.setSize(30, 30, 60, 60)
     this.bat[this.batCount].body.allowGravity = false
     this.bat[this.batCount].body.velocity.x = -Math.floor(Math.random() * 400)
     this.bat[this.batCount].body.velocity.y = Math.floor(Math.random() * 100)
@@ -409,8 +443,7 @@ export default class extends Phaser.State {
 
   render () {}
 
-  killPlayer (player) {
-    player.kill()
+  endGame () {
     this.currentWord = ''
     this.music.destroy()
     this.currentWordText.hide()
