@@ -329,6 +329,10 @@ export default class extends Phaser.State {
   }
 
   getChallengeWords (complexity, numberOfWords) {
+    if (complexity > 11) {
+      // Highest complexity that the API will accept
+      complexity = 11
+    }
     return new Promise(function (resolve, reject) {
       dtml.getWords(complexity, (data, sender) => {
         if (data) {
@@ -422,6 +426,11 @@ export default class extends Phaser.State {
 
     if (this.scoreText) {
       this.scoreText.bringToTop()
+    }
+    if (this.hearts) {
+      for (let i = 0; i < this.hearts.length; i++) {
+        this.hearts[i].bringToTop()
+      }
     }
 
     // Destroy any bats
