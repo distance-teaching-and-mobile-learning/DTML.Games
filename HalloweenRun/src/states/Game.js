@@ -257,8 +257,21 @@ export default class extends Phaser.State {
     this.pumpkins = []
     let spawnLocations = this.pumpkinSpawnLocations.slice()
     for (var i = 0; i < numberOfPumpkins; i++) {
-      let random = game.rnd.integerInRange(0, spawnLocations.length - 1)
-      let spawnLocation = spawnLocations[random]
+      let spawnLocation
+      let random
+      let counter = 0
+      while (!spawnLocation && counter < 15) {
+        random = game.rnd.integerInRange(0, spawnLocations.length - 1)
+        let location = spawnLocations[random]
+        // Make sure it's not on top of the player
+        if (Math.sqrt(Math.pow((location.x - this.player.x), 2) + Math.pow((location.y - this.player.y), 2)) > 50) {
+          spawnLocation = location
+        }
+        counter++
+      }
+      if (!spawnLocation) {
+        continue
+      }
       spawnLocations.splice(random, 1)
 
       let newPumpkin = new Pumpkin(spawnLocation.x, spawnLocation.y, letters[i])
