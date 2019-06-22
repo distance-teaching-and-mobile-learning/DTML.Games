@@ -179,6 +179,10 @@ export default class extends Phaser.State {
       pumpkin.kill()
       this.pumpkins.splice(this.pumpkins.indexOf(pumpkin), 1)
 
+      // Add score
+      this.score += this.currentWord.length * 10
+      this.scoreText.text = 'Score: ' + this.score
+
       this.wordsCompleted++
       if (this.wordsCompleted >= this.wordsToNextLevel) {
         this.level++
