@@ -106,6 +106,28 @@ export default class Menu extends Phaser.State {
       })
     }
 
+    // Back arrow
+    if (startingIndex > 0) {
+      this.backArrow = this.add.image(game.world.centerX - 250, game.world.height - 150, 'arrow')
+      this.backArrow.anchor.set(0.5, 0.5)
+      this.backArrow.scale.set(-1, 1)
+      this.backArrow.inputEnabled = true
+      this.backArrow.input.useHandCursor = true
+      this.backArrow.events.onInputDown.add(() => {
+        this.makeButtons(buttons, startingIndex - buttonsPerRow * rowsPerPage)
+      })
+    }
+    // Forward arrow
+    if (buttons.length - startingIndex > buttonsPerRow * rowsPerPage) {
+      this.forwardArrow = this.add.image(game.world.centerX + 250, game.world.height - 150, 'arrow')
+      this.forwardArrow.anchor.set(0.5, 0.5)
+      this.forwardArrow.inputEnabled = true
+      this.forwardArrow.input.useHandCursor = true
+      this.forwardArrow.events.onInputDown.add(() => {
+        this.makeButtons(buttons, buttonsPerRow * rowsPerPage)
+      })
+    }
+
     for (let y = 0; y < rowsPerPage; y++) {
       for (let x = 0; x < buttonsPerRow; x++) {
         let option = buttons[(y * buttonsPerRow) + x + startingIndex]

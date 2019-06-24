@@ -1,6 +1,6 @@
 export default {
-  gameWidth: window.innerWidth / 2,
-  gameHeight: window.innerHeight / 2,
+  gameWidth: 960,
+  gameHeight: 640,
   localStorageName: 'phaseres6webpack',
   webfonts: ['Bangers']
 }
