@@ -1,2 +1,2 @@
 # dtml-sdk
-# Please refer to the documentation on docs.dtml.org 
+# Please refer to the documentation on https://doc.dtml.org 
