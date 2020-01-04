@@ -3,9 +3,9 @@
 
 [Distance Teaching and Mobile Learning](https://dtml.org)
 
-[Distance Teaching and Mobile Learning Blog](https://blog.dtml.org)
+[JAAS Foundation](http://jaasfoundation.org/)
 
-[Distance Teaching and Mobile Learning ELearning Games](https://games.dtml.org/games)
+[Abount Us](https://jaasfoundation.org/about-us/)
 
 ## Our Mission
 Our mission is to provide opportunities for kids worldwide to build a foundation for their future by engaging in free educational activities powered by state of the art e-Learning technologies.
