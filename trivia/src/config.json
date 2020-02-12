@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "categories": [
+    {"display_name": "Letters and Numbers", "file_name": "letters_and_numbers"},
+    {"display_name": "The World", "file_name": "the_world"},
+    {"display_name": "People and What They Do", "file_name": "people"},
+    {"display_name": "Technology", "file_name": "technology"},
+    {"display_name": "The United States", "file_name": "united_states"}
+  ],
+  "gamename": "Millionaire",
+  "languages": {
+    "en-US": {
+      "title": "DTML Millionaire Quiz",
+      "start": "Start",
+      "select_category": "Select a Category",
+      "intro_text": "Welcome to the DTML Millionaire quiz, do you want to hear the rules?",
+      "rules_text": [
+        "Answer each question by clicking on one of the four options below.",
+        "Get all fifteen questions right to win!",
+        "Get one wrong and it's game over!",
+        "The faster you answer a question the more points you will earn!"
+      ],
+      "quiz_start_text": "Alright let's get started!",
+      "correct_responses": [
+        "Correct!", "Right Answer!", "Nice work!", "That's correct!"
+      ],
+      "incorrect_responses": [
+        "I'm sorry that's not correct.", "Sorry, better luck next time!", "That's not the answer we were looking for."
+      ]
+    },
+    "es-MX": {
+      "title": "DTML Prueba Millonaria",
+      "start": "Comienzo",
+      "select_category": "Seleccione una categoría"
+    }
+  }
+}

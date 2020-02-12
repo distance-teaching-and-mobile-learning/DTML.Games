@@ -1,0 +1,1006 @@
+{
+  "language": "en-US",
+  "name": "People and What They Do",
+  "questions": [
+    {
+      "text": "What body part do we use to see?",
+      "complexity": 1,
+      "correctAnswer": "Eyes​",
+      "incorrectAnswers": [
+        "nose",
+        "mouth",
+        "ears"
+      ]
+    },
+    {
+      "text": "What body part do we use to smell?",
+      "complexity": 1,
+      "correctAnswer": "​Nose​",
+      "incorrectAnswers": [
+        "eyes",
+        "mouth",
+        "ears"
+      ]
+    },
+    {
+      "text": "What body part do we use to eat?",
+      "complexity": 1,
+      "correctAnswer": "​Mouth​",
+      "incorrectAnswers": [
+        "hands",
+        "nose",
+        "eyes"
+      ]
+    },
+    {
+      "text": "What body part do we use to hear?",
+      "complexity": 1,
+      "correctAnswer": "Ears​",
+      "incorrectAnswers": [
+        "eyes",
+        "arms",
+        "nose"
+      ]
+    },
+    {
+      "text": "What body part do we use to touch?",
+      "complexity": 1,
+      "correctAnswer": "Hands​",
+      "incorrectAnswers": [
+        "legs",
+        "head",
+        "teeth"
+      ]
+    },
+    {
+      "text": "What body part does our hair grow on?",
+      "complexity": 1,
+      "correctAnswer": "​Head​",
+      "incorrectAnswers": [
+        "shoulders",
+        "stomach",
+        "feet"
+      ]
+    },
+    {
+      "text": "What body part helps us throw or carry things?",
+      "complexity": 1,
+      "correctAnswer": "​Arms​",
+      "incorrectAnswers": [
+        "legs",
+        "feet",
+        "head"
+      ]
+    },
+    {
+      "text": "What body part do we put shoes on?",
+      "complexity": 1,
+      "correctAnswer": "Feet​",
+      "incorrectAnswers": [
+        "knees",
+        "elbows",
+        "hands"
+      ]
+    },
+    {
+      "text": "What body part do we use to walk and run?",
+      "complexity": 1,
+      "correctAnswer": "​Legs​",
+      "incorrectAnswers": [
+        "arms",
+        "hands",
+        "back"
+      ]
+    },
+    {
+      "text": "What body part do we sit on?",
+      "complexity": 1,
+      "correctAnswer": "Butt​",
+      "incorrectAnswers": [
+        "back",
+        "stomach",
+        "hips"
+      ]
+    },
+    {
+      "text": "What body part do we lie on?",
+      "complexity": 1,
+      "correctAnswer": "Back​",
+      "incorrectAnswers": [
+        "legs",
+        "chest",
+        "head"
+      ]
+    },
+    {
+      "text": "What is at the end of our feet?",
+      "complexity": 1,
+      "correctAnswer": "Toes​",
+      "incorrectAnswers": [
+        "fingers",
+        "ankles",
+        "hips"
+      ]
+    },
+    {
+      "text": "What is at the end of our hands?",
+      "complexity": 1,
+      "correctAnswer": "Fingers​",
+      "incorrectAnswers": [
+        "toes",
+        "wrists",
+        "elbows"
+      ]
+    },
+    {
+      "text": "What body part holds up our head?",
+      "complexity": 1,
+      "correctAnswer": "​Neck​",
+      "incorrectAnswers": [
+        "elbow",
+        "chest",
+        "arm"
+      ]
+    },
+    {
+      "text": "What body part is between our legs and stomach?",
+      "complexity": 1,
+      "correctAnswer": "​Hips​",
+      "incorrectAnswers": [
+        "chest",
+        "back",
+        "thigh"
+      ]
+    },
+    {
+      "text": "What body part helps our legs bend?",
+      "complexity": 1,
+      "correctAnswer": "Knees​",
+      "incorrectAnswers": [
+        "elbows",
+        "ankles",
+        "wrists"
+      ]
+    },
+    {
+      "text": "What body part helps our arms bend?",
+      "complexity": 1,
+      "correctAnswer": "Elbows​",
+      "incorrectAnswers": [
+        "wrists",
+        "knees",
+        "ankles"
+      ]
+    },
+    {
+      "text": "What body part helps us taste our food?",
+      "complexity": 1,
+      "correctAnswer": "Tongue​",
+      "incorrectAnswers": [
+        "teeth",
+        "lips",
+        "ears"
+      ]
+    },
+    {
+      "text": "What body part helps us move our hands?",
+      "complexity": 1,
+      "correctAnswer": "​Wrist​",
+      "incorrectAnswers": [
+        "ankles",
+        "knees",
+        "hips"
+      ]
+    },
+    {
+      "text": "What body part helps us move our arms?",
+      "complexity": 1,
+      "correctAnswer": "​Shoulder​",
+      "incorrectAnswers": [
+        "legs",
+        "head",
+        "knees"
+      ]
+    },
+    {
+      "text": "What body part is between our shoulders?",
+      "complexity": 1,
+      "correctAnswer": "Chest​",
+      "incorrectAnswers": [
+        "legs",
+        "head",
+        "stomach"
+      ]
+    },
+    {
+      "text": "What body part helps us move our feet?",
+      "complexity": 1,
+      "correctAnswer": "Ankles​",
+      "incorrectAnswers": [
+        "elbows",
+        "wrists",
+        "hips"
+      ]
+    },
+    {
+      "text": "What body part is between our ankles and knees?",
+      "complexity": 1,
+      "correctAnswer": "Calves​",
+      "incorrectAnswers": [
+        "thighs",
+        "pelvis",
+        "stomach"
+      ]
+    },
+    {
+      "text": "What body part is between our knees and hips?",
+      "complexity": 1,
+      "correctAnswer": "​Thighs​",
+      "incorrectAnswers": [
+        "calves",
+        "back",
+        "forearms"
+      ]
+    },
+    {
+      "text": "What body part below our stomach?",
+      "complexity": 1,
+      "correctAnswer": "Pelvis​",
+      "incorrectAnswers": [
+        "collarbone",
+        "shoulder",
+        "neck"
+      ]
+    },
+    {
+      "text": "Find the missing word: I like to _______ soccer.",
+      "complexity": 2,
+      "correctAnswer": "​Play​",
+      "incorrectAnswers": [
+        "run",
+        "draw",
+        "sing"
+      ]
+    },
+    {
+      "text": "Find the missing word: I like to _______ a bike.",
+      "complexity": 2,
+      "correctAnswer": "​Ride​",
+      "incorrectAnswers": [
+        "eat",
+        "dance",
+        "jump"
+      ]
+    },
+    {
+      "text": "Find the missing word: I like to ________ pictures.",
+      "complexity": 2,
+      "correctAnswer": "​Draw​",
+      "incorrectAnswers": [
+        "listen",
+        "eat",
+        "sleep"
+      ]
+    },
+    {
+      "text": "Find the missing word: I like to ________ to music.",
+      "complexity": 2,
+      "correctAnswer": "Listen​",
+      "incorrectAnswers": [
+        "sleep",
+        "draw",
+        "play"
+      ]
+    },
+    {
+      "text": "Find the missing word: I like to ________ pizza.",
+      "complexity": 2,
+      "correctAnswer": "Eat​",
+      "incorrectAnswers": [
+        "scare",
+        "dream",
+        "yell"
+      ]
+    },
+    {
+      "text": "Find the missing word: I like to _______ cookies.",
+      "complexity": 2,
+      "correctAnswer": "Bake​",
+      "incorrectAnswers": [
+        "shake",
+        "cake",
+        "steal"
+      ]
+    },
+    {
+      "text": "Find the missing word: She likes to ______ Disney songs.",
+      "complexity": 2,
+      "correctAnswer": "​Sing​",
+      "incorrectAnswers": [
+        "scream",
+        "take",
+        "jump"
+      ]
+    },
+    {
+      "text": "Find the missing word: He likes to ________ the football.",
+      "complexity": 2,
+      "correctAnswer": "Throw​",
+      "incorrectAnswers": [
+        "run",
+        "jump",
+        "drop"
+      ]
+    },
+    {
+      "text": "Find the missing word: We like to _______ late on Saturdays.",
+      "complexity": 2,
+      "correctAnswer": "​Sleep​",
+      "incorrectAnswers": [
+        "watch",
+        "cry",
+        "sing"
+      ]
+    },
+    {
+      "text": ".Find the missing word: They like to ______ movies together.",
+      "complexity": 2,
+      "correctAnswer": "Watch​",
+      "incorrectAnswers": [
+        "sing",
+        "draw",
+        "play"
+      ]
+    },
+    {
+      "text": "Find the missing word: She doesn’t like to _______ English.",
+      "complexity": 2,
+      "correctAnswer": "​Study​",
+      "incorrectAnswers": [
+        "see",
+        "listen",
+        "play"
+      ]
+    },
+    {
+      "text": "Find the missing word: He doesn’t like to _______ his room.",
+      "complexity": 2,
+      "correctAnswer": "Clean​",
+      "incorrectAnswers": [
+        "watch",
+        "study",
+        "exercise"
+      ]
+    },
+    {
+      "text": "Find the missing word: We don’t like to ____ the dishes.",
+      "complexity": 2,
+      "correctAnswer": "Do​",
+      "incorrectAnswers": [
+        "see",
+        "eat",
+        "take"
+      ]
+    },
+    {
+      "text": "Find the missing word: They don’t like to _____ dinner.",
+      "complexity": 2,
+      "correctAnswer": "​Cook​",
+      "incorrectAnswers": [
+        "bake",
+        "shake",
+        "create"
+      ]
+    },
+    {
+      "text": "Find the missing word: I always ______ up directions before I go to a new store.",
+      "complexity": 2,
+      "correctAnswer": "​Look​",
+      "incorrectAnswers": [
+        "watch",
+        "play",
+        "rest"
+      ]
+    },
+    {
+      "text": "Find the missing word: She wants to ______ something special for her mom’sbirthday.",
+      "complexity": 2,
+      "correctAnswer": "Make​",
+      "incorrectAnswers": [
+        "take",
+        "put",
+        "shove"
+      ]
+    },
+    {
+      "text": "Find the missing word: He _____ he will do his homework, but I don’t believe him.",
+      "complexity": 2,
+      "correctAnswer": "Says​",
+      "incorrectAnswers": [
+        "tells",
+        "cries",
+        "wants"
+      ]
+    },
+    {
+      "text": "Find the missing word: We have to ______ our test in one hour.",
+      "complexity": 2,
+      "correctAnswer": "Finish​",
+      "incorrectAnswers": [
+        "read",
+        "study",
+        "make"
+      ]
+    },
+    {
+      "text": "Find the missing word: They ______ up the mountain for exercise.",
+      "complexity": 2,
+      "correctAnswer": "​Cycle​",
+      "incorrectAnswers": [
+        "bicycle",
+        "tricycle",
+        "try"
+      ]
+    },
+    {
+      "text": "Find the missing word: You _______ every morning, that’s impressive!",
+      "complexity": 2,
+      "correctAnswer": "​Exercise​",
+      "incorrectAnswers": [
+        "sleep",
+        "cry",
+        "eat"
+      ]
+    },
+    {
+      "text": "Find the missing word: I _____ a movie last weekend with my friends.",
+      "complexity": 2,
+      "correctAnswer": "​Saw​",
+      "incorrectAnswers": [
+        "took",
+        "gave",
+        "sat"
+      ]
+    },
+    {
+      "text": "Find the missing word: She ______ her textbook and her teacher is angry.",
+      "complexity": 2,
+      "correctAnswer": "Lost​",
+      "incorrectAnswers": [
+        "loved",
+        "opened",
+        "closed"
+      ]
+    },
+    {
+      "text": "Find the missing word: He ______ the window because it started to rain.",
+      "complexity": 2,
+      "correctAnswer": "Closed​",
+      "incorrectAnswers": [
+        "opened",
+        "broke",
+        "bought"
+      ]
+    },
+    {
+      "text": "Find the missing word: They _____ down the couch because it was too heavy.",
+      "complexity": 2,
+      "correctAnswer": "Put​",
+      "incorrectAnswers": [
+        "dropped",
+        "painted",
+        "faced"
+      ]
+    },
+    {
+      "text": "Find the missing word: We ________ at the concert and then lost our voices!",
+      "complexity": 2,
+      "correctAnswer": "​Shouted​",
+      "incorrectAnswers": [
+        "danced",
+        "wrote",
+        "drew"
+      ]
+    },
+    {
+      "text": "My father’s hands are so ____, they can hold a watermelon easily.",
+      "complexity": 3,
+      "correctAnswer": "​big​",
+      "incorrectAnswers": [
+        "small",
+        "weak",
+        "tiny"
+      ]
+    },
+    {
+      "text": "That mouse is _____ enough to crawl under the door.",
+      "complexity": 3,
+      "correctAnswer": "small​",
+      "incorrectAnswers": [
+        "big",
+        "loud",
+        "crazy"
+      ]
+    },
+    {
+      "text": "My brother is ___________ than me.",
+      "complexity": 3,
+      "correctAnswer": "taller​",
+      "incorrectAnswers": [
+        "loud",
+        "big",
+        "extra"
+      ]
+    },
+    {
+      "text": "I’m too _______ to go on the ride.",
+      "complexity": 3,
+      "correctAnswer": "short​",
+      "incorrectAnswers": [
+        "happy",
+        "girl",
+        "smart"
+      ]
+    },
+    {
+      "text": "That dog needs more food, they’re too _____.​",
+      "complexity": 3,
+      "correctAnswer": "slim​",
+      "incorrectAnswers": [
+        "fat",
+        "chubby",
+        "happy"
+      ]
+    },
+    {
+      "text": "My cat has to go on a diet, he’s very _____.",
+      "complexity": 3,
+      "correctAnswer": "fat​",
+      "incorrectAnswers": [
+        "slim",
+        "skinny",
+        "crazy"
+      ]
+    },
+    {
+      "text": "Her hair is as ________ as a pencil!",
+      "complexity": 3,
+      "correctAnswer": "​straight​",
+      "incorrectAnswers": [
+        "curly",
+        "weak",
+        "long"
+      ]
+    },
+    {
+      "text": "His hair is _________ like a spiral.",
+      "complexity": 3,
+      "correctAnswer": "​curly​",
+      "incorrectAnswers": [
+        "straight",
+        "strong",
+        "extra"
+      ]
+    },
+    {
+      "text": "I cannot see very well so I must wear ________.",
+      "complexity": 3,
+      "correctAnswer": "​glasses​",
+      "incorrectAnswers": [
+        "hats",
+        "goggles",
+        "eye masks"
+      ]
+    },
+    {
+      "text": "Everyone in their family has _________ hair. It looks like gold.",
+      "complexity": 3,
+      "correctAnswer": "​blonde​",
+      "incorrectAnswers": [
+        "sun",
+        "brown",
+        "ginger"
+      ]
+    },
+    {
+      "text": "His hair is dark _______, like chocolate.",
+      "complexity": 3,
+      "correctAnswer": "​brown​",
+      "incorrectAnswers": [
+        "blonde",
+        "red",
+        "black"
+      ]
+    },
+    {
+      "text": "People with _____ hair are usually fair skinned with lots of freckles.",
+      "complexity": 3,
+      "correctAnswer": "​red​",
+      "incorrectAnswers": [
+        "black",
+        "brown",
+        "blue"
+      ]
+    },
+    {
+      "text": "I love _______ eyes, they remind me of the ocean.",
+      "complexity": 3,
+      "correctAnswer": "blue​",
+      "incorrectAnswers": [
+        "brown",
+        "hazel",
+        "green"
+      ]
+    },
+    {
+      "text": "______ eyes are so interesting, because they have many colors.",
+      "complexity": 3,
+      "correctAnswer": "hazel​",
+      "incorrectAnswers": [
+        "blue",
+        "green",
+        "brown"
+      ]
+    },
+    {
+      "text": "My mom is so _______, she’s a doctor!",
+      "complexity": 3,
+      "correctAnswer": "smart​",
+      "incorrectAnswers": [
+        "lazy",
+        "careless",
+        "stupid"
+      ]
+    },
+    {
+      "text": "My sister is very _______, she doesn’t do any chores.",
+      "complexity": 3,
+      "correctAnswer": "​lazy​",
+      "incorrectAnswers": [
+        "stupid",
+        "intelligent",
+        "hardworking"
+      ]
+    },
+    {
+      "text": "My friends think my jokes are really ________.",
+      "complexity": 3,
+      "correctAnswer": "​funny​",
+      "incorrectAnswers": [
+        "smart",
+        "hardworking",
+        "talented"
+      ]
+    },
+    {
+      "text": "She can sing, dance, and play the guitar. She’s really ________.",
+      "complexity": 3,
+      "correctAnswer": "​talented​",
+      "incorrectAnswers": [
+        "crazy",
+        "outgoing",
+        "lazy"
+      ]
+    },
+    {
+      "text": "If you want to go to university, you have to be ____________.",
+      "complexity": 3,
+      "correctAnswer": "hardworking​",
+      "incorrectAnswers": [
+        "shy",
+        "creative",
+        "outgoing"
+      ]
+    },
+    {
+      "text": "Scientists, doctors, and lawyers are all very ____________.",
+      "complexity": 3,
+      "correctAnswer": "​intelligent​",
+      "incorrectAnswers": [
+        "lazy",
+        "stupid",
+        "crazy"
+      ]
+    },
+    {
+      "text": "My brother has so many friends, he’s ______________.",
+      "complexity": 3,
+      "correctAnswer": "​outgoing​",
+      "incorrectAnswers": [
+        "shy",
+        "creative",
+        "intelligent"
+      ]
+    },
+    {
+      "text": "It’s hard for me to meet new people because I’m _______.",
+      "complexity": 3,
+      "correctAnswer": "shy​",
+      "incorrectAnswers": [
+        "outgoing",
+        "creative",
+        "lazy"
+      ]
+    },
+    {
+      "text": "That new invention is so ____________.",
+      "complexity": 3,
+      "correctAnswer": "creative​",
+      "incorrectAnswers": [
+        "beautiful",
+        "shy",
+        "blue"
+      ]
+    },
+    {
+      "text": "They were able to finish many things in one day because they’re __________.",
+      "complexity": 3,
+      "correctAnswer": "efficient​",
+      "incorrectAnswers": [
+        "lazy",
+        "hardworking",
+        "smart"
+      ]
+    },
+    {
+      "text": "My mom always knows when I’m upset, she’s very _____________.",
+      "complexity": 3,
+      "correctAnswer": "intuitive​",
+      "incorrectAnswers": [
+        "hardworking",
+        "creative",
+        "efficient"
+      ]
+    },
+    {
+      "text": "What do we call someone who keeps our community safe?",
+      "complexity": 4,
+      "correctAnswer": "police officer​",
+      "incorrectAnswers": [
+        "doctor",
+        "cook",
+        "nurse"
+      ]
+    },
+    {
+      "text": "Who do we see when we’re sick?",
+      "complexity": 4,
+      "correctAnswer": "​doctor​",
+      "incorrectAnswers": [
+        "police officer",
+        "teacher",
+        "fire fighter"
+      ]
+    },
+    {
+      "text": "Who helps our doctors?",
+      "complexity": 4,
+      "correctAnswer": "​nurses​",
+      "incorrectAnswers": [
+        "teachers",
+        "actors",
+        "chefs"
+      ]
+    },
+    {
+      "text": "Who do we see in our classrooms?",
+      "complexity": 4,
+      "correctAnswer": "teachers​",
+      "incorrectAnswers": [
+        "authors",
+        "lawyers",
+        "nurses"
+      ]
+    },
+    {
+      "text": "Who do we call in an emergency?",
+      "complexity": 4,
+      "correctAnswer": "​fire fighters​",
+      "incorrectAnswers": [
+        "actors",
+        "artists",
+        "politicians"
+      ]
+    },
+    {
+      "text": "Who are the people in movies and television?",
+      "complexity": 4,
+      "correctAnswer": "actors​",
+      "incorrectAnswers": [
+        "doctors",
+        "musicians",
+        "politicians"
+      ]
+    },
+    {
+      "text": "Who are the people that make food in restaurants?",
+      "complexity": 4,
+      "correctAnswer": "chefs​",
+      "incorrectAnswers": [
+        "servers",
+        "artists",
+        "managers"
+      ]
+    },
+    {
+      "text": "Who are the people that go to court?",
+      "complexity": 4,
+      "correctAnswer": "​lawyers​",
+      "incorrectAnswers": [
+        "authors",
+        "police officers",
+        "politicians"
+      ]
+    },
+    {
+      "text": "Who are the people that write books?",
+      "complexity": 4,
+      "correctAnswer": "authors​",
+      "incorrectAnswers": [
+        "directors",
+        "sculptors",
+        "teachers"
+      ]
+    },
+    {
+      "text": "Who are the people that paint pictures or make sculptures?",
+      "complexity": 4,
+      "correctAnswer": "​artists​",
+      "incorrectAnswers": [
+        "musicians",
+        "teachers",
+        "lawyers"
+      ]
+    },
+    {
+      "text": "Who are the people that make music?",
+      "complexity": 4,
+      "correctAnswer": "musicians​",
+      "incorrectAnswers": [
+        "comedians",
+        "athletes",
+        "actors"
+      ]
+    },
+    {
+      "text": "Who are the people that tell jokes?",
+      "complexity": 4,
+      "correctAnswer": "​comedians​",
+      "incorrectAnswers": [
+        "actors",
+        "musicians",
+        "athletes"
+      ]
+    },
+    {
+      "text": "Who are the people that play sports?",
+      "complexity": 4,
+      "correctAnswer": "athletes​",
+      "incorrectAnswers": [
+        "comedians",
+        "actors",
+        "heroes"
+      ]
+    },
+    {
+      "text": "Who are the people that make laws?",
+      "complexity": 4,
+      "correctAnswer": "​politicians​",
+      "incorrectAnswers": [
+        "lawyers",
+        "police officers",
+        "secretaries"
+      ]
+    },
+    {
+      "text": "Who is the person that runs the country?",
+      "complexity": 4,
+      "correctAnswer": "​president​",
+      "incorrectAnswers": [
+        "lawyers",
+        "doctors",
+        "scientists"
+      ]
+    },
+    {
+      "text": "What hobby uses yarn and needles?",
+      "complexity": 4,
+      "correctAnswer": "knitting​",
+      "incorrectAnswers": [
+        "drawing",
+        "sculpting",
+        "archery"
+      ]
+    },
+    {
+      "text": "What hobby uses paper and pastels?",
+      "complexity": 4,
+      "correctAnswer": "​drawing​",
+      "incorrectAnswers": [
+        "painting",
+        "knitting",
+        "sculpting"
+      ]
+    },
+    {
+      "text": "What hobby takes place in the kitchen?",
+      "complexity": 4,
+      "correctAnswer": "cooking​",
+      "incorrectAnswers": [
+        "gardening",
+        "knitting",
+        "drawing"
+      ]
+    },
+    {
+      "text": "What hobby takes place in a library?",
+      "complexity": 4,
+      "correctAnswer": "reading​",
+      "incorrectAnswers": [
+        "cooking",
+        "gardening",
+        "archery"
+      ]
+    },
+    {
+      "text": "What hobby is like video games, but in real life?",
+      "complexity": 4,
+      "correctAnswer": "board games​",
+      "incorrectAnswers": [
+        "mobile games",
+        "bowling",
+        "baseball"
+      ]
+    },
+    {
+      "text": "What hobby can we do on our phone?",
+      "complexity": 4,
+      "correctAnswer": "​play games​",
+      "incorrectAnswers": [
+        "knit",
+        "sing",
+        "bowl"
+      ]
+    },
+    {
+      "text": "What do we call the hobby of climbing mountains?",
+      "complexity": 4,
+      "correctAnswer": "​hiking​",
+      "incorrectAnswers": [
+        "watching movies",
+        "pottery",
+        "sewing"
+      ]
+    },
+    {
+      "text": "What do we call the hobby of growing new plants?",
+      "complexity": 4,
+      "correctAnswer": "gardening​",
+      "incorrectAnswers": [
+        "sewing",
+        "pottery",
+        "cooking"
+      ]
+    },
+    {
+      "text": "What do we call the hobby of making our own clothes?",
+      "complexity": 4,
+      "correctAnswer": "​sewing​",
+      "incorrectAnswers": [
+        "board games",
+        "reading",
+        "pottery"
+      ]
+    },
+    {
+      "text": "What do we call the hobby of making your own bowls and cups?",
+      "complexity": 4,
+      "correctAnswer": "pottery​",
+      "incorrectAnswers": [
+        "sewing",
+        "knitting",
+        "drawing"
+      ]
+    }
+  ]
+}

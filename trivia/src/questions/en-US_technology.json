@@ -1,0 +1,1256 @@
+{
+  "language": "en-US",
+  "name": "Technology",
+  "questions": [
+    {
+      "text": "Which key on a Mac is the same as the Ctrl key on a PC?",
+      "complexity": 1,
+      "correctAnswer": "Command",
+      "incorrectAnswers": [
+        "shift",
+        "alt",
+        "enter"
+      ]
+    },
+    {
+      "text": "How do you copy text on a PC with the keyboard?",
+      "complexity": 1,
+      "correctAnswer": "Ctrl + C",
+      "incorrectAnswers": [
+        "Ctrl+ V",
+        "Shift C",
+        "Alt C"
+      ]
+    },
+    {
+      "text": "How do you paste text on a PC with the keyboard?",
+      "complexity": 1,
+      "correctAnswer": "Ctrl + V",
+      "incorrectAnswers": [
+        "Ctrl + C",
+        "Shift V",
+        "Alt V"
+      ]
+    },
+    {
+      "text": "How do you copy text on a PC with the mouse?",
+      "complexity": 1,
+      "correctAnswer": "Select -> right click -> copy",
+      "incorrectAnswers": [
+        "select -> left click -> copy",
+        "right click -> copy",
+        "double left click"
+      ]
+    },
+    {
+      "text": "How do you paste text on a PC with the mouse?",
+      "complexity": 1,
+      "correctAnswer": "Select -> right click -> paste",
+      "incorrectAnswers": [
+        "select -> left click -> paste",
+        "left click -> paste",
+        "double left click"
+      ]
+    },
+    {
+      "text": "How do you copy text on a Mac with the keyboard?",
+      "complexity": 1,
+      "correctAnswer": "Command + C",
+      "incorrectAnswers": [
+        "Ctrl + C",
+        "Alt + C",
+        "Shift + alt + C"
+      ]
+    },
+    {
+      "text": "How do you paste text on a Mac with the keyboard?",
+      "complexity": 1,
+      "correctAnswer": "Command + V",
+      "incorrectAnswers": [
+        "Ctrl + V",
+        "Alt + V",
+        "Shift + alt + V"
+      ]
+    },
+    {
+      "text": "What does pressing the Windows logo + D do?",
+      "complexity": 1,
+      "correctAnswer": "Takes you to the Desktop",
+      "incorrectAnswers": [
+        "Opens a browser",
+        "Shuts down the computer",
+        "Opens the settings"
+      ]
+    },
+    {
+      "text": "What is the keyboard command for cutting something on a PC?",
+      "complexity": 1,
+      "correctAnswer": "Ctrl + X",
+      "incorrectAnswers": [
+        "Command + X",
+        "Alt + X",
+        "Shift + Alt + X"
+      ]
+    },
+    {
+      "text": "What is the keyboard command for cutting something on a Mac?",
+      "complexity": 1,
+      "correctAnswer": "Command + X",
+      "incorrectAnswers": [
+        "Ctrl + X",
+        "Alt + X",
+        "Shift + Alt + X"
+      ]
+    },
+    {
+      "text": "What is the keyboard command to undo something on a PC?",
+      "complexity": 1,
+      "correctAnswer": "Ctrl + Z",
+      "incorrectAnswers": [
+        "Command + Z",
+        "Alt + Z",
+        "Shift + Alt + Z"
+      ]
+    },
+    {
+      "text": "What is the keyboard command to undo something on a Mac?",
+      "complexity": 1,
+      "correctAnswer": "Command + Z",
+      "incorrectAnswers": [
+        "Ctrl + Z",
+        "Alt + Z",
+        "Shift + Alt + Z"
+      ]
+    },
+    {
+      "text": "What is the keyboard command to print on a PC?",
+      "complexity": 1,
+      "correctAnswer": "Ctrl + P",
+      "incorrectAnswers": [
+        "Command + P",
+        "Alt + P",
+        "Shift + Alt + P"
+      ]
+    },
+    {
+      "text": "What is the keyboard command to print on a Mac?",
+      "complexity": 1,
+      "correctAnswer": "Command + P",
+      "incorrectAnswers": [
+        "Ctrl + P",
+        "Alt + P",
+        "Shift + Alt + P"
+      ]
+    },
+    {
+      "text": "What is the keyboard command to save on a PC?",
+      "complexity": 1,
+      "correctAnswer": "Ctrl + S",
+      "incorrectAnswers": [
+        "Command + S",
+        "Alt + S",
+        "Shift + Alt + S"
+      ]
+    },
+    {
+      "text": "What is the keyboard command to save on a Mac?",
+      "complexity": 1,
+      "correctAnswer": "Command + S",
+      "incorrectAnswers": [
+        "Ctrl + S",
+        "Alt + S",
+        "Shift + Alt + S"
+      ]
+    },
+    {
+      "text": "What is the keyboard command to open a new tab on a PC?",
+      "complexity": 1,
+      "correctAnswer": "Ctrl + N",
+      "incorrectAnswers": [
+        "Command + T",
+        "Alt + N",
+        "Shift + Alt + T"
+      ]
+    },
+    {
+      "text": "What is the keyboard command to open a new tab on a Mac?",
+      "complexity": 1,
+      "correctAnswer": "Command + T",
+      "incorrectAnswers": [
+        "Ctrl + N",
+        "Alt + T",
+        "Shift + Alt + N"
+      ]
+    },
+    {
+      "text": "How do you switch between open programs on a PC?",
+      "complexity": 1,
+      "correctAnswer": "Alt + Tab",
+      "incorrectAnswers": [
+        "Command + Tab",
+        "Alt + Shift",
+        "Shift + Alt + Tab"
+      ]
+    },
+    {
+      "text": "How do you switch between open programs on a Mac?",
+      "complexity": 1,
+      "correctAnswer": "Command + Tab",
+      "incorrectAnswers": [
+        "Command + Shift",
+        "Alt + Shift",
+        "Command + Alt"
+      ]
+    },
+    {
+      "text": "How do you open the task manager on a PC?",
+      "complexity": 1,
+      "correctAnswer": "Ctrl + Shift + Esc",
+      "incorrectAnswers": [
+        "Command + Shift + Esc",
+        "Alt + Shift + Esc",
+        "Shift + Tab + Esc"
+      ]
+    },
+    {
+      "text": "How do you open the task manager on a Mac?",
+      "complexity": 1,
+      "correctAnswer": "Command + Space bar",
+      "incorrectAnswers": [
+        "Command + Enter",
+        "Command + Shift",
+        "Command + Alt"
+      ]
+    },
+    {
+      "text": "What operating system does a Chromebook use?",
+      "complexity": 1,
+      "correctAnswer": "Linux",
+      "incorrectAnswers": [
+        "Windows",
+        "OS X",
+        "iOS"
+      ]
+    },
+    {
+      "text": "What operating system do most PC’s use?",
+      "complexity": 1,
+      "correctAnswer": "Windows",
+      "incorrectAnswers": [
+        "OS X",
+        "Linux",
+        "iOS"
+      ]
+    },
+    {
+      "text": "Which company created the Mac?",
+      "complexity": 1,
+      "correctAnswer": "Apple",
+      "incorrectAnswers": [
+        "Microsoft",
+        "Google",
+        "Samsung"
+      ]
+    },
+    {
+      "text": "An iPhone and Android are examples of what?",
+      "complexity": 2,
+      "correctAnswer": "SmartPhones",
+      "incorrectAnswers": [
+        "tablets",
+        "iPods",
+        "laptops"
+      ]
+    },
+    {
+      "text": "An iPad is an example of what?",
+      "complexity": 2,
+      "correctAnswer": "Tablet",
+      "incorrectAnswers": [
+        "notebook",
+        "iPhone",
+        "laptop"
+      ]
+    },
+    {
+      "text": "Which is best for casual web browsing?",
+      "complexity": 2,
+      "correctAnswer": "Tablet",
+      "incorrectAnswers": [
+        "laptop",
+        "desktop",
+        "iPod"
+      ]
+    },
+    {
+      "text": "Which is best for mobile games?",
+      "complexity": 2,
+      "correctAnswer": "Tablet",
+      "incorrectAnswers": [
+        "laptop",
+        "desktop",
+        "iPod"
+      ]
+    },
+    {
+      "text": "Which is better for productivity and work?",
+      "complexity": 2,
+      "correctAnswer": "Laptop",
+      "incorrectAnswers": [
+        "tablet",
+        "smart phone",
+        "iPod"
+      ]
+    },
+    {
+      "text": "How do you connect a laptop into a TV?",
+      "complexity": 2,
+      "correctAnswer": "HDMI cable",
+      "incorrectAnswers": [
+        "USB",
+        "DC charger",
+        "AC adapter"
+      ]
+    },
+    {
+      "text": "What is the most popular chatting app in South Korea?",
+      "complexity": 2,
+      "correctAnswer": "Kakao",
+      "incorrectAnswers": [
+        "WeChat",
+        "Viber",
+        "Whatsapp"
+      ]
+    },
+    {
+      "text": "What is the most popular chatting app in China?",
+      "complexity": 2,
+      "correctAnswer": "WeChat",
+      "incorrectAnswers": [
+        "Viber",
+        "Whatsapp",
+        "Facebook Messenger"
+      ]
+    },
+    {
+      "text": "What is the most popular chatting app in the US?",
+      "complexity": 2,
+      "correctAnswer": "Whatsapp",
+      "incorrectAnswers": [
+        "facebook messenger",
+        "kakao",
+        "WeChat"
+      ]
+    },
+    {
+      "text": "Where is the chatting app Line most popular?",
+      "complexity": 2,
+      "correctAnswer": "Asia",
+      "incorrectAnswers": [
+        "Latin America",
+        "Europe",
+        "Africa"
+      ]
+    },
+    {
+      "text": "How many WeChat users are there?",
+      "complexity": 2,
+      "correctAnswer": "1.1 billion",
+      "incorrectAnswers": [
+        "1.1 million",
+        "2 billion",
+        "550 million"
+      ]
+    },
+    {
+      "text": "How many people use Facebook messenger everyday?",
+      "complexity": 2,
+      "correctAnswer": "70 million",
+      "incorrectAnswers": [
+        "50 million",
+        "100 million",
+        "10 million"
+      ]
+    },
+    {
+      "text": "How many people use Whatsapp everyday?",
+      "complexity": 2,
+      "correctAnswer": "More than 500 million",
+      "incorrectAnswers": [
+        "More than 700 million",
+        "less than 500 million",
+        "over 1 billion"
+      ]
+    },
+    {
+      "text": "How many iPhones are in use?",
+      "complexity": 2,
+      "correctAnswer": "1.5 billion",
+      "incorrectAnswers": [
+        "3 billion",
+        "500 million",
+        "700 million"
+      ]
+    },
+    {
+      "text": "How many Android phones are in use?",
+      "complexity": 2,
+      "correctAnswer": "2.5 billion",
+      "incorrectAnswers": [
+        "1.5 billion",
+        "3 billion",
+        "700 million"
+      ]
+    },
+    {
+      "text": "What country is the social media site Vkontakte from?",
+      "complexity": 2,
+      "correctAnswer": "Russia",
+      "incorrectAnswers": [
+        "Croatia",
+        "Hungary",
+        "Denmark"
+      ]
+    },
+    {
+      "text": "Taringa! Is a social media site popular among speakers of what language?",
+      "complexity": 2,
+      "correctAnswer": "Spanish",
+      "incorrectAnswers": [
+        "Portuguese",
+        "Italian",
+        "French"
+      ]
+    },
+    {
+      "text": "Skyrock is a popular network for _________ speakers.",
+      "complexity": 2,
+      "correctAnswer": "French",
+      "incorrectAnswers": [
+        "Portuguese",
+        "Italian",
+        "Greek"
+      ]
+    },
+    {
+      "text": "Xing is a site used for business professionals in ____________.",
+      "complexity": 2,
+      "correctAnswer": "Germany",
+      "incorrectAnswers": [
+        "France",
+        "Brazil",
+        "Iran"
+      ]
+    },
+    {
+      "text": "LinkedIn is available in how many countries?",
+      "complexity": 2,
+      "correctAnswer": "200",
+      "incorrectAnswers": [
+        "190",
+        "180",
+        "170"
+      ]
+    },
+    {
+      "text": "What does a FitBit do?",
+      "complexity": 2,
+      "correctAnswer": "It’s an activity tracker",
+      "incorrectAnswers": [
+        "It’s a watch",
+        "It’s a speaker",
+        "It’s a phone"
+      ]
+    },
+    {
+      "text": "What do wireless headphones use to connect to devices?",
+      "complexity": 2,
+      "correctAnswer": "Bluetooth",
+      "incorrectAnswers": [
+        "WiFi",
+        "HDMI",
+        "AC"
+      ]
+    },
+    {
+      "text": "What Google product allows you to connect your device to the television with Bluetooth?",
+      "complexity": 2,
+      "correctAnswer": "Google Chromecast",
+      "incorrectAnswers": [
+        "Google Stick",
+        "Google Alexa",
+        "Google Now"
+      ]
+    },
+    {
+      "text": "What Amazon product allows you to connect your device to the television with Bluetooth?",
+      "complexity": 2,
+      "correctAnswer": "Firestick",
+      "incorrectAnswers": [
+        "Amazon Stick",
+        "Firecast",
+        "Firehome"
+      ]
+    },
+    {
+      "text": "Which company makes the Galaxy smart phones?",
+      "complexity": 2,
+      "correctAnswer": "Samsung",
+      "incorrectAnswers": [
+        "Huawei",
+        "Lenovo",
+        "Sony"
+      ]
+    },
+    {
+      "text": "When did the world wide web become available to everybody?",
+      "complexity": 3,
+      "correctAnswer": "1991",
+      "incorrectAnswers": [
+        "1990",
+        "1995",
+        "2000"
+      ]
+    },
+    {
+      "text": "When was the first email sent?",
+      "complexity": 3,
+      "correctAnswer": "1971",
+      "incorrectAnswers": [
+        "1968",
+        "1980",
+        "1991"
+      ]
+    },
+    {
+      "text": "How many pages exist on the internet as of 2018?",
+      "complexity": 3,
+      "correctAnswer": "4.46 billion",
+      "incorrectAnswers": [
+        "3.75 billion",
+        "2.5 billion",
+        "1 billion"
+      ]
+    },
+    {
+      "text": "As of 2018, how many websites exist?",
+      "complexity": 3,
+      "correctAnswer": "1.9 billion",
+      "incorrectAnswers": [
+        "2.2 billion",
+        "1.6 billion",
+        "2.7 billion"
+      ]
+    },
+    {
+      "text": "How many blog posts are published every day?",
+      "complexity": 3,
+      "correctAnswer": "More than 5 million",
+      "incorrectAnswers": [
+        "more than 7 million",
+        "more than 2 million",
+        "more than 10 million"
+      ]
+    },
+    {
+      "text": "How many photos are uploaded onto Instagram every day?",
+      "complexity": 3,
+      "correctAnswer": "95 million",
+      "incorrectAnswers": [
+        "50 million",
+        "200 million",
+        "75 million"
+      ]
+    },
+    {
+      "text": "How many active users are on the web?",
+      "complexity": 3,
+      "correctAnswer": "More than 4 billion",
+      "incorrectAnswers": [
+        "more than 5 billion",
+        "more than 2 billion",
+        "less than 1 billion"
+      ]
+    },
+    {
+      "text": "How many websites are hacked every day?",
+      "complexity": 3,
+      "correctAnswer": "More than 85,000",
+      "incorrectAnswers": [
+        "more than 100,000",
+        "less than 50,000",
+        "exactly 70,000"
+      ]
+    },
+    {
+      "text": "How many Facebook users are there?",
+      "complexity": 3,
+      "correctAnswer": "2.2 billion",
+      "incorrectAnswers": [
+        "3.8 billion",
+        "1.5 billion",
+        "800 million"
+      ]
+    },
+    {
+      "text": "How many emails are sent out every day?",
+      "complexity": 3,
+      "correctAnswer": "250 billion",
+      "incorrectAnswers": [
+        "400 billion",
+        "100 billion",
+        "360 billion"
+      ]
+    },
+    {
+      "text": "When was the first Tweet published?",
+      "complexity": 3,
+      "correctAnswer": "2006",
+      "incorrectAnswers": [
+        "2004",
+        "2008",
+        "2000"
+      ]
+    },
+    {
+      "text": "What was the name of Gmail before Google bought it?",
+      "complexity": 3,
+      "correctAnswer": "Garfield Mail",
+      "incorrectAnswers": [
+        "Generous Mail",
+        "Gray Mail",
+        "Generation Mail"
+      ]
+    },
+    {
+      "text": "How many hours of video are uploaded to YouTube every minute?",
+      "complexity": 3,
+      "correctAnswer": "400 hours",
+      "incorrectAnswers": [
+        "300 hours",
+        "250 hours",
+        "100 hours"
+      ]
+    },
+    {
+      "text": "How many apps are there on Google Play Store and Apple Store combined?",
+      "complexity": 3,
+      "correctAnswer": "4.9 million",
+      "incorrectAnswers": [
+        "1 billion",
+        "5.8 million",
+        "8.9 million"
+      ]
+    },
+    {
+      "text": "How much of the internet’s activity is fake (bots)?",
+      "complexity": 3,
+      "correctAnswer": "51%",
+      "incorrectAnswers": [
+        "40%",
+        "36%",
+        "68%"
+      ]
+    },
+    {
+      "text": "How long did it take the internet to reach 50 million users?",
+      "complexity": 3,
+      "correctAnswer": "Four years",
+      "incorrectAnswers": [
+        "Ten years",
+        "Seven years",
+        "Five years"
+      ]
+    },
+    {
+      "text": "How many people control the whole internet?",
+      "complexity": 3,
+      "correctAnswer": "7",
+      "incorrectAnswers": [
+        "10",
+        "70",
+        "700"
+      ]
+    },
+    {
+      "text": "How many people use Spotify every month?",
+      "complexity": 3,
+      "correctAnswer": "217 million",
+      "incorrectAnswers": [
+        "210 million",
+        "220 million",
+        "215 million"
+      ]
+    },
+    {
+      "text": "When was the first YouTube video uploaded?",
+      "complexity": 3,
+      "correctAnswer": "2005",
+      "incorrectAnswers": [
+        "2002",
+        "2003",
+        "2004"
+      ]
+    },
+    {
+      "text": "How many visitors does YouTube get every day?",
+      "complexity": 3,
+      "correctAnswer": "Over 30 million",
+      "incorrectAnswers": [
+        "Over 50 million",
+        "Over 70 million",
+        "1 billion"
+      ]
+    },
+    {
+      "text": "How many videos are watched on YouTube every day?",
+      "complexity": 3,
+      "correctAnswer": "5 billion",
+      "incorrectAnswers": [
+        "10 billion",
+        "8 billion",
+        "12 billion"
+      ]
+    },
+    {
+      "text": "How many people subscribe to Netflix?",
+      "complexity": 3,
+      "correctAnswer": "158 million",
+      "incorrectAnswers": [
+        "140 million",
+        "144 million",
+        "153 million"
+      ]
+    },
+    {
+      "text": "How many people subscribe to Amazon Prime?",
+      "complexity": 3,
+      "correctAnswer": "More than 100 million",
+      "incorrectAnswers": [
+        "More than 200 million",
+        "more than 300 million",
+        "more than 400 million"
+      ]
+    },
+    {
+      "text": "How many people subscribe to Hulu?",
+      "complexity": 3,
+      "correctAnswer": "28 million",
+      "incorrectAnswers": [
+        "22 million",
+        "24 million",
+        "26 million"
+      ]
+    },
+    {
+      "text": "Which streaming service is available in the most countries?",
+      "complexity": 3,
+      "correctAnswer": "Netflix",
+      "incorrectAnswers": [
+        "Hulu",
+        "Amazon Prime",
+        "Roku"
+      ]
+    },
+    {
+      "text": "What is the part of the computer that holds the screen?",
+      "complexity": 4,
+      "correctAnswer": "Monitor",
+      "incorrectAnswers": [
+        "Desktop",
+        "Hard drive",
+        "Keyboard"
+      ]
+    },
+    {
+      "text": "Where are the keys located?",
+      "complexity": 4,
+      "correctAnswer": "Keyboard",
+      "incorrectAnswers": [
+        "Mouse",
+        "Desktop",
+        "Monitor"
+      ]
+    },
+    {
+      "text": "What do we use to move our cursor?",
+      "complexity": 4,
+      "correctAnswer": "Mouse",
+      "incorrectAnswers": [
+        "Arrows",
+        "Keyboard",
+        "Desktop"
+      ]
+    },
+    {
+      "text": "What do we plug our flash drives into?",
+      "complexity": 4,
+      "correctAnswer": "USB port",
+      "incorrectAnswers": [
+        "HDMI port",
+        "AC port",
+        "back port"
+      ]
+    },
+    {
+      "text": "Where do we save our files?",
+      "complexity": 4,
+      "correctAnswer": "Hard drive",
+      "incorrectAnswers": [
+        "Monitor",
+        "HDMI",
+        "Printer"
+      ]
+    },
+    {
+      "text": "What do we use to get our files from the computer onto paper?",
+      "complexity": 4,
+      "correctAnswer": "Printer",
+      "incorrectAnswers": [
+        "scanner",
+        "projector",
+        "hard drive"
+      ]
+    },
+    {
+      "text": "What do we use to get our papers onto our computer?",
+      "complexity": 4,
+      "correctAnswer": "Scanner",
+      "incorrectAnswers": [
+        "printer",
+        "projector",
+        "hard drive"
+      ]
+    },
+    {
+      "text": "What do we call internet pages, like Explorer and Chrome?",
+      "complexity": 4,
+      "correctAnswer": "Browsers",
+      "incorrectAnswers": [
+        "internets",
+        "tabs",
+        "windows"
+      ]
+    },
+    {
+      "text": "What do we use Microsoft Word for?",
+      "complexity": 4,
+      "correctAnswer": "Typing word documents",
+      "incorrectAnswers": [
+        "Making spreadsheets",
+        "Making presentations",
+        "learning new words"
+      ]
+    },
+    {
+      "text": "What do we use Microsoft Excel for?",
+      "complexity": 4,
+      "correctAnswer": "Making spreadsheets",
+      "incorrectAnswers": [
+        "Making presentations",
+        "learning new words",
+        "Typing word documents"
+      ]
+    },
+    {
+      "text": "What do we use Microsoft PowerPoint for?",
+      "complexity": 4,
+      "correctAnswer": "Making presentations",
+      "incorrectAnswers": [
+        "learning new words",
+        "Typing word documents",
+        "Making spreadsheets"
+      ]
+    },
+    {
+      "text": "What do we call it when we save files from the internet onto our computer?",
+      "complexity": 4,
+      "correctAnswer": "Download",
+      "incorrectAnswers": [
+        "Upload",
+        "Downsize",
+        "Save"
+      ]
+    },
+    {
+      "text": "What do we call it when we take files from the computer and put them on the internet?",
+      "complexity": 4,
+      "correctAnswer": "Upload",
+      "incorrectAnswers": [
+        "Download",
+        "Upsize",
+        "Save"
+      ]
+    },
+    {
+      "text": "What is a URL?",
+      "complexity": 4,
+      "correctAnswer": "Web address",
+      "incorrectAnswers": [
+        "typing program",
+        "OS system",
+        "Computer brand"
+      ]
+    },
+    {
+      "text": "What is a virus?",
+      "complexity": 4,
+      "correctAnswer": "Harmful program",
+      "incorrectAnswers": [
+        "OS system",
+        "computer cleaner",
+        "internet page"
+      ]
+    },
+    {
+      "text": "What does OS mean?",
+      "complexity": 4,
+      "correctAnswer": "Operating system",
+      "incorrectAnswers": [
+        "old system",
+        "operating sale",
+        "operating slate"
+      ]
+    },
+    {
+      "text": "What does FAQ mean?",
+      "complexity": 4,
+      "correctAnswer": "Frequently asked questions",
+      "incorrectAnswers": [
+        "Fast and Quality",
+        "Frequently aligned questions",
+        "fast aligned quality"
+      ]
+    },
+    {
+      "text": "What does HDTV mean?",
+      "complexity": 4,
+      "correctAnswer": "High definition television",
+      "incorrectAnswers": [
+        "High depiction television",
+        "high delinquent television",
+        "high dissolved television"
+      ]
+    },
+    {
+      "text": "What is the best way to charge your laptop battery?",
+      "complexity": 4,
+      "correctAnswer": "Only until it’s full",
+      "incorrectAnswers": [
+        "All night",
+        "Only until it’s half full",
+        "Never"
+      ]
+    },
+    {
+      "text": "What does USB mean?",
+      "complexity": 4,
+      "correctAnswer": "Universal serial bus",
+      "incorrectAnswers": [
+        "universal slate bus",
+        "united serial bus",
+        "united slate bus"
+      ]
+    },
+    {
+      "text": "What is RAM?",
+      "complexity": 4,
+      "correctAnswer": "Memory on the computer",
+      "incorrectAnswers": [
+        "speed of computer",
+        "size of computer",
+        "cord to computer"
+      ]
+    },
+    {
+      "text": "What is an external hard drive?",
+      "complexity": 4,
+      "correctAnswer": "Somewhere to store files outside of the computer",
+      "incorrectAnswers": [
+        "Something to plug your computer into the television",
+        "an extra battery for your computer",
+        "A way to connect your computer to a printer"
+      ]
+    },
+    {
+      "text": "Which computer brand is considered the best for gaming?",
+      "complexity": 4,
+      "correctAnswer": "Asus",
+      "incorrectAnswers": [
+        "Chromebook",
+        "Samsung",
+        "Mac"
+      ]
+    },
+    {
+      "text": "Which type of computer is the cheapest?",
+      "complexity": 4,
+      "correctAnswer": "Notebook",
+      "incorrectAnswers": [
+        "Desktop",
+        "Laptop",
+        "Tablet"
+      ]
+    },
+    {
+      "text": "What do we use for internet if we can’t connect to WiFi?",
+      "complexity": 4,
+      "correctAnswer": "Ethernet cable",
+      "incorrectAnswers": [
+        "HDMI",
+        "USB",
+        "AC cable"
+      ]
+    },
+    {
+      "text": "What does “b” stand for with computers?",
+      "complexity": 5,
+      "correctAnswer": "bit",
+      "incorrectAnswers": [
+        "byte",
+        "bittat",
+        "bite"
+      ]
+    },
+    {
+      "text": "What does “B” stand for with computers?",
+      "complexity": 5,
+      "correctAnswer": "byte",
+      "incorrectAnswers": [
+        "bite",
+        "bit",
+        "bete"
+      ]
+    },
+    {
+      "text": "What does “KB” stand for with computers?",
+      "complexity": 5,
+      "correctAnswer": "kilobyte",
+      "incorrectAnswers": [
+        "kilobit",
+        "kilobat",
+        "kilobete"
+      ]
+    },
+    {
+      "text": "What does “MB” stand for with computers?",
+      "complexity": 5,
+      "correctAnswer": "megabyte",
+      "incorrectAnswers": [
+        "megabit",
+        "megabete",
+        "megabiit"
+      ]
+    },
+    {
+      "text": "What does “GB” stand for with computers?",
+      "complexity": 5,
+      "correctAnswer": "gigabyte",
+      "incorrectAnswers": [
+        "gigabit",
+        "gigabete",
+        "gigabiit"
+      ]
+    },
+    {
+      "text": "What does “TB” stand for with computers?",
+      "complexity": 5,
+      "correctAnswer": "terabyte",
+      "incorrectAnswers": [
+        "terabit",
+        "terabete",
+        "terabitat"
+      ]
+    },
+    {
+      "text": "What does “Kb” stand for with computers?",
+      "complexity": 5,
+      "correctAnswer": "kilobit",
+      "incorrectAnswers": [
+        "kilobyte",
+        "kilobete",
+        "kilobat"
+      ]
+    },
+    {
+      "text": "What does “Mb” stand for with computers?",
+      "complexity": 5,
+      "correctAnswer": "megabit",
+      "incorrectAnswers": [
+        "megabyte",
+        "megabelt",
+        "megabitat"
+      ]
+    },
+    {
+      "text": "What does “Gb” stand for with computers?",
+      "complexity": 5,
+      "correctAnswer": "gigabit",
+      "incorrectAnswers": [
+        "gigabyte",
+        "gigabelt",
+        "gigabitat"
+      ]
+    },
+    {
+      "text": "What does “Tb” stand for with computers?",
+      "complexity": 5,
+      "correctAnswer": "terabit",
+      "incorrectAnswers": [
+        "terabyte",
+        "terabelt",
+        "terabitat"
+      ]
+    },
+    {
+      "text": "How many bits are in a byte?",
+      "complexity": 5,
+      "correctAnswer": "8",
+      "incorrectAnswers": [
+        "10",
+        "50",
+        "12"
+      ]
+    },
+    {
+      "text": "When was the first computer invented?",
+      "complexity": 5,
+      "correctAnswer": "1936",
+      "incorrectAnswers": [
+        "1948",
+        "1950",
+        "1942"
+      ]
+    },
+    {
+      "text": "What was the name of the first computer?",
+      "complexity": 5,
+      "correctAnswer": "Z1",
+      "incorrectAnswers": [
+        "Z100",
+        "Zeta1",
+        "Zeta100"
+      ]
+    },
+    {
+      "text": "How big were the first computers?",
+      "complexity": 5,
+      "correctAnswer": "Size of a room",
+      "incorrectAnswers": [
+        "Size of a bed",
+        "Size of a refrigerator",
+        "Size of a building"
+      ]
+    },
+    {
+      "text": "What piece of the computer makes the calculations very fast?",
+      "complexity": 5,
+      "correctAnswer": "microprocessor",
+      "incorrectAnswers": [
+        "macroporcessor",
+        "processor",
+        "antiprocessor"
+      ]
+    },
+    {
+      "text": "What does the fan do inside the computer?",
+      "complexity": 5,
+      "correctAnswer": "keeps it cool",
+      "incorrectAnswers": [
+        "keeps it hot",
+        "keeps it on",
+        "keeps it quiet"
+      ]
+    },
+    {
+      "text": "When were the first video games made?",
+      "complexity": 5,
+      "correctAnswer": "1980",
+      "incorrectAnswers": [
+        "1985",
+        "1975",
+        "1970"
+      ]
+    },
+    {
+      "text": "What were the names of the first two video games?",
+      "complexity": 5,
+      "correctAnswer": "Asteroids and Lunar Lander",
+      "incorrectAnswers": [
+        "Galaxy and PacMan",
+        "Robocop and PacMan",
+        "Asteroids and Galaxy"
+      ]
+    },
+    {
+      "text": "What material was the first computer mouse made out of?",
+      "complexity": 5,
+      "correctAnswer": "wood",
+      "incorrectAnswers": [
+        "metal",
+        "plastic",
+        "yarn"
+      ]
+    },
+    {
+      "text": "Who invented all of the parts that modern computers use?",
+      "complexity": 5,
+      "correctAnswer": "Charles Babbage",
+      "incorrectAnswers": [
+        "Steve Jobs",
+        "Thomas Jefferson",
+        "Zachary Taylor"
+      ]
+    },
+    {
+      "text": "When were all of the parts of a computer first invented?",
+      "complexity": 5,
+      "correctAnswer": "1833",
+      "incorrectAnswers": [
+        "1933",
+        "1872",
+        "1972"
+      ]
+    },
+    {
+      "text": "What other objects have microprocessors?",
+      "complexity": 5,
+      "correctAnswer": "cars",
+      "incorrectAnswers": [
+        "beds",
+        "dryers",
+        "hair curlers"
+      ]
+    },
+    {
+      "text": "What is the word for telling your computer what to do?",
+      "complexity": 5,
+      "correctAnswer": "command",
+      "incorrectAnswers": [
+        "task",
+        "question",
+        "help"
+      ]
+    },
+    {
+      "text": "A command is what?",
+      "complexity": 5,
+      "correctAnswer": "input",
+      "incorrectAnswers": [
+        "output",
+        "extraput",
+        "tenput"
+      ]
+    },
+    {
+      "text": "When you enter a command, the computer does something, this is the ______.",
+      "complexity": 5,
+      "correctAnswer": "output",
+      "incorrectAnswers": [
+        "input",
+        "extraput",
+        "tenput"
+      ]
+    }
+  ]
+}
