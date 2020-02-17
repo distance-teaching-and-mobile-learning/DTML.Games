@@ -65,13 +65,6 @@ export default class QuizScene extends Phaser.Scene {
     })
 
     // Tween objects onto screen
-    this.questionBoard.cameras.main.y += 200
-    this.tweens.add({
-      targets: this.questionBoard.cameras.main,
-      y: '-=200',
-      duration: 1000,
-      ease: 'Power2'
-    })
     this.moneyBoard.cameras.main.x += 200
     this.tweens.add({
       targets: this.moneyBoard.cameras.main,
@@ -79,6 +72,7 @@ export default class QuizScene extends Phaser.Scene {
       duration: 1000,
       ease: 'Power2'
     })
+    this.questionBoard.cameras.main.y += 400
 
     this.ruleIndex = null
 
@@ -360,6 +354,19 @@ export default class QuizScene extends Phaser.Scene {
       this.hideSpeech()
       this.startQuiz()
     }, 500)
+
+    this.showQuizBoard()
+
+  }
+
+  showQuizBoard () {
+
+    this.tweens.add({
+      targets: this.questionBoard.cameras.main,
+      y: '-=400',
+      duration: 1000,
+      ease: 'Power2'
+    })
 
   }
 
