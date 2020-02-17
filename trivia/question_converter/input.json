@@ -57,9 +57,9 @@
       "complexity": 1,
       "correctAnswer": "Three years",
       "incorrectAnswers": [
-        "Five years",
-        "Ten years",
-        "One year"
+        "five years",
+        "ten years",
+        "one year"
       ]
     },
     {
@@ -97,9 +97,9 @@
       "complexity": 1,
       "correctAnswer": "Abolished slavery",
       "incorrectAnswers": [
-        "Gave women right to vote",
-        "Started slavery",
-        "Took away voting rights"
+        "gave women right to vote",
+        "started slavery",
+        "took away voting rights"
       ]
     },
     {
@@ -287,9 +287,9 @@
       "complexity": 2,
       "correctAnswer": "They represent the 7 continents",
       "incorrectAnswers": [
-        "The 7 colonies",
-        "The 7 stripes on the flag",
-        "The 7 stars on the flag"
+        "the 7 colonies",
+        "the 7 stripes on the flag",
+        "the 7 stars on the flag"
       ]
     },
     {
@@ -297,9 +297,9 @@
       "complexity": 2,
       "correctAnswer": "The bald eagle",
       "incorrectAnswers": [
-        "Grizzly bear",
-        "Falcon",
-        "Mountainlion"
+        "grizzly bear",
+        "falcon",
+        "mountainlion"
       ]
     },
     {
@@ -307,9 +307,9 @@
       "complexity": 2,
       "correctAnswer": "The states",
       "incorrectAnswers": [
-        "The presidents",
-        "The senators",
-        "The capitals"
+        "the presidents",
+        "the senators",
+        "the capitals"
       ]
     },
     {
@@ -317,9 +317,9 @@
       "complexity": 2,
       "correctAnswer": "More than 300",
       "incorrectAnswers": [
-        "More than 500",
-        "Less than300",
-        "Less than 100"
+        "more than 500",
+        "less than300",
+        "less than 100"
       ]
     },
     {
@@ -347,9 +347,9 @@
       "complexity": 2,
       "correctAnswer": "Hamburger and Fries",
       "incorrectAnswers": [
-        "Spaghetti",
-        "Pizza",
-        "Rice and pork"
+        "spaghetti",
+        "pizza",
+        "rice and pork"
       ]
     },
     {
@@ -357,9 +357,9 @@
       "complexity": 2,
       "correctAnswer": "Apple Pie",
       "incorrectAnswers": [
-        "Chocolate cake",
-        "Candy",
-        "Cookies"
+        "chocolate cake",
+        "candy",
+        "cookies"
       ]
     },
     {
@@ -407,9 +407,9 @@
       "complexity": 2,
       "correctAnswer": "Individualism",
       "incorrectAnswers": [
-        "Equality",
-        "Materialism",
-        "Mobility"
+        "equality",
+        "materialism",
+        "mobility"
       ]
     },
     {
@@ -417,9 +417,9 @@
       "complexity": 2,
       "correctAnswer": "Equality",
       "incorrectAnswers": [
-        "Individualism",
-        "Self-help",
-        "Optimism"
+        "individualism",
+        "self-help",
+        "optimism"
       ]
     },
     {
@@ -427,9 +427,9 @@
       "complexity": 2,
       "correctAnswer": "Materialism",
       "incorrectAnswers": [
-        "Equality",
-        "Mobility",
-        "Informality"
+        "equality",
+        "mobility",
+        "informality"
       ]
     },
     {
@@ -437,9 +437,9 @@
       "complexity": 2,
       "correctAnswer": "Competition",
       "incorrectAnswers": [
-        "Materialism",
-        "Self-help",
-        "Individualism"
+        "materialism",
+        "self-help",
+        "individualism"
       ]
     },
     {
@@ -527,9 +527,9 @@
       "complexity": 3,
       "correctAnswer": "Architect",
       "incorrectAnswers": [
-        "Engineer",
-        "Teacher",
-        "Sculptor"
+        "engineer",
+        "teacher",
+        "sculptor"
       ]
     },
     {
@@ -567,9 +567,9 @@
       "complexity": 3,
       "correctAnswer": "Four",
       "incorrectAnswers": [
-        "Six",
-        "Two",
-        "Five"
+        "six",
+        "two",
+        "five"
       ]
     },
     {
@@ -957,9 +957,9 @@
       "complexity": 4,
       "correctAnswer": "Five",
       "incorrectAnswers": [
-        "Seven",
-        "Three",
-        "Ten"
+        "seven",
+        "three",
+        "ten"
       ]
     },
     {
@@ -1007,9 +1007,9 @@
       "complexity": 5,
       "correctAnswer": "​freedom​",
       "incorrectAnswers": [
-        "Money",
-        "Friendship",
-        "Honesty"
+        "money",
+        "friendship",
+        "honesty"
       ]
     },
     {
@@ -1017,9 +1017,9 @@
       "complexity": 5,
       "correctAnswer": "​equality​",
       "incorrectAnswers": [
-        "Freedom",
-        "Friendship",
-        "Honesty"
+        "freedom",
+        "friendship",
+        "honesty"
       ]
     },
     {
@@ -1035,21 +1035,21 @@
     {
       "text": "What value in the US means you can do things on your own?",
       "complexity": 5,
-      "correctAnswer": "Independence​",
+      "correctAnswer": "independence​",
       "incorrectAnswers": [
-        "Money",
-        "Dependence",
-        "Freedom"
+        "money",
+        "dependence",
+        "freedom"
       ]
     },
     {
       "text": "What value do Americans like in sports?",
       "complexity": 5,
-      "correctAnswer": "Competition​",
+      "correctAnswer": "competition​",
       "incorrectAnswers": [
-        "Success",
-        "Winning",
-        "Fairness"
+        "success",
+        "winning",
+        "fairness"
       ]
     },
     {
@@ -1057,9 +1057,9 @@
       "complexity": 5,
       "correctAnswer": "​hard work​",
       "incorrectAnswers": [
-        "Laziness",
-        "Winning",
-        "Fairness"
+        "laziness",
+        "winning",
+        "fairness"
       ]
     },
     {
@@ -1067,59 +1067,59 @@
       "complexity": 5,
       "correctAnswer": "​honesty​",
       "incorrectAnswers": [
-        "Lying",
-        "Crying",
-        "Equality"
+        "lying",
+        "crying",
+        "equality"
       ]
     },
     {
       "text": "America is a country of many types of people, this makes America very ________.",
       "complexity": 5,
-      "correctAnswer": "Diverse​",
+      "correctAnswer": "diverse​",
       "incorrectAnswers": [
-        "Cohesive",
-        "Boring",
-        "Fun"
+        "cohesive",
+        "boring",
+        "fun"
       ]
     },
     {
       "text": "America is a country that welcomes everyone, this makes America very _________.",
       "complexity": 5,
-      "correctAnswer": "Inclusive​",
+      "correctAnswer": "inclusive​",
       "incorrectAnswers": [
-        "Busy",
-        "Exclusive",
-        "Intrinsic"
+        "busy",
+        "exclusive",
+        "intrinsic"
       ]
     },
     {
       "text": "America goes to war often because it values __________.",
       "complexity": 5,
-      "correctAnswer": "Democracy​",
+      "correctAnswer": "democracy​",
       "incorrectAnswers": [
-        "Money",
-        "Diversity",
-        "Equality"
+        "money",
+        "diversity",
+        "equality"
       ]
     },
     {
       "text": "America values democracy because it gives people ___________.",
       "complexity": 5,
-      "correctAnswer": "Power​",
+      "correctAnswer": "power​",
       "incorrectAnswers": [
-        "Money",
-        "Love",
-        "Homes"
+        "money",
+        "love",
+        "homes"
       ]
     },
     {
       "text": "America has many holidays to celebrate their veterans who fought for our ________.",
       "complexity": 5,
-      "correctAnswer": "Freedom​",
+      "correctAnswer": "freedom​",
       "incorrectAnswers": [
-        "Flag",
-        "Fairness",
-        "Independence"
+        "flag",
+        "fairness",
+        "independence"
       ]
     },
     {
@@ -1135,31 +1135,31 @@
     {
       "text": "In a democracy, every person can __________.",
       "complexity": 5,
-      "correctAnswer": "Vote​",
+      "correctAnswer": "vote​",
       "incorrectAnswers": [
-        "Run",
-        "Play",
-        "Work"
+        "run",
+        "play",
+        "work"
       ]
     },
     {
       "text": "In America, people are encouraged to speak up, we value everyone’s ________.",
       "complexity": 5,
-      "correctAnswer": "Voice​",
+      "correctAnswer": "voice​",
       "incorrectAnswers": [
-        "History",
-        "Education",
-        "Energy"
+        "history",
+        "education",
+        "energy"
       ]
     },
     {
       "text": "Many people moved to America from other countries, we are a country of _________.",
       "complexity": 5,
-      "correctAnswer": "Immigrants​",
+      "correctAnswer": "immigrants​",
       "incorrectAnswers": [
-        "Travelers",
-        "Emigrants",
-        "Movers"
+        "travelers",
+        "emigrants",
+        "movers"
       ]
     },
     {
@@ -1167,69 +1167,69 @@
       "complexity": 5,
       "correctAnswer": "LGBT rights​",
       "incorrectAnswers": [
-        "Women’s rights",
-        "Everyone’s rights",
-        "Extra rights"
+        "women’s rights",
+        "everyone’s rights",
+        "extra rights"
       ]
     },
     {
       "text": "The 4th of July is a celebration of America’s __________.",
       "complexity": 5,
-      "correctAnswer": "Independence​",
+      "correctAnswer": "independence​",
       "incorrectAnswers": [
-        "Expression",
-        "Equality",
-        "Fairness"
+        "expression",
+        "equality",
+        "fairness"
       ]
     },
     {
       "text": "Some people refer to traditional American values as _________ values.",
       "complexity": 5,
-      "correctAnswer": "Family​",
+      "correctAnswer": "family​",
       "incorrectAnswers": [
-        "Old",
-        "Original",
-        "Happy"
+        "old",
+        "original",
+        "happy"
       ]
     },
     {
       "text": "Americans work hard because they want to __________ for their families.",
       "complexity": 5,
-      "correctAnswer": "Provide​",
+      "correctAnswer": "provide​",
       "incorrectAnswers": [
-        "Take",
-        "Struggle",
-        "Love"
+        "take",
+        "struggle",
+        "love"
       ]
     },
     {
       "text": "Americans are very ________ because they’re very outgoing.",
       "complexity": 5,
-      "correctAnswer": "Loud​",
+      "correctAnswer": "loud​",
       "incorrectAnswers": [
-        "Quiet",
-        "Shy",
-        "Happy"
+        "quiet",
+        "shy",
+        "happy"
       ]
     },
     {
       "text": "Americans like to get to know many people, they’re very ________.",
       "complexity": 5,
-      "correctAnswer": "Friendly​",
+      "correctAnswer": "friendly​",
       "incorrectAnswers": [
-        "Shy",
-        "Loud",
-        "Old"
+        "shy",
+        "loud",
+        "old"
       ]
     },
     {
       "text": "Older Americans like to talk about their experiences because we value _________.",
       "complexity": 5,
-      "correctAnswer": "History​",
+      "correctAnswer": "history​",
       "incorrectAnswers": [
-        "Stories",
-        "School",
-        "Age"
+        "stories",
+        "school",
+        "age"
       ]
     },
     {
@@ -1237,19 +1237,19 @@
       "complexity": 5,
       "correctAnswer": "​education​",
       "incorrectAnswers": [
-        "Jobs",
-        "Money",
-        "Effort"
+        "jobs",
+        "money",
+        "effort"
       ]
     },
     {
       "text": "There is ___________ in America for anyone who works hard.",
       "complexity": 5,
-      "correctAnswer": "Opportunity​",
+      "correctAnswer": "opportunity​",
       "incorrectAnswers": [
-        "Money",
-        "Honesty",
-        "Independence"
+        "money",
+        "honesty",
+        "independence"
       ]
     }
   ]

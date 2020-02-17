@@ -7,9 +7,9 @@
       "complexity": 1,
       "correctAnswer": "One​",
       "incorrectAnswers": [
-        "onee",
-        "une",
-        "uno"
+        "Onee",
+        "Une",
+        "Uno"
       ]
     },
     {
@@ -17,9 +17,9 @@
       "complexity": 1,
       "correctAnswer": "Two​",
       "incorrectAnswers": [
-        "too",
-        "to",
-        "twoo"
+        "Too",
+        "To",
+        "Twoo"
       ]
     },
     {
@@ -27,9 +27,9 @@
       "complexity": 1,
       "correctAnswer": "​Three​",
       "incorrectAnswers": [
-        "tree",
-        "thee",
-        "ree"
+        "Tree",
+        "Thee",
+        "Ree"
       ]
     },
     {
@@ -37,9 +37,9 @@
       "complexity": 1,
       "correctAnswer": "Four​",
       "incorrectAnswers": [
-        "for",
-        "fuur",
-        "foor"
+        "For",
+        "Fuur",
+        "Foor"
       ]
     },
     {
@@ -47,9 +47,9 @@
       "complexity": 1,
       "correctAnswer": "​Five​",
       "incorrectAnswers": [
-        "fiv",
-        "feeve",
-        "fivee"
+        "Fiv",
+        "Feeve",
+        "Fivee"
       ]
     },
     {
@@ -57,9 +57,9 @@
       "complexity": 1,
       "correctAnswer": "Six​",
       "incorrectAnswers": [
-        "sik",
-        "sic",
-        "sixe"
+        "Sik",
+        "Sic",
+        "Sixe"
       ]
     },
     {
@@ -67,9 +67,9 @@
       "complexity": 1,
       "correctAnswer": "​Seven​",
       "incorrectAnswers": [
-        "seveen",
-        "siven",
-        "sevin"
+        "Seveen",
+        "Siven",
+        "Sevin"
       ]
     },
     {
@@ -77,9 +77,9 @@
       "complexity": 1,
       "correctAnswer": "​Eight​",
       "incorrectAnswers": [
-        "ate",
-        "eat",
-        "ieght"
+        "Ate",
+        "Eat",
+        "Ieght"
       ]
     },
     {
@@ -87,9 +87,9 @@
       "complexity": 1,
       "correctAnswer": "​Nine​",
       "incorrectAnswers": [
-        "nene",
-        "nin",
-        "neene"
+        "Nene",
+        "Nin",
+        "Neene"
       ]
     },
     {
@@ -97,9 +97,9 @@
       "complexity": 1,
       "correctAnswer": "Ten​",
       "incorrectAnswers": [
-        "tin",
-        "teen",
-        "tene"
+        "Tin",
+        "Teen",
+        "Tene"
       ]
     },
     {
@@ -107,9 +107,9 @@
       "complexity": 1,
       "correctAnswer": "​One​",
       "incorrectAnswers": [
-        "three",
-        "zero",
-        "four"
+        "Three",
+        "Zero",
+        "Four"
       ]
     },
     {
@@ -117,9 +117,9 @@
       "complexity": 1,
       "correctAnswer": "​Five​",
       "incorrectAnswers": [
-        "three",
-        "six",
-        "two"
+        "Three",
+        "Six",
+        "Two"
       ]
     },
     {
@@ -127,9 +127,9 @@
       "complexity": 1,
       "correctAnswer": "​Seven​",
       "incorrectAnswers": [
-        "six",
-        "nine",
-        "ten"
+        "Six",
+        "Nine",
+        "Ten"
       ]
     },
     {
@@ -137,9 +137,9 @@
       "complexity": 1,
       "correctAnswer": "Ten​",
       "incorrectAnswers": [
-        "eight",
-        "seven",
-        "six"
+        "Eight",
+        "Seven",
+        "Six"
       ]
     },
     {
@@ -147,9 +147,9 @@
       "complexity": 1,
       "correctAnswer": "​Six​",
       "incorrectAnswers": [
-        "eight",
-        "five",
-        "nine"
+        "Eight",
+        "Five",
+        "Nine"
       ]
     },
     {
@@ -157,9 +157,9 @@
       "complexity": 1,
       "correctAnswer": "Four​",
       "incorrectAnswers": [
-        "two",
-        "five",
-        "one"
+        "Two",
+        "Five",
+        "One"
       ]
     },
     {
@@ -167,9 +167,9 @@
       "complexity": 1,
       "correctAnswer": "​Two​",
       "incorrectAnswers": [
-        "one",
-        "four",
-        "five"
+        "One",
+        "Four",
+        "Five"
       ]
     },
     {
@@ -177,9 +177,9 @@
       "complexity": 1,
       "correctAnswer": "​Eight​",
       "incorrectAnswers": [
-        "six",
-        "nine",
-        "five"
+        "Six",
+        "Nine",
+        "Five"
       ]
     },
     {
@@ -187,9 +187,9 @@
       "complexity": 1,
       "correctAnswer": "Three​",
       "incorrectAnswers": [
-        "five",
-        "two",
-        "six"
+        "Five",
+        "Two",
+        "Six"
       ]
     },
     {
@@ -197,9 +197,9 @@
       "complexity": 1,
       "correctAnswer": "Nine​",
       "incorrectAnswers": [
-        "seven",
-        "six",
-        "ten"
+        "Seven",
+        "Six",
+        "Ten"
       ]
     },
     {
@@ -287,9 +287,9 @@
       "complexity": 2,
       "correctAnswer": "A​",
       "incorrectAnswers": [
-        "e",
+        "E",
         "I",
-        "y"
+        "Y"
       ]
     },
     {
@@ -297,9 +297,9 @@
       "complexity": 2,
       "correctAnswer": "Short​",
       "incorrectAnswers": [
-        "long",
-        "both",
-        "neither"
+        "Long",
+        "Both",
+        "Neither"
       ]
     },
     {
@@ -307,9 +307,9 @@
       "complexity": 2,
       "correctAnswer": "Long​",
       "incorrectAnswers": [
-        "short",
-        "both",
-        "neither"
+        "Short",
+        "Both",
+        "Neither"
       ]
     },
     {
@@ -317,9 +317,9 @@
       "complexity": 2,
       "correctAnswer": "Long​",
       "incorrectAnswers": [
-        "short",
-        "both",
-        "neither"
+        "Short",
+        "Both",
+        "Neither"
       ]
     },
     {
@@ -327,9 +327,9 @@
       "complexity": 2,
       "correctAnswer": "Short​",
       "incorrectAnswers": [
-        "long",
-        "both",
-        "neither"
+        "Long",
+        "Both",
+        "Neither"
       ]
     },
     {
@@ -337,9 +337,9 @@
       "complexity": 2,
       "correctAnswer": "Short​",
       "incorrectAnswers": [
-        "long",
-        "both",
-        "neither"
+        "Long",
+        "Both",
+        "Neither"
       ]
     },
     {
@@ -347,9 +347,9 @@
       "complexity": 2,
       "correctAnswer": "​L​",
       "incorrectAnswers": [
-        "r",
-        "m",
-        "s"
+        "R",
+        "M",
+        "S"
       ]
     },
     {
@@ -357,9 +357,9 @@
       "complexity": 2,
       "correctAnswer": "​P​",
       "incorrectAnswers": [
-        "l",
-        "e",
-        "t"
+        "L",
+        "E",
+        "T"
       ]
     },
     {
@@ -367,9 +367,9 @@
       "complexity": 2,
       "correctAnswer": "​T​",
       "incorrectAnswers": [
-        "d",
-        "s",
-        "j"
+        "D",
+        "S",
+        "J"
       ]
     },
     {
@@ -377,9 +377,9 @@
       "complexity": 2,
       "correctAnswer": "F​",
       "incorrectAnswers": [
-        "t",
-        "p",
-        "h"
+        "T",
+        "P",
+        "H"
       ]
     },
     {
@@ -388,8 +388,8 @@
       "correctAnswer": "E​",
       "incorrectAnswers": [
         "I",
-        "y",
-        "a"
+        "Y",
+        "A"
       ]
     },
     {
@@ -397,9 +397,9 @@
       "complexity": 2,
       "correctAnswer": "H​",
       "incorrectAnswers": [
-        "f",
-        "p",
-        "w"
+        "F",
+        "P",
+        "W"
       ]
     },
     {
@@ -407,9 +407,9 @@
       "complexity": 2,
       "correctAnswer": "​R​",
       "incorrectAnswers": [
-        "s",
-        "l",
-        "p"
+        "S",
+        "L",
+        "P"
       ]
     },
     {
@@ -417,9 +417,9 @@
       "complexity": 2,
       "correctAnswer": "​N​",
       "incorrectAnswers": [
-        "m",
-        "d",
-        "t"
+        "M",
+        "D",
+        "T"
       ]
     },
     {
@@ -428,8 +428,8 @@
       "correctAnswer": "E​",
       "incorrectAnswers": [
         "I",
-        "y",
-        "p"
+        "Y",
+        "P"
       ]
     },
     {
@@ -437,9 +437,9 @@
       "complexity": 2,
       "correctAnswer": "I​",
       "incorrectAnswers": [
-        "o",
-        "u",
-        "e"
+        "O",
+        "U",
+        "E"
       ]
     },
     {
@@ -507,9 +507,9 @@
       "complexity": 3,
       "correctAnswer": "​Noun​",
       "incorrectAnswers": [
-        "adjective",
-        "pronoun",
-        "verb"
+        "Adjective",
+        "Pronoun",
+        "Verb"
       ]
     },
     {
@@ -517,9 +517,9 @@
       "complexity": 3,
       "correctAnswer": "​Verb​",
       "incorrectAnswers": [
-        "noun",
-        "adjective",
-        "pronoun"
+        "Noun",
+        "Adjective",
+        "Pronoun"
       ]
     },
     {
@@ -527,9 +527,9 @@
       "complexity": 3,
       "correctAnswer": "​pronoun​",
       "incorrectAnswers": [
-        "noun",
-        "verb",
-        "adjective"
+        "Noun",
+        "Verb",
+        "Adjective"
       ]
     },
     {
@@ -537,9 +537,9 @@
       "complexity": 3,
       "correctAnswer": "​adjective​",
       "incorrectAnswers": [
-        "noun",
-        "adverb",
-        "verb"
+        "Noun",
+        "Adverb",
+        "Verb"
       ]
     },
     {
@@ -547,39 +547,39 @@
       "complexity": 3,
       "correctAnswer": "​noun​",
       "incorrectAnswers": [
-        "adjective",
-        "pronoun",
-        "verb"
+        "Adjective",
+        "Pronoun",
+        "Verb"
       ]
     },
     {
       "text": "What type of word is \"hot\"?",
       "complexity": 3,
-      "correctAnswer": "adjective​",
+      "correctAnswer": "Adjective​",
       "incorrectAnswers": [
-        "verb",
-        "adverb",
-        "noun"
+        "Verb",
+        "Adverb",
+        "Noun"
       ]
     },
     {
       "text": "What type of word is \"you\"?",
       "complexity": 3,
-      "correctAnswer": "pronoun​",
+      "correctAnswer": "Pronoun​",
       "incorrectAnswers": [
-        "adverb",
-        "noun",
-        "adjective"
+        "Adverb",
+        "Noun",
+        "Adjective"
       ]
     },
     {
       "text": "What type of word is \"jump\"?",
       "complexity": 3,
-      "correctAnswer": "verb​",
+      "correctAnswer": "Verb​",
       "incorrectAnswers": [
-        "adjective",
-        "noun",
-        "adverb"
+        "Adjective",
+        "Noun",
+        "Adverb"
       ]
     },
     {
@@ -587,39 +587,39 @@
       "complexity": 3,
       "correctAnswer": "​noun​",
       "incorrectAnswers": [
-        "pronoun",
-        "adjective",
-        "verb"
+        "Pronoun",
+        "Adjective",
+        "Verb"
       ]
     },
     {
       "text": "What type of word is \"we\"?",
       "complexity": 3,
-      "correctAnswer": "pronoun​",
+      "correctAnswer": "Pronoun​",
       "incorrectAnswers": [
-        "adverb",
-        "noun",
-        "verb"
+        "Adverb",
+        "Noun",
+        "Verb"
       ]
     },
     {
       "text": "What type of word is \"sing\"?",
       "complexity": 3,
-      "correctAnswer": "verb​",
+      "correctAnswer": "Verb​",
       "incorrectAnswers": [
-        "adverb",
-        "noun",
-        "adjective"
+        "Adverb",
+        "Noun",
+        "Adjective"
       ]
     },
     {
       "text": "What type of word is \"cold\"?",
       "complexity": 3,
-      "correctAnswer": "adjective​",
+      "correctAnswer": "Adjective​",
       "incorrectAnswers": [
-        "adverb",
-        "noun",
-        "verb"
+        "Adverb",
+        "Noun",
+        "Verb"
       ]
     },
     {
@@ -627,79 +627,79 @@
       "complexity": 3,
       "correctAnswer": "​adjective​",
       "incorrectAnswers": [
-        "adverb",
-        "noun",
-        "verb"
+        "Adverb",
+        "Noun",
+        "Verb"
       ]
     },
     {
       "text": "What type of word is \"they\"?",
       "complexity": 3,
-      "correctAnswer": "pronoun​",
+      "correctAnswer": "Pronoun​",
       "incorrectAnswers": [
-        "noun",
-        "verb",
-        "adverb"
+        "Noun",
+        "Verb",
+        "Adverb"
       ]
     },
     {
       "text": "What type of word is \"teacher\"?",
       "complexity": 3,
-      "correctAnswer": "noun​",
+      "correctAnswer": "Noun​",
       "incorrectAnswers": [
-        "pronoun",
-        "verb",
-        "adjective"
+        "Pronoun",
+        "Verb",
+        "Adjective"
       ]
     },
     {
       "text": "What type of word is \"slowly\"?",
       "complexity": 3,
-      "correctAnswer": "adverb​",
+      "correctAnswer": "Adverb​",
       "incorrectAnswers": [
-        "verb",
-        "adjective",
-        "noun"
+        "Verb",
+        "Adjective",
+        "Noun"
       ]
     },
     {
       "text": "What type of word is \"beautiful\"?",
       "complexity": 3,
-      "correctAnswer": "adjective​",
+      "correctAnswer": "Adjective​",
       "incorrectAnswers": [
-        "adverb",
-        "noun",
-        "verb"
+        "Adverb",
+        "Noun",
+        "Verb"
       ]
     },
     {
       "text": "What type of word is \"beautifully\"?",
       "complexity": 3,
-      "correctAnswer": "adverb​",
+      "correctAnswer": "Adverb​",
       "incorrectAnswers": [
-        "adjective",
-        "verb",
-        "noun"
+        "Adjective",
+        "Verb",
+        "Noun"
       ]
     },
     {
       "text": "What type of word is \"mom\"?",
       "complexity": 3,
-      "correctAnswer": "noun​",
+      "correctAnswer": "Noun​",
       "incorrectAnswers": [
-        "pronoun",
-        "adjective",
-        "verb"
+        "Pronoun",
+        "Adjective",
+        "Verb"
       ]
     },
     {
       "text": "What type of word is \"eat\"?",
       "complexity": 3,
-      "correctAnswer": "verb​",
+      "correctAnswer": "Verb​",
       "incorrectAnswers": [
-        "adverb",
-        "noun",
-        "pronoun"
+        "Adverb",
+        "Noun",
+        "Pronoun"
       ]
     },
     {
@@ -707,19 +707,19 @@
       "complexity": 3,
       "correctAnswer": "​adverb​",
       "incorrectAnswers": [
-        "verb",
-        "adjective",
-        "noun"
+        "Verb",
+        "Adjective",
+        "Noun"
       ]
     },
     {
       "text": "What type of word is \"intelligent\"?",
       "complexity": 3,
-      "correctAnswer": "adjective​",
+      "correctAnswer": "Adjective​",
       "incorrectAnswers": [
-        "adverb",
-        "verb",
-        "noun"
+        "Adverb",
+        "Verb",
+        "Noun"
       ]
     },
     {
@@ -727,29 +727,29 @@
       "complexity": 3,
       "correctAnswer": "​adjective​",
       "incorrectAnswers": [
-        "adverb",
-        "verb",
-        "noun"
+        "Adverb",
+        "Verb",
+        "Noun"
       ]
     },
     {
       "text": "What type of word is \"beach\"?",
       "complexity": 3,
-      "correctAnswer": "noun​",
+      "correctAnswer": "Noun​",
       "incorrectAnswers": [
-        "pronoun",
-        "adjective",
-        "adverb"
+        "Pronoun",
+        "Adjective",
+        "Adverb"
       ]
     },
     {
       "text": "What type of word is \"study\"?",
       "complexity": 3,
-      "correctAnswer": "verb​",
+      "correctAnswer": "Verb​",
       "incorrectAnswers": [
-        "adverb",
-        "adjective",
-        "noun"
+        "Adverb",
+        "Adjective",
+        "Noun"
       ]
     },
     {
@@ -757,9 +757,9 @@
       "complexity": 4,
       "correctAnswer": "​present​",
       "incorrectAnswers": [
-        "past",
-        "future",
-        "continuous"
+        "Past",
+        "Future",
+        "Continuous"
       ]
     },
     {
@@ -767,19 +767,19 @@
       "complexity": 4,
       "correctAnswer": "​past​",
       "incorrectAnswers": [
-        "present",
-        "continuous",
-        "future"
+        "Present",
+        "Continuous",
+        "Future"
       ]
     },
     {
       "text": "What tense is this verb, \"will sing\"?",
       "complexity": 4,
-      "correctAnswer": "future​",
+      "correctAnswer": "Future​",
       "incorrectAnswers": [
-        "past",
-        "present",
-        "continuous"
+        "Past",
+        "Present",
+        "Continuous"
       ]
     },
     {
@@ -787,19 +787,19 @@
       "complexity": 4,
       "correctAnswer": "​present​",
       "incorrectAnswers": [
-        "past",
-        "future",
-        "none"
+        "Past",
+        "Future",
+        "None"
       ]
     },
     {
       "text": "What tense is this verb, \"walked\"?",
       "complexity": 4,
-      "correctAnswer": "past​",
+      "correctAnswer": "Past​",
       "incorrectAnswers": [
-        "none",
-        "future",
-        "present"
+        "None",
+        "Future",
+        "Present"
       ]
     },
     {
@@ -807,49 +807,49 @@
       "complexity": 4,
       "correctAnswer": "​past​",
       "incorrectAnswers": [
-        "future",
-        "none",
-        "present"
+        "Future",
+        "None",
+        "Present"
       ]
     },
     {
       "text": "What tense is this verb, \"will swim\"?",
       "complexity": 4,
-      "correctAnswer": "future​",
+      "correctAnswer": "Future​",
       "incorrectAnswers": [
-        "past",
-        "present",
-        "none"
+        "Past",
+        "Present",
+        "None"
       ]
     },
     {
       "text": "What tense is this verb, \"sat\"?",
       "complexity": 4,
-      "correctAnswer": "past​",
+      "correctAnswer": "Past​",
       "incorrectAnswers": [
-        "present",
-        "future",
-        "none"
+        "Present",
+        "Future",
+        "None"
       ]
     },
     {
       "text": "What tense is this verb, \"threw\"?",
       "complexity": 4,
-      "correctAnswer": "past​",
+      "correctAnswer": "Past​",
       "incorrectAnswers": [
-        "present",
-        "future",
-        "none"
+        "Present",
+        "Future",
+        "None"
       ]
     },
     {
       "text": "What tense is this verb, \"will clean\"?",
       "complexity": 4,
-      "correctAnswer": "future​",
+      "correctAnswer": "Future​",
       "incorrectAnswers": [
-        "present",
-        "past",
-        "none"
+        "Present",
+        "Past",
+        "None"
       ]
     },
     {
@@ -857,59 +857,59 @@
       "complexity": 4,
       "correctAnswer": "​present​",
       "incorrectAnswers": [
-        "future",
-        "past",
-        "continuous"
+        "Future",
+        "Past",
+        "Continuous"
       ]
     },
     {
       "text": "What tense is this verb, \"will watch\"?",
       "complexity": 4,
-      "correctAnswer": "future​",
+      "correctAnswer": "Future​",
       "incorrectAnswers": [
-        "past",
-        "continuous",
-        "none"
+        "Past",
+        "Continuous",
+        "None"
       ]
     },
     {
       "text": "What tense is this verb, \"plays\"?",
       "complexity": 4,
-      "correctAnswer": "present​",
+      "correctAnswer": "Present​",
       "incorrectAnswers": [
-        "future",
-        "past",
-        "none"
+        "Future",
+        "Past",
+        "None"
       ]
     },
     {
       "text": "What tense is this verb, \"slept\"?",
       "complexity": 4,
-      "correctAnswer": "past​",
+      "correctAnswer": "Past​",
       "incorrectAnswers": [
-        "present",
-        "continuous",
-        "none"
+        "Present",
+        "Continuous",
+        "None"
       ]
     },
     {
       "text": "What tense is this verb, \"swam\"?",
       "complexity": 4,
-      "correctAnswer": "past​",
+      "correctAnswer": "Past​",
       "incorrectAnswers": [
-        "continuous",
-        "present",
-        "future"
+        "Continuous",
+        "Present",
+        "Future"
       ]
     },
     {
       "text": "What is the possessive form of \"you\"?",
       "complexity": 4,
-      "correctAnswer": "your​",
+      "correctAnswer": "Your​",
       "incorrectAnswers": [
-        "yous",
-        "you’s",
-        "you’r"
+        "Yous",
+        "You’s",
+        "You’r"
       ]
     },
     {
@@ -917,49 +917,49 @@
       "complexity": 4,
       "correctAnswer": "​his​",
       "incorrectAnswers": [
-        "he’s",
-        "him",
-        "his’s"
+        "He’s",
+        "Him",
+        "His’s"
       ]
     },
     {
       "text": "What is the possessive form of \"she\"?",
       "complexity": 4,
-      "correctAnswer": "her​",
+      "correctAnswer": "Her​",
       "incorrectAnswers": [
-        "she’s",
-        "hers’s",
-        "she"
+        "She’s",
+        "Hers’s",
+        "She"
       ]
     },
     {
       "text": "What is the possessive form of \"they\"?",
       "complexity": 4,
-      "correctAnswer": "their​",
+      "correctAnswer": "Their​",
       "incorrectAnswers": [
-        "they’re",
-        "they’s",
-        "them"
+        "They’re",
+        "They’s",
+        "Them"
       ]
     },
     {
       "text": "What is the possessive form of \"I\"?",
       "complexity": 4,
-      "correctAnswer": "my​",
+      "correctAnswer": "My​",
       "incorrectAnswers": [
         "I’s",
-        "me’s",
+        "Me’s",
         "I’m’s"
       ]
     },
     {
       "text": "What is the possessive form of \"we\"?",
       "complexity": 4,
-      "correctAnswer": "our​",
+      "correctAnswer": "Our​",
       "incorrectAnswers": [
-        "we’s",
-        "us’s",
-        "we"
+        "We’s",
+        "Us’s",
+        "We"
       ]
     },
     {
@@ -967,29 +967,29 @@
       "complexity": 4,
       "correctAnswer": "​can not​",
       "incorrectAnswers": [
-        "can",
-        "can later",
-        "can yet"
+        "Can",
+        "Can later",
+        "Can yet"
       ]
     },
     {
       "text": "What does \"don’t\" mean?",
       "complexity": 4,
-      "correctAnswer": "do not​",
+      "correctAnswer": "Do not​",
       "incorrectAnswers": [
-        "do yet",
-        "do no",
-        "do"
+        "Do yet",
+        "Do no",
+        "Do"
       ]
     },
     {
       "text": "What does \"isn’t\" mean?",
       "complexity": 4,
-      "correctAnswer": "is not​",
+      "correctAnswer": "Is not​",
       "incorrectAnswers": [
-        "is yet",
-        "is no",
-        "is"
+        "Is yet",
+        "Is no",
+        "Is"
       ]
     },
     {

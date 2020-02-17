@@ -7,9 +7,9 @@
       "complexity": 1,
       "correctAnswer": "​Seven​",
       "incorrectAnswers": [
-        "five",
-        "six",
-        "eight"
+        "Five",
+        "Six",
+        "Eight"
       ]
     },
     {
@@ -17,9 +17,9 @@
       "complexity": 1,
       "correctAnswer": "Four ​(Pacific, Atlantic, Arctic, Indian) or Five (If you count the Southern/Antarctic Ocean)",
       "incorrectAnswers": [
-        "three",
-        "six",
-        "ten"
+        "Three",
+        "Six",
+        "Ten"
       ]
     },
     {
@@ -257,9 +257,9 @@
       "complexity": 2,
       "correctAnswer": "Handshake/Hug​",
       "incorrectAnswers": [
-        "kiss oneach cheek",
-        "bow",
-        "clap their hands"
+        "Kiss oneach cheek",
+        "Bow",
+        "Clap their hands"
       ]
     },
     {
@@ -267,9 +267,9 @@
       "complexity": 2,
       "correctAnswer": "​Bow​",
       "incorrectAnswers": [
-        "kiss on each cheek",
-        "hug",
-        "clap their hands"
+        "Kiss on each cheek",
+        "Hug",
+        "Clap their hands"
       ]
     },
     {
@@ -277,9 +277,9 @@
       "complexity": 2,
       "correctAnswer": "Kiss on each cheek​",
       "incorrectAnswers": [
-        "handshake",
-        "bow",
-        "hug"
+        "Handshake",
+        "Bow",
+        "Hug"
       ]
     },
     {
@@ -287,9 +287,9 @@
       "complexity": 2,
       "correctAnswer": "Stick out their tongue​",
       "incorrectAnswers": [
-        "clap their hands",
-        "hug",
-        "bow"
+        "Clap their hands",
+        "Hug",
+        "Bow"
       ]
     },
     {
@@ -297,9 +297,9 @@
       "complexity": 2,
       "correctAnswer": "​Clap their hands​",
       "incorrectAnswers": [
-        "stickout their tongue",
-        "kiss on each cheek",
-        "bow"
+        "Stickout their tongue",
+        "Kiss on each cheek",
+        "Bow"
       ]
     },
     {
@@ -327,19 +327,19 @@
       "complexity": 2,
       "correctAnswer": "Their hands​",
       "incorrectAnswers": [
-        "utensils",
-        "chopsticks",
-        "bread"
+        "Utensils",
+        "Chopsticks",
+        "Bread"
       ]
     },
     {
       "text": "In China, you shouldn’t put your chopsticks in your rice _______.",
       "complexity": 2,
-      "correctAnswer": "vertically​",
+      "correctAnswer": "Vertically​",
       "incorrectAnswers": [
-        "horizontally",
-        "both",
-        "upside down"
+        "Horizontally",
+        "Both",
+        "Upside down"
       ]
     },
     {
@@ -487,9 +487,9 @@
       "complexity": 2,
       "correctAnswer": "Cricket​",
       "incorrectAnswers": [
-        "soccer",
-        "rugby",
-        "hockey"
+        "Soccer",
+        "Rugby",
+        "Hockey"
       ]
     },
     {
@@ -497,9 +497,9 @@
       "complexity": 2,
       "correctAnswer": "​Futbol​",
       "incorrectAnswers": [
-        "football",
-        "neither",
-        "all"
+        "Football",
+        "Neither",
+        "All"
       ]
     },
     {

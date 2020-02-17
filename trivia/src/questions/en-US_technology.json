@@ -7,9 +7,9 @@
       "complexity": 1,
       "correctAnswer": "Command",
       "incorrectAnswers": [
-        "shift",
-        "alt",
-        "enter"
+        "Shift",
+        "Alt",
+        "Enter"
       ]
     },
     {
@@ -37,9 +37,9 @@
       "complexity": 1,
       "correctAnswer": "Select -> right click -> copy",
       "incorrectAnswers": [
-        "select -> left click -> copy",
-        "right click -> copy",
-        "double left click"
+        "Select -> left click -> copy",
+        "Right click -> copy",
+        "Double left click"
       ]
     },
     {
@@ -47,9 +47,9 @@
       "complexity": 1,
       "correctAnswer": "Select -> right click -> paste",
       "incorrectAnswers": [
-        "select -> left click -> paste",
-        "left click -> paste",
-        "double left click"
+        "Select -> left click -> paste",
+        "Left click -> paste",
+        "Double left click"
       ]
     },
     {
@@ -229,7 +229,7 @@
       "incorrectAnswers": [
         "Windows",
         "OS X",
-        "iOS"
+        "IOS"
       ]
     },
     {
@@ -239,7 +239,7 @@
       "incorrectAnswers": [
         "OS X",
         "Linux",
-        "iOS"
+        "IOS"
       ]
     },
     {
@@ -257,9 +257,9 @@
       "complexity": 2,
       "correctAnswer": "SmartPhones",
       "incorrectAnswers": [
-        "tablets",
-        "iPods",
-        "laptops"
+        "Tablets",
+        "IPods",
+        "Laptops"
       ]
     },
     {
@@ -267,9 +267,9 @@
       "complexity": 2,
       "correctAnswer": "Tablet",
       "incorrectAnswers": [
-        "notebook",
-        "iPhone",
-        "laptop"
+        "Notebook",
+        "IPhone",
+        "Laptop"
       ]
     },
     {
@@ -277,9 +277,9 @@
       "complexity": 2,
       "correctAnswer": "Tablet",
       "incorrectAnswers": [
-        "laptop",
-        "desktop",
-        "iPod"
+        "Laptop",
+        "Desktop",
+        "IPod"
       ]
     },
     {
@@ -287,9 +287,9 @@
       "complexity": 2,
       "correctAnswer": "Tablet",
       "incorrectAnswers": [
-        "laptop",
-        "desktop",
-        "iPod"
+        "Laptop",
+        "Desktop",
+        "IPod"
       ]
     },
     {
@@ -297,9 +297,9 @@
       "complexity": 2,
       "correctAnswer": "Laptop",
       "incorrectAnswers": [
-        "tablet",
-        "smart phone",
-        "iPod"
+        "Tablet",
+        "Smart phone",
+        "IPod"
       ]
     },
     {
@@ -337,8 +337,8 @@
       "complexity": 2,
       "correctAnswer": "Whatsapp",
       "incorrectAnswers": [
-        "facebook messenger",
-        "kakao",
+        "Facebook messenger",
+        "Kakao",
         "WeChat"
       ]
     },
@@ -378,8 +378,8 @@
       "correctAnswer": "More than 500 million",
       "incorrectAnswers": [
         "More than 700 million",
-        "less than 500 million",
-        "over 1 billion"
+        "Less than 500 million",
+        "Over 1 billion"
       ]
     },
     {
@@ -547,9 +547,9 @@
       "complexity": 3,
       "correctAnswer": "More than 5 million",
       "incorrectAnswers": [
-        "more than 7 million",
-        "more than 2 million",
-        "more than 10 million"
+        "More than 7 million",
+        "More than 2 million",
+        "More than 10 million"
       ]
     },
     {
@@ -567,9 +567,9 @@
       "complexity": 3,
       "correctAnswer": "More than 4 billion",
       "incorrectAnswers": [
-        "more than 5 billion",
-        "more than 2 billion",
-        "less than 1 billion"
+        "More than 5 billion",
+        "More than 2 billion",
+        "Less than 1 billion"
       ]
     },
     {
@@ -577,9 +577,9 @@
       "complexity": 3,
       "correctAnswer": "More than 85,000",
       "incorrectAnswers": [
-        "more than 100,000",
-        "less than 50,000",
-        "exactly 70,000"
+        "More than 100,000",
+        "Less than 50,000",
+        "Exactly 70,000"
       ]
     },
     {
@@ -728,8 +728,8 @@
       "correctAnswer": "More than 100 million",
       "incorrectAnswers": [
         "More than 200 million",
-        "more than 300 million",
-        "more than 400 million"
+        "More than 300 million",
+        "More than 400 million"
       ]
     },
     {
@@ -789,7 +789,7 @@
       "incorrectAnswers": [
         "HDMI port",
         "AC port",
-        "back port"
+        "Back port"
       ]
     },
     {
@@ -807,9 +807,9 @@
       "complexity": 4,
       "correctAnswer": "Printer",
       "incorrectAnswers": [
-        "scanner",
-        "projector",
-        "hard drive"
+        "Scanner",
+        "Projector",
+        "Hard drive"
       ]
     },
     {
@@ -817,9 +817,9 @@
       "complexity": 4,
       "correctAnswer": "Scanner",
       "incorrectAnswers": [
-        "printer",
-        "projector",
-        "hard drive"
+        "Printer",
+        "Projector",
+        "Hard drive"
       ]
     },
     {
@@ -827,9 +827,9 @@
       "complexity": 4,
       "correctAnswer": "Browsers",
       "incorrectAnswers": [
-        "internets",
-        "tabs",
-        "windows"
+        "Internets",
+        "Tabs",
+        "Windows"
       ]
     },
     {
@@ -839,7 +839,7 @@
       "incorrectAnswers": [
         "Making spreadsheets",
         "Making presentations",
-        "learning new words"
+        "Learning new words"
       ]
     },
     {
@@ -848,7 +848,7 @@
       "correctAnswer": "Making spreadsheets",
       "incorrectAnswers": [
         "Making presentations",
-        "learning new words",
+        "Learning new words",
         "Typing word documents"
       ]
     },
@@ -857,7 +857,7 @@
       "complexity": 4,
       "correctAnswer": "Making presentations",
       "incorrectAnswers": [
-        "learning new words",
+        "Learning new words",
         "Typing word documents",
         "Making spreadsheets"
       ]
@@ -887,7 +887,7 @@
       "complexity": 4,
       "correctAnswer": "Web address",
       "incorrectAnswers": [
-        "typing program",
+        "Typing program",
         "OS system",
         "Computer brand"
       ]
@@ -898,8 +898,8 @@
       "correctAnswer": "Harmful program",
       "incorrectAnswers": [
         "OS system",
-        "computer cleaner",
-        "internet page"
+        "Computer cleaner",
+        "Internet page"
       ]
     },
     {
@@ -907,9 +907,9 @@
       "complexity": 4,
       "correctAnswer": "Operating system",
       "incorrectAnswers": [
-        "old system",
-        "operating sale",
-        "operating slate"
+        "Old system",
+        "Operating sale",
+        "Operating slate"
       ]
     },
     {
@@ -919,7 +919,7 @@
       "incorrectAnswers": [
         "Fast and Quality",
         "Frequently aligned questions",
-        "fast aligned quality"
+        "Fast aligned quality"
       ]
     },
     {
@@ -928,8 +928,8 @@
       "correctAnswer": "High definition television",
       "incorrectAnswers": [
         "High depiction television",
-        "high delinquent television",
-        "high dissolved television"
+        "High delinquent television",
+        "High dissolved television"
       ]
     },
     {
@@ -947,9 +947,9 @@
       "complexity": 4,
       "correctAnswer": "Universal serial bus",
       "incorrectAnswers": [
-        "universal slate bus",
-        "united serial bus",
-        "united slate bus"
+        "Universal slate bus",
+        "United serial bus",
+        "United slate bus"
       ]
     },
     {
@@ -957,9 +957,9 @@
       "complexity": 4,
       "correctAnswer": "Memory on the computer",
       "incorrectAnswers": [
-        "speed of computer",
-        "size of computer",
-        "cord to computer"
+        "Speed of computer",
+        "Size of computer",
+        "Cord to computer"
       ]
     },
     {
@@ -968,7 +968,7 @@
       "correctAnswer": "Somewhere to store files outside of the computer",
       "incorrectAnswers": [
         "Something to plug your computer into the television",
-        "an extra battery for your computer",
+        "An extra battery for your computer",
         "A way to connect your computer to a printer"
       ]
     },
@@ -1005,101 +1005,101 @@
     {
       "text": "What does “b” stand for with computers?",
       "complexity": 5,
-      "correctAnswer": "bit",
+      "correctAnswer": "Bit",
       "incorrectAnswers": [
-        "byte",
-        "bittat",
-        "bite"
+        "Byte",
+        "Bittat",
+        "Bite"
       ]
     },
     {
       "text": "What does “B” stand for with computers?",
       "complexity": 5,
-      "correctAnswer": "byte",
+      "correctAnswer": "Byte",
       "incorrectAnswers": [
-        "bite",
-        "bit",
-        "bete"
+        "Bite",
+        "Bit",
+        "Bete"
       ]
     },
     {
       "text": "What does “KB” stand for with computers?",
       "complexity": 5,
-      "correctAnswer": "kilobyte",
+      "correctAnswer": "Kilobyte",
       "incorrectAnswers": [
-        "kilobit",
-        "kilobat",
-        "kilobete"
+        "Kilobit",
+        "Kilobat",
+        "Kilobete"
       ]
     },
     {
       "text": "What does “MB” stand for with computers?",
       "complexity": 5,
-      "correctAnswer": "megabyte",
+      "correctAnswer": "Megabyte",
       "incorrectAnswers": [
-        "megabit",
-        "megabete",
-        "megabiit"
+        "Megabit",
+        "Megabete",
+        "Megabiit"
       ]
     },
     {
       "text": "What does “GB” stand for with computers?",
       "complexity": 5,
-      "correctAnswer": "gigabyte",
+      "correctAnswer": "Gigabyte",
       "incorrectAnswers": [
-        "gigabit",
-        "gigabete",
-        "gigabiit"
+        "Gigabit",
+        "Gigabete",
+        "Gigabiit"
       ]
     },
     {
       "text": "What does “TB” stand for with computers?",
       "complexity": 5,
-      "correctAnswer": "terabyte",
+      "correctAnswer": "Terabyte",
       "incorrectAnswers": [
-        "terabit",
-        "terabete",
-        "terabitat"
+        "Terabit",
+        "Terabete",
+        "Terabitat"
       ]
     },
     {
       "text": "What does “Kb” stand for with computers?",
       "complexity": 5,
-      "correctAnswer": "kilobit",
+      "correctAnswer": "Kilobit",
       "incorrectAnswers": [
-        "kilobyte",
-        "kilobete",
-        "kilobat"
+        "Kilobyte",
+        "Kilobete",
+        "Kilobat"
       ]
     },
     {
       "text": "What does “Mb” stand for with computers?",
       "complexity": 5,
-      "correctAnswer": "megabit",
+      "correctAnswer": "Megabit",
       "incorrectAnswers": [
-        "megabyte",
-        "megabelt",
-        "megabitat"
+        "Megabyte",
+        "Megabelt",
+        "Megabitat"
       ]
     },
     {
       "text": "What does “Gb” stand for with computers?",
       "complexity": 5,
-      "correctAnswer": "gigabit",
+      "correctAnswer": "Gigabit",
       "incorrectAnswers": [
-        "gigabyte",
-        "gigabelt",
-        "gigabitat"
+        "Gigabyte",
+        "Gigabelt",
+        "Gigabitat"
       ]
     },
     {
       "text": "What does “Tb” stand for with computers?",
       "complexity": 5,
-      "correctAnswer": "terabit",
+      "correctAnswer": "Terabit",
       "incorrectAnswers": [
-        "terabyte",
-        "terabelt",
-        "terabitat"
+        "Terabyte",
+        "Terabelt",
+        "Terabitat"
       ]
     },
     {
@@ -1145,21 +1145,21 @@
     {
       "text": "What piece of the computer makes the calculations very fast?",
       "complexity": 5,
-      "correctAnswer": "microprocessor",
+      "correctAnswer": "Microprocessor",
       "incorrectAnswers": [
-        "macroporcessor",
-        "processor",
-        "antiprocessor"
+        "Macroporcessor",
+        "Processor",
+        "Antiprocessor"
       ]
     },
     {
       "text": "What does the fan do inside the computer?",
       "complexity": 5,
-      "correctAnswer": "keeps it cool",
+      "correctAnswer": "Keeps it cool",
       "incorrectAnswers": [
-        "keeps it hot",
-        "keeps it on",
-        "keeps it quiet"
+        "Keeps it hot",
+        "Keeps it on",
+        "Keeps it quiet"
       ]
     },
     {
@@ -1185,11 +1185,11 @@
     {
       "text": "What material was the first computer mouse made out of?",
       "complexity": 5,
-      "correctAnswer": "wood",
+      "correctAnswer": "Wood",
       "incorrectAnswers": [
-        "metal",
-        "plastic",
-        "yarn"
+        "Metal",
+        "Plastic",
+        "Yarn"
       ]
     },
     {
@@ -1215,41 +1215,41 @@
     {
       "text": "What other objects have microprocessors?",
       "complexity": 5,
-      "correctAnswer": "cars",
+      "correctAnswer": "Cars",
       "incorrectAnswers": [
-        "beds",
-        "dryers",
-        "hair curlers"
+        "Beds",
+        "Dryers",
+        "Hair curlers"
       ]
     },
     {
       "text": "What is the word for telling your computer what to do?",
       "complexity": 5,
-      "correctAnswer": "command",
+      "correctAnswer": "Command",
       "incorrectAnswers": [
-        "task",
-        "question",
-        "help"
+        "Task",
+        "Question",
+        "Help"
       ]
     },
     {
       "text": "A command is what?",
       "complexity": 5,
-      "correctAnswer": "input",
+      "correctAnswer": "Input",
       "incorrectAnswers": [
-        "output",
-        "extraput",
-        "tenput"
+        "Output",
+        "Extraput",
+        "Tenput"
       ]
     },
     {
       "text": "When you enter a command, the computer does something, this is the ______.",
       "complexity": 5,
-      "correctAnswer": "output",
+      "correctAnswer": "Output",
       "incorrectAnswers": [
-        "input",
-        "extraput",
-        "tenput"
+        "Input",
+        "Extraput",
+        "Tenput"
       ]
     }
   ]

@@ -7,9 +7,9 @@
       "complexity": 1,
       "correctAnswer": "Eyes​",
       "incorrectAnswers": [
-        "nose",
-        "mouth",
-        "ears"
+        "Nose",
+        "Mouth",
+        "Ears"
       ]
     },
     {
@@ -17,9 +17,9 @@
       "complexity": 1,
       "correctAnswer": "​Nose​",
       "incorrectAnswers": [
-        "eyes",
-        "mouth",
-        "ears"
+        "Eyes",
+        "Mouth",
+        "Ears"
       ]
     },
     {
@@ -27,9 +27,9 @@
       "complexity": 1,
       "correctAnswer": "​Mouth​",
       "incorrectAnswers": [
-        "hands",
-        "nose",
-        "eyes"
+        "Hands",
+        "Nose",
+        "Eyes"
       ]
     },
     {
@@ -37,9 +37,9 @@
       "complexity": 1,
       "correctAnswer": "Ears​",
       "incorrectAnswers": [
-        "eyes",
-        "arms",
-        "nose"
+        "Eyes",
+        "Arms",
+        "Nose"
       ]
     },
     {
@@ -47,9 +47,9 @@
       "complexity": 1,
       "correctAnswer": "Hands​",
       "incorrectAnswers": [
-        "legs",
-        "head",
-        "teeth"
+        "Legs",
+        "Head",
+        "Teeth"
       ]
     },
     {
@@ -57,9 +57,9 @@
       "complexity": 1,
       "correctAnswer": "​Head​",
       "incorrectAnswers": [
-        "shoulders",
-        "stomach",
-        "feet"
+        "Shoulders",
+        "Stomach",
+        "Feet"
       ]
     },
     {
@@ -67,9 +67,9 @@
       "complexity": 1,
       "correctAnswer": "​Arms​",
       "incorrectAnswers": [
-        "legs",
-        "feet",
-        "head"
+        "Legs",
+        "Feet",
+        "Head"
       ]
     },
     {
@@ -77,9 +77,9 @@
       "complexity": 1,
       "correctAnswer": "Feet​",
       "incorrectAnswers": [
-        "knees",
-        "elbows",
-        "hands"
+        "Knees",
+        "Elbows",
+        "Hands"
       ]
     },
     {
@@ -87,9 +87,9 @@
       "complexity": 1,
       "correctAnswer": "​Legs​",
       "incorrectAnswers": [
-        "arms",
-        "hands",
-        "back"
+        "Arms",
+        "Hands",
+        "Back"
       ]
     },
     {
@@ -97,9 +97,9 @@
       "complexity": 1,
       "correctAnswer": "Butt​",
       "incorrectAnswers": [
-        "back",
-        "stomach",
-        "hips"
+        "Back",
+        "Stomach",
+        "Hips"
       ]
     },
     {
@@ -107,9 +107,9 @@
       "complexity": 1,
       "correctAnswer": "Back​",
       "incorrectAnswers": [
-        "legs",
-        "chest",
-        "head"
+        "Legs",
+        "Chest",
+        "Head"
       ]
     },
     {
@@ -117,9 +117,9 @@
       "complexity": 1,
       "correctAnswer": "Toes​",
       "incorrectAnswers": [
-        "fingers",
-        "ankles",
-        "hips"
+        "Fingers",
+        "Ankles",
+        "Hips"
       ]
     },
     {
@@ -127,9 +127,9 @@
       "complexity": 1,
       "correctAnswer": "Fingers​",
       "incorrectAnswers": [
-        "toes",
-        "wrists",
-        "elbows"
+        "Toes",
+        "Wrists",
+        "Elbows"
       ]
     },
     {
@@ -137,9 +137,9 @@
       "complexity": 1,
       "correctAnswer": "​Neck​",
       "incorrectAnswers": [
-        "elbow",
-        "chest",
-        "arm"
+        "Elbow",
+        "Chest",
+        "Arm"
       ]
     },
     {
@@ -147,9 +147,9 @@
       "complexity": 1,
       "correctAnswer": "​Hips​",
       "incorrectAnswers": [
-        "chest",
-        "back",
-        "thigh"
+        "Chest",
+        "Back",
+        "Thigh"
       ]
     },
     {
@@ -157,9 +157,9 @@
       "complexity": 1,
       "correctAnswer": "Knees​",
       "incorrectAnswers": [
-        "elbows",
-        "ankles",
-        "wrists"
+        "Elbows",
+        "Ankles",
+        "Wrists"
       ]
     },
     {
@@ -167,9 +167,9 @@
       "complexity": 1,
       "correctAnswer": "Elbows​",
       "incorrectAnswers": [
-        "wrists",
-        "knees",
-        "ankles"
+        "Wrists",
+        "Knees",
+        "Ankles"
       ]
     },
     {
@@ -177,9 +177,9 @@
       "complexity": 1,
       "correctAnswer": "Tongue​",
       "incorrectAnswers": [
-        "teeth",
-        "lips",
-        "ears"
+        "Teeth",
+        "Lips",
+        "Ears"
       ]
     },
     {
@@ -187,9 +187,9 @@
       "complexity": 1,
       "correctAnswer": "​Wrist​",
       "incorrectAnswers": [
-        "ankles",
-        "knees",
-        "hips"
+        "Ankles",
+        "Knees",
+        "Hips"
       ]
     },
     {
@@ -197,9 +197,9 @@
       "complexity": 1,
       "correctAnswer": "​Shoulder​",
       "incorrectAnswers": [
-        "legs",
-        "head",
-        "knees"
+        "Legs",
+        "Head",
+        "Knees"
       ]
     },
     {
@@ -207,9 +207,9 @@
       "complexity": 1,
       "correctAnswer": "Chest​",
       "incorrectAnswers": [
-        "legs",
-        "head",
-        "stomach"
+        "Legs",
+        "Head",
+        "Stomach"
       ]
     },
     {
@@ -217,9 +217,9 @@
       "complexity": 1,
       "correctAnswer": "Ankles​",
       "incorrectAnswers": [
-        "elbows",
-        "wrists",
-        "hips"
+        "Elbows",
+        "Wrists",
+        "Hips"
       ]
     },
     {
@@ -227,9 +227,9 @@
       "complexity": 1,
       "correctAnswer": "Calves​",
       "incorrectAnswers": [
-        "thighs",
-        "pelvis",
-        "stomach"
+        "Thighs",
+        "Pelvis",
+        "Stomach"
       ]
     },
     {
@@ -237,9 +237,9 @@
       "complexity": 1,
       "correctAnswer": "​Thighs​",
       "incorrectAnswers": [
-        "calves",
-        "back",
-        "forearms"
+        "Calves",
+        "Back",
+        "Forearms"
       ]
     },
     {
@@ -247,9 +247,9 @@
       "complexity": 1,
       "correctAnswer": "Pelvis​",
       "incorrectAnswers": [
-        "collarbone",
-        "shoulder",
-        "neck"
+        "Collarbone",
+        "Shoulder",
+        "Neck"
       ]
     },
     {
@@ -257,9 +257,9 @@
       "complexity": 2,
       "correctAnswer": "​Play​",
       "incorrectAnswers": [
-        "run",
-        "draw",
-        "sing"
+        "Run",
+        "Draw",
+        "Sing"
       ]
     },
     {
@@ -267,9 +267,9 @@
       "complexity": 2,
       "correctAnswer": "​Ride​",
       "incorrectAnswers": [
-        "eat",
-        "dance",
-        "jump"
+        "Eat",
+        "Dance",
+        "Jump"
       ]
     },
     {
@@ -277,9 +277,9 @@
       "complexity": 2,
       "correctAnswer": "​Draw​",
       "incorrectAnswers": [
-        "listen",
-        "eat",
-        "sleep"
+        "Listen",
+        "Eat",
+        "Sleep"
       ]
     },
     {
@@ -287,9 +287,9 @@
       "complexity": 2,
       "correctAnswer": "Listen​",
       "incorrectAnswers": [
-        "sleep",
-        "draw",
-        "play"
+        "Sleep",
+        "Draw",
+        "Play"
       ]
     },
     {
@@ -297,9 +297,9 @@
       "complexity": 2,
       "correctAnswer": "Eat​",
       "incorrectAnswers": [
-        "scare",
-        "dream",
-        "yell"
+        "Scare",
+        "Dream",
+        "Yell"
       ]
     },
     {
@@ -307,9 +307,9 @@
       "complexity": 2,
       "correctAnswer": "Bake​",
       "incorrectAnswers": [
-        "shake",
-        "cake",
-        "steal"
+        "Shake",
+        "Cake",
+        "Steal"
       ]
     },
     {
@@ -317,9 +317,9 @@
       "complexity": 2,
       "correctAnswer": "​Sing​",
       "incorrectAnswers": [
-        "scream",
-        "take",
-        "jump"
+        "Scream",
+        "Take",
+        "Jump"
       ]
     },
     {
@@ -327,9 +327,9 @@
       "complexity": 2,
       "correctAnswer": "Throw​",
       "incorrectAnswers": [
-        "run",
-        "jump",
-        "drop"
+        "Run",
+        "Jump",
+        "Drop"
       ]
     },
     {
@@ -337,9 +337,9 @@
       "complexity": 2,
       "correctAnswer": "​Sleep​",
       "incorrectAnswers": [
-        "watch",
-        "cry",
-        "sing"
+        "Watch",
+        "Cry",
+        "Sing"
       ]
     },
     {
@@ -347,9 +347,9 @@
       "complexity": 2,
       "correctAnswer": "Watch​",
       "incorrectAnswers": [
-        "sing",
-        "draw",
-        "play"
+        "Sing",
+        "Draw",
+        "Play"
       ]
     },
     {
@@ -357,9 +357,9 @@
       "complexity": 2,
       "correctAnswer": "​Study​",
       "incorrectAnswers": [
-        "see",
-        "listen",
-        "play"
+        "See",
+        "Listen",
+        "Play"
       ]
     },
     {
@@ -367,9 +367,9 @@
       "complexity": 2,
       "correctAnswer": "Clean​",
       "incorrectAnswers": [
-        "watch",
-        "study",
-        "exercise"
+        "Watch",
+        "Study",
+        "Exercise"
       ]
     },
     {
@@ -377,9 +377,9 @@
       "complexity": 2,
       "correctAnswer": "Do​",
       "incorrectAnswers": [
-        "see",
-        "eat",
-        "take"
+        "See",
+        "Eat",
+        "Take"
       ]
     },
     {
@@ -387,9 +387,9 @@
       "complexity": 2,
       "correctAnswer": "​Cook​",
       "incorrectAnswers": [
-        "bake",
-        "shake",
-        "create"
+        "Bake",
+        "Shake",
+        "Create"
       ]
     },
     {
@@ -397,9 +397,9 @@
       "complexity": 2,
       "correctAnswer": "​Look​",
       "incorrectAnswers": [
-        "watch",
-        "play",
-        "rest"
+        "Watch",
+        "Play",
+        "Rest"
       ]
     },
     {
@@ -407,9 +407,9 @@
       "complexity": 2,
       "correctAnswer": "Make​",
       "incorrectAnswers": [
-        "take",
-        "put",
-        "shove"
+        "Take",
+        "Put",
+        "Shove"
       ]
     },
     {
@@ -417,9 +417,9 @@
       "complexity": 2,
       "correctAnswer": "Says​",
       "incorrectAnswers": [
-        "tells",
-        "cries",
-        "wants"
+        "Tells",
+        "Cries",
+        "Wants"
       ]
     },
     {
@@ -427,9 +427,9 @@
       "complexity": 2,
       "correctAnswer": "Finish​",
       "incorrectAnswers": [
-        "read",
-        "study",
-        "make"
+        "Read",
+        "Study",
+        "Make"
       ]
     },
     {
@@ -437,9 +437,9 @@
       "complexity": 2,
       "correctAnswer": "​Cycle​",
       "incorrectAnswers": [
-        "bicycle",
-        "tricycle",
-        "try"
+        "Bicycle",
+        "Tricycle",
+        "Try"
       ]
     },
     {
@@ -447,9 +447,9 @@
       "complexity": 2,
       "correctAnswer": "​Exercise​",
       "incorrectAnswers": [
-        "sleep",
-        "cry",
-        "eat"
+        "Sleep",
+        "Cry",
+        "Eat"
       ]
     },
     {
@@ -457,9 +457,9 @@
       "complexity": 2,
       "correctAnswer": "​Saw​",
       "incorrectAnswers": [
-        "took",
-        "gave",
-        "sat"
+        "Took",
+        "Gave",
+        "Sat"
       ]
     },
     {
@@ -467,9 +467,9 @@
       "complexity": 2,
       "correctAnswer": "Lost​",
       "incorrectAnswers": [
-        "loved",
-        "opened",
-        "closed"
+        "Loved",
+        "Opened",
+        "Closed"
       ]
     },
     {
@@ -477,9 +477,9 @@
       "complexity": 2,
       "correctAnswer": "Closed​",
       "incorrectAnswers": [
-        "opened",
-        "broke",
-        "bought"
+        "Opened",
+        "Broke",
+        "Bought"
       ]
     },
     {
@@ -487,9 +487,9 @@
       "complexity": 2,
       "correctAnswer": "Put​",
       "incorrectAnswers": [
-        "dropped",
-        "painted",
-        "faced"
+        "Dropped",
+        "Painted",
+        "Faced"
       ]
     },
     {
@@ -497,9 +497,9 @@
       "complexity": 2,
       "correctAnswer": "​Shouted​",
       "incorrectAnswers": [
-        "danced",
-        "wrote",
-        "drew"
+        "Danced",
+        "Wrote",
+        "Drew"
       ]
     },
     {
@@ -507,59 +507,59 @@
       "complexity": 3,
       "correctAnswer": "​big​",
       "incorrectAnswers": [
-        "small",
-        "weak",
-        "tiny"
+        "Small",
+        "Weak",
+        "Tiny"
       ]
     },
     {
       "text": "That mouse is _____ enough to crawl under the door.",
       "complexity": 3,
-      "correctAnswer": "small​",
+      "correctAnswer": "Small​",
       "incorrectAnswers": [
-        "big",
-        "loud",
-        "crazy"
+        "Big",
+        "Loud",
+        "Crazy"
       ]
     },
     {
       "text": "My brother is ___________ than me.",
       "complexity": 3,
-      "correctAnswer": "taller​",
+      "correctAnswer": "Taller​",
       "incorrectAnswers": [
-        "loud",
-        "big",
-        "extra"
+        "Loud",
+        "Big",
+        "Extra"
       ]
     },
     {
       "text": "I’m too _______ to go on the ride.",
       "complexity": 3,
-      "correctAnswer": "short​",
+      "correctAnswer": "Short​",
       "incorrectAnswers": [
-        "happy",
-        "girl",
-        "smart"
+        "Happy",
+        "Girl",
+        "Smart"
       ]
     },
     {
       "text": "That dog needs more food, they’re too _____.​",
       "complexity": 3,
-      "correctAnswer": "slim​",
+      "correctAnswer": "Slim​",
       "incorrectAnswers": [
-        "fat",
-        "chubby",
-        "happy"
+        "Fat",
+        "Chubby",
+        "Happy"
       ]
     },
     {
       "text": "My cat has to go on a diet, he’s very _____.",
       "complexity": 3,
-      "correctAnswer": "fat​",
+      "correctAnswer": "Fat​",
       "incorrectAnswers": [
-        "slim",
-        "skinny",
-        "crazy"
+        "Slim",
+        "Skinny",
+        "Crazy"
       ]
     },
     {
@@ -567,9 +567,9 @@
       "complexity": 3,
       "correctAnswer": "​straight​",
       "incorrectAnswers": [
-        "curly",
-        "weak",
-        "long"
+        "Curly",
+        "Weak",
+        "Long"
       ]
     },
     {
@@ -577,9 +577,9 @@
       "complexity": 3,
       "correctAnswer": "​curly​",
       "incorrectAnswers": [
-        "straight",
-        "strong",
-        "extra"
+        "Straight",
+        "Strong",
+        "Extra"
       ]
     },
     {
@@ -587,9 +587,9 @@
       "complexity": 3,
       "correctAnswer": "​glasses​",
       "incorrectAnswers": [
-        "hats",
-        "goggles",
-        "eye masks"
+        "Hats",
+        "Goggles",
+        "Eye masks"
       ]
     },
     {
@@ -597,9 +597,9 @@
       "complexity": 3,
       "correctAnswer": "​blonde​",
       "incorrectAnswers": [
-        "sun",
-        "brown",
-        "ginger"
+        "Sun",
+        "Brown",
+        "Ginger"
       ]
     },
     {
@@ -607,9 +607,9 @@
       "complexity": 3,
       "correctAnswer": "​brown​",
       "incorrectAnswers": [
-        "blonde",
-        "red",
-        "black"
+        "Blonde",
+        "Red",
+        "Black"
       ]
     },
     {
@@ -617,39 +617,39 @@
       "complexity": 3,
       "correctAnswer": "​red​",
       "incorrectAnswers": [
-        "black",
-        "brown",
-        "blue"
+        "Black",
+        "Brown",
+        "Blue"
       ]
     },
     {
       "text": "I love _______ eyes, they remind me of the ocean.",
       "complexity": 3,
-      "correctAnswer": "blue​",
+      "correctAnswer": "Blue​",
       "incorrectAnswers": [
-        "brown",
-        "hazel",
-        "green"
+        "Brown",
+        "Hazel",
+        "Green"
       ]
     },
     {
       "text": "______ eyes are so interesting, because they have many colors.",
       "complexity": 3,
-      "correctAnswer": "hazel​",
+      "correctAnswer": "Hazel​",
       "incorrectAnswers": [
-        "blue",
-        "green",
-        "brown"
+        "Blue",
+        "Green",
+        "Brown"
       ]
     },
     {
       "text": "My mom is so _______, she’s a doctor!",
       "complexity": 3,
-      "correctAnswer": "smart​",
+      "correctAnswer": "Smart​",
       "incorrectAnswers": [
-        "lazy",
-        "careless",
-        "stupid"
+        "Lazy",
+        "Careless",
+        "Stupid"
       ]
     },
     {
@@ -657,9 +657,9 @@
       "complexity": 3,
       "correctAnswer": "​lazy​",
       "incorrectAnswers": [
-        "stupid",
-        "intelligent",
-        "hardworking"
+        "Stupid",
+        "Intelligent",
+        "Hardworking"
       ]
     },
     {
@@ -667,9 +667,9 @@
       "complexity": 3,
       "correctAnswer": "​funny​",
       "incorrectAnswers": [
-        "smart",
-        "hardworking",
-        "talented"
+        "Smart",
+        "Hardworking",
+        "Talented"
       ]
     },
     {
@@ -677,19 +677,19 @@
       "complexity": 3,
       "correctAnswer": "​talented​",
       "incorrectAnswers": [
-        "crazy",
-        "outgoing",
-        "lazy"
+        "Crazy",
+        "Outgoing",
+        "Lazy"
       ]
     },
     {
       "text": "If you want to go to university, you have to be ____________.",
       "complexity": 3,
-      "correctAnswer": "hardworking​",
+      "correctAnswer": "Hardworking​",
       "incorrectAnswers": [
-        "shy",
-        "creative",
-        "outgoing"
+        "Shy",
+        "Creative",
+        "Outgoing"
       ]
     },
     {
@@ -697,9 +697,9 @@
       "complexity": 3,
       "correctAnswer": "​intelligent​",
       "incorrectAnswers": [
-        "lazy",
-        "stupid",
-        "crazy"
+        "Lazy",
+        "Stupid",
+        "Crazy"
       ]
     },
     {
@@ -707,59 +707,59 @@
       "complexity": 3,
       "correctAnswer": "​outgoing​",
       "incorrectAnswers": [
-        "shy",
-        "creative",
-        "intelligent"
+        "Shy",
+        "Creative",
+        "Intelligent"
       ]
     },
     {
       "text": "It’s hard for me to meet new people because I’m _______.",
       "complexity": 3,
-      "correctAnswer": "shy​",
+      "correctAnswer": "Shy​",
       "incorrectAnswers": [
-        "outgoing",
-        "creative",
-        "lazy"
+        "Outgoing",
+        "Creative",
+        "Lazy"
       ]
     },
     {
       "text": "That new invention is so ____________.",
       "complexity": 3,
-      "correctAnswer": "creative​",
+      "correctAnswer": "Creative​",
       "incorrectAnswers": [
-        "beautiful",
-        "shy",
-        "blue"
+        "Beautiful",
+        "Shy",
+        "Blue"
       ]
     },
     {
       "text": "They were able to finish many things in one day because they’re __________.",
       "complexity": 3,
-      "correctAnswer": "efficient​",
+      "correctAnswer": "Efficient​",
       "incorrectAnswers": [
-        "lazy",
-        "hardworking",
-        "smart"
+        "Lazy",
+        "Hardworking",
+        "Smart"
       ]
     },
     {
       "text": "My mom always knows when I’m upset, she’s very _____________.",
       "complexity": 3,
-      "correctAnswer": "intuitive​",
+      "correctAnswer": "Intuitive​",
       "incorrectAnswers": [
-        "hardworking",
-        "creative",
-        "efficient"
+        "Hardworking",
+        "Creative",
+        "Efficient"
       ]
     },
     {
       "text": "What do we call someone who keeps our community safe?",
       "complexity": 4,
-      "correctAnswer": "police officer​",
+      "correctAnswer": "Police officer​",
       "incorrectAnswers": [
-        "doctor",
-        "cook",
-        "nurse"
+        "Doctor",
+        "Cook",
+        "Nurse"
       ]
     },
     {
@@ -767,9 +767,9 @@
       "complexity": 4,
       "correctAnswer": "​doctor​",
       "incorrectAnswers": [
-        "police officer",
-        "teacher",
-        "fire fighter"
+        "Police officer",
+        "Teacher",
+        "Fire fighter"
       ]
     },
     {
@@ -777,19 +777,19 @@
       "complexity": 4,
       "correctAnswer": "​nurses​",
       "incorrectAnswers": [
-        "teachers",
-        "actors",
-        "chefs"
+        "Teachers",
+        "Actors",
+        "Chefs"
       ]
     },
     {
       "text": "Who do we see in our classrooms?",
       "complexity": 4,
-      "correctAnswer": "teachers​",
+      "correctAnswer": "Teachers​",
       "incorrectAnswers": [
-        "authors",
-        "lawyers",
-        "nurses"
+        "Authors",
+        "Lawyers",
+        "Nurses"
       ]
     },
     {
@@ -797,29 +797,29 @@
       "complexity": 4,
       "correctAnswer": "​fire fighters​",
       "incorrectAnswers": [
-        "actors",
-        "artists",
-        "politicians"
+        "Actors",
+        "Artists",
+        "Politicians"
       ]
     },
     {
       "text": "Who are the people in movies and television?",
       "complexity": 4,
-      "correctAnswer": "actors​",
+      "correctAnswer": "Actors​",
       "incorrectAnswers": [
-        "doctors",
-        "musicians",
-        "politicians"
+        "Doctors",
+        "Musicians",
+        "Politicians"
       ]
     },
     {
       "text": "Who are the people that make food in restaurants?",
       "complexity": 4,
-      "correctAnswer": "chefs​",
+      "correctAnswer": "Chefs​",
       "incorrectAnswers": [
-        "servers",
-        "artists",
-        "managers"
+        "Servers",
+        "Artists",
+        "Managers"
       ]
     },
     {
@@ -827,19 +827,19 @@
       "complexity": 4,
       "correctAnswer": "​lawyers​",
       "incorrectAnswers": [
-        "authors",
-        "police officers",
-        "politicians"
+        "Authors",
+        "Police officers",
+        "Politicians"
       ]
     },
     {
       "text": "Who are the people that write books?",
       "complexity": 4,
-      "correctAnswer": "authors​",
+      "correctAnswer": "Authors​",
       "incorrectAnswers": [
-        "directors",
-        "sculptors",
-        "teachers"
+        "Directors",
+        "Sculptors",
+        "Teachers"
       ]
     },
     {
@@ -847,19 +847,19 @@
       "complexity": 4,
       "correctAnswer": "​artists​",
       "incorrectAnswers": [
-        "musicians",
-        "teachers",
-        "lawyers"
+        "Musicians",
+        "Teachers",
+        "Lawyers"
       ]
     },
     {
       "text": "Who are the people that make music?",
       "complexity": 4,
-      "correctAnswer": "musicians​",
+      "correctAnswer": "Musicians​",
       "incorrectAnswers": [
-        "comedians",
-        "athletes",
-        "actors"
+        "Comedians",
+        "Athletes",
+        "Actors"
       ]
     },
     {
@@ -867,19 +867,19 @@
       "complexity": 4,
       "correctAnswer": "​comedians​",
       "incorrectAnswers": [
-        "actors",
-        "musicians",
-        "athletes"
+        "Actors",
+        "Musicians",
+        "Athletes"
       ]
     },
     {
       "text": "Who are the people that play sports?",
       "complexity": 4,
-      "correctAnswer": "athletes​",
+      "correctAnswer": "Athletes​",
       "incorrectAnswers": [
-        "comedians",
-        "actors",
-        "heroes"
+        "Comedians",
+        "Actors",
+        "Heroes"
       ]
     },
     {
@@ -887,9 +887,9 @@
       "complexity": 4,
       "correctAnswer": "​politicians​",
       "incorrectAnswers": [
-        "lawyers",
-        "police officers",
-        "secretaries"
+        "Lawyers",
+        "Police officers",
+        "Secretaries"
       ]
     },
     {
@@ -897,19 +897,19 @@
       "complexity": 4,
       "correctAnswer": "​president​",
       "incorrectAnswers": [
-        "lawyers",
-        "doctors",
-        "scientists"
+        "Lawyers",
+        "Doctors",
+        "Scientists"
       ]
     },
     {
       "text": "What hobby uses yarn and needles?",
       "complexity": 4,
-      "correctAnswer": "knitting​",
+      "correctAnswer": "Knitting​",
       "incorrectAnswers": [
-        "drawing",
-        "sculpting",
-        "archery"
+        "Drawing",
+        "Sculpting",
+        "Archery"
       ]
     },
     {
@@ -917,39 +917,39 @@
       "complexity": 4,
       "correctAnswer": "​drawing​",
       "incorrectAnswers": [
-        "painting",
-        "knitting",
-        "sculpting"
+        "Painting",
+        "Knitting",
+        "Sculpting"
       ]
     },
     {
       "text": "What hobby takes place in the kitchen?",
       "complexity": 4,
-      "correctAnswer": "cooking​",
+      "correctAnswer": "Cooking​",
       "incorrectAnswers": [
-        "gardening",
-        "knitting",
-        "drawing"
+        "Gardening",
+        "Knitting",
+        "Drawing"
       ]
     },
     {
       "text": "What hobby takes place in a library?",
       "complexity": 4,
-      "correctAnswer": "reading​",
+      "correctAnswer": "Reading​",
       "incorrectAnswers": [
-        "cooking",
-        "gardening",
-        "archery"
+        "Cooking",
+        "Gardening",
+        "Archery"
       ]
     },
     {
       "text": "What hobby is like video games, but in real life?",
       "complexity": 4,
-      "correctAnswer": "board games​",
+      "correctAnswer": "Board games​",
       "incorrectAnswers": [
-        "mobile games",
-        "bowling",
-        "baseball"
+        "Mobile games",
+        "Bowling",
+        "Baseball"
       ]
     },
     {
@@ -957,9 +957,9 @@
       "complexity": 4,
       "correctAnswer": "​play games​",
       "incorrectAnswers": [
-        "knit",
-        "sing",
-        "bowl"
+        "Knit",
+        "Sing",
+        "Bowl"
       ]
     },
     {
@@ -967,19 +967,19 @@
       "complexity": 4,
       "correctAnswer": "​hiking​",
       "incorrectAnswers": [
-        "watching movies",
-        "pottery",
-        "sewing"
+        "Watching movies",
+        "Pottery",
+        "Sewing"
       ]
     },
     {
       "text": "What do we call the hobby of growing new plants?",
       "complexity": 4,
-      "correctAnswer": "gardening​",
+      "correctAnswer": "Gardening​",
       "incorrectAnswers": [
-        "sewing",
-        "pottery",
-        "cooking"
+        "Sewing",
+        "Pottery",
+        "Cooking"
       ]
     },
     {
@@ -987,19 +987,19 @@
       "complexity": 4,
       "correctAnswer": "​sewing​",
       "incorrectAnswers": [
-        "board games",
-        "reading",
-        "pottery"
+        "Board games",
+        "Reading",
+        "Pottery"
       ]
     },
     {
       "text": "What do we call the hobby of making your own bowls and cups?",
       "complexity": 4,
-      "correctAnswer": "pottery​",
+      "correctAnswer": "Pottery​",
       "incorrectAnswers": [
-        "sewing",
-        "knitting",
-        "drawing"
+        "Sewing",
+        "Knitting",
+        "Drawing"
       ]
     }
   ]

@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "webpack-dev-server --config webpack/base.js --open",
     "deploy": "webpack --config webpack/prod.js",
-    "convert": "node ./question_converter/convert.js"
+    "convert": "node ./question_converter/convert.js",
+    "capitalize": "node ./question_converter/capitalize.js"
   },
   "author": "Marshall Cannon",
   "license": "ISC",
