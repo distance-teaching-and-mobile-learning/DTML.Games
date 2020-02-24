@@ -55,7 +55,7 @@ export default class Questions extends Phaser.Scene {
       button.text = this.add.text(buttonX, buttonY, '', {fontFamily: 'Acme', fontSize: 32, color: '0x000000'}).setOrigin(0.5, 0.5)
       button.setInteractive({ useHandCursor: true })
       button.on('pointerdown', function () {
-        this.parentScene.submitAnswer(button.correct)
+        this.parentScene.submitAnswer(button)
       }, this)
       button.on('pointerover', function () {
         button.setFrame(1)
@@ -160,6 +160,60 @@ export default class Questions extends Phaser.Scene {
       array[j] = temp
     }
     return array
+
+  }
+
+  flashGreen (button) {
+
+    this.flashColor(button, 2)
+
+  }
+
+  flashRed (button) {
+
+    this.flashColor(button, 3)
+
+  }
+
+  flashColor (button, frameNumber) {
+
+    let flashSpeed = 150
+
+    this.time.delayedCall(flashSpeed, function () {
+      button.setFrame(frameNumber)
+    })
+    this.time.delayedCall(flashSpeed * 2, function () {
+      button.setFrame(0)
+    })
+    this.time.delayedCall(flashSpeed * 3, function () {
+      button.setFrame(frameNumber)
+    })
+    this.time.delayedCall(flashSpeed * 4, function () {
+      button.setFrame(0)
+    })
+    this.time.delayedCall(flashSpeed * 5, function () {
+      button.setFrame(frameNumber)
+    })
+
+  }
+
+  highlightCorrectButton () {
+
+    for (let i = 0; i < this.answerButtons.length; i++) {
+      if (this.answerButtons[i].correct) {
+        this.answerButtons[i].setFrame(2)
+      }
+    }
+
+  }
+
+  resetAnswerButtons () {
+
+    for (let i = 0; i < this.answerButtons.length; i++) {
+      if (this.answerButtons[i].correct) {
+        this.answerButtons[i].setFrame(0)
+      }
+    }
 
   }
 

@@ -169,23 +169,33 @@ export default class QuizScene extends Phaser.Scene {
 
   }
 
-  submitAnswer (correct) {
+  submitAnswer (button) {
     
     this.stopTimer()
+    this.questionBoard.input.enabled = false
 
-    if (correct) {
+    if (button.correct) {
+      this.questionBoard.flashGreen(button)
       this.score += this.moneyBoard.scoreValues[this.questionNumber - 1]
-      // Game won!
-      if (this.questionNumber === 15) {
-        this.gameWon()
-      // Next question
-      } else {
-        this.nextQuestion()
-        this.moneyBoard.advanceMoneyBoard()
-        this.hideTimer()
-      }
+      this.time.delayedCall(2000, function () {
+        // Game won!
+        if (this.questionNumber === 15) {
+          this.gameWon()
+        // Next question
+        } else {
+          this.nextQuestion()
+          this.moneyBoard.advanceMoneyBoard()
+          this.hideTimer()
+        }
+      }, [], this)
     } else {
-      this.gameOver()
+      this.questionBoard.flashRed(button)
+      this.time.delayedCall(1500, function () {
+        this.questionBoard.highlightCorrectButton()
+      }, [], this)
+      this.time.delayedCall(2500, function () {
+        this.gameOver()
+      }, [], this)
     }
 
   }
@@ -194,6 +204,7 @@ export default class QuizScene extends Phaser.Scene {
 
     this.questionNumber++
     let nextQuestion = this.chooseQuestion(Math.ceil(this.questionNumber / 3))
+    this.questionBoard.resetAnswerButtons()
     this.questionBoard.updateQuestionText(nextQuestion)
 
   }
