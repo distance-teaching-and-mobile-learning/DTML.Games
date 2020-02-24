@@ -54,7 +54,13 @@ export default class ResultsScreen extends Phaser.Scene {
 
   update () {
     
-    this.scoreText.setText('Score: ' + Math.floor(this.animatedScoreValue))
+    this.scoreText.setText('Score: ' + this.formatScore(Math.floor(this.animatedScoreValue)))
+
+  }
+
+  formatScore (score) {
+
+    return score.toLocaleString()
 
   }
 
