@@ -19,7 +19,7 @@ export default class BootScene extends Phaser.Scene {
     // this.load.video('intro', introVideo)
 
     // DTML Logo
-    let dtmlLogo = require('../assets/images/dtml_logo.png')
+    let dtmlLogo = require('../assets/images/logobackground.png')
     this.load.image('dtmlLogo', dtmlLogo)
 
   }
@@ -54,25 +54,13 @@ export default class BootScene extends Phaser.Scene {
     //   this.videoDone = true
     // }, this)
 
-    let introLogo = this.add.image(centerX, centerY, 'dtmlLogo')
-    this.time.delayedCall(4000, function () {
-      this.scene.start('load')
-    }, [], this)
-
-    // Click to skip
-    // this.input.on('pointerdown', function () {
-    //   if (this.fontsLoaded) {
-    //     this.scene.start('load')
-    //   }
-    // }, this)
-
   }
 
   update () {
 
-    // if (this.fontsLoaded) {
-    //   this.scene.start('load')
-    // }
+    if (this.fontsLoaded) {
+      this.scene.start('load')
+    }
 
   }
 

@@ -6,11 +6,6 @@ export default class LoadScene extends Phaser.Scene {
 
   preload () {
 
-    // Go to the menu when done loading assets
-    this.load.on('complete', function () {
-      this.scene.start('menu')
-    }, this)
-
     let startButton = require('../assets/images/startButton.png')
     this.load.image('startButton', startButton)
 
@@ -54,7 +49,43 @@ export default class LoadScene extends Phaser.Scene {
 
   create () {
 
-    this.add.text(100, 100, 'Loading...', {fontFamily: 'Acme'})
+    let centerX = this.cameras.main.width / 2
+    let centerY = this.cameras.main.height / 2
+
+    this.introLogo = this.add.image(centerX, centerY, 'dtmlLogo')
+    this.introLogo.alpha = 0
+    this.tweens.add({
+      targets: this.introLogo,
+      alpha: 1,
+      duration: 500
+    })
+
+    // Start the menu after a timer
+    this.time.delayedCall(2000, function () {
+      this.openMenu()
+    }, [], this)
+
+    // Click to skip
+    this.input.on('pointerdown', function () {
+      // If loading is complete
+      if (this.load.progress === 1 && this.introLogo.alpha === 1) {
+        this.openMenu()
+      }
+    }, this)
+
+  }
+
+  openMenu () {
+
+    let _this = this
+    this.tweens.add({
+      targets: this.introLogo,
+      alpha: 0,
+      duration: 500,
+      onComplete: function () {
+        _this.scene.start('menu')
+      }
+    })
 
   }
 

@@ -343,7 +343,7 @@
       ]
     },
     {
-      "text": ".Find the missing word: They like to ______ movies together.",
+      "text": "Find the missing word: They like to ______ movies together.",
       "complexity": 2,
       "correctAnswer": "Watch​",
       "incorrectAnswers": [

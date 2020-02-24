@@ -11,8 +11,11 @@ const config = {
   width: 1000,
   height: 700,
   pixelArt: false,
-  backgroundColor: '#DCDCC8',
-  scene: [BootScene, LoadScene, MenuScene, CategoriesScene, QuizScene]
+  backgroundColor: '#000000',
+  scene: [BootScene, LoadScene, MenuScene, CategoriesScene, QuizScene],
+  scale: {
+    mode: Phaser.Scale.FIT
+  }
 }
 
 window.game = new Phaser.Game(config)
