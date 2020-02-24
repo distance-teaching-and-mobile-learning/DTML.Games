@@ -14,8 +14,13 @@ export default class BootScene extends Phaser.Scene {
     // Google webfont
     this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 
-    let introVideo = require('../assets/video/intro.webm')
-    this.load.video('intro', introVideo)
+    // DTMl Intro Video
+    // let introVideo = require('../assets/video/intro.webm')
+    // this.load.video('intro', introVideo)
+
+    // DTML Logo
+    let dtmlLogo = require('../assets/images/dtml_logo.png')
+    this.load.image('dtmlLogo', dtmlLogo)
 
   }
 
@@ -42,27 +47,32 @@ export default class BootScene extends Phaser.Scene {
     })
 
     // Play DTML video
-    let introVideo = this.add.video(centerX, centerY, 'intro')
-    introVideo.setMute(true)
-    introVideo.play(false)
-    introVideo.on('complete', function () {
-      this.videoDone = true
-    }, this)
+    // let introVideo = this.add.video(centerX, centerY, 'intro')
+    // introVideo.setMute(true)
+    // introVideo.play(false)
+    // introVideo.on('complete', function () {
+    //   this.videoDone = true
+    // }, this)
+
+    let introLogo = this.add.image(centerX, centerY, 'dtmlLogo')
+    this.time.delayedCall(4000, function () {
+      this.scene.start('load')
+    }, [], this)
 
     // Click to skip
-    this.input.on('pointerdown', function () {
-      if (this.fontsLoaded) {
-        this.scene.start('load')
-      }
-    }, this)
+    // this.input.on('pointerdown', function () {
+    //   if (this.fontsLoaded) {
+    //     this.scene.start('load')
+    //   }
+    // }, this)
 
   }
 
   update () {
 
-    if (this.videoDone && this.fontsLoaded) {
-      this.scene.start('load')
-    }
+    // if (this.fontsLoaded) {
+    //   this.scene.start('load')
+    // }
 
   }
 
