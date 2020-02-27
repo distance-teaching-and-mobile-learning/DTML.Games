@@ -1,0 +1,1006 @@
+{
+  "language": "en-US",
+  "name": "The World",
+  "questions": [
+    {
+      "text": "How many continents are there?",
+      "complexity": 1,
+      "correctAnswer": "​Seven​",
+      "incorrectAnswers": [
+        "Five",
+        "Six",
+        "Eight"
+      ]
+    },
+    {
+      "text": "How many oceans are there?",
+      "complexity": 1,
+      "correctAnswer": "Four ​(Pacific, Atlantic, Arctic, Indian) or Five (If you count the Southern/Antarctic Ocean)",
+      "incorrectAnswers": [
+        "Three",
+        "Six",
+        "Ten"
+      ]
+    },
+    {
+      "text": "On what continent is Mexico?",
+      "complexity": 1,
+      "correctAnswer": "​North America​",
+      "incorrectAnswers": [
+        "Europe",
+        "South America",
+        "Central America"
+      ]
+    },
+    {
+      "text": "On what continent is France?",
+      "complexity": 1,
+      "correctAnswer": "​Europe​",
+      "incorrectAnswers": [
+        "North America",
+        "Eastern Europe",
+        "South America"
+      ]
+    },
+    {
+      "text": "On what continent is India?",
+      "complexity": 1,
+      "correctAnswer": "Asia​",
+      "incorrectAnswers": [
+        "Africa",
+        "Middle East",
+        "South America"
+      ]
+    },
+    {
+      "text": "On what continent is Zimbabwe?",
+      "complexity": 1,
+      "correctAnswer": "​Africa​",
+      "incorrectAnswers": [
+        "Asia",
+        "Middle East",
+        "Central America"
+      ]
+    },
+    {
+      "text": "On what continent is Brazil?",
+      "complexity": 1,
+      "correctAnswer": "South America​",
+      "incorrectAnswers": [
+        "Central America",
+        "NorthAmerica",
+        "Asia"
+      ]
+    },
+    {
+      "text": "On what continent is Canada?",
+      "complexity": 1,
+      "correctAnswer": "North America​",
+      "incorrectAnswers": [
+        "Europe",
+        "South America",
+        "Central America"
+      ]
+    },
+    {
+      "text": "On what continent is Russia?",
+      "complexity": 1,
+      "correctAnswer": "​Europe​",
+      "incorrectAnswers": [
+        "Middle East",
+        "Eastern Europe",
+        "North America"
+      ]
+    },
+    {
+      "text": "On what continent is Malaysia?",
+      "complexity": 1,
+      "correctAnswer": "Asia​",
+      "incorrectAnswers": [
+        "Middle East",
+        "Africa",
+        "Europe"
+      ]
+    },
+    {
+      "text": "What is the largest continent?",
+      "complexity": 1,
+      "correctAnswer": "​Asia​",
+      "incorrectAnswers": [
+        "Africa",
+        "South America",
+        "NorthAmerica"
+      ]
+    },
+    {
+      "text": "What is the most populated continent?",
+      "complexity": 1,
+      "correctAnswer": "​Asia​",
+      "incorrectAnswers": [
+        "North America",
+        "Europe",
+        "Australia"
+      ]
+    },
+    {
+      "text": "What is the smallest continent?",
+      "complexity": 1,
+      "correctAnswer": "​Oceania​/​Australia​",
+      "incorrectAnswers": [
+        "Europe",
+        "SouthAmerica",
+        "North America"
+      ]
+    },
+    {
+      "text": "What is the least populated continent?",
+      "complexity": 1,
+      "correctAnswer": "Antarctica​",
+      "incorrectAnswers": [
+        "Australia",
+        "SouthAmerica",
+        "Europe"
+      ]
+    },
+    {
+      "text": "Which continent has the most countries?",
+      "complexity": 1,
+      "correctAnswer": "Africa​",
+      "incorrectAnswers": [
+        "Asia",
+        "SouthAmerica",
+        "Europe"
+      ]
+    },
+    {
+      "text": "What is the northernmost country in the world and which continent is it on?",
+      "complexity": 1,
+      "correctAnswer": "​Greenland / North America",
+      "incorrectAnswers": [
+        "Iceland / Europe",
+        "Alaska, North America",
+        "Norway / Europe"
+      ]
+    },
+    {
+      "text": "Which is the wealthiest continent?",
+      "complexity": 1,
+      "correctAnswer": "Europe​",
+      "incorrectAnswers": [
+        "North America",
+        "Asia",
+        "South America"
+      ]
+    },
+    {
+      "text": "What are the two smallest countries, and which continent are they on?",
+      "complexity": 1,
+      "correctAnswer": "Vatican City and Monaco in Europe​",
+      "incorrectAnswers": [
+        "Vatican City and Monaco in North America",
+        "Colombia and Ecuador in South America",
+        "Colombia and Ecuador in Africa"
+      ]
+    },
+    {
+      "text": "Which ocean is the biggest?",
+      "complexity": 1,
+      "correctAnswer": "Pacific​",
+      "incorrectAnswers": [
+        "Atlantic",
+        "Indian",
+        "Arctic"
+      ]
+    },
+    {
+      "text": "Where is the largest coral reef located?",
+      "complexity": 1,
+      "correctAnswer": "​Great Barrier Reef / Pacific Ocean",
+      "incorrectAnswers": [
+        "Great Barrier Reef / Atlantic Ocean",
+        "Great Mayan Reef / Pacific Ocean",
+        "Great Mayan Reef / Atlantic Ocean"
+      ]
+    },
+    {
+      "text": "Which ocean is the second largest?",
+      "complexity": 1,
+      "correctAnswer": "​Atlantic​",
+      "incorrectAnswers": [
+        "Arctic",
+        "Southern",
+        "Indian"
+      ]
+    },
+    {
+      "text": "Which ocean is the largest breeding ground for humpback whales?",
+      "complexity": 1,
+      "correctAnswer": "Indian​",
+      "incorrectAnswers": [
+        "Pacific",
+        "Southern",
+        "Atlantic"
+      ]
+    },
+    {
+      "text": "Which ocean is home to the Emperor Penguins?",
+      "complexity": 1,
+      "correctAnswer": "​Southern​",
+      "incorrectAnswers": [
+        "Arctic",
+        "Atlantic",
+        "Pacific"
+      ]
+    },
+    {
+      "text": "Which ocean is located around the North Pole?",
+      "complexity": 1,
+      "correctAnswer": "Arctic​",
+      "incorrectAnswers": [
+        "Atlantic",
+        "Pacific",
+        "Indian"
+      ]
+    },
+    {
+      "text": "What percentage of the Earth’s surface does the Pacific Ocean cover?",
+      "complexity": 1,
+      "correctAnswer": "30%",
+      "incorrectAnswers": [
+        "​50%",
+        "20%",
+        "40%"
+      ]
+    },
+    {
+      "text": "How do people in America greet each other?",
+      "complexity": 2,
+      "correctAnswer": "Handshake/Hug​",
+      "incorrectAnswers": [
+        "Kiss oneach cheek",
+        "Bow",
+        "Clap their hands"
+      ]
+    },
+    {
+      "text": "How do people in Japan greet each other?",
+      "complexity": 2,
+      "correctAnswer": "​Bow​",
+      "incorrectAnswers": [
+        "Kiss on each cheek",
+        "Hug",
+        "Clap their hands"
+      ]
+    },
+    {
+      "text": "How do people in Italy greet each other?",
+      "complexity": 2,
+      "correctAnswer": "Kiss on each cheek​",
+      "incorrectAnswers": [
+        "Handshake",
+        "Bow",
+        "Hug"
+      ]
+    },
+    {
+      "text": "How do people in Tibet greet each other?",
+      "complexity": 2,
+      "correctAnswer": "Stick out their tongue​",
+      "incorrectAnswers": [
+        "Clap their hands",
+        "Hug",
+        "Bow"
+      ]
+    },
+    {
+      "text": "How do people in Zimbabwe greet each other?",
+      "complexity": 2,
+      "correctAnswer": "​Clap their hands​",
+      "incorrectAnswers": [
+        "Stickout their tongue",
+        "Kiss on each cheek",
+        "Bow"
+      ]
+    },
+    {
+      "text": "Which country is considered the most diverse?",
+      "complexity": 2,
+      "correctAnswer": "India​",
+      "incorrectAnswers": [
+        "US",
+        "England",
+        "Brazil"
+      ]
+    },
+    {
+      "text": "Which language has the most speakers?",
+      "complexity": 2,
+      "correctAnswer": "​Mandarin Chinese​",
+      "incorrectAnswers": [
+        "English",
+        "Spanish",
+        "French"
+      ]
+    },
+    {
+      "text": "In India, people eat with _________.",
+      "complexity": 2,
+      "correctAnswer": "Their hands​",
+      "incorrectAnswers": [
+        "Utensils",
+        "Chopsticks",
+        "Bread"
+      ]
+    },
+    {
+      "text": "In China, you shouldn’t put your chopsticks in your rice _______.",
+      "complexity": 2,
+      "correctAnswer": "Vertically​",
+      "incorrectAnswers": [
+        "Horizontally",
+        "Both",
+        "Upside down"
+      ]
+    },
+    {
+      "text": "Slurping your noodles is appropriate in which country?",
+      "complexity": 2,
+      "correctAnswer": "​Japan​",
+      "incorrectAnswers": [
+        "US",
+        "South Africa",
+        "France"
+      ]
+    },
+    {
+      "text": "Where was chocolate milk first created?",
+      "complexity": 2,
+      "correctAnswer": "South America​",
+      "incorrectAnswers": [
+        "Mexico",
+        "Italy",
+        "Africa"
+      ]
+    },
+    {
+      "text": "In which country is there a tomato festival where people throwtomatoes at each other?",
+      "complexity": 2,
+      "correctAnswer": "Spain​",
+      "incorrectAnswers": [
+        "Argentina",
+        "Greece",
+        "Zimbabwe"
+      ]
+    },
+    {
+      "text": "How many hot dogs do Americans eat during baseball season?",
+      "complexity": 2,
+      "correctAnswer": "26 million​",
+      "incorrectAnswers": [
+        "20 million",
+        "38 million",
+        "52 million"
+      ]
+    },
+    {
+      "text": "What is the name of the festival where people throw colored powderat each other?",
+      "complexity": 2,
+      "correctAnswer": "Holi​",
+      "incorrectAnswers": [
+        "Loi Krathong",
+        "New Years",
+        "Christmas"
+      ]
+    },
+    {
+      "text": "Which country has a festival where people release lanterns at night?",
+      "complexity": 2,
+      "correctAnswer": "Thailand​",
+      "incorrectAnswers": [
+        "Norway",
+        "Canada",
+        "Colombia"
+      ]
+    },
+    {
+      "text": "In this country, brides get Mendhi (temporary tattoos) on their hands for decoration.",
+      "complexity": 2,
+      "correctAnswer": "India​",
+      "incorrectAnswers": [
+        "Chile",
+        "Kenya",
+        "Cambodia"
+      ]
+    },
+    {
+      "text": "In this country, people hide gifts inside the wedding cakes.",
+      "complexity": 2,
+      "correctAnswer": "Norway​",
+      "incorrectAnswers": [
+        "Ireland",
+        "France",
+        "US"
+      ]
+    },
+    {
+      "text": "In this country, men have to pay to dance with the bride.",
+      "complexity": 2,
+      "correctAnswer": "Cuba​",
+      "incorrectAnswers": [
+        "El Salvador",
+        "Namibia",
+        "Puerto Rico"
+      ]
+    },
+    {
+      "text": "In this country, tradition is for the bride and groom to saw a log in halfafter the ceremony.",
+      "complexity": 2,
+      "correctAnswer": "​Germany​",
+      "incorrectAnswers": [
+        "Ireland",
+        "Scotland",
+        "Poland"
+      ]
+    },
+    {
+      "text": "In this country, newlyweds release doves after the ceremony.",
+      "complexity": 2,
+      "correctAnswer": "Philippines​",
+      "incorrectAnswers": [
+        "Thailand",
+        "Spain",
+        "Malaysia"
+      ]
+    },
+    {
+      "text": "In this country, the father of the bride spits on her before the wedding ceremony for good luck.",
+      "complexity": 2,
+      "correctAnswer": "​Kenya​",
+      "incorrectAnswers": [
+        "South Africa",
+        "Liberia",
+        "Egypt"
+      ]
+    },
+    {
+      "text": "In this country, the bride and groom perform tea ceremonies withtheir parents before their wedding.",
+      "complexity": 2,
+      "correctAnswer": "China​",
+      "incorrectAnswers": [
+        "Japan",
+        "Mongolia",
+        "Russia"
+      ]
+    },
+    {
+      "text": "In this country, the wedding cake has one fake ring inside. If you get the slice of cake with the fake ring, you will be the next person to get married.",
+      "complexity": 2,
+      "correctAnswer": "​Peru​",
+      "incorrectAnswers": [
+        "Chile",
+        "Nicaragua",
+        "Mexico"
+      ]
+    },
+    {
+      "text": "In America the most popular sport is Baseball, in India it’s ______.",
+      "complexity": 2,
+      "correctAnswer": "Cricket​",
+      "incorrectAnswers": [
+        "Soccer",
+        "Rugby",
+        "Hockey"
+      ]
+    },
+    {
+      "text": "In America people say, “soccer,” but the rest of the world says, _________.",
+      "complexity": 2,
+      "correctAnswer": "​Futbol​",
+      "incorrectAnswers": [
+        "Football",
+        "Neither",
+        "All"
+      ]
+    },
+    {
+      "text": "How many countries are in Asia?",
+      "complexity": 3,
+      "correctAnswer": "48​",
+      "incorrectAnswers": [
+        "40",
+        "42",
+        "52"
+      ]
+    },
+    {
+      "text": "How many countries are in Europe?",
+      "complexity": 3,
+      "correctAnswer": "44​",
+      "incorrectAnswers": [
+        "47",
+        "53",
+        "55"
+      ]
+    },
+    {
+      "text": "How many countries are in North America?",
+      "complexity": 3,
+      "correctAnswer": "​23​",
+      "incorrectAnswers": [
+        "17",
+        "30",
+        "36"
+      ]
+    },
+    {
+      "text": "How many countries are in South America?",
+      "complexity": 3,
+      "correctAnswer": "12​",
+      "incorrectAnswers": [
+        "15",
+        "18",
+        "21"
+      ]
+    },
+    {
+      "text": "How many countries are in Africa?",
+      "complexity": 3,
+      "correctAnswer": "54​",
+      "incorrectAnswers": [
+        "58",
+        "62",
+        "50"
+      ]
+    },
+    {
+      "text": "What is the capital of the US?",
+      "complexity": 3,
+      "correctAnswer": "​Washington, DC",
+      "incorrectAnswers": [
+        "New York",
+        "Hollywood",
+        "Los Angeles"
+      ]
+    },
+    {
+      "text": "What is the capital of France?",
+      "complexity": 3,
+      "correctAnswer": "Paris​",
+      "incorrectAnswers": [
+        "Lyon",
+        "Nice",
+        "Toulouse"
+      ]
+    },
+    {
+      "text": "What is the capital of England?",
+      "complexity": 3,
+      "correctAnswer": "London​",
+      "incorrectAnswers": [
+        "Birmingham",
+        "Manchester",
+        "Liverpool"
+      ]
+    },
+    {
+      "text": "What is the capital of Japan?",
+      "complexity": 3,
+      "correctAnswer": "​Tokyo​",
+      "incorrectAnswers": [
+        "Osaka",
+        "Nagoya",
+        "Yokohama"
+      ]
+    },
+    {
+      "text": "What is the capital of South Korea?",
+      "complexity": 3,
+      "correctAnswer": "​Seoul​",
+      "incorrectAnswers": [
+        "Busan",
+        "Daegu",
+        "Incheon"
+      ]
+    },
+    {
+      "text": "What is the capital of China?",
+      "complexity": 3,
+      "correctAnswer": "Beijing",
+      "incorrectAnswers": [
+        "​Shanghai​",
+        "Guangzhou",
+        "Chongqing"
+      ]
+    },
+    {
+      "text": "What is the capital of Russia?",
+      "complexity": 3,
+      "correctAnswer": "Moscow​",
+      "incorrectAnswers": [
+        "Saint Petersburg",
+        "Novosibirsk",
+        "Nizhny Novgorod"
+      ]
+    },
+    {
+      "text": "What is the capital of Germany?",
+      "complexity": 3,
+      "correctAnswer": "Berlin​",
+      "incorrectAnswers": [
+        "Hamburg",
+        "Munich",
+        "Bremen"
+      ]
+    },
+    {
+      "text": "What is the capital of Canada?",
+      "complexity": 3,
+      "correctAnswer": "​Ottowa​",
+      "incorrectAnswers": [
+        "Vancouver",
+        "Toronto",
+        "Prince Edward Island"
+      ]
+    },
+    {
+      "text": "What is the capital of Spain?",
+      "complexity": 3,
+      "correctAnswer": "Madrid​",
+      "incorrectAnswers": [
+        "Barcelona",
+        "Seville",
+        "Valencia"
+      ]
+    },
+    {
+      "text": "What is the capital of Portugal?",
+      "complexity": 3,
+      "correctAnswer": "​Lisbon​",
+      "incorrectAnswers": [
+        "Porto",
+        "Coimbra",
+        "Braga"
+      ]
+    },
+    {
+      "text": "What is the capital of Singapore?",
+      "complexity": 3,
+      "correctAnswer": "Singapore​",
+      "incorrectAnswers": [
+        "Bangkok",
+        "Phnom Penh",
+        "Vientienne"
+      ]
+    },
+    {
+      "text": "What is the capital of Thailand?",
+      "complexity": 3,
+      "correctAnswer": "​Bangkok​",
+      "incorrectAnswers": [
+        "Chaing Mai",
+        "Kanchanaburi",
+        "Phuket"
+      ]
+    },
+    {
+      "text": "What is the capital of Vietnam?",
+      "complexity": 3,
+      "correctAnswer": "Hanoi​",
+      "incorrectAnswers": [
+        "Ho Chi Minh",
+        "Nha Trong",
+        "Da Nang"
+      ]
+    },
+    {
+      "text": "What is the capital of Switzerland?",
+      "complexity": 3,
+      "correctAnswer": "​Bern​",
+      "incorrectAnswers": [
+        "Zurich",
+        "Lucerne",
+        "Basel"
+      ]
+    },
+    {
+      "text": "What is the capital of Mexico?",
+      "complexity": 3,
+      "correctAnswer": "Mexico City​",
+      "incorrectAnswers": [
+        "Puebla",
+        "Guadalajara",
+        "Monterrey"
+      ]
+    },
+    {
+      "text": "What is the capital of Brazil?",
+      "complexity": 3,
+      "correctAnswer": "​Brasilia​",
+      "incorrectAnswers": [
+        "Sao Paulo",
+        "Rio de Janeiro",
+        "BeloHorizonte"
+      ]
+    },
+    {
+      "text": "What is the capital of Chile?",
+      "complexity": 3,
+      "correctAnswer": "Santiago​",
+      "incorrectAnswers": [
+        "Valparaiso",
+        "Antofagasta",
+        "Concepcion"
+      ]
+    },
+    {
+      "text": "What is the capital of Argentina?",
+      "complexity": 3,
+      "correctAnswer": "Buenos Aires​",
+      "incorrectAnswers": [
+        "Mendoza",
+        "Cordoba",
+        "SanJuan"
+      ]
+    },
+    {
+      "text": "What is the capital of South Africa?",
+      "complexity": 3,
+      "correctAnswer": "​​Pretoria",
+      "incorrectAnswers": [
+        "Cape Town",
+        "Bloemfontein​",
+        "​All of these"
+      ]
+    },
+    {
+      "text": "What is the capital of Kenya?",
+      "complexity": 4,
+      "correctAnswer": "Nairobi​",
+      "incorrectAnswers": [
+        "Mombasa",
+        "Kisumu",
+        "Nakuru"
+      ]
+    },
+    {
+      "text": "What is the capital of Saudi Arabia?",
+      "complexity": 4,
+      "correctAnswer": "Riyadh​",
+      "incorrectAnswers": [
+        "Jeddah",
+        "Mecca",
+        "Dammam"
+      ]
+    },
+    {
+      "text": "What is the capital of India?",
+      "complexity": 4,
+      "correctAnswer": "​New Delhi​",
+      "incorrectAnswers": [
+        "Mumbai",
+        "Bangalore",
+        "Chennai"
+      ]
+    },
+    {
+      "text": "What is the capital of the United Arab Emirates?",
+      "complexity": 4,
+      "correctAnswer": "Abu Dhabi​",
+      "incorrectAnswers": [
+        "Dubai",
+        "Sharjah",
+        "Ajman"
+      ]
+    },
+    {
+      "text": "What is the capital of Liberia?",
+      "complexity": 4,
+      "correctAnswer": "​Monrovia​",
+      "incorrectAnswers": [
+        "Kakata",
+        "Harper",
+        "Buchanan"
+      ]
+    },
+    {
+      "text": "What is the capital of Zimbabwe?",
+      "complexity": 4,
+      "correctAnswer": "​Harare​",
+      "incorrectAnswers": [
+        "Bulawayo",
+        "Mutare",
+        "Gweru"
+      ]
+    },
+    {
+      "text": "What is the capital of Colombia?",
+      "complexity": 4,
+      "correctAnswer": "​Bogota​",
+      "incorrectAnswers": [
+        "Medellin",
+        "Cartagena",
+        "Cali"
+      ]
+    },
+    {
+      "text": "What is the capital of Costa Rica?",
+      "complexity": 4,
+      "correctAnswer": "​San Jose​",
+      "incorrectAnswers": [
+        "Limon",
+        "Alajuela",
+        "Liberia"
+      ]
+    },
+    {
+      "text": "What is the capital of Croatia?",
+      "complexity": 4,
+      "correctAnswer": "​Zagreb​",
+      "incorrectAnswers": [
+        "Dubrovnik",
+        "Zadar",
+        "Budapest"
+      ]
+    },
+    {
+      "text": "What is the capital of Afghanistan?",
+      "complexity": 4,
+      "correctAnswer": "​Kabul​",
+      "incorrectAnswers": [
+        "Kandahar",
+        "Herat",
+        "Cairo"
+      ]
+    },
+    {
+      "text": "What is the capital of Australia?",
+      "complexity": 4,
+      "correctAnswer": "Canberra​",
+      "incorrectAnswers": [
+        "Melbourne",
+        "Sydney",
+        "London"
+      ]
+    },
+    {
+      "text": "What is the capital of Austria?",
+      "complexity": 4,
+      "correctAnswer": "​Vienna​",
+      "incorrectAnswers": [
+        "Salzburg",
+        "Innsbruck",
+        "Berlin"
+      ]
+    },
+    {
+      "text": "What is the capital of The Bahamas?",
+      "complexity": 4,
+      "correctAnswer": "​Nassau​",
+      "incorrectAnswers": [
+        "Freeport",
+        "George Town",
+        "Marsh Harbour"
+      ]
+    },
+    {
+      "text": "What is the capital of Belgium?",
+      "complexity": 4,
+      "correctAnswer": "Brussels​",
+      "incorrectAnswers": [
+        "Antwerp",
+        "Paris",
+        "Ghent"
+      ]
+    },
+    {
+      "text": "What is the capital of Botswana?",
+      "complexity": 4,
+      "correctAnswer": "Gaborone​",
+      "incorrectAnswers": [
+        "Francistown",
+        "Maun",
+        "Sydney"
+      ]
+    },
+    {
+      "text": "What is the capital of Cambodia?",
+      "complexity": 4,
+      "correctAnswer": "​Phnom Penh​",
+      "incorrectAnswers": [
+        "Siem Reap",
+        "Battambang",
+        "Bangkok"
+      ]
+    },
+    {
+      "text": "What is the capital of Cuba?",
+      "complexity": 4,
+      "correctAnswer": "​Havana​",
+      "incorrectAnswers": [
+        "Mexico City",
+        "Bogota",
+        "Buenos Aires"
+      ]
+    },
+    {
+      "text": "What is the capital of Denmark?",
+      "complexity": 4,
+      "correctAnswer": "Copenhagen​",
+      "incorrectAnswers": [
+        "Aalborg",
+        "Frankfurt",
+        "Bern"
+      ]
+    },
+    {
+      "text": "What is the capital of Egypt?",
+      "complexity": 4,
+      "correctAnswer": "Cairo​",
+      "incorrectAnswers": [
+        "Alexandria",
+        "Giza",
+        "Luxor"
+      ]
+    },
+    {
+      "text": "What is the capital of Finland?",
+      "complexity": 4,
+      "correctAnswer": "​Helsinki​",
+      "incorrectAnswers": [
+        "Turku",
+        "Nice",
+        "Lisbon"
+      ]
+    },
+    {
+      "text": "What is the capital of Greece?",
+      "complexity": 4,
+      "correctAnswer": "Athens​",
+      "incorrectAnswers": [
+        "Thessaloniki",
+        "Kabul",
+        "Havana"
+      ]
+    },
+    {
+      "text": "Which country exported the most coffee in 2018?",
+      "complexity": 4,
+      "correctAnswer": "​Brazil​",
+      "incorrectAnswers": [
+        "Ethiopia",
+        "Indonesia",
+        "Colombia"
+      ]
+    },
+    {
+      "text": "Which country exported the most chocolate in 2017?",
+      "complexity": 4,
+      "correctAnswer": "The Ivory Coast",
+      "incorrectAnswers": [
+        "Brazil",
+        "Switzerland",
+        "France"
+      ]
+    },
+    {
+      "text": "Which country exported the most cheese in 2018?",
+      "complexity": 4,
+      "correctAnswer": "​Germany​",
+      "incorrectAnswers": [
+        "Italy",
+        "France",
+        "US"
+      ]
+    },
+    {
+      "text": "Which country exported the most sugar in 2018?",
+      "complexity": 4,
+      "correctAnswer": "Brazil​",
+      "incorrectAnswers": [
+        "US",
+        "Indonesia",
+        "Mexico"
+      ]
+    }
+  ]
+}

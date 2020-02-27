@@ -1,0 +1,1006 @@
+{
+  "language": "en-US",
+  "name": "Letters and Numbers",
+  "questions": [
+    {
+      "text": "How do you spell 1?",
+      "complexity": 1,
+      "correctAnswer": "One​",
+      "incorrectAnswers": [
+        "Onee",
+        "Une",
+        "Uno"
+      ]
+    },
+    {
+      "text": "How do you spell 2?",
+      "complexity": 1,
+      "correctAnswer": "Two​",
+      "incorrectAnswers": [
+        "Too",
+        "To",
+        "Twoo"
+      ]
+    },
+    {
+      "text": "How do you spell 3?",
+      "complexity": 1,
+      "correctAnswer": "​Three​",
+      "incorrectAnswers": [
+        "Tree",
+        "Thee",
+        "Ree"
+      ]
+    },
+    {
+      "text": "How do you spell 4?",
+      "complexity": 1,
+      "correctAnswer": "Four​",
+      "incorrectAnswers": [
+        "For",
+        "Fuur",
+        "Foor"
+      ]
+    },
+    {
+      "text": "How do you spell 5?",
+      "complexity": 1,
+      "correctAnswer": "​Five​",
+      "incorrectAnswers": [
+        "Fiv",
+        "Feeve",
+        "Fivee"
+      ]
+    },
+    {
+      "text": "How do you spell 6?",
+      "complexity": 1,
+      "correctAnswer": "Six​",
+      "incorrectAnswers": [
+        "Sik",
+        "Sic",
+        "Sixe"
+      ]
+    },
+    {
+      "text": "How do you spell 7?",
+      "complexity": 1,
+      "correctAnswer": "​Seven​",
+      "incorrectAnswers": [
+        "Seveen",
+        "Siven",
+        "Sevin"
+      ]
+    },
+    {
+      "text": "How do you spell 8?",
+      "complexity": 1,
+      "correctAnswer": "​Eight​",
+      "incorrectAnswers": [
+        "Ate",
+        "Eat",
+        "Ieght"
+      ]
+    },
+    {
+      "text": "How do you spell 9?",
+      "complexity": 1,
+      "correctAnswer": "​Nine​",
+      "incorrectAnswers": [
+        "Nene",
+        "Nin",
+        "Neene"
+      ]
+    },
+    {
+      "text": "How do you spell 10?",
+      "complexity": 1,
+      "correctAnswer": "Ten​",
+      "incorrectAnswers": [
+        "Tin",
+        "Teen",
+        "Tene"
+      ]
+    },
+    {
+      "text": "What number comes before two?",
+      "complexity": 1,
+      "correctAnswer": "​One​",
+      "incorrectAnswers": [
+        "Three",
+        "Zero",
+        "Four"
+      ]
+    },
+    {
+      "text": "What number comes after four?",
+      "complexity": 1,
+      "correctAnswer": "​Five​",
+      "incorrectAnswers": [
+        "Three",
+        "Six",
+        "Two"
+      ]
+    },
+    {
+      "text": "What number comes before eight?",
+      "complexity": 1,
+      "correctAnswer": "​Seven​",
+      "incorrectAnswers": [
+        "Six",
+        "Nine",
+        "Ten"
+      ]
+    },
+    {
+      "text": "What number comes after nine?",
+      "complexity": 1,
+      "correctAnswer": "Ten​",
+      "incorrectAnswers": [
+        "Eight",
+        "Seven",
+        "Six"
+      ]
+    },
+    {
+      "text": "What number comes before seven?",
+      "complexity": 1,
+      "correctAnswer": "​Six​",
+      "incorrectAnswers": [
+        "Eight",
+        "Five",
+        "Nine"
+      ]
+    },
+    {
+      "text": "What number comes after three?",
+      "complexity": 1,
+      "correctAnswer": "Four​",
+      "incorrectAnswers": [
+        "Two",
+        "Five",
+        "One"
+      ]
+    },
+    {
+      "text": "What number comes before three?",
+      "complexity": 1,
+      "correctAnswer": "​Two​",
+      "incorrectAnswers": [
+        "One",
+        "Four",
+        "Five"
+      ]
+    },
+    {
+      "text": "What number comes after seven?",
+      "complexity": 1,
+      "correctAnswer": "​Eight​",
+      "incorrectAnswers": [
+        "Six",
+        "Nine",
+        "Five"
+      ]
+    },
+    {
+      "text": "What number comes before four?",
+      "complexity": 1,
+      "correctAnswer": "Three​",
+      "incorrectAnswers": [
+        "Five",
+        "Two",
+        "Six"
+      ]
+    },
+    {
+      "text": "What number comes after eight?",
+      "complexity": 1,
+      "correctAnswer": "Nine​",
+      "incorrectAnswers": [
+        "Seven",
+        "Six",
+        "Ten"
+      ]
+    },
+    {
+      "text": "Which number is missing? (1, 2, ___, 4, 5.)",
+      "complexity": 1,
+      "correctAnswer": "​3​",
+      "incorrectAnswers": [
+        "6",
+        "4",
+        "7"
+      ]
+    },
+    {
+      "text": "Which number is missing? (4, 5, 6, ___, 8.)",
+      "complexity": 1,
+      "correctAnswer": "​7​",
+      "incorrectAnswers": [
+        "5",
+        "9",
+        "10"
+      ]
+    },
+    {
+      "text": "Which number is missing? (10, ___, 8, 7.)",
+      "complexity": 1,
+      "correctAnswer": "9​",
+      "incorrectAnswers": [
+        "3",
+        "6",
+        "2"
+      ]
+    },
+    {
+      "text": "Which number is missing? (7, 6, 5, ___, 3.)",
+      "complexity": 1,
+      "correctAnswer": "​4​",
+      "incorrectAnswers": [
+        "2",
+        "6",
+        "1"
+      ]
+    },
+    {
+      "text": "Which numbers are missing? (8, 7, ___, 5, 4, ___.)",
+      "complexity": 1,
+      "correctAnswer": "​6, 3",
+      "incorrectAnswers": [
+        "3, 6",
+        "9, 2",
+        "6, 2"
+      ]
+    },
+    {
+      "text": "How many letters are in the English alphabet?",
+      "complexity": 2,
+      "correctAnswer": "​26​",
+      "incorrectAnswers": [
+        "24",
+        "30",
+        "15"
+      ]
+    },
+    {
+      "text": "How many vowels are in the alphabet?",
+      "complexity": 2,
+      "correctAnswer": "​6​",
+      "incorrectAnswers": [
+        "5",
+        "4",
+        "7"
+      ]
+    },
+    {
+      "text": "Which letter can be a vowel and a consonant?",
+      "complexity": 2,
+      "correctAnswer": "​Y​",
+      "incorrectAnswers": [
+        "U",
+        "A",
+        "E"
+      ]
+    },
+    {
+      "text": "Which letter is missing from this word: g_me?",
+      "complexity": 2,
+      "correctAnswer": "A​",
+      "incorrectAnswers": [
+        "E",
+        "I",
+        "Y"
+      ]
+    },
+    {
+      "text": "Does the \"a\" in \"bat\" make a short or long vowel sound?",
+      "complexity": 2,
+      "correctAnswer": "Short​",
+      "incorrectAnswers": [
+        "Long",
+        "Both",
+        "Neither"
+      ]
+    },
+    {
+      "text": "Does the \"i\" in \"bike\" make a short or long vowel sound?",
+      "complexity": 2,
+      "correctAnswer": "Long​",
+      "incorrectAnswers": [
+        "Short",
+        "Both",
+        "Neither"
+      ]
+    },
+    {
+      "text": "Does the \"o\" in \"hold\" make a short or long vowel sound?",
+      "complexity": 2,
+      "correctAnswer": "Long​",
+      "incorrectAnswers": [
+        "Short",
+        "Both",
+        "Neither"
+      ]
+    },
+    {
+      "text": "Does the \"e\" in \"set\" make a short or long vowel sound?",
+      "complexity": 2,
+      "correctAnswer": "Short​",
+      "incorrectAnswers": [
+        "Long",
+        "Both",
+        "Neither"
+      ]
+    },
+    {
+      "text": "Does the \"u\" in \"umbrella\" make a short or long vowel sound?",
+      "complexity": 2,
+      "correctAnswer": "Short​",
+      "incorrectAnswers": [
+        "Long",
+        "Both",
+        "Neither"
+      ]
+    },
+    {
+      "text": "Which letter is missing from this word: wa_k.",
+      "complexity": 2,
+      "correctAnswer": "​L​",
+      "incorrectAnswers": [
+        "R",
+        "M",
+        "S"
+      ]
+    },
+    {
+      "text": "Which letter is missing from this word: ap_le.",
+      "complexity": 2,
+      "correctAnswer": "​P​",
+      "incorrectAnswers": [
+        "L",
+        "E",
+        "T"
+      ]
+    },
+    {
+      "text": "Which letter is missing from this word: ki_chen.",
+      "complexity": 2,
+      "correctAnswer": "​T​",
+      "incorrectAnswers": [
+        "D",
+        "S",
+        "J"
+      ]
+    },
+    {
+      "text": "Which letter is missing from this word: _lower.",
+      "complexity": 2,
+      "correctAnswer": "F​",
+      "incorrectAnswers": [
+        "T",
+        "P",
+        "H"
+      ]
+    },
+    {
+      "text": "Which letter is missing from this word: z_bra.",
+      "complexity": 2,
+      "correctAnswer": "E​",
+      "incorrectAnswers": [
+        "I",
+        "Y",
+        "A"
+      ]
+    },
+    {
+      "text": "Which letter is missing from this word: elep_ant.",
+      "complexity": 2,
+      "correctAnswer": "H​",
+      "incorrectAnswers": [
+        "F",
+        "P",
+        "W"
+      ]
+    },
+    {
+      "text": "Which letter is missing from this word: swimme_.",
+      "complexity": 2,
+      "correctAnswer": "​R​",
+      "incorrectAnswers": [
+        "S",
+        "L",
+        "P"
+      ]
+    },
+    {
+      "text": "Which letter is missing from this word: pai_ter.",
+      "complexity": 2,
+      "correctAnswer": "​N​",
+      "incorrectAnswers": [
+        "M",
+        "D",
+        "T"
+      ]
+    },
+    {
+      "text": "Which letter is missing from this word: giraff_.",
+      "complexity": 2,
+      "correctAnswer": "E​",
+      "incorrectAnswers": [
+        "I",
+        "Y",
+        "P"
+      ]
+    },
+    {
+      "text": "Which vowel can replace the \"a\" in \"space,\" to make a new word?",
+      "complexity": 2,
+      "correctAnswer": "I​",
+      "incorrectAnswers": [
+        "O",
+        "U",
+        "E"
+      ]
+    },
+    {
+      "text": "Which letter can we change in \"walk\" to make a new word?",
+      "complexity": 2,
+      "correctAnswer": "​\"w\" to \"t\"​",
+      "incorrectAnswers": [
+        "\"a\" to \"e\"",
+        "\"a\" to \"i\"",
+        "\"w\" to \"m\""
+      ]
+    },
+    {
+      "text": "How many vowels can we replace the \"u\" in \"bug\" with, to make a new word?​",
+      "complexity": 2,
+      "correctAnswer": "Four (i, a, o, e)",
+      "incorrectAnswers": [
+        "None",
+        "Five (i, a, o, e, y)",
+        "Three (i, a, o)"
+      ]
+    },
+    {
+      "text": "Which letter can we change in \"slap\" to make a new word?",
+      "complexity": 2,
+      "correctAnswer": "\"a\" to \"i\"",
+      "incorrectAnswers": [
+        "\"a\" to \"u\"",
+        "\"s\" to \"t\"",
+        "\"s\" to \"k\""
+      ]
+    },
+    {
+      "text": "Which letter can we change in \"hip\" to make a new word?",
+      "complexity": 2,
+      "correctAnswer": "​\"i’ to \"o\"​",
+      "incorrectAnswers": [
+        "\"i\" to \"a\"",
+        "\"p\" to \"l\"",
+        "\"p\" to \"n\""
+      ]
+    },
+    {
+      "text": "Match the lower case letter to the upper case letter. \"q\"",
+      "complexity": 2,
+      "correctAnswer": "\"​Q​\"",
+      "incorrectAnswers": [
+        "\"P\"",
+        "\"R\"",
+        "\"O\""
+      ]
+    },
+    {
+      "text": "Match the lower case letter to the upper case letter. \"r\"",
+      "complexity": 2,
+      "correctAnswer": "\"​R​\"",
+      "incorrectAnswers": [
+        "\"P\"",
+        "\"Q\"",
+        "\"L\""
+      ]
+    },
+    {
+      "text": "What type of word is \"girl\"?",
+      "complexity": 3,
+      "correctAnswer": "​Noun​",
+      "incorrectAnswers": [
+        "Adjective",
+        "Pronoun",
+        "Verb"
+      ]
+    },
+    {
+      "text": "What type of word is \"run\"?",
+      "complexity": 3,
+      "correctAnswer": "​Verb​",
+      "incorrectAnswers": [
+        "Noun",
+        "Adjective",
+        "Pronoun"
+      ]
+    },
+    {
+      "text": "What type of word is \"he\"?",
+      "complexity": 3,
+      "correctAnswer": "​pronoun​",
+      "incorrectAnswers": [
+        "Noun",
+        "Verb",
+        "Adjective"
+      ]
+    },
+    {
+      "text": "What type of word is \"blue\"?",
+      "complexity": 3,
+      "correctAnswer": "​adjective​",
+      "incorrectAnswers": [
+        "Noun",
+        "Adverb",
+        "Verb"
+      ]
+    },
+    {
+      "text": "What type of word is \"man\"?",
+      "complexity": 3,
+      "correctAnswer": "​noun​",
+      "incorrectAnswers": [
+        "Adjective",
+        "Pronoun",
+        "Verb"
+      ]
+    },
+    {
+      "text": "What type of word is \"hot\"?",
+      "complexity": 3,
+      "correctAnswer": "Adjective​",
+      "incorrectAnswers": [
+        "Verb",
+        "Adverb",
+        "Noun"
+      ]
+    },
+    {
+      "text": "What type of word is \"you\"?",
+      "complexity": 3,
+      "correctAnswer": "Pronoun​",
+      "incorrectAnswers": [
+        "Adverb",
+        "Noun",
+        "Adjective"
+      ]
+    },
+    {
+      "text": "What type of word is \"jump\"?",
+      "complexity": 3,
+      "correctAnswer": "Verb​",
+      "incorrectAnswers": [
+        "Adjective",
+        "Noun",
+        "Adverb"
+      ]
+    },
+    {
+      "text": "What type of word is \"doctor\"?",
+      "complexity": 3,
+      "correctAnswer": "​noun​",
+      "incorrectAnswers": [
+        "Pronoun",
+        "Adjective",
+        "Verb"
+      ]
+    },
+    {
+      "text": "What type of word is \"we\"?",
+      "complexity": 3,
+      "correctAnswer": "Pronoun​",
+      "incorrectAnswers": [
+        "Adverb",
+        "Noun",
+        "Verb"
+      ]
+    },
+    {
+      "text": "What type of word is \"sing\"?",
+      "complexity": 3,
+      "correctAnswer": "Verb​",
+      "incorrectAnswers": [
+        "Adverb",
+        "Noun",
+        "Adjective"
+      ]
+    },
+    {
+      "text": "What type of word is \"cold\"?",
+      "complexity": 3,
+      "correctAnswer": "Adjective​",
+      "incorrectAnswers": [
+        "Adverb",
+        "Noun",
+        "Verb"
+      ]
+    },
+    {
+      "text": "What type of word is \"tall\"?",
+      "complexity": 3,
+      "correctAnswer": "​adjective​",
+      "incorrectAnswers": [
+        "Adverb",
+        "Noun",
+        "Verb"
+      ]
+    },
+    {
+      "text": "What type of word is \"they\"?",
+      "complexity": 3,
+      "correctAnswer": "Pronoun​",
+      "incorrectAnswers": [
+        "Noun",
+        "Verb",
+        "Adverb"
+      ]
+    },
+    {
+      "text": "What type of word is \"teacher\"?",
+      "complexity": 3,
+      "correctAnswer": "Noun​",
+      "incorrectAnswers": [
+        "Pronoun",
+        "Verb",
+        "Adjective"
+      ]
+    },
+    {
+      "text": "What type of word is \"slowly\"?",
+      "complexity": 3,
+      "correctAnswer": "Adverb​",
+      "incorrectAnswers": [
+        "Verb",
+        "Adjective",
+        "Noun"
+      ]
+    },
+    {
+      "text": "What type of word is \"beautiful\"?",
+      "complexity": 3,
+      "correctAnswer": "Adjective​",
+      "incorrectAnswers": [
+        "Adverb",
+        "Noun",
+        "Verb"
+      ]
+    },
+    {
+      "text": "What type of word is \"beautifully\"?",
+      "complexity": 3,
+      "correctAnswer": "Adverb​",
+      "incorrectAnswers": [
+        "Adjective",
+        "Verb",
+        "Noun"
+      ]
+    },
+    {
+      "text": "What type of word is \"mom\"?",
+      "complexity": 3,
+      "correctAnswer": "Noun​",
+      "incorrectAnswers": [
+        "Pronoun",
+        "Adjective",
+        "Verb"
+      ]
+    },
+    {
+      "text": "What type of word is \"eat\"?",
+      "complexity": 3,
+      "correctAnswer": "Verb​",
+      "incorrectAnswers": [
+        "Adverb",
+        "Noun",
+        "Pronoun"
+      ]
+    },
+    {
+      "text": "What type of word is \"quickly\"?",
+      "complexity": 3,
+      "correctAnswer": "​adverb​",
+      "incorrectAnswers": [
+        "Verb",
+        "Adjective",
+        "Noun"
+      ]
+    },
+    {
+      "text": "What type of word is \"intelligent\"?",
+      "complexity": 3,
+      "correctAnswer": "Adjective​",
+      "incorrectAnswers": [
+        "Adverb",
+        "Verb",
+        "Noun"
+      ]
+    },
+    {
+      "text": "What type of word is \"spicy\"?",
+      "complexity": 3,
+      "correctAnswer": "​adjective​",
+      "incorrectAnswers": [
+        "Adverb",
+        "Verb",
+        "Noun"
+      ]
+    },
+    {
+      "text": "What type of word is \"beach\"?",
+      "complexity": 3,
+      "correctAnswer": "Noun​",
+      "incorrectAnswers": [
+        "Pronoun",
+        "Adjective",
+        "Adverb"
+      ]
+    },
+    {
+      "text": "What type of word is \"study\"?",
+      "complexity": 3,
+      "correctAnswer": "Verb​",
+      "incorrectAnswers": [
+        "Adverb",
+        "Adjective",
+        "Noun"
+      ]
+    },
+    {
+      "text": "What tense is this verb, \"eat\"?",
+      "complexity": 4,
+      "correctAnswer": "​present​",
+      "incorrectAnswers": [
+        "Past",
+        "Future",
+        "Continuous"
+      ]
+    },
+    {
+      "text": "What tense is this verb, \"ran\"?",
+      "complexity": 4,
+      "correctAnswer": "​past​",
+      "incorrectAnswers": [
+        "Present",
+        "Continuous",
+        "Future"
+      ]
+    },
+    {
+      "text": "What tense is this verb, \"will sing\"?",
+      "complexity": 4,
+      "correctAnswer": "Future​",
+      "incorrectAnswers": [
+        "Past",
+        "Present",
+        "Continuous"
+      ]
+    },
+    {
+      "text": "What tense is this verb, \"dance\"?",
+      "complexity": 4,
+      "correctAnswer": "​present​",
+      "incorrectAnswers": [
+        "Past",
+        "Future",
+        "None"
+      ]
+    },
+    {
+      "text": "What tense is this verb, \"walked\"?",
+      "complexity": 4,
+      "correctAnswer": "Past​",
+      "incorrectAnswers": [
+        "None",
+        "Future",
+        "Present"
+      ]
+    },
+    {
+      "text": "What tense is this verb, \"ate\"?",
+      "complexity": 4,
+      "correctAnswer": "​past​",
+      "incorrectAnswers": [
+        "Future",
+        "None",
+        "Present"
+      ]
+    },
+    {
+      "text": "What tense is this verb, \"will swim\"?",
+      "complexity": 4,
+      "correctAnswer": "Future​",
+      "incorrectAnswers": [
+        "Past",
+        "Present",
+        "None"
+      ]
+    },
+    {
+      "text": "What tense is this verb, \"sat\"?",
+      "complexity": 4,
+      "correctAnswer": "Past​",
+      "incorrectAnswers": [
+        "Present",
+        "Future",
+        "None"
+      ]
+    },
+    {
+      "text": "What tense is this verb, \"threw\"?",
+      "complexity": 4,
+      "correctAnswer": "Past​",
+      "incorrectAnswers": [
+        "Present",
+        "Future",
+        "None"
+      ]
+    },
+    {
+      "text": "What tense is this verb, \"will clean\"?",
+      "complexity": 4,
+      "correctAnswer": "Future​",
+      "incorrectAnswers": [
+        "Present",
+        "Past",
+        "None"
+      ]
+    },
+    {
+      "text": "What tense is this verb, \"studies\"?",
+      "complexity": 4,
+      "correctAnswer": "​present​",
+      "incorrectAnswers": [
+        "Future",
+        "Past",
+        "Continuous"
+      ]
+    },
+    {
+      "text": "What tense is this verb, \"will watch\"?",
+      "complexity": 4,
+      "correctAnswer": "Future​",
+      "incorrectAnswers": [
+        "Past",
+        "Continuous",
+        "None"
+      ]
+    },
+    {
+      "text": "What tense is this verb, \"plays\"?",
+      "complexity": 4,
+      "correctAnswer": "Present​",
+      "incorrectAnswers": [
+        "Future",
+        "Past",
+        "None"
+      ]
+    },
+    {
+      "text": "What tense is this verb, \"slept\"?",
+      "complexity": 4,
+      "correctAnswer": "Past​",
+      "incorrectAnswers": [
+        "Present",
+        "Continuous",
+        "None"
+      ]
+    },
+    {
+      "text": "What tense is this verb, \"swam\"?",
+      "complexity": 4,
+      "correctAnswer": "Past​",
+      "incorrectAnswers": [
+        "Continuous",
+        "Present",
+        "Future"
+      ]
+    },
+    {
+      "text": "What is the possessive form of \"you\"?",
+      "complexity": 4,
+      "correctAnswer": "Your​",
+      "incorrectAnswers": [
+        "Yous",
+        "You’s",
+        "You’r"
+      ]
+    },
+    {
+      "text": "What is the possessive form of \"he\"?",
+      "complexity": 4,
+      "correctAnswer": "​his​",
+      "incorrectAnswers": [
+        "He’s",
+        "Him",
+        "His’s"
+      ]
+    },
+    {
+      "text": "What is the possessive form of \"she\"?",
+      "complexity": 4,
+      "correctAnswer": "Her​",
+      "incorrectAnswers": [
+        "She’s",
+        "Hers’s",
+        "She"
+      ]
+    },
+    {
+      "text": "What is the possessive form of \"they\"?",
+      "complexity": 4,
+      "correctAnswer": "Their​",
+      "incorrectAnswers": [
+        "They’re",
+        "They’s",
+        "Them"
+      ]
+    },
+    {
+      "text": "What is the possessive form of \"I\"?",
+      "complexity": 4,
+      "correctAnswer": "My​",
+      "incorrectAnswers": [
+        "I’s",
+        "Me’s",
+        "I’m’s"
+      ]
+    },
+    {
+      "text": "What is the possessive form of \"we\"?",
+      "complexity": 4,
+      "correctAnswer": "Our​",
+      "incorrectAnswers": [
+        "We’s",
+        "Us’s",
+        "We"
+      ]
+    },
+    {
+      "text": "What does \"can’t\" mean?",
+      "complexity": 4,
+      "correctAnswer": "​can not​",
+      "incorrectAnswers": [
+        "Can",
+        "Can later",
+        "Can yet"
+      ]
+    },
+    {
+      "text": "What does \"don’t\" mean?",
+      "complexity": 4,
+      "correctAnswer": "Do not​",
+      "incorrectAnswers": [
+        "Do yet",
+        "Do no",
+        "Do"
+      ]
+    },
+    {
+      "text": "What does \"isn’t\" mean?",
+      "complexity": 4,
+      "correctAnswer": "Is not​",
+      "incorrectAnswers": [
+        "Is yet",
+        "Is no",
+        "Is"
+      ]
+    },
+    {
+      "text": "What does \"I’d\" mean?",
+      "complexity": 4,
+      "correctAnswer": "​I would​",
+      "incorrectAnswers": [
+        "I did",
+        "I don’t",
+        "I done"
+      ]
+    }
+  ]
+}
