@@ -1,0 +1,102 @@
+{"frames": [
+
+{
+	"filename": "arm",
+	"frame": {"x":159,"y":2,"w":69,"h":213},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":15,"y":18,"w":69,"h":213},
+	"sourceSize": {"w":100,"h":250}
+},
+{
+	"filename": "body",
+	"frame": {"x":388,"y":2,"w":112,"h":181},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":19,"y":10,"w":112,"h":181},
+	"sourceSize": {"w":150,"h":200}
+},
+{
+	"filename": "callout",
+	"frame": {"x":2,"y":416,"w":507,"h":381},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":507,"h":381},
+	"sourceSize": {"w":507,"h":381}
+},
+{
+	"filename": "Head",
+	"frame": {"x":2,"y":217,"w":163,"h":197},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":18,"y":27,"w":163,"h":197},
+	"sourceSize": {"w":200,"h":250}
+},
+{
+	"filename": "Head1",
+	"frame": {"x":332,"y":217,"w":163,"h":197},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":18,"y":27,"w":163,"h":197},
+	"sourceSize": {"w":200,"h":250}
+},
+{
+	"filename": "Head2",
+	"frame": {"x":167,"y":217,"w":163,"h":197},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":18,"y":27,"w":163,"h":197},
+	"sourceSize": {"w":200,"h":250}
+},
+{
+	"filename": "kaki",
+	"frame": {"x":230,"y":2,"w":77,"h":142},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":8,"w":77,"h":142},
+	"sourceSize": {"w":100,"h":168}
+},
+{
+	"filename": "leg",
+	"frame": {"x":309,"y":2,"w":77,"h":213},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":19,"w":77,"h":213},
+	"sourceSize": {"w":100,"h":250}
+},
+{
+	"filename": "lengan",
+	"frame": {"x":99,"y":2,"w":58,"h":105},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":58,"h":105},
+	"sourceSize": {"w":58,"h":105}
+},
+
+{
+	"filename": "paha",
+	"frame": {"x":2,"y":2,"w":45,"h":113},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":45,"h":113},
+	"sourceSize": {"w":45,"h":113}
+},
+
+{
+	"filename": "tangan",
+	"frame": {"x":49,"y":2,"w":48,"h":151},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":24,"y":12,"w":48,"h":151},
+	"sourceSize": {"w":100,"h":178}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "anim.png",
+	"format": "RGBA8888",
+	"size": {"w":511,"h":799},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:fcce8c580a1971c0299cfef1630039d0:ac7add2a03ec8a3c5ff1dfe1e27430e3:6347dbebbf1304f1c390863db2a23cce$"
+}
+}

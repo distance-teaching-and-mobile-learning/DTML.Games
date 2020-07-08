@@ -1,0 +1,2563 @@
+{
+  "Setup": {
+    "Name": "hospital",
+    "Title": "At the Hospital",
+    "LeftCharacter": "cook",
+    "LeftVoice": "Microsoft David",
+    "LeftPitch": -100,
+    "LeftAddY": 55,
+    "CallOutLeftX": 205,
+    "CallOutLeftY": 350,
+    "RightCharacter": "man",
+    "RightVoice": "Microsoft Hazel",
+    "RightPitch": 100,
+    "RightAddY": 55,
+    "CallOutRightX": 175,
+    "CallOutRightY": 340,
+    "Backgrounds": ["hospital", "hospital_room_2", "hospital_room"]
+  },
+  "StartAt": "Greetings",
+  "States": {
+    "Greetings": {
+      "Type": "Conversation",
+      "Question": "Hey, good morning!",
+      "AnswerWords": [
+        "Hi",
+        "Good",
+        "You",
+        "Surprise",
+        "Hey",
+        "Morning",
+        "A",
+        "What",
+        "Hello"
+      ],
+      "Solutions": {
+        "hey": { "Score": 0, "Next": "Visit Set" },
+        "good morning": { "Score": 0, "Next": "Visit Set" },
+        "hello": { "Score": 0, "Next": "Visit Set" },
+        "hey what a surprise": { "Score": 0, "Next": "Visit Set" },
+        "hi": { "Score": 0, "Next": "Visit Set" },
+        "default": { "Score": -50, "Next": null }
+      },
+      "OnStateEnter": { "Background": "2" },
+      "OnStateExit": {}
+    },
+    "Visit Set": {
+      "Type": "Conversation",
+      "Question": "I heard you had an accident and wanted to see you.",
+      "AnswerWords": [
+        "Cool",
+        "Great",
+        "You",
+        "Thank",
+        "I",
+        "Never",
+        "For",
+        "Coming",
+        "Thanks",
+        "See",
+        "you"
+      ],
+      "Solutions": {
+        "great thank you": { "Score": 0, "Next": "Health Status" },
+        "cool": { "Score": 0, "Next": "Health Status" },
+        "thank you": { "Score": 0, "Next": "Health Status" },
+        "great thanks": { "Score": 0, "Next": "Health Status" },
+        "i thank you for coming": { "Score": 0, "Next": "Health Status" },
+        "thank you for coming": { "Score": 0, "Next": "Health Status" },
+        "thanks for coming": { "Score": 0, "Next": "Health Status" },
+        "default": { "Score": -50, "Next": null }
+      },
+      "OnStateEnter": {},
+      "OnStateExit": {}
+    },
+    "Health Status": {
+      "Type": "Conversation",
+      "Question": "So, how do you feel? Does it hurt?",
+      "AnswerWords": [
+        "Thank",
+        "you",
+        "better",
+        "now",
+        "no",
+        "it",
+        "I",
+        "doesn't",
+        "bored",
+        "feel"
+      ],
+      "Solutions": {
+        "better thank you": { "Score": 0, "Next": "What Happened" },
+        "no it doesn't feel better": { "Score": 0, "Next": "What Happened" },
+        "no it doesn't i feel better now": {
+          "Score": 0,
+          "Next": "What Happened"
+        },
+        "no i feel better now": { "Score": 0, "Next": "What Happened" },
+        "no it doesn't": { "Score": 0, "Next": "What Happened" },
+        "i feel better now thank you": { "Score": 0, "Next": "What Happened" },
+        "default": { "Score": -50, "Next": null },
+        "i feel bored": { "Score": 0, "Next": "Motivating Statement" },
+        "bored": { "Score": 0, "Next": "Motivating Statement" }
+      },
+      "OnStateEnter": {},
+      "OnStateExit": {}
+    },
+    "What Happened": {
+      "Type": "Conversation",
+      "Question": "So, how was it?",
+      "AnswerWords": [
+        "Hit",
+        "a",
+        "I",
+        "better",
+        "tree",
+        "got",
+        "accidentally",
+        "fell",
+        "crashed",
+        "into"
+      ],
+      "Solutions": {
+        "i got hit": { "Score": 0, "Next": "How it happened" },
+        "i crashed into a tree": { "Score": 0, "Next": "How it happened" },
+        "i fell": { "Score": 0, "Next": "How it happened" },
+        "i accidentally crashed into a tree": {
+          "Score": 0,
+          "Next": "How it happened"
+        },
+        "i hit a tree": { "Score": 0, "Next": "How it happened" },
+        "i accidentally hit a tree": { "Score": 0, "Next": "How it happened" },
+        "i crashed": { "Score": 0, "Next": "How it happened" },
+        "default": { "Score": -50, "Next": null }
+      },
+      "OnStateEnter": {},
+      "OnStateExit": {}
+    },
+    "Motivating Statement": {
+      "Type": "Conversation",
+      "Question": "Come on, you don't look so bad!",
+      "AnswerWords": [
+        "Ok",
+        "all",
+        "you",
+        "thank",
+        "appreciate",
+        "I",
+        "kite",
+        "well",
+        "that",
+        "it",
+        "right"
+      ],
+      "Solutions": {
+        "thank you": { "Score": 0, "Next": "What Happened" },
+        "well thank you": { "Score": 0, "Next": "What Happened" },
+        "i appreciate that thank you": { "Score": 0, "Next": "What Happened" },
+        "i appreciate it": { "Score": 0, "Next": "What Happened" },
+        "all right thank you": { "Score": 0, "Next": "What Happened" },
+        "default": { "Score": -50, "Next": null }
+      },
+      "OnStateEnter": {},
+      "OnStateExit": {}
+    },
+    "How it happened": {
+      "Type": "Conversation",
+      "Question": "Were you skating?",
+      "AnswerWords": [
+        "No",
+        "sorry",
+        "ball",
+        "course",
+        "was",
+        "my",
+        "I",
+        "bike",
+        "riding",
+        "not"
+      ],
+      "Solutions": {
+        "no i was not": { "Score": 0, "Next": "Details Inquiring" },
+        "no i was riding my bike": { "Score": 0, "Next": "Details Inquiring" },
+        "i was not i was riding my bike": {
+          "Score": 0,
+          "Next": "Details Inquiring"
+        },
+        "default": { "Score": -50, "Next": null }
+      },
+      "OnStateEnter": {},
+      "OnStateExit": {}
+    },
+    "Details Inquiring": {
+      "Type": "Conversation",
+      "Question": "So, were you distracted?",
+      "AnswerWords": [
+        "Maybe",
+        "no",
+        "exactly",
+        "all",
+        "not",
+        "at",
+        "well",
+        "sometimes",
+        "please",
+        "course"
+      ],
+      "Solutions": {
+        "not at all": { "Score": 0, "Next": "Explanation Request" },
+        "maybe": { "Score": 0, "Next": "Explanation Request" },
+        "no not exactly": { "Score": 0, "Next": "Explanation Request" },
+        "well not exactly": { "Score": 0, "Next": "Explanation Request" },
+        "no, not at all": { "Score": 0, "Next": "Explanation Request" },
+        "default": { "Score": -50, "Next": null }
+      },
+      "OnStateEnter": {},
+      "OnStateExit": {}
+    },
+    "Explanation Request": {
+      "Type": "Conversation",
+      "Question": "What do you mean?",
+      "AnswerWords": [
+        "you",
+        "avoided",
+        "ask",
+        "a",
+        "I",
+        "little",
+        "road",
+        "crossing",
+        "girl",
+        "the"
+      ],
+      "Solutions": {
+        "i avoided a little girl": {
+          "Score": 0,
+          "Next": "Further Explanation"
+        },
+        "i avoided a little girl crossing the road": {
+          "Score": 0,
+          "Next": "Further Explanation"
+        },
+        "default": { "Score": -50, "Next": null }
+      },
+      "OnStateEnter": {},
+      "OnStateExit": {}
+    },
+    "Further Explanation": {
+      "Type": "Conversation",
+      "Question": "Oh...",
+      "AnswerWords": [
+        "the",
+        "on",
+        "tree",
+        "a",
+        "sidewalk",
+        "hit",
+        "I",
+        "and",
+        "sharply",
+        "turned"
+      ],
+      "Solutions": {
+        "and i hit a tree": { "Score": 0, "Next": "Congratulations" },
+        "i turned sharply and hit a tree on the sidewalk": {
+          "Score": 0,
+          "Next": "Congratulations"
+        },
+        "and i hit a tree on the sidewalk": {
+          "Score": 0,
+          "Next": "Congratulations"
+        },
+        "default": { "Score": -50, "Next": null }
+      },
+      "OnStateEnter": {},
+      "OnStateExit": {}
+    },
+    "Congratulations": {
+      "Type": "Conversation",
+      "Question": "Well congratulations! You are a hero. You saved a little girl's life!",
+      "AnswerWords": [
+        "Guess",
+        "thumbs",
+        "oh",
+        "sure",
+        "thing",
+        "up",
+        "good",
+        "is",
+        "a",
+        "that"
+      ],
+      "Solutions": {
+        "sure": { "Score": 0, "Next": "Introduction to Joke" },
+        "thumbs up": { "Score": 0, "Next": "Introduction to Joke" },
+        "sure that is a good thing": {
+          "Score": 0,
+          "Next": "Introduction to Joke"
+        },
+        "sure that is good": { "Score": 0, "Next": "Introduction to Joke" },
+        "oh sure that is a good thing": {
+          "Score": 0,
+          "Next": "Introduction to Joke"
+        },
+        "default": { "Score": -50, "Next": null }
+      },
+      "OnStateEnter": {},
+      "OnStateExit": {}
+    },
+    "Introduction to Joke": {
+      "Type": "Conversation",
+      "Question": "Well, there is another good thing",
+      "AnswerWords": [
+        "away",
+        "oh",
+        "would",
+        "really",
+        "go",
+        "please",
+        "what",
+        "be",
+        "it",
+        "is",
+        "that"
+      ],
+      "Solutions": {
+        "oh really": { "Score": 0, "Next": "Joke" },
+        "what would that be": { "Score": 0, "Next": "Joke" },
+        "what is it": { "Score": 0, "Next": "Joke" },
+        "oh really what would that be": { "Score": 0, "Next": "Joke" },
+        "oh really what is it": { "Score": 0, "Next": "Joke" },
+        "default": { "Score": -50, "Next": null },
+        "please go away": { "Score": 0, "Next": "Homework Subject" }
+      },
+      "OnStateEnter": {},
+      "OnStateExit": {}
+    },
+    "Homework Subject": {
+      "Type": "Conversation",
+      "Question": "Ha ha ha! I also brought your Math, Geography and Literature homework.",
+      "AnswerWords": [
+        "well",
+        "let's",
+        "stopped",
+        "really",
+        "you",
+        "funny",
+        "being",
+        "there",
+        "great",
+        "start"
+      ],
+      "Solutions": {
+        "great": { "Score": 0, "Next": "Where to Start" },
+        "well let's start": { "Score": 0, "Next": "Where to Start" },
+        "great let's start": { "Score": 0, "Next": "Where to Start" },
+        "default": { "Score": -50, "Next": null },
+        "you stopped being funny": { "Score": 0, "Next": "Accept Joke" },
+        "well there you stopped being funny": {
+          "Score": 0,
+          "Next": "Accept Joke"
+        },
+        "there you really stopped being funny": {
+          "Score": 0,
+          "Next": "Accept Joke"
+        }
+      },
+      "OnStateEnter": {},
+      "OnStateExit": {}
+    },
+    "Joke": {
+      "Type": "Conversation",
+      "Question": "The other good thing is that if you get out of here before tomorrow afternoon, you can come to the school Halloween party desgised as a mummy!",
+      "AnswerWords": [
+        "not",
+        "do",
+        "please",
+        "how",
+        "ha",
+        "you",
+        "funny",
+        "is",
+        "think",
+        "it",
+        "that",
+        "my",
+        "made",
+        "day",
+        "was"
+      ],
+      "Solutions": {
+        "do you think that is funny": { "Score": 0, "Next": "Excuse Accepted" },
+        "ha ha ha do you think that is funny": {
+          "Score": 0,
+          "Next": "Excuse Accepted"
+        },
+        "please that is not funny": { "Score": 0, "Next": "Excuse Accepted" },
+        "default": { "Score": -50, "Next": null },
+        "ha ha ha": { "Score": 0, "Next": "Homework Subject" },
+        "ha ha ha you made my day": { "Score": 0, "Next": "Homework Subject" },
+        "that was not funny": { "Score": 0, "Next": "Homework Subject" }
+      },
+      "OnStateEnter": {},
+      "OnStateExit": {}
+    },
+    "Excuse Accepted": {
+      "Type": "Conversation",
+      "Question": "No, sorry, but it could be!",
+      "AnswerWords": [
+        "ok",
+        "little",
+        "worry",
+        "don't",
+        "yes",
+        "a",
+        "is",
+        "funny",
+        "it",
+        "that",
+        "was"
+      ],
+      "Solutions": {
+        "ok": { "Score": 0, "Next": "Homework Subject" },
+        "it is a little funny": { "Score": 0, "Next": "Homework Subject" },
+        "don't worry": { "Score": 0, "Next": "Homework Subject" },
+        "yes": { "Score": 0, "Next": "Homework Subject" },
+        "ok don't worry that was a little funny": {
+          "Score": 0,
+          "Next": "Homework Subject"
+        },
+        "yes that was a little funny": {
+          "Score": 0,
+          "Next": "Homework Subject"
+        },
+        "ok that was a little funny": {
+          "Score": 0,
+          "Next": "Homework Subject"
+        },
+        "default": { "Score": -50, "Next": null }
+      },
+      "OnStateEnter": {},
+      "OnStateExit": {}
+    },
+    "Where to Start": {
+      "Type": "Conversation",
+      "Question": "Would you like to start with Math, Geography, or Literature?",
+      "AnswerWords": [
+        "let's",
+        "geography",
+        "I",
+        "with",
+        "like",
+        "start",
+        "math",
+        "maybe",
+        "literature",
+        "first"
+      ],
+      "Solutions": {
+        "maybe geography": { "Score": 0, "Next": "End" },
+        "i like math": { "Score": 0, "Next": "End" },
+        "let's start with literature": { "Score": 0, "Next": "End" },
+        "i like literature": { "Score": 0, "Next": "End" },
+        "i like math first": { "Score": 0, "Next": "End" },
+        "let's start with math": { "Score": 0, "Next": "End" },
+        "let's start with geography": { "Score": 0, "Next": "End" },
+        "i like literature first": { "Score": 0, "Next": "End" },
+        "math first": { "Score": 0, "Next": "End" },
+        "i like geography": { "Score": 0, "Next": "End" },
+        "default": { "Score": -50, "Next": null }
+      },
+      "OnStateEnter": {},
+      "OnStateExit": {}
+    },
+    "Accept Joke": {
+      "Type": "Conversation",
+      "Question": "Don't worry, it's easy and I'm staying to do it with you.",
+      "AnswerWords": [
+        "you",
+        "thank",
+        "are",
+        "my",
+        "a",
+        "friend",
+        "best",
+        "really",
+        "for",
+        "coming",
+        "real"
+      ],
+      "Solutions": {
+        "you are my best friend": { "Score": 0, "Next": "End" },
+        "thank you": { "Score": 0, "Next": "End" },
+        "thank you for coming": { "Score": 0, "Next": "End" },
+        "thank you you are my best friend": { "Score": 0, "Next": "End" },
+        "thank you you are a real friend": { "Score": 0, "Next": "End" },
+        "default": { "Score": -50, "Next": null }
+      },
+      "OnStateEnter": {},
+      "OnStateExit": {}
+    },
+    "End": { "Type": "End", "Question": "", "AnswerWords": [], "Solutions": {} }
+  },
+  "graphData": {
+    "cells": [
+      {
+        "type": "dialogue.Start",
+        "outPorts": ["output"],
+        "actor": "",
+        "textarea": "Start writing",
+        "size": { "width": 180, "height": 170 },
+        "expanded": false,
+        "gameName": "Hospital",
+        "gameTitle": "At the Hospital",
+        "leftCharacter": "cook",
+        "leftVoice": "Microsoft David",
+        "leftPitch": "-100",
+        "leftYOffset": "55",
+        "leftX": "205",
+        "leftY": "350",
+        "rightCharacter": "man",
+        "rightVoice": "Microsoft Hazel",
+        "rightPitch": "100",
+        "rightYOffset": "55",
+        "rightX": "175",
+        "rightY": "340",
+        "backgrounds": ["hospital", "hospital_room_2", "hospital_room"],
+        "name": "",
+        "inPorts": [],
+        "position": { "x": 16, "y": 272 },
+        "angle": 0,
+        "leftAnimation": null,
+        "id": "f19c6389-2174-4dbf-80be-de0e68e75e38",
+        "z": 0,
+        "attrs": {
+          ".outPorts>.port0>text": { "text": "output" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "size": { "width": 260, "height": 240 },
+        "type": "dialogue.Question",
+        "inPorts": ["input"],
+        "outPorts": ["output"],
+        "name": "Greetings",
+        "prompt": "Hey, good morning!",
+        "answerWords": "Hi, Good, You, Surprise, Hey, Morning, A, What, Hello",
+        "background": "2",
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 224, "y": 368 },
+        "angle": 0,
+        "leftCharacterAnimation": null,
+        "leftCharacterDirection": null,
+        "rightCharacterAnimation": null,
+        "rightCharacterDirection": null,
+        "id": "ce8c1399-408b-40d6-b50e-21aba7581633",
+        "z": 1,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 164 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": [
+          "hey",
+          "good morning",
+          "hello",
+          "hey what a surprise",
+          "hi"
+        ],
+        "scores": [],
+        "name": "",
+        "position": { "x": 544, "y": 400 },
+        "angle": 0,
+        "id": "23e81c00-6e3d-4af2-8e8c-e5d412006e9c",
+        "z": 2,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output0" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output0", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "87c77a8a-2089-4153-aca3-1463a5832109",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "f19c6389-2174-4dbf-80be-de0e68e75e38",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "ce8c1399-408b-40d6-b50e-21aba7581633",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 3,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "92bc8094-8850-4c79-9d37-ce7b753a4d4a",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "ce8c1399-408b-40d6-b50e-21aba7581633",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "23e81c00-6e3d-4af2-8e8c-e5d412006e9c",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 4,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "size": { "width": 260, "height": 240 },
+        "type": "dialogue.Question",
+        "inPorts": ["input"],
+        "outPorts": ["output"],
+        "name": "Visit Set",
+        "prompt": "I heard you had an accident and wanted to see you.",
+        "answerWords": "Cool, Great, You, Thank, I, Never, For, Coming, Thanks, See, you",
+        "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 784, "y": 368 },
+        "angle": 0,
+        "leftCharacterAnimation": null,
+        "leftCharacterDirection": null,
+        "rightCharacterAnimation": null,
+        "rightCharacterDirection": null,
+        "id": "d6418b0a-88f6-40fb-b856-c8c23cb1b93e",
+        "z": 5,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "9b241809-c3e7-43cd-9a2c-677ce328f825",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "23e81c00-6e3d-4af2-8e8c-e5d412006e9c",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output0"
+        },
+        "target": {
+          "id": "d6418b0a-88f6-40fb-b856-c8c23cb1b93e",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 6,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 216 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": [
+          "Great thank you",
+          "Cool",
+          "Thank you",
+          "Great thanks",
+          "I thank you for coming",
+          "Thank you for coming",
+          "Thanks for coming"
+        ],
+        "scores": [null, null, null, ""],
+        "name": "",
+        "position": { "x": 1088, "y": 384 },
+        "angle": 0,
+        "id": "e2a69a1f-ff22-4c24-9f0c-65e8dd9c4e02",
+        "z": 7,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output0" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output0", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "87abe4aa-5850-4b9b-a6bc-44ffb814bf56",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "d6418b0a-88f6-40fb-b856-c8c23cb1b93e",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "e2a69a1f-ff22-4c24-9f0c-65e8dd9c4e02",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 8,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "size": { "width": 260, "height": 240 },
+        "type": "dialogue.Question",
+        "inPorts": ["input"],
+        "outPorts": ["output"],
+        "name": "Health Status",
+        "prompt": "So, how do you feel? Does it hurt?",
+        "answerWords": "Thank, you, better, now, no, it, I, doesn't, bored, feel",
+        "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 1344, "y": 384 },
+        "angle": 0,
+        "leftCharacterAnimation": null,
+        "leftCharacterDirection": null,
+        "rightCharacterAnimation": null,
+        "rightCharacterDirection": null,
+        "id": "e3b843e1-c8ce-4803-8907-5b332b7c10bc",
+        "z": 9,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "4abaf49c-7880-4648-a355-83e9cc1a3558",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "e2a69a1f-ff22-4c24-9f0c-65e8dd9c4e02",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output0"
+        },
+        "target": {
+          "id": "e3b843e1-c8ce-4803-8907-5b332b7c10bc",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 10,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 190 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": [
+          "Better thank you",
+          "No it doesn't feel better",
+          "No it doesn't I feel better now",
+          "No I feel better now",
+          "No it doesn't",
+          "I feel better now thank you"
+        ],
+        "scores": [],
+        "name": "",
+        "position": { "x": 2032, "y": 192 },
+        "angle": 0,
+        "id": "1e8cec67-3a6b-4e40-8d3d-b7de06184139",
+        "z": 11,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output0" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output0", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 86 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": ["I feel bored", "Bored"],
+        "scores": [],
+        "name": "",
+        "position": { "x": 1408, "y": 736 },
+        "angle": 0,
+        "id": "3bbbd0db-2ac3-4306-a253-0c058bcb4d14",
+        "z": 12,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output0" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output0", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "432d014d-dd20-4e94-ac42-de8ba7a70fa5",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "e3b843e1-c8ce-4803-8907-5b332b7c10bc",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "1e8cec67-3a6b-4e40-8d3d-b7de06184139",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 13,
+        "vertices": [],
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "668cd455-a863-4459-870b-da39be411347",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "e3b843e1-c8ce-4803-8907-5b332b7c10bc",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "3bbbd0db-2ac3-4306-a253-0c058bcb4d14",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 14,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "size": { "width": 260, "height": 240 },
+        "type": "dialogue.Question",
+        "inPorts": ["input"],
+        "outPorts": ["output"],
+        "name": "What Happened",
+        "prompt": "So, how was it?",
+        "answerWords": "Hit, a, I, better, tree, got, accidentally, fell, crashed, into",
+        "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 2320, "y": 256 },
+        "angle": 0,
+        "leftCharacterAnimation": null,
+        "leftCharacterDirection": null,
+        "rightCharacterAnimation": null,
+        "rightCharacterDirection": null,
+        "id": "77da04b3-5e07-4c0d-a130-5dd6699bc865",
+        "z": 15,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "size": { "width": 260, "height": 240 },
+        "type": "dialogue.Question",
+        "inPorts": ["input"],
+        "outPorts": ["output"],
+        "name": "Motivating Statement",
+        "prompt": "Come on, you don't look so bad!",
+        "answerWords": "Ok, all, you, thank, appreciate, I, kite, well, that, it, right",
+        "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 1728, "y": 608 },
+        "angle": 0,
+        "leftCharacterAnimation": null,
+        "leftCharacterDirection": null,
+        "rightCharacterAnimation": null,
+        "rightCharacterDirection": null,
+        "id": "b2a64863-b7bd-448b-9dce-d4e03c946941",
+        "z": 16,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "48d5d1cd-726b-47c4-b341-44c71096c415",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "1e8cec67-3a6b-4e40-8d3d-b7de06184139",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output0"
+        },
+        "target": {
+          "id": "77da04b3-5e07-4c0d-a130-5dd6699bc865",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 17,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "85cecfca-8cba-4164-9356-c0f7009ed9c4",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "3bbbd0db-2ac3-4306-a253-0c058bcb4d14",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output0"
+        },
+        "target": {
+          "id": "b2a64863-b7bd-448b-9dce-d4e03c946941",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 18,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 216 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": [
+          "I got hit",
+          "I crashed into a tree",
+          "I fell",
+          "I accidentally crashed into a tree",
+          "I hit a tree",
+          "I accidentally hit a tree",
+          "I crashed"
+        ],
+        "scores": [],
+        "name": "",
+        "position": { "x": 2608, "y": 272 },
+        "angle": 0,
+        "id": "a788a8e4-5f82-4f05-9b40-50030dd4e538",
+        "z": 19,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output0" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output0", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "8ffe44d8-cf74-4e48-bac3-2ef781d3dced",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "77da04b3-5e07-4c0d-a130-5dd6699bc865",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "a788a8e4-5f82-4f05-9b40-50030dd4e538",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 20,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "size": { "width": 260, "height": 240 },
+        "type": "dialogue.Question",
+        "inPorts": ["input"],
+        "outPorts": ["output"],
+        "name": "How it happened",
+        "prompt": "Were you skating?",
+        "answerWords": "No, sorry, ball, course, was, my, I, bike, riding, not",
+        "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 2880, "y": 240 },
+        "angle": 0,
+        "leftCharacterAnimation": null,
+        "leftCharacterDirection": null,
+        "rightCharacterAnimation": null,
+        "rightCharacterDirection": null,
+        "id": "b54e8506-f3fb-4608-940e-92f55ef855f1",
+        "z": 21,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "9fbca7fd-b9b1-49f6-94b6-8b463585b195",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "a788a8e4-5f82-4f05-9b40-50030dd4e538",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output0"
+        },
+        "target": {
+          "id": "b54e8506-f3fb-4608-940e-92f55ef855f1",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 22,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 138 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": [
+          "No I was not",
+          "No I was riding my bike",
+          "I was not I was riding my bike",
+          "No I was riding my bike"
+        ],
+        "scores": [],
+        "name": "",
+        "position": { "x": 3200, "y": 272 },
+        "angle": 0,
+        "id": "c1424492-630d-43d2-bb9a-9efef2f6f970",
+        "z": 23,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output0" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output0", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "d877e7bd-bea9-410e-920a-3b0108c66079",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "b54e8506-f3fb-4608-940e-92f55ef855f1",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "c1424492-630d-43d2-bb9a-9efef2f6f970",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 24,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "size": { "width": 260, "height": 240 },
+        "type": "dialogue.Question",
+        "inPorts": ["input"],
+        "outPorts": ["output"],
+        "name": "Details Inquiring",
+        "prompt": "So, were you distracted?",
+        "answerWords": "Maybe, no, exactly, all, not, at, well, sometimes, please, course",
+        "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 3456, "y": 240 },
+        "angle": 0,
+        "leftCharacterAnimation": null,
+        "leftCharacterDirection": null,
+        "rightCharacterAnimation": null,
+        "rightCharacterDirection": null,
+        "id": "3a4293a8-7320-47cf-81cb-6d3fd666253a",
+        "z": 25,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "298499c2-c7e1-49cf-b3c6-3db30fd5796f",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "c1424492-630d-43d2-bb9a-9efef2f6f970",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output0"
+        },
+        "target": {
+          "id": "3a4293a8-7320-47cf-81cb-6d3fd666253a",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 26,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 164 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": [
+          "Not at all",
+          "Maybe",
+          "No not exactly",
+          "Well not exactly",
+          "No, not at all"
+        ],
+        "scores": [],
+        "name": "",
+        "position": { "x": 3760, "y": 272 },
+        "angle": 0,
+        "id": "b9a69bb5-2802-4118-b496-e4e47edc62d1",
+        "z": 27,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output0" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output0", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "079e9e2f-5da7-4fd0-9c69-fd33c76a9007",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "3a4293a8-7320-47cf-81cb-6d3fd666253a",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "b9a69bb5-2802-4118-b496-e4e47edc62d1",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 28,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "size": { "width": 260, "height": 240 },
+        "type": "dialogue.Question",
+        "inPorts": ["input"],
+        "outPorts": ["output"],
+        "name": "Explanation Request",
+        "prompt": "What do you mean?",
+        "answerWords": "you, avoided, ask, a, I, little, road, crossing, girl, the",
+        "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 4080, "y": 240 },
+        "angle": 0,
+        "leftCharacterAnimation": null,
+        "leftCharacterDirection": null,
+        "rightCharacterAnimation": null,
+        "rightCharacterDirection": null,
+        "id": "435a2412-0f05-4b20-bce6-78e1ed731039",
+        "z": 29,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "c43098cd-4103-4b96-8ee7-0244590f9705",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "b9a69bb5-2802-4118-b496-e4e47edc62d1",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output0"
+        },
+        "target": {
+          "id": "435a2412-0f05-4b20-bce6-78e1ed731039",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 30,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 86 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": [
+          "I avoided a little girl",
+          "I avoided a little girl crossing the road"
+        ],
+        "scores": [],
+        "name": "",
+        "position": { "x": 4368, "y": 288 },
+        "angle": 0,
+        "id": "b139c011-77de-4148-8a66-f4c01bd4a27a",
+        "z": 31,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output0" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output0", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "25a752ba-fb5f-45f6-af21-c17688056d09",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "435a2412-0f05-4b20-bce6-78e1ed731039",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "b139c011-77de-4148-8a66-f4c01bd4a27a",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 32,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "size": { "width": 260, "height": 240 },
+        "type": "dialogue.Question",
+        "inPorts": ["input"],
+        "outPorts": ["output"],
+        "name": "Further Explanation",
+        "prompt": "Oh...",
+        "answerWords": "the, on, tree, a, sidewalk, hit, I, and, sharply, turned",
+        "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 4624, "y": 192 },
+        "angle": 0,
+        "leftCharacterAnimation": null,
+        "leftCharacterDirection": null,
+        "rightCharacterAnimation": null,
+        "rightCharacterDirection": null,
+        "id": "c5a2983a-e8fc-4686-b2ad-608d56427ead",
+        "z": 33,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "19f82461-9e9f-4d09-9b9c-032ff9d0aab9",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "b139c011-77de-4148-8a66-f4c01bd4a27a",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output0"
+        },
+        "target": {
+          "id": "c5a2983a-e8fc-4686-b2ad-608d56427ead",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 34,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 138 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": [
+          "and I hit a tree",
+          "I turned sharply and hit a tree on the sidewalk",
+          "I turned sharply and hit a tree on the sidewalk",
+          "and I hit a tree on the sidewalk"
+        ],
+        "scores": [],
+        "name": "",
+        "position": { "x": 4944, "y": 240 },
+        "angle": 0,
+        "id": "a5040a0f-eb6d-4960-af04-c330a9a41a72",
+        "z": 35,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output0" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output0", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "f5e5188a-64e7-4c42-bef2-1a0549c31889",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "c5a2983a-e8fc-4686-b2ad-608d56427ead",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "a5040a0f-eb6d-4960-af04-c330a9a41a72",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 36,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "size": { "width": 260, "height": 240 },
+        "type": "dialogue.Question",
+        "inPorts": ["input"],
+        "outPorts": ["output"],
+        "name": "Congratulations",
+        "prompt": "Well congratulations! You are a hero. You saved a little girl's life!",
+        "answerWords": "Guess, thumbs, oh, sure, thing, up, good, is, a, that",
+        "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 5216, "y": 192 },
+        "angle": 0,
+        "leftCharacterAnimation": null,
+        "leftCharacterDirection": null,
+        "rightCharacterAnimation": null,
+        "rightCharacterDirection": null,
+        "id": "eef9b3aa-481f-43ad-b0cb-3907426dd6ba",
+        "z": 37,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "2d14f40a-56b8-413e-a0b8-eb2a11a98f96",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "a5040a0f-eb6d-4960-af04-c330a9a41a72",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output0"
+        },
+        "target": {
+          "id": "eef9b3aa-481f-43ad-b0cb-3907426dd6ba",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 38,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 164 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": [
+          "Sure",
+          "Thumbs up",
+          "Sure that is a good thing",
+          "Sure that is good",
+          "Oh sure that is a good thing"
+        ],
+        "scores": [],
+        "name": "",
+        "position": { "x": 5568, "y": 224 },
+        "angle": 0,
+        "id": "64ef8f48-845a-43fe-9caf-f60cf686f2e4",
+        "z": 39,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output0" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output0", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "fc63a6d3-cad6-4e7d-a535-f9d845662426",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "eef9b3aa-481f-43ad-b0cb-3907426dd6ba",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "64ef8f48-845a-43fe-9caf-f60cf686f2e4",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 40,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 164 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": [
+          "Thank you",
+          "Well thank you",
+          "I appreciate that thank you",
+          "I appreciate it",
+          "All right thank you"
+        ],
+        "scores": [],
+        "name": "",
+        "position": { "x": 2016, "y": 400 },
+        "angle": 0,
+        "id": "43cd07b0-f3b8-4467-9a0c-6ea6155e31dd",
+        "z": 41,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output0" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output0", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "7625dfde-aa03-47f0-ba63-da3d0432d6b6",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "b2a64863-b7bd-448b-9dce-d4e03c946941",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "43cd07b0-f3b8-4467-9a0c-6ea6155e31dd",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 42,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "f6e43d25-21b9-4c18-b0ea-395b38ff9f0a",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "43cd07b0-f3b8-4467-9a0c-6ea6155e31dd",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output0"
+        },
+        "target": {
+          "id": "77da04b3-5e07-4c0d-a130-5dd6699bc865",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 43,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "size": { "width": 260, "height": 240 },
+        "type": "dialogue.Question",
+        "inPorts": ["input"],
+        "outPorts": ["output"],
+        "name": "Introduction to Joke",
+        "prompt": "Well, there is another good thing",
+        "answerWords": "away, oh, would, really, go, please, what, be, it, is, that",
+        "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 5856, "y": 160 },
+        "angle": 0,
+        "leftCharacterAnimation": null,
+        "leftCharacterDirection": null,
+        "rightCharacterAnimation": null,
+        "rightCharacterDirection": null,
+        "id": "212331af-586b-4c91-af55-1a1f9260d7cc",
+        "z": 44,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "a505e35f-fe58-44f9-a4f3-463c4acdcaa3",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "64ef8f48-845a-43fe-9caf-f60cf686f2e4",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output0"
+        },
+        "target": {
+          "id": "212331af-586b-4c91-af55-1a1f9260d7cc",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 45,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 164 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": [
+          "oh really",
+          "what would that be",
+          "what is it",
+          "oh really what would that be",
+          "oh really what is it"
+        ],
+        "scores": [],
+        "name": "",
+        "position": { "x": 6192, "y": 128 },
+        "angle": 0,
+        "id": "7b47bb69-26de-4aa7-8268-8edc73fb64af",
+        "z": 46,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output0" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output0", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "8de168f6-f8b1-4bc9-afb4-e52f43c8a285",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "212331af-586b-4c91-af55-1a1f9260d7cc",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "7b47bb69-26de-4aa7-8268-8edc73fb64af",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 47,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 60 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": ["Please go away"],
+        "scores": [],
+        "name": "",
+        "position": { "x": 6496, "y": 720 },
+        "angle": 0,
+        "id": "cd162e86-f740-4bb6-b034-d1fa973ecb00",
+        "z": 48,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output0" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output0", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "68913adf-d1bb-44cc-b1bd-8a8385ac5ef9",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "212331af-586b-4c91-af55-1a1f9260d7cc",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "cd162e86-f740-4bb6-b034-d1fa973ecb00",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 49,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "size": { "width": 260, "height": 240 },
+        "type": "dialogue.Question",
+        "inPorts": ["input"],
+        "outPorts": ["output"],
+        "name": "Homework Subject",
+        "prompt": "Ha ha ha! I also brought your Math, Geography and Literature homework.",
+        "answerWords": "well, let's, stopped, really, you, funny, being, there, great, start",
+        "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 7616, "y": 432 },
+        "angle": 0,
+        "leftCharacterAnimation": null,
+        "leftCharacterDirection": null,
+        "rightCharacterAnimation": null,
+        "rightCharacterDirection": null,
+        "id": "02aa57f4-c477-44ce-a957-7a2c9ea37d83",
+        "z": 50,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "8ce7bfcd-e728-4e52-bc3d-83bcefa5139c",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "cd162e86-f740-4bb6-b034-d1fa973ecb00",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output0"
+        },
+        "target": {
+          "id": "02aa57f4-c477-44ce-a957-7a2c9ea37d83",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 51,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "size": { "width": 260, "height": 240 },
+        "type": "dialogue.Question",
+        "inPorts": ["input"],
+        "outPorts": ["output"],
+        "name": "Joke",
+        "prompt": "The other good thing is that if you get out of here before tomorrow afternoon, you can come to the school Halloween party desgised as a mummy!",
+        "answerWords": "not, do, please, how, ha, you, funny, is, think, it, that, my, made, day, was",
+        "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 6432, "y": 96 },
+        "angle": 0,
+        "leftCharacterAnimation": null,
+        "leftCharacterDirection": null,
+        "rightCharacterAnimation": null,
+        "rightCharacterDirection": null,
+        "id": "9dda4dfa-2011-4e18-aecd-f76727a0240b",
+        "z": 52,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "d82cc3f7-ad97-4274-85f6-cc095682c851",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "7b47bb69-26de-4aa7-8268-8edc73fb64af",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output0"
+        },
+        "target": {
+          "id": "9dda4dfa-2011-4e18-aecd-f76727a0240b",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 53,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 112 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": [
+          "Do you think that is funny",
+          "ha ha ha do you think that is funny",
+          "please that is not funny"
+        ],
+        "scores": [],
+        "name": "",
+        "position": { "x": 6736, "y": 144 },
+        "angle": 0,
+        "id": "a5a6b95e-6711-4556-b18d-076ef6158941",
+        "z": 54,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output0" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output0", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "7029de80-eee6-4ee8-a70f-cce3032eb425",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "9dda4dfa-2011-4e18-aecd-f76727a0240b",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "a5a6b95e-6711-4556-b18d-076ef6158941",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 55,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "size": { "width": 260, "height": 240 },
+        "type": "dialogue.Question",
+        "inPorts": ["input"],
+        "outPorts": ["output"],
+        "name": "Excuse Accepted",
+        "prompt": "No, sorry, but it could be!",
+        "answerWords": "ok, little, worry, don't, yes, a, is, funny, it, that, was",
+        "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 6992, "y": 128 },
+        "angle": 0,
+        "leftCharacterAnimation": null,
+        "leftCharacterDirection": null,
+        "rightCharacterAnimation": null,
+        "rightCharacterDirection": null,
+        "id": "d3a471e7-336f-443f-8693-2538bee2e363",
+        "z": 56,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "3517bc8a-bb52-4107-b617-b7288277f5d2",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "a5a6b95e-6711-4556-b18d-076ef6158941",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output0"
+        },
+        "target": {
+          "id": "d3a471e7-336f-443f-8693-2538bee2e363",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 57,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 216 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": [
+          "ok",
+          "it is a little funny",
+          "don't worry",
+          "yes",
+          "ok don't worry that was a little funny",
+          "yes that was a little funny",
+          "ok that was a little funny"
+        ],
+        "scores": [],
+        "name": "",
+        "position": { "x": 7312, "y": 208 },
+        "angle": 0,
+        "id": "0165d113-5a12-4d82-9bb5-778653dccf8c",
+        "z": 58,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output0" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output0", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "22bf7c74-862a-40fd-b327-0e4e14b7f440",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "d3a471e7-336f-443f-8693-2538bee2e363",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "0165d113-5a12-4d82-9bb5-778653dccf8c",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 59,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "b4828171-b377-4c01-a1c2-acfd5f640ce5",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "0165d113-5a12-4d82-9bb5-778653dccf8c",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output0"
+        },
+        "target": {
+          "id": "02aa57f4-c477-44ce-a957-7a2c9ea37d83",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 60,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 112 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": [
+          "Ha ha ha",
+          "ha ha ha you made my day",
+          "that was not funny"
+        ],
+        "scores": [],
+        "name": "",
+        "position": { "x": 6768, "y": 416 },
+        "angle": 0,
+        "id": "28c09b1a-ad32-46f1-bd2f-36bb85649927",
+        "z": 61,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output0" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output0", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "5cdb49e6-4db1-40b0-a0de-03401763c0d7",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "9dda4dfa-2011-4e18-aecd-f76727a0240b",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "28c09b1a-ad32-46f1-bd2f-36bb85649927",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 62,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "0e056956-b0ab-48ab-8af6-cbb9d4bbef3d",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "28c09b1a-ad32-46f1-bd2f-36bb85649927",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output0"
+        },
+        "target": {
+          "id": "02aa57f4-c477-44ce-a957-7a2c9ea37d83",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 63,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "size": { "width": 260, "height": 240 },
+        "type": "dialogue.Question",
+        "inPorts": ["input"],
+        "outPorts": ["output"],
+        "name": "Where to Start",
+        "prompt": "Would you like to start with Math, Geography, or Literature?",
+        "answerWords": "let's, geography, I, with, like, start, math, maybe, literature, first",
+        "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 8208, "y": 208 },
+        "angle": 0,
+        "leftCharacterAnimation": null,
+        "leftCharacterDirection": null,
+        "rightCharacterAnimation": null,
+        "rightCharacterDirection": null,
+        "id": "1d03b4bd-4497-4961-96ae-9b695404b898",
+        "z": 64,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "size": { "width": 260, "height": 240 },
+        "type": "dialogue.Question",
+        "inPorts": ["input"],
+        "outPorts": ["output"],
+        "name": "Accept Joke",
+        "prompt": "Don't worry, it's easy and I'm staying to do it with you.",
+        "answerWords": "you, thank, are, my, a, friend, best, really, for, coming, real",
+        "background": null,
+        "enterLeftAnimation": null,
+        "enterLeftDirection": null,
+        "enterRightAnimation": null,
+        "enterRightDirection": null,
+        "exitLeftAnimation": null,
+        "exitLeftDirection": null,
+        "exitRightAnimation": null,
+        "exitRightDirection": null,
+        "position": { "x": 8192, "y": 608 },
+        "angle": 0,
+        "leftCharacterAnimation": null,
+        "leftCharacterDirection": null,
+        "rightCharacterAnimation": null,
+        "rightCharacterDirection": null,
+        "id": "3c89a43b-6e18-4f6e-8c51-51a88fcb0d9e",
+        "z": 65,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "dialogue.End",
+        "inPorts": ["input"],
+        "actor": "",
+        "textarea": "Start writing",
+        "size": { "width": 150, "height": 50 },
+        "name": "",
+        "outPorts": [],
+        "position": { "x": 8848, "y": 496 },
+        "angle": 0,
+        "id": "7f509a53-1d37-468d-8ae5-d40b96bf863c",
+        "z": 66,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 }
+        }
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 112 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": ["Great", "Well let's start", "Great let's start"],
+        "scores": [],
+        "name": "",
+        "position": { "x": 7920, "y": 448 },
+        "angle": 0,
+        "id": "f9f9420d-d273-4b8f-8db1-27b4581e026d",
+        "z": 67,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output0" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output0", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "8b456b88-89a4-43b6-a133-b1e070b0d757",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "02aa57f4-c477-44ce-a957-7a2c9ea37d83",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "f9f9420d-d273-4b8f-8db1-27b4581e026d",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 68,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "30d181cd-62a4-48ce-9e64-eeb77f687000",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "f9f9420d-d273-4b8f-8db1-27b4581e026d",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output0"
+        },
+        "target": {
+          "id": "1d03b4bd-4497-4961-96ae-9b695404b898",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 69,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 112 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": [
+          "You stopped being funny",
+          "Well there you stopped being funny",
+          "There you really stopped being funny"
+        ],
+        "scores": [],
+        "name": "",
+        "position": { "x": 7931, "y": 651 },
+        "angle": 0,
+        "id": "ea59e4ac-05d5-457f-a34a-688aeeb3fcb5",
+        "z": 70,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output0" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output0", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "71a4dc3a-d2b7-47de-8855-73f02532936d",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "02aa57f4-c477-44ce-a957-7a2c9ea37d83",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "ea59e4ac-05d5-457f-a34a-688aeeb3fcb5",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 71,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "ae6c560f-baf7-456f-a100-0578284b5dce",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "ea59e4ac-05d5-457f-a34a-688aeeb3fcb5",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output0"
+        },
+        "target": {
+          "id": "3c89a43b-6e18-4f6e-8c51-51a88fcb0d9e",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 72,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 164 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": [
+          "You are my best friend",
+          "Thank you",
+          "Thank you for coming",
+          "Thank you you are my best friend",
+          "Thank you you are a real friend"
+        ],
+        "scores": [],
+        "name": "",
+        "position": { "x": 8528, "y": 672 },
+        "angle": 0,
+        "id": "24f062e6-77fc-4585-a619-c41e8e38de57",
+        "z": 73,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output0" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output0", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "a3ee6ed9-8e17-4ca7-9a80-1aaf958d116f",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "3c89a43b-6e18-4f6e-8c51-51a88fcb0d9e",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "24f062e6-77fc-4585-a619-c41e8e38de57",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 74,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "dialogue.Solution",
+        "size": { "width": 200, "height": 294 },
+        "inPorts": ["input"],
+        "outPorts": ["output0"],
+        "answers": [
+          "maybe geography",
+          "I like math",
+          "let's start with literature",
+          "I like literature",
+          "I like math first",
+          "Let's start with math",
+          "Let's start with geography",
+          "I like literature first",
+          "Math first",
+          "I like geography"
+        ],
+        "scores": [],
+        "name": "",
+        "position": { "x": 8528, "y": 240 },
+        "angle": 0,
+        "id": "5cf12c53-a4f8-40d0-90dc-ad12b9b8d271",
+        "z": 75,
+        "attrs": {
+          ".inPorts>.port0>text": { "text": "input" },
+          ".inPorts>.port0>circle": { "port": { "id": "input", "type": "in" } },
+          ".inPorts>.port0": { "ref": "rect", "ref-y": 0.5 },
+          ".outPorts>.port0>text": { "text": "output0" },
+          ".outPorts>.port0>circle": {
+            "port": { "id": "output0", "type": "out" }
+          },
+          ".outPorts>.port0": { "ref": "rect", "ref-y": 0.5, "ref-dx": 0 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "ec682a1f-fcaf-4cac-acb2-b61426e419a4",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "1d03b4bd-4497-4961-96ae-9b695404b898",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output"
+        },
+        "target": {
+          "id": "5cf12c53-a4f8-40d0-90dc-ad12b9b8d271",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 76,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "9ed7662b-8ea7-4a36-8278-8d2656b1db66",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "5cf12c53-a4f8-40d0-90dc-ad12b9b8d271",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output0"
+        },
+        "target": {
+          "id": "7f509a53-1d37-468d-8ae5-d40b96bf863c",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 77,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      },
+      {
+        "type": "link",
+        "id": "8768603c-a14a-451c-8334-f0eaea201c9d",
+        "smooth": true,
+        "embeds": "",
+        "source": {
+          "id": "24f062e6-77fc-4585-a619-c41e8e38de57",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "output0"
+        },
+        "target": {
+          "id": "7f509a53-1d37-468d-8ae5-d40b96bf863c",
+          "selector": "g:nth-child(1) g:nth-child(3) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "input"
+        },
+        "z": 78,
+        "attrs": {
+          ".marker-target": { "d": "M 10 0 L 0 5 L 10 10 z" },
+          ".link-tools .tool-remove circle, .marker-vertex": { "r": 8 }
+        }
+      }
+    ]
+  }
+}
