@@ -58,7 +58,7 @@
     "dtml.sdk": "^2.1.21",
     "es6-promise": "^4.2.6",
     "isomorphic-fetch": "^2.2.1",
-    "npm": "^6.9.0",
+    "npm": "^6.14.6",
     "phaser-ce": "^2.11.1",
     "phaser-list-view": "^1.4.0",
     "webfontloader": "^1.6.28"
