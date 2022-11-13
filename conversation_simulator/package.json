@@ -36,7 +36,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "expose-loader": "^0.7.5",
     "grunt": "^1.0.4",
-    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-plugin": "^5.5.0",
     "jointjs": "^2.2.1",
     "jquery": "^3.5.0",
     "mocha": "^5.2.0",
